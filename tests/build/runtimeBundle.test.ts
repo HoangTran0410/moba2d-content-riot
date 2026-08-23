@@ -39,6 +39,21 @@ describe("the pack's runtime bundle", () => {
     expect(entry).not.toMatch(/buildContentApi/);
   });
 
+  it('emits champion art as files rather than inlining it into the entry', () => {
+    const entry = readFileSync(join(dist, 'pack.js'), 'utf8');
+    // A base64 image in the entry means every player downloads all 58
+    // champions' art before the menu can draw. Core sets assetsInlineLimit: 0
+    // for the same reason (its own vite.config.ts).
+    expect(entry).not.toMatch(/data:image\//);
+  });
+
+  it('serves that art from the directory the manifest points at', () => {
+    const manifest = JSON.parse(readFileSync(join(dist, 'manifest.json'), 'utf8'));
+    const assetDir = join(dist, manifest.assets);
+    expect(existsSync(assetDir)).toBe(true);
+    expect(readdirSync(assetDir).length).toBeGreaterThan(300);
+  });
+
   it('writes a manifest core can read before running anything', () => {
     const manifest = JSON.parse(readFileSync(join(dist, 'manifest.json'), 'utf8'));
     expect(manifest.id).toBe('riot');
