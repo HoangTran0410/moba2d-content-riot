@@ -179,7 +179,19 @@ describe("the pack's tests speak only published core surfaces", () => {
     // reaching core at all (both import only `node:*` builtins and this
     // pack's own `../../scripts/wiki/*.mjs`), so the population count moves
     // and the offender count below does not.
-    expect(files.length).toBe(73);
+    //
+    // 74, not 73, from the same task's fix round 1: `tests/Pet.test.ts`
+    // arrived from `@moba2d/core`'s own suite — the four describe blocks
+    // there that are a fact about this pack's own spells (Shaco W, Jinx E,
+    // Annie R), not about the engine's `Pet` class in general, which stayed
+    // in core's suite instead.
+    //
+    // 75, not 74, same fix round: `tests/representative-spells.test.ts`
+    // arrived the same way — a fact about seven of this pack's own spells'
+    // activation-pattern declarations, not about `SpellRuntime` in general
+    // (already covered, exhaustively, by core's own
+    // `tests/game/spell/SpellRuntime.test.ts`).
+    expect(files.length).toBe(75);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

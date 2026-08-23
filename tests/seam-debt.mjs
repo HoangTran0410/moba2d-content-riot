@@ -79,6 +79,26 @@
  * dropped into.
  */
 const PINNED_MANA_LINES = new Set([
+  // Content-pack-and-repo-split batch 6 task 10, fix round 1:
+  // `representative-spells.test.ts` moved here from core's own suite. Every
+  // one of these reads or seeds a synthetic fixture owner's starting/ending
+  // mana pool to assert the *runtime's* commit-point rule (mana debited at
+  // press vs release, depending on activation pattern) — never a spell
+  // billing a real cast through `Spell.spendMana()`. Same shape as every
+  // other entry in this set, just never scanned before this file existed
+  // in a pack's own tree.
+  "representative-spells.test.ts:232:expect(luxOwner.stats.mana.value).toBe(200 - luxR.manaCost);",
+  "representative-spells.test.ts:242:expect(jannaROwner.stats.mana.value).toBe(200 - jannaR.manaCost);",
+  "representative-spells.test.ts:252:expect(jannaQOwner.stats.mana.value).toBe(200 - jannaQ.manaCost);",
+  "representative-spells.test.ts:263:expect(aniviaOwner.stats.mana.value).toBe(200 - aniviaR.manaCost);",
+  "representative-spells.test.ts:267:expect(aniviaOwner.stats.mana.value).toBe(200 - aniviaR.manaCost);",
+  "representative-spells.test.ts:278:expect(varusOwner.stats.mana.value).toBe(200 - varusQ.manaCost);",
+  "representative-spells.test.ts:287:expect(tapOwner.stats.mana.value).toBe(200 - tapQ.manaCost);",
+  "representative-spells.test.ts:301:expect(holdOwner.stats.mana.value).toBe(200 - holdQ.manaCost);",
+  "representative-spells.test.ts:309:owner.stats.mana.baseValue = 200;",
+  "representative-spells.test.ts:315:expect(owner.stats.mana.value).toBe(200);",
+  "representative-spells.test.ts:321:expect(owner.stats.mana.value).toBe(200);",
+  "representative-spells.test.ts:325:expect(owner.stats.mana.value).toBe(200 - spell.manaCost);",
   "spells/Anivia_E.test.ts:25:result.stats.mana.baseValue = 100;",
   "spells/Anivia_R.test.ts:200:const startingMana = owner.stats.mana.value;",
   "spells/Anivia_R.test.ts:203:expect(owner.stats.mana.value).toBe(startingMana - MANA_COST);",
@@ -224,6 +244,10 @@ const GRANDFATHERED_TESTS = new Set([
 const GRANDFATHERED_FOG_READS = new Set([
   "Ashe_E.vision.test.ts",
   "Lux_R.test.ts",
+  // `representative-spells.test.ts`'s makeOwner() sets `visibleToPlayerTeam:
+  // true` on its fixture owner — a fixture field, not a spell reading the
+  // flag to decide targeting. Content-pack-and-repo-split batch 6 task 10.
+  "representative-spells.test.ts",
 ]);
 
 /**
@@ -236,6 +260,10 @@ const GRANDFATHERED_FOG_READS = new Set([
  * round 2 of task 6's own review).
  */
 const PINNED_RESOURCE_LINES = new Set([
+  // Same fix round as PINNED_MANA_LINES above: `makeOwner()`'s plain
+  // `{ mana: { value: mana }, health: { value: 100 } }` stats double.
+  "representative-spells.test.ts:98:mana: { value: mana },",
+  "representative-spells.test.ts:99:health: { value: 100 },",
   "spells/Anivia_R.test.ts:101:stats: { mana: manaStat, health: { value: 100 } },",
   "spells/Ashe_R.test.ts:75:stats: { mana: { value: 100 }, health: { value: 100 } },",
   "spells/Janna_Q.test.ts:71:stats: { mana: { value: 100 }, health: { value: 100 } },",
