@@ -7,3 +7,5 @@ node_modules/
 # and runs a plain `npm install`; until now only the comment said it, and a
 # `git add -A` would have committed the file the comment promised was gone.
 package-lock.json
+
+dist/

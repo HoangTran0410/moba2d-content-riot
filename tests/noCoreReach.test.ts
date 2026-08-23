@@ -198,7 +198,14 @@ describe("the pack's tests speak only published core surfaces", () => {
     // content is installed, reformulated against this pack's own
     // data.ts/code.ts/generated/spellCatalog.ts rather than core's
     // unpublished listSpellCatalog()/spellGroups().
-    expect(files.length).toBe(76);
+    //
+    // 77, not 76, runtime-pack-loading Task 2: `tests/build/
+    // runtimeBundle.test.ts` arrived with the build that gives this pack a
+    // loadable `dist/` a browser can `import()`. It asserts on that built
+    // directory alone — `node:fs`, `node:path`, `vitest` — and reaches core
+    // not at all, so the population count moves and the offender count
+    // below does not.
+    expect(files.length).toBe(77);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {
