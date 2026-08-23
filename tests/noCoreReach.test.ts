@@ -191,7 +191,14 @@ describe("the pack's tests speak only published core surfaces", () => {
     // activation-pattern declarations, not about `SpellRuntime` in general
     // (already covered, exhaustively, by core's own
     // `tests/game/spell/SpellRuntime.test.ts`).
-    expect(files.length).toBe(75);
+    //
+    // 76, not 75, fix round 2: `tests/catalogCompleteness.test.ts` is the
+    // catalogue-completeness audit half of core's own
+    // `tests/game/preset.catalog.test.ts` — a question about whatever
+    // content is installed, reformulated against this pack's own
+    // data.ts/code.ts/generated/spellCatalog.ts rather than core's
+    // unpublished listSpellCatalog()/spellGroups().
+    expect(files.length).toBe(76);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {
