@@ -1,6 +1,6 @@
 # @moba2d/content-riot
 
-The Riot-champion content pack for [`@moba2d/core`](https://github.com/HoangTran0410/LOL2D):
+The Riot-champion content pack for [`@moba2d/core`](https://github.com/HoangTran0410/moba2d-core):
 58 playable champions' worth of spells, monsters and the Summoner's Rift map,
 built entirely against core's public `ContentApi`. Until content-pack-and-
 repo-split batch 6 task 10, this pack lived inside the core monorepo, at
@@ -34,12 +34,14 @@ git reference:
 
 ```json
 "devDependencies": {
-  "@moba2d/core": "github:HoangTran0410/LOL2D#content-pack-batch-6"
+  "@moba2d/core": "github:HoangTran0410/moba2d-core#main"
 }
 ```
 
-(That branch name is where core's own work on this split currently lives; it
-will move to a stable branch or tag once the split lands there.)
+(`main` is unpinned on purpose while the split is being tested end to end:
+this pack is the thing that finds out whether core's published surface is
+actually sufficient, and a pin would let core drift without this repository
+noticing. Pin it to a tag before anyone else depends on either.)
 
 ## Install
 

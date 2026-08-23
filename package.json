@@ -21,7 +21,7 @@
     "verify": "npm run assets:check && npm run catalog:check && npm run ability:check && npm run typecheck && npm run check-seams && npm run check-seams:monsters && npm test"
   },
   "devDependencies": {
-    "@moba2d/core": "github:HoangTran0410/LOL2D#content-pack-batch-6",
+    "@moba2d/core": "github:HoangTran0410/moba2d-core#main",
     "@types/node": "^22.20.1",
     "@types/p5": "^1.7.6",
     "luaparse": "0.3.1",
