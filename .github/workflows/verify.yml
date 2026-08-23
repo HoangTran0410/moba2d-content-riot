@@ -13,12 +13,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # No `cache: npm`, on purpose and for the same reason as the plain
+      # `npm install` below: `actions/setup-node`'s npm cache keys off a
+      # lockfile, and this repository deliberately commits none (see
+      # `.gitignore`), so asking for it fails the job outright with
+      # "Dependencies lock file is not found". That is not hypothetical —
+      # it is how this workflow's first ever run ended.
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-      # No lockfile is committed (see .gitignore) and @moba2d/core is a git
-      # dependency, not a registry one, so this is a plain install rather
-      # than `npm ci`.
+      # @moba2d/core is a git dependency, not a registry one, and there is no
+      # lockfile, so this is a plain install rather than `npm ci`.
       - run: npm install
       - run: npm run verify
