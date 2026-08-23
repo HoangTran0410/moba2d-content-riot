@@ -24,6 +24,7 @@
     "@moba2d/core": "github:HoangTran0410/LOL2D#content-pack-batch-6",
     "@types/node": "^22.20.1",
     "@types/p5": "^1.7.6",
+    "luaparse": "0.3.1",
     "typescript": "^5.4.0",
     "vite": "^5.2.0",
     "vitest": "^1.6.1"

@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
+// @ts-expect-error — a plain .mjs build helper, with no types of its own.
 import { assertPcSource, championSkillForms, parseLuaData } from '../../scripts/wiki/lua-data.mjs';
 
 const fixtureUrl = new URL('../fixtures/wiki/champion-data.lua', import.meta.url);
@@ -64,7 +65,7 @@ describe('League Wiki Lua data', () => {
       Viktor = { skill_r = {[1] = "Arcane Storm", [2] = "Arcane Storm 2", [2] = "Arcane Storm 3"} },
       repeated = { value = "old", ["value"] = "new" },
     }`,
-      { warn: warning => warnings.push(warning) }
+      { warn: (warning: string) => warnings.push(warning) }
     );
 
     expect(data.LeBlanc.skill_i).toEqual({ 1: 'Mirror Image 2' });

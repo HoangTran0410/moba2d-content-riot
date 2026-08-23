@@ -171,7 +171,15 @@ describe("the pack's tests speak only published core surfaces", () => {
     // extra one beyond that 70 is `support/packRoot.ts`, added when
     // `ahri-palette.test.ts` and `generate-assets.test.ts` stopped climbing
     // a hardcoded `packs/riot` and started deriving their root instead.
-    expect(files.length).toBe(71);
+    //
+    // 73, not 71, as of content-pack-and-repo-split batch 6 task 10:
+    // `tests/wiki/import-abilities.test.ts` and `tests/wiki/lua-data.test.ts`
+    // arrived with `scripts/wiki/` when it left `@moba2d/core` and became
+    // this pack's own — two more `.ts` files under this same walk, neither
+    // reaching core at all (both import only `node:*` builtins and this
+    // pack's own `../../scripts/wiki/*.mjs`), so the population count moves
+    // and the offender count below does not.
+    expect(files.length).toBe(73);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {
