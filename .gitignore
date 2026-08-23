@@ -1,1 +1,9 @@
 node_modules/
+
+# No lockfile, deliberately. `@moba2d/core` is a git dependency pinned to a
+# branch, so a committed lock would freeze a commit hash that the pin itself
+# is meant to follow, and `npm ci` would then install a core this repository
+# never tested against. `.github/workflows/verify.yml` says the same thing
+# and runs a plain `npm install`; until now only the comment said it, and a
+# `git add -A` would have committed the file the comment promised was gone.
+package-lock.json
