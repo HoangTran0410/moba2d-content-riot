@@ -63,3 +63,38 @@ describe("the pack's runtime bundle", () => {
     expect(manifest.champions).toBeGreaterThan(50);
   });
 });
+
+describe('the manifest lists what the build emitted', () => {
+  /** Every file under `dist/`, relative and POSIX-separated. */
+  const walk = (dir: string, prefix = ''): string[] => {
+    const out: string[] = [];
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const rel = prefix ? `${prefix}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) out.push(...walk(join(dir, entry.name), rel));
+      else out.push(rel);
+    }
+    return out;
+  };
+
+  it('names every emitted file except the manifest itself', () => {
+    const manifest = JSON.parse(readFileSync(join(dist, 'manifest.json'), 'utf8'));
+    const onDisk = walk(dist).filter(name => name !== 'manifest.json').sort();
+
+    expect(Array.isArray(manifest.files)).toBe(true);
+    // Set equality both ways, not a length check: a `files` that lists 590
+    // paths of which one is wrong has the right length and caches a 404.
+    expect([...manifest.files].sort()).toEqual(onDisk);
+  });
+
+  it('lists the entry and at least one chunk and one asset', () => {
+    const manifest = JSON.parse(readFileSync(join(dist, 'manifest.json'), 'utf8'));
+    expect(manifest.files).toContain(manifest.entry);
+    expect(manifest.files.some((f: string) => f.startsWith('chunks/'))).toBe(true);
+    expect(manifest.files.some((f: string) => f.startsWith('assets/'))).toBe(true);
+  });
+
+  it('uses forward slashes, so a Windows build does not emit unfetchable paths', () => {
+    const manifest = JSON.parse(readFileSync(join(dist, 'manifest.json'), 'utf8'));
+    expect(manifest.files.some((f: string) => f.includes('\\'))).toBe(false);
+  });
+});
