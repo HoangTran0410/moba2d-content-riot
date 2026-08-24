@@ -81,7 +81,16 @@ writeFileSync(
       id: 'riot',
       version: pkg.version,
       coreRange,
-      name: 'Riot champions',
+      // The name core shows wherever this pack appears — its shelf card, the
+      // install confirmation, the installed row, and the section header over
+      // its champions in the picker. It is Vietnamese because every other
+      // string a player reads in this game is, and it matches the shelf entry
+      // in core's `suggestedPacks.ts` on purpose: one pack must not have two
+      // names one tab apart. Core re-reads this manifest on every boot and
+      // rewrites its stored record from it, so renaming here reaches a
+      // browser that installed the pack under the old name without the
+      // player reinstalling anything.
+      name: 'Liên Minh Huyền Thoại',
       entry: 'pack.js',
       assets: 'assets/',
       champions: championCount,
