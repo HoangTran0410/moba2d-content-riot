@@ -2,6 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
 import { makeGrantRejuvenation } from './Soraka_Q';
 import { hasRejuvenation } from './Soraka_Q';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
@@ -40,7 +41,7 @@ export const REJUVENATED_HEALTH_COST = 4;
 export const MIN_HEALTH_RATIO = 0.05;
 
 
-function __buildSoraka_W(api: ContentApi) {
+export const makeSoraka_W = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
   const Spell = api.Spell;
@@ -154,35 +155,20 @@ function __buildSoraka_W(api: ContentApi) {
     }
   }
   return Soraka_W;
-}
-const __cacheSoraka_W = new WeakMap<ContentApi, ReturnType<typeof __buildSoraka_W>>();
-export default function makeSoraka_W(api: ContentApi) {
-  const cached = __cacheSoraka_W.get(api);
-  if (cached) return cached;
-  const built = __buildSoraka_W(api);
-  __cacheSoraka_W.set(api, built);
-  return built;
-}
+});
+export default makeSoraka_W;
 
 
-function __buildisInfusionTarget(api: ContentApi) {
+export const makeIsInfusionTarget = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const isInfusionTarget = (target: unknown): target is AttackableUnit =>
     target instanceof AttackableUnit && target.targetable && !target.toRemove && !target.isDead;
   return isInfusionTarget;
-}
-const __cacheisInfusionTarget = new WeakMap<ContentApi, ReturnType<typeof __buildisInfusionTarget>>();
-export function makeIsInfusionTarget(api: ContentApi) {
-  const cached = __cacheisInfusionTarget.get(api);
-  if (cached) return cached;
-  const built = __buildisInfusionTarget(api);
-  __cacheisInfusionTarget.set(api, built);
-  return built;
-}
+});
 
 
 /** The ribbon of stars poured from Soraka into the ally. */
-function __buildSoraka_W_Beam(api: ContentApi) {
+export const makeSoraka_W_Beam = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
@@ -287,12 +273,4 @@ function __buildSoraka_W_Beam(api: ContentApi) {
     }
   }
   return Soraka_W_Beam;
-}
-const __cacheSoraka_W_Beam = new WeakMap<ContentApi, ReturnType<typeof __buildSoraka_W_Beam>>();
-export function makeSoraka_W_Beam(api: ContentApi) {
-  const cached = __cacheSoraka_W_Beam.get(api);
-  if (cached) return cached;
-  const built = __buildSoraka_W_Beam(api);
-  __cacheSoraka_W_Beam.set(api, built);
-  return built;
-}
+});

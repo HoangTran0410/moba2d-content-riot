@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -30,7 +31,7 @@ export const CAMILLE_R_PULL_SPEED = 22;
 export const CAMILLE_R_PULL_MS = 600;
 
 
-function __buildCamille_R(api: ContentApi) {
+export const makeCamille_R = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Dash = api.buffs.Dash;
@@ -70,15 +71,8 @@ function __buildCamille_R(api: ContentApi) {
     }
   }
   return Camille_R;
-}
-const __cacheCamille_R = new WeakMap<ContentApi, ReturnType<typeof __buildCamille_R>>();
-export default function makeCamille_R(api: ContentApi) {
-  const cached = __cacheCamille_R.get(api);
-  if (cached) return cached;
-  const built = __buildCamille_R(api);
-  __cacheCamille_R.set(api, built);
-  return built;
-}
+});
+export default makeCamille_R;
 
 
 interface WallSpark {
@@ -97,7 +91,7 @@ interface WallSpark {
  * where a body is actually being held against it — so the prisoner can see the
  * cage working rather than just failing to walk.
  */
-function __buildCamille_R_Object(api: ContentApi) {
+export const makeCamille_R_Object = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const SpellObject = api.SpellObject;
   const Dash = api.buffs.Dash;
@@ -318,12 +312,4 @@ function __buildCamille_R_Object(api: ContentApi) {
     }
   }
   return Camille_R_Object;
-}
-const __cacheCamille_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildCamille_R_Object>>();
-export function makeCamille_R_Object(api: ContentApi) {
-  const cached = __cacheCamille_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildCamille_R_Object(api);
-  __cacheCamille_R_Object.set(api, built);
-  return built;
-}
+});

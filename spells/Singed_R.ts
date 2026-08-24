@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Spell = InstanceType<ContentApi['Spell']>;
 type SpellObject = InstanceType<ContentApi['SpellObject']>;
@@ -38,7 +39,7 @@ export const BOUNDING_MARGIN = 130;
 export const HARD_STOP_MS = DURATION + 1500;
 
 
-function __buildSinged_R(api: ContentApi) {
+export const makeSinged_R = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const StatAmp = api.buffs.StatAmp;
   const Singed_R_Object = makeSinged_R_Object(api);
@@ -85,15 +86,8 @@ function __buildSinged_R(api: ContentApi) {
     }
   }
   return Singed_R;
-}
-const __cacheSinged_R = new WeakMap<ContentApi, ReturnType<typeof __buildSinged_R>>();
-export default function makeSinged_R(api: ContentApi) {
-  const cached = __cacheSinged_R.get(api);
-  if (cached) return cached;
-  const built = __buildSinged_R(api);
-  __cacheSinged_R.set(api, built);
-  return built;
-}
+});
+export default makeSinged_R;
 
 
 interface Bubble {
@@ -113,7 +107,7 @@ interface Bubble {
  * it is recognisable from across the map even when the avatar is a grey dot in
  * the fog. Nothing else in the game has an unstable edge.
  */
-function __buildSinged_R_Object(api: ContentApi) {
+export const makeSinged_R_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   class Singed_R_Object extends SpellObject {
@@ -331,12 +325,4 @@ function __buildSinged_R_Object(api: ContentApi) {
     }
   }
   return Singed_R_Object;
-}
-const __cacheSinged_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildSinged_R_Object>>();
-export function makeSinged_R_Object(api: ContentApi) {
-  const cached = __cacheSinged_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildSinged_R_Object(api);
-  __cacheSinged_R_Object.set(api, built);
-  return built;
-}
+});

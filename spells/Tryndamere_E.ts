@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Champion = InstanceType<ContentApi['units']['Champion']>;
@@ -25,7 +26,7 @@ export const TRYNDAMERE_E_DASH_SPEED = 15;
 export const TRYNDAMERE_E_COOLDOWN_REFUND_MS = 1_000;
 
 
-function __buildTryndamere_E(api: ContentApi) {
+export const makeTryndamere_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const VectorUtils = api.utils.VectorUtils;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -98,15 +99,8 @@ function __buildTryndamere_E(api: ContentApi) {
     }
   }
   return Tryndamere_E;
-}
-const __cacheTryndamere_E = new WeakMap<ContentApi, ReturnType<typeof __buildTryndamere_E>>();
-export default function makeTryndamere_E(api: ContentApi) {
-  const cached = __cacheTryndamere_E.get(api);
-  if (cached) return cached;
-  const built = __buildTryndamere_E(api);
-  __cacheTryndamere_E.set(api, built);
-  return built;
-}
+});
+export default makeTryndamere_E;
 
 
 interface BladeCut {
@@ -124,7 +118,7 @@ interface BladeCut {
  * body and the cuts are left behind him — `Champion.draw` is skipped the moment
  * he is culled, which would take the whole spin with it.
  */
-function __buildTryndamere_E_Object(api: ContentApi) {
+export const makeTryndamere_E_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
@@ -239,12 +233,4 @@ function __buildTryndamere_E_Object(api: ContentApi) {
     }
   }
   return Tryndamere_E_Object;
-}
-const __cacheTryndamere_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildTryndamere_E_Object>>();
-export function makeTryndamere_E_Object(api: ContentApi) {
-  const cached = __cacheTryndamere_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildTryndamere_E_Object(api);
-  __cacheTryndamere_E_Object.set(api, built);
-  return built;
-}
+});

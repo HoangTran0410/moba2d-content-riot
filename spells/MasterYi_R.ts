@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Chilled = InstanceType<ContentApi['buffs']['Chilled']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
@@ -38,7 +39,7 @@ export const AURA_REACH = 110;
  * indistinguishable from immunity to the player and costs nothing new. The
  * speed and the swing rate are the two buffs that do map cleanly.
  */
-function __buildMasterYi_R(api: ContentApi) {
+export const makeMasterYi_R = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Speedup = api.buffs.Speedup;
   const StatAmp = api.buffs.StatAmp;
@@ -84,15 +85,8 @@ function __buildMasterYi_R(api: ContentApi) {
     }
   }
   return MasterYi_R;
-}
-const __cacheMasterYi_R = new WeakMap<ContentApi, ReturnType<typeof __buildMasterYi_R>>();
-export default function makeMasterYi_R(api: ContentApi) {
-  const cached = __cacheMasterYi_R.get(api);
-  if (cached) return cached;
-  const built = __buildMasterYi_R(api);
-  __cacheMasterYi_R.set(api, built);
-  return built;
-}
+});
+export default makeMasterYi_R;
 
 
 /**
@@ -103,7 +97,7 @@ export default function makeMasterYi_R(api: ContentApi) {
  * champion is culled — but it also carries the immunity, so the effect the
  * player can see and the rule they are relying on end on the same frame.
  */
-function __buildMasterYi_R_Object(api: ContentApi) {
+export const makeMasterYi_R_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const Chilled = api.buffs.Chilled;
@@ -184,12 +178,4 @@ function __buildMasterYi_R_Object(api: ContentApi) {
     }
   }
   return MasterYi_R_Object;
-}
-const __cacheMasterYi_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildMasterYi_R_Object>>();
-export function makeMasterYi_R_Object(api: ContentApi) {
-  const cached = __cacheMasterYi_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildMasterYi_R_Object(api);
-  __cacheMasterYi_R_Object.set(api, built);
-  return built;
-}
+});

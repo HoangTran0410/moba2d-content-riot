@@ -1,6 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { makeApplyAblaze } from './Brand_Q';
 import { isAblaze } from './Brand_Q';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Spell = InstanceType<ContentApi['Spell']>;
@@ -33,7 +34,7 @@ export const DAMAGE = 28;
 export const ABLAZE_DAMAGE_BONUS = 0.25;
 
 
-function __buildBrand_W(api: ContentApi) {
+export const makeBrand_W = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Brand_W_Object = makeBrand_W_Object(api);
@@ -64,15 +65,8 @@ function __buildBrand_W(api: ContentApi) {
     }
   }
   return Brand_W;
-}
-const __cacheBrand_W = new WeakMap<ContentApi, ReturnType<typeof __buildBrand_W>>();
-export default function makeBrand_W(api: ContentApi) {
-  const cached = __cacheBrand_W.get(api);
-  if (cached) return cached;
-  const built = __buildBrand_W(api);
-  __cacheBrand_W.set(api, built);
-  return built;
-}
+});
+export default makeBrand_W;
 
 
 interface Jet {
@@ -88,7 +82,7 @@ interface Jet {
 const JET_COUNT = 15;
 
 
-function __buildBrand_W_Object(api: ContentApi) {
+export const makeBrand_W_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
@@ -261,12 +255,4 @@ function __buildBrand_W_Object(api: ContentApi) {
     }
   }
   return Brand_W_Object;
-}
-const __cacheBrand_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildBrand_W_Object>>();
-export function makeBrand_W_Object(api: ContentApi) {
-  const cached = __cacheBrand_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildBrand_W_Object(api);
-  __cacheBrand_W_Object.set(api, built);
-  return built;
-}
+});

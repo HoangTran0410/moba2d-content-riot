@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Slow = InstanceType<ContentApi['buffs']['Slow']>;
@@ -41,7 +42,7 @@ const TOXIC: [number, number, number] = [150, 205, 60];
 const TOXIC_BRIGHT: [number, number, number] = [225, 255, 140];
 
 
-function __buildTeemo_R(api: ContentApi) {
+export const makeTeemo_R = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Teemo_R_Object = makeTeemo_R_Object(api);
@@ -75,18 +76,11 @@ function __buildTeemo_R(api: ContentApi) {
     }
   }
   return Teemo_R;
-}
-const __cacheTeemo_R = new WeakMap<ContentApi, ReturnType<typeof __buildTeemo_R>>();
-export default function makeTeemo_R(api: ContentApi) {
-  const cached = __cacheTeemo_R.get(api);
-  if (cached) return cached;
-  const built = __buildTeemo_R(api);
-  __cacheTeemo_R.set(api, built);
-  return built;
-}
+});
+export default makeTeemo_R;
 
 
-function __buildTeemo_R_Buff(api: ContentApi) {
+export const makeTeemo_R_Buff = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const Slow = api.buffs.Slow;
   class Teemo_R_Buff extends Slow {
@@ -95,15 +89,7 @@ function __buildTeemo_R_Buff(api: ContentApi) {
     percent = SLOW_PERCENT;
   }
   return Teemo_R_Buff;
-}
-const __cacheTeemo_R_Buff = new WeakMap<ContentApi, ReturnType<typeof __buildTeemo_R_Buff>>();
-export function makeTeemo_R_Buff(api: ContentApi) {
-  const cached = __cacheTeemo_R_Buff.get(api);
-  if (cached) return cached;
-  const built = __buildTeemo_R_Buff(api);
-  __cacheTeemo_R_Buff.set(api, built);
-  return built;
-}
+});
 
 
 /** One puff of spores thrown out by the burst, with its own fixed trajectory. */
@@ -119,7 +105,7 @@ interface Spore {
 }
 
 
-function __buildTeemo_R_Object(api: ContentApi) {
+export const makeTeemo_R_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const VectorUtils = api.utils.VectorUtils;
   const BuffAddType = api.enums.BuffAddType;
@@ -444,12 +430,4 @@ function __buildTeemo_R_Object(api: ContentApi) {
     }
   }
   return Teemo_R_Object;
-}
-const __cacheTeemo_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildTeemo_R_Object>>();
-export function makeTeemo_R_Object(api: ContentApi) {
-  const cached = __cacheTeemo_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildTeemo_R_Object(api);
-  __cacheTeemo_R_Object.set(api, built);
-  return built;
-}
+});

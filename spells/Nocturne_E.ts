@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -27,7 +28,7 @@ export const LEASH_RANGE = 500;
  * Unspeakable Horror. The fear is not instant — a tether goes up and *then*
  * pays out, so the victim gets the whole channel to break the leash by running.
  */
-function __buildNocturne_E(api: ContentApi) {
+export const makeNocturne_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -92,18 +93,11 @@ function __buildNocturne_E(api: ContentApi) {
     }
   }
   return Nocturne_E;
-}
-const __cacheNocturne_E = new WeakMap<ContentApi, ReturnType<typeof __buildNocturne_E>>();
-export default function makeNocturne_E(api: ContentApi) {
-  const cached = __cacheNocturne_E.get(api);
-  if (cached) return cached;
-  const built = __buildNocturne_E(api);
-  __cacheNocturne_E.set(api, built);
-  return built;
-}
+});
+export default makeNocturne_E;
 
 
-function __buildNocturne_E_Object(api: ContentApi) {
+export const makeNocturne_E_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const Fear = api.buffs.Fear;
@@ -222,12 +216,4 @@ function __buildNocturne_E_Object(api: ContentApi) {
     }
   }
   return Nocturne_E_Object;
-}
-const __cacheNocturne_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildNocturne_E_Object>>();
-export function makeNocturne_E_Object(api: ContentApi) {
-  const cached = __cacheNocturne_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildNocturne_E_Object(api);
-  __cacheNocturne_E_Object.set(api, built);
-  return built;
-}
+});

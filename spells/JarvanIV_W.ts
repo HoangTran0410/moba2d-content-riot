@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Champion = InstanceType<ContentApi['units']['Champion']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -23,7 +24,7 @@ export const JARVAN_W_SLOW_PERCENT = 0.25;
 export const JARVAN_W_SLOW_MS = 2000;
 
 
-function __buildJarvanIV_W(api: ContentApi) {
+export const makeJarvanIV_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Slow = api.buffs.Slow;
   const Shield = api.buffs.Shield;
@@ -71,15 +72,8 @@ function __buildJarvanIV_W(api: ContentApi) {
     }
   }
   return JarvanIV_W;
-}
-const __cacheJarvanIV_W = new WeakMap<ContentApi, ReturnType<typeof __buildJarvanIV_W>>();
-export default function makeJarvanIV_W(api: ContentApi) {
-  const cached = __cacheJarvanIV_W.get(api);
-  if (cached) return cached;
-  const built = __buildJarvanIV_W(api);
-  __cacheJarvanIV_W.set(api, built);
-  return built;
-}
+});
+export default makeJarvanIV_W;
 
 
 /**
@@ -90,7 +84,7 @@ export default function makeJarvanIV_W(api: ContentApi) {
  * run. The plates now ride his body for the shield's real duration: whether
  * Jarvan is still armoured is the question the enemy is actually asking.
  */
-function __buildJarvanIV_W_WaveObject(api: ContentApi) {
+export const makeJarvanIV_W_WaveObject = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
@@ -220,12 +214,4 @@ function __buildJarvanIV_W_WaveObject(api: ContentApi) {
     }
   }
   return JarvanIV_W_WaveObject;
-}
-const __cacheJarvanIV_W_WaveObject = new WeakMap<ContentApi, ReturnType<typeof __buildJarvanIV_W_WaveObject>>();
-export function makeJarvanIV_W_WaveObject(api: ContentApi) {
-  const cached = __cacheJarvanIV_W_WaveObject.get(api);
-  if (cached) return cached;
-  const built = __buildJarvanIV_W_WaveObject(api);
-  __cacheJarvanIV_W_WaveObject.set(api, built);
-  return built;
-}
+});

@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -41,7 +42,7 @@ const MARK_LIFETIME = 300;
  * Lee Sin's foot. The expanding wave now carries the hit: `LeeSin_E_Object`
  * tests its own front every frame and catches each enemy as it reaches them.
  */
-function __buildLeeSin_E(api: ContentApi) {
+export const makeLeeSin_E = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const LeeSin_E_Object = makeLeeSin_E_Object(api);
   class LeeSin_E extends Spell {
@@ -67,15 +68,8 @@ function __buildLeeSin_E(api: ContentApi) {
     }
   }
   return LeeSin_E;
-}
-const __cacheLeeSin_E = new WeakMap<ContentApi, ReturnType<typeof __buildLeeSin_E>>();
-export default function makeLeeSin_E(api: ContentApi) {
-  const cached = __cacheLeeSin_E.get(api);
-  if (cached) return cached;
-  const built = __buildLeeSin_E(api);
-  __cacheLeeSin_E.set(api, built);
-  return built;
-}
+});
+export default makeLeeSin_E;
 
 
 interface KiMark {
@@ -93,7 +87,7 @@ interface Clod {
 }
 
 
-function __buildLeeSin_E_Object(api: ContentApi) {
+export const makeLeeSin_E_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const BuffAddType = api.enums.BuffAddType;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -297,12 +291,4 @@ function __buildLeeSin_E_Object(api: ContentApi) {
     }
   }
   return LeeSin_E_Object;
-}
-const __cacheLeeSin_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildLeeSin_E_Object>>();
-export function makeLeeSin_E_Object(api: ContentApi) {
-  const cached = __cacheLeeSin_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildLeeSin_E_Object(api);
-  __cacheLeeSin_E_Object.set(api, built);
-  return built;
-}
+});

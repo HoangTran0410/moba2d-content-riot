@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
@@ -62,7 +63,7 @@ const SPLINTERS = 9;
  * the raw map has holes exactly where somebody just built something, and a pin
  * that read the map would fire the victim straight through it.
  */
-function __buildVayne_E(api: ContentApi) {
+export const makeVayne_E = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const Spell = api.Spell;
@@ -105,15 +106,8 @@ function __buildVayne_E(api: ContentApi) {
     }
   }
   return Vayne_E;
-}
-const __cacheVayne_E = new WeakMap<ContentApi, ReturnType<typeof __buildVayne_E>>();
-export default function makeVayne_E(api: ContentApi) {
-  const cached = __cacheVayne_E.get(api);
-  if (cached) return cached;
-  const built = __buildVayne_E(api);
-  __cacheVayne_E.set(api, built);
-  return built;
-}
+});
+export default makeVayne_E;
 
 
 /**
@@ -121,7 +115,7 @@ export default function makeVayne_E(api: ContentApi) {
  * two outcomes happened before anything is drawn, so the art and the damage can
  * never disagree about whether the victim hit a wall.
  */
-function __buildVayne_E_Object(api: ContentApi) {
+export const makeVayne_E_Object = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const AttackableUnit = api.units.AttackableUnit;
   const Dash = api.buffs.Dash;
@@ -236,15 +230,7 @@ function __buildVayne_E_Object(api: ContentApi) {
     }
   }
   return Vayne_E_Object;
-}
-const __cacheVayne_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildVayne_E_Object>>();
-export function makeVayne_E_Object(api: ContentApi) {
-  const cached = __cacheVayne_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildVayne_E_Object(api);
-  __cacheVayne_E_Object.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -252,7 +238,7 @@ export function makeVayne_E_Object(api: ContentApi) {
  * art — `zIndex = GROUND_Z_INDEX`, because an un-overridden subclass otherwise
  * resolves to `SPELL_EFFECT_Z_INDEX`, over the feet of everyone nearby.
  */
-function __buildVayne_E_Slide(api: ContentApi) {
+export const makeVayne_E_Slide = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
@@ -303,15 +289,7 @@ function __buildVayne_E_Slide(api: ContentApi) {
     }
   }
   return Vayne_E_Slide;
-}
-const __cacheVayne_E_Slide = new WeakMap<ContentApi, ReturnType<typeof __buildVayne_E_Slide>>();
-export function makeVayne_E_Slide(api: ContentApi) {
-  const cached = __cacheVayne_E_Slide.get(api);
-  if (cached) return cached;
-  const built = __buildVayne_E_Slide(api);
-  __cacheVayne_E_Slide.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -320,7 +298,7 @@ export function makeVayne_E_Slide(api: ContentApi) {
  * hold lasts. Deliberately nothing like `Vayne_E_Slide` — the two outcomes of
  * one ability must not look like the same event.
  */
-function __buildVayne_E_Pin(api: ContentApi) {
+export const makeVayne_E_Pin = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Vayne_E_Pin extends SpellObject {
@@ -391,12 +369,4 @@ function __buildVayne_E_Pin(api: ContentApi) {
     }
   }
   return Vayne_E_Pin;
-}
-const __cacheVayne_E_Pin = new WeakMap<ContentApi, ReturnType<typeof __buildVayne_E_Pin>>();
-export function makeVayne_E_Pin(api: ContentApi) {
-  const cached = __cacheVayne_E_Pin.get(api);
-  if (cached) return cached;
-  const built = __buildVayne_E_Pin(api);
-  __cacheVayne_E_Pin.set(api, built);
-  return built;
-}
+});

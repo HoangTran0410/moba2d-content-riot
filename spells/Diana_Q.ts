@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
@@ -82,7 +83,7 @@ export function drawCrescent(
  * because Diana_E's cooldown reset reads exactly this buff and the player has to be able
  * to pick the marked target out of a fight without opening the HUD.
  */
-function __buildMoonlight(api: ContentApi) {
+export const makeMoonlight = packClass((api: ContentApi) => {
   const Buff = api.buffs.Buff;
   class Moonlight extends Buff {
     name = 'Ánh Trăng';
@@ -108,19 +109,11 @@ function __buildMoonlight(api: ContentApi) {
     }
   }
   return Moonlight;
-}
-const __cacheMoonlight = new WeakMap<ContentApi, ReturnType<typeof __buildMoonlight>>();
-export function makeMoonlight(api: ContentApi) {
-  const cached = __cacheMoonlight.get(api);
-  if (cached) return cached;
-  const built = __buildMoonlight(api);
-  __cacheMoonlight.set(api, built);
-  return built;
-}
+});
 
 
 /** The live mark on a unit, or null. A plain loop: filter cannot narrow here. */
-function __buildmoonlightOn(api: ContentApi) {
+export const makeMoonlightOn = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const Moonlight = makeMoonlight(api);
   function moonlightOn(unit: AttackableUnit): Moonlight | null {
@@ -132,18 +125,10 @@ function __buildmoonlightOn(api: ContentApi) {
     return null;
   }
   return moonlightOn;
-}
-const __cachemoonlightOn = new WeakMap<ContentApi, ReturnType<typeof __buildmoonlightOn>>();
-export function makeMoonlightOn(api: ContentApi) {
-  const cached = __cachemoonlightOn.get(api);
-  if (cached) return cached;
-  const built = __buildmoonlightOn(api);
-  __cachemoonlightOn.set(api, built);
-  return built;
-}
+});
 
 
-function __buildDiana_Q(api: ContentApi) {
+export const makeDiana_Q = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const Spell = api.Spell;
   const Diana_Q_Sweep = makeDiana_Q_Sweep(api);
@@ -204,22 +189,15 @@ function __buildDiana_Q(api: ContentApi) {
     }
   }
   return Diana_Q;
-}
-const __cacheDiana_Q = new WeakMap<ContentApi, ReturnType<typeof __buildDiana_Q>>();
-export default function makeDiana_Q(api: ContentApi) {
-  const cached = __cacheDiana_Q.get(api);
-  if (cached) return cached;
-  const built = __buildDiana_Q(api);
-  __cacheDiana_Q.set(api, built);
-  return built;
-}
+});
+export default makeDiana_Q;
 
 
 /**
  * The crescent projectile. Curves from Diana's launch position to the target destination
  * along a quadratic Bézier path, leaving a luminous moonlight trail and detonating at the tip.
  */
-function __buildDiana_Q_Sweep(api: ContentApi) {
+export const makeDiana_Q_Sweep = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -437,19 +415,11 @@ function __buildDiana_Q_Sweep(api: ContentApi) {
     }
   }
   return Diana_Q_Sweep;
-}
-const __cacheDiana_Q_Sweep = new WeakMap<ContentApi, ReturnType<typeof __buildDiana_Q_Sweep>>();
-export function makeDiana_Q_Sweep(api: ContentApi) {
-  const cached = __cacheDiana_Q_Sweep.get(api);
-  if (cached) return cached;
-  const built = __buildDiana_Q_Sweep(api);
-  __cacheDiana_Q_Sweep.set(api, built);
-  return built;
-}
+});
 
 
 /** The cut, on the body that took it. */
-function __buildDiana_Q_Cut(api: ContentApi) {
+export const makeDiana_Q_Cut = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Diana_Q_Cut extends SpellObject {
@@ -498,12 +468,4 @@ function __buildDiana_Q_Cut(api: ContentApi) {
     }
   }
   return Diana_Q_Cut;
-}
-const __cacheDiana_Q_Cut = new WeakMap<ContentApi, ReturnType<typeof __buildDiana_Q_Cut>>();
-export function makeDiana_Q_Cut(api: ContentApi) {
-  const cached = __cacheDiana_Q_Cut.get(api);
-  if (cached) return cached;
-  const built = __buildDiana_Q_Cut(api);
-  __cacheDiana_Q_Cut.set(api, built);
-  return built;
-}
+});

@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
@@ -41,7 +42,7 @@ export const CAITLYN_E_RECOIL_SPEED = 22;
  * Caitlyn still gets her damage and her slow and simply does not get the
  * disengage — which is exactly the trade the ability is supposed to offer.
  */
-function __buildCaitlyn_E(api: ContentApi) {
+export const makeCaitlyn_E = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Dash = api.buffs.Dash;
@@ -103,15 +104,8 @@ function __buildCaitlyn_E(api: ContentApi) {
     }
   }
   return Caitlyn_E;
-}
-const __cacheCaitlyn_E = new WeakMap<ContentApi, ReturnType<typeof __buildCaitlyn_E>>();
-export default function makeCaitlyn_E(api: ContentApi) {
-  const cached = __cacheCaitlyn_E.get(api);
-  if (cached) return cached;
-  const built = __buildCaitlyn_E(api);
-  __cacheCaitlyn_E.set(api, built);
-  return built;
-}
+});
+export default makeCaitlyn_E;
 
 
 /**
@@ -121,7 +115,7 @@ export default function makeCaitlyn_E(api: ContentApi) {
  * made of light. It opens as it flies, so the shape you are dodging grows on the
  * way toward you rather than arriving at full size.
  */
-function __buildCaitlyn_E_Net(api: ContentApi) {
+export const makeCaitlyn_E_Net = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const AttackableUnit = api.units.AttackableUnit;
   const Slow = api.buffs.Slow;
@@ -223,19 +217,11 @@ function __buildCaitlyn_E_Net(api: ContentApi) {
     }
   }
   return Caitlyn_E_Net;
-}
-const __cacheCaitlyn_E_Net = new WeakMap<ContentApi, ReturnType<typeof __buildCaitlyn_E_Net>>();
-export function makeCaitlyn_E_Net(api: ContentApi) {
-  const cached = __cacheCaitlyn_E_Net.get(api);
-  if (cached) return cached;
-  const built = __buildCaitlyn_E_Net(api);
-  __cacheCaitlyn_E_Net.set(api, built);
-  return built;
-}
+});
 
 
 /** Cords clinging to whoever got caught, for as long as the slow runs. */
-function __buildCaitlyn_E_Tangle(api: ContentApi) {
+export const makeCaitlyn_E_Tangle = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
   class Caitlyn_E_Tangle extends SpellObject {
@@ -298,19 +284,11 @@ function __buildCaitlyn_E_Tangle(api: ContentApi) {
     }
   }
   return Caitlyn_E_Tangle;
-}
-const __cacheCaitlyn_E_Tangle = new WeakMap<ContentApi, ReturnType<typeof __buildCaitlyn_E_Tangle>>();
-export function makeCaitlyn_E_Tangle(api: ContentApi) {
-  const cached = __cacheCaitlyn_E_Tangle.get(api);
-  if (cached) return cached;
-  const built = __buildCaitlyn_E_Tangle(api);
-  __cacheCaitlyn_E_Tangle.set(api, built);
-  return built;
-}
+});
 
 
 /** The kick that throws her: a hard cone of muzzle smoke pointing forward. */
-function __buildCaitlyn_E_MuzzleBlast(api: ContentApi) {
+export const makeCaitlyn_E_MuzzleBlast = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Caitlyn_E_MuzzleBlast extends SpellObject {
     age = 0;
@@ -357,12 +335,4 @@ function __buildCaitlyn_E_MuzzleBlast(api: ContentApi) {
     }
   }
   return Caitlyn_E_MuzzleBlast;
-}
-const __cacheCaitlyn_E_MuzzleBlast = new WeakMap<ContentApi, ReturnType<typeof __buildCaitlyn_E_MuzzleBlast>>();
-export function makeCaitlyn_E_MuzzleBlast(api: ContentApi) {
-  const cached = __cacheCaitlyn_E_MuzzleBlast.get(api);
-  if (cached) return cached;
-  const built = __buildCaitlyn_E_MuzzleBlast(api);
-  __cacheCaitlyn_E_MuzzleBlast.set(api, built);
-  return built;
-}
+});

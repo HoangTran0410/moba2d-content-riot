@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { drawAegis } from './Pantheon_W';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
@@ -58,7 +59,7 @@ export const SLOW_DURATION = 2000;
  * ground from the frame he presses it, and 1.4s is long enough to walk out of
  * it (see the combat notes in CLAUDE.md — dangerous, never unavoidable).
  */
-function __buildPantheon_R(api: ContentApi) {
+export const makePantheon_R = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Pantheon_R_Skyward = makePantheon_R_Skyward(api);
   const Pantheon_R_Object = makePantheon_R_Object(api);
@@ -119,15 +120,8 @@ function __buildPantheon_R(api: ContentApi) {
     }
   }
   return Pantheon_R;
-}
-const __cachePantheon_R = new WeakMap<ContentApi, ReturnType<typeof __buildPantheon_R>>();
-export default function makePantheon_R(api: ContentApi) {
-  const cached = __cachePantheon_R.get(api);
-  if (cached) return cached;
-  const built = __buildPantheon_R(api);
-  __cachePantheon_R.set(api, built);
-  return built;
-}
+});
+export default makePantheon_R;
 
 
 /**
@@ -136,7 +130,7 @@ export default function makePantheon_R(api: ContentApi) {
  * lane, and `draw` is emptied because the base paints rings around a body that
  * is not there.
  */
-function __buildPantheon_R_Skyward(api: ContentApi) {
+export const makePantheon_R_Skyward = packClass((api: ContentApi) => {
   const StatusFlags = api.enums.StatusFlags;
   const Untargetable = api.buffs.Untargetable;
   class Pantheon_R_Skyward extends Untargetable {
@@ -146,15 +140,7 @@ function __buildPantheon_R_Skyward(api: ContentApi) {
     draw(): void {}
   }
   return Pantheon_R_Skyward;
-}
-const __cachePantheon_R_Skyward = new WeakMap<ContentApi, ReturnType<typeof __buildPantheon_R_Skyward>>();
-export function makePantheon_R_Skyward(api: ContentApi) {
-  const cached = __cachePantheon_R_Skyward.get(api);
-  if (cached) return cached;
-  const built = __buildPantheon_R_Skyward(api);
-  __cachePantheon_R_Skyward.set(api, built);
-  return built;
-}
+});
 
 
 /** Ease so the fall accelerates: he hangs, then drops. */
@@ -173,7 +159,7 @@ const soar = (t: number): number => 1 - (1 - t) * (1 - t);
  * of whoever is standing in them. The body coming down is `Pantheon_R_Meteor`,
  * which draws above them.
  */
-function __buildPantheon_R_Object(api: ContentApi) {
+export const makePantheon_R_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -417,15 +403,7 @@ function __buildPantheon_R_Object(api: ContentApi) {
     }
   }
   return Pantheon_R_Object;
-}
-const __cachePantheon_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildPantheon_R_Object>>();
-export function makePantheon_R_Object(api: ContentApi) {
-  const cached = __cachePantheon_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildPantheon_R_Object(api);
-  __cachePantheon_R_Object.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -436,7 +414,7 @@ export function makePantheon_R_Object(api: ContentApi) {
  * of the ultimate that has to paint *over* the units, and z-index is per object.
  * It owns no state; the flight object is the clock.
  */
-function __buildPantheon_R_Meteor(api: ContentApi) {
+export const makePantheon_R_Meteor = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Pantheon_R_Meteor extends SpellObject {
@@ -565,12 +543,4 @@ function __buildPantheon_R_Meteor(api: ContentApi) {
     }
   }
   return Pantheon_R_Meteor;
-}
-const __cachePantheon_R_Meteor = new WeakMap<ContentApi, ReturnType<typeof __buildPantheon_R_Meteor>>();
-export function makePantheon_R_Meteor(api: ContentApi) {
-  const cached = __cachePantheon_R_Meteor.get(api);
-  if (cached) return cached;
-  const built = __buildPantheon_R_Meteor(api);
-  __cachePantheon_R_Meteor.set(api, built);
-  return built;
-}
+});

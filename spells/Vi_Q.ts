@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, Vec2 } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -68,7 +69,7 @@ export function viQDamage(charge: number): number {
  * over a variable-length dash tells the enemy to step back when they did not
  * have to, and to stand still when they did.
  */
-function __buildVi_Q(api: ContentApi) {
+export const makeVi_Q = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -250,15 +251,8 @@ function __buildVi_Q(api: ContentApi) {
     }
   }
   return Vi_Q;
-}
-const __cacheVi_Q = new WeakMap<ContentApi, ReturnType<typeof __buildVi_Q>>();
-export default function makeVi_Q(api: ContentApi) {
-  const cached = __cacheVi_Q.get(api);
-  if (cached) return cached;
-  const built = __buildVi_Q(api);
-  __cacheVi_Q.set(api, built);
-  return built;
-}
+});
+export default makeVi_Q;
 
 
 /**
@@ -266,7 +260,7 @@ export default function makeVi_Q(api: ContentApi) {
  * the dash axis, with the ground fracturing away from the strike in straight
  * lines. Painted well past its own centre, so it carries its own box.
  */
-function __buildVi_Q_Impact(api: ContentApi) {
+export const makeVi_Q_Impact = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Vi_Q_Impact extends SpellObject {
@@ -340,12 +334,4 @@ function __buildVi_Q_Impact(api: ContentApi) {
     }
   }
   return Vi_Q_Impact;
-}
-const __cacheVi_Q_Impact = new WeakMap<ContentApi, ReturnType<typeof __buildVi_Q_Impact>>();
-export function makeVi_Q_Impact(api: ContentApi) {
-  const cached = __cacheVi_Q_Impact.get(api);
-  if (cached) return cached;
-  const built = __buildVi_Q_Impact(api);
-  __cacheVi_Q_Impact.set(api, built);
-  return built;
-}
+});

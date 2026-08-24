@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
@@ -64,7 +65,7 @@ export const REVEAL_STACK_ID = 'morgana_r_reveal';
 type ShackleTarget = AttackableUnit;
 
 
-function __buildMorgana_R(api: ContentApi) {
+export const makeMorgana_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
@@ -157,15 +158,8 @@ function __buildMorgana_R(api: ContentApi) {
     }
   }
   return Morgana_R;
-}
-const __cacheMorgana_R = new WeakMap<ContentApi, ReturnType<typeof __buildMorgana_R>>();
-export default function makeMorgana_R(api: ContentApi) {
-  const cached = __cacheMorgana_R.get(api);
-  if (cached) return cached;
-  const built = __buildMorgana_R(api);
-  __cacheMorgana_R.set(api, built);
-  return built;
-}
+});
+export default makeMorgana_R;
 
 
 /**
@@ -178,7 +172,7 @@ export default function makeMorgana_R(api: ContentApi) {
  * `Morgana_R_Tether_Object.endTether`), which is itself the "you got away"
  * signal: the marker just vanishes well before its own timer would have run out.
  */
-function __buildMorgana_R_Tether(api: ContentApi) {
+export const makeMorgana_R_Tether = packClass((api: ContentApi) => {
   const Buff = api.buffs.Buff;
   class Morgana_R_Tether extends Buff {
     name = 'Xiềng Hồn';
@@ -216,15 +210,7 @@ function __buildMorgana_R_Tether(api: ContentApi) {
     }
   }
   return Morgana_R_Tether;
-}
-const __cacheMorgana_R_Tether = new WeakMap<ContentApi, ReturnType<typeof __buildMorgana_R_Tether>>();
-export function makeMorgana_R_Tether(api: ContentApi) {
-  const cached = __cacheMorgana_R_Tether.get(api);
-  if (cached) return cached;
-  const built = __buildMorgana_R_Tether(api);
-  __cacheMorgana_R_Tether.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -235,7 +221,7 @@ export function makeMorgana_R_Tether(api: ContentApi) {
  * is never watched for its own removal, since it and this object would
  * otherwise race to end the tether on the exact same frame.
  */
-function __buildMorgana_R_Tether_Object(api: ContentApi) {
+export const makeMorgana_R_Tether_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const Buff = api.buffs.Buff;
@@ -415,15 +401,7 @@ function __buildMorgana_R_Tether_Object(api: ContentApi) {
     }
   }
   return Morgana_R_Tether_Object;
-}
-const __cacheMorgana_R_Tether_Object = new WeakMap<ContentApi, ReturnType<typeof __buildMorgana_R_Tether_Object>>();
-export function makeMorgana_R_Tether_Object(api: ContentApi) {
-  const cached = __cacheMorgana_R_Tether_Object.get(api);
-  if (cached) return cached;
-  const built = __buildMorgana_R_Tether_Object(api);
-  __cacheMorgana_R_Tether_Object.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -435,7 +413,7 @@ export function makeMorgana_R_Tether_Object(api: ContentApi) {
  * is the whole counterplay to Soul Shackles, and until now it was never drawn
  * at all — the ability went from nothing to four tethers in one frame.
  */
-function __buildMorgana_R_Windup(api: ContentApi) {
+export const makeMorgana_R_Windup = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
@@ -506,15 +484,7 @@ function __buildMorgana_R_Windup(api: ContentApi) {
     }
   }
   return Morgana_R_Windup;
-}
-const __cacheMorgana_R_Windup = new WeakMap<ContentApi, ReturnType<typeof __buildMorgana_R_Windup>>();
-export function makeMorgana_R_Windup(api: ContentApi) {
-  const cached = __cacheMorgana_R_Windup.get(api);
-  if (cached) return cached;
-  const built = __buildMorgana_R_Windup(api);
-  __cacheMorgana_R_Windup.set(api, built);
-  return built;
-}
+});
 
 
 /** One broken link, thrown clear when a tether ends. */
@@ -531,7 +501,7 @@ interface Shard {
  * shackles detonating on someone who never got out, or the links simply
  * snapping and falling for someone who did.
  */
-function __buildMorgana_R_Shatter(api: ContentApi) {
+export const makeMorgana_R_Shatter = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Morgana_R_Shatter extends SpellObject {
@@ -612,12 +582,4 @@ function __buildMorgana_R_Shatter(api: ContentApi) {
     }
   }
   return Morgana_R_Shatter;
-}
-const __cacheMorgana_R_Shatter = new WeakMap<ContentApi, ReturnType<typeof __buildMorgana_R_Shatter>>();
-export function makeMorgana_R_Shatter(api: ContentApi) {
-  const cached = __cacheMorgana_R_Shatter.get(api);
-  if (cached) return cached;
-  const built = __buildMorgana_R_Shatter(api);
-  __cacheMorgana_R_Shatter.set(api, built);
-  return built;
-}
+});

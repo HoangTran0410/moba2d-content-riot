@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -44,7 +45,7 @@ export interface SettGrab {
  * Two grab boxes, one in front and one behind, both hauled inward. The stun only
  * fires when both sides caught somebody — the crowds have to actually collide.
  */
-function __buildSett_E(api: ContentApi) {
+export const makeSett_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const bodyRadiusOf = api.combat.Reach.bodyRadiusOf;
   const effectiveRange = api.combat.Reach.effectiveRange;
@@ -146,15 +147,8 @@ function __buildSett_E(api: ContentApi) {
     }
   }
   return Sett_E;
-}
-const __cacheSett_E = new WeakMap<ContentApi, ReturnType<typeof __buildSett_E>>();
-export default function makeSett_E(api: ContentApi) {
-  const cached = __cacheSett_E.get(api);
-  if (cached) return cached;
-  const built = __buildSett_E(api);
-  __cacheSett_E.set(api, built);
-  return built;
-}
+});
+export default makeSett_E;
 
 
 /**
@@ -162,7 +156,7 @@ export default function makeSett_E(api: ContentApi) {
  * toward his body, and one trail per victim pointing the way he was dragged. The
  * motion travels inward, because the pull does.
  */
-function __buildSett_E_Object(api: ContentApi) {
+export const makeSett_E_Object = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
@@ -253,12 +247,4 @@ function __buildSett_E_Object(api: ContentApi) {
     }
   }
   return Sett_E_Object;
-}
-const __cacheSett_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildSett_E_Object>>();
-export function makeSett_E_Object(api: ContentApi) {
-  const cached = __cacheSett_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildSett_E_Object(api);
-  __cacheSett_E_Object.set(api, built);
-  return built;
-}
+});

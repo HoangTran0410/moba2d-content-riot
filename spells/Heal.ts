@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type CombatText = InstanceType<ContentApi['helpers']['CombatText']>;
 type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
@@ -13,7 +14,7 @@ type Heal_Object = InstanceType<ReturnType<typeof makeHeal_Object>>;
 const SPEEDUP_TIME = 3000;
 
 
-function __buildHeal(api: ContentApi) {
+export const makeHeal = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const StatModifier = api.units.StatModifier;
   const Speedup = api.buffs.Speedup;
@@ -54,18 +55,11 @@ function __buildHeal(api: ContentApi) {
     }
   }
   return Heal;
-}
-const __cacheHeal = new WeakMap<ContentApi, ReturnType<typeof __buildHeal>>();
-export default function makeHeal(api: ContentApi) {
-  const cached = __cacheHeal.get(api);
-  if (cached) return cached;
-  const built = __buildHeal(api);
-  __cacheHeal.set(api, built);
-  return built;
-}
+});
+export default makeHeal;
 
 
-function __buildHeal_Object(api: ContentApi) {
+export const makeHeal_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   class Heal_Object extends SpellObject {
@@ -92,12 +86,4 @@ function __buildHeal_Object(api: ContentApi) {
     }
   }
   return Heal_Object;
-}
-const __cacheHeal_Object = new WeakMap<ContentApi, ReturnType<typeof __buildHeal_Object>>();
-export function makeHeal_Object(api: ContentApi) {
-  const cached = __cacheHeal_Object.get(api);
-  if (cached) return cached;
-  const built = __buildHeal_Object(api);
-  __cacheHeal_Object.set(api, built);
-  return built;
-}
+});

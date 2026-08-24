@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CancelReason, CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type CastBar = InstanceType<ContentApi['vfx']['CastBar']>;
 type ChargeRangeTelegraph = InstanceType<ContentApi['vfx']['ChargeRangeTelegraph']>;
@@ -43,7 +44,7 @@ export const ARROW_VISUAL_WIDTH = 90;
 export const ARROW_VISUAL_HEIGHT = 32;
 
 
-function __buildVarus_Q(api: ContentApi) {
+export const makeVarus_Q = packClass((api: ContentApi) => {
   const SpellForm = api.enums.SpellForm;
   const Spell = api.Spell;
   const Slow = api.buffs.Slow;
@@ -196,18 +197,11 @@ function __buildVarus_Q(api: ContentApi) {
     }
   }
   return Varus_Q;
-}
-const __cacheVarus_Q = new WeakMap<ContentApi, ReturnType<typeof __buildVarus_Q>>();
-export default function makeVarus_Q(api: ContentApi) {
-  const cached = __cacheVarus_Q.get(api);
-  if (cached) return cached;
-  const built = __buildVarus_Q(api);
-  __cacheVarus_Q.set(api, built);
-  return built;
-}
+});
+export default makeVarus_Q;
 
 
-function __buildVarus_Q_Arrow(api: ContentApi) {
+export const makeVarus_Q_Arrow = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const TrailSystem = api.helpers.TrailSystem;
   class Varus_Q_Arrow extends MissileSpellObject {
@@ -293,12 +287,4 @@ function __buildVarus_Q_Arrow(api: ContentApi) {
     }
   }
   return Varus_Q_Arrow;
-}
-const __cacheVarus_Q_Arrow = new WeakMap<ContentApi, ReturnType<typeof __buildVarus_Q_Arrow>>();
-export function makeVarus_Q_Arrow(api: ContentApi) {
-  const cached = __cacheVarus_Q_Arrow.get(api);
-  if (cached) return cached;
-  const built = __buildVarus_Q_Arrow(api);
-  __cacheVarus_Q_Arrow.set(api, built);
-  return built;
-}
+});

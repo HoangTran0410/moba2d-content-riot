@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -43,7 +44,7 @@ const ROCK_LIT: [number, number, number] = [176, 166, 146];
 const DUST: [number, number, number] = [156, 141, 116];
 
 
-function __buildMalphite_R(api: ContentApi) {
+export const makeMalphite_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const VectorUtils = api.utils.VectorUtils;
@@ -120,15 +121,8 @@ function __buildMalphite_R(api: ContentApi) {
     }
   }
   return Malphite_R;
-}
-const __cacheMalphite_R = new WeakMap<ContentApi, ReturnType<typeof __buildMalphite_R>>();
-export default function makeMalphite_R(api: ContentApi) {
-  const cached = __cacheMalphite_R.get(api);
-  if (cached) return cached;
-  const built = __buildMalphite_R(api);
-  __cacheMalphite_R.set(api, built);
-  return built;
-}
+});
+export default makeMalphite_R;
 
 
 /**
@@ -139,7 +133,7 @@ export default function makeMalphite_R(api: ContentApi) {
  * does that — so there is exactly one thing that can fire the impact. This is
  * only what the charge looks like while it is happening.
  */
-function __buildMalphite_R_Charge(api: ContentApi) {
+export const makeMalphite_R_Charge = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   const Dash = api.buffs.Dash;
@@ -221,15 +215,7 @@ function __buildMalphite_R_Charge(api: ContentApi) {
     }
   }
   return Malphite_R_Charge;
-}
-const __cacheMalphite_R_Charge = new WeakMap<ContentApi, ReturnType<typeof __buildMalphite_R_Charge>>();
-export function makeMalphite_R_Charge(api: ContentApi) {
-  const cached = __cacheMalphite_R_Charge.get(api);
-  if (cached) return cached;
-  const built = __buildMalphite_R_Charge(api);
-  __cacheMalphite_R_Charge.set(api, built);
-  return built;
-}
+});
 
 
 /** One slab of ground heaved up by the impact. */
@@ -269,7 +255,7 @@ interface Shard {
  * back to looking like each other, which is the exact problem those styles were
  * invented to solve. Malphite's impact is plates and grit, and it is his.
  */
-function __buildMalphite_R_Object(api: ContentApi) {
+export const makeMalphite_R_Object = packClass((api: ContentApi) => {
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   const SpellObject = api.SpellObject;
   class Malphite_R_Object extends SpellObject {
@@ -437,12 +423,4 @@ function __buildMalphite_R_Object(api: ContentApi) {
     }
   }
   return Malphite_R_Object;
-}
-const __cacheMalphite_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildMalphite_R_Object>>();
-export function makeMalphite_R_Object(api: ContentApi) {
-  const cached = __cacheMalphite_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildMalphite_R_Object(api);
-  __cacheMalphite_R_Object.set(api, built);
-  return built;
-}
+});

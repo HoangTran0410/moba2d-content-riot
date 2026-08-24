@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
 type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
@@ -20,7 +21,7 @@ export const CAMILLE_Q_DAMAGE = 20;
 export const CAMILLE_Q_TRUE_DAMAGE = 45;
 
 
-function __buildCamille_Q(api: ContentApi) {
+export const makeCamille_Q = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Camille_Q_Buff = makeCamille_Q_Buff(api);
   class Camille_Q extends Spell {
@@ -38,18 +39,11 @@ function __buildCamille_Q(api: ContentApi) {
     }
   }
   return Camille_Q;
-}
-const __cacheCamille_Q = new WeakMap<ContentApi, ReturnType<typeof __buildCamille_Q>>();
-export default function makeCamille_Q(api: ContentApi) {
-  const cached = __cacheCamille_Q.get(api);
-  if (cached) return cached;
-  const built = __buildCamille_Q(api);
-  __cacheCamille_Q.set(api, built);
-  return built;
-}
+});
+export default makeCamille_Q;
 
 
-function __buildCamille_Q_Buff(api: ContentApi) {
+export const makeCamille_Q_Buff = packClass((api: ContentApi) => {
   const Buff = api.buffs.Buff;
   const EventType = api.enums.EventType;
   const Speedup = api.buffs.Speedup;
@@ -112,15 +106,7 @@ function __buildCamille_Q_Buff(api: ContentApi) {
     }
   }
   return Camille_Q_Buff;
-}
-const __cacheCamille_Q_Buff = new WeakMap<ContentApi, ReturnType<typeof __buildCamille_Q_Buff>>();
-export function makeCamille_Q_Buff(api: ContentApi) {
-  const cached = __cacheCamille_Q_Buff.get(api);
-  if (cached) return cached;
-  const built = __buildCamille_Q_Buff(api);
-  __cacheCamille_Q_Buff.set(api, built);
-  return built;
-}
+});
 
 
 /** Radius the hex-plate blades orbit at, and the box the effect needs to survive culling. */
@@ -138,7 +124,7 @@ const BLADE_COUNT = 3;
  * rather than a colour swap alone — a change that only happens between two frames
  * is invisible in a fight.
  */
-function __buildCamille_Q_AuraObject(api: ContentApi) {
+export const makeCamille_Q_AuraObject = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   class Camille_Q_AuraObject extends SpellObject {
@@ -299,12 +285,4 @@ function __buildCamille_Q_AuraObject(api: ContentApi) {
     }
   }
   return Camille_Q_AuraObject;
-}
-const __cacheCamille_Q_AuraObject = new WeakMap<ContentApi, ReturnType<typeof __buildCamille_Q_AuraObject>>();
-export function makeCamille_Q_AuraObject(api: ContentApi) {
-  const cached = __cacheCamille_Q_AuraObject.get(api);
-  if (cached) return cached;
-  const built = __buildCamille_Q_AuraObject(api);
-  __cacheCamille_Q_AuraObject.set(api, built);
-  return built;
-}
+});

@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -51,7 +52,7 @@ const BLOOD_BRIGHT: [number, number, number] = [255, 132, 116];
  * out over the pin rather than up front, so killing Warwick mid-ultimate is a
  * real save for the victim's team.
  */
-function __buildWarwick_R(api: ContentApi) {
+export const makeWarwick_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -141,15 +142,8 @@ function __buildWarwick_R(api: ContentApi) {
     }
   }
   return Warwick_R;
-}
-const __cacheWarwick_R = new WeakMap<ContentApi, ReturnType<typeof __buildWarwick_R>>();
-export default function makeWarwick_R(api: ContentApi) {
-  const cached = __cacheWarwick_R.get(api);
-  if (cached) return cached;
-  const built = __buildWarwick_R(api);
-  __cacheWarwick_R.set(api, built);
-  return built;
-}
+});
+export default makeWarwick_R;
 
 
 /** One pair of claw marks dropped behind Warwick as he crosses the gap. */
@@ -163,7 +157,7 @@ interface Streak {
 }
 
 
-function __buildWarwick_R_Object(api: ContentApi) {
+export const makeWarwick_R_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
@@ -439,12 +433,4 @@ function __buildWarwick_R_Object(api: ContentApi) {
     }
   }
   return Warwick_R_Object;
-}
-const __cacheWarwick_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildWarwick_R_Object>>();
-export function makeWarwick_R_Object(api: ContentApi) {
-  const cached = __cacheWarwick_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildWarwick_R_Object(api);
-  __cacheWarwick_R_Object.set(api, built);
-  return built;
-}
+});

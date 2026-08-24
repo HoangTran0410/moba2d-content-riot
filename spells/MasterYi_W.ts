@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type CastBar = InstanceType<ContentApi['vfx']['CastBar']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
@@ -46,7 +47,7 @@ export const MANA_COST = 40;
  * the champion sitting there doing it, so moving must end it. That is the
  * whole tension of the ability.
  */
-function __buildMasterYi_W(api: ContentApi) {
+export const makeMasterYi_W = packClass((api: ContentApi) => {
   const CastBar = api.vfx.CastBar;
   const unitCastBarAnchor = api.vfx.unitCastBarAnchor;
   const Spell = api.Spell;
@@ -128,15 +129,8 @@ function __buildMasterYi_W(api: ContentApi) {
     }
   }
   return MasterYi_W;
-}
-const __cacheMasterYi_W = new WeakMap<ContentApi, ReturnType<typeof __buildMasterYi_W>>();
-export default function makeMasterYi_W(api: ContentApi) {
-  const cached = __cacheMasterYi_W.get(api);
-  if (cached) return cached;
-  const built = __buildMasterYi_W(api);
-  __cacheMasterYi_W.set(api, built);
-  return built;
-}
+});
+export default makeMasterYi_W;
 
 
 /**
@@ -145,7 +139,7 @@ export default function makeMasterYi_W(api: ContentApi) {
  * it has left. Painted at `zIndex = GROUND_Z_INDEX` — ground art goes under the feet
  * standing on it, the slot `Singed_W_Object` already established.
  */
-function __buildMasterYi_W_Object(api: ContentApi) {
+export const makeMasterYi_W_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
@@ -221,12 +215,4 @@ function __buildMasterYi_W_Object(api: ContentApi) {
     }
   }
   return MasterYi_W_Object;
-}
-const __cacheMasterYi_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildMasterYi_W_Object>>();
-export function makeMasterYi_W_Object(api: ContentApi) {
-  const cached = __cacheMasterYi_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildMasterYi_W_Object(api);
-  __cacheMasterYi_W_Object.set(api, built);
-  return built;
-}
+});

@@ -2,6 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BasicAttackHit, CastSpec } from '@moba2d/core/content/types';
 import { makeVayne_R_Buff } from './Vayne_R';
 import { VAYNE_R_Q_CDR, VAYNE_R_STEALTH_MS } from './Vayne_R';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
@@ -48,7 +49,7 @@ const FLASH_REACH = 48;
  * `EventType.ON_ATTACK_HIT`, which `combat/BasicAttack` is the sole emitter of,
  * so it lands on whatever the basic attack actually was and nothing else.
  */
-function __buildVayne_Q(api: ContentApi) {
+export const makeVayne_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const Dash = api.buffs.Dash;
@@ -128,15 +129,8 @@ function __buildVayne_Q(api: ContentApi) {
     }
   }
   return Vayne_Q;
-}
-const __cacheVayne_Q = new WeakMap<ContentApi, ReturnType<typeof __buildVayne_Q>>();
-export default function makeVayne_Q(api: ContentApi) {
-  const cached = __cacheVayne_Q.get(api);
-  if (cached) return cached;
-  const built = __buildVayne_Q(api);
-  __cacheVayne_Q.set(api, built);
-  return built;
-}
+});
+export default makeVayne_Q;
 
 
 /**
@@ -147,7 +141,7 @@ export default function makeVayne_Q(api: ContentApi) {
  * the subscriber array while `EventManager.emit` is iterating it, which silently
  * skips whichever listener sat next — Silver Bolts, if W is up at the same time.
  */
-function __buildVayne_Q_Empower(api: ContentApi) {
+export const makeVayne_Q_Empower = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const EventType = api.enums.EventType;
   const Buff = api.buffs.Buff;
@@ -191,22 +185,14 @@ function __buildVayne_Q_Empower(api: ContentApi) {
     }
   }
   return Vayne_Q_Empower;
-}
-const __cacheVayne_Q_Empower = new WeakMap<ContentApi, ReturnType<typeof __buildVayne_Q_Empower>>();
-export function makeVayne_Q_Empower(api: ContentApi) {
-  const cached = __cacheVayne_Q_Empower.get(api);
-  if (cached) return cached;
-  const built = __buildVayne_Q_Empower(api);
-  __cacheVayne_Q_Empower.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * A single bolt tip glowing at her hands while the empower is live — the one
  * layer that says "loaded", riding the buff so it cannot outlive it.
  */
-function __buildVayne_Q_Loaded(api: ContentApi) {
+export const makeVayne_Q_Loaded = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const Buff = api.buffs.Buff;
   const SpellObject = api.SpellObject;
@@ -252,22 +238,14 @@ function __buildVayne_Q_Loaded(api: ContentApi) {
     }
   }
   return Vayne_Q_Loaded;
-}
-const __cacheVayne_Q_Loaded = new WeakMap<ContentApi, ReturnType<typeof __buildVayne_Q_Loaded>>();
-export function makeVayne_Q_Loaded(api: ContentApi) {
-  const cached = __cacheVayne_Q_Loaded.get(api);
-  if (cached) return cached;
-  const built = __buildVayne_Q_Loaded(api);
-  __cacheVayne_Q_Loaded.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * The bonus landing, drawn on the body that took it: a silver bolt cut across
  * the victim rather than grit at the missile's centre.
  */
-function __buildVayne_Q_Bolt_Flash(api: ContentApi) {
+export const makeVayne_Q_Bolt_Flash = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Vayne_Q_Bolt_Flash extends SpellObject {
@@ -305,12 +283,4 @@ function __buildVayne_Q_Bolt_Flash(api: ContentApi) {
     }
   }
   return Vayne_Q_Bolt_Flash;
-}
-const __cacheVayne_Q_Bolt_Flash = new WeakMap<ContentApi, ReturnType<typeof __buildVayne_Q_Bolt_Flash>>();
-export function makeVayne_Q_Bolt_Flash(api: ContentApi) {
-  const cached = __cacheVayne_Q_Bolt_Flash.get(api);
-  if (cached) return cached;
-  const built = __buildVayne_Q_Bolt_Flash(api);
-  __cacheVayne_Q_Bolt_Flash.set(api, built);
-  return built;
-}
+});

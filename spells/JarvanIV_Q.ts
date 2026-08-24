@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -23,7 +24,7 @@ export const JARVAN_Q_DASH_HIT_RADIUS = 90;
 export const JARVAN_Q_FLAG_SNAP = 60;
 
 
-function __buildJarvanIV_Q(api: ContentApi) {
+export const makeJarvanIV_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Dash = api.buffs.Dash;
@@ -137,15 +138,8 @@ function __buildJarvanIV_Q(api: ContentApi) {
     }
   }
   return JarvanIV_Q;
-}
-const __cacheJarvanIV_Q = new WeakMap<ContentApi, ReturnType<typeof __buildJarvanIV_Q>>();
-export default function makeJarvanIV_Q(api: ContentApi) {
-  const cached = __cacheJarvanIV_Q.get(api);
-  if (cached) return cached;
-  const built = __buildJarvanIV_Q(api);
-  __cacheJarvanIV_Q.set(api, built);
-  return built;
-}
+});
+export default makeJarvanIV_Q;
 
 
 /**
@@ -156,7 +150,7 @@ export default function makeJarvanIV_Q(api: ContentApi) {
  * it read as a weapon rather than a laser. Damage still lands once, at full
  * extension, and the tip is where it lands — so the recovery is honest.
  */
-function __buildJarvanIV_Q_Object(api: ContentApi) {
+export const makeJarvanIV_Q_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const CollideUtils = api.utils.CollideUtils;
@@ -306,15 +300,7 @@ function __buildJarvanIV_Q_Object(api: ContentApi) {
     }
   }
   return JarvanIV_Q_Object;
-}
-const __cacheJarvanIV_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildJarvanIV_Q_Object>>();
-export function makeJarvanIV_Q_Object(api: ContentApi) {
-  const cached = __cacheJarvanIV_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildJarvanIV_Q_Object(api);
-  __cacheJarvanIV_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 interface ChargeImpact {
@@ -332,7 +318,7 @@ interface ChargeImpact {
  * him and every body he knocks up gets its own burst, so the line he cut through
  * the fight is readable after the fact.
  */
-function __buildJarvanIV_Q_ChargeObject(api: ContentApi) {
+export const makeJarvanIV_Q_ChargeObject = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const TrailSystem = api.helpers.TrailSystem;
@@ -456,12 +442,4 @@ function __buildJarvanIV_Q_ChargeObject(api: ContentApi) {
     }
   }
   return JarvanIV_Q_ChargeObject;
-}
-const __cacheJarvanIV_Q_ChargeObject = new WeakMap<ContentApi, ReturnType<typeof __buildJarvanIV_Q_ChargeObject>>();
-export function makeJarvanIV_Q_ChargeObject(api: ContentApi) {
-  const cached = __cacheJarvanIV_Q_ChargeObject.get(api);
-  if (cached) return cached;
-  const built = __buildJarvanIV_Q_ChargeObject(api);
-  __cacheJarvanIV_Q_ChargeObject.set(api, built);
-  return built;
-}
+});

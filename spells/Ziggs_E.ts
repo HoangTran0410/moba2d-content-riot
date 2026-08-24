@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -39,7 +40,7 @@ export const E_MAX_TRIPS_PER_UNIT = 2;
  * crossing all seven eats 84, so trips are counted per unit across the entire field, not per
  * mine, and a unit already at its cap walks over a plate without setting it off for anyone.
  */
-function __buildZiggs_E(api: ContentApi) {
+export const makeZiggs_E = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const Spell = api.Spell;
   const Ziggs_E_Object = makeZiggs_E_Object(api);
@@ -81,15 +82,8 @@ function __buildZiggs_E(api: ContentApi) {
     }
   }
   return Ziggs_E;
-}
-const __cacheZiggs_E = new WeakMap<ContentApi, ReturnType<typeof __buildZiggs_E>>();
-export default function makeZiggs_E(api: ContentApi) {
-  const cached = __cacheZiggs_E.get(api);
-  if (cached) return cached;
-  const built = __buildZiggs_E(api);
-  __cacheZiggs_E.set(api, built);
-  return built;
-}
+});
+export default makeZiggs_E;
 
 
 export interface ZiggsMine {
@@ -106,7 +100,7 @@ export interface ZiggsMine {
  * SpellObject subclass resolves to `SPELL_EFFECT_Z_INDEX` instead, and would cover the
  * feet of everyone standing on it.
  */
-function __buildZiggs_E_Object(api: ContentApi) {
+export const makeZiggs_E_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
@@ -243,19 +237,11 @@ function __buildZiggs_E_Object(api: ContentApi) {
     }
   }
   return Ziggs_E_Object;
-}
-const __cacheZiggs_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildZiggs_E_Object>>();
-export function makeZiggs_E_Object(api: ContentApi) {
-  const cached = __cacheZiggs_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildZiggs_E_Object(api);
-  __cacheZiggs_E_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** One plate going off, on the body that stepped on it. */
-function __buildZiggs_E_Pop(api: ContentApi) {
+export const makeZiggs_E_Pop = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
   class Ziggs_E_Pop extends SpellObject {
@@ -295,12 +281,4 @@ function __buildZiggs_E_Pop(api: ContentApi) {
     }
   }
   return Ziggs_E_Pop;
-}
-const __cacheZiggs_E_Pop = new WeakMap<ContentApi, ReturnType<typeof __buildZiggs_E_Pop>>();
-export function makeZiggs_E_Pop(api: ContentApi) {
-  const cached = __cacheZiggs_E_Pop.get(api);
-  if (cached) return cached;
-  const built = __buildZiggs_E_Pop(api);
-  __cacheZiggs_E_Pop.set(api, built);
-  return built;
-}
+});

@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BasicAttackController } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type Spell = InstanceType<ContentApi['Spell']>;
 type SpellObject = InstanceType<ContentApi['SpellObject']>;
@@ -38,7 +39,7 @@ export const LAUNCHER_MARGIN = 80;
  * Modelled as a timed buff rather than League's free toggle: a toggle with no
  * cost is a strictly-better state the player would simply leave on.
  */
-function __buildJinx_Q(api: ContentApi) {
+export const makeJinx_Q = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const StatAmp = api.buffs.StatAmp;
   const Jinx_Q_Launcher = makeJinx_Q_Launcher(api);
@@ -77,19 +78,12 @@ function __buildJinx_Q(api: ContentApi) {
     }
   }
   return Jinx_Q;
-}
-const __cacheJinx_Q = new WeakMap<ContentApi, ReturnType<typeof __buildJinx_Q>>();
-export default function makeJinx_Q(api: ContentApi) {
-  const cached = __cacheJinx_Q.get(api);
-  if (cached) return cached;
-  const built = __buildJinx_Q(api);
-  __cacheJinx_Q.set(api, built);
-  return built;
-}
+});
+export default makeJinx_Q;
 
 
 /** Fishbones, shouldered for the duration of Switcheroo!. */
-function __buildJinx_Q_Launcher(api: ContentApi) {
+export const makeJinx_Q_Launcher = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Jinx_Q_Launcher extends SpellObject {
     age = 0;
@@ -213,12 +207,4 @@ function __buildJinx_Q_Launcher(api: ContentApi) {
     }
   }
   return Jinx_Q_Launcher;
-}
-const __cacheJinx_Q_Launcher = new WeakMap<ContentApi, ReturnType<typeof __buildJinx_Q_Launcher>>();
-export function makeJinx_Q_Launcher(api: ContentApi) {
-  const cached = __cacheJinx_Q_Launcher.get(api);
-  if (cached) return cached;
-  const built = __buildJinx_Q_Launcher(api);
-  __cacheJinx_Q_Launcher.set(api, built);
-  return built;
-}
+});

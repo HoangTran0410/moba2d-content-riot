@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
 type Spell = InstanceType<ContentApi['Spell']>;
@@ -14,7 +15,7 @@ export const JARVAN_E_LIFETIME_MS = 8000;
 export const JARVAN_E_DROP_HEIGHT = 400;
 
 
-function __buildJarvanIV_E(api: ContentApi) {
+export const makeJarvanIV_E = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const JarvanIV_E_Object = makeJarvanIV_E_Object(api);
@@ -41,15 +42,8 @@ function __buildJarvanIV_E(api: ContentApi) {
     }
   }
   return JarvanIV_E;
-}
-const __cacheJarvanIV_E = new WeakMap<ContentApi, ReturnType<typeof __buildJarvanIV_E>>();
-export default function makeJarvanIV_E(api: ContentApi) {
-  const cached = __cacheJarvanIV_E.get(api);
-  if (cached) return cached;
-  const built = __buildJarvanIV_E(api);
-  __cacheJarvanIV_E.set(api, built);
-  return built;
-}
+});
+export default makeJarvanIV_E;
 
 
 /**
@@ -62,7 +56,7 @@ export default function makeJarvanIV_E(api: ContentApi) {
  * with a shadow that tightens as it nears the ground, plants with a dust ring,
  * flies its cloth on a travelling wave, and flashes when a Q calls it in.
  */
-function __buildJarvanIV_E_Object(api: ContentApi) {
+export const makeJarvanIV_E_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
@@ -259,12 +253,4 @@ function __buildJarvanIV_E_Object(api: ContentApi) {
     }
   }
   return JarvanIV_E_Object;
-}
-const __cacheJarvanIV_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildJarvanIV_E_Object>>();
-export function makeJarvanIV_E_Object(api: ContentApi) {
-  const cached = __cacheJarvanIV_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildJarvanIV_E_Object(api);
-  __cacheJarvanIV_E_Object.set(api, built);
-  return built;
-}
+});

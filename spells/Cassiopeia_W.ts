@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
@@ -16,7 +17,7 @@ type Cassiopeia_W_Object = InstanceType<ReturnType<typeof makeCassiopeia_W_Objec
  * field that POISONS, slows, and GROUNDS everything inside, so the victim can
  * walk out but cannot dash or blink out.
  */
-function __buildCassiopeia_W(api: ContentApi) {
+export const makeCassiopeia_W = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Cassiopeia_W_Object = makeCassiopeia_W_Object(api);
@@ -52,15 +53,8 @@ function __buildCassiopeia_W(api: ContentApi) {
     }
   }
   return Cassiopeia_W;
-}
-const __cacheCassiopeia_W = new WeakMap<ContentApi, ReturnType<typeof __buildCassiopeia_W>>();
-export default function makeCassiopeia_W(api: ContentApi) {
-  const cached = __cacheCassiopeia_W.get(api);
-  if (cached) return cached;
-  const built = __buildCassiopeia_W(api);
-  __cacheCassiopeia_W.set(api, built);
-  return built;
-}
+});
+export default makeCassiopeia_W;
 
 
 interface VenomCloud {
@@ -75,7 +69,7 @@ interface VenomCloud {
 const CLOUD_COUNT = 14;
 
 
-function __buildCassiopeia_W_Object(api: ContentApi) {
+export const makeCassiopeia_W_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const BuffAddType = api.enums.BuffAddType;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -281,12 +275,4 @@ function __buildCassiopeia_W_Object(api: ContentApi) {
     }
   }
   return Cassiopeia_W_Object;
-}
-const __cacheCassiopeia_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildCassiopeia_W_Object>>();
-export function makeCassiopeia_W_Object(api: ContentApi) {
-  const cached = __cacheCassiopeia_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildCassiopeia_W_Object(api);
-  __cacheCassiopeia_W_Object.set(api, built);
-  return built;
-}
+});

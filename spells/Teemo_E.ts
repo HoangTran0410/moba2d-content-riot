@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BasicAttackHit } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
@@ -31,7 +32,7 @@ export const MANA_COST = 25;
 
 
 /** Poisons `victim`, from whichever of the two deliveries applied it. */
-function __buildapplyToxicShot(api: ContentApi) {
+export const makeApplyToxicShot = packClass((api: ContentApi) => {
   const DamageOverTime = api.buffs.DamageOverTime;
   const AttackableUnit = api.units.AttackableUnit;
   function applyToxicShot(source: AttackableUnit, victim: AttackableUnit): void {
@@ -46,15 +47,7 @@ function __buildapplyToxicShot(api: ContentApi) {
     victim.addBuff(poison);
   }
   return applyToxicShot;
-}
-const __cacheapplyToxicShot = new WeakMap<ContentApi, ReturnType<typeof __buildapplyToxicShot>>();
-export function makeApplyToxicShot(api: ContentApi) {
-  const cached = __cacheapplyToxicShot.get(api);
-  if (cached) return cached;
-  const built = __buildapplyToxicShot(api);
-  __cacheapplyToxicShot.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -69,7 +62,7 @@ export function makeApplyToxicShot(api: ContentApi) {
  * broken in a game built around pressing keys, and it gives Teemo a way to
  * apply the poison from outside attack range.
  */
-function __buildTeemo_E(api: ContentApi) {
+export const makeTeemo_E = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const EventType = api.enums.EventType;
@@ -131,18 +124,11 @@ function __buildTeemo_E(api: ContentApi) {
     }
   }
   return Teemo_E;
-}
-const __cacheTeemo_E = new WeakMap<ContentApi, ReturnType<typeof __buildTeemo_E>>();
-export default function makeTeemo_E(api: ContentApi) {
-  const cached = __cacheTeemo_E.get(api);
-  if (cached) return cached;
-  const built = __buildTeemo_E(api);
-  __cacheTeemo_E.set(api, built);
-  return built;
-}
+});
+export default makeTeemo_E;
 
 
-function __buildTeemo_E_Object(api: ContentApi) {
+export const makeTeemo_E_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const TrailSystem = api.helpers.TrailSystem;
   const AttackableUnit = api.units.AttackableUnit;
@@ -232,19 +218,11 @@ function __buildTeemo_E_Object(api: ContentApi) {
     }
   }
   return Teemo_E_Object;
-}
-const __cacheTeemo_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildTeemo_E_Object>>();
-export function makeTeemo_E_Object(api: ContentApi) {
-  const cached = __cacheTeemo_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildTeemo_E_Object(api);
-  __cacheTeemo_E_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** Poison bursting where the vial shattered — the toxin taking hold. */
-function __buildTeemo_E_Splash(api: ContentApi) {
+export const makeTeemo_E_Splash = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Teemo_E_Splash extends SpellObject {
     targetSize = 40;
@@ -300,12 +278,4 @@ function __buildTeemo_E_Splash(api: ContentApi) {
     }
   }
   return Teemo_E_Splash;
-}
-const __cacheTeemo_E_Splash = new WeakMap<ContentApi, ReturnType<typeof __buildTeemo_E_Splash>>();
-export function makeTeemo_E_Splash(api: ContentApi) {
-  const cached = __cacheTeemo_E_Splash.get(api);
-  if (cached) return cached;
-  const built = __buildTeemo_E_Splash(api);
-  __cacheTeemo_E_Splash.set(api, built);
-  return built;
-}
+});

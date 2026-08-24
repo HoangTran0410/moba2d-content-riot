@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, DynamicWall } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -26,7 +27,7 @@ type Anivia_W_Object = InstanceType<ReturnType<typeof makeAnivia_W_Object>>;
  * terrain gets shoved back out by the map in the same frame. That reproduces
  * "knocks units away from it, though not through terrain".
  */
-function __buildAnivia_W(api: ContentApi) {
+export const makeAnivia_W = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Anivia_W_Object = makeAnivia_W_Object(api);
@@ -96,19 +97,12 @@ function __buildAnivia_W(api: ContentApi) {
     }
   }
   return Anivia_W;
-}
-const __cacheAnivia_W = new WeakMap<ContentApi, ReturnType<typeof __buildAnivia_W>>();
-export default function makeAnivia_W(api: ContentApi) {
-  const cached = __cacheAnivia_W.get(api);
-  if (cached) return cached;
-  const built = __buildAnivia_W(api);
-  __cacheAnivia_W.set(api, built);
-  return built;
-}
+});
+export default makeAnivia_W;
 
 
 /** A solid, impassable slab of ice. No damage, no debuffs — just geometry. */
-function __buildAnivia_W_Object(api: ContentApi) {
+export const makeAnivia_W_Object = packClass((api: ContentApi) => {
   const SAT = api.utils.SAT;
   const Circle = api.utils.Quadtree.Circle;
   const hasFlag = api.utils.hasFlag;
@@ -282,12 +276,4 @@ function __buildAnivia_W_Object(api: ContentApi) {
     }
   }
   return Anivia_W_Object;
-}
-const __cacheAnivia_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildAnivia_W_Object>>();
-export function makeAnivia_W_Object(api: ContentApi) {
-  const cached = __cacheAnivia_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildAnivia_W_Object(api);
-  __cacheAnivia_W_Object.set(api, built);
-  return built;
-}
+});

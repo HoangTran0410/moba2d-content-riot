@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -51,7 +52,7 @@ const BLOOD: [number, number, number] = [183, 21, 64];
 /**
  * He picks one champion up and throws himself with them in a parabolic suplex.
  */
-function __buildSett_R(api: ContentApi) {
+export const makeSett_R = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
   const TargetResolver = api.combat.TargetResolver;
@@ -169,22 +170,15 @@ function __buildSett_R(api: ContentApi) {
     }
   }
   return Sett_R;
-}
-const __cacheSett_R = new WeakMap<ContentApi, ReturnType<typeof __buildSett_R>>();
-export default function makeSett_R(api: ContentApi) {
-  const cached = __cacheSett_R.get(api);
-  if (cached) return cached;
-  const built = __buildSett_R(api);
-  __cacheSett_R.set(api, built);
-  return built;
-}
+});
+export default makeSett_R;
 
 
 /**
  * The parabolic flight. Sett and victim leap in an arc through the air,
  * untargetable until the crater slam.
  */
-function __buildSett_R_Carry(api: ContentApi) {
+export const makeSett_R_Carry = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -330,22 +324,14 @@ function __buildSett_R_Carry(api: ContentApi) {
     }
   }
   return Sett_R_Carry;
-}
-const __cacheSett_R_Carry = new WeakMap<ContentApi, ReturnType<typeof __buildSett_R_Carry>>();
-export function makeSett_R_Carry(api: ContentApi) {
-  const cached = __cacheSett_R_Carry.get(api);
-  if (cached) return cached;
-  const built = __buildSett_R_Carry(api);
-  __cacheSett_R_Carry.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * Ground art, so zIndex = GROUND_Z_INDEX: an un-overridden SpellObject subclass
  * resolves to SPELL_EFFECT_Z_INDEX instead, over everyone's feet.
  */
-function __buildSett_R_Crater(api: ContentApi) {
+export const makeSett_R_Crater = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
@@ -437,12 +423,4 @@ function __buildSett_R_Crater(api: ContentApi) {
     }
   }
   return Sett_R_Crater;
-}
-const __cacheSett_R_Crater = new WeakMap<ContentApi, ReturnType<typeof __buildSett_R_Crater>>();
-export function makeSett_R_Crater(api: ContentApi) {
-  const cached = __cacheSett_R_Crater.get(api);
-  if (cached) return cached;
-  const built = __buildSett_R_Crater(api);
-  __cacheSett_R_Crater.set(api, built);
-  return built;
-}
+});

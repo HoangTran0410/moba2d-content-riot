@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Root = InstanceType<ContentApi['buffs']['Root']>;
@@ -10,7 +11,7 @@ type ChoGath_W_Object = InstanceType<ReturnType<typeof makeChoGath_W_Object>>;
 
 
 
-function __buildChoGath_W(api: ContentApi) {
+export const makeChoGath_W = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const Spell = api.Spell;
   const Root = api.buffs.Root;
@@ -46,18 +47,11 @@ function __buildChoGath_W(api: ContentApi) {
     }
   }
   return ChoGath_W;
-}
-const __cacheChoGath_W = new WeakMap<ContentApi, ReturnType<typeof __buildChoGath_W>>();
-export default function makeChoGath_W(api: ContentApi) {
-  const cached = __cacheChoGath_W.get(api);
-  if (cached) return cached;
-  const built = __buildChoGath_W(api);
-  __cacheChoGath_W.set(api, built);
-  return built;
-}
+});
+export default makeChoGath_W;
 
 
-function __buildChoGath_W_Object(api: ContentApi) {
+export const makeChoGath_W_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const CollideUtils = api.utils.CollideUtils;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -153,12 +147,4 @@ function __buildChoGath_W_Object(api: ContentApi) {
     }
   }
   return ChoGath_W_Object;
-}
-const __cacheChoGath_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildChoGath_W_Object>>();
-export function makeChoGath_W_Object(api: ContentApi) {
-  const cached = __cacheChoGath_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildChoGath_W_Object(api);
-  __cacheChoGath_W_Object.set(api, built);
-  return built;
-}
+});

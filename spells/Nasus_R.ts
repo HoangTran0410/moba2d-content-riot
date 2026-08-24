@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
@@ -21,7 +22,7 @@ export const TICK_INTERVAL = 500;
 export const BONUS_HEALTH = 40;
 
 
-function __buildNasus_R(api: ContentApi) {
+export const makeNasus_R = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const StatAmp = api.buffs.StatAmp;
   const Nasus_R_Object = makeNasus_R_Object(api);
@@ -65,18 +66,11 @@ function __buildNasus_R(api: ContentApi) {
     }
   }
   return Nasus_R;
-}
-const __cacheNasus_R = new WeakMap<ContentApi, ReturnType<typeof __buildNasus_R>>();
-export default function makeNasus_R(api: ContentApi) {
-  const cached = __cacheNasus_R.get(api);
-  if (cached) return cached;
-  const built = __buildNasus_R(api);
-  __cacheNasus_R.set(api, built);
-  return built;
-}
+});
+export default makeNasus_R;
 
 
-function __buildNasus_R_Object(api: ContentApi) {
+export const makeNasus_R_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
@@ -139,12 +133,4 @@ function __buildNasus_R_Object(api: ContentApi) {
     }
   }
   return Nasus_R_Object;
-}
-const __cacheNasus_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildNasus_R_Object>>();
-export function makeNasus_R_Object(api: ContentApi) {
-  const cached = __cacheNasus_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildNasus_R_Object(api);
-  __cacheNasus_R_Object.set(api, built);
-  return built;
-}
+});

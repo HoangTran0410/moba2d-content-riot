@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Shield = InstanceType<ContentApi['buffs']['Shield']>;
 type Spell = InstanceType<ContentApi['Spell']>;
@@ -52,7 +53,7 @@ export const BOUNDING_MARGIN = 90;
 export const HARD_STOP_MS = DURATION_MS + DUST_LIFETIME_MS + 1_000;
 
 
-function __buildMalphite_W(api: ContentApi) {
+export const makeMalphite_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Shield = api.buffs.Shield;
   const StatAmp = api.buffs.StatAmp;
@@ -95,19 +96,12 @@ function __buildMalphite_W(api: ContentApi) {
     }
   }
   return Malphite_W;
-}
-const __cacheMalphite_W = new WeakMap<ContentApi, ReturnType<typeof __buildMalphite_W>>();
-export default function makeMalphite_W(api: ContentApi) {
-  const cached = __cacheMalphite_W.get(api);
-  if (cached) return cached;
-  const built = __buildMalphite_W(api);
-  __cacheMalphite_W.set(api, built);
-  return built;
-}
+});
+export default makeMalphite_W;
 
 
 /** Slabs of rock orbiting Malphite while Brutal Strikes is up. */
-function __buildMalphite_W_Armor(api: ContentApi) {
+export const makeMalphite_W_Armor = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Malphite_W_Armor extends SpellObject {
     age = 0;
@@ -242,12 +236,4 @@ function __buildMalphite_W_Armor(api: ContentApi) {
     }
   }
   return Malphite_W_Armor;
-}
-const __cacheMalphite_W_Armor = new WeakMap<ContentApi, ReturnType<typeof __buildMalphite_W_Armor>>();
-export function makeMalphite_W_Armor(api: ContentApi) {
-  const cached = __cacheMalphite_W_Armor.get(api);
-  if (cached) return cached;
-  const built = __buildMalphite_W_Armor(api);
-  __cacheMalphite_W_Armor.set(api, built);
-  return built;
-}
+});

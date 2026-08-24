@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -33,7 +34,7 @@ export const DURATION = 1800;
  * on a ten-second cooldown is a peel tool, while "everyone standing on me now
  * has to keep standing on me" is what an engage looks like.
  */
-function __buildRammus_E(api: ContentApi) {
+export const makeRammus_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -99,12 +100,5 @@ function __buildRammus_E(api: ContentApi) {
     }
   }
   return Rammus_E;
-}
-const __cacheRammus_E = new WeakMap<ContentApi, ReturnType<typeof __buildRammus_E>>();
-export default function makeRammus_E(api: ContentApi) {
-  const cached = __cacheRammus_E.get(api);
-  if (cached) return cached;
-  const built = __buildRammus_E(api);
-  __cacheRammus_E.set(api, built);
-  return built;
-}
+});
+export default makeRammus_E;

@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -43,7 +44,7 @@ export const Q_ARC_SPREAD = 0.32;
 export const Q3_FUNNEL_ARCS = 3;
 
 
-function __buildYasuo_Q(api: ContentApi) {
+export const makeYasuo_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const RootBuff = api.buffs.Root;
@@ -149,15 +150,8 @@ function __buildYasuo_Q(api: ContentApi) {
     }
   }
   return Yasuo_Q;
-}
-const __cacheYasuo_Q = new WeakMap<ContentApi, ReturnType<typeof __buildYasuo_Q>>();
-export default function makeYasuo_Q(api: ContentApi) {
-  const cached = __cacheYasuo_Q.get(api);
-  if (cached) return cached;
-  const built = __buildYasuo_Q(api);
-  __cacheYasuo_Q.set(api, built);
-  return built;
-}
+});
+export default makeYasuo_Q;
 
 
 /**
@@ -174,7 +168,7 @@ export default function makeYasuo_Q(api: ContentApi) {
  * hit. `playersEffected` is the multi-hit guard: the ray grows over several
  * frames and would otherwise re-hit the same body on each of them.
  */
-function __buildYasuo_Q_Object(api: ContentApi) {
+export const makeYasuo_Q_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const CollideUtils = api.utils.CollideUtils;
@@ -348,15 +342,7 @@ function __buildYasuo_Q_Object(api: ContentApi) {
     }
   }
   return Yasuo_Q_Object;
-}
-const __cacheYasuo_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildYasuo_Q_Object>>();
-export function makeYasuo_Q_Object(api: ContentApi) {
-  const cached = __cacheYasuo_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildYasuo_Q_Object(api);
-  __cacheYasuo_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -367,7 +353,7 @@ export function makeYasuo_Q_Object(api: ContentApi) {
  * the column reads as air being wound tighter the further it travels — the same
  * curved-wind vocabulary as the thrust, at a different scale.
  */
-function __buildYasuo_Q3_Object(api: ContentApi) {
+export const makeYasuo_Q3_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const Airborne = api.buffs.Airborne;
   class Yasuo_Q3_Object extends MissileSpellObject {
@@ -443,12 +429,4 @@ function __buildYasuo_Q3_Object(api: ContentApi) {
     }
   }
   return Yasuo_Q3_Object;
-}
-const __cacheYasuo_Q3_Object = new WeakMap<ContentApi, ReturnType<typeof __buildYasuo_Q3_Object>>();
-export function makeYasuo_Q3_Object(api: ContentApi) {
-  const cached = __cacheYasuo_Q3_Object.get(api);
-  if (cached) return cached;
-  const built = __buildYasuo_Q3_Object(api);
-  __cacheYasuo_Q3_Object.set(api, built);
-  return built;
-}
+});

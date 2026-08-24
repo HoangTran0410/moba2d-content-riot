@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Nearsight = InstanceType<ContentApi['buffs']['Nearsight']>;
@@ -23,7 +24,7 @@ export const SMOKE_DISSIPATE = 0.18;
 export const PUFF_INTERVAL_MS = 120;
 
 
-function __buildGraves_W(api: ContentApi) {
+export const makeGraves_W = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Graves_W_Object = makeGraves_W_Object(api);
@@ -55,15 +56,8 @@ function __buildGraves_W(api: ContentApi) {
     }
   }
   return Graves_W;
-}
-const __cacheGraves_W = new WeakMap<ContentApi, ReturnType<typeof __buildGraves_W>>();
-export default function makeGraves_W(api: ContentApi) {
-  const cached = __cacheGraves_W.get(api);
-  if (cached) return cached;
-  const built = __buildGraves_W(api);
-  __cacheGraves_W.set(api, built);
-  return built;
-}
+});
+export default makeGraves_W;
 
 
 interface SmokeLobe {
@@ -79,7 +73,7 @@ interface SmokeLobe {
 }
 
 
-function __buildGraves_W_Object(api: ContentApi) {
+export const makeGraves_W_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Nearsight = api.buffs.Nearsight;
@@ -238,12 +232,4 @@ function __buildGraves_W_Object(api: ContentApi) {
     }
   }
   return Graves_W_Object;
-}
-const __cacheGraves_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildGraves_W_Object>>();
-export function makeGraves_W_Object(api: ContentApi) {
-  const cached = __cacheGraves_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildGraves_W_Object(api);
-  __cacheGraves_W_Object.set(api, built);
-  return built;
-}
+});

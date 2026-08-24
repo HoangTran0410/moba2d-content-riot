@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -24,7 +25,7 @@ export const SPREAD_RADIUS = 220;
  * Chain of Corruption: the tendril roots whoever it catches, then jumps from
  * that body to everyone standing near them. Grouping up is the mistake.
  */
-function __buildVarus_R(api: ContentApi) {
+export const makeVarus_R = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Varus_R_Object = makeVarus_R_Object(api);
@@ -53,18 +54,11 @@ function __buildVarus_R(api: ContentApi) {
     }
   }
   return Varus_R;
-}
-const __cacheVarus_R = new WeakMap<ContentApi, ReturnType<typeof __buildVarus_R>>();
-export default function makeVarus_R(api: ContentApi) {
-  const cached = __cacheVarus_R.get(api);
-  if (cached) return cached;
-  const built = __buildVarus_R(api);
-  __cacheVarus_R.set(api, built);
-  return built;
-}
+});
+export default makeVarus_R;
 
 
-function __buildVarus_R_Object(api: ContentApi) {
+export const makeVarus_R_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const MissileSpellObject = api.MissileSpellObject;
@@ -125,12 +119,4 @@ function __buildVarus_R_Object(api: ContentApi) {
     }
   }
   return Varus_R_Object;
-}
-const __cacheVarus_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildVarus_R_Object>>();
-export function makeVarus_R_Object(api: ContentApi) {
-  const cached = __cacheVarus_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildVarus_R_Object(api);
-  __cacheVarus_R_Object.set(api, built);
-  return built;
-}
+});

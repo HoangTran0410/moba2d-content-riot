@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Invisible = InstanceType<ContentApi['buffs']['Invisible']>;
 type Phasing = InstanceType<ContentApi['buffs']['Phasing']>;
@@ -11,7 +12,7 @@ type Twitch_Q_Object = InstanceType<ReturnType<typeof makeTwitch_Q_Object>>;
 
 
 
-function __buildTwitch_Q(api: ContentApi) {
+export const makeTwitch_Q = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Invisible = api.buffs.Invisible;
   const Speedup = api.buffs.Speedup;
@@ -51,15 +52,8 @@ function __buildTwitch_Q(api: ContentApi) {
     }
   }
   return Twitch_Q;
-}
-const __cacheTwitch_Q = new WeakMap<ContentApi, ReturnType<typeof __buildTwitch_Q>>();
-export default function makeTwitch_Q(api: ContentApi) {
-  const cached = __cacheTwitch_Q.get(api);
-  if (cached) return cached;
-  const built = __buildTwitch_Q(api);
-  __cacheTwitch_Q.set(api, built);
-  return built;
-}
+});
+export default makeTwitch_Q;
 
 
 /**
@@ -68,7 +62,7 @@ export default function makeTwitch_Q(api: ContentApi) {
  * stealth buff rather than a clock of its own, so it can never linger after the
  * stealth is gone.
  */
-function __buildTwitch_Q_Object(api: ContentApi) {
+export const makeTwitch_Q_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Twitch_Q_Object extends SpellObject {
@@ -203,12 +197,4 @@ function __buildTwitch_Q_Object(api: ContentApi) {
     }
   }
   return Twitch_Q_Object;
-}
-const __cacheTwitch_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildTwitch_Q_Object>>();
-export function makeTwitch_Q_Object(api: ContentApi) {
-  const cached = __cacheTwitch_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildTwitch_Q_Object(api);
-  __cacheTwitch_Q_Object.set(api, built);
-  return built;
-}
+});

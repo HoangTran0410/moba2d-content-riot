@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { DynamicWall } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -27,7 +28,7 @@ export const JARVAN_R_COLLAPSE_MS = 280;
 export const JARVAN_R_RECAST_DELAY_MS = 400;
 
 
-function __buildJarvanIV_R(api: ContentApi) {
+export const makeJarvanIV_R = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Dash = api.buffs.Dash;
@@ -134,15 +135,8 @@ function __buildJarvanIV_R(api: ContentApi) {
     }
   }
   return JarvanIV_R;
-}
-const __cacheJarvanIV_R = new WeakMap<ContentApi, ReturnType<typeof __buildJarvanIV_R>>();
-export default function makeJarvanIV_R(api: ContentApi) {
-  const cached = __cacheJarvanIV_R.get(api);
-  if (cached) return cached;
-  const built = __buildJarvanIV_R(api);
-  __cacheJarvanIV_R.set(api, built);
-  return built;
-}
+});
+export default makeJarvanIV_R;
 
 
 interface Debris {
@@ -165,7 +159,7 @@ interface Debris {
  * Earth, not ice or light: ochre dust, tumbling rock chips, a cracked floor. The
  * palette is the whole reason this reads as Jarvan and not as Anivia.
  */
-function __buildJarvanIV_R_ImpactObject(api: ContentApi) {
+export const makeJarvanIV_R_ImpactObject = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   class JarvanIV_R_ImpactObject extends SpellObject {
@@ -267,19 +261,11 @@ function __buildJarvanIV_R_ImpactObject(api: ContentApi) {
     }
   }
   return JarvanIV_R_ImpactObject;
-}
-const __cacheJarvanIV_R_ImpactObject = new WeakMap<ContentApi, ReturnType<typeof __buildJarvanIV_R_ImpactObject>>();
-export function makeJarvanIV_R_ImpactObject(api: ContentApi) {
-  const cached = __cacheJarvanIV_R_ImpactObject.get(api);
-  if (cached) return cached;
-  const built = __buildJarvanIV_R_ImpactObject(api);
-  __cacheJarvanIV_R_ImpactObject.set(api, built);
-  return built;
-}
+});
 
 
 /** Distinctive earthen wall obstacle for Jarvan IV's Cataclysm arena. */
-function __buildJarvanIV_R_WallObject(api: ContentApi) {
+export const makeJarvanIV_R_WallObject = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Circle = api.utils.Quadtree.Circle;
@@ -485,12 +471,4 @@ function __buildJarvanIV_R_WallObject(api: ContentApi) {
     }
   }
   return JarvanIV_R_WallObject;
-}
-const __cacheJarvanIV_R_WallObject = new WeakMap<ContentApi, ReturnType<typeof __buildJarvanIV_R_WallObject>>();
-export function makeJarvanIV_R_WallObject(api: ContentApi) {
-  const cached = __cacheJarvanIV_R_WallObject.get(api);
-  if (cached) return cached;
-  const built = __buildJarvanIV_R_WallObject(api);
-  __cacheJarvanIV_R_WallObject.set(api, built);
-  return built;
-}
+});

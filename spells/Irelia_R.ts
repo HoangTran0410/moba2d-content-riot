@@ -2,6 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BeamGeometry, CastContext, CastSpec, Vec2 } from '@moba2d/core/content/types';
 import { makeApplyIreliaMark } from './Irelia_Q';
 import { drawIreliaBlade, IRELIA_CREST, IRELIA_EDGE, IRELIA_RIM, IRELIA_STEEL } from './Irelia_Q';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
@@ -132,7 +133,7 @@ export const R_WALL_COLLAPSE_MS = 260;
  * be on opposite sides of, and a circle has neither. And a wall that *blocks*
  * is a different and much stronger ability than a wall that *hurts*.
  */
-function __buildIrelia_R(api: ContentApi) {
+export const makeIrelia_R = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Irelia_R_Volley = makeIrelia_R_Volley(api);
   const Irelia_R_Wall = makeIrelia_R_Wall(api);
@@ -188,15 +189,8 @@ function __buildIrelia_R(api: ContentApi) {
     }
   }
   return Irelia_R;
-}
-const __cacheIrelia_R = new WeakMap<ContentApi, ReturnType<typeof __buildIrelia_R>>();
-export default function makeIrelia_R(api: ContentApi) {
-  const cached = __cacheIrelia_R.get(api);
-  if (cached) return cached;
-  const built = __buildIrelia_R(api);
-  __cacheIrelia_R.set(api, built);
-  return built;
-}
+});
+export default makeIrelia_R;
 
 
 /**
@@ -205,7 +199,7 @@ export default function makeIrelia_R(api: ContentApi) {
  * pierce and it does not cut on the way — it *stops* on the first body, and
  * stopping is what opens it.
  */
-function __buildIrelia_R_Volley(api: ContentApi) {
+export const makeIrelia_R_Volley = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const MissileSpellObject = api.MissileSpellObject;
   class Irelia_R_Volley extends MissileSpellObject {
@@ -314,15 +308,7 @@ function __buildIrelia_R_Volley(api: ContentApi) {
     }
   }
   return Irelia_R_Volley;
-}
-const __cacheIrelia_R_Volley = new WeakMap<ContentApi, ReturnType<typeof __buildIrelia_R_Volley>>();
-export function makeIrelia_R_Volley(api: ContentApi) {
-  const cached = __cacheIrelia_R_Volley.get(api);
-  if (cached) return cached;
-  const built = __buildIrelia_R_Volley(api);
-  __cacheIrelia_R_Volley.set(api, built);
-  return built;
-}
+});
 
 
 /** One piece of an arm, plus how far along the whole path its near end sits. */
@@ -352,7 +338,7 @@ interface WallPart {
  * are supposed to be: a thing you route around, not a thing you eat once and
  * then ignore.
  */
-function __buildIrelia_R_Wall(api: ContentApi) {
+export const makeIrelia_R_Wall = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const AttackableUnit = api.units.AttackableUnit;
@@ -682,15 +668,7 @@ function __buildIrelia_R_Wall(api: ContentApi) {
     }
   }
   return Irelia_R_Wall;
-}
-const __cacheIrelia_R_Wall = new WeakMap<ContentApi, ReturnType<typeof __buildIrelia_R_Wall>>();
-export function makeIrelia_R_Wall(api: ContentApi) {
-  const cached = __cacheIrelia_R_Wall.get(api);
-  if (cached) return cached;
-  const built = __buildIrelia_R_Wall(api);
-  __cacheIrelia_R_Wall.set(api, built);
-  return built;
-}
+});
 
 
 /**

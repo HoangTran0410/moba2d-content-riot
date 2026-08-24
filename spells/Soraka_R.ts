@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -31,7 +32,7 @@ export const LOW_HEALTH_RATIO = 0.4;
 export const LOW_HEALTH_BONUS = 0.5;
 
 
-function __buildSoraka_R(api: ContentApi) {
+export const makeSoraka_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
@@ -78,19 +79,12 @@ function __buildSoraka_R(api: ContentApi) {
     }
   }
   return Soraka_R;
-}
-const __cacheSoraka_R = new WeakMap<ContentApi, ReturnType<typeof __buildSoraka_R>>();
-export default function makeSoraka_R(api: ContentApi) {
-  const cached = __cacheSoraka_R.get(api);
-  if (cached) return cached;
-  const built = __buildSoraka_R(api);
-  __cacheSoraka_R.set(api, built);
-  return built;
-}
+});
+export default makeSoraka_R;
 
 
 /** A shaft of starlight settling onto one healed ally. */
-function __buildSoraka_R_Blessing(api: ContentApi) {
+export const makeSoraka_R_Blessing = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
@@ -195,12 +189,4 @@ function __buildSoraka_R_Blessing(api: ContentApi) {
     }
   }
   return Soraka_R_Blessing;
-}
-const __cacheSoraka_R_Blessing = new WeakMap<ContentApi, ReturnType<typeof __buildSoraka_R_Blessing>>();
-export function makeSoraka_R_Blessing(api: ContentApi) {
-  const cached = __cacheSoraka_R_Blessing.get(api);
-  if (cached) return cached;
-  const built = __buildSoraka_R_Blessing(api);
-  __cacheSoraka_R_Blessing.set(api, built);
-  return built;
-}
+});

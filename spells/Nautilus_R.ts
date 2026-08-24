@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, TargetingRequest } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -50,7 +51,7 @@ const FOAM: [number, number, number] = [168, 230, 207];
 const ABYSS: [number, number, number] = [30, 44, 66];
 
 
-function __buildNautilus_R(api: ContentApi) {
+export const makeNautilus_R = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const AttackableUnit = api.units.AttackableUnit;
   const Nautilus_R_Object = makeNautilus_R_Object(api);
@@ -78,15 +79,8 @@ function __buildNautilus_R(api: ContentApi) {
     }
   }
   return Nautilus_R;
-}
-const __cacheNautilus_R = new WeakMap<ContentApi, ReturnType<typeof __buildNautilus_R>>();
-export default function makeNautilus_R(api: ContentApi) {
-  const cached = __cacheNautilus_R.get(api);
-  if (cached) return cached;
-  const built = __buildNautilus_R(api);
-  __cacheNautilus_R.set(api, built);
-  return built;
-}
+});
+export default makeNautilus_R;
 
 
 /**
@@ -101,7 +95,7 @@ export default function makeNautilus_R(api: ContentApi) {
  * Ground art — `zIndex = GROUND_Z_INDEX` — because the whole point of the travel is that it is
  * a telegraph the victim can read while standing on top of it.
  */
-function __buildNautilus_R_Object(api: ContentApi) {
+export const makeNautilus_R_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -241,19 +235,11 @@ function __buildNautilus_R_Object(api: ContentApi) {
     }
   }
   return Nautilus_R_Object;
-}
-const __cacheNautilus_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildNautilus_R_Object>>();
-export function makeNautilus_R_Object(api: ContentApi) {
-  const cached = __cacheNautilus_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildNautilus_R_Object(api);
-  __cacheNautilus_R_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** The blast radius, drawn on the ground where it actually landed. */
-function __buildNautilus_R_Rim(api: ContentApi) {
+export const makeNautilus_R_Rim = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
@@ -294,19 +280,11 @@ function __buildNautilus_R_Rim(api: ContentApi) {
     }
   }
   return Nautilus_R_Rim;
-}
-const __cacheNautilus_R_Rim = new WeakMap<ContentApi, ReturnType<typeof __buildNautilus_R_Rim>>();
-export function makeNautilus_R_Rim(api: ContentApi) {
-  const cached = __cacheNautilus_R_Rim.get(api);
-  if (cached) return cached;
-  const built = __buildNautilus_R_Rim(api);
-  __cacheNautilus_R_Rim.set(api, built);
-  return built;
-}
+});
 
 
 /** The column, standing on the victim. Above the ground, unlike the mound. */
-function __buildNautilus_R_Eruption(api: ContentApi) {
+export const makeNautilus_R_Eruption = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
@@ -367,12 +345,4 @@ function __buildNautilus_R_Eruption(api: ContentApi) {
     }
   }
   return Nautilus_R_Eruption;
-}
-const __cacheNautilus_R_Eruption = new WeakMap<ContentApi, ReturnType<typeof __buildNautilus_R_Eruption>>();
-export function makeNautilus_R_Eruption(api: ContentApi) {
-  const cached = __cacheNautilus_R_Eruption.get(api);
-  if (cached) return cached;
-  const built = __buildNautilus_R_Eruption(api);
-  __cacheNautilus_R_Eruption.set(api, built);
-  return built;
-}
+});

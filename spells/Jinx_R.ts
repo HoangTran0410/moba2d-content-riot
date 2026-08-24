@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -71,7 +72,7 @@ export const SMOKE_RADIUS = 40;
  * it. Firing across the map is the point, and firing it next to you is weak
  * rather than forbidden.
  */
-function __buildJinx_R(api: ContentApi) {
+export const makeJinx_R = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Jinx_R_Object = makeJinx_R_Object(api);
@@ -119,15 +120,8 @@ function __buildJinx_R(api: ContentApi) {
     }
   }
   return Jinx_R;
-}
-const __cacheJinx_R = new WeakMap<ContentApi, ReturnType<typeof __buildJinx_R>>();
-export default function makeJinx_R(api: ContentApi) {
-  const cached = __cacheJinx_R.get(api);
-  if (cached) return cached;
-  const built = __buildJinx_R(api);
-  __cacheJinx_R.set(api, built);
-  return built;
-}
+});
+export default makeJinx_R;
 
 
 /**
@@ -135,7 +129,7 @@ export default function makeJinx_R(api: ContentApi) {
  * endpoint, so `MissileSpellObject`'s arrive-and-die is switched off and the
  * rocket steps along `heading` until a champion stops it.
  */
-function __buildJinx_R_Object(api: ContentApi) {
+export const makeJinx_R_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const acceleratedSpeed = api.combat.GlobalShot.acceleratedSpeed;
@@ -333,15 +327,7 @@ function __buildJinx_R_Object(api: ContentApi) {
     }
   }
   return Jinx_R_Object;
-}
-const __cacheJinx_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildJinx_R_Object>>();
-export function makeJinx_R_Object(api: ContentApi) {
-  const cached = __cacheJinx_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildJinx_R_Object(api);
-  __cacheJinx_R_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** One puff of exhaust, with its own clock and its own drift. */
@@ -366,7 +352,7 @@ interface SmokePuff {
  * shot is a thing you fire *and then look away from*, and the smoke hanging
  * over the lane is how everyone else finds out where it came from.
  */
-function __buildJinx_R_Smoke(api: ContentApi) {
+export const makeJinx_R_Smoke = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Jinx_R_Smoke extends SpellObject {
@@ -482,12 +468,4 @@ function __buildJinx_R_Smoke(api: ContentApi) {
     }
   }
   return Jinx_R_Smoke;
-}
-const __cacheJinx_R_Smoke = new WeakMap<ContentApi, ReturnType<typeof __buildJinx_R_Smoke>>();
-export function makeJinx_R_Smoke(api: ContentApi) {
-  const cached = __cacheJinx_R_Smoke.get(api);
-  if (cached) return cached;
-  const built = __buildJinx_R_Smoke(api);
-  __cacheJinx_R_Smoke.set(api, built);
-  return built;
-}
+});

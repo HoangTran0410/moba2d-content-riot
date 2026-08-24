@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -45,7 +46,7 @@ export const AURA_TONGUES = 14;
  * directs him to a point. The recast is `checkCastCondition` returning false
  * while he is alive — the same shape Shaco's clone uses to be steered.
  */
-function __buildAnnie_R(api: ContentApi) {
+export const makeAnnie_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
@@ -147,18 +148,11 @@ function __buildAnnie_R(api: ContentApi) {
     }
   }
   return Annie_R;
-}
-const __cacheAnnie_R = new WeakMap<ContentApi, ReturnType<typeof __buildAnnie_R>>();
-export default function makeAnnie_R(api: ContentApi) {
-  const cached = __cacheAnnie_R.get(api);
-  if (cached) return cached;
-  const built = __buildAnnie_R(api);
-  __cacheAnnie_R.set(api, built);
-  return built;
-}
+});
+export default makeAnnie_R;
 
 
-function __buildTibbers(api: ContentApi) {
+export const makeTibbers = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Pet = api.units.Pet;
@@ -304,12 +298,4 @@ function __buildTibbers(api: ContentApi) {
     }
   }
   return Tibbers;
-}
-const __cacheTibbers = new WeakMap<ContentApi, ReturnType<typeof __buildTibbers>>();
-export function makeTibbers(api: ContentApi) {
-  const cached = __cacheTibbers.get(api);
-  if (cached) return cached;
-  const built = __buildTibbers(api);
-  __cacheTibbers.set(api, built);
-  return built;
-}
+});

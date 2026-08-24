@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -12,7 +13,7 @@ type LeeSin_R_Object = InstanceType<ReturnType<typeof makeLeeSin_R_Object>>;
 
 
 
-function __buildLeeSin_R(api: ContentApi) {
+export const makeLeeSin_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const VectorUtils = api.utils.VectorUtils;
   const effectiveRange = api.combat.Reach.effectiveRange;
@@ -150,18 +151,11 @@ function __buildLeeSin_R(api: ContentApi) {
     }
   }
   return LeeSin_R;
-}
-const __cacheLeeSin_R = new WeakMap<ContentApi, ReturnType<typeof __buildLeeSin_R>>();
-export default function makeLeeSin_R(api: ContentApi) {
-  const cached = __cacheLeeSin_R.get(api);
-  if (cached) return cached;
-  const built = __buildLeeSin_R(api);
-  __cacheLeeSin_R.set(api, built);
-  return built;
-}
+});
+export default makeLeeSin_R;
 
 
-function __buildLeeSin_R_Object(api: ContentApi) {
+export const makeLeeSin_R_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
@@ -197,12 +191,4 @@ function __buildLeeSin_R_Object(api: ContentApi) {
     }
   }
   return LeeSin_R_Object;
-}
-const __cacheLeeSin_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildLeeSin_R_Object>>();
-export function makeLeeSin_R_Object(api: ContentApi) {
-  const cached = __cacheLeeSin_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildLeeSin_R_Object(api);
-  __cacheLeeSin_R_Object.set(api, built);
-  return built;
-}
+});

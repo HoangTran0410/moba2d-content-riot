@@ -2,6 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { makeGroundedSpheres, makeSyndra_Burst, makeSyndra_Sphere } from './Syndra_Q';
 import { SPHERE_CORE_RADIUS, SPHERE_DARK, SPHERE_EDGE, SPHERE_VIOLET } from './Syndra_Q';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -76,7 +77,7 @@ function insideCone(
 }
 
 
-function __buildSyndra_E(api: ContentApi) {
+export const makeSyndra_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -217,19 +218,12 @@ function __buildSyndra_E(api: ContentApi) {
     }
   }
   return Syndra_E;
-}
-const __cacheSyndra_E = new WeakMap<ContentApi, ReturnType<typeof __buildSyndra_E>>();
-export default function makeSyndra_E(api: ContentApi) {
-  const cached = __cacheSyndra_E.get(api);
-  if (cached) return cached;
-  const built = __buildSyndra_E(api);
-  __cacheSyndra_E.set(api, built);
-  return built;
-}
+});
+export default makeSyndra_E;
 
 
 /** The sweep itself: exactly the authored length and exactly the authored arc. */
-function __buildSyndra_E_Cone(api: ContentApi) {
+export const makeSyndra_E_Cone = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Syndra_E_Cone extends SpellObject {
@@ -290,19 +284,11 @@ function __buildSyndra_E_Cone(api: ContentApi) {
     }
   }
   return Syndra_E_Cone;
-}
-const __cacheSyndra_E_Cone = new WeakMap<ContentApi, ReturnType<typeof __buildSyndra_E_Cone>>();
-export function makeSyndra_E_Cone(api: ContentApi) {
-  const cached = __cacheSyndra_E_Cone.get(api);
-  if (cached) return cached;
-  const built = __buildSyndra_E_Cone(api);
-  __cacheSyndra_E_Cone.set(api, built);
-  return built;
-}
+});
 
 
 /** A sphere she kicked out of the cone: one enemy, then back on the floor. */
-function __buildSyndra_E_Sphere(api: ContentApi) {
+export const makeSyndra_E_Sphere = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const TrailSystem = api.helpers.TrailSystem;
   const MissileSpellObject = api.MissileSpellObject;
@@ -392,12 +378,4 @@ function __buildSyndra_E_Sphere(api: ContentApi) {
     }
   }
   return Syndra_E_Sphere;
-}
-const __cacheSyndra_E_Sphere = new WeakMap<ContentApi, ReturnType<typeof __buildSyndra_E_Sphere>>();
-export function makeSyndra_E_Sphere(api: ContentApi) {
-  const cached = __cacheSyndra_E_Sphere.get(api);
-  if (cached) return cached;
-  const built = __buildSyndra_E_Sphere(api);
-  __cacheSyndra_E_Sphere.set(api, built);
-  return built;
-}
+});

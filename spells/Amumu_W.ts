@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
@@ -18,7 +19,7 @@ export const DAMAGE_PER_TICK = 4;
 export const TICK_INTERVAL = 500;
 
 
-function __buildAmumu_W(api: ContentApi) {
+export const makeAmumu_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Amumu_W_Object = makeAmumu_W_Object(api);
   class Amumu_W extends Spell {
@@ -37,18 +38,11 @@ function __buildAmumu_W(api: ContentApi) {
     }
   }
   return Amumu_W;
-}
-const __cacheAmumu_W = new WeakMap<ContentApi, ReturnType<typeof __buildAmumu_W>>();
-export default function makeAmumu_W(api: ContentApi) {
-  const cached = __cacheAmumu_W.get(api);
-  if (cached) return cached;
-  const built = __buildAmumu_W(api);
-  __cacheAmumu_W.set(api, built);
-  return built;
-}
+});
+export default makeAmumu_W;
 
 
-function __buildAmumu_W_Object(api: ContentApi) {
+export const makeAmumu_W_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -118,12 +112,4 @@ function __buildAmumu_W_Object(api: ContentApi) {
     }
   }
   return Amumu_W_Object;
-}
-const __cacheAmumu_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildAmumu_W_Object>>();
-export function makeAmumu_W_Object(api: ContentApi) {
-  const cached = __cacheAmumu_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildAmumu_W_Object(api);
-  __cacheAmumu_W_Object.set(api, built);
-  return built;
-}
+});

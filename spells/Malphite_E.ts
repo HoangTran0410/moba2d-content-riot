@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CancelReason, CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -50,7 +51,7 @@ export const FADE_MS = 450;
 type SlamTarget = AttackableUnit;
 
 
-function __buildMalphite_E(api: ContentApi) {
+export const makeMalphite_E = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Malphite_E_Object = makeMalphite_E_Object(api);
   class Malphite_E extends Spell {
@@ -94,19 +95,12 @@ function __buildMalphite_E(api: ContentApi) {
     }
   }
   return Malphite_E;
-}
-const __cacheMalphite_E = new WeakMap<ContentApi, ReturnType<typeof __buildMalphite_E>>();
-export default function makeMalphite_E(api: ContentApi) {
-  const cached = __cacheMalphite_E.get(api);
-  if (cached) return cached;
-  const built = __buildMalphite_E(api);
-  __cacheMalphite_E.set(api, built);
-  return built;
-}
+});
+export default makeMalphite_E;
 
 
 /** The slam itself: one instant burst of damage and slow, then a fading shockwave. */
-function __buildMalphite_E_Object(api: ContentApi) {
+export const makeMalphite_E_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -242,12 +236,4 @@ function __buildMalphite_E_Object(api: ContentApi) {
     }
   }
   return Malphite_E_Object;
-}
-const __cacheMalphite_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildMalphite_E_Object>>();
-export function makeMalphite_E_Object(api: ContentApi) {
-  const cached = __cacheMalphite_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildMalphite_E_Object(api);
-  __cacheMalphite_E_Object.set(api, built);
-  return built;
-}
+});

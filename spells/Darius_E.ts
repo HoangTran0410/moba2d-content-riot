@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 // Relative, not `@/`: `DariusAxe` moved into `packs/riot/vfx/` (Task 2 of the
 // content-pack extraction) — see `Lux_R.ts`'s identical note on `LuxBeamEffect`.
 import { drawAxeArc, drawDariusAxe } from '../vfx/DariusAxe';
@@ -48,7 +49,7 @@ export const SLOW_MS = 1_000;
  * work on it. Writing `victim.position` directly would haul a champion who had
  * just been made immune to exactly this.
  */
-function __buildDarius_E(api: ContentApi) {
+export const makeDarius_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
@@ -172,15 +173,8 @@ function __buildDarius_E(api: ContentApi) {
     }
   }
   return Darius_E;
-}
-const __cacheDarius_E = new WeakMap<ContentApi, ReturnType<typeof __buildDarius_E>>();
-export default function makeDarius_E(api: ContentApi) {
-  const cached = __cacheDarius_E.get(api);
-  if (cached) return cached;
-  const built = __buildDarius_E(api);
-  __cacheDarius_E.set(api, built);
-  return built;
-}
+});
+export default makeDarius_E;
 
 
 /**
@@ -211,7 +205,7 @@ const BARB_COUNT = 9;
  * The chains are drawn back to Darius rather than only around the victims —
  * which is why the bounding box has to cover the whole cone.
  */
-function __buildDarius_E_Object(api: ContentApi) {
+export const makeDarius_E_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
@@ -338,12 +332,4 @@ function __buildDarius_E_Object(api: ContentApi) {
     }
   }
   return Darius_E_Object;
-}
-const __cacheDarius_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildDarius_E_Object>>();
-export function makeDarius_E_Object(api: ContentApi) {
-  const cached = __cacheDarius_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildDarius_E_Object(api);
-  __cacheDarius_E_Object.set(api, built);
-  return built;
-}
+});

@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { ExecuteFallback, ExecuteSpell } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -73,7 +74,7 @@ const LIGHT: [number, number, number] = [255, 250, 210];
  * The sword out of the sky is now literally that: `Garen_R_Strike` owns the
  * descent *and* the damage, so there is exactly one place either can happen.
  */
-function __buildGaren_R(api: ContentApi) {
+export const makeGaren_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const pickExecuteTarget = api.combat.ExecuteTargeting.pickExecuteTarget;
   const effectiveRange = api.combat.Reach.effectiveRange;
@@ -168,15 +169,8 @@ function __buildGaren_R(api: ContentApi) {
     }
   }
   return Garen_R;
-}
-const __cacheGaren_R = new WeakMap<ContentApi, ReturnType<typeof __buildGaren_R>>();
-export default function makeGaren_R(api: ContentApi) {
-  const cached = __cacheGaren_R.get(api);
-  if (cached) return cached;
-  const built = __buildGaren_R(api);
-  __cacheGaren_R.set(api, built);
-  return built;
-}
+});
+export default makeGaren_R;
 
 
 /**
@@ -193,7 +187,7 @@ export default function makeGaren_R(api: ContentApi) {
  * unit-targeted execute; if they die first the sword still lands where they
  * were standing, because a strike that vanished mid-air would read as a bug.
  */
-function __buildGaren_R_Strike(api: ContentApi) {
+export const makeGaren_R_Strike = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const AoePulse = api.AoePulse;
@@ -392,12 +386,4 @@ function __buildGaren_R_Strike(api: ContentApi) {
     }
   }
   return Garen_R_Strike;
-}
-const __cacheGaren_R_Strike = new WeakMap<ContentApi, ReturnType<typeof __buildGaren_R_Strike>>();
-export function makeGaren_R_Strike(api: ContentApi) {
-  const cached = __cacheGaren_R_Strike.get(api);
-  if (cached) return cached;
-  const built = __buildGaren_R_Strike(api);
-  __cacheGaren_R_Strike.set(api, built);
-  return built;
-}
+});

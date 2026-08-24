@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -35,7 +36,7 @@ const WINDUP_MS = 170;
  * blast per landing. Each blast keeps its own hit set on purpose: standing where two rims
  * overlap is supposed to cost twice, which is why the three rims are drawn separately.
  */
-function __buildZiggs_Q(api: ContentApi) {
+export const makeZiggs_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const Spell = api.Spell;
@@ -102,22 +103,15 @@ function __buildZiggs_Q(api: ContentApi) {
     }
   }
   return Ziggs_Q;
-}
-const __cacheZiggs_Q = new WeakMap<ContentApi, ReturnType<typeof __buildZiggs_Q>>();
-export default function makeZiggs_Q(api: ContentApi) {
-  const cached = __cacheZiggs_Q.get(api);
-  if (cached) return cached;
-  const built = __buildZiggs_Q(api);
-  __cacheZiggs_Q.set(api, built);
-  return built;
-}
+});
+export default makeZiggs_Q;
 
 
 /**
  * The bomb in flight. It only ever paints a body and a shadow around its own centre; the
  * three blasts are separate objects so each rim owns an honest box at the real radius.
  */
-function __buildZiggs_Q_Object(api: ContentApi) {
+export const makeZiggs_Q_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
@@ -214,19 +208,11 @@ function __buildZiggs_Q_Object(api: ContentApi) {
     }
   }
   return Ziggs_Q_Object;
-}
-const __cacheZiggs_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildZiggs_Q_Object>>();
-export function makeZiggs_Q_Object(api: ContentApi) {
-  const cached = __cacheZiggs_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildZiggs_Q_Object(api);
-  __cacheZiggs_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** One of the three blasts. The hard rim sits on the real 120 hit radius from frame one. */
-function __buildZiggs_Q_Blast(api: ContentApi) {
+export const makeZiggs_Q_Blast = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
   class Ziggs_Q_Blast extends SpellObject {
@@ -287,12 +273,4 @@ function __buildZiggs_Q_Blast(api: ContentApi) {
     }
   }
   return Ziggs_Q_Blast;
-}
-const __cacheZiggs_Q_Blast = new WeakMap<ContentApi, ReturnType<typeof __buildZiggs_Q_Blast>>();
-export function makeZiggs_Q_Blast(api: ContentApi) {
-  const cached = __cacheZiggs_Q_Blast.get(api);
-  if (cached) return cached;
-  const built = __buildZiggs_Q_Blast(api);
-  __cacheZiggs_Q_Blast.set(api, built);
-  return built;
-}
+});

@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, Vec2 } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AreaSpellObject = InstanceType<ContentApi['AreaSpellObject']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -101,7 +102,7 @@ export const SPIKE_COUNT = 18;
 const SPIKES = spikeLayout(SPIKE_COUNT);
 
 
-function __buildMorgana_W(api: ContentApi) {
+export const makeMorgana_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Morgana_W_Object = makeMorgana_W_Object(api);
   class Morgana_W extends Spell {
@@ -149,18 +150,11 @@ function __buildMorgana_W(api: ContentApi) {
     }
   }
   return Morgana_W;
-}
-const __cacheMorgana_W = new WeakMap<ContentApi, ReturnType<typeof __buildMorgana_W>>();
-export default function makeMorgana_W(api: ContentApi) {
-  const cached = __cacheMorgana_W.get(api);
-  if (cached) return cached;
-  const built = __buildMorgana_W(api);
-  __cacheMorgana_W.set(api, built);
-  return built;
-}
+});
+export default makeMorgana_W;
 
 
-function __buildMorgana_W_Object(api: ContentApi) {
+export const makeMorgana_W_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -266,12 +260,4 @@ function __buildMorgana_W_Object(api: ContentApi) {
     }
   }
   return Morgana_W_Object;
-}
-const __cacheMorgana_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildMorgana_W_Object>>();
-export function makeMorgana_W_Object(api: ContentApi) {
-  const cached = __cacheMorgana_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildMorgana_W_Object(api);
-  __cacheMorgana_W_Object.set(api, built);
-  return built;
-}
+});

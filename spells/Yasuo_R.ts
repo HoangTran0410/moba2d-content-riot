@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -42,7 +43,7 @@ export const R_BURST_MS = 320;
 export const R_VORTEX_STREAKS = 14;
 
 
-function __buildYasuo_R(api: ContentApi) {
+export const makeYasuo_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const BuffAddType = api.enums.BuffAddType;
@@ -169,15 +170,8 @@ function __buildYasuo_R(api: ContentApi) {
     }
   }
   return Yasuo_R;
-}
-const __cacheYasuo_R = new WeakMap<ContentApi, ReturnType<typeof __buildYasuo_R>>();
-export default function makeYasuo_R(api: ContentApi) {
-  const cached = __cacheYasuo_R.get(api);
-  if (cached) return cached;
-  const built = __buildYasuo_R(api);
-  __cacheYasuo_R.set(api, built);
-  return built;
-}
+});
+export default makeYasuo_R;
 
 
 /**
@@ -237,7 +231,7 @@ function drawSuspension(unit: any) {
  * BURST is the landing — a white core, shock rings leaving it, and a standing
  * vortex with a tether to each body still in the air.
  */
-function __buildYasuo_R_Object(api: ContentApi) {
+export const makeYasuo_R_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   const SpellObject = api.SpellObject;
@@ -477,12 +471,4 @@ function __buildYasuo_R_Object(api: ContentApi) {
     }
   }
   return Yasuo_R_Object;
-}
-const __cacheYasuo_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildYasuo_R_Object>>();
-export function makeYasuo_R_Object(api: ContentApi) {
-  const cached = __cacheYasuo_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildYasuo_R_Object(api);
-  __cacheYasuo_R_Object.set(api, built);
-  return built;
-}
+});

@@ -1,6 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { makeDetonateEssenceFlux } from './Ezreal_W';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Champion = InstanceType<ContentApi['units']['Champion']>;
@@ -38,7 +39,7 @@ export const EZREAL_R_CAST_TIME_MS = 700;
  * telegraph has to be long, loud and anchored on Ezreal where the enemy team can
  * see who is doing it.
  */
-function __buildEzreal_R(api: ContentApi) {
+export const makeEzreal_R = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Ezreal_R_Object = makeEzreal_R_Object(api);
@@ -115,15 +116,8 @@ function __buildEzreal_R(api: ContentApi) {
     }
   }
   return Ezreal_R;
-}
-const __cacheEzreal_R = new WeakMap<ContentApi, ReturnType<typeof __buildEzreal_R>>();
-export default function makeEzreal_R(api: ContentApi) {
-  const cached = __cacheEzreal_R.get(api);
-  if (cached) return cached;
-  const built = __buildEzreal_R(api);
-  __cacheEzreal_R.set(api, built);
-  return built;
-}
+});
+export default makeEzreal_R;
 
 
 /**
@@ -134,7 +128,7 @@ export default function makeEzreal_R(api: ContentApi) {
  * thing the player has to judge is whether their body is inside the rim. The
  * rim is drawn at exactly `size`, which is the hitbox.
  */
-function __buildEzreal_R_Object(api: ContentApi) {
+export const makeEzreal_R_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const AttackableUnit = api.units.AttackableUnit;
   const Champion = api.units.Champion;
@@ -243,15 +237,7 @@ function __buildEzreal_R_Object(api: ContentApi) {
     }
   }
   return Ezreal_R_Object;
-}
-const __cacheEzreal_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildEzreal_R_Object>>();
-export function makeEzreal_R_Object(api: ContentApi) {
-  const cached = __cacheEzreal_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildEzreal_R_Object(api);
-  __cacheEzreal_R_Object.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -261,7 +247,7 @@ export function makeEzreal_R_Object(api: ContentApi) {
  * team gets, and caster VFX stops being drawn the moment the caster is culled or
  * fogged — which is exactly when an Ezreal is charging one of these.
  */
-function __buildEzreal_R_Charge(api: ContentApi) {
+export const makeEzreal_R_Charge = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   class Ezreal_R_Charge extends SpellObject {
@@ -344,12 +330,4 @@ function __buildEzreal_R_Charge(api: ContentApi) {
     }
   }
   return Ezreal_R_Charge;
-}
-const __cacheEzreal_R_Charge = new WeakMap<ContentApi, ReturnType<typeof __buildEzreal_R_Charge>>();
-export function makeEzreal_R_Charge(api: ContentApi) {
-  const cached = __cacheEzreal_R_Charge.get(api);
-  if (cached) return cached;
-  const built = __buildEzreal_R_Charge(api);
-  __cacheEzreal_R_Charge.set(api, built);
-  return built;
-}
+});

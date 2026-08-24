@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Shield = InstanceType<ContentApi['buffs']['Shield']>;
 type Spell = InstanceType<ContentApi['Spell']>;
@@ -69,7 +70,7 @@ function shieldHalfWidth(y: number): number {
  * staying power as omnivamp: Garen's whole identity is being the one who is
  * still standing at the end of the fight.
  */
-function __buildGaren_W(api: ContentApi) {
+export const makeGaren_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Shield = api.buffs.Shield;
   const StatAmp = api.buffs.StatAmp;
@@ -107,15 +108,8 @@ function __buildGaren_W(api: ContentApi) {
     }
   }
   return Garen_W;
-}
-const __cacheGaren_W = new WeakMap<ContentApi, ReturnType<typeof __buildGaren_W>>();
-export default function makeGaren_W(api: ContentApi) {
-  const cached = __cacheGaren_W.get(api);
-  if (cached) return cached;
-  const built = __buildGaren_W(api);
-  __cacheGaren_W.set(api, built);
-  return built;
-}
+});
+export default makeGaren_W;
 
 
 interface Spark {
@@ -133,7 +127,7 @@ interface Spark {
  * game is a *shape* rather than a ring, which is the point: at a glance you know
  * it is Garen and you know he is not dying to this trade.
  */
-function __buildGaren_W_Aegis(api: ContentApi) {
+export const makeGaren_W_Aegis = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Garen_W_Aegis extends SpellObject {
     age = 0;
@@ -304,12 +298,4 @@ function __buildGaren_W_Aegis(api: ContentApi) {
     }
   }
   return Garen_W_Aegis;
-}
-const __cacheGaren_W_Aegis = new WeakMap<ContentApi, ReturnType<typeof __buildGaren_W_Aegis>>();
-export function makeGaren_W_Aegis(api: ContentApi) {
-  const cached = __cacheGaren_W_Aegis.get(api);
-  if (cached) return cached;
-  const built = __buildGaren_W_Aegis(api);
-  __cacheGaren_W_Aegis.set(api, built);
-  return built;
-}
+});

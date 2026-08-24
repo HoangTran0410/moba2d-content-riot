@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { MOON_CORE, MOON_NIGHT, MOON_PALE, drawCrescent } from './Diana_Q';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -37,7 +38,7 @@ interface DraggedBody {
 }
 
 
-function __buildDiana_R(api: ContentApi) {
+export const makeDiana_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -77,15 +78,8 @@ function __buildDiana_R(api: ContentApi) {
     }
   }
   return Diana_R;
-}
-const __cacheDiana_R = new WeakMap<ContentApi, ReturnType<typeof __buildDiana_R>>();
-export default function makeDiana_R(api: ContentApi) {
-  const cached = __cacheDiana_R.get(api);
-  if (cached) return cached;
-  const built = __buildDiana_R(api);
-  __cacheDiana_R.set(api, built);
-  return built;
-}
+});
+export default makeDiana_R;
 
 
 /**
@@ -93,7 +87,7 @@ export default function makeDiana_R(api: ContentApi) {
  * from the 330 line down onto her body, and each victim wears a streak pointing at her. The
  * damage is charged at the end of the pull, on the crowd that has already arrived.
  */
-function __buildDiana_R_Gather(api: ContentApi) {
+export const makeDiana_R_Gather = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const Diana_R_Crash = makeDiana_R_Crash(api);
@@ -262,19 +256,11 @@ function __buildDiana_R_Gather(api: ContentApi) {
     }
   }
   return Diana_R_Gather;
-}
-const __cacheDiana_R_Gather = new WeakMap<ContentApi, ReturnType<typeof __buildDiana_R_Gather>>();
-export function makeDiana_R_Gather(api: ContentApi) {
-  const cached = __cacheDiana_R_Gather.get(api);
-  if (cached) return cached;
-  const built = __buildDiana_R_Gather(api);
-  __cacheDiana_R_Gather.set(api, built);
-  return built;
-}
+});
 
 
 /** The blow, on each gathered body. */
-function __buildDiana_R_Crash(api: ContentApi) {
+export const makeDiana_R_Crash = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Diana_R_Crash extends SpellObject {
@@ -330,12 +316,4 @@ function __buildDiana_R_Crash(api: ContentApi) {
     }
   }
   return Diana_R_Crash;
-}
-const __cacheDiana_R_Crash = new WeakMap<ContentApi, ReturnType<typeof __buildDiana_R_Crash>>();
-export function makeDiana_R_Crash(api: ContentApi) {
-  const cached = __cacheDiana_R_Crash.get(api);
-  if (cached) return cached;
-  const built = __buildDiana_R_Crash(api);
-  __cacheDiana_R_Crash.set(api, built);
-  return built;
-}
+});

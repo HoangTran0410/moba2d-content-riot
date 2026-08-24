@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BasicAttackHit } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -29,7 +30,7 @@ export const XINZHAO_Q_KNOCKUP_MS = 700;
 export const XINZHAO_Q_COOLDOWN_REFUND_MS = 800;
 
 
-function __buildXinZhao_Q(api: ContentApi) {
+export const makeXinZhao_Q = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const XinZhao_Q_Buff = makeXinZhao_Q_Buff(api);
   class XinZhao_Q extends Spell {
@@ -63,15 +64,8 @@ function __buildXinZhao_Q(api: ContentApi) {
     }
   }
   return XinZhao_Q;
-}
-const __cacheXinZhao_Q = new WeakMap<ContentApi, ReturnType<typeof __buildXinZhao_Q>>();
-export default function makeXinZhao_Q(api: ContentApi) {
-  const cached = __cacheXinZhao_Q.get(api);
-  if (cached) return cached;
-  const built = __buildXinZhao_Q(api);
-  __cacheXinZhao_Q.set(api, built);
-  return built;
-}
+});
+export default makeXinZhao_Q;
 
 
 /**
@@ -82,7 +76,7 @@ export default function makeXinZhao_Q(api: ContentApi) {
  * the buff bar is where the player looks to find out whether the strikes are
  * still up.
  */
-function __buildXinZhao_Q_Buff(api: ContentApi) {
+export const makeXinZhao_Q_Buff = packClass((api: ContentApi) => {
   const EventType = api.enums.EventType;
   const Buff = api.buffs.Buff;
   const Spell = api.Spell;
@@ -154,15 +148,7 @@ function __buildXinZhao_Q_Buff(api: ContentApi) {
     }
   }
   return XinZhao_Q_Buff;
-}
-const __cacheXinZhao_Q_Buff = new WeakMap<ContentApi, ReturnType<typeof __buildXinZhao_Q_Buff>>();
-export function makeXinZhao_Q_Buff(api: ContentApi) {
-  const cached = __cacheXinZhao_Q_Buff.get(api);
-  if (cached) return cached;
-  const built = __buildXinZhao_Q_Buff(api);
-  __cacheXinZhao_Q_Buff.set(api, built);
-  return built;
-}
+});
 
 
 /** How far off his body the talons orbit. */
@@ -176,7 +162,7 @@ const TALON_ORBIT = 40;
  * looking at the HUD — and the finisher needs its own tell, because a knock-up
  * the player did not see coming is a knock-up he could not have set up.
  */
-function __buildXinZhao_Q_Object(api: ContentApi) {
+export const makeXinZhao_Q_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
@@ -304,12 +290,4 @@ function __buildXinZhao_Q_Object(api: ContentApi) {
     }
   }
   return XinZhao_Q_Object;
-}
-const __cacheXinZhao_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildXinZhao_Q_Object>>();
-export function makeXinZhao_Q_Object(api: ContentApi) {
-  const cached = __cacheXinZhao_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildXinZhao_Q_Object(api);
-  __cacheXinZhao_Q_Object.set(api, built);
-  return built;
-}
+});

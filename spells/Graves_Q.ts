@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -24,7 +25,7 @@ export const SHELL_LENGTH = 40;
 
 
 /** End of the Line: a shell that hurts on the way through and detonates at the end. */
-function __buildGraves_Q(api: ContentApi) {
+export const makeGraves_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Graves_Q_Object = makeGraves_Q_Object(api);
@@ -58,18 +59,11 @@ function __buildGraves_Q(api: ContentApi) {
     }
   }
   return Graves_Q;
-}
-const __cacheGraves_Q = new WeakMap<ContentApi, ReturnType<typeof __buildGraves_Q>>();
-export default function makeGraves_Q(api: ContentApi) {
-  const cached = __cacheGraves_Q.get(api);
-  if (cached) return cached;
-  const built = __buildGraves_Q(api);
-  __cacheGraves_Q.set(api, built);
-  return built;
-}
+});
+export default makeGraves_Q;
 
 
-function __buildGraves_Q_Object(api: ContentApi) {
+export const makeGraves_Q_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const MissileSpellObject = api.MissileSpellObject;
@@ -187,12 +181,4 @@ function __buildGraves_Q_Object(api: ContentApi) {
     }
   }
   return Graves_Q_Object;
-}
-const __cacheGraves_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildGraves_Q_Object>>();
-export function makeGraves_Q_Object(api: ContentApi) {
-  const cached = __cacheGraves_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildGraves_Q_Object(api);
-  __cacheGraves_Q_Object.set(api, built);
-  return built;
-}
+});

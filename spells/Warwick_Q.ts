@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
@@ -10,7 +11,7 @@ type Warwick_Q_Object = InstanceType<ReturnType<typeof makeWarwick_Q_Object>>;
 
 
 
-function __buildWarwick_Q(api: ContentApi) {
+export const makeWarwick_Q = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -90,15 +91,8 @@ function __buildWarwick_Q(api: ContentApi) {
     }
   }
   return Warwick_Q;
-}
-const __cacheWarwick_Q = new WeakMap<ContentApi, ReturnType<typeof __buildWarwick_Q>>();
-export default function makeWarwick_Q(api: ContentApi) {
-  const cached = __cacheWarwick_Q.get(api);
-  if (cached) return cached;
-  const built = __buildWarwick_Q(api);
-  __cacheWarwick_Q.set(api, built);
-  return built;
-}
+});
+export default makeWarwick_Q;
 
 
 interface BloodDrop {
@@ -109,7 +103,7 @@ interface BloodDrop {
 
 
 /** The bite: three slashes torn out of the victim, and the life they cost. */
-function __buildWarwick_Q_Object(api: ContentApi) {
+export const makeWarwick_Q_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Warwick_Q_Object extends SpellObject {
@@ -236,12 +230,4 @@ function __buildWarwick_Q_Object(api: ContentApi) {
     }
   }
   return Warwick_Q_Object;
-}
-const __cacheWarwick_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildWarwick_Q_Object>>();
-export function makeWarwick_Q_Object(api: ContentApi) {
-  const cached = __cacheWarwick_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildWarwick_Q_Object(api);
-  __cacheWarwick_Q_Object.set(api, built);
-  return built;
-}
+});

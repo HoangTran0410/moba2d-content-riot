@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -50,7 +51,7 @@ const VOID_BRIGHT: [number, number, number] = [206, 255, 140];
  * `POINT` targeting rather than `DIRECTION`: the ability is a placed shape, and
  * a thumb drag has to be able to choose both where and how far.
  */
-function __buildMalzahar_Q(api: ContentApi) {
+export const makeMalzahar_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Malzahar_Q_Object = makeMalzahar_Q_Object(api);
@@ -87,15 +88,8 @@ function __buildMalzahar_Q(api: ContentApi) {
     }
   }
   return Malzahar_Q;
-}
-const __cacheMalzahar_Q = new WeakMap<ContentApi, ReturnType<typeof __buildMalzahar_Q>>();
-export default function makeMalzahar_Q(api: ContentApi) {
-  const cached = __cacheMalzahar_Q.get(api);
-  if (cached) return cached;
-  const built = __buildMalzahar_Q(api);
-  __cacheMalzahar_Q.set(api, built);
-  return built;
-}
+});
+export default makeMalzahar_Q;
 
 
 /**
@@ -104,7 +98,7 @@ export default function makeMalzahar_Q(api: ContentApi) {
  * Damage is a single detonation over a hit set, so nothing can be caught twice
  * however the fight moves during the wind-up.
  */
-function __buildMalzahar_Q_Object(api: ContentApi) {
+export const makeMalzahar_Q_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -279,12 +273,4 @@ function __buildMalzahar_Q_Object(api: ContentApi) {
     }
   }
   return Malzahar_Q_Object;
-}
-const __cacheMalzahar_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildMalzahar_Q_Object>>();
-export function makeMalzahar_Q_Object(api: ContentApi) {
-  const cached = __cacheMalzahar_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildMalzahar_Q_Object(api);
-  __cacheMalzahar_Q_Object.set(api, built);
-  return built;
-}
+});

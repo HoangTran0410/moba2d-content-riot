@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -57,7 +58,7 @@ export const hasRejuvenation = (unit: AttackableUnit): boolean =>
  * Star dust: a one-off heal plus decaying haste. Its own `stackId` because a
  * bare `Speedup` from anywhere else must not share the slot.
  */
-function __buildgrantRejuvenation(api: ContentApi) {
+export const makeGrantRejuvenation = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const AttackableUnit = api.units.AttackableUnit;
   const Speedup = api.buffs.Speedup;
@@ -72,18 +73,10 @@ function __buildgrantRejuvenation(api: ContentApi) {
     target.addBuff(haste);
   };
   return grantRejuvenation;
-}
-const __cachegrantRejuvenation = new WeakMap<ContentApi, ReturnType<typeof __buildgrantRejuvenation>>();
-export function makeGrantRejuvenation(api: ContentApi) {
-  const cached = __cachegrantRejuvenation.get(api);
-  if (cached) return cached;
-  const built = __buildgrantRejuvenation(api);
-  __cachegrantRejuvenation.set(api, built);
-  return built;
-}
+});
 
 
-function __buildSoraka_Q(api: ContentApi) {
+export const makeSoraka_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Soraka_Q_Object = makeSoraka_Q_Object(api);
@@ -114,15 +107,8 @@ function __buildSoraka_Q(api: ContentApi) {
     }
   }
   return Soraka_Q;
-}
-const __cacheSoraka_Q = new WeakMap<ContentApi, ReturnType<typeof __buildSoraka_Q>>();
-export default function makeSoraka_Q(api: ContentApi) {
-  const cached = __cacheSoraka_Q.get(api);
-  if (cached) return cached;
-  const built = __buildSoraka_Q(api);
-  __cacheSoraka_Q.set(api, built);
-  return built;
-}
+});
+export default makeSoraka_Q;
 
 
 interface DustMote {
@@ -139,7 +125,7 @@ const MOTE_COUNT = 12;
 const FALL_HEIGHT = 260;
 
 
-function __buildSoraka_Q_Object(api: ContentApi) {
+export const makeSoraka_Q_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const BuffAddType = api.enums.BuffAddType;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -307,12 +293,4 @@ function __buildSoraka_Q_Object(api: ContentApi) {
     }
   }
   return Soraka_Q_Object;
-}
-const __cacheSoraka_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildSoraka_Q_Object>>();
-export function makeSoraka_Q_Object(api: ContentApi) {
-  const cached = __cacheSoraka_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildSoraka_Q_Object(api);
-  __cacheSoraka_Q_Object.set(api, built);
-  return built;
-}
+});

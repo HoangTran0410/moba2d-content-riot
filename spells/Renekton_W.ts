@@ -1,6 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BasicAttackHit } from '@moba2d/core/content/types';
 import { isEnraged } from './Renekton_R';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
@@ -42,7 +43,7 @@ export const ENRAGED_STUN_MS = 1_000;
  * buffs themselves (`deactivateBuff` on each), which is why it is exact: there
  * is no separate "shield pool" for it to disagree with.
  */
-function __buildRenekton_W(api: ContentApi) {
+export const makeRenekton_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Renekton_W_Buff = makeRenekton_W_Buff(api);
   class Renekton_W extends Spell {
@@ -65,18 +66,11 @@ function __buildRenekton_W(api: ContentApi) {
     }
   }
   return Renekton_W;
-}
-const __cacheRenekton_W = new WeakMap<ContentApi, ReturnType<typeof __buildRenekton_W>>();
-export default function makeRenekton_W(api: ContentApi) {
-  const cached = __cacheRenekton_W.get(api);
-  if (cached) return cached;
-  const built = __buildRenekton_W(api);
-  __cacheRenekton_W.set(api, built);
-  return built;
-}
+});
+export default makeRenekton_W;
 
 
-function __buildRenekton_W_Buff(api: ContentApi) {
+export const makeRenekton_W_Buff = packClass((api: ContentApi) => {
   const EventType = api.enums.EventType;
   const Buff = api.buffs.Buff;
   const AttackableUnit = api.units.AttackableUnit;
@@ -145,15 +139,7 @@ function __buildRenekton_W_Buff(api: ContentApi) {
     }
   }
   return Renekton_W_Buff;
-}
-const __cacheRenekton_W_Buff = new WeakMap<ContentApi, ReturnType<typeof __buildRenekton_W_Buff>>();
-export function makeRenekton_W_Buff(api: ContentApi) {
-  const cached = __cacheRenekton_W_Buff.get(api);
-  if (cached) return cached;
-  const built = __buildRenekton_W_Buff(api);
-  __cacheRenekton_W_Buff.set(api, built);
-  return built;
-}
+});
 
 
 /** How far in front of him the bared jaws sit while the bite is armed. */
@@ -167,7 +153,7 @@ const JAW_OFFSET = 26;
  * the jaws are *open*. When the bite is spent they snap shut on whoever ate it,
  * once per strike, which is what makes two hits distinguishable from three.
  */
-function __buildRenekton_W_Object(api: ContentApi) {
+export const makeRenekton_W_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Renekton_W_Object extends SpellObject {
@@ -272,12 +258,4 @@ function __buildRenekton_W_Object(api: ContentApi) {
     }
   }
   return Renekton_W_Object;
-}
-const __cacheRenekton_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildRenekton_W_Object>>();
-export function makeRenekton_W_Object(api: ContentApi) {
-  const cached = __cacheRenekton_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildRenekton_W_Object(api);
-  __cacheRenekton_W_Object.set(api, built);
-  return built;
-}
+});

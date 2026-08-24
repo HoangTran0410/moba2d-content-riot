@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
@@ -45,7 +46,7 @@ const RING_BLEED = 26;
  * buff is separate so `hasBuff` has something Vayne-specific to ask about, and
  * so the vignette has a lifetime to hang off.
  */
-function __buildVayne_R(api: ContentApi) {
+export const makeVayne_R = packClass((api: ContentApi) => {
   const StatAmp = api.buffs.StatAmp;
   const Spell = api.Spell;
   const Vayne_R_Buff = makeVayne_R_Buff(api);
@@ -75,22 +76,15 @@ function __buildVayne_R(api: ContentApi) {
     }
   }
   return Vayne_R;
-}
-const __cacheVayne_R = new WeakMap<ContentApi, ReturnType<typeof __buildVayne_R>>();
-export default function makeVayne_R(api: ContentApi) {
-  const cached = __cacheVayne_R.get(api);
-  if (cached) return cached;
-  const built = __buildVayne_R(api);
-  __cacheVayne_R.set(api, built);
-  return built;
-}
+});
+export default makeVayne_R;
 
 
 /**
  * The marker. Carries no stats of its own: it exists so `Vayne_Q` can ask "is
  * the night hers right now" through `hasBuff` without importing a stat bonus.
  */
-function __buildVayne_R_Buff(api: ContentApi) {
+export const makeVayne_R_Buff = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const Buff = api.buffs.Buff;
   class Vayne_R_Buff extends Buff {
@@ -99,15 +93,7 @@ function __buildVayne_R_Buff(api: ContentApi) {
     buffAddType = BuffAddType.REPLACE_EXISTING;
   }
   return Vayne_R_Buff;
-}
-const __cacheVayne_R_Buff = new WeakMap<ContentApi, ReturnType<typeof __buildVayne_R_Buff>>();
-export function makeVayne_R_Buff(api: ContentApi) {
-  const cached = __cacheVayne_R_Buff.get(api);
-  if (cached) return cached;
-  const built = __buildVayne_R_Buff(api);
-  __cacheVayne_R_Buff.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -120,7 +106,7 @@ export function makeVayne_R_Buff(api: ContentApi) {
  * subclass resolves to `SPELL_EFFECT_Z_INDEX` instead, which would paint a
  * 600px disc over the feet of everyone standing in it.
  */
-function __buildVayne_R_Aura(api: ContentApi) {
+export const makeVayne_R_Aura = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const Buff = api.buffs.Buff;
   const SpellObject = api.SpellObject;
@@ -167,12 +153,4 @@ function __buildVayne_R_Aura(api: ContentApi) {
     }
   }
   return Vayne_R_Aura;
-}
-const __cacheVayne_R_Aura = new WeakMap<ContentApi, ReturnType<typeof __buildVayne_R_Aura>>();
-export function makeVayne_R_Aura(api: ContentApi) {
-  const cached = __cacheVayne_R_Aura.get(api);
-  if (cached) return cached;
-  const built = __buildVayne_R_Aura(api);
-  __cacheVayne_R_Aura.set(api, built);
-  return built;
-}
+});

@@ -2,6 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BeamGeometry, CastContext, CastSpec, Vec2 } from '@moba2d/core/content/types';
 import { makeApplyIreliaMark } from './Irelia_Q';
 import { drawIreliaBlade, IRELIA_CREST, IRELIA_EDGE, IRELIA_RIM, IRELIA_STEEL } from './Irelia_Q';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
@@ -79,7 +80,7 @@ export const E_FLASH_MS = 80;
  * whole point of the ability and must not end it. Losing control of herself
  * still does — a stunned Irelia cannot call the second blade.
  */
-function __buildIrelia_E(api: ContentApi) {
+export const makeIrelia_E = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellForm = api.enums.SpellForm;
@@ -233,15 +234,8 @@ function __buildIrelia_E(api: ContentApi) {
     }
   }
   return Irelia_E;
-}
-const __cacheIrelia_E = new WeakMap<ContentApi, ReturnType<typeof __buildIrelia_E>>();
-export default function makeIrelia_E(api: ContentApi) {
-  const cached = __cacheIrelia_E.get(api);
-  if (cached) return cached;
-  const built = __buildIrelia_E(api);
-  __cacheIrelia_E.set(api, built);
-  return built;
-}
+});
+export default makeIrelia_E;
 
 
 /**
@@ -252,7 +246,7 @@ export default function makeIrelia_E(api: ContentApi) {
  * never gave anyone, and it is what makes the second press a throw the enemy
  * can watch rather than a stun that has already happened.
  */
-function __buildIrelia_E_Throw(api: ContentApi) {
+export const makeIrelia_E_Throw = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const MissileSpellObject = api.MissileSpellObject;
   class Irelia_E_Throw extends MissileSpellObject {
@@ -321,15 +315,7 @@ function __buildIrelia_E_Throw(api: ContentApi) {
     }
   }
   return Irelia_E_Throw;
-}
-const __cacheIrelia_E_Throw = new WeakMap<ContentApi, ReturnType<typeof __buildIrelia_E_Throw>>();
-export function makeIrelia_E_Throw(api: ContentApi) {
-  const cached = __cacheIrelia_E_Throw.get(api);
-  if (cached) return cached;
-  const built = __buildIrelia_E_Throw(api);
-  __cacheIrelia_E_Throw.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -340,7 +326,7 @@ export function makeIrelia_E_Throw(api: ContentApi) {
  * it survives grass, water and stone alike, and the rose crest — used nowhere
  * else in the kit at rest — marking it as hers.
  */
-function __buildIrelia_E_Blade(api: ContentApi) {
+export const makeIrelia_E_Blade = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Irelia_E_Blade extends SpellObject {
@@ -416,15 +402,7 @@ function __buildIrelia_E_Blade(api: ContentApi) {
     }
   }
   return Irelia_E_Blade;
-}
-const __cacheIrelia_E_Blade = new WeakMap<ContentApi, ReturnType<typeof __buildIrelia_E_Blade>>();
-export function makeIrelia_E_Blade(api: ContentApi) {
-  const cached = __cacheIrelia_E_Blade.get(api);
-  if (cached) return cached;
-  const built = __buildIrelia_E_Blade(api);
-  __cacheIrelia_E_Blade.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -435,7 +413,7 @@ export function makeIrelia_E_Blade(api: ContentApi) {
  * the area that was hit, and each victim gets a spark on their own body rather
  * than a glow somewhere near it.
  */
-function __buildIrelia_E_Duet(api: ContentApi) {
+export const makeIrelia_E_Duet = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
@@ -580,12 +558,4 @@ function __buildIrelia_E_Duet(api: ContentApi) {
     }
   }
   return Irelia_E_Duet;
-}
-const __cacheIrelia_E_Duet = new WeakMap<ContentApi, ReturnType<typeof __buildIrelia_E_Duet>>();
-export function makeIrelia_E_Duet(api: ContentApi) {
-  const cached = __cacheIrelia_E_Duet.get(api);
-  if (cached) return cached;
-  const built = __buildIrelia_E_Duet(api);
-  __cacheIrelia_E_Duet.set(api, built);
-  return built;
-}
+});

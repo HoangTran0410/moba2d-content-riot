@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { ExecuteFallback, ExecuteSpell } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -26,7 +27,7 @@ const describe = (stacks: number): string =>
   `sát thương của nó <span class="buff">vĩnh viễn tăng thêm ${DAMAGE_PER_STACK}</span>`;
 
 
-function __buildNasus_Q(api: ContentApi) {
+export const makeNasus_Q = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const VectorUtils = api.utils.VectorUtils;
   const pickExecuteTarget = api.combat.ExecuteTargeting.pickExecuteTarget;
@@ -131,18 +132,11 @@ function __buildNasus_Q(api: ContentApi) {
     }
   }
   return Nasus_Q;
-}
-const __cacheNasus_Q = new WeakMap<ContentApi, ReturnType<typeof __buildNasus_Q>>();
-export default function makeNasus_Q(api: ContentApi) {
-  const cached = __cacheNasus_Q.get(api);
-  if (cached) return cached;
-  const built = __buildNasus_Q(api);
-  __cacheNasus_Q.set(api, built);
-  return built;
-}
+});
+export default makeNasus_Q;
 
 
-function __buildNasus_Q_Object(api: ContentApi) {
+export const makeNasus_Q_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Nasus_Q_Object extends SpellObject {
@@ -262,12 +256,4 @@ function __buildNasus_Q_Object(api: ContentApi) {
     }
   }
   return Nasus_Q_Object;
-}
-const __cacheNasus_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildNasus_Q_Object>>();
-export function makeNasus_Q_Object(api: ContentApi) {
-  const cached = __cacheNasus_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildNasus_Q_Object(api);
-  __cacheNasus_Q_Object.set(api, built);
-  return built;
-}
+});

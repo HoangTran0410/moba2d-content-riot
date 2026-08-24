@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
@@ -19,7 +20,7 @@ const LINEN: [number, number, number] = [235, 222, 172];
 const LINEN_DARK: [number, number, number] = [125, 108, 66];
 
 
-function __buildAmumu_Q(api: ContentApi) {
+export const makeAmumu_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Amumu_Q_Object = makeAmumu_Q_Object(api);
@@ -65,18 +66,11 @@ function __buildAmumu_Q(api: ContentApi) {
     }
   }
   return Amumu_Q;
-}
-const __cacheAmumu_Q = new WeakMap<ContentApi, ReturnType<typeof __buildAmumu_Q>>();
-export default function makeAmumu_Q(api: ContentApi) {
-  const cached = __cacheAmumu_Q.get(api);
-  if (cached) return cached;
-  const built = __buildAmumu_Q(api);
-  __cacheAmumu_Q.set(api, built);
-  return built;
-}
+});
+export default makeAmumu_Q;
 
 
-function __buildAmumu_Q_Object(api: ContentApi) {
+export const makeAmumu_Q_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const MissileSpellObject = api.MissileSpellObject;
   const Dash = api.buffs.Dash;
@@ -295,19 +289,11 @@ function __buildAmumu_Q_Object(api: ContentApi) {
     }
   }
   return Amumu_Q_Object;
-}
-const __cacheAmumu_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildAmumu_Q_Object>>();
-export function makeAmumu_Q_Object(api: ContentApi) {
-  const cached = __cacheAmumu_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildAmumu_Q_Object(api);
-  __cacheAmumu_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** The catch: cloth flaring out and dust knocked off where the bandage bit. */
-function __buildAmumu_Q_Impact(api: ContentApi) {
+export const makeAmumu_Q_Impact = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Amumu_Q_Impact extends SpellObject {
     position = this.owner.position.copy();
@@ -379,12 +365,4 @@ function __buildAmumu_Q_Impact(api: ContentApi) {
     }
   }
   return Amumu_Q_Impact;
-}
-const __cacheAmumu_Q_Impact = new WeakMap<ContentApi, ReturnType<typeof __buildAmumu_Q_Impact>>();
-export function makeAmumu_Q_Impact(api: ContentApi) {
-  const cached = __cacheAmumu_Q_Impact.get(api);
-  if (cached) return cached;
-  const built = __buildAmumu_Q_Impact(api);
-  __cacheAmumu_Q_Impact.set(api, built);
-  return built;
-}
+});

@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
@@ -17,20 +18,12 @@ type Leblanc_Q_Object = InstanceType<ReturnType<typeof makeLeblanc_Q_Object>>;
 type SigilTarget = AttackableUnit;
 
 
-function __buildisSigilTarget(api: ContentApi) {
+export const makeIsSigilTarget = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const isSigilTarget = (target: unknown): target is SigilTarget =>
     target instanceof AttackableUnit && target.targetable && !target.toRemove;
   return isSigilTarget;
-}
-const __cacheisSigilTarget = new WeakMap<ContentApi, ReturnType<typeof __buildisSigilTarget>>();
-export function makeIsSigilTarget(api: ContentApi) {
-  const cached = __cacheisSigilTarget.get(api);
-  if (cached) return cached;
-  const built = __buildisSigilTarget(api);
-  __cacheisSigilTarget.set(api, built);
-  return built;
-}
+});
 
 
 // Exported so the suite asserts the orb's wiring, not a copy of the
@@ -50,7 +43,7 @@ export const MISSILE_SPEED = 1_500 / 60;
 export const MISSILE_SIZE = 20;
 
 
-function __buildLeblanc_Q(api: ContentApi) {
+export const makeLeblanc_Q = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
   const Spell = api.Spell;
@@ -144,15 +137,8 @@ function __buildLeblanc_Q(api: ContentApi) {
     }
   }
   return Leblanc_Q;
-}
-const __cacheLeblanc_Q = new WeakMap<ContentApi, ReturnType<typeof __buildLeblanc_Q>>();
-export default function makeLeblanc_Q(api: ContentApi) {
-  const cached = __cacheLeblanc_Q.get(api);
-  if (cached) return cached;
-  const built = __buildLeblanc_Q(api);
-  __cacheLeblanc_Q.set(api, built);
-  return built;
-}
+});
+export default makeLeblanc_Q;
 
 
 /**
@@ -164,7 +150,7 @@ export default function makeLeblanc_Q(api: ContentApi) {
  * touch, so they neither apply nor consume it. That is a disclosed scope
  * limit, not an oversight.
  */
-function __buildLeblanc_Q_Mark(api: ContentApi) {
+export const makeLeblanc_Q_Mark = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const Buff = api.buffs.Buff;
   class Leblanc_Q_Mark extends Buff {
@@ -201,18 +187,10 @@ function __buildLeblanc_Q_Mark(api: ContentApi) {
     }
   }
   return Leblanc_Q_Mark;
-}
-const __cacheLeblanc_Q_Mark = new WeakMap<ContentApi, ReturnType<typeof __buildLeblanc_Q_Mark>>();
-export function makeLeblanc_Q_Mark(api: ContentApi) {
-  const cached = __cacheLeblanc_Q_Mark.get(api);
-  if (cached) return cached;
-  const built = __buildLeblanc_Q_Mark(api);
-  __cacheLeblanc_Q_Mark.set(api, built);
-  return built;
-}
+});
 
 
-function __buildLeblanc_Q_Object(api: ContentApi) {
+export const makeLeblanc_Q_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const HomingMissileSpellObject = api.HomingMissileSpellObject;
   const TrailSystem = api.helpers.TrailSystem;
@@ -287,12 +265,4 @@ function __buildLeblanc_Q_Object(api: ContentApi) {
     }
   }
   return Leblanc_Q_Object;
-}
-const __cacheLeblanc_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildLeblanc_Q_Object>>();
-export function makeLeblanc_Q_Object(api: ContentApi) {
-  const cached = __cacheLeblanc_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildLeblanc_Q_Object(api);
-  __cacheLeblanc_Q_Object.set(api, built);
-  return built;
-}
+});

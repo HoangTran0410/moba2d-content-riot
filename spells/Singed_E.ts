@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -37,7 +38,7 @@ const SPLAT_COUNT = 14;
 const FUME_COUNT = 12;
 
 
-function __buildSinged_E(api: ContentApi) {
+export const makeSinged_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -152,15 +153,8 @@ function __buildSinged_E(api: ContentApi) {
     }
   }
   return Singed_E;
-}
-const __cacheSinged_E = new WeakMap<ContentApi, ReturnType<typeof __buildSinged_E>>();
-export default function makeSinged_E(api: ContentApi) {
-  const cached = __cacheSinged_E.get(api);
-  if (cached) return cached;
-  const built = __buildSinged_E(api);
-  __cacheSinged_E.set(api, built);
-  return built;
-}
+});
+export default makeSinged_E;
 
 
 interface Gout {
@@ -177,7 +171,7 @@ interface Gout {
  * ring and grit first, the spill second — so it never reads as another pool of
  * Cassiopeia's venom.
  */
-function __buildSinged_E_Impact(api: ContentApi) {
+export const makeSinged_E_Impact = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const ParticleSystem = api.helpers.ParticleSystem;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
@@ -294,12 +288,4 @@ function __buildSinged_E_Impact(api: ContentApi) {
     }
   }
   return Singed_E_Impact;
-}
-const __cacheSinged_E_Impact = new WeakMap<ContentApi, ReturnType<typeof __buildSinged_E_Impact>>();
-export function makeSinged_E_Impact(api: ContentApi) {
-  const cached = __cacheSinged_E_Impact.get(api);
-  if (cached) return cached;
-  const built = __buildSinged_E_Impact(api);
-  __cacheSinged_E_Impact.set(api, built);
-  return built;
-}
+});

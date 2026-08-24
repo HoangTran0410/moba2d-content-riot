@@ -1,6 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { ExecuteFallback, ExecuteSpell } from '@moba2d/core/content/types';
 import { HEMORRHAGE_MAX_STACKS, hemorrhageStacks } from './Darius_Q';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Champion = InstanceType<ContentApi['units']['Champion']>;
@@ -45,7 +46,7 @@ export const FEAR_MS = 2_500;
  * is therefore the real formula, bleed stacks and all — an estimate here is a
  * promise the cast would not keep.
  */
-function __buildDarius_R(api: ContentApi) {
+export const makeDarius_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const pickExecuteTarget = api.combat.ExecuteTargeting.pickExecuteTarget;
   const effectiveRange = api.combat.Reach.effectiveRange;
@@ -185,15 +186,8 @@ function __buildDarius_R(api: ContentApi) {
     }
   }
   return Darius_R;
-}
-const __cacheDarius_R = new WeakMap<ContentApi, ReturnType<typeof __buildDarius_R>>();
-export default function makeDarius_R(api: ContentApi) {
-  const cached = __cacheDarius_R.get(api);
-  if (cached) return cached;
-  const built = __buildDarius_R(api);
-  __cacheDarius_R.set(api, built);
-  return built;
-}
+});
+export default makeDarius_R;
 
 
 export const CHOP_LIFETIME_MS = 520;
@@ -212,7 +206,7 @@ const SPATTER_COUNT = 16;
  * frame the damage was already applied, so the drop is the read on "did it
  * connect", and the executed flag turns the impact from red to white.
  */
-function __buildDarius_R_Object(api: ContentApi) {
+export const makeDarius_R_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Darius_R_Object extends SpellObject {
@@ -322,12 +316,4 @@ function __buildDarius_R_Object(api: ContentApi) {
     }
   }
   return Darius_R_Object;
-}
-const __cacheDarius_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildDarius_R_Object>>();
-export function makeDarius_R_Object(api: ContentApi) {
-  const cached = __cacheDarius_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildDarius_R_Object(api);
-  __cacheDarius_R_Object.set(api, built);
-  return built;
-}
+});

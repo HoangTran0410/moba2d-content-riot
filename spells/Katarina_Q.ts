@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -113,7 +114,7 @@ export const KATARINA_Q_DAGGER_OFFSET = 240;
 export const KATARINA_Q_WINDUP_MS = 140;
 
 
-function __buildKatarina_Q(api: ContentApi) {
+export const makeKatarina_Q = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -197,21 +198,14 @@ function __buildKatarina_Q(api: ContentApi) {
     }
   }
   return Katarina_Q;
-}
-const __cacheKatarina_Q = new WeakMap<ContentApi, ReturnType<typeof __buildKatarina_Q>>();
-export default function makeKatarina_Q(api: ContentApi) {
-  const cached = __cacheKatarina_Q.get(api);
-  if (cached) return cached;
-  const built = __buildKatarina_Q(api);
-  __cacheKatarina_Q.set(api, built);
-  return built;
-}
+});
+export default makeKatarina_Q;
 
 
 /**
  * The thrown blade. Slower, highly visible, with clear bounce arcs and planting behind first target.
  */
-function __buildKatarina_Q_Object(api: ContentApi) {
+export const makeKatarina_Q_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const AttackableUnit = api.units.AttackableUnit;
@@ -372,22 +366,14 @@ function __buildKatarina_Q_Object(api: ContentApi) {
     }
   }
   return Katarina_Q_Object;
-}
-const __cacheKatarina_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildKatarina_Q_Object>>();
-export function makeKatarina_Q_Object(api: ContentApi) {
-  const cached = __cacheKatarina_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildKatarina_Q_Object(api);
-  __cacheKatarina_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * The 360-degree blade spin (Sinister Steel / Dagger Slash) triggered when
  * Katarina picks up a dagger by walking into it or Shunpos (E) onto it.
  */
-function __buildKatarina_Dagger_Slash(api: ContentApi) {
+export const makeKatarina_Dagger_Slash = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const AttackableUnit = api.units.AttackableUnit;
@@ -473,21 +459,13 @@ function __buildKatarina_Dagger_Slash(api: ContentApi) {
     }
   }
   return Katarina_Dagger_Slash;
-}
-const __cacheKatarina_Dagger_Slash = new WeakMap<ContentApi, ReturnType<typeof __buildKatarina_Dagger_Slash>>();
-export function makeKatarina_Dagger_Slash(api: ContentApi) {
-  const cached = __cacheKatarina_Dagger_Slash.get(api);
-  if (cached) return cached;
-  const built = __buildKatarina_Dagger_Slash(api);
-  __cacheKatarina_Dagger_Slash.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * The mark left on the body that took a blade.
  */
-function __buildKatarina_Blade_Impact(api: ContentApi) {
+export const makeKatarina_Blade_Impact = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Katarina_Blade_Impact extends SpellObject {
@@ -537,15 +515,7 @@ function __buildKatarina_Blade_Impact(api: ContentApi) {
     }
   }
   return Katarina_Blade_Impact;
-}
-const __cacheKatarina_Blade_Impact = new WeakMap<ContentApi, ReturnType<typeof __buildKatarina_Blade_Impact>>();
-export function makeKatarina_Blade_Impact(api: ContentApi) {
-  const cached = __cacheKatarina_Blade_Impact.get(api);
-  if (cached) return cached;
-  const built = __buildKatarina_Blade_Impact(api);
-  __cacheKatarina_Blade_Impact.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -553,7 +523,7 @@ export function makeKatarina_Blade_Impact(api: ContentApi) {
  * Stepping into pickup radius or Shunpo (E) into it retrieves the dagger
  * and triggers a 360-degree Dagger Slash!
  */
-function __buildKatarina_Dagger(api: ContentApi) {
+export const makeKatarina_Dagger = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const Spell = api.Spell;
   const SpellObject = api.SpellObject;
@@ -731,12 +701,4 @@ function __buildKatarina_Dagger(api: ContentApi) {
     }
   }
   return Katarina_Dagger;
-}
-const __cacheKatarina_Dagger = new WeakMap<ContentApi, ReturnType<typeof __buildKatarina_Dagger>>();
-export function makeKatarina_Dagger(api: ContentApi) {
-  const cached = __cacheKatarina_Dagger.get(api);
-  if (cached) return cached;
-  const built = __buildKatarina_Dagger(api);
-  __cacheKatarina_Dagger.set(api, built);
-  return built;
-}
+});

@@ -2,6 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CancelReason, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { makeKatarina_Blade_Impact } from './Katarina_Q';
 import { KATARINA_BLOOD, KATARINA_DAGGER_LENGTH, KATARINA_STEEL, drawKatarinaDagger } from './Katarina_Q';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -26,7 +27,7 @@ export const KATARINA_R_TICK_COUNT = Math.floor(KATARINA_R_DURATION_MS / KATARIN
 const VOLLEY_MS = 200;
 
 
-function __buildKatarina_R(api: ContentApi) {
+export const makeKatarina_R = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const Spell = api.Spell;
   const Katarina_R_Lotus = makeKatarina_R_Lotus(api);
@@ -79,15 +80,8 @@ function __buildKatarina_R(api: ContentApi) {
     }
   }
   return Katarina_R;
-}
-const __cacheKatarina_R = new WeakMap<ContentApi, ReturnType<typeof __buildKatarina_R>>();
-export default function makeKatarina_R(api: ContentApi) {
-  const cached = __cacheKatarina_R.get(api);
-  if (cached) return cached;
-  const built = __buildKatarina_R(api);
-  __cacheKatarina_R.set(api, built);
-  return built;
-}
+});
+export default makeKatarina_R;
 
 
 interface LotusVolley {
@@ -99,7 +93,7 @@ interface LotusVolley {
 /**
  * Rapidly spinning death lotus storm with crimson whirlwind and flying daggers.
  */
-function __buildKatarina_R_Lotus(api: ContentApi) {
+export const makeKatarina_R_Lotus = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const AttackableUnit = api.units.AttackableUnit;
@@ -267,12 +261,4 @@ function __buildKatarina_R_Lotus(api: ContentApi) {
     }
   }
   return Katarina_R_Lotus;
-}
-const __cacheKatarina_R_Lotus = new WeakMap<ContentApi, ReturnType<typeof __buildKatarina_R_Lotus>>();
-export function makeKatarina_R_Lotus(api: ContentApi) {
-  const cached = __cacheKatarina_R_Lotus.get(api);
-  if (cached) return cached;
-  const built = __buildKatarina_R_Lotus(api);
-  __cacheKatarina_R_Lotus.set(api, built);
-  return built;
-}
+});

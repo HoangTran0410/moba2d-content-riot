@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BasicAttackHit } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
@@ -38,7 +39,7 @@ export const CUT_MS = 240;
  * duration itself is carried by `StatAmp`, so the player can see the style
  * running in the buff row and read how long is left.
  */
-function __buildMasterYi_E(api: ContentApi) {
+export const makeMasterYi_E = packClass((api: ContentApi) => {
   const EventType = api.enums.EventType;
   const Spell = api.Spell;
   const StatAmp = api.buffs.StatAmp;
@@ -121,15 +122,8 @@ function __buildMasterYi_E(api: ContentApi) {
     }
   }
   return MasterYi_E;
-}
-const __cacheMasterYi_E = new WeakMap<ContentApi, ReturnType<typeof __buildMasterYi_E>>();
-export default function makeMasterYi_E(api: ContentApi) {
-  const cached = __cacheMasterYi_E.get(api);
-  if (cached) return cached;
-  const built = __buildMasterYi_E(api);
-  __cacheMasterYi_E.set(api, built);
-  return built;
-}
+});
+export default makeMasterYi_E;
 
 
 /** One cut landed by an empowered swing. */
@@ -149,7 +143,7 @@ interface WujuCut {
  * on-hit effect that only paints while its owner is on screen is an on-hit
  * effect the enemy never learns to fear.
  */
-function __buildMasterYi_E_Object(api: ContentApi) {
+export const makeMasterYi_E_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
@@ -242,12 +236,4 @@ function __buildMasterYi_E_Object(api: ContentApi) {
     }
   }
   return MasterYi_E_Object;
-}
-const __cacheMasterYi_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildMasterYi_E_Object>>();
-export function makeMasterYi_E_Object(api: ContentApi) {
-  const cached = __cacheMasterYi_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildMasterYi_E_Object(api);
-  __cacheMasterYi_E_Object.set(api, built);
-  return built;
-}
+});

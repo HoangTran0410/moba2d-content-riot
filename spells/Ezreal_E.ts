@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { makeDetonateEssenceFlux, makeEssenceFluxSpell } from './Ezreal_W';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -39,7 +40,7 @@ export const EZREAL_E_REVEAL_STACK_ID = 'ezreal_e';
  * where grounding is enforced, and a dash short enough to look instant still
  * gets cancelled by the crowd control that should stop it.
  */
-function __buildEzreal_E(api: ContentApi) {
+export const makeEzreal_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const VectorUtils = api.utils.VectorUtils;
   const effectiveRange = api.combat.Reach.effectiveRange;
@@ -143,19 +144,12 @@ function __buildEzreal_E(api: ContentApi) {
     }
   }
   return Ezreal_E;
-}
-const __cacheEzreal_E = new WeakMap<ContentApi, ReturnType<typeof __buildEzreal_E>>();
-export default function makeEzreal_E(api: ContentApi) {
-  const cached = __cacheEzreal_E.get(api);
-  if (cached) return cached;
-  const built = __buildEzreal_E(api);
-  __cacheEzreal_E.set(api, built);
-  return built;
-}
+});
+export default makeEzreal_E;
 
 
 /** The homing bolt — a thin lance of light, visibly *pulled* toward its target. */
-function __buildEzreal_E_Bolt(api: ContentApi) {
+export const makeEzreal_E_Bolt = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const createReveal = api.buffs.createReveal;
   const HomingMissileSpellObject = api.HomingMissileSpellObject;
@@ -220,15 +214,7 @@ function __buildEzreal_E_Bolt(api: ContentApi) {
     }
   }
   return Ezreal_E_Bolt;
-}
-const __cacheEzreal_E_Bolt = new WeakMap<ContentApi, ReturnType<typeof __buildEzreal_E_Bolt>>();
-export function makeEzreal_E_Bolt(api: ContentApi) {
-  const cached = __cacheEzreal_E_Bolt.get(api);
-  if (cached) return cached;
-  const built = __buildEzreal_E_Bolt(api);
-  __cacheEzreal_E_Bolt.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -238,7 +224,7 @@ export function makeEzreal_E_Bolt(api: ContentApi) {
  * rift he leaves collapses outward, the one he steps out of snaps shut — so a
  * spectator can tell which end of the blink they are looking at.
  */
-function __buildEzreal_E_Rift(api: ContentApi) {
+export const makeEzreal_E_Rift = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   class Ezreal_E_Rift extends SpellObject {
@@ -319,12 +305,4 @@ function __buildEzreal_E_Rift(api: ContentApi) {
     }
   }
   return Ezreal_E_Rift;
-}
-const __cacheEzreal_E_Rift = new WeakMap<ContentApi, ReturnType<typeof __buildEzreal_E_Rift>>();
-export function makeEzreal_E_Rift(api: ContentApi) {
-  const cached = __cacheEzreal_E_Rift.get(api);
-  if (cached) return cached;
-  const built = __buildEzreal_E_Rift(api);
-  __cacheEzreal_E_Rift.set(api, built);
-  return built;
-}
+});

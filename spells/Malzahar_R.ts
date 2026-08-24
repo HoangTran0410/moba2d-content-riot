@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type CastBar = InstanceType<ContentApi['vfx']['CastBar']>;
@@ -46,20 +47,12 @@ const VOID: [number, number, number] = [142, 66, 218];
 const VOID_BRIGHT: [number, number, number] = [206, 255, 140];
 
 
-function __buildisGraspTarget(api: ContentApi) {
+export const makeIsGraspTarget = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const isGraspTarget = (target: unknown): target is AttackableUnit =>
     target instanceof AttackableUnit && target.targetable && !target.toRemove;
   return isGraspTarget;
-}
-const __cacheisGraspTarget = new WeakMap<ContentApi, ReturnType<typeof __buildisGraspTarget>>();
-export function makeIsGraspTarget(api: ContentApi) {
-  const cached = __cacheisGraspTarget.get(api);
-  if (cached) return cached;
-  const built = __buildisGraspTarget(api);
-  __cacheisGraspTarget.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -74,7 +67,7 @@ export function makeIsGraspTarget(api: ContentApi) {
  * ultimate a team fight rather than a button. The Null Zone deliberately
  * outlives the channel; it is already on the ground by then.
  */
-function __buildMalzahar_R(api: ContentApi) {
+export const makeMalzahar_R = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
   const TargetResolver = api.combat.TargetResolver;
@@ -232,15 +225,8 @@ function __buildMalzahar_R(api: ContentApi) {
     }
   }
   return Malzahar_R;
-}
-const __cacheMalzahar_R = new WeakMap<ContentApi, ReturnType<typeof __buildMalzahar_R>>();
-export default function makeMalzahar_R(api: ContentApi) {
-  const cached = __cacheMalzahar_R.get(api);
-  if (cached) return cached;
-  const built = __buildMalzahar_R(api);
-  __cacheMalzahar_R.set(api, built);
-  return built;
-}
+});
+export default makeMalzahar_R;
 
 
 /**
@@ -250,7 +236,7 @@ export default function makeMalzahar_R(api: ContentApi) {
  * display box has to span both ends — a box sized to the victim alone would
  * cut the tether off the moment the caster left the camera.
  */
-function __buildMalzahar_R_Grasp(api: ContentApi) {
+export const makeMalzahar_R_Grasp = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
@@ -372,15 +358,7 @@ function __buildMalzahar_R_Grasp(api: ContentApi) {
     }
   }
   return Malzahar_R_Grasp;
-}
-const __cacheMalzahar_R_Grasp = new WeakMap<ContentApi, ReturnType<typeof __buildMalzahar_R_Grasp>>();
-export function makeMalzahar_R_Grasp(api: ContentApi) {
-  const cached = __cacheMalzahar_R_Grasp.get(api);
-  if (cached) return cached;
-  const built = __buildMalzahar_R_Grasp(api);
-  __cacheMalzahar_R_Grasp.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -391,7 +369,7 @@ export function makeMalzahar_R_Grasp(api: ContentApi) {
  * established. Left at the ordinary `SPELL_EFFECT_Z_INDEX` it would paint
  * over the feet of everyone fighting in it.
  */
-function __buildMalzahar_R_Zone(api: ContentApi) {
+export const makeMalzahar_R_Zone = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -485,12 +463,4 @@ function __buildMalzahar_R_Zone(api: ContentApi) {
     }
   }
   return Malzahar_R_Zone;
-}
-const __cacheMalzahar_R_Zone = new WeakMap<ContentApi, ReturnType<typeof __buildMalzahar_R_Zone>>();
-export function makeMalzahar_R_Zone(api: ContentApi) {
-  const cached = __cacheMalzahar_R_Zone.get(api);
-  if (cached) return cached;
-  const built = __buildMalzahar_R_Zone(api);
-  __cacheMalzahar_R_Zone.set(api, built);
-  return built;
-}
+});

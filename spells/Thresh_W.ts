@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
@@ -28,7 +29,7 @@ export const THROW_SPEED = 11;
  * targeting to click it with — so it lands as what the lantern is for instead:
  * a lit patch that keeps whoever stands in it alive. Refreshed while they stay.
  */
-function __buildThresh_W(api: ContentApi) {
+export const makeThresh_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Thresh_W_Lantern_Throw = makeThresh_W_Lantern_Throw(api);
   class Thresh_W extends Spell {
@@ -65,22 +66,15 @@ function __buildThresh_W(api: ContentApi) {
     }
   }
   return Thresh_W;
-}
-const __cacheThresh_W = new WeakMap<ContentApi, ReturnType<typeof __buildThresh_W>>();
-export default function makeThresh_W(api: ContentApi) {
-  const cached = __cacheThresh_W.get(api);
-  if (cached) return cached;
-  const built = __buildThresh_W(api);
-  __cacheThresh_W.set(api, built);
-  return built;
-}
+});
+export default makeThresh_W;
 
 
 /**
  * The lantern in flight. `maxHitCount = 0`: it is lobbed over the fight and
  * only matters where it lands, so a body in the way must not eat it.
  */
-function __buildThresh_W_Lantern_Throw(api: ContentApi) {
+export const makeThresh_W_Lantern_Throw = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const MissileSpellObject = api.MissileSpellObject;
   const Thresh_W_Object = makeThresh_W_Object(api);
@@ -148,18 +142,10 @@ function __buildThresh_W_Lantern_Throw(api: ContentApi) {
     }
   }
   return Thresh_W_Lantern_Throw;
-}
-const __cacheThresh_W_Lantern_Throw = new WeakMap<ContentApi, ReturnType<typeof __buildThresh_W_Lantern_Throw>>();
-export function makeThresh_W_Lantern_Throw(api: ContentApi) {
-  const cached = __cacheThresh_W_Lantern_Throw.get(api);
-  if (cached) return cached;
-  const built = __buildThresh_W_Lantern_Throw(api);
-  __cacheThresh_W_Lantern_Throw.set(api, built);
-  return built;
-}
+});
 
 
-function __buildThresh_W_Object(api: ContentApi) {
+export const makeThresh_W_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
@@ -244,12 +230,4 @@ function __buildThresh_W_Object(api: ContentApi) {
     }
   }
   return Thresh_W_Object;
-}
-const __cacheThresh_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildThresh_W_Object>>();
-export function makeThresh_W_Object(api: ContentApi) {
-  const cached = __cacheThresh_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildThresh_W_Object(api);
-  __cacheThresh_W_Object.set(api, built);
-  return built;
-}
+});

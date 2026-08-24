@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
@@ -45,7 +46,7 @@ export const MAX_STUN_MS = 3_500;
 export const MAX_TRAVEL = 12_000;
 
 
-function __buildAshe_R(api: ContentApi) {
+export const makeAshe_R = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Ashe_R_Object = makeAshe_R_Object(api);
   class Ashe_R extends Spell {
@@ -79,18 +80,11 @@ function __buildAshe_R(api: ContentApi) {
     }
   }
   return Ashe_R;
-}
-const __cacheAshe_R = new WeakMap<ContentApi, ReturnType<typeof __buildAshe_R>>();
-export default function makeAshe_R(api: ContentApi) {
-  const cached = __cacheAshe_R.get(api);
-  if (cached) return cached;
-  const built = __buildAshe_R(api);
-  __cacheAshe_R.set(api, built);
-  return built;
-}
+});
+export default makeAshe_R;
 
 
-function __buildAshe_R_Object(api: ContentApi) {
+export const makeAshe_R_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const BuffAddType = api.enums.BuffAddType;
@@ -238,12 +232,4 @@ function __buildAshe_R_Object(api: ContentApi) {
     }
   }
   return Ashe_R_Object;
-}
-const __cacheAshe_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildAshe_R_Object>>();
-export function makeAshe_R_Object(api: ContentApi) {
-  const cached = __cacheAshe_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildAshe_R_Object(api);
-  __cacheAshe_R_Object.set(api, built);
-  return built;
-}
+});

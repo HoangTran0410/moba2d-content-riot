@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -39,7 +40,7 @@ const RECAST_DELAY_MS = 150;
  * The form is INDEPENDENT because the satchel is out of his hands the moment it lands: it must
  * survive him walking, being stunned, and above all being knocked back by his own blast.
  */
-function __buildZiggs_W(api: ContentApi) {
+export const makeZiggs_W = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const SpellForm = api.enums.SpellForm;
   const Spell = api.Spell;
@@ -102,15 +103,8 @@ function __buildZiggs_W(api: ContentApi) {
     }
   }
   return Ziggs_W;
-}
-const __cacheZiggs_W = new WeakMap<ContentApi, ReturnType<typeof __buildZiggs_W>>();
-export default function makeZiggs_W(api: ContentApi) {
-  const cached = __cacheZiggs_W.get(api);
-  if (cached) return cached;
-  const built = __buildZiggs_W(api);
-  __cacheZiggs_W.set(api, built);
-  return built;
-}
+});
+export default makeZiggs_W;
 
 
 /**
@@ -118,7 +112,7 @@ export default function makeZiggs_W(api: ContentApi) {
  * circle is a standing threat the enemy has four seconds to walk out of, and the shortening
  * fuse spark is the clock telling them how long they have left.
  */
-function __buildZiggs_W_Object(api: ContentApi) {
+export const makeZiggs_W_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const VectorUtils = api.utils.VectorUtils;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -255,19 +249,11 @@ function __buildZiggs_W_Object(api: ContentApi) {
     }
   }
   return Ziggs_W_Object;
-}
-const __cacheZiggs_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildZiggs_W_Object>>();
-export function makeZiggs_W_Object(api: ContentApi) {
-  const cached = __cacheZiggs_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildZiggs_W_Object(api);
-  __cacheZiggs_W_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** The blast. It draws outward, the way the shove it applies moves. */
-function __buildZiggs_W_Blast(api: ContentApi) {
+export const makeZiggs_W_Blast = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
   class Ziggs_W_Blast extends SpellObject {
@@ -333,12 +319,4 @@ function __buildZiggs_W_Blast(api: ContentApi) {
     }
   }
   return Ziggs_W_Blast;
-}
-const __cacheZiggs_W_Blast = new WeakMap<ContentApi, ReturnType<typeof __buildZiggs_W_Blast>>();
-export function makeZiggs_W_Blast(api: ContentApi) {
-  const cached = __cacheZiggs_W_Blast.get(api);
-  if (cached) return cached;
-  const built = __buildZiggs_W_Blast(api);
-  __cacheZiggs_W_Blast.set(api, built);
-  return built;
-}
+});

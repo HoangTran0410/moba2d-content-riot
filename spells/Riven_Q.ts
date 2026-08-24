@@ -1,6 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { makeRiven_R_Reforge } from './Riven_R';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -51,7 +52,7 @@ const RUNE: [number, number, number] = [0, 210, 168];
 const RUNE_HOT: [number, number, number] = [150, 255, 228];
 
 
-function __buildRiven_Q(api: ContentApi) {
+export const makeRiven_Q = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -203,15 +204,8 @@ function __buildRiven_Q(api: ContentApi) {
     }
   }
   return Riven_Q;
-}
-const __cacheRiven_Q = new WeakMap<ContentApi, ReturnType<typeof __buildRiven_Q>>();
-export default function makeRiven_Q(api: ContentApi) {
-  const cached = __cacheRiven_Q.get(api);
-  if (cached) return cached;
-  const built = __buildRiven_Q(api);
-  __cacheRiven_Q.set(api, built);
-  return built;
-}
+});
+export default makeRiven_Q;
 
 
 /**
@@ -219,7 +213,7 @@ export default function makeRiven_Q(api: ContentApi) {
  * bleeding out of the cracks. The third charge is visibly wider and brighter because it is
  * the one that knocks up, and R adds a long green energy edge past the blade.
  */
-function __buildRiven_Q_Slash(api: ContentApi) {
+export const makeRiven_Q_Slash = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Riven_Q_Slash extends SpellObject {
@@ -338,15 +332,7 @@ function __buildRiven_Q_Slash(api: ContentApi) {
     }
   }
   return Riven_Q_Slash;
-}
-const __cacheRiven_Q_Slash = new WeakMap<ContentApi, ReturnType<typeof __buildRiven_Q_Slash>>();
-export function makeRiven_Q_Slash(api: ContentApi) {
-  const cached = __cacheRiven_Q_Slash.get(api);
-  if (cached) return cached;
-  const built = __buildRiven_Q_Slash(api);
-  __cacheRiven_Q_Slash.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -354,7 +340,7 @@ export function makeRiven_Q_Slash(api: ContentApi) {
  * subclass would otherwise resolve to `SPELL_EFFECT_Z_INDEX`, over the feet
  * of everyone standing on it.
  */
-function __buildRiven_Q_GroundCrack(api: ContentApi) {
+export const makeRiven_Q_GroundCrack = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
@@ -433,12 +419,4 @@ function __buildRiven_Q_GroundCrack(api: ContentApi) {
     }
   }
   return Riven_Q_GroundCrack;
-}
-const __cacheRiven_Q_GroundCrack = new WeakMap<ContentApi, ReturnType<typeof __buildRiven_Q_GroundCrack>>();
-export function makeRiven_Q_GroundCrack(api: ContentApi) {
-  const cached = __cacheRiven_Q_GroundCrack.get(api);
-  if (cached) return cached;
-  const built = __buildRiven_Q_GroundCrack(api);
-  __cacheRiven_Q_GroundCrack.set(api, built);
-  return built;
-}
+});

@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
@@ -26,7 +27,7 @@ export const R_BURST_MS = 420;
 export const ORB_PAINT_REACH = 2;
 
 
-function __buildAhri_R(api: ContentApi) {
+export const makeAhri_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const VectorUtils = api.utils.VectorUtils;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -122,18 +123,11 @@ function __buildAhri_R(api: ContentApi) {
     }
   }
   return Ahri_R;
-}
-const __cacheAhri_R = new WeakMap<ContentApi, ReturnType<typeof __buildAhri_R>>();
-export default function makeAhri_R(api: ContentApi) {
-  const cached = __cacheAhri_R.get(api);
-  if (cached) return cached;
-  const built = __buildAhri_R(api);
-  __cacheAhri_R.set(api, built);
-  return built;
-}
+});
+export default makeAhri_R;
 
 
-function __buildAhri_R_Object(api: ContentApi) {
+export const makeAhri_R_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const MissileSpellObject = api.MissileSpellObject;
   const TrailSystem = api.helpers.TrailSystem;
@@ -252,15 +246,7 @@ function __buildAhri_R_Object(api: ContentApi) {
     }
   }
   return Ahri_R_Object;
-}
-const __cacheAhri_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildAhri_R_Object>>();
-export function makeAhri_R_Object(api: ContentApi) {
-  const cached = __cacheAhri_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildAhri_R_Object(api);
-  __cacheAhri_R_Object.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -268,7 +254,7 @@ export function makeAhri_R_Object(api: ContentApi) {
  * drifting back towards Ahri — the ultimate's whole fantasy in one beat, and the
  * reason the burst is drawn relative to her rather than only to the victim.
  */
-function __buildAhri_R_Burst(api: ContentApi) {
+export const makeAhri_R_Burst = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Ahri_R_Burst extends SpellObject {
@@ -363,12 +349,4 @@ function __buildAhri_R_Burst(api: ContentApi) {
     }
   }
   return Ahri_R_Burst;
-}
-const __cacheAhri_R_Burst = new WeakMap<ContentApi, ReturnType<typeof __buildAhri_R_Burst>>();
-export function makeAhri_R_Burst(api: ContentApi) {
-  const cached = __cacheAhri_R_Burst.get(api);
-  if (cached) return cached;
-  const built = __buildAhri_R_Burst(api);
-  __cacheAhri_R_Burst.set(api, built);
-  return built;
-}
+});

@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Spell = InstanceType<ContentApi['Spell']>;
 type SpellObject = InstanceType<ContentApi['SpellObject']>;
@@ -7,7 +8,7 @@ type Flash_Object = InstanceType<ReturnType<typeof makeFlash_Object>>;
 
 
 
-function __buildFlash(api: ContentApi) {
+export const makeFlash = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Flash_Object = makeFlash_Object(api);
@@ -46,18 +47,11 @@ function __buildFlash(api: ContentApi) {
     }
   }
   return Flash;
-}
-const __cacheFlash = new WeakMap<ContentApi, ReturnType<typeof __buildFlash>>();
-export default function makeFlash(api: ContentApi) {
-  const cached = __cacheFlash.get(api);
-  if (cached) return cached;
-  const built = __buildFlash(api);
-  __cacheFlash.set(api, built);
-  return built;
-}
+});
+export default makeFlash;
 
 
-function __buildFlash_Object(api: ContentApi) {
+export const makeFlash_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   class Flash_Object extends SpellObject {
@@ -86,12 +80,4 @@ function __buildFlash_Object(api: ContentApi) {
     }
   }
   return Flash_Object;
-}
-const __cacheFlash_Object = new WeakMap<ContentApi, ReturnType<typeof __buildFlash_Object>>();
-export function makeFlash_Object(api: ContentApi) {
-  const cached = __cacheFlash_Object.get(api);
-  if (cached) return cached;
-  const built = __buildFlash_Object(api);
-  __cacheFlash_Object.set(api, built);
-  return built;
-}
+});

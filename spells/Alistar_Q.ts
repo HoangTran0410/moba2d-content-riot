@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
@@ -23,7 +24,7 @@ export const CRACK_MS = 620;
 export const CRACK_COUNT = 11;
 
 
-function __buildAlistar_Q(api: ContentApi) {
+export const makeAlistar_Q = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
@@ -76,15 +77,8 @@ function __buildAlistar_Q(api: ContentApi) {
     }
   }
   return Alistar_Q;
-}
-const __cacheAlistar_Q = new WeakMap<ContentApi, ReturnType<typeof __buildAlistar_Q>>();
-export default function makeAlistar_Q(api: ContentApi) {
-  const cached = __cacheAlistar_Q.get(api);
-  if (cached) return cached;
-  const built = __buildAlistar_Q(api);
-  __cacheAlistar_Q.set(api, built);
-  return built;
-}
+});
+export default makeAlistar_Q;
 
 
 /**
@@ -99,7 +93,7 @@ export default function makeAlistar_Q(api: ContentApi) {
  * and lives half a second after he can walk away, so it owns its own bounds
  * rather than disappearing the moment its caster is culled.
  */
-function __buildAlistar_Q_Ground(api: ContentApi) {
+export const makeAlistar_Q_Ground = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Alistar_Q_Ground extends SpellObject {
     position: p5.Vector = this.owner.position.copy();
@@ -184,12 +178,4 @@ function __buildAlistar_Q_Ground(api: ContentApi) {
     }
   }
   return Alistar_Q_Ground;
-}
-const __cacheAlistar_Q_Ground = new WeakMap<ContentApi, ReturnType<typeof __buildAlistar_Q_Ground>>();
-export function makeAlistar_Q_Ground(api: ContentApi) {
-  const cached = __cacheAlistar_Q_Ground.get(api);
-  if (cached) return cached;
-  const built = __buildAlistar_Q_Ground(api);
-  __cacheAlistar_Q_Ground.set(api, built);
-  return built;
-}
+});

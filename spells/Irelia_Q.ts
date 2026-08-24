@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 import type {
   CastContext,
   CastSpec,
@@ -125,7 +126,7 @@ export const IRELIA_MARK_MS = 4_000;
  * alternative — a champion-wide passive — has nowhere to live when a loadout is
  * five spells picked off different champions.
  */
-function __buildIreliaMarkBuff(api: ContentApi) {
+export const makeIreliaMarkBuff = packClass((api: ContentApi) => {
   const Buff = api.buffs.Buff;
   class IreliaMarkBuff extends Buff {
     name = 'Dấu Kiếm';
@@ -133,18 +134,10 @@ function __buildIreliaMarkBuff(api: ContentApi) {
     stackId = 'irelia_mark';
   }
   return IreliaMarkBuff;
-}
-const __cacheIreliaMarkBuff = new WeakMap<ContentApi, ReturnType<typeof __buildIreliaMarkBuff>>();
-export function makeIreliaMarkBuff(api: ContentApi) {
-  const cached = __cacheIreliaMarkBuff.get(api);
-  if (cached) return cached;
-  const built = __buildIreliaMarkBuff(api);
-  __cacheIreliaMarkBuff.set(api, built);
-  return built;
-}
+});
 
 
-function __buildfindIreliaMark(api: ContentApi) {
+export const makeFindIreliaMark = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const IreliaMarkBuff = makeIreliaMarkBuff(api);
   function findIreliaMark(unit: AttackableUnit): IreliaMarkBuff | null {
@@ -154,19 +147,11 @@ function __buildfindIreliaMark(api: ContentApi) {
     return null;
   }
   return findIreliaMark;
-}
-const __cachefindIreliaMark = new WeakMap<ContentApi, ReturnType<typeof __buildfindIreliaMark>>();
-export function makeFindIreliaMark(api: ContentApi) {
-  const cached = __cachefindIreliaMark.get(api);
-  if (cached) return cached;
-  const built = __buildfindIreliaMark(api);
-  __cachefindIreliaMark.set(api, built);
-  return built;
-}
+});
 
 
 /** Returns whether there was a mark to take — Q's reset hangs off this boolean. */
-function __buildconsumeIreliaMark(api: ContentApi) {
+export const makeConsumeIreliaMark = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const findIreliaMark = makeFindIreliaMark(api);
   function consumeIreliaMark(unit: AttackableUnit): boolean {
@@ -176,19 +161,11 @@ function __buildconsumeIreliaMark(api: ContentApi) {
     return true;
   }
   return consumeIreliaMark;
-}
-const __cacheconsumeIreliaMark = new WeakMap<ContentApi, ReturnType<typeof __buildconsumeIreliaMark>>();
-export function makeConsumeIreliaMark(api: ContentApi) {
-  const cached = __cacheconsumeIreliaMark.get(api);
-  if (cached) return cached;
-  const built = __buildconsumeIreliaMark(api);
-  __cacheconsumeIreliaMark.set(api, built);
-  return built;
-}
+});
 
 
 /** Renews rather than stacks: a second blade re-arms the mark, it does not bank one. */
-function __buildapplyIreliaMark(api: ContentApi) {
+export const makeApplyIreliaMark = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const IreliaMarkBuff = makeIreliaMarkBuff(api);
   const findIreliaMark = makeFindIreliaMark(api);
@@ -207,15 +184,7 @@ function __buildapplyIreliaMark(api: ContentApi) {
     source.game.objectManager.addObject(sigil);
   }
   return applyIreliaMark;
-}
-const __cacheapplyIreliaMark = new WeakMap<ContentApi, ReturnType<typeof __buildapplyIreliaMark>>();
-export function makeApplyIreliaMark(api: ContentApi) {
-  const cached = __cacheapplyIreliaMark.get(api);
-  if (cached) return cached;
-  const built = __buildapplyIreliaMark(api);
-  __cacheapplyIreliaMark.set(api, built);
-  return built;
-}
+});
 
 
 /** How high above the head the sigil rides, clear of the health bar. */
@@ -236,7 +205,7 @@ const MARK_FLOAT = 44;
  * pulls out far enough to draw units compactly — which is exactly when a player
  * most needs to see who is worth surging onto.
  */
-function __buildIrelia_Mark_Sigil(api: ContentApi) {
+export const makeIrelia_Mark_Sigil = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Irelia_Mark_Sigil extends SpellObject {
@@ -286,15 +255,7 @@ function __buildIrelia_Mark_Sigil(api: ContentApi) {
     }
   }
   return Irelia_Mark_Sigil;
-}
-const __cacheIrelia_Mark_Sigil = new WeakMap<ContentApi, ReturnType<typeof __buildIrelia_Mark_Sigil>>();
-export function makeIrelia_Mark_Sigil(api: ContentApi) {
-  const cached = __cacheIrelia_Mark_Sigil.get(api);
-  if (cached) return cached;
-  const built = __buildIrelia_Mark_Sigil(api);
-  __cacheIrelia_Mark_Sigil.set(api, built);
-  return built;
-}
+});
 
 
 export const Q_RANGE = 320;
@@ -328,7 +289,7 @@ export const Q_ORBIT_GAP = 16;
  * read `isDead` after. Asking the target afterwards alone would credit a reset
  * to a corpse somebody else made.
  */
-function __buildIrelia_Q(api: ContentApi) {
+export const makeIrelia_Q = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
@@ -616,15 +577,8 @@ function __buildIrelia_Q(api: ContentApi) {
     }
   }
   return Irelia_Q;
-}
-const __cacheIrelia_Q = new WeakMap<ContentApi, ReturnType<typeof __buildIrelia_Q>>();
-export default function makeIrelia_Q(api: ContentApi) {
-  const cached = __cacheIrelia_Q.get(api);
-  if (cached) return cached;
-  const built = __buildIrelia_Q(api);
-  __cacheIrelia_Q.set(api, built);
-  return built;
-}
+});
+export default makeIrelia_Q;
 
 
 /** How often the surge sheds a ghost, and how long one lasts. */
@@ -646,7 +600,7 @@ const GHOST_LIFE_MS = 240;
  * round again the instant `Dash` puts her down. A dash cut short by a stun
  * therefore stops looking fast on the frame it stops being fast.
  */
-function __buildIrelia_Q_Surge(api: ContentApi) {
+export const makeIrelia_Q_Surge = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const AttackableUnit = api.units.AttackableUnit;
   const Dash = api.buffs.Dash;
@@ -759,15 +713,7 @@ function __buildIrelia_Q_Surge(api: ContentApi) {
     }
   }
   return Irelia_Q_Surge;
-}
-const __cacheIrelia_Q_Surge = new WeakMap<ContentApi, ReturnType<typeof __buildIrelia_Q_Surge>>();
-export function makeIrelia_Q_Surge(api: ContentApi) {
-  const cached = __cacheIrelia_Q_Surge.get(api);
-  if (cached) return cached;
-  const built = __buildIrelia_Q_Surge(api);
-  __cacheIrelia_Q_Surge.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -777,7 +723,7 @@ export function makeIrelia_Q_Surge(api: ContentApi) {
  * actually finished someone, which is the moment the player needs to notice
  * because the key is already back.
  */
-function __buildIrelia_Q_Strike(api: ContentApi) {
+export const makeIrelia_Q_Strike = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Irelia_Q_Strike extends SpellObject {
@@ -838,15 +784,7 @@ function __buildIrelia_Q_Strike(api: ContentApi) {
     }
   }
   return Irelia_Q_Strike;
-}
-const __cacheIrelia_Q_Strike = new WeakMap<ContentApi, ReturnType<typeof __buildIrelia_Q_Strike>>();
-export function makeIrelia_Q_Strike(api: ContentApi) {
-  const cached = __cacheIrelia_Q_Strike.get(api);
-  if (cached) return cached;
-  const built = __buildIrelia_Q_Strike(api);
-  __cacheIrelia_Q_Strike.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -870,7 +808,7 @@ export function makeIrelia_Q_Strike(api: ContentApi) {
  * a frame behind, they swing out when she turns and stream after her when she
  * surges, which is the whole difference between a dance and a hood ornament.
  */
-function __buildIrelia_Q_Blades(api: ContentApi) {
+export const makeIrelia_Q_Blades = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -996,12 +934,4 @@ function __buildIrelia_Q_Blades(api: ContentApi) {
     }
   }
   return Irelia_Q_Blades;
-}
-const __cacheIrelia_Q_Blades = new WeakMap<ContentApi, ReturnType<typeof __buildIrelia_Q_Blades>>();
-export function makeIrelia_Q_Blades(api: ContentApi) {
-  const cached = __cacheIrelia_Q_Blades.get(api);
-  if (cached) return cached;
-  const built = __buildIrelia_Q_Blades(api);
-  __cacheIrelia_Q_Blades.set(api, built);
-  return built;
-}
+});

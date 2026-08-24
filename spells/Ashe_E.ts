@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
@@ -18,7 +19,7 @@ export const REVEAL_STACK_ID = 'ashe_e_reveal';
 const RANGE = 4000;
 
 
-function __buildAshe_E(api: ContentApi) {
+export const makeAshe_E = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Ashe_E_Object = makeAshe_E_Object(api);
@@ -50,18 +51,11 @@ function __buildAshe_E(api: ContentApi) {
     }
   }
   return Ashe_E;
-}
-const __cacheAshe_E = new WeakMap<ContentApi, ReturnType<typeof __buildAshe_E>>();
-export default function makeAshe_E(api: ContentApi) {
-  const cached = __cacheAshe_E.get(api);
-  if (cached) return cached;
-  const built = __buildAshe_E(api);
-  __cacheAshe_E.set(api, built);
-  return built;
-}
+});
+export default makeAshe_E;
 
 
-function __buildAshe_E_Object(api: ContentApi) {
+export const makeAshe_E_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const MissileSpellObject = api.MissileSpellObject;
@@ -225,19 +219,11 @@ function __buildAshe_E_Object(api: ContentApi) {
     }
   }
   return Ashe_E_Object;
-}
-const __cacheAshe_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildAshe_E_Object>>();
-export function makeAshe_E_Object(api: ContentApi) {
-  const cached = __cacheAshe_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildAshe_E_Object(api);
-  __cacheAshe_E_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** Marker that snaps onto an enemy the hawk has just uncovered. */
-function __buildAshe_E_Ping(api: ContentApi) {
+export const makeAshe_E_Ping = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Ashe_E_Ping extends SpellObject {
@@ -288,12 +274,4 @@ function __buildAshe_E_Ping(api: ContentApi) {
     }
   }
   return Ashe_E_Ping;
-}
-const __cacheAshe_E_Ping = new WeakMap<ContentApi, ReturnType<typeof __buildAshe_E_Ping>>();
-export function makeAshe_E_Ping(api: ContentApi) {
-  const cached = __cacheAshe_E_Ping.get(api);
-  if (cached) return cached;
-  const built = __buildAshe_E_Ping(api);
-  __cacheAshe_E_Ping.set(api, built);
-  return built;
-}
+});

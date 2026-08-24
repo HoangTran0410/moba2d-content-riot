@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
@@ -41,7 +42,7 @@ export const LEAP_TIMEOUT_MS = 2000;
  * victims the one thing the teleport denied them: the length of the jump to
  * walk out of the circle, which is drawn on the ground the entire time.
  */
-function __buildRammus_R(api: ContentApi) {
+export const makeRammus_R = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Dash = api.buffs.Dash;
@@ -98,15 +99,8 @@ function __buildRammus_R(api: ContentApi) {
     }
   }
   return Rammus_R;
-}
-const __cacheRammus_R = new WeakMap<ContentApi, ReturnType<typeof __buildRammus_R>>();
-export default function makeRammus_R(api: ContentApi) {
-  const cached = __cacheRammus_R.get(api);
-  if (cached) return cached;
-  const built = __buildRammus_R(api);
-  __cacheRammus_R.set(api, built);
-  return built;
-}
+});
+export default makeRammus_R;
 
 
 /**
@@ -114,7 +108,7 @@ export default function makeRammus_R(api: ContentApi) {
  * one place that can fire it: `landed` latches, because the dash ending, the
  * timeout and the object being removed all converge here.
  */
-function __buildRammus_R_Leap(api: ContentApi) {
+export const makeRammus_R_Leap = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -224,12 +218,4 @@ function __buildRammus_R_Leap(api: ContentApi) {
     }
   }
   return Rammus_R_Leap;
-}
-const __cacheRammus_R_Leap = new WeakMap<ContentApi, ReturnType<typeof __buildRammus_R_Leap>>();
-export function makeRammus_R_Leap(api: ContentApi) {
-  const cached = __cacheRammus_R_Leap.get(api);
-  if (cached) return cached;
-  const built = __buildRammus_R_Leap(api);
-  __cacheRammus_R_Leap.set(api, built);
-  return built;
-}
+});

@@ -1,6 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { isEnraged } from './Renekton_R';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -49,7 +50,7 @@ export const SHRED_STACK_ID = 'renekton_e_shred';
  * A pass that hit nothing closes the window immediately, so the player is never
  * left holding a key that does nothing.
  */
-function __buildRenekton_E(api: ContentApi) {
+export const makeRenekton_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellForm = api.enums.SpellForm;
@@ -189,15 +190,8 @@ function __buildRenekton_E(api: ContentApi) {
     }
   }
   return Renekton_E;
-}
-const __cacheRenekton_E = new WeakMap<ContentApi, ReturnType<typeof __buildRenekton_E>>();
-export default function makeRenekton_E(api: ContentApi) {
-  const cached = __cacheRenekton_E.get(api);
-  if (cached) return cached;
-  const built = __buildRenekton_E(api);
-  __cacheRenekton_E.set(api, built);
-  return built;
-}
+});
+export default makeRenekton_E;
 
 
 export const GASH_LIFETIME_MS = 620;
@@ -211,7 +205,7 @@ export const GASH_LIFETIME_MS = 620;
  * away from his body — drawn off `Champion.draw` it would blink out whenever the
  * camera lost him and the damage would land invisibly.
  */
-function __buildRenekton_E_Object(api: ContentApi) {
+export const makeRenekton_E_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
@@ -297,12 +291,4 @@ function __buildRenekton_E_Object(api: ContentApi) {
     }
   }
   return Renekton_E_Object;
-}
-const __cacheRenekton_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildRenekton_E_Object>>();
-export function makeRenekton_E_Object(api: ContentApi) {
-  const cached = __cacheRenekton_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildRenekton_E_Object(api);
-  __cacheRenekton_E_Object.set(api, built);
-  return built;
-}
+});

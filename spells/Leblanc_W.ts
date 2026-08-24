@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
@@ -17,7 +18,7 @@ export const MIRROR_ASSEMBLE_MS = 300;
 export const MIRROR_DECAY = 0.25;
 
 
-function __buildLeblanc_W(api: ContentApi) {
+export const makeLeblanc_W = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const VectorUtils = api.utils.VectorUtils;
@@ -126,15 +127,8 @@ function __buildLeblanc_W(api: ContentApi) {
     }
   }
   return Leblanc_W;
-}
-const __cacheLeblanc_W = new WeakMap<ContentApi, ReturnType<typeof __buildLeblanc_W>>();
-export default function makeLeblanc_W(api: ContentApi) {
-  const cached = __cacheLeblanc_W.get(api);
-  if (cached) return cached;
-  const built = __buildLeblanc_W(api);
-  __cacheLeblanc_W.set(api, built);
-  return built;
-}
+});
+export default makeLeblanc_W;
 
 
 /**
@@ -156,7 +150,7 @@ export default function makeLeblanc_W(api: ContentApi) {
  * That asymmetry is the ability. `isAllied` is read from the *viewer's* side
  * because everything is drawn from the local player's point of view.
  */
-function __buildLeblanc_W_Object(api: ContentApi) {
+export const makeLeblanc_W_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Leblanc_W_Object extends SpellObject {
     position = createVector();
@@ -261,15 +255,7 @@ function __buildLeblanc_W_Object(api: ContentApi) {
     }
   }
   return Leblanc_W_Object;
-}
-const __cacheLeblanc_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildLeblanc_W_Object>>();
-export function makeLeblanc_W_Object(api: ContentApi) {
-  const cached = __cacheLeblanc_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildLeblanc_W_Object(api);
-  __cacheLeblanc_W_Object.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -279,7 +265,7 @@ export function makeLeblanc_W_Object(api: ContentApi) {
  * already throws, and it tells the wrong story anyway — nothing was broken
  * here, something was passed through.
  */
-function __buildLeblanc_W_Object2(api: ContentApi) {
+export const makeLeblanc_W_Object2 = packClass((api: ContentApi) => {
   const Leblanc_W_Object = makeLeblanc_W_Object(api);
   class Leblanc_W_Object2 extends Leblanc_W_Object {
     size = 200;
@@ -354,12 +340,4 @@ function __buildLeblanc_W_Object2(api: ContentApi) {
     }
   }
   return Leblanc_W_Object2;
-}
-const __cacheLeblanc_W_Object2 = new WeakMap<ContentApi, ReturnType<typeof __buildLeblanc_W_Object2>>();
-export function makeLeblanc_W_Object2(api: ContentApi) {
-  const cached = __cacheLeblanc_W_Object2.get(api);
-  if (cached) return cached;
-  const built = __buildLeblanc_W_Object2(api);
-  __cacheLeblanc_W_Object2.set(api, built);
-  return built;
-}
+});

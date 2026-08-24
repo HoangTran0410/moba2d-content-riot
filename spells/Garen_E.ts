@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Disarm = InstanceType<ContentApi['buffs']['Disarm']>;
@@ -28,7 +29,7 @@ export const DAMAGE_PER_HIT = 7;
  * self-disarm is not flavour — it is the cost that makes the spin a commitment
  * rather than free extra damage stapled onto his auto-attacks.
  */
-function __buildGaren_E(api: ContentApi) {
+export const makeGaren_E = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Disarm = api.buffs.Disarm;
   const Phasing = api.buffs.Phasing;
@@ -68,18 +69,11 @@ function __buildGaren_E(api: ContentApi) {
     }
   }
   return Garen_E;
-}
-const __cacheGaren_E = new WeakMap<ContentApi, ReturnType<typeof __buildGaren_E>>();
-export default function makeGaren_E(api: ContentApi) {
-  const cached = __cacheGaren_E.get(api);
-  if (cached) return cached;
-  const built = __buildGaren_E(api);
-  __cacheGaren_E.set(api, built);
-  return built;
-}
+});
+export default makeGaren_E;
 
 
-function __buildGaren_E_Object(api: ContentApi) {
+export const makeGaren_E_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -206,12 +200,4 @@ function __buildGaren_E_Object(api: ContentApi) {
     }
   }
   return Garen_E_Object;
-}
-const __cacheGaren_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildGaren_E_Object>>();
-export function makeGaren_E_Object(api: ContentApi) {
-  const cached = __cacheGaren_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildGaren_E_Object(api);
-  __cacheGaren_E_Object.set(api, built);
-  return built;
-}
+});

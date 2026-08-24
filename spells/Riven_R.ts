@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CancelReason, CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -64,24 +65,16 @@ export function windSlashDamage(healthRatio: number): number {
  * The reforged runeblade. Its own class rather than a configured `StatAmp` so the stack
  * slot is unique and Riven_Q can ask `hasBuff` whether to grow its energy edge.
  */
-function __buildRiven_R_Reforge(api: ContentApi) {
+export const makeRiven_R_Reforge = packClass((api: ContentApi) => {
   const StatAmp = api.buffs.StatAmp;
   class Riven_R_Reforge extends StatAmp {
     bonuses = { attackDamage: { percentBonus: R_DAMAGE_AMP } };
   }
   return Riven_R_Reforge;
-}
-const __cacheRiven_R_Reforge = new WeakMap<ContentApi, ReturnType<typeof __buildRiven_R_Reforge>>();
-export function makeRiven_R_Reforge(api: ContentApi) {
-  const cached = __cacheRiven_R_Reforge.get(api);
-  if (cached) return cached;
-  const built = __buildRiven_R_Reforge(api);
-  __cacheRiven_R_Reforge.set(api, built);
-  return built;
-}
+});
 
 
-function __buildRiven_R(api: ContentApi) {
+export const makeRiven_R = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const SpellForm = api.enums.SpellForm;
   const Spell = api.Spell;
@@ -163,15 +156,8 @@ function __buildRiven_R(api: ContentApi) {
     }
   }
   return Riven_R;
-}
-const __cacheRiven_R = new WeakMap<ContentApi, ReturnType<typeof __buildRiven_R>>();
-export default function makeRiven_R(api: ContentApi) {
-  const cached = __cacheRiven_R.get(api);
-  if (cached) return cached;
-  const built = __buildRiven_R(api);
-  __cacheRiven_R.set(api, built);
-  return built;
-}
+});
+export default makeRiven_R;
 
 
 /**
@@ -179,7 +165,7 @@ export default function makeRiven_R(api: ContentApi) {
  * a cone that is exactly R_LENGTH long and R_WIDTH across at the far end; the first wave
  * to reach a unit is the one that damages it, and `hitTargets` keeps the other two off.
  */
-function __buildRiven_R_WindSlash(api: ContentApi) {
+export const makeRiven_R_WindSlash = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -388,22 +374,14 @@ function __buildRiven_R_WindSlash(api: ContentApi) {
     }
   }
   return Riven_R_WindSlash;
-}
-const __cacheRiven_R_WindSlash = new WeakMap<ContentApi, ReturnType<typeof __buildRiven_R_WindSlash>>();
-export function makeRiven_R_WindSlash(api: ContentApi) {
-  const cached = __cacheRiven_R_WindSlash.get(api);
-  if (cached) return cached;
-  const built = __buildRiven_R_WindSlash(api);
-  __cacheRiven_R_WindSlash.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * The fragments snapping back together. Attached to the reforge buff, so it lives for
  * exactly as long as the ultimate does and drops the moment the window closes.
  */
-function __buildRiven_R_Reforge_Vfx(api: ContentApi) {
+export const makeRiven_R_Reforge_Vfx = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const Riven_R_Reforge = makeRiven_R_Reforge(api);
@@ -471,12 +449,4 @@ function __buildRiven_R_Reforge_Vfx(api: ContentApi) {
     }
   }
   return Riven_R_Reforge_Vfx;
-}
-const __cacheRiven_R_Reforge_Vfx = new WeakMap<ContentApi, ReturnType<typeof __buildRiven_R_Reforge_Vfx>>();
-export function makeRiven_R_Reforge_Vfx(api: ContentApi) {
-  const cached = __cacheRiven_R_Reforge_Vfx.get(api);
-  if (cached) return cached;
-  const built = __buildRiven_R_Reforge_Vfx(api);
-  __cacheRiven_R_Reforge_Vfx.set(api, built);
-  return built;
-}
+});

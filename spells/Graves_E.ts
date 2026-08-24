@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
 type Spell = InstanceType<ContentApi['Spell']>;
@@ -19,7 +20,7 @@ export const CRIT_CHANCE = 0.35;
 
 
 /** Quickdraw: the reposition, and the reload that follows it. */
-function __buildGraves_E(api: ContentApi) {
+export const makeGraves_E = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Dash = api.buffs.Dash;
@@ -70,12 +71,5 @@ function __buildGraves_E(api: ContentApi) {
     }
   }
   return Graves_E;
-}
-const __cacheGraves_E = new WeakMap<ContentApi, ReturnType<typeof __buildGraves_E>>();
-export default function makeGraves_E(api: ContentApi) {
-  const cached = __cacheGraves_E.get(api);
-  if (cached) return cached;
-  const built = __buildGraves_E(api);
-  __cacheGraves_E.set(api, built);
-  return built;
-}
+});
+export default makeGraves_E;

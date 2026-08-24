@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -352,7 +353,7 @@ function enforceSphereCap(list: Syndra_Sphere[]): void {
 
 
 /** Her live grounded spheres, closest to her first. Held and flying ones are not grounded. */
-function __buildgroundedSpheres(api: ContentApi) {
+export const makeGroundedSpheres = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SPHERE_REGISTRY = makeSPHERE_REGISTRY(api);
   function groundedSpheres(owner: AttackableUnit): Syndra_Sphere[] {
@@ -371,18 +372,10 @@ function __buildgroundedSpheres(api: ContentApi) {
     return grounded;
   }
   return groundedSpheres;
-}
-const __cachegroundedSpheres = new WeakMap<ContentApi, ReturnType<typeof __buildgroundedSpheres>>();
-export function makeGroundedSpheres(api: ContentApi) {
-  const cached = __cachegroundedSpheres.get(api);
-  if (cached) return cached;
-  const built = __buildgroundedSpheres(api);
-  __cachegroundedSpheres.set(api, built);
-  return built;
-}
+});
 
 
-function __buildSyndra_Q(api: ContentApi) {
+export const makeSyndra_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const Spell = api.Spell;
@@ -430,15 +423,8 @@ function __buildSyndra_Q(api: ContentApi) {
     }
   }
   return Syndra_Q;
-}
-const __cacheSyndra_Q = new WeakMap<ContentApi, ReturnType<typeof __buildSyndra_Q>>();
-export default function makeSyndra_Q(api: ContentApi) {
-  const cached = __cacheSyndra_Q.get(api);
-  if (cached) return cached;
-  const built = __buildSyndra_Q(api);
-  __cacheSyndra_Q.set(api, built);
-  return built;
-}
+});
+export default makeSyndra_Q;
 
 
 /**
@@ -446,7 +432,7 @@ export default function makeSyndra_Q(api: ContentApi) {
  * the sphere is still in the air, then a hard rim on that same radius when it
  * lands. The enemy knows the size before it arrives.
  */
-function __buildSyndra_Q_Telegraph(api: ContentApi) {
+export const makeSyndra_Q_Telegraph = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
@@ -493,19 +479,11 @@ function __buildSyndra_Q_Telegraph(api: ContentApi) {
     }
   }
   return Syndra_Q_Telegraph;
-}
-const __cacheSyndra_Q_Telegraph = new WeakMap<ContentApi, ReturnType<typeof __buildSyndra_Q_Telegraph>>();
-export function makeSyndra_Q_Telegraph(api: ContentApi) {
-  const cached = __cacheSyndra_Q_Telegraph.get(api);
-  if (cached) return cached;
-  const built = __buildSyndra_Q_Telegraph(api);
-  __cacheSyndra_Q_Telegraph.set(api, built);
-  return built;
-}
+});
 
 
 /** The sphere itself, falling. It owns the landing: the damage, then the resource. */
-function __buildSyndra_Q_Fall(api: ContentApi) {
+export const makeSyndra_Q_Fall = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const AttackableUnit = api.units.AttackableUnit;
@@ -609,22 +587,14 @@ function __buildSyndra_Q_Fall(api: ContentApi) {
     }
   }
   return Syndra_Q_Fall;
-}
-const __cacheSyndra_Q_Fall = new WeakMap<ContentApi, ReturnType<typeof __buildSyndra_Q_Fall>>();
-export function makeSyndra_Q_Fall(api: ContentApi) {
-  const cached = __cacheSyndra_Q_Fall.get(api);
-  if (cached) return cached;
-  const built = __buildSyndra_Q_Fall(api);
-  __cacheSyndra_Q_Fall.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * Her impact mark, shared by W, E and R: a hard rim on the real hit radius plus
  * the fracture spikes of the motif, planted on the body that took the hit.
  */
-function __buildSyndra_Burst(api: ContentApi) {
+export const makeSyndra_Burst = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
@@ -693,12 +663,4 @@ function __buildSyndra_Burst(api: ContentApi) {
     }
   }
   return Syndra_Burst;
-}
-const __cacheSyndra_Burst = new WeakMap<ContentApi, ReturnType<typeof __buildSyndra_Burst>>();
-export function makeSyndra_Burst(api: ContentApi) {
-  const cached = __cacheSyndra_Burst.get(api);
-  if (cached) return cached;
-  const built = __buildSyndra_Burst(api);
-  __cacheSyndra_Burst.set(api, built);
-  return built;
-}
+});

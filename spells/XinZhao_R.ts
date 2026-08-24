@@ -1,6 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastSpec } from '@moba2d/core/content/types';
 import { isChallengedBy } from './XinZhao_E';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type CastTelegraph = InstanceType<ContentApi['vfx']['CastTelegraph']>;
@@ -43,7 +44,7 @@ export const XINZHAO_R_CAST_MS = 300;
  * does it, so the displacement is animated, is interrupted by nothing (it is
  * not the victim's own movement) and puts them down where it says it will.
  */
-function __buildXinZhao_R_Knockback(api: ContentApi) {
+export const makeXinZhao_R_Knockback = packClass((api: ContentApi) => {
   const StatusFlags = api.enums.StatusFlags;
   const Dash = api.buffs.Dash;
   class XinZhao_R_Knockback extends Dash {
@@ -61,18 +62,10 @@ function __buildXinZhao_R_Knockback(api: ContentApi) {
     }
   }
   return XinZhao_R_Knockback;
-}
-const __cacheXinZhao_R_Knockback = new WeakMap<ContentApi, ReturnType<typeof __buildXinZhao_R_Knockback>>();
-export function makeXinZhao_R_Knockback(api: ContentApi) {
-  const cached = __cacheXinZhao_R_Knockback.get(api);
-  if (cached) return cached;
-  const built = __buildXinZhao_R_Knockback(api);
-  __cacheXinZhao_R_Knockback.set(api, built);
-  return built;
-}
+});
 
 
-function __buildXinZhao_R(api: ContentApi) {
+export const makeXinZhao_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const CastTelegraph = api.vfx.CastTelegraph;
@@ -185,15 +178,8 @@ function __buildXinZhao_R(api: ContentApi) {
     }
   }
   return XinZhao_R;
-}
-const __cacheXinZhao_R = new WeakMap<ContentApi, ReturnType<typeof __buildXinZhao_R>>();
-export default function makeXinZhao_R(api: ContentApi) {
-  const cached = __cacheXinZhao_R.get(api);
-  if (cached) return cached;
-  const built = __buildXinZhao_R(api);
-  __cacheXinZhao_R.set(api, built);
-  return built;
-}
+});
+export default makeXinZhao_R;
 
 
 /**
@@ -203,7 +189,7 @@ export default function makeXinZhao_R(api: ContentApi) {
  * Earth-and-steel, deliberately unlike Janna's wind or Jarvan's crags — a hard
  * gold arc with dust kicked off the ground it scours.
  */
-function __buildXinZhao_R_Object(api: ContentApi) {
+export const makeXinZhao_R_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
@@ -312,12 +298,4 @@ function __buildXinZhao_R_Object(api: ContentApi) {
     }
   }
   return XinZhao_R_Object;
-}
-const __cacheXinZhao_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildXinZhao_R_Object>>();
-export function makeXinZhao_R_Object(api: ContentApi) {
-  const cached = __cacheXinZhao_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildXinZhao_R_Object(api);
-  __cacheXinZhao_R_Object.set(api, built);
-  return built;
-}
+});

@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
@@ -58,7 +59,7 @@ const BLOOD: [number, number, number] = [183, 21, 64];
  * so he must not be a damage modifier. Grit lives on the spell (not the buff) so
  * the HUD, the bar and the cast all read one number.
  */
-function __buildSett_W(api: ContentApi) {
+export const makeSett_W = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -240,15 +241,8 @@ function __buildSett_W(api: ContentApi) {
     }
   }
   return Sett_W;
-}
-const __cacheSett_W = new WeakMap<ContentApi, ReturnType<typeof __buildSett_W>>();
-export default function makeSett_W(api: ContentApi) {
-  const cached = __cacheSett_W.get(api);
-  if (cached) return cached;
-  const built = __buildSett_W(api);
-  __cacheSett_W.set(api, built);
-  return built;
-}
+});
+export default makeSett_W;
 
 
 /**
@@ -256,7 +250,7 @@ export default function makeSett_W(api: ContentApi) {
  * through. onDamageTaken runs after the whole modifier chain, so `landed` is the
  * number the player actually saw.
  */
-function __buildSett_W_Grit_Listener(api: ContentApi) {
+export const makeSett_W_Grit_Listener = packClass((api: ContentApi) => {
   const Buff = api.buffs.Buff;
   class Sett_W_Grit_Listener extends Buff {
     name = 'Nộ Khí';
@@ -267,19 +261,11 @@ function __buildSett_W_Grit_Listener(api: ContentApi) {
     }
   }
   return Sett_W_Grit_Listener;
-}
-const __cacheSett_W_Grit_Listener = new WeakMap<ContentApi, ReturnType<typeof __buildSett_W_Grit_Listener>>();
-export function makeSett_W_Grit_Listener(api: ContentApi) {
-  const cached = __cacheSett_W_Grit_Listener.get(api);
-  if (cached) return cached;
-  const built = __buildSett_W_Grit_Listener(api);
-  __cacheSett_W_Grit_Listener.set(api, built);
-  return built;
-}
+});
 
 
 /** The chunky bar under his feet. Without it the player cannot play W. */
-function __buildSett_W_Grit_Bar(api: ContentApi) {
+export const makeSett_W_Grit_Bar = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Sett_W_Grit_Bar extends SpellObject {
@@ -332,19 +318,11 @@ function __buildSett_W_Grit_Bar(api: ContentApi) {
     }
   }
   return Sett_W_Grit_Bar;
-}
-const __cacheSett_W_Grit_Bar = new WeakMap<ContentApi, ReturnType<typeof __buildSett_W_Grit_Bar>>();
-export function makeSett_W_Grit_Bar(api: ContentApi) {
-  const cached = __cacheSett_W_Grit_Bar.get(api);
-  if (cached) return cached;
-  const built = __buildSett_W_Grit_Bar(api);
-  __cacheSett_W_Grit_Bar.set(api, built);
-  return built;
-}
+});
 
 
 /** The windup: the cone sector grows to full reach while he pulls the fist back. */
-function __buildSett_W_Telegraph(api: ContentApi) {
+export const makeSett_W_Telegraph = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
@@ -404,22 +382,14 @@ function __buildSett_W_Telegraph(api: ContentApi) {
     }
   }
   return Sett_W_Telegraph;
-}
-const __cacheSett_W_Telegraph = new WeakMap<ContentApi, ReturnType<typeof __buildSett_W_Telegraph>>();
-export function makeSett_W_Telegraph(api: ContentApi) {
-  const cached = __cacheSett_W_Telegraph.get(api);
-  if (cached) return cached;
-  const built = __buildSett_W_Telegraph(api);
-  __cacheSett_W_Telegraph.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * The punch itself. Blasts the full cone sector with golden flame, with an intense
  * true-damage laser strip along the center.
  */
-function __buildSett_W_Punch(api: ContentApi) {
+export const makeSett_W_Punch = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
@@ -502,12 +472,4 @@ function __buildSett_W_Punch(api: ContentApi) {
     }
   }
   return Sett_W_Punch;
-}
-const __cacheSett_W_Punch = new WeakMap<ContentApi, ReturnType<typeof __buildSett_W_Punch>>();
-export function makeSett_W_Punch(api: ContentApi) {
-  const cached = __cacheSett_W_Punch.get(api);
-  if (cached) return cached;
-  const built = __buildSett_W_Punch(api);
-  __cacheSett_W_Punch.set(api, built);
-  return built;
-}
+});

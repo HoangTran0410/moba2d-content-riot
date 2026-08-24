@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BeamGeometry, CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 // Relative, not `@/`: `LuxBeamEffect` moved into `packs/riot/vfx/` (Task 2 of
 // the content-pack extraction) and this file has not moved yet, so this is a
 // core file reaching into the Riot pack rather than the reverse. Temporary —
@@ -37,7 +38,7 @@ function hasSpells(unit: AttackableUnit): unit is AttackableUnit & { spells: Spe
 }
 
 
-function __buildLux_R_CastLock(api: ContentApi) {
+export const makeLux_R_CastLock = packClass((api: ContentApi) => {
   const StatusFlags = api.enums.StatusFlags;
   const Buff = api.buffs.Buff;
   const Spell = api.Spell;
@@ -78,15 +79,7 @@ function __buildLux_R_CastLock(api: ContentApi) {
     }
   }
   return Lux_R_CastLock;
-}
-const __cacheLux_R_CastLock = new WeakMap<ContentApi, ReturnType<typeof __buildLux_R_CastLock>>();
-export function makeLux_R_CastLock(api: ContentApi) {
-  const cached = __cacheLux_R_CastLock.get(api);
-  if (cached) return cached;
-  const built = __buildLux_R_CastLock(api);
-  __cacheLux_R_CastLock.set(api, built);
-  return built;
-}
+});
 
 
 // Exported so the suite asserts the beam and reveal wiring, not a copy of the
@@ -132,7 +125,7 @@ export const MANA_COST = 100;
  * along with a caster nobody can see is correct. The beam is the effect, not a
  * telegraph of one, and only effects belong in the world.
  */
-function __buildLux_R_Beam(api: ContentApi) {
+export const makeLux_R_Beam = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const beamBoundingBox = api.beamBoundingBox;
   const Rectangle = api.utils.Quadtree.Rectangle;
@@ -170,18 +163,10 @@ function __buildLux_R_Beam(api: ContentApi) {
     }
   }
   return Lux_R_Beam;
-}
-const __cacheLux_R_Beam = new WeakMap<ContentApi, ReturnType<typeof __buildLux_R_Beam>>();
-export function makeLux_R_Beam(api: ContentApi) {
-  const cached = __cacheLux_R_Beam.get(api);
-  if (cached) return cached;
-  const built = __buildLux_R_Beam(api);
-  __cacheLux_R_Beam.set(api, built);
-  return built;
-}
+});
 
 
-function __buildLux_R_Vision(api: ContentApi) {
+export const makeLux_R_Vision = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Lux_R_Vision extends SpellObject {
     visionRadius = 250;
@@ -198,18 +183,10 @@ function __buildLux_R_Vision(api: ContentApi) {
     }
   }
   return Lux_R_Vision;
-}
-const __cacheLux_R_Vision = new WeakMap<ContentApi, ReturnType<typeof __buildLux_R_Vision>>();
-export function makeLux_R_Vision(api: ContentApi) {
-  const cached = __cacheLux_R_Vision.get(api);
-  if (cached) return cached;
-  const built = __buildLux_R_Vision(api);
-  __cacheLux_R_Vision.set(api, built);
-  return built;
-}
+});
 
 
-function __buildLux_R(api: ContentApi) {
+export const makeLux_R = packClass((api: ContentApi) => {
   const SpellForm = api.enums.SpellForm;
   const CastBar = api.vfx.CastBar;
   const Spell = api.Spell;
@@ -360,12 +337,5 @@ function __buildLux_R(api: ContentApi) {
     }
   }
   return Lux_R;
-}
-const __cacheLux_R = new WeakMap<ContentApi, ReturnType<typeof __buildLux_R>>();
-export default function makeLux_R(api: ContentApi) {
-  const cached = __cacheLux_R.get(api);
-  if (cached) return cached;
-  const built = __buildLux_R(api);
-  __cacheLux_R.set(api, built);
-  return built;
-}
+});
+export default makeLux_R;

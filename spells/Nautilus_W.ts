@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BasicAttackHit } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -53,7 +54,7 @@ const FOAM: [number, number, number] = [168, 230, 207];
  * `onRemoved` / a per-frame liveness check are the rest, because a listener left
  * behind would keep splashing for the whole match.
  */
-function __buildNautilus_W(api: ContentApi) {
+export const makeNautilus_W = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const EventType = api.enums.EventType;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -152,15 +153,8 @@ function __buildNautilus_W(api: ContentApi) {
     }
   }
   return Nautilus_W;
-}
-const __cacheNautilus_W = new WeakMap<ContentApi, ReturnType<typeof __buildNautilus_W>>();
-export default function makeNautilus_W(api: ContentApi) {
-  const cached = __cacheNautilus_W.get(api);
-  if (cached) return cached;
-  const built = __buildNautilus_W(api);
-  __cacheNautilus_W.set(api, built);
-  return built;
-}
+});
+export default makeNautilus_W;
 
 
 /**
@@ -168,7 +162,7 @@ export default function makeNautilus_W(api: ContentApi) {
  * Drawn as its own object rather than from `Champion.draw`, so it survives the
  * frames on which the caster is culled.
  */
-function __buildNautilus_W_Shell(api: ContentApi) {
+export const makeNautilus_W_Shell = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
@@ -244,19 +238,11 @@ function __buildNautilus_W_Shell(api: ContentApi) {
     }
   }
   return Nautilus_W_Shell;
-}
-const __cacheNautilus_W_Shell = new WeakMap<ContentApi, ReturnType<typeof __buildNautilus_W_Shell>>();
-export function makeNautilus_W_Shell(api: ContentApi) {
-  const cached = __cacheNautilus_W_Shell.get(api);
-  if (cached) return cached;
-  const built = __buildNautilus_W_Shell(api);
-  __cacheNautilus_W_Shell.set(api, built);
-  return built;
-}
+});
 
 
 /** The low sheet of water, on the ground, at exactly the radius that hit. */
-function __buildNautilus_W_Splash(api: ContentApi) {
+export const makeNautilus_W_Splash = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
@@ -297,12 +283,4 @@ function __buildNautilus_W_Splash(api: ContentApi) {
     }
   }
   return Nautilus_W_Splash;
-}
-const __cacheNautilus_W_Splash = new WeakMap<ContentApi, ReturnType<typeof __buildNautilus_W_Splash>>();
-export function makeNautilus_W_Splash(api: ContentApi) {
-  const cached = __cacheNautilus_W_Splash.get(api);
-  if (cached) return cached;
-  const built = __buildNautilus_W_Splash(api);
-  __cacheNautilus_W_Splash.set(api, built);
-  return built;
-}
+});

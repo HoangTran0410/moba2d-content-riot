@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -57,7 +58,7 @@ const HEXTECH: [number, number, number] = [0, 168, 255];
  * anything in the way is knocked aside and the charge keeps going, so the only
  * answer to it is not being where it lands.
  */
-function __buildVi_R(api: ContentApi) {
+export const makeVi_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
@@ -286,22 +287,15 @@ function __buildVi_R(api: ContentApi) {
     }
   }
   return Vi_R;
-}
-const __cacheVi_R = new WeakMap<ContentApi, ReturnType<typeof __buildVi_R>>();
-export default function makeVi_R(api: ContentApi) {
-  const cached = __cacheVi_R.get(api);
-  if (cached) return cached;
-  const built = __buildVi_R(api);
-  __cacheVi_R.set(api, built);
-  return built;
-}
+});
+export default makeVi_R;
 
 
 /**
  * The line of steam and brass she drags behind her, widening as the charge
  * covers ground, and the dynamic lock-on tether laser connecting Vi to her victim.
  */
-function __buildVi_R_Streak(api: ContentApi) {
+export const makeVi_R_Streak = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const AttackableUnit = api.units.AttackableUnit;
   const Dash = api.buffs.Dash;
@@ -414,19 +408,11 @@ function __buildVi_R_Streak(api: ContentApi) {
     }
   }
   return Vi_R_Streak;
-}
-const __cacheVi_R_Streak = new WeakMap<ContentApi, ReturnType<typeof __buildVi_R_Streak>>();
-export function makeVi_R_Streak(api: ContentApi) {
-  const cached = __cacheVi_R_Streak.get(api);
-  if (cached) return cached;
-  const built = __buildVi_R_Streak(api);
-  __cacheVi_R_Streak.set(api, built);
-  return built;
-}
+});
 
 
 /** The wedge and slam that lands on the target: uppercut lift, brass crater, hextech shockwave. */
-function __buildVi_R_Impact(api: ContentApi) {
+export const makeVi_R_Impact = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Vi_R_Impact extends SpellObject {
@@ -526,12 +512,4 @@ function __buildVi_R_Impact(api: ContentApi) {
     }
   }
   return Vi_R_Impact;
-}
-const __cacheVi_R_Impact = new WeakMap<ContentApi, ReturnType<typeof __buildVi_R_Impact>>();
-export function makeVi_R_Impact(api: ContentApi) {
-  const cached = __cacheVi_R_Impact.get(api);
-  if (cached) return cached;
-  const built = __buildVi_R_Impact(api);
-  __cacheVi_R_Impact.set(api, built);
-  return built;
-}
+});

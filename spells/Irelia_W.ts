@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 import type {
   BeamGeometry,
   CancelReason,
@@ -67,7 +68,7 @@ export const W_HEAL_PER_HIT = 6;
  * goes off, and cancelling there would be the ability punishing the player for
  * holding it exactly as long as it asked.
  */
-function __buildIrelia_W(api: ContentApi) {
+export const makeIrelia_W = packClass((api: ContentApi) => {
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellForm = api.enums.SpellForm;
   const AttackableUnit = api.units.AttackableUnit;
@@ -251,15 +252,8 @@ function __buildIrelia_W(api: ContentApi) {
     }
   }
   return Irelia_W;
-}
-const __cacheIrelia_W = new WeakMap<ContentApi, ReturnType<typeof __buildIrelia_W>>();
-export default function makeIrelia_W(api: ContentApi) {
-  const cached = __cacheIrelia_W.get(api);
-  if (cached) return cached;
-  const built = __buildIrelia_W(api);
-  __cacheIrelia_W.set(api, built);
-  return built;
-}
+});
+export default makeIrelia_W;
 
 
 /**
@@ -269,7 +263,7 @@ export default function makeIrelia_W(api: ContentApi) {
  * is exactly what `modifyIncomingDamage` is for. It stacks multiplicatively
  * with whatever else is on her, because every buff hands the next what is left.
  */
-function __buildIrelia_W_Guard(api: ContentApi) {
+export const makeIrelia_W_Guard = packClass((api: ContentApi) => {
   const StatusFlags = api.enums.StatusFlags;
   const Buff = api.buffs.Buff;
   class Irelia_W_Guard extends Buff {
@@ -316,15 +310,7 @@ function __buildIrelia_W_Guard(api: ContentApi) {
     }
   }
   return Irelia_W_Guard;
-}
-const __cacheIrelia_W_Guard = new WeakMap<ContentApi, ReturnType<typeof __buildIrelia_W_Guard>>();
-export function makeIrelia_W_Guard(api: ContentApi) {
-  const cached = __cacheIrelia_W_Guard.get(api);
-  if (cached) return cached;
-  const built = __buildIrelia_W_Guard(api);
-  __cacheIrelia_W_Guard.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -333,7 +319,7 @@ export function makeIrelia_W_Guard(api: ContentApi) {
  * the enemy standing in it can read how much is coming, not only that something
  * is.
  */
-function __buildIrelia_W_Charge(api: ContentApi) {
+export const makeIrelia_W_Charge = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Irelia_W_Charge extends SpellObject {
@@ -422,22 +408,14 @@ function __buildIrelia_W_Charge(api: ContentApi) {
     }
   }
   return Irelia_W_Charge;
-}
-const __cacheIrelia_W_Charge = new WeakMap<ContentApi, ReturnType<typeof __buildIrelia_W_Charge>>();
-export function makeIrelia_W_Charge(api: ContentApi) {
-  const cached = __cacheIrelia_W_Charge.get(api);
-  if (cached) return cached;
-  const built = __buildIrelia_W_Charge(api);
-  __cacheIrelia_W_Charge.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * The sweep itself: a blade dragged across the corridor the telegraph promised,
  * ending on a hard edge at the same reach the damage used.
  */
-function __buildIrelia_W_Slash(api: ContentApi) {
+export const makeIrelia_W_Slash = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
@@ -508,12 +486,4 @@ function __buildIrelia_W_Slash(api: ContentApi) {
     }
   }
   return Irelia_W_Slash;
-}
-const __cacheIrelia_W_Slash = new WeakMap<ContentApi, ReturnType<typeof __buildIrelia_W_Slash>>();
-export function makeIrelia_W_Slash(api: ContentApi) {
-  const cached = __cacheIrelia_W_Slash.get(api);
-  if (cached) return cached;
-  const built = __buildIrelia_W_Slash(api);
-  __cacheIrelia_W_Slash.set(api, built);
-  return built;
-}
+});

@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BasicAttackHit } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
@@ -52,7 +53,7 @@ export const STACK_ID = 'twitch_r';
  * and the original victim is never double-billed: it is seeded into the
  * missile's `hitTargets` before the bolt is in the world.
  */
-function __buildTwitch_R(api: ContentApi) {
+export const makeTwitch_R = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const EventType = api.enums.EventType;
   const Spell = api.Spell;
@@ -146,18 +147,11 @@ function __buildTwitch_R(api: ContentApi) {
     }
   }
   return Twitch_R;
-}
-const __cacheTwitch_R = new WeakMap<ContentApi, ReturnType<typeof __buildTwitch_R>>();
-export default function makeTwitch_R(api: ContentApi) {
-  const cached = __cacheTwitch_R.get(api);
-  if (cached) return cached;
-  const built = __buildTwitch_R(api);
-  __cacheTwitch_R.set(api, built);
-  return built;
-}
+});
+export default makeTwitch_R;
 
 
-function __buildTwitch_R_Bolt(api: ContentApi) {
+export const makeTwitch_R_Bolt = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const AttackableUnit = api.units.AttackableUnit;
   const Twitch_R_Pierce = makeTwitch_R_Pierce(api);
@@ -220,19 +214,11 @@ function __buildTwitch_R_Bolt(api: ContentApi) {
     }
   }
   return Twitch_R_Bolt;
-}
-const __cacheTwitch_R_Bolt = new WeakMap<ContentApi, ReturnType<typeof __buildTwitch_R_Bolt>>();
-export function makeTwitch_R_Bolt(api: ContentApi) {
-  const cached = __cacheTwitch_R_Bolt.get(api);
-  if (cached) return cached;
-  const built = __buildTwitch_R_Bolt(api);
-  __cacheTwitch_R_Bolt.set(api, built);
-  return built;
-}
+});
 
 
 /** One body punched through: a hard ring and a spray out the far side. */
-function __buildTwitch_R_Pierce(api: ContentApi) {
+export const makeTwitch_R_Pierce = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
   class Twitch_R_Pierce extends SpellObject {
@@ -276,12 +262,4 @@ function __buildTwitch_R_Pierce(api: ContentApi) {
     }
   }
   return Twitch_R_Pierce;
-}
-const __cacheTwitch_R_Pierce = new WeakMap<ContentApi, ReturnType<typeof __buildTwitch_R_Pierce>>();
-export function makeTwitch_R_Pierce(api: ContentApi) {
-  const cached = __cacheTwitch_R_Pierce.get(api);
-  if (cached) return cached;
-  const built = __buildTwitch_R_Pierce(api);
-  __cacheTwitch_R_Pierce.set(api, built);
-  return built;
-}
+});

@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
@@ -21,7 +22,7 @@ export const EKKO_Q_SLOW_PERCENT = 0.4;
 export const EKKO_Q_FIELD_RADIUS = 100;
 
 
-function __buildEkko_Q(api: ContentApi) {
+export const makeEkko_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Ekko_Q_Object = makeEkko_Q_Object(api);
@@ -50,15 +51,8 @@ function __buildEkko_Q(api: ContentApi) {
     }
   }
   return Ekko_Q;
-}
-const __cacheEkko_Q = new WeakMap<ContentApi, ReturnType<typeof __buildEkko_Q>>();
-export default function makeEkko_Q(api: ContentApi) {
-  const cached = __cacheEkko_Q.get(api);
-  if (cached) return cached;
-  const built = __buildEkko_Q(api);
-  __cacheEkko_Q.set(api, built);
-  return built;
-}
+});
+export default makeEkko_Q;
 
 
 /**
@@ -70,7 +64,7 @@ export default function makeEkko_Q(api: ContentApi) {
  * in magenta and travels faster. The old version drew one circle and a stick for
  * all three, so the return — the half that hits harder — was unreadable.
  */
-function __buildEkko_Q_Object(api: ContentApi) {
+export const makeEkko_Q_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const Slow = api.buffs.Slow;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -292,19 +286,11 @@ function __buildEkko_Q_Object(api: ContentApi) {
     }
   }
   return Ekko_Q_Object;
-}
-const __cacheEkko_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildEkko_Q_Object>>();
-export function makeEkko_Q_Object(api: ContentApi) {
-  const cached = __cacheEkko_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildEkko_Q_Object(api);
-  __cacheEkko_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** The connect: a hard ring and a cross-slash at the point of contact. */
-function __buildEkko_Q_HitFlash(api: ContentApi) {
+export const makeEkko_Q_HitFlash = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Ekko_Q_HitFlash extends SpellObject {
     lifeTime = 260;
@@ -368,12 +354,4 @@ function __buildEkko_Q_HitFlash(api: ContentApi) {
     }
   }
   return Ekko_Q_HitFlash;
-}
-const __cacheEkko_Q_HitFlash = new WeakMap<ContentApi, ReturnType<typeof __buildEkko_Q_HitFlash>>();
-export function makeEkko_Q_HitFlash(api: ContentApi) {
-  const cached = __cacheEkko_Q_HitFlash.get(api);
-  if (cached) return cached;
-  const built = __buildEkko_Q_HitFlash(api);
-  __cacheEkko_Q_HitFlash.set(api, built);
-  return built;
-}
+});

@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -38,7 +39,7 @@ const RUST: [number, number, number] = [75, 101, 132];
 const FOAM: [number, number, number] = [168, 230, 207];
 
 
-function __buildNautilus_E(api: ContentApi) {
+export const makeNautilus_E = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Nautilus_E_Object = makeNautilus_E_Object(api);
   class Nautilus_E extends Spell {
@@ -58,15 +59,8 @@ function __buildNautilus_E(api: ContentApi) {
     }
   }
   return Nautilus_E;
-}
-const __cacheNautilus_E = new WeakMap<ContentApi, ReturnType<typeof __buildNautilus_E>>();
-export default function makeNautilus_E(api: ContentApi) {
-  const cached = __cacheNautilus_E.get(api);
-  if (cached) return cached;
-  const built = __buildNautilus_E(api);
-  __cacheNautilus_E.set(api, built);
-  return built;
-}
+});
+export default makeNautilus_E;
 
 
 /** One of the three eruptions: its own radius, its own moment, its own hit set. */
@@ -92,7 +86,7 @@ export interface NautilusTide {
  * subclass resolves to `SPELL_EFFECT_Z_INDEX` instead, above the feet of
  * everyone standing in the rings.
  */
-function __buildNautilus_E_Object(api: ContentApi) {
+export const makeNautilus_E_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const effectiveRange = api.combat.Reach.effectiveRange;
@@ -206,12 +200,4 @@ function __buildNautilus_E_Object(api: ContentApi) {
     }
   }
   return Nautilus_E_Object;
-}
-const __cacheNautilus_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildNautilus_E_Object>>();
-export function makeNautilus_E_Object(api: ContentApi) {
-  const cached = __cacheNautilus_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildNautilus_E_Object(api);
-  __cacheNautilus_E_Object.set(api, built);
-  return built;
-}
+});

@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -34,7 +35,7 @@ const CRACK_COUNT = 10;
 const RUSH_MS = 250;
 
 
-function __buildVeigar_W(api: ContentApi) {
+export const makeVeigar_W = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Veigar_W_Object = makeVeigar_W_Object(api);
@@ -73,15 +74,8 @@ function __buildVeigar_W(api: ContentApi) {
     }
   }
   return Veigar_W;
-}
-const __cacheVeigar_W = new WeakMap<ContentApi, ReturnType<typeof __buildVeigar_W>>();
-export default function makeVeigar_W(api: ContentApi) {
-  const cached = __cacheVeigar_W.get(api);
-  if (cached) return cached;
-  const built = __buildVeigar_W(api);
-  __cacheVeigar_W.set(api, built);
-  return built;
-}
+});
+export default makeVeigar_W;
 
 
 /**
@@ -91,7 +85,7 @@ export default function makeVeigar_W(api: ContentApi) {
  * standing at the centre only has to cover `radius` (115) before the strike
  * lands, well inside what `windUpMs` (1.3s) gives a full-speed unit to do it.
  */
-function __buildVeigar_W_Object(api: ContentApi) {
+export const makeVeigar_W_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
@@ -246,12 +240,4 @@ function __buildVeigar_W_Object(api: ContentApi) {
     }
   }
   return Veigar_W_Object;
-}
-const __cacheVeigar_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildVeigar_W_Object>>();
-export function makeVeigar_W_Object(api: ContentApi) {
-  const cached = __cacheVeigar_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildVeigar_W_Object(api);
-  __cacheVeigar_W_Object.set(api, built);
-  return built;
-}
+});

@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Slow = InstanceType<ContentApi['buffs']['Slow']>;
 type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
@@ -49,7 +50,7 @@ export const BOUNDING_MARGIN = 120;
 export const HARD_STOP_MS = HASTE_DURATION + 1200;
 
 
-function __buildBlitzcrank_W(api: ContentApi) {
+export const makeBlitzcrank_W = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const Spell = api.Spell;
   const Slow = api.buffs.Slow;
@@ -87,15 +88,8 @@ function __buildBlitzcrank_W(api: ContentApi) {
     }
   }
   return Blitzcrank_W;
-}
-const __cacheBlitzcrank_W = new WeakMap<ContentApi, ReturnType<typeof __buildBlitzcrank_W>>();
-export default function makeBlitzcrank_W(api: ContentApi) {
-  const cached = __cacheBlitzcrank_W.get(api);
-  if (cached) return cached;
-  const built = __buildBlitzcrank_W(api);
-  __cacheBlitzcrank_W.set(api, built);
-  return built;
-}
+});
+export default makeBlitzcrank_W;
 
 
 interface Arc {
@@ -112,7 +106,7 @@ interface Arc {
  * Everything here is machinery — cut gear teeth, hard electric zigzags, vented
  * steam — so it never gets mistaken for anyone's magic buff.
  */
-function __buildBlitzcrank_W_Object(api: ContentApi) {
+export const makeBlitzcrank_W_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   class Blitzcrank_W_Object extends SpellObject {
@@ -328,12 +322,4 @@ function __buildBlitzcrank_W_Object(api: ContentApi) {
     }
   }
   return Blitzcrank_W_Object;
-}
-const __cacheBlitzcrank_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildBlitzcrank_W_Object>>();
-export function makeBlitzcrank_W_Object(api: ContentApi) {
-  const cached = __cacheBlitzcrank_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildBlitzcrank_W_Object(api);
-  __cacheBlitzcrank_W_Object.set(api, built);
-  return built;
-}
+});

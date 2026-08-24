@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type ParticleSystem = InstanceType<ContentApi['helpers']['ParticleSystem']>;
@@ -10,7 +11,7 @@ type Zed_E_Object = InstanceType<ReturnType<typeof makeZed_E_Object>>;
 
 
 
-function __buildZed_E(api: ContentApi) {
+export const makeZed_E = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Zed_E_Object = makeZed_E_Object(api);
   class Zed_E extends Spell {
@@ -30,18 +31,11 @@ function __buildZed_E(api: ContentApi) {
     }
   }
   return Zed_E;
-}
-const __cacheZed_E = new WeakMap<ContentApi, ReturnType<typeof __buildZed_E>>();
-export default function makeZed_E(api: ContentApi) {
-  const cached = __cacheZed_E.get(api);
-  if (cached) return cached;
-  const built = __buildZed_E(api);
-  __cacheZed_E.set(api, built);
-  return built;
-}
+});
+export default makeZed_E;
 
 
-function __buildZed_E_Object(api: ContentApi) {
+export const makeZed_E_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Slow = api.buffs.Slow;
@@ -172,12 +166,4 @@ function __buildZed_E_Object(api: ContentApi) {
     }
   }
   return Zed_E_Object;
-}
-const __cacheZed_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildZed_E_Object>>();
-export function makeZed_E_Object(api: ContentApi) {
-  const cached = __cacheZed_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildZed_E_Object(api);
-  __cacheZed_E_Object.set(api, built);
-  return built;
-}
+});

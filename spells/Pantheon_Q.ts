@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CancelReason, CastContext, CastSpec, Vec2 } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type BeamSpellObject = InstanceType<ContentApi['BeamSpellObject']>;
@@ -44,38 +45,22 @@ type SpearTarget = AttackableUnit & {
 };
 
 
-function __builddamageMultiplier(api: ContentApi) {
+export const makeDamageMultiplier = packClass((api: ContentApi) => {
   const Monster = api.units.Monster;
   const damageMultiplier = (target: SpearTarget): number =>
     target instanceof Monster ? 0.8 : target.unitType === 'minion' ? 0.7 : 1;
   return damageMultiplier;
-}
-const __cachedamageMultiplier = new WeakMap<ContentApi, ReturnType<typeof __builddamageMultiplier>>();
-export function makeDamageMultiplier(api: ContentApi) {
-  const cached = __cachedamageMultiplier.get(api);
-  if (cached) return cached;
-  const built = __builddamageMultiplier(api);
-  __cachedamageMultiplier.set(api, built);
-  return built;
-}
+});
 
 
-function __buildspearDamage(api: ContentApi) {
+export const makeSpearDamage = packClass((api: ContentApi) => {
   const damageMultiplier = makeDamageMultiplier(api);
   const spearDamage = (target: SpearTarget, subsequent: boolean): number => {
     const executeMultiplier = target.stats.health.value < target.stats.maxHealth.value * 0.2 ? 2 : 1;
     return 20 * damageMultiplier(target) * executeMultiplier * (subsequent ? 0.5 : 1);
   };
   return spearDamage;
-}
-const __cachespearDamage = new WeakMap<ContentApi, ReturnType<typeof __buildspearDamage>>();
-export function makeSpearDamage(api: ContentApi) {
-  const cached = __cachespearDamage.get(api);
-  if (cached) return cached;
-  const built = __buildspearDamage(api);
-  __cachespearDamage.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -123,7 +108,7 @@ const drawSpearBody = (half: number, blade: number): void => {
 };
 
 
-function __buildPantheon_Q(api: ContentApi) {
+export const makePantheon_Q = packClass((api: ContentApi) => {
   const SpellForm = api.enums.SpellForm;
   const BeamSpellObject = api.BeamSpellObject;
   const Spell = api.Spell;
@@ -309,18 +294,11 @@ function __buildPantheon_Q(api: ContentApi) {
     }
   }
   return Pantheon_Q;
-}
-const __cachePantheon_Q = new WeakMap<ContentApi, ReturnType<typeof __buildPantheon_Q>>();
-export default function makePantheon_Q(api: ContentApi) {
-  const cached = __cachePantheon_Q.get(api);
-  if (cached) return cached;
-  const built = __buildPantheon_Q(api);
-  __cachePantheon_Q.set(api, built);
-  return built;
-}
+});
+export default makePantheon_Q;
 
 
-function __buildPantheon_Q_Spear(api: ContentApi) {
+export const makePantheon_Q_Spear = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const TrailSystem = api.helpers.TrailSystem;
   const AttackableUnit = api.units.AttackableUnit;
@@ -387,19 +365,11 @@ function __buildPantheon_Q_Spear(api: ContentApi) {
     }
   }
   return Pantheon_Q_Spear;
-}
-const __cachePantheon_Q_Spear = new WeakMap<ContentApi, ReturnType<typeof __buildPantheon_Q_Spear>>();
-export function makePantheon_Q_Spear(api: ContentApi) {
-  const cached = __cachePantheon_Q_Spear.get(api);
-  if (cached) return cached;
-  const built = __buildPantheon_Q_Spear(api);
-  __cachePantheon_Q_Spear.set(api, built);
-  return built;
-}
+});
 
 
 /** The melee tap-cast: a spear lunge down the lane BeamSpellObject just hit. */
-function __buildPantheon_Q_Thrust(api: ContentApi) {
+export const makePantheon_Q_Thrust = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Pantheon_Q_Thrust extends SpellObject {
@@ -470,12 +440,4 @@ function __buildPantheon_Q_Thrust(api: ContentApi) {
     }
   }
   return Pantheon_Q_Thrust;
-}
-const __cachePantheon_Q_Thrust = new WeakMap<ContentApi, ReturnType<typeof __buildPantheon_Q_Thrust>>();
-export function makePantheon_Q_Thrust(api: ContentApi) {
-  const cached = __cachePantheon_Q_Thrust.get(api);
-  if (cached) return cached;
-  const built = __buildPantheon_Q_Thrust(api);
-  __cachePantheon_Q_Thrust.set(api, built);
-  return built;
-}
+});

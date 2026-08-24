@@ -17,13 +17,24 @@
  * `instanceof`-incompatible classes with the same name, and nothing about the
  * failure points at why. `buildContentApi()` is a cached, process-wide
  * singleton for exactly this reason ("one core in the process"); a memoized
- * factory extends that same guarantee to the classes it builds. The shape is
- * always the same: a plain, unmemoized `__build<Name>` whose return type
- * TypeScript can infer from its own body (nothing about it references the
- * cache, so there is no self-reference to trip on), a `WeakMap<ContentApi,
- * ReturnType<typeof __build<Name>>>` keyed by the api instance, and the
- * exported `make<Name>` as a thin cache-check wrapper around it. Copy it
- * exactly — do not "simplify" it back to a bare `return class ...`.
+ * factory extends that same guarantee to the classes it builds.
+ *
+ * `packClass` is that memo, written once. Wrap the builder in it and nothing
+ * else is required:
+ *
+ *     export const makeX = packClass((api: ContentApi) => class X extends api.Spell {});
+ *     export default makeX;
+ *
+ * The name is worth keeping even on a default export: sibling factories in the
+ * same file call it, and `InstanceType<ReturnType<typeof makeX>>` is how this
+ * pack names the instance type.
+ *
+ * It used to be spelled out per class instead — a `__build<Name>`, a
+ * `WeakMap<ContentApi, ReturnType<typeof __build<Name>>>` and a `make<Name>`
+ * cache-check wrapper, 650 times across this pack, which is where its
+ * reputation for reading like build output came from. Do not go back to that,
+ * and do not "simplify" past it to a bare `return class ...` either: the memo
+ * is load-bearing, only its spelling was not.
  *
  * After creating the file, register it in three places or it will not show up:
  *   1. `packs/riot/spells/index.ts` — export it
@@ -31,8 +42,9 @@
  *   3. `AssetManager` AssetPaths    — add `spell_<name>` pointing at the icon
  */
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
-function __buildSpellName(api: ContentApi) {
+export const makeSpellName = packClass((api: ContentApi) => {
   return class SpellName extends api.Spell {
     image = api.asset('spell_name');
     name = '';
@@ -42,22 +54,15 @@ function __buildSpellName(api: ContentApi) {
     onSpellCast() {}
     onUpdate() {}
   };
-}
-const __cacheSpellName = new WeakMap<ContentApi, ReturnType<typeof __buildSpellName>>();
-export default function makeSpellName(api: ContentApi) {
-  const cached = __cacheSpellName.get(api);
-  if (cached) return cached;
-  const built = __buildSpellName(api);
-  __cacheSpellName.set(api, built);
-  return built;
-}
+});
+export default makeSpellName;
 
 /**
  * A skillshot. `MissileSpellObject` already handles travelling to the
  * destination, hitting each enemy once, the trail, and the bounding box — so a
  * normal projectile is just tuning fields plus `onHit` and `draw`.
  */
-function __buildSpellNameSkillshot(api: ContentApi) {
+export const makeSpellNameSkillshot = packClass((api: ContentApi) => {
   const SpellName_Missile = makeSpellNameMissile(api);
 
   return class SpellName_Skillshot extends api.Spell {
@@ -79,20 +84,9 @@ function __buildSpellNameSkillshot(api: ContentApi) {
       this.game.objectManager.addObject(obj);
     }
   };
-}
-const __cacheSpellNameSkillshot = new WeakMap<
-  ContentApi,
-  ReturnType<typeof __buildSpellNameSkillshot>
->();
-export function makeSpellNameSkillshot(api: ContentApi) {
-  const cached = __cacheSpellNameSkillshot.get(api);
-  if (cached) return cached;
-  const built = __buildSpellNameSkillshot(api);
-  __cacheSpellNameSkillshot.set(api, built);
-  return built;
-}
+});
 
-function __buildSpellNameMissile(api: ContentApi) {
+export const makeSpellNameMissile = packClass((api: ContentApi) => {
   return class SpellName_Missile extends api.MissileSpellObject {
     speed = 8;
     size = 25;
@@ -128,17 +122,9 @@ function __buildSpellNameMissile(api: ContentApi) {
     // onArrive()          — reached the destination
     // getTrailPosition()  — emit the trail somewhere other than the centre
   };
-}
-const __cacheSpellNameMissile = new WeakMap<ContentApi, ReturnType<typeof __buildSpellNameMissile>>();
-export function makeSpellNameMissile(api: ContentApi) {
-  const cached = __cacheSpellNameMissile.get(api);
-  if (cached) return cached;
-  const built = __buildSpellNameMissile(api);
-  __cacheSpellNameMissile.set(api, built);
-  return built;
-}
+});
 
-function __buildSpellNameBuff(api: ContentApi) {
+export const makeSpellNameBuff = packClass((api: ContentApi) => {
   return class SpellName_Buff extends api.buffs.Buff {
     image = api.asset('buff_name');
     description = '';
@@ -150,18 +136,10 @@ function __buildSpellNameBuff(api: ContentApi) {
     onUpdate() {}
     draw() {}
   };
-}
-const __cacheSpellNameBuff = new WeakMap<ContentApi, ReturnType<typeof __buildSpellNameBuff>>();
-export function makeSpellNameBuff(api: ContentApi) {
-  const cached = __cacheSpellNameBuff.get(api);
-  if (cached) return cached;
-  const built = __buildSpellNameBuff(api);
-  __cacheSpellNameBuff.set(api, built);
-  return built;
-}
+});
 
 /** For effects that are not projectiles: zones, wards, tethers, summons. */
-function __buildSpellNameObject(api: ContentApi) {
+export const makeSpellNameObject = packClass((api: ContentApi) => {
   return class SpellName_Object extends api.SpellObject {
     onAdded() {}
     onRemoved() {}
@@ -169,12 +147,4 @@ function __buildSpellNameObject(api: ContentApi) {
     draw() {}
     getDisplayBoundingBox(): any {}
   };
-}
-const __cacheSpellNameObject = new WeakMap<ContentApi, ReturnType<typeof __buildSpellNameObject>>();
-export function makeSpellNameObject(api: ContentApi) {
-  const cached = __cacheSpellNameObject.get(api);
-  if (cached) return cached;
-  const built = __buildSpellNameObject(api);
-  __cacheSpellNameObject.set(api, built);
-  return built;
-}
+});

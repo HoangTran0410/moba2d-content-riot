@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Shield = InstanceType<ContentApi['buffs']['Shield']>;
 type Spell = InstanceType<ContentApi['Spell']>;
@@ -50,7 +51,7 @@ const INDIGO_BRIGHT: [number, number, number] = [150, 110, 240];
  * buys him: a window he can walk into a fight through, and the attack speed
  * that made blocking one spell worth it.
  */
-function __buildNocturne_W(api: ContentApi) {
+export const makeNocturne_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Shield = api.buffs.Shield;
   const StatAmp = api.buffs.StatAmp;
@@ -92,15 +93,8 @@ function __buildNocturne_W(api: ContentApi) {
     }
   }
   return Nocturne_W;
-}
-const __cacheNocturne_W = new WeakMap<ContentApi, ReturnType<typeof __buildNocturne_W>>();
-export default function makeNocturne_W(api: ContentApi) {
-  const cached = __cacheNocturne_W.get(api);
-  if (cached) return cached;
-  const built = __buildNocturne_W(api);
-  __cacheNocturne_W.set(api, built);
-  return built;
-}
+});
+export default makeNocturne_W;
 
 
 /** One vertex of the silhouette, breathing on its own clock. */
@@ -125,7 +119,7 @@ interface Tendril {
 }
 
 
-function __buildNocturne_W_Shroud(api: ContentApi) {
+export const makeNocturne_W_Shroud = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const Shield = api.buffs.Shield;
   class Nocturne_W_Shroud extends SpellObject {
@@ -273,12 +267,4 @@ function __buildNocturne_W_Shroud(api: ContentApi) {
     }
   }
   return Nocturne_W_Shroud;
-}
-const __cacheNocturne_W_Shroud = new WeakMap<ContentApi, ReturnType<typeof __buildNocturne_W_Shroud>>();
-export function makeNocturne_W_Shroud(api: ContentApi) {
-  const cached = __cacheNocturne_W_Shroud.get(api);
-  if (cached) return cached;
-  const built = __buildNocturne_W_Shroud(api);
-  __cacheNocturne_W_Shroud.set(api, built);
-  return built;
-}
+});

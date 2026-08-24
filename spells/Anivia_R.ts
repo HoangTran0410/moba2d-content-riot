@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CancelReason, CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AreaSpellObject = InstanceType<ContentApi['AreaSpellObject']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -58,7 +59,7 @@ export const stormRadiusAt = (elapsedMs: number): number =>
 type StormTarget = AttackableUnit;
 
 
-function __buildAnivia_R(api: ContentApi) {
+export const makeAnivia_R = packClass((api: ContentApi) => {
   const SpellForm = api.enums.SpellForm;
   const Spell = api.Spell;
   const Stasis = api.buffs.Stasis;
@@ -179,18 +180,11 @@ function __buildAnivia_R(api: ContentApi) {
     }
   }
   return Anivia_R;
-}
-const __cacheAnivia_R = new WeakMap<ContentApi, ReturnType<typeof __buildAnivia_R>>();
-export default function makeAnivia_R(api: ContentApi) {
-  const cached = __cacheAnivia_R.get(api);
-  if (cached) return cached;
-  const built = __buildAnivia_R(api);
-  __cacheAnivia_R.set(api, built);
-  return built;
-}
+});
+export default makeAnivia_R;
 
 
-function __buildAnivia_R_Object(api: ContentApi) {
+export const makeAnivia_R_Object = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
@@ -339,12 +333,4 @@ function __buildAnivia_R_Object(api: ContentApi) {
     }
   }
   return Anivia_R_Object;
-}
-const __cacheAnivia_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildAnivia_R_Object>>();
-export function makeAnivia_R_Object(api: ContentApi) {
-  const cached = __cacheAnivia_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildAnivia_R_Object(api);
-  __cacheAnivia_R_Object.set(api, built);
-  return built;
-}
+});

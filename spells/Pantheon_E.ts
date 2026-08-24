@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { drawAegis } from './Pantheon_W';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Shield = InstanceType<ContentApi['buffs']['Shield']>;
@@ -54,7 +55,7 @@ export const PLANT_MS = 180;
  * ground-decal rule in CLAUDE.md), and the shield he is holding paints over
  * them.
  */
-function __buildPantheon_E(api: ContentApi) {
+export const makePantheon_E = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Shield = api.buffs.Shield;
@@ -101,15 +102,8 @@ function __buildPantheon_E(api: ContentApi) {
     }
   }
   return Pantheon_E;
-}
-const __cachePantheon_E = new WeakMap<ContentApi, ReturnType<typeof __buildPantheon_E>>();
-export default function makePantheon_E(api: ContentApi) {
-  const cached = __cachePantheon_E.get(api);
-  if (cached) return cached;
-  const built = __buildPantheon_E(api);
-  __cachePantheon_E.set(api, built);
-  return built;
-}
+});
+export default makePantheon_E;
 
 
 /** A crack in the dirt: fixed at spawn so the ground does not crawl. */
@@ -124,7 +118,7 @@ interface Fissure {
  * The torn-up ground in front of the shield — and the damage, because the wedge
  * that hurts and the wedge that is painted have to be the same wedge.
  */
-function __buildPantheon_E_Object(api: ContentApi) {
+export const makePantheon_E_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
@@ -251,15 +245,7 @@ function __buildPantheon_E_Object(api: ContentApi) {
     }
   }
   return Pantheon_E_Object;
-}
-const __cachePantheon_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildPantheon_E_Object>>();
-export function makePantheon_E_Object(api: ContentApi) {
-  const cached = __cachePantheon_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildPantheon_E_Object(api);
-  __cachePantheon_E_Object.set(api, built);
-  return built;
-}
+});
 
 
 interface Spark {
@@ -280,7 +266,7 @@ interface Spark {
  * thrust, so the spear is at full extension on exactly the frame something
  * takes the hit. A second timer here would drift apart from it within a second.
  */
-function __buildPantheon_E_Aegis(api: ContentApi) {
+export const makePantheon_E_Aegis = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Pantheon_E_Aegis extends SpellObject {
     ground: Pantheon_E_Object | null = null;
@@ -424,12 +410,4 @@ function __buildPantheon_E_Aegis(api: ContentApi) {
     }
   }
   return Pantheon_E_Aegis;
-}
-const __cachePantheon_E_Aegis = new WeakMap<ContentApi, ReturnType<typeof __buildPantheon_E_Aegis>>();
-export function makePantheon_E_Aegis(api: ContentApi) {
-  const cached = __cachePantheon_E_Aegis.get(api);
-  if (cached) return cached;
-  const built = __buildPantheon_E_Aegis(api);
-  __cachePantheon_E_Aegis.set(api, built);
-  return built;
-}
+});

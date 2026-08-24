@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
 type ParticleSystem = InstanceType<ContentApi['helpers']['ParticleSystem']>;
@@ -10,7 +11,7 @@ type Zed_Q_Object = InstanceType<ReturnType<typeof makeZed_Q_Object>>;
 
 
 
-function __buildZed_Q(api: ContentApi) {
+export const makeZed_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Zed_Q_Object = makeZed_Q_Object(api);
@@ -43,18 +44,11 @@ function __buildZed_Q(api: ContentApi) {
     onUpdate() {}
   }
   return Zed_Q;
-}
-const __cacheZed_Q = new WeakMap<ContentApi, ReturnType<typeof __buildZed_Q>>();
-export default function makeZed_Q(api: ContentApi) {
-  const cached = __cacheZed_Q.get(api);
-  if (cached) return cached;
-  const built = __buildZed_Q(api);
-  __cacheZed_Q.set(api, built);
-  return built;
-}
+});
+export default makeZed_Q;
 
 
-function __buildZed_Q_Object(api: ContentApi) {
+export const makeZed_Q_Object = packClass((api: ContentApi) => {
   const ParticleSystem = api.helpers.ParticleSystem;
   const TrailSystem = api.helpers.TrailSystem;
   const Slow = api.buffs.Slow;
@@ -145,12 +139,4 @@ function __buildZed_Q_Object(api: ContentApi) {
     }
   }
   return Zed_Q_Object;
-}
-const __cacheZed_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildZed_Q_Object>>();
-export function makeZed_Q_Object(api: ContentApi) {
-  const cached = __cacheZed_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildZed_Q_Object(api);
-  __cacheZed_Q_Object.set(api, built);
-  return built;
-}
+});

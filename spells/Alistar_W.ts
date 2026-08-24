@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -10,7 +11,7 @@ type Alistar_W_Object = InstanceType<ReturnType<typeof makeAlistar_W_Object>>;
 
 
 
-function __buildAlistar_W(api: ContentApi) {
+export const makeAlistar_W = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const VectorUtils = api.utils.VectorUtils;
   const effectiveRange = api.combat.Reach.effectiveRange;
@@ -119,15 +120,8 @@ function __buildAlistar_W(api: ContentApi) {
     }
   }
   return Alistar_W;
-}
-const __cacheAlistar_W = new WeakMap<ContentApi, ReturnType<typeof __buildAlistar_W>>();
-export default function makeAlistar_W(api: ContentApi) {
-  const cached = __cacheAlistar_W.get(api);
-  if (cached) return cached;
-  const built = __buildAlistar_W(api);
-  __cacheAlistar_W.set(api, built);
-  return built;
-}
+});
+export default makeAlistar_W;
 
 
 interface Debris {
@@ -147,7 +141,7 @@ const DEBRIS_COUNT = 14;
  * not just a flash: a bright lane down the knockback path, forward-facing
  * shock arcs, and dust thrown up under the hooves.
  */
-function __buildAlistar_W_Object(api: ContentApi) {
+export const makeAlistar_W_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Alistar_W_Object extends SpellObject {
     position = this.owner.position.copy();
@@ -261,12 +255,4 @@ function __buildAlistar_W_Object(api: ContentApi) {
     }
   }
   return Alistar_W_Object;
-}
-const __cacheAlistar_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildAlistar_W_Object>>();
-export function makeAlistar_W_Object(api: ContentApi) {
-  const cached = __cacheAlistar_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildAlistar_W_Object(api);
-  __cacheAlistar_W_Object.set(api, built);
-  return built;
-}
+});

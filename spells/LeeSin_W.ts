@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
@@ -26,7 +27,7 @@ type LeeSin_W_IronWill = InstanceType<ReturnType<typeof makeLeeSin_W_IronWill>>;
  * omnivamp, which is meaningless here because this game has no basic attacks —
  * it is adapted into a heal-over-time of the same "sustain in a fight" shape.
  */
-function __buildLeeSin_W(api: ContentApi) {
+export const makeLeeSin_W = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -184,15 +185,8 @@ function __buildLeeSin_W(api: ContentApi) {
     }
   }
   return LeeSin_W;
-}
-const __cacheLeeSin_W = new WeakMap<ContentApi, ReturnType<typeof __buildLeeSin_W>>();
-export default function makeLeeSin_W(api: ContentApi) {
-  const cached = __cacheLeeSin_W.get(api);
-  if (cached) return cached;
-  const built = __buildLeeSin_W(api);
-  __cacheLeeSin_W.set(api, built);
-  return built;
-}
+});
+export default makeLeeSin_W;
 
 
 /**
@@ -200,7 +194,7 @@ export default function makeLeeSin_W(api: ContentApi) {
  * this game has no way to express, so the sustain is paid out as a heal spread
  * over the same 4 seconds.
  */
-function __buildLeeSin_W_IronWill(api: ContentApi) {
+export const makeLeeSin_W_IronWill = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const Buff = api.buffs.Buff;
   class LeeSin_W_IronWill extends Buff {
@@ -288,19 +282,11 @@ function __buildLeeSin_W_IronWill(api: ContentApi) {
     }
   }
   return LeeSin_W_IronWill;
-}
-const __cacheLeeSin_W_IronWill = new WeakMap<ContentApi, ReturnType<typeof __buildLeeSin_W_IronWill>>();
-export function makeLeeSin_W_IronWill(api: ContentApi) {
-  const cached = __cacheLeeSin_W_IronWill.get(api);
-  if (cached) return cached;
-  const built = __buildLeeSin_W_IronWill(api);
-  __cacheLeeSin_W_IronWill.set(api, built);
-  return built;
-}
+});
 
 
 /** Stone-hard shell snapping shut around whoever Safeguard covered. */
-function __buildLeeSin_W_Burst(api: ContentApi) {
+export const makeLeeSin_W_Burst = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class LeeSin_W_Burst extends SpellObject {
     follow: any = null;
@@ -352,12 +338,4 @@ function __buildLeeSin_W_Burst(api: ContentApi) {
     }
   }
   return LeeSin_W_Burst;
-}
-const __cacheLeeSin_W_Burst = new WeakMap<ContentApi, ReturnType<typeof __buildLeeSin_W_Burst>>();
-export function makeLeeSin_W_Burst(api: ContentApi) {
-  const cached = __cacheLeeSin_W_Burst.get(api);
-  if (cached) return cached;
-  const built = __buildLeeSin_W_Burst(api);
-  __cacheLeeSin_W_Burst.set(api, built);
-  return built;
-}
+});

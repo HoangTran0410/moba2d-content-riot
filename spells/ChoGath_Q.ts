@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -11,7 +12,7 @@ type ChoGath_Q_Object = InstanceType<ReturnType<typeof makeChoGath_Q_Object>>;
 
 
 
-function __buildChoGath_Q(api: ContentApi) {
+export const makeChoGath_Q = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const ChoGath_Q_Object = makeChoGath_Q_Object(api);
   class ChoGath_Q extends Spell {
@@ -43,18 +44,11 @@ function __buildChoGath_Q(api: ContentApi) {
     }
   }
   return ChoGath_Q;
-}
-const __cacheChoGath_Q = new WeakMap<ContentApi, ReturnType<typeof __buildChoGath_Q>>();
-export default function makeChoGath_Q(api: ContentApi) {
-  const cached = __cacheChoGath_Q.get(api);
-  if (cached) return cached;
-  const built = __buildChoGath_Q(api);
-  __cacheChoGath_Q.set(api, built);
-  return built;
-}
+});
+export default makeChoGath_Q;
 
 
-function __buildChoGath_Q_Object(api: ContentApi) {
+export const makeChoGath_Q_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -145,12 +139,4 @@ function __buildChoGath_Q_Object(api: ContentApi) {
     }
   }
   return ChoGath_Q_Object;
-}
-const __cacheChoGath_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildChoGath_Q_Object>>();
-export function makeChoGath_Q_Object(api: ContentApi) {
-  const cached = __cacheChoGath_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildChoGath_Q_Object(api);
-  __cacheChoGath_Q_Object.set(api, built);
-  return built;
-}
+});

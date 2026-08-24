@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { GameObjectRuntimeContext } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -50,7 +51,7 @@ const MARK_LIFETIME = 300;
  * one curves, and someone at the corner of the box would be flayed by a chain
  * still 26px short of them.
  */
-function __buildenemiesInSweptBox(api: ContentApi) {
+export const makeEnemiesInSweptBox = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const AttackableUnit = api.units.AttackableUnit;
@@ -91,15 +92,7 @@ function __buildenemiesInSweptBox(api: ContentApi) {
     return inside;
   }
   return enemiesInSweptBox;
-}
-const __cacheenemiesInSweptBox = new WeakMap<ContentApi, ReturnType<typeof __buildenemiesInSweptBox>>();
-export function makeEnemiesInSweptBox(api: ContentApi) {
-  const cached = __cacheenemiesInSweptBox.get(api);
-  if (cached) return cached;
-  const built = __buildenemiesInSweptBox(api);
-  __cacheenemiesInSweptBox.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -122,7 +115,7 @@ export function makeEnemiesInSweptBox(api: ContentApi) {
  *     chain from the back of the box to the front and catches each body as the
  *     links reach it.
  */
-function __buildThresh_E(api: ContentApi) {
+export const makeThresh_E = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const AttackableUnit = api.units.AttackableUnit;
@@ -166,15 +159,8 @@ function __buildThresh_E(api: ContentApi) {
     }
   }
   return Thresh_E;
-}
-const __cacheThresh_E = new WeakMap<ContentApi, ReturnType<typeof __buildThresh_E>>();
-export default function makeThresh_E(api: ContentApi) {
-  const cached = __cacheThresh_E.get(api);
-  if (cached) return cached;
-  const built = __buildThresh_E(api);
-  __cacheThresh_E.set(api, built);
-  return built;
-}
+});
+export default makeThresh_E;
 
 
 interface ChainMark {
@@ -185,7 +171,7 @@ interface ChainMark {
 
 
 /** The swing: a chain wiping across the box, hitting what it passes. */
-function __buildThresh_E_Object(api: ContentApi) {
+export const makeThresh_E_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const Dash = api.buffs.Dash;
   const Slow = api.buffs.Slow;
@@ -387,12 +373,4 @@ function __buildThresh_E_Object(api: ContentApi) {
     }
   }
   return Thresh_E_Object;
-}
-const __cacheThresh_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildThresh_E_Object>>();
-export function makeThresh_E_Object(api: ContentApi) {
-  const cached = __cacheThresh_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildThresh_E_Object(api);
-  __cacheThresh_E_Object.set(api, built);
-  return built;
-}
+});

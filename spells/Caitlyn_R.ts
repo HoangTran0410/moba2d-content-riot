@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type HomingMissileSpellObject = InstanceType<ContentApi['HomingMissileSpellObject']>;
@@ -41,20 +42,12 @@ export const CAITLYN_R_CANCEL_COOLDOWN_MS = 3000;
 type CaitlynRTarget = AttackableUnit;
 
 
-function __buildisCaitlynRTarget(api: ContentApi) {
+export const makeIsCaitlynRTarget = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const isCaitlynRTarget = (target: unknown): target is CaitlynRTarget =>
     target instanceof AttackableUnit && target.targetable && !target.toRemove;
   return isCaitlynRTarget;
-}
-const __cacheisCaitlynRTarget = new WeakMap<ContentApi, ReturnType<typeof __buildisCaitlynRTarget>>();
-export function makeIsCaitlynRTarget(api: ContentApi) {
-  const cached = __cacheisCaitlynRTarget.get(api);
-  if (cached) return cached;
-  const built = __buildisCaitlynRTarget(api);
-  __cacheisCaitlynRTarget.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -64,7 +57,7 @@ export function makeIsCaitlynRTarget(api: ContentApi) {
  * itself is unmissable once it leaves. Interrupting the channel is the answer,
  * which is why the cancel penalty is small and the reveal outlives the cast.
  */
-function __buildCaitlyn_R(api: ContentApi) {
+export const makeCaitlyn_R = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
   const Spell = api.Spell;
@@ -204,15 +197,8 @@ function __buildCaitlyn_R(api: ContentApi) {
     }
   }
   return Caitlyn_R;
-}
-const __cacheCaitlyn_R = new WeakMap<ContentApi, ReturnType<typeof __buildCaitlyn_R>>();
-export default function makeCaitlyn_R(api: ContentApi) {
-  const cached = __cacheCaitlyn_R.get(api);
-  if (cached) return cached;
-  const built = __buildCaitlyn_R(api);
-  __cacheCaitlyn_R.set(api, built);
-  return built;
-}
+});
+export default makeCaitlyn_R;
 
 
 /**
@@ -222,7 +208,7 @@ export default function makeCaitlyn_R(api: ContentApi) {
  * the least magical thing on the map and it should look like the only one that
  * came out of a barrel.
  */
-function __buildCaitlyn_R_Bullet(api: ContentApi) {
+export const makeCaitlyn_R_Bullet = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const HomingMissileSpellObject = api.HomingMissileSpellObject;
   const TrailSystem = api.helpers.TrailSystem;
@@ -275,15 +261,7 @@ function __buildCaitlyn_R_Bullet(api: ContentApi) {
     }
   }
   return Caitlyn_R_Bullet;
-}
-const __cacheCaitlyn_R_Bullet = new WeakMap<ContentApi, ReturnType<typeof __buildCaitlyn_R_Bullet>>();
-export function makeCaitlyn_R_Bullet(api: ContentApi) {
-  const cached = __cacheCaitlyn_R_Bullet.get(api);
-  if (cached) return cached;
-  const built = __buildCaitlyn_R_Bullet(api);
-  __cacheCaitlyn_R_Bullet.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -293,7 +271,7 @@ export function makeCaitlyn_R_Bullet(api: ContentApi) {
  * *both* ends — it is drawn back to the caster, so a box around its own centre
  * would blank the line whenever either of them left the camera.
  */
-function __buildCaitlyn_R_Sight(api: ContentApi) {
+export const makeCaitlyn_R_Sight = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
@@ -364,19 +342,11 @@ function __buildCaitlyn_R_Sight(api: ContentApi) {
     }
   }
   return Caitlyn_R_Sight;
-}
-const __cacheCaitlyn_R_Sight = new WeakMap<ContentApi, ReturnType<typeof __buildCaitlyn_R_Sight>>();
-export function makeCaitlyn_R_Sight(api: ContentApi) {
-  const cached = __cacheCaitlyn_R_Sight.get(api);
-  if (cached) return cached;
-  const built = __buildCaitlyn_R_Sight(api);
-  __cacheCaitlyn_R_Sight.set(api, built);
-  return built;
-}
+});
 
 
 /** The landing: a hard crack, no bloom. */
-function __buildCaitlyn_R_Hit(api: ContentApi) {
+export const makeCaitlyn_R_Hit = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Caitlyn_R_Hit extends SpellObject {
     age = 0;
@@ -426,12 +396,4 @@ function __buildCaitlyn_R_Hit(api: ContentApi) {
     }
   }
   return Caitlyn_R_Hit;
-}
-const __cacheCaitlyn_R_Hit = new WeakMap<ContentApi, ReturnType<typeof __buildCaitlyn_R_Hit>>();
-export function makeCaitlyn_R_Hit(api: ContentApi) {
-  const cached = __cacheCaitlyn_R_Hit.get(api);
-  if (cached) return cached;
-  const built = __buildCaitlyn_R_Hit(api);
-  __cacheCaitlyn_R_Hit.set(api, built);
-  return built;
-}
+});

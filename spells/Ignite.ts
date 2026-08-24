@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
@@ -10,7 +11,7 @@ type Ignite_Bolt = InstanceType<ReturnType<typeof makeIgnite_Bolt>>;
 
 
 
-function __buildIgnite(api: ContentApi) {
+export const makeIgnite = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -84,19 +85,12 @@ function __buildIgnite(api: ContentApi) {
     }
   }
   return Ignite;
-}
-const __cacheIgnite = new WeakMap<ContentApi, ReturnType<typeof __buildIgnite>>();
-export default function makeIgnite(api: ContentApi) {
-  const cached = __cacheIgnite.get(api);
-  if (cached) return cached;
-  const built = __buildIgnite(api);
-  __cacheIgnite.set(api, built);
-  return built;
-}
+});
+export default makeIgnite;
 
 
 /** The ember thrown from the caster onto the target when Ignite goes off. */
-function __buildIgnite_Bolt(api: ContentApi) {
+export const makeIgnite_Bolt = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Ignite_Bolt extends SpellObject {
@@ -203,12 +197,4 @@ function __buildIgnite_Bolt(api: ContentApi) {
     }
   }
   return Ignite_Bolt;
-}
-const __cacheIgnite_Bolt = new WeakMap<ContentApi, ReturnType<typeof __buildIgnite_Bolt>>();
-export function makeIgnite_Bolt(api: ContentApi) {
-  const cached = __cacheIgnite_Bolt.get(api);
-  if (cached) return cached;
-  const built = __buildIgnite_Bolt(api);
-  __cacheIgnite_Bolt.set(api, built);
-  return built;
-}
+});

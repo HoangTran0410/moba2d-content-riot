@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -13,7 +14,7 @@ export const RANGE = 500;
 export const DAMAGE = 26;
 
 
-function __buildTwitch_E(api: ContentApi) {
+export const makeTwitch_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
@@ -69,12 +70,5 @@ function __buildTwitch_E(api: ContentApi) {
     }
   }
   return Twitch_E;
-}
-const __cacheTwitch_E = new WeakMap<ContentApi, ReturnType<typeof __buildTwitch_E>>();
-export default function makeTwitch_E(api: ContentApi) {
-  const cached = __cacheTwitch_E.get(api);
-  if (cached) return cached;
-  const built = __buildTwitch_E(api);
-  __cacheTwitch_E.set(api, built);
-  return built;
-}
+});
+export default makeTwitch_E;

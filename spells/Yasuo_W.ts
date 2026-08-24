@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
 type Spell = InstanceType<ContentApi['Spell']>;
@@ -36,7 +37,7 @@ export const WIND_GUSTS = 5;
 export const MAX_BLOCK_FLASHES = 8;
 
 
-function __buildYasuo_W(api: ContentApi) {
+export const makeYasuo_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Yasuo_W_Object = makeYasuo_W_Object(api);
   class Yasuo_W extends Spell {
@@ -64,15 +65,8 @@ function __buildYasuo_W(api: ContentApi) {
     }
   }
   return Yasuo_W;
-}
-const __cacheYasuo_W = new WeakMap<ContentApi, ReturnType<typeof __buildYasuo_W>>();
-export default function makeYasuo_W(api: ContentApi) {
-  const cached = __cacheYasuo_W.get(api);
-  if (cached) return cached;
-  const built = __buildYasuo_W(api);
-  __cacheYasuo_W.set(api, built);
-  return built;
-}
+});
+export default makeYasuo_W;
 
 
 /** One projectile stopped by the wall, in the wall's own coordinates. */
@@ -105,7 +99,7 @@ interface BlockFlash {
  *  - it **reacts**. Every block leaves a burst, recorded in wall-local
  *    coordinates so it rides along as the wall drifts outward.
  */
-function __buildYasuo_W_Object(api: ContentApi) {
+export const makeYasuo_W_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const CollideUtils = api.utils.CollideUtils;
   const rectToVertices = api.utils.rectToVertices;
@@ -378,12 +372,4 @@ function __buildYasuo_W_Object(api: ContentApi) {
     }
   }
   return Yasuo_W_Object;
-}
-const __cacheYasuo_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildYasuo_W_Object>>();
-export function makeYasuo_W_Object(api: ContentApi) {
-  const cached = __cacheYasuo_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildYasuo_W_Object(api);
-  __cacheYasuo_W_Object.set(api, built);
-  return built;
-}
+});

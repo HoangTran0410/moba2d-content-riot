@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Champion = InstanceType<ContentApi['units']['Champion']>;
@@ -43,7 +44,7 @@ export const CAITLYN_W_REVEAL_STACK_ID = 'caitlyn_w';
  * never survive a lane, and the whole point of the ability is that a bush or a
  * choke stops being free to walk through.
  */
-function __buildCaitlyn_W(api: ContentApi) {
+export const makeCaitlyn_W = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Caitlyn_W_Trap = makeCaitlyn_W_Trap(api);
@@ -98,15 +99,8 @@ function __buildCaitlyn_W(api: ContentApi) {
     }
   }
   return Caitlyn_W;
-}
-const __cacheCaitlyn_W = new WeakMap<ContentApi, ReturnType<typeof __buildCaitlyn_W>>();
-export default function makeCaitlyn_W(api: ContentApi) {
-  const cached = __cacheCaitlyn_W.get(api);
-  if (cached) return cached;
-  const built = __buildCaitlyn_W(api);
-  __cacheCaitlyn_W.set(api, built);
-  return built;
-}
+});
+export default makeCaitlyn_W;
 
 
 /**
@@ -120,7 +114,7 @@ export default function makeCaitlyn_W(api: ContentApi) {
  * hextech eye in the middle. Nothing else in the game draws a hexagon, which is
  * what makes it Caitlyn's from across the map.
  */
-function __buildCaitlyn_W_Trap(api: ContentApi) {
+export const makeCaitlyn_W_Trap = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
@@ -321,12 +315,4 @@ function __buildCaitlyn_W_Trap(api: ContentApi) {
     }
   }
   return Caitlyn_W_Trap;
-}
-const __cacheCaitlyn_W_Trap = new WeakMap<ContentApi, ReturnType<typeof __buildCaitlyn_W_Trap>>();
-export function makeCaitlyn_W_Trap(api: ContentApi) {
-  const cached = __cacheCaitlyn_W_Trap.get(api);
-  if (cached) return cached;
-  const built = __buildCaitlyn_W_Trap(api);
-  __cacheCaitlyn_W_Trap.set(api, built);
-  return built;
-}
+});

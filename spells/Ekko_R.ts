@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Invulnerable = InstanceType<ContentApi['buffs']['Invulnerable']>;
@@ -30,7 +31,7 @@ interface PositionSnapshot {
 }
 
 
-function __buildEkko_R(api: ContentApi) {
+export const makeEkko_R = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Invulnerable = api.buffs.Invulnerable;
   const Untargetable = api.buffs.Untargetable;
@@ -177,15 +178,8 @@ function __buildEkko_R(api: ContentApi) {
     }
   }
   return Ekko_R;
-}
-const __cacheEkko_R = new WeakMap<ContentApi, ReturnType<typeof __buildEkko_R>>();
-export default function makeEkko_R(api: ContentApi) {
-  const cached = __cacheEkko_R.get(api);
-  if (cached) return cached;
-  const built = __buildEkko_R(api);
-  __cacheEkko_R.set(api, built);
-  return built;
-}
+});
+export default makeEkko_R;
 
 
 interface RewindShard {
@@ -205,7 +199,7 @@ interface RewindShard {
  * rewound to, collapse, and blow back out as the damage lands. The implosion is
  * the tell that something arrived here, rather than merely exploded here.
  */
-function __buildEkko_R_Object(api: ContentApi) {
+export const makeEkko_R_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Circle = api.utils.Quadtree.Circle;
@@ -374,12 +368,4 @@ function __buildEkko_R_Object(api: ContentApi) {
     }
   }
   return Ekko_R_Object;
-}
-const __cacheEkko_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildEkko_R_Object>>();
-export function makeEkko_R_Object(api: ContentApi) {
-  const cached = __cacheEkko_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildEkko_R_Object(api);
-  __cacheEkko_R_Object.set(api, built);
-  return built;
-}
+});

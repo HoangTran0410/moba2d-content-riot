@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { AssetHandle, CastContext } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
@@ -46,7 +47,7 @@ export const isAblaze = (unit: AttackableUnit): boolean =>
  * own state, the thing the player is tracking to know whether the next cast
  * stuns — not a crowd-control indicator.
  */
-function __buildapplyAblaze(api: ContentApi) {
+export const makeApplyAblaze = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const DamageOverTime = api.buffs.DamageOverTime;
   const applyAblaze = (
@@ -65,15 +66,7 @@ function __buildapplyAblaze(api: ContentApi) {
     target.addBuff(burn);
   };
   return applyAblaze;
-}
-const __cacheapplyAblaze = new WeakMap<ContentApi, ReturnType<typeof __buildapplyAblaze>>();
-export function makeApplyAblaze(api: ContentApi) {
-  const cached = __cacheapplyAblaze.get(api);
-  if (cached) return cached;
-  const built = __buildapplyAblaze(api);
-  __cacheapplyAblaze.set(api, built);
-  return built;
-}
+});
 
 
 export const COOLDOWN_MS = 6_000;
@@ -92,7 +85,7 @@ export const DAMAGE = 26;
 export const STUN_DURATION_MS = 1_250;
 
 
-function __buildBrand_Q(api: ContentApi) {
+export const makeBrand_Q = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Brand_Q_Missile = makeBrand_Q_Missile(api);
   class Brand_Q extends Spell {
@@ -117,18 +110,11 @@ function __buildBrand_Q(api: ContentApi) {
     }
   }
   return Brand_Q;
-}
-const __cacheBrand_Q = new WeakMap<ContentApi, ReturnType<typeof __buildBrand_Q>>();
-export default function makeBrand_Q(api: ContentApi) {
-  const cached = __cacheBrand_Q.get(api);
-  if (cached) return cached;
-  const built = __buildBrand_Q(api);
-  __cacheBrand_Q.set(api, built);
-  return built;
-}
+});
+export default makeBrand_Q;
 
 
-function __buildBrand_Q_Missile(api: ContentApi) {
+export const makeBrand_Q_Missile = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const AttackableUnit = api.units.AttackableUnit;
   const Stun = api.buffs.Stun;
@@ -215,12 +201,4 @@ function __buildBrand_Q_Missile(api: ContentApi) {
     }
   }
   return Brand_Q_Missile;
-}
-const __cacheBrand_Q_Missile = new WeakMap<ContentApi, ReturnType<typeof __buildBrand_Q_Missile>>();
-export function makeBrand_Q_Missile(api: ContentApi) {
-  const cached = __cacheBrand_Q_Missile.get(api);
-  if (cached) return cached;
-  const built = __buildBrand_Q_Missile(api);
-  __cacheBrand_Q_Missile.set(api, built);
-  return built;
-}
+});

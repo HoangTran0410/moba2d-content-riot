@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
 type Slow = InstanceType<ContentApi['buffs']['Slow']>;
@@ -27,7 +28,7 @@ export const Q_IMPACT_MS = 340;
 export const ORB_PAINT_REACH = 1.7;
 
 
-function __buildAhri_Q(api: ContentApi) {
+export const makeAhri_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Ahri_Q_Object = makeAhri_Q_Object(api);
@@ -52,18 +53,11 @@ function __buildAhri_Q(api: ContentApi) {
     onUpdate() {}
   }
   return Ahri_Q;
-}
-const __cacheAhri_Q = new WeakMap<ContentApi, ReturnType<typeof __buildAhri_Q>>();
-export default function makeAhri_Q(api: ContentApi) {
-  const cached = __cacheAhri_Q.get(api);
-  if (cached) return cached;
-  const built = __buildAhri_Q(api);
-  __cacheAhri_Q.set(api, built);
-  return built;
-}
+});
+export default makeAhri_Q;
 
 
-function __buildAhri_Q_Object(api: ContentApi) {
+export const makeAhri_Q_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const Slow = api.buffs.Slow;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
@@ -238,22 +232,14 @@ function __buildAhri_Q_Object(api: ContentApi) {
     }
   }
   return Ahri_Q_Object;
-}
-const __cacheAhri_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildAhri_Q_Object>>();
-export function makeAhri_Q_Object(api: ContentApi) {
-  const cached = __cacheAhri_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildAhri_Q_Object(api);
-  __cacheAhri_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * The mark left on a body the orb passed through: an arcane bloom that throws
  * nine wisps outward, so the hit reads as Ahri's and not as a generic spark.
  */
-function __buildAhri_Q_Impact(api: ContentApi) {
+export const makeAhri_Q_Impact = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Ahri_Q_Impact extends SpellObject {
     targetSize = 40;
@@ -326,12 +312,4 @@ function __buildAhri_Q_Impact(api: ContentApi) {
     }
   }
   return Ahri_Q_Impact;
-}
-const __cacheAhri_Q_Impact = new WeakMap<ContentApi, ReturnType<typeof __buildAhri_Q_Impact>>();
-export function makeAhri_Q_Impact(api: ContentApi) {
-  const cached = __cacheAhri_Q_Impact.get(api);
-  if (cached) return cached;
-  const built = __buildAhri_Q_Impact(api);
-  __cacheAhri_Q_Impact.set(api, built);
-  return built;
-}
+});

@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { ExecuteFallback, ExecuteSpell } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -18,7 +19,7 @@ export const SIZE_PER_STACK = 6;
 export const MAX_HEALTH_PER_STACK = 75;
 
 
-function __buildChoGath_R(api: ContentApi) {
+export const makeChoGath_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const VectorUtils = api.utils.VectorUtils;
   const pickExecuteTarget = api.combat.ExecuteTargeting.pickExecuteTarget;
@@ -166,32 +167,17 @@ function __buildChoGath_R(api: ContentApi) {
     }
   }
   return ChoGath_R;
-}
-const __cacheChoGath_R = new WeakMap<ContentApi, ReturnType<typeof __buildChoGath_R>>();
-export default function makeChoGath_R(api: ContentApi) {
-  const cached = __cacheChoGath_R.get(api);
-  if (cached) return cached;
-  const built = __buildChoGath_R(api);
-  __cacheChoGath_R.set(api, built);
-  return built;
-}
+});
+export default makeChoGath_R;
 
 
 /** The live stacks on `owner` — see `ChoGath_R.stackCount` on why `toRemove` is skipped. */
-function __buildliveStacks(api: ContentApi) {
+export const makeLiveStacks = packClass((api: ContentApi) => {
   const ChoGath_R_Growth = makeChoGath_R_Growth(api);
   const liveStacks = (owner: any): ChoGath_R_Growth[] =>
     (owner?.buffs ?? []).filter((buff: any) => buff instanceof ChoGath_R_Growth && !buff.toRemove);
   return liveStacks;
-}
-const __cacheliveStacks = new WeakMap<ContentApi, ReturnType<typeof __buildliveStacks>>();
-export function makeLiveStacks(api: ContentApi) {
-  const cached = __cacheliveStacks.get(api);
-  if (cached) return cached;
-  const built = __buildliveStacks(api);
-  __cacheliveStacks.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -199,7 +185,7 @@ export function makeLiveStacks(api: ContentApi) {
  * `onSpellCast` (a real bite) and from `setStackCount` (the practice panel),
  * so the cheat cannot drift from the real thing.
  */
-function __buildcreateGrowthStack(api: ContentApi) {
+export const makeCreateGrowthStack = packClass((api: ContentApi) => {
   const ChoGath_R_Growth = makeChoGath_R_Growth(api);
   function createGrowthStack(owner: any, duration: number, image: any): ChoGath_R_Growth {
     const growth = new ChoGath_R_Growth(duration, owner, owner);
@@ -207,15 +193,7 @@ function __buildcreateGrowthStack(api: ContentApi) {
     return growth;
   }
   return createGrowthStack;
-}
-const __cachecreateGrowthStack = new WeakMap<ContentApi, ReturnType<typeof __buildcreateGrowthStack>>();
-export function makeCreateGrowthStack(api: ContentApi) {
-  const cached = __cachecreateGrowthStack.get(api);
-  if (cached) return cached;
-  const built = __buildcreateGrowthStack(api);
-  __cachecreateGrowthStack.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -223,7 +201,7 @@ export function makeCreateGrowthStack(api: ContentApi) {
  * constructor, so a one-stack StatAmp from some other spell would otherwise
  * knock a Feast stack off the moment it landed.
  */
-function __buildChoGath_R_Growth(api: ContentApi) {
+export const makeChoGath_R_Growth = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const StatAmp = api.buffs.StatAmp;
   class ChoGath_R_Growth extends StatAmp {
@@ -309,19 +287,11 @@ function __buildChoGath_R_Growth(api: ContentApi) {
     }
   }
   return ChoGath_R_Growth;
-}
-const __cacheChoGath_R_Growth = new WeakMap<ContentApi, ReturnType<typeof __buildChoGath_R_Growth>>();
-export function makeChoGath_R_Growth(api: ContentApi) {
-  const cached = __cacheChoGath_R_Growth.get(api);
-  if (cached) return cached;
-  const built = __buildChoGath_R_Growth(api);
-  __cacheChoGath_R_Growth.set(api, built);
-  return built;
-}
+});
 
 
 /** The bite mark left on the victim. */
-function __buildChoGath_R_Object(api: ContentApi) {
+export const makeChoGath_R_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class ChoGath_R_Object extends SpellObject {
     size = 90;
@@ -407,12 +377,4 @@ function __buildChoGath_R_Object(api: ContentApi) {
     }
   }
   return ChoGath_R_Object;
-}
-const __cacheChoGath_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildChoGath_R_Object>>();
-export function makeChoGath_R_Object(api: ContentApi) {
-  const cached = __cacheChoGath_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildChoGath_R_Object(api);
-  __cacheChoGath_R_Object.set(api, built);
-  return built;
-}
+});

@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -37,7 +38,7 @@ export const XINZHAO_W_SLOW_PERCENT = 0.4;
 export const XINZHAO_W_SLOW_MS = 1_400;
 
 
-function __buildXinZhao_W(api: ContentApi) {
+export const makeXinZhao_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const XinZhao_W_Object = makeXinZhao_W_Object(api);
   class XinZhao_W extends Spell {
@@ -62,15 +63,8 @@ function __buildXinZhao_W(api: ContentApi) {
     }
   }
   return XinZhao_W;
-}
-const __cacheXinZhao_W = new WeakMap<ContentApi, ReturnType<typeof __buildXinZhao_W>>();
-export default function makeXinZhao_W(api: ContentApi) {
-  const cached = __cacheXinZhao_W.get(api);
-  if (cached) return cached;
-  const built = __buildXinZhao_W(api);
-  __cacheXinZhao_W.set(api, built);
-  return built;
-}
+});
+export default makeXinZhao_W;
 
 
 /**
@@ -80,7 +74,7 @@ export default function makeXinZhao_W(api: ContentApi) {
  * the line are one committed motion, and a spell whose hitbox followed him
  * would let a walking caster drag the thrust across the whole screen.
  */
-function __buildXinZhao_W_Object(api: ContentApi) {
+export const makeXinZhao_W_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -266,15 +260,7 @@ function __buildXinZhao_W_Object(api: ContentApi) {
     }
   }
   return XinZhao_W_Object;
-}
-const __cacheXinZhao_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildXinZhao_W_Object>>();
-export function makeXinZhao_W_Object(api: ContentApi) {
-  const cached = __cacheXinZhao_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildXinZhao_W_Object(api);
-  __cacheXinZhao_W_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** Distance from a point to a segment — the thrust is a capsule, not a circle. */

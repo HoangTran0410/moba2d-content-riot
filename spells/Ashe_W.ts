@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
 type Slow = InstanceType<ContentApi['buffs']['Slow']>;
@@ -21,7 +22,7 @@ export const FROST_MS = 300;
 export const FROST_SPIKES = 5;
 
 
-function __buildAshe_W(api: ContentApi) {
+export const makeAshe_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const VectorUtils = api.utils.VectorUtils;
   const Ashe_W_Object = makeAshe_W_Object(api);
@@ -66,18 +67,11 @@ function __buildAshe_W(api: ContentApi) {
     }
   }
   return Ashe_W;
-}
-const __cacheAshe_W = new WeakMap<ContentApi, ReturnType<typeof __buildAshe_W>>();
-export default function makeAshe_W(api: ContentApi) {
-  const cached = __cacheAshe_W.get(api);
-  if (cached) return cached;
-  const built = __buildAshe_W(api);
-  __cacheAshe_W.set(api, built);
-  return built;
-}
+});
+export default makeAshe_W;
 
 
-function __buildAshe_W_Object(api: ContentApi) {
+export const makeAshe_W_Object = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const MissileSpellObject = api.MissileSpellObject;
   const Slow = api.buffs.Slow;
@@ -182,19 +176,11 @@ function __buildAshe_W_Object(api: ContentApi) {
     }
   }
   return Ashe_W_Object;
-}
-const __cacheAshe_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildAshe_W_Object>>();
-export function makeAshe_W_Object(api: ContentApi) {
-  const cached = __cacheAshe_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildAshe_W_Object(api);
-  __cacheAshe_W_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** Frost blooming where a needle went in: a small crystalline rosette. */
-function __buildAshe_W_Frost(api: ContentApi) {
+export const makeAshe_W_Frost = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Ashe_W_Frost extends SpellObject {
     angle = 0;
@@ -254,12 +240,4 @@ function __buildAshe_W_Frost(api: ContentApi) {
     }
   }
   return Ashe_W_Frost;
-}
-const __cacheAshe_W_Frost = new WeakMap<ContentApi, ReturnType<typeof __buildAshe_W_Frost>>();
-export function makeAshe_W_Frost(api: ContentApi) {
-  const cached = __cacheAshe_W_Frost.get(api);
-  if (cached) return cached;
-  const built = __buildAshe_W_Frost(api);
-  __cacheAshe_W_Frost.set(api, built);
-  return built;
-}
+});

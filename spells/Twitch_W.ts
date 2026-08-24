@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
@@ -26,7 +27,7 @@ export const POISON_PER_TICK = 3;
 export const THROW_SPEED = 9;
 
 
-function __buildTwitch_W(api: ContentApi) {
+export const makeTwitch_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Twitch_W_Cask = makeTwitch_W_Cask(api);
   class Twitch_W extends Spell {
@@ -63,15 +64,8 @@ function __buildTwitch_W(api: ContentApi) {
     }
   }
   return Twitch_W;
-}
-const __cacheTwitch_W = new WeakMap<ContentApi, ReturnType<typeof __buildTwitch_W>>();
-export default function makeTwitch_W(api: ContentApi) {
-  const cached = __cacheTwitch_W.get(api);
-  if (cached) return cached;
-  const built = __buildTwitch_W(api);
-  __cacheTwitch_W.set(api, built);
-  return built;
-}
+});
+export default makeTwitch_W;
 
 
 /**
@@ -79,7 +73,7 @@ export default function makeTwitch_W(api: ContentApi) {
  * fight and only matters where it lands, so a body between Twitch and the
  * chosen ground must not eat it.
  */
-function __buildTwitch_W_Cask(api: ContentApi) {
+export const makeTwitch_W_Cask = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const MissileSpellObject = api.MissileSpellObject;
   const Twitch_W_Object = makeTwitch_W_Object(api);
@@ -156,18 +150,10 @@ function __buildTwitch_W_Cask(api: ContentApi) {
     }
   }
   return Twitch_W_Cask;
-}
-const __cacheTwitch_W_Cask = new WeakMap<ContentApi, ReturnType<typeof __buildTwitch_W_Cask>>();
-export function makeTwitch_W_Cask(api: ContentApi) {
-  const cached = __cacheTwitch_W_Cask.get(api);
-  if (cached) return cached;
-  const built = __buildTwitch_W_Cask(api);
-  __cacheTwitch_W_Cask.set(api, built);
-  return built;
-}
+});
 
 
-function __buildTwitch_W_Object(api: ContentApi) {
+export const makeTwitch_W_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
@@ -249,12 +235,4 @@ function __buildTwitch_W_Object(api: ContentApi) {
     }
   }
   return Twitch_W_Object;
-}
-const __cacheTwitch_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildTwitch_W_Object>>();
-export function makeTwitch_W_Object(api: ContentApi) {
-  const cached = __cacheTwitch_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildTwitch_W_Object(api);
-  __cacheTwitch_W_Object.set(api, built);
-  return built;
-}
+});

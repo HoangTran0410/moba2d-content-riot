@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -30,7 +31,7 @@ export const WATER: [number, number, number] = [150, 220, 255];
 
 
 /** Urchin Strike: a dash that goes through the target and out the other side. */
-function __buildFizz_Q(api: ContentApi) {
+export const makeFizz_Q = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -124,15 +125,8 @@ function __buildFizz_Q(api: ContentApi) {
     }
   }
   return Fizz_Q;
-}
-const __cacheFizz_Q = new WeakMap<ContentApi, ReturnType<typeof __buildFizz_Q>>();
-export default function makeFizz_Q(api: ContentApi) {
-  const cached = __cacheFizz_Q.get(api);
-  if (cached) return cached;
-  const built = __buildFizz_Q(api);
-  __cacheFizz_Q.set(api, built);
-  return built;
-}
+});
+export default makeFizz_Q;
 
 
 /** How far the three prong streaks run past the body. */
@@ -148,7 +142,7 @@ export const SLASH_REACH = 78;
  * — a symmetric burst here would have said "an explosion happened at your feet"
  * when what happened is that something ran you through from a specific side.
  */
-function __buildFizz_Q_Slash(api: ContentApi) {
+export const makeFizz_Q_Slash = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Fizz_Q_Slash extends SpellObject {
     position: p5.Vector = this.owner.position.copy();
@@ -228,12 +222,4 @@ function __buildFizz_Q_Slash(api: ContentApi) {
     }
   }
   return Fizz_Q_Slash;
-}
-const __cacheFizz_Q_Slash = new WeakMap<ContentApi, ReturnType<typeof __buildFizz_Q_Slash>>();
-export function makeFizz_Q_Slash(api: ContentApi) {
-  const cached = __cacheFizz_Q_Slash.get(api);
-  if (cached) return cached;
-  const built = __buildFizz_Q_Slash(api);
-  __cacheFizz_Q_Slash.set(api, built);
-  return built;
-}
+});

@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Invulnerable = InstanceType<ContentApi['buffs']['Invulnerable']>;
@@ -26,7 +27,7 @@ export const TRYNDAMERE_R_ATTACK_DAMAGE_BONUS = 8;
 export const TRYNDAMERE_R_STACK_ID = 'tryndamere-undying-rage';
 
 
-function __buildTryndamere_R(api: ContentApi) {
+export const makeTryndamere_R = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Invulnerable = api.buffs.Invulnerable;
   const StatAmp = api.buffs.StatAmp;
@@ -68,15 +69,8 @@ function __buildTryndamere_R(api: ContentApi) {
     }
   }
   return Tryndamere_R;
-}
-const __cacheTryndamere_R = new WeakMap<ContentApi, ReturnType<typeof __buildTryndamere_R>>();
-export default function makeTryndamere_R(api: ContentApi) {
-  const cached = __cacheTryndamere_R.get(api);
-  if (cached) return cached;
-  const built = __buildTryndamere_R(api);
-  __cacheTryndamere_R.set(api, built);
-  return built;
-}
+});
+export default makeTryndamere_R;
 
 
 /**
@@ -87,7 +81,7 @@ export default function makeTryndamere_R(api: ContentApi) {
  * cannot be killed, so the effect tightens and reddens toward the end instead
  * of looking the same on the first frame and the last.
  */
-function __buildTryndamere_R_Object(api: ContentApi) {
+export const makeTryndamere_R_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
@@ -173,12 +167,4 @@ function __buildTryndamere_R_Object(api: ContentApi) {
     }
   }
   return Tryndamere_R_Object;
-}
-const __cacheTryndamere_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildTryndamere_R_Object>>();
-export function makeTryndamere_R_Object(api: ContentApi) {
-  const cached = __cacheTryndamere_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildTryndamere_R_Object(api);
-  __cacheTryndamere_R_Object.set(api, built);
-  return built;
-}
+});

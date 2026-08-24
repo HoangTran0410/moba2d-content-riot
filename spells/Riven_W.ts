@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -29,7 +30,7 @@ const RUNE: [number, number, number] = [0, 210, 168];
 const RUNE_HOT: [number, number, number] = [150, 255, 228];
 
 
-function __buildRiven_W(api: ContentApi) {
+export const makeRiven_W = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -95,15 +96,8 @@ function __buildRiven_W(api: ContentApi) {
     }
   }
   return Riven_W;
-}
-const __cacheRiven_W = new WeakMap<ContentApi, ReturnType<typeof __buildRiven_W>>();
-export default function makeRiven_W(api: ContentApi) {
-  const cached = __cacheRiven_W.get(api);
-  if (cached) return cached;
-  const built = __buildRiven_W(api);
-  __cacheRiven_W.set(api, built);
-  return built;
-}
+});
+export default makeRiven_W;
 
 
 /**
@@ -112,7 +106,7 @@ export default function makeRiven_W(api: ContentApi) {
  * Ground art, so zIndex is `GROUND_Z_INDEX` — an un-overridden subclass
  * resolves to `SPELL_EFFECT_Z_INDEX` instead, above the feet standing on it.
  */
-function __buildRiven_W_Fracture(api: ContentApi) {
+export const makeRiven_W_Fracture = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
@@ -184,19 +178,11 @@ function __buildRiven_W_Fracture(api: ContentApi) {
     }
   }
   return Riven_W_Fracture;
-}
-const __cacheRiven_W_Fracture = new WeakMap<ContentApi, ReturnType<typeof __buildRiven_W_Fracture>>();
-export function makeRiven_W_Fracture(api: ContentApi) {
-  const cached = __cacheRiven_W_Fracture.get(api);
-  if (cached) return cached;
-  const built = __buildRiven_W_Fracture(api);
-  __cacheRiven_W_Fracture.set(api, built);
-  return built;
-}
+});
 
 
 /** The one hard rim, on exactly the radius the damage used, plus a cut on each victim. */
-function __buildRiven_W_Burst(api: ContentApi) {
+export const makeRiven_W_Burst = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Riven_W_Burst extends SpellObject {
@@ -248,12 +234,4 @@ function __buildRiven_W_Burst(api: ContentApi) {
     }
   }
   return Riven_W_Burst;
-}
-const __cacheRiven_W_Burst = new WeakMap<ContentApi, ReturnType<typeof __buildRiven_W_Burst>>();
-export function makeRiven_W_Burst(api: ContentApi) {
-  const cached = __cacheRiven_W_Burst.get(api);
-  if (cached) return cached;
-  const built = __buildRiven_W_Burst(api);
-  __cacheRiven_W_Burst.set(api, built);
-  return built;
-}
+});

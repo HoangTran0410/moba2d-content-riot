@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
@@ -27,7 +28,7 @@ export const EKKO_W_STUN_MS = 2250;
 export const EKKO_W_SLOW_PERCENT = 0.4;
 
 
-function __buildEkko_W(api: ContentApi) {
+export const makeEkko_W = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Ekko_W_DeviceMissile = makeEkko_W_DeviceMissile(api);
@@ -56,19 +57,12 @@ function __buildEkko_W(api: ContentApi) {
     }
   }
   return Ekko_W;
-}
-const __cacheEkko_W = new WeakMap<ContentApi, ReturnType<typeof __buildEkko_W>>();
-export default function makeEkko_W(api: ContentApi) {
-  const cached = __cacheEkko_W.get(api);
-  if (cached) return cached;
-  const built = __buildEkko_W(api);
-  __cacheEkko_W.set(api, built);
-  return built;
-}
+});
+export default makeEkko_W;
 
 
 /** Thrown device that travels to target location before deploying chronosphere. */
-function __buildEkko_W_DeviceMissile(api: ContentApi) {
+export const makeEkko_W_DeviceMissile = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const Ekko_W_Object = makeEkko_W_Object(api);
   class Ekko_W_DeviceMissile extends MissileSpellObject {
@@ -114,15 +108,7 @@ function __buildEkko_W_DeviceMissile(api: ContentApi) {
     }
   }
   return Ekko_W_DeviceMissile;
-}
-const __cacheEkko_W_DeviceMissile = new WeakMap<ContentApi, ReturnType<typeof __buildEkko_W_DeviceMissile>>();
-export function makeEkko_W_DeviceMissile(api: ContentApi) {
-  const cached = __cacheEkko_W_DeviceMissile.get(api);
-  if (cached) return cached;
-  const built = __buildEkko_W_DeviceMissile(api);
-  __cacheEkko_W_DeviceMissile.set(api, built);
-  return built;
-}
+});
 
 
 interface Shard {
@@ -144,7 +130,7 @@ interface Shard {
  * Detonation shatters rather than fading, because it is Ekko breaking the sphere
  * on purpose by walking into it.
  */
-function __buildEkko_W_Object(api: ContentApi) {
+export const makeEkko_W_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const Slow = api.buffs.Slow;
   const Stun = api.buffs.Stun;
@@ -347,19 +333,11 @@ function __buildEkko_W_Object(api: ContentApi) {
     }
   }
   return Ekko_W_Object;
-}
-const __cacheEkko_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildEkko_W_Object>>();
-export function makeEkko_W_Object(api: ContentApi) {
-  const cached = __cacheEkko_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildEkko_W_Object(api);
-  __cacheEkko_W_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** The sphere breaking apart — shards flung outward plus a hard white flash. */
-function __buildEkko_W_ShatterObject(api: ContentApi) {
+export const makeEkko_W_ShatterObject = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Ekko_W_ShatterObject extends SpellObject {
     radius = EKKO_W_RADIUS;
@@ -426,12 +404,4 @@ function __buildEkko_W_ShatterObject(api: ContentApi) {
     }
   }
   return Ekko_W_ShatterObject;
-}
-const __cacheEkko_W_ShatterObject = new WeakMap<ContentApi, ReturnType<typeof __buildEkko_W_ShatterObject>>();
-export function makeEkko_W_ShatterObject(api: ContentApi) {
-  const cached = __cacheEkko_W_ShatterObject.get(api);
-  if (cached) return cached;
-  const built = __buildEkko_W_ShatterObject(api);
-  __cacheEkko_W_ShatterObject.set(api, built);
-  return built;
-}
+});

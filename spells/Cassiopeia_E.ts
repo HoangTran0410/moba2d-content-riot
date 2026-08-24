@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -37,21 +38,13 @@ export const MAX_FLIGHT_TIME = 1200;
  * Any damage-over-time counts as "poisoned" — her Q pool and her W both leave
  * one, and Twin Fang is not supposed to care which of them landed it.
  */
-function __buildisPoisoned(api: ContentApi) {
+export const makeIsPoisoned = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const DamageOverTime = api.buffs.DamageOverTime;
   const isPoisoned = (unit: AttackableUnit): boolean =>
     unit.buffs.some(buff => !buff.toRemove && buff instanceof DamageOverTime);
   return isPoisoned;
-}
-const __cacheisPoisoned = new WeakMap<ContentApi, ReturnType<typeof __buildisPoisoned>>();
-export function makeIsPoisoned(api: ContentApi) {
-  const cached = __cacheisPoisoned.get(api);
-  if (cached) return cached;
-  const built = __buildisPoisoned(api);
-  __cacheisPoisoned.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -64,7 +57,7 @@ export function makeIsPoisoned(api: ContentApi) {
  * the poison bonus is decided where the venom lands rather than where it was
  * launched.
  */
-function __buildCassiopeia_E(api: ContentApi) {
+export const makeCassiopeia_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -130,22 +123,15 @@ function __buildCassiopeia_E(api: ContentApi) {
     }
   }
   return Cassiopeia_E;
-}
-const __cacheCassiopeia_E = new WeakMap<ContentApi, ReturnType<typeof __buildCassiopeia_E>>();
-export default function makeCassiopeia_E(api: ContentApi) {
-  const cached = __cacheCassiopeia_E.get(api);
-  if (cached) return cached;
-  const built = __buildCassiopeia_E(api);
-  __cacheCassiopeia_E.set(api, built);
-  return built;
-}
+});
+export default makeCassiopeia_E;
 
 
 /**
  * The bolt of venom itself: two globs winding round each other all the way to
  * the target, which is where the ability's name comes from.
  */
-function __buildCassiopeia_E_Venom(api: ContentApi) {
+export const makeCassiopeia_E_Venom = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const AoePulse = api.AoePulse;
   const AttackableUnit = api.units.AttackableUnit;
@@ -294,12 +280,4 @@ function __buildCassiopeia_E_Venom(api: ContentApi) {
     }
   }
   return Cassiopeia_E_Venom;
-}
-const __cacheCassiopeia_E_Venom = new WeakMap<ContentApi, ReturnType<typeof __buildCassiopeia_E_Venom>>();
-export function makeCassiopeia_E_Venom(api: ContentApi) {
-  const cached = __cacheCassiopeia_E_Venom.get(api);
-  if (cached) return cached;
-  const built = __buildCassiopeia_E_Venom(api);
-  __cacheCassiopeia_E_Venom.set(api, built);
-  return built;
-}
+});

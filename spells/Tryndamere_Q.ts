@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
@@ -26,7 +27,7 @@ export const TRYNDAMERE_Q_AD_BONUS_MS = 6_000;
 export const TRYNDAMERE_Q_STACK_ID = 'tryndamere-bloodlust';
 
 
-function __buildTryndamere_Q(api: ContentApi) {
+export const makeTryndamere_Q = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const StatAmp = api.buffs.StatAmp;
   const Tryndamere_Q_Object = makeTryndamere_Q_Object(api);
@@ -81,15 +82,8 @@ function __buildTryndamere_Q(api: ContentApi) {
     }
   }
   return Tryndamere_Q;
-}
-const __cacheTryndamere_Q = new WeakMap<ContentApi, ReturnType<typeof __buildTryndamere_Q>>();
-export default function makeTryndamere_Q(api: ContentApi) {
-  const cached = __cacheTryndamere_Q.get(api);
-  if (cached) return cached;
-  const built = __buildTryndamere_Q(api);
-  __cacheTryndamere_Q.set(api, built);
-  return built;
-}
+});
+export default makeTryndamere_Q;
 
 
 /**
@@ -98,7 +92,7 @@ export default function makeTryndamere_Q(api: ContentApi) {
  * Deliberately not a green cross — the heal is the same gesture as the rage,
  * and the player reads its size off how much red comes back.
  */
-function __buildTryndamere_Q_Object(api: ContentApi) {
+export const makeTryndamere_Q_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
@@ -178,12 +172,4 @@ function __buildTryndamere_Q_Object(api: ContentApi) {
     }
   }
   return Tryndamere_Q_Object;
-}
-const __cacheTryndamere_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildTryndamere_Q_Object>>();
-export function makeTryndamere_Q_Object(api: ContentApi) {
-  const cached = __cacheTryndamere_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildTryndamere_Q_Object(api);
-  __cacheTryndamere_Q_Object.set(api, built);
-  return built;
-}
+});

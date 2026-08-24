@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -16,7 +17,7 @@ export const SLOW_PERCENT = 0.6;
 export const DURATION = 2500;
 
 
-function __buildNasus_W(api: ContentApi) {
+export const makeNasus_W = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -96,12 +97,5 @@ function __buildNasus_W(api: ContentApi) {
     }
   }
   return Nasus_W;
-}
-const __cacheNasus_W = new WeakMap<ContentApi, ReturnType<typeof __buildNasus_W>>();
-export default function makeNasus_W(api: ContentApi) {
-  const cached = __cacheNasus_W.get(api);
-  if (cached) return cached;
-  const built = __buildNasus_W(api);
-  __cacheNasus_W.set(api, built);
-  return built;
-}
+});
+export default makeNasus_W;

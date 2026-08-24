@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { makeZed_W_Clone } from './Zed_W';
+import { packClass } from '../packClass';
 
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -28,7 +29,7 @@ const SHADOW_COLOR: [number, number, number] = [215, 120, 255];
  * of damage Zed and his shadows land on that victim, then detonates it as bonus
  * damage when it expires. Recast swaps Zed with the Shadow.
  */
-function __buildZed_R(api: ContentApi) {
+export const makeZed_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const VectorUtils = api.utils.VectorUtils;
   const effectiveRange = api.combat.Reach.effectiveRange;
@@ -211,15 +212,8 @@ function __buildZed_R(api: ContentApi) {
     }
   }
   return Zed_R;
-}
-const __cacheZed_R = new WeakMap<ContentApi, ReturnType<typeof __buildZed_R>>();
-export default function makeZed_R(api: ContentApi) {
-  const cached = __cacheZed_R.get(api);
-  if (cached) return cached;
-  const built = __buildZed_R(api);
-  __cacheZed_R.set(api, built);
-  return built;
-}
+});
+export default makeZed_R;
 
 
 /**
@@ -227,7 +221,7 @@ export default function makeZed_R(api: ContentApi) {
  * changes what gets through — it only banks a share of whatever Zed (or one of
  * his shadows) lands, and pays it all back at once when the mark expires.
  */
-function __buildZed_R_Mark(api: ContentApi) {
+export const makeZed_R_Mark = packClass((api: ContentApi) => {
   const Buff = api.buffs.Buff;
   const BuffAddType = api.enums.BuffAddType;
   const Zed_R_Detonation = makeZed_R_Detonation(api);
@@ -270,19 +264,11 @@ function __buildZed_R_Mark(api: ContentApi) {
     }
   }
   return Zed_R_Mark;
-}
-const __cacheZed_R_Mark = new WeakMap<ContentApi, ReturnType<typeof __buildZed_R_Mark>>();
-export function makeZed_R_Mark(api: ContentApi) {
-  const cached = __cacheZed_R_Mark.get(api);
-  if (cached) return cached;
-  const built = __buildZed_R_Mark(api);
-  __cacheZed_R_Mark.set(api, built);
-  return built;
-}
+});
 
 
 /** The banked damage going off all at once. Scaled by how much was stored. */
-function __buildZed_R_Detonation(api: ContentApi) {
+export const makeZed_R_Detonation = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Zed_R_Detonation extends SpellObject {
     position = this.owner.position.copy();
@@ -352,19 +338,11 @@ function __buildZed_R_Detonation(api: ContentApi) {
     }
   }
   return Zed_R_Detonation;
-}
-const __cacheZed_R_Detonation = new WeakMap<ContentApi, ReturnType<typeof __buildZed_R_Detonation>>();
-export function makeZed_R_Detonation(api: ContentApi) {
-  const cached = __cacheZed_R_Detonation.get(api);
-  if (cached) return cached;
-  const built = __buildZed_R_Detonation(api);
-  __cacheZed_R_Detonation.set(api, built);
-  return built;
-}
+});
 
 
 /** The death-mark rune spinning over the victim while the mark lasts. */
-function __buildZed_R_Object(api: ContentApi) {
+export const makeZed_R_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Zed_R_Object extends SpellObject {
@@ -486,12 +464,4 @@ function __buildZed_R_Object(api: ContentApi) {
     }
   }
   return Zed_R_Object;
-}
-const __cacheZed_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildZed_R_Object>>();
-export function makeZed_R_Object(api: ContentApi) {
-  const cached = __cacheZed_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildZed_R_Object(api);
-  __cacheZed_R_Object.set(api, built);
-  return built;
-}
+});

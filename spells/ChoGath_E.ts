@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
@@ -11,7 +12,7 @@ type ChoGath_E_Object = InstanceType<ReturnType<typeof makeChoGath_E_Object>>;
 
 
 
-function __buildChoGath_E(api: ContentApi) {
+export const makeChoGath_E = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const ChoGath_E_Object = makeChoGath_E_Object(api);
@@ -41,18 +42,11 @@ function __buildChoGath_E(api: ContentApi) {
     }
   }
   return ChoGath_E;
-}
-const __cacheChoGath_E = new WeakMap<ContentApi, ReturnType<typeof __buildChoGath_E>>();
-export default function makeChoGath_E(api: ContentApi) {
-  const cached = __cacheChoGath_E.get(api);
-  if (cached) return cached;
-  const built = __buildChoGath_E(api);
-  __cacheChoGath_E.set(api, built);
-  return built;
-}
+});
+export default makeChoGath_E;
 
 
-function __buildChoGath_E_Object(api: ContentApi) {
+export const makeChoGath_E_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const DamageOverTime = api.buffs.DamageOverTime;
   const TrailSystem = api.helpers.TrailSystem;
@@ -148,19 +142,11 @@ function __buildChoGath_E_Object(api: ContentApi) {
     }
   }
   return ChoGath_E_Object;
-}
-const __cacheChoGath_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildChoGath_E_Object>>();
-export function makeChoGath_E_Object(api: ContentApi) {
-  const cached = __cacheChoGath_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildChoGath_E_Object(api);
-  __cacheChoGath_E_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** Bone chips and blood where the spikes went through someone. */
-function __buildChoGath_E_Gore(api: ContentApi) {
+export const makeChoGath_E_Gore = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class ChoGath_E_Gore extends SpellObject {
     angle = 0;
@@ -229,12 +215,4 @@ function __buildChoGath_E_Gore(api: ContentApi) {
     }
   }
   return ChoGath_E_Gore;
-}
-const __cacheChoGath_E_Gore = new WeakMap<ContentApi, ReturnType<typeof __buildChoGath_E_Gore>>();
-export function makeChoGath_E_Gore(api: ContentApi) {
-  const cached = __cacheChoGath_E_Gore.get(api);
-  if (cached) return cached;
-  const built = __buildChoGath_E_Gore(api);
-  __cacheChoGath_E_Gore.set(api, built);
-  return built;
-}
+});

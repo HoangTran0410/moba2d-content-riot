@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -32,7 +33,7 @@ export const ATTACKS_PER_SECOND = 2;
 export const BOX_HEALTH = 30;
 
 
-function __buildShaco_W(api: ContentApi) {
+export const makeShaco_W = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Shaco_W_Box = makeShaco_W_Box(api);
@@ -76,15 +77,8 @@ function __buildShaco_W(api: ContentApi) {
     }
   }
   return Shaco_W;
-}
-const __cacheShaco_W = new WeakMap<ContentApi, ReturnType<typeof __buildShaco_W>>();
-export default function makeShaco_W(api: ContentApi) {
-  const cached = __cacheShaco_W.get(api);
-  if (cached) return cached;
-  const built = __buildShaco_W(api);
-  __cacheShaco_W.set(api, built);
-  return built;
-}
+});
+export default makeShaco_W;
 
 
 /**
@@ -100,7 +94,7 @@ export default function makeShaco_W(api: ContentApi) {
  * `Invisible` with `Untargetable` for exactly this, and the reveal takes both
  * off in the same call the fear goes out in.
  */
-function __buildShaco_W_Box(api: ContentApi) {
+export const makeShaco_W_Box = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const VectorUtils = api.utils.VectorUtils;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -326,18 +320,10 @@ function __buildShaco_W_Box(api: ContentApi) {
     }
   }
   return Shaco_W_Box;
-}
-const __cacheShaco_W_Box = new WeakMap<ContentApi, ReturnType<typeof __buildShaco_W_Box>>();
-export function makeShaco_W_Box(api: ContentApi) {
-  const cached = __cacheShaco_W_Box.get(api);
-  if (cached) return cached;
-  const built = __buildShaco_W_Box(api);
-  __cacheShaco_W_Box.set(api, built);
-  return built;
-}
+});
 
 
-function __buildShaco_W_Bullet_Object(api: ContentApi) {
+export const makeShaco_W_Bullet_Object = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const SpellObject = api.SpellObject;
   const TrailSystem = api.helpers.TrailSystem;
@@ -429,12 +415,4 @@ function __buildShaco_W_Bullet_Object(api: ContentApi) {
     }
   }
   return Shaco_W_Bullet_Object;
-}
-const __cacheShaco_W_Bullet_Object = new WeakMap<ContentApi, ReturnType<typeof __buildShaco_W_Bullet_Object>>();
-export function makeShaco_W_Bullet_Object(api: ContentApi) {
-  const cached = __cacheShaco_W_Bullet_Object.get(api);
-  if (cached) return cached;
-  const built = __buildShaco_W_Bullet_Object(api);
-  __cacheShaco_W_Bullet_Object.set(api, built);
-  return built;
-}
+});

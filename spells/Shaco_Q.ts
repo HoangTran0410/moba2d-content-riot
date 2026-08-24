@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Invisible = InstanceType<ContentApi['buffs']['Invisible']>;
 type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
@@ -40,7 +41,7 @@ const JESTER: [number, number, number] = [148, 52, 186];
 const JESTER_RED: [number, number, number] = [214, 48, 78];
 
 
-function __buildShaco_Q(api: ContentApi) {
+export const makeShaco_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Invisible = api.buffs.Invisible;
@@ -93,15 +94,8 @@ function __buildShaco_Q(api: ContentApi) {
     }
   }
   return Shaco_Q;
-}
-const __cacheShaco_Q = new WeakMap<ContentApi, ReturnType<typeof __buildShaco_Q>>();
-export default function makeShaco_Q(api: ContentApi) {
-  const cached = __cacheShaco_Q.get(api);
-  if (cached) return cached;
-  const built = __buildShaco_Q(api);
-  __cacheShaco_Q.set(api, built);
-  return built;
-}
+});
+export default makeShaco_Q;
 
 
 /** One diamond off a harlequin's costume, thrown by the poof. */
@@ -116,7 +110,7 @@ interface Shard {
 }
 
 
-function __buildShaco_Q_Object(api: ContentApi) {
+export const makeShaco_Q_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   class Shaco_Q_Object extends SpellObject {
@@ -232,12 +226,4 @@ function __buildShaco_Q_Object(api: ContentApi) {
     }
   }
   return Shaco_Q_Object;
-}
-const __cacheShaco_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildShaco_Q_Object>>();
-export function makeShaco_Q_Object(api: ContentApi) {
-  const cached = __cacheShaco_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildShaco_Q_Object(api);
-  __cacheShaco_Q_Object.set(api, built);
-  return built;
-}
+});

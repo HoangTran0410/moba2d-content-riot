@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Champion = InstanceType<ContentApi['units']['Champion']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -31,7 +32,7 @@ export const LEAP_RANGE = 800;
  *
  * Letting the window lapse without leaping puts the ultimate on full cooldown.
  */
-function __buildNocturne_R(api: ContentApi) {
+export const makeNocturne_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -186,19 +187,12 @@ function __buildNocturne_R(api: ContentApi) {
     }
   }
   return Nocturne_R;
-}
-const __cacheNocturne_R = new WeakMap<ContentApi, ReturnType<typeof __buildNocturne_R>>();
-export default function makeNocturne_R(api: ContentApi) {
-  const cached = __cacheNocturne_R.get(api);
-  if (cached) return cached;
-  const built = __buildNocturne_R(api);
-  __cacheNocturne_R.set(api, built);
-  return built;
-}
+});
+export default makeNocturne_R;
 
 
 /** The wave of darkness washing outwards from the caster as the ult goes off. */
-function __buildNocturne_R_Object(api: ContentApi) {
+export const makeNocturne_R_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Nocturne_R_Object extends SpellObject {
     position = this.owner.position.copy();
@@ -255,22 +249,14 @@ function __buildNocturne_R_Object(api: ContentApi) {
     }
   }
   return Nocturne_R_Object;
-}
-const __cacheNocturne_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildNocturne_R_Object>>();
-export function makeNocturne_R_Object(api: ContentApi) {
-  const cached = __cacheNocturne_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildNocturne_R_Object(api);
-  __cacheNocturne_R_Object.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * Rides on Nocturne while Paranoia's leap is available and disappears the moment
  * it is not — so "can I still jump?" is answered in the world, not in the HUD.
  */
-function __buildNocturne_R_Window(api: ContentApi) {
+export const makeNocturne_R_Window = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Nocturne_R_Window extends SpellObject {
     spell: Nocturne_R | null = null;
@@ -334,19 +320,11 @@ function __buildNocturne_R_Window(api: ContentApi) {
     }
   }
   return Nocturne_R_Window;
-}
-const __cacheNocturne_R_Window = new WeakMap<ContentApi, ReturnType<typeof __buildNocturne_R_Window>>();
-export function makeNocturne_R_Window(api: ContentApi) {
-  const cached = __cacheNocturne_R_Window.get(api);
-  if (cached) return cached;
-  const built = __buildNocturne_R_Window(api);
-  __cacheNocturne_R_Window.set(api, built);
-  return built;
-}
+});
 
 
 /** Where the leap ends: shadow slamming down on the victim. */
-function __buildNocturne_R_Landing(api: ContentApi) {
+export const makeNocturne_R_Landing = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Nocturne_R_Landing extends SpellObject {
     position = this.owner.position.copy();
@@ -399,12 +377,4 @@ function __buildNocturne_R_Landing(api: ContentApi) {
     }
   }
   return Nocturne_R_Landing;
-}
-const __cacheNocturne_R_Landing = new WeakMap<ContentApi, ReturnType<typeof __buildNocturne_R_Landing>>();
-export function makeNocturne_R_Landing(api: ContentApi) {
-  const cached = __cacheNocturne_R_Landing.get(api);
-  if (cached) return cached;
-  const built = __buildNocturne_R_Landing(api);
-  __cacheNocturne_R_Landing.set(api, built);
-  return built;
-}
+});

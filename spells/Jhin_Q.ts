@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
@@ -55,7 +56,7 @@ export function jhinBounceDamage(index: number): number {
  * The mark itself. A dedicated class rather than a generic buff, because W asks "is this one
  * marked?" by type and consumes it by hand.
  */
-function __buildJhinMarkBuff(api: ContentApi) {
+export const makeJhinMarkBuff = packClass((api: ContentApi) => {
   const Buff = api.buffs.Buff;
   class JhinMarkBuff extends Buff {
     name = 'Dấu Hoa Sen';
@@ -63,18 +64,10 @@ function __buildJhinMarkBuff(api: ContentApi) {
     stackId = 'jhin_lotus_mark';
   }
   return JhinMarkBuff;
-}
-const __cacheJhinMarkBuff = new WeakMap<ContentApi, ReturnType<typeof __buildJhinMarkBuff>>();
-export function makeJhinMarkBuff(api: ContentApi) {
-  const cached = __cacheJhinMarkBuff.get(api);
-  if (cached) return cached;
-  const built = __buildJhinMarkBuff(api);
-  __cacheJhinMarkBuff.set(api, built);
-  return built;
-}
+});
 
 
-function __buildfindJhinMark(api: ContentApi) {
+export const makeFindJhinMark = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const JhinMarkBuff = makeJhinMarkBuff(api);
   function findJhinMark(unit: AttackableUnit): JhinMarkBuff | null {
@@ -84,37 +77,21 @@ function __buildfindJhinMark(api: ContentApi) {
     return null;
   }
   return findJhinMark;
-}
-const __cachefindJhinMark = new WeakMap<ContentApi, ReturnType<typeof __buildfindJhinMark>>();
-export function makeFindJhinMark(api: ContentApi) {
-  const cached = __cachefindJhinMark.get(api);
-  if (cached) return cached;
-  const built = __buildfindJhinMark(api);
-  __cachefindJhinMark.set(api, built);
-  return built;
-}
+});
 
 
-function __buildhasJhinMark(api: ContentApi) {
+export const makeHasJhinMark = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const findJhinMark = makeFindJhinMark(api);
   function hasJhinMark(unit: AttackableUnit): boolean {
     return findJhinMark(unit) !== null;
   }
   return hasJhinMark;
-}
-const __cachehasJhinMark = new WeakMap<ContentApi, ReturnType<typeof __buildhasJhinMark>>();
-export function makeHasJhinMark(api: ContentApi) {
-  const cached = __cachehasJhinMark.get(api);
-  if (cached) return cached;
-  const built = __buildhasJhinMark(api);
-  __cachehasJhinMark.set(api, built);
-  return built;
-}
+});
 
 
 /** Returns whether there was a mark to take. W's two outcomes hang off this boolean. */
-function __buildconsumeJhinMark(api: ContentApi) {
+export const makeConsumeJhinMark = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const findJhinMark = makeFindJhinMark(api);
   function consumeJhinMark(unit: AttackableUnit): boolean {
@@ -124,18 +101,10 @@ function __buildconsumeJhinMark(api: ContentApi) {
     return true;
   }
   return consumeJhinMark;
-}
-const __cacheconsumeJhinMark = new WeakMap<ContentApi, ReturnType<typeof __buildconsumeJhinMark>>();
-export function makeConsumeJhinMark(api: ContentApi) {
-  const cached = __cacheconsumeJhinMark.get(api);
-  if (cached) return cached;
-  const built = __buildconsumeJhinMark(api);
-  __cacheconsumeJhinMark.set(api, built);
-  return built;
-}
+});
 
 
-function __buildapplyJhinMark(api: ContentApi) {
+export const makeApplyJhinMark = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const JhinMarkBuff = makeJhinMarkBuff(api);
   const findJhinMark = makeFindJhinMark(api);
@@ -153,18 +122,10 @@ function __buildapplyJhinMark(api: ContentApi) {
     source.game.objectManager.addObject(lotus);
   }
   return applyJhinMark;
-}
-const __cacheapplyJhinMark = new WeakMap<ContentApi, ReturnType<typeof __buildapplyJhinMark>>();
-export function makeApplyJhinMark(api: ContentApi) {
-  const cached = __cacheapplyJhinMark.get(api);
-  if (cached) return cached;
-  const built = __buildapplyJhinMark(api);
-  __cacheapplyJhinMark.set(api, built);
-  return built;
-}
+});
 
 
-function __buildJhin_Q(api: ContentApi) {
+export const makeJhin_Q = packClass((api: ContentApi) => {
   const canSee = api.combat.Vision.canSee;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
@@ -261,31 +222,16 @@ function __buildJhin_Q(api: ContentApi) {
     }
   }
   return Jhin_Q;
-}
-const __cacheJhin_Q = new WeakMap<ContentApi, ReturnType<typeof __buildJhin_Q>>();
-export default function makeJhin_Q(api: ContentApi) {
-  const cached = __cacheJhin_Q.get(api);
-  if (cached) return cached;
-  const built = __buildJhin_Q(api);
-  __cacheJhin_Q.set(api, built);
-  return built;
-}
+});
+export default makeJhin_Q;
 
 
-function __buildisGrenadeTarget(api: ContentApi) {
+export const makeIsGrenadeTarget = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const isGrenadeTarget = (target: unknown): target is AttackableUnit =>
     target instanceof AttackableUnit && target.targetable && !target.toRemove && !target.isDead;
   return isGrenadeTarget;
-}
-const __cacheisGrenadeTarget = new WeakMap<ContentApi, ReturnType<typeof __buildisGrenadeTarget>>();
-export function makeIsGrenadeTarget(api: ContentApi) {
-  const cached = __cacheisGrenadeTarget.get(api);
-  if (cached) return cached;
-  const built = __buildisGrenadeTarget(api);
-  __cacheisGrenadeTarget.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -295,7 +241,7 @@ export function makeIsGrenadeTarget(api: ContentApi) {
  * Arriving on nothing is the end of it. Hunting from the point it stopped at is what made this
  * castable at empty ground for a guaranteed hit, so `onArrive` expires rather than seeking.
  */
-function __buildJhin_Q_Object(api: ContentApi) {
+export const makeJhin_Q_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const AttackableUnit = api.units.AttackableUnit;
@@ -421,19 +367,11 @@ function __buildJhin_Q_Object(api: ContentApi) {
     }
   }
   return Jhin_Q_Object;
-}
-const __cacheJhin_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildJhin_Q_Object>>();
-export function makeJhin_Q_Object(api: ContentApi) {
-  const cached = __cacheJhin_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildJhin_Q_Object(api);
-  __cacheJhin_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** The blast on the body that took the hit. Bigger and brighter every bounce. */
-function __buildJhin_Q_Blast(api: ContentApi) {
+export const makeJhin_Q_Blast = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Jhin_Q_Blast extends SpellObject {
@@ -499,22 +437,14 @@ function __buildJhin_Q_Blast(api: ContentApi) {
     }
   }
   return Jhin_Q_Blast;
-}
-const __cacheJhin_Q_Blast = new WeakMap<ContentApi, ReturnType<typeof __buildJhin_Q_Blast>>();
-export function makeJhin_Q_Blast(api: ContentApi) {
-  const cached = __cacheJhin_Q_Blast.get(api);
-  if (cached) return cached;
-  const built = __buildJhin_Q_Blast(api);
-  __cacheJhin_Q_Blast.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * The mark's own art: a four-petal lotus turning over the victim's head. It rides the body and
  * dies with the buff, so W's condition is readable from across the screen.
  */
-function __buildJhin_Mark_Object(api: ContentApi) {
+export const makeJhin_Mark_Object = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Jhin_Mark_Object extends SpellObject {
@@ -568,12 +498,4 @@ function __buildJhin_Mark_Object(api: ContentApi) {
     }
   }
   return Jhin_Mark_Object;
-}
-const __cacheJhin_Mark_Object = new WeakMap<ContentApi, ReturnType<typeof __buildJhin_Mark_Object>>();
-export function makeJhin_Mark_Object(api: ContentApi) {
-  const cached = __cacheJhin_Mark_Object.get(api);
-  if (cached) return cached;
-  const built = __buildJhin_Mark_Object(api);
-  __cacheJhin_Mark_Object.set(api, built);
-  return built;
-}
+});

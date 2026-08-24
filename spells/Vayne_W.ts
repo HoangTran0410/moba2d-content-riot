@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BasicAttackHit } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
@@ -43,7 +44,7 @@ const PROC_REACH = 76;
  * and it is why the tally has to be legible *on the victim*: the player counts
  * two silver triangles over a body, not a number in a panel.
  */
-function __buildVayne_W(api: ContentApi) {
+export const makeVayne_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Vayne_W_Buff = makeVayne_W_Buff(api);
   class Vayne_W extends Spell {
@@ -61,15 +62,8 @@ function __buildVayne_W(api: ContentApi) {
     }
   }
   return Vayne_W;
-}
-const __cacheVayne_W = new WeakMap<ContentApi, ReturnType<typeof __buildVayne_W>>();
-export default function makeVayne_W(api: ContentApi) {
-  const cached = __cacheVayne_W.get(api);
-  if (cached) return cached;
-  const built = __buildVayne_W(api);
-  __cacheVayne_W.set(api, built);
-  return built;
-}
+});
+export default makeVayne_W;
 
 
 /** One victim's row in the tally: how many hits it has taken, and its marker. */
@@ -84,7 +78,7 @@ interface BoltTally {
  * unsubscribing from inside the callback would splice the subscriber array while
  * `EventManager.emit` is iterating it and skip whichever listener sat next.
  */
-function __buildVayne_W_Buff(api: ContentApi) {
+export const makeVayne_W_Buff = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const EventType = api.enums.EventType;
   const AttackableUnit = api.units.AttackableUnit;
@@ -145,15 +139,7 @@ function __buildVayne_W_Buff(api: ContentApi) {
     }
   }
   return Vayne_W_Buff;
-}
-const __cacheVayne_W_Buff = new WeakMap<ContentApi, ReturnType<typeof __buildVayne_W_Buff>>();
-export function makeVayne_W_Buff(api: ContentApi) {
-  const cached = __cacheVayne_W_Buff.get(api);
-  if (cached) return cached;
-  const built = __buildVayne_W_Buff(api);
-  __cacheVayne_W_Buff.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -162,7 +148,7 @@ export function makeVayne_W_Buff(api: ContentApi) {
  * lives on Vayne and `attachTo`'s buff watch looks for it on the *anchor* — the
  * marker's lifetime against the window is the buff's own `onDeactivate`.
  */
-function __buildVayne_W_Mark(api: ContentApi) {
+export const makeVayne_W_Mark = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Vayne_W_Mark extends SpellObject {
@@ -218,15 +204,7 @@ function __buildVayne_W_Mark(api: ContentApi) {
     }
   }
   return Vayne_W_Mark;
-}
-const __cacheVayne_W_Mark = new WeakMap<ContentApi, ReturnType<typeof __buildVayne_W_Mark>>();
-export function makeVayne_W_Mark(api: ContentApi) {
-  const cached = __cacheVayne_W_Mark.get(api);
-  if (cached) return cached;
-  const built = __buildVayne_W_Mark(api);
-  __cacheVayne_W_Mark.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -234,7 +212,7 @@ export function makeVayne_W_Mark(api: ContentApi) {
  * Different region, different shape, on the target — a player must not have to
  * guess which of the two things just happened.
  */
-function __buildVayne_W_Proc(api: ContentApi) {
+export const makeVayne_W_Proc = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Vayne_W_Proc extends SpellObject {
@@ -280,12 +258,4 @@ function __buildVayne_W_Proc(api: ContentApi) {
     }
   }
   return Vayne_W_Proc;
-}
-const __cacheVayne_W_Proc = new WeakMap<ContentApi, ReturnType<typeof __buildVayne_W_Proc>>();
-export function makeVayne_W_Proc(api: ContentApi) {
-  const cached = __cacheVayne_W_Proc.get(api);
-  if (cached) return cached;
-  const built = __buildVayne_W_Proc(api);
-  __cacheVayne_W_Proc.set(api, built);
-  return built;
-}
+});

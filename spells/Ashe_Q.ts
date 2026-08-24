@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
@@ -13,7 +14,7 @@ type Ashe_Q_Shatter = InstanceType<ReturnType<typeof makeAshe_Q_Shatter>>;
 
 
 
-function __buildAshe_Q(api: ContentApi) {
+export const makeAshe_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Ashe_Q_Object = makeAshe_Q_Object(api);
@@ -58,18 +59,11 @@ function __buildAshe_Q(api: ContentApi) {
     }
   }
   return Ashe_Q;
-}
-const __cacheAshe_Q = new WeakMap<ContentApi, ReturnType<typeof __buildAshe_Q>>();
-export default function makeAshe_Q(api: ContentApi) {
-  const cached = __cacheAshe_Q.get(api);
-  if (cached) return cached;
-  const built = __buildAshe_Q(api);
-  __cacheAshe_Q.set(api, built);
-  return built;
-}
+});
+export default makeAshe_Q;
 
 
-function __buildAshe_Q_Object(api: ContentApi) {
+export const makeAshe_Q_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const BuffAddType = api.enums.BuffAddType;
   const MissileSpellObject = api.MissileSpellObject;
@@ -179,19 +173,11 @@ function __buildAshe_Q_Object(api: ContentApi) {
     }
   }
   return Ashe_Q_Object;
-}
-const __cacheAshe_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildAshe_Q_Object>>();
-export function makeAshe_Q_Object(api: ContentApi) {
-  const cached = __cacheAshe_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildAshe_Q_Object(api);
-  __cacheAshe_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** Fan of frost left at the bow when the volley launches. */
-function __buildAshe_Q_Muzzle(api: ContentApi) {
+export const makeAshe_Q_Muzzle = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Ashe_Q_Muzzle extends SpellObject {
@@ -235,19 +221,11 @@ function __buildAshe_Q_Muzzle(api: ContentApi) {
     }
   }
   return Ashe_Q_Muzzle;
-}
-const __cacheAshe_Q_Muzzle = new WeakMap<ContentApi, ReturnType<typeof __buildAshe_Q_Muzzle>>();
-export function makeAshe_Q_Muzzle(api: ContentApi) {
-  const cached = __cacheAshe_Q_Muzzle.get(api);
-  if (cached) return cached;
-  const built = __buildAshe_Q_Muzzle(api);
-  __cacheAshe_Q_Muzzle.set(api, built);
-  return built;
-}
+});
 
 
 /** Ice shattering on the victim — the moment of the hit. */
-function __buildAshe_Q_Shatter(api: ContentApi) {
+export const makeAshe_Q_Shatter = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Ashe_Q_Shatter extends SpellObject {
     angle = 0;
@@ -314,12 +292,4 @@ function __buildAshe_Q_Shatter(api: ContentApi) {
     }
   }
   return Ashe_Q_Shatter;
-}
-const __cacheAshe_Q_Shatter = new WeakMap<ContentApi, ReturnType<typeof __buildAshe_Q_Shatter>>();
-export function makeAshe_Q_Shatter(api: ContentApi) {
-  const cached = __cacheAshe_Q_Shatter.get(api);
-  if (cached) return cached;
-  const built = __buildAshe_Q_Shatter(api);
-  __cacheAshe_Q_Shatter.set(api, built);
-  return built;
-}
+});

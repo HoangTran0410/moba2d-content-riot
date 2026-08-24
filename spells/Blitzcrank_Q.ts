@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
@@ -11,7 +12,7 @@ type Blitzcrank_Q_Object = InstanceType<ReturnType<typeof makeBlitzcrank_Q_Objec
 
 
 
-function __buildBlitzcrank_Q(api: ContentApi) {
+export const makeBlitzcrank_Q = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const Spell = api.Spell;
   const RootBuff = api.buffs.Root;
@@ -67,18 +68,11 @@ function __buildBlitzcrank_Q(api: ContentApi) {
     }
   }
   return Blitzcrank_Q;
-}
-const __cacheBlitzcrank_Q = new WeakMap<ContentApi, ReturnType<typeof __buildBlitzcrank_Q>>();
-export default function makeBlitzcrank_Q(api: ContentApi) {
-  const cached = __cacheBlitzcrank_Q.get(api);
-  if (cached) return cached;
-  const built = __buildBlitzcrank_Q(api);
-  __cacheBlitzcrank_Q.set(api, built);
-  return built;
-}
+});
+export default makeBlitzcrank_Q;
 
 
-function __buildBlitzcrank_Q_Object(api: ContentApi) {
+export const makeBlitzcrank_Q_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const Airborne = api.buffs.Airborne;
   const Dash = api.buffs.Dash;
@@ -196,12 +190,4 @@ function __buildBlitzcrank_Q_Object(api: ContentApi) {
     }
   }
   return Blitzcrank_Q_Object;
-}
-const __cacheBlitzcrank_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildBlitzcrank_Q_Object>>();
-export function makeBlitzcrank_Q_Object(api: ContentApi) {
-  const cached = __cacheBlitzcrank_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildBlitzcrank_Q_Object(api);
-  __cacheBlitzcrank_Q_Object.set(api, built);
-  return built;
-}
+});

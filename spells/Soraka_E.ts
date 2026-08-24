@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Root = InstanceType<ContentApi['buffs']['Root']>;
@@ -34,7 +35,7 @@ export const ZONE_DURATION_MS = 1_500;
 export const ROOT_DURATION_MS = 1_250;
 
 
-function __buildSoraka_E(api: ContentApi) {
+export const makeSoraka_E = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Soraka_E_Object = makeSoraka_E_Object(api);
@@ -65,15 +66,8 @@ function __buildSoraka_E(api: ContentApi) {
     }
   }
   return Soraka_E;
-}
-const __cacheSoraka_E = new WeakMap<ContentApi, ReturnType<typeof __buildSoraka_E>>();
-export default function makeSoraka_E(api: ContentApi) {
-  const cached = __cacheSoraka_E.get(api);
-  if (cached) return cached;
-  const built = __buildSoraka_E(api);
-  __cacheSoraka_E.set(api, built);
-  return built;
-}
+});
+export default makeSoraka_E;
 
 
 interface Glyph {
@@ -87,7 +81,7 @@ interface Glyph {
 const GLYPH_COUNT = 8;
 
 
-function __buildSoraka_E_Object(api: ContentApi) {
+export const makeSoraka_E_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const BuffAddType = api.enums.BuffAddType;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -292,12 +286,4 @@ function __buildSoraka_E_Object(api: ContentApi) {
     }
   }
   return Soraka_E_Object;
-}
-const __cacheSoraka_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildSoraka_E_Object>>();
-export function makeSoraka_E_Object(api: ContentApi) {
-  const cached = __cacheSoraka_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildSoraka_E_Object(api);
-  __cacheSoraka_E_Object.set(api, built);
-  return built;
-}
+});

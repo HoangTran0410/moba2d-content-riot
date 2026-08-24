@@ -1,6 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
 import { makeNotifyJannaControlLanded } from './Janna_E';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type HomingMissileSpellObject = InstanceType<ContentApi['HomingMissileSpellObject']>;
@@ -19,20 +20,12 @@ type Janna_W_Passive = InstanceType<ReturnType<typeof makeJanna_W_Passive>>;
 type ZephyrTarget = AttackableUnit;
 
 
-function __buildisZephyrTarget(api: ContentApi) {
+export const makeIsZephyrTarget = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const isZephyrTarget = (target: unknown): target is ZephyrTarget =>
     target instanceof AttackableUnit && target.targetable && !target.toRemove;
   return isZephyrTarget;
-}
-const __cacheisZephyrTarget = new WeakMap<ContentApi, ReturnType<typeof __buildisZephyrTarget>>();
-export function makeIsZephyrTarget(api: ContentApi) {
-  const cached = __cacheisZephyrTarget.get(api);
-  if (cached) return cached;
-  const built = __buildisZephyrTarget(api);
-  __cacheisZephyrTarget.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -68,7 +61,7 @@ export const SLOW_DURATION_MS = 2_000;
 export const SPAWN_OFFSET_DISTANCE = 70;
 
 
-function __buildJanna_W_Passive(api: ContentApi) {
+export const makeJanna_W_Passive = packClass((api: ContentApi) => {
   const StatusFlags = api.enums.StatusFlags;
   const StatAmp = api.buffs.StatAmp;
   class Janna_W_Passive extends StatAmp {
@@ -78,18 +71,10 @@ function __buildJanna_W_Passive(api: ContentApi) {
     bonuses = { speed: { percentBaseBonus: PASSIVE_SPEED_PERCENT } };
   }
   return Janna_W_Passive;
-}
-const __cacheJanna_W_Passive = new WeakMap<ContentApi, ReturnType<typeof __buildJanna_W_Passive>>();
-export function makeJanna_W_Passive(api: ContentApi) {
-  const cached = __cacheJanna_W_Passive.get(api);
-  if (cached) return cached;
-  const built = __buildJanna_W_Passive(api);
-  __cacheJanna_W_Passive.set(api, built);
-  return built;
-}
+});
 
 
-function __buildJanna_W(api: ContentApi) {
+export const makeJanna_W = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
@@ -199,18 +184,11 @@ function __buildJanna_W(api: ContentApi) {
     }
   }
   return Janna_W;
-}
-const __cacheJanna_W = new WeakMap<ContentApi, ReturnType<typeof __buildJanna_W>>();
-export default function makeJanna_W(api: ContentApi) {
-  const cached = __cacheJanna_W.get(api);
-  if (cached) return cached;
-  const built = __buildJanna_W(api);
-  __cacheJanna_W.set(api, built);
-  return built;
-}
+});
+export default makeJanna_W;
 
 
-function __buildJanna_W_Bolt(api: ContentApi) {
+export const makeJanna_W_Bolt = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const Slow = api.buffs.Slow;
   const TrailSystem = api.helpers.TrailSystem;
@@ -282,12 +260,4 @@ function __buildJanna_W_Bolt(api: ContentApi) {
     }
   }
   return Janna_W_Bolt;
-}
-const __cacheJanna_W_Bolt = new WeakMap<ContentApi, ReturnType<typeof __buildJanna_W_Bolt>>();
-export function makeJanna_W_Bolt(api: ContentApi) {
-  const cached = __cacheJanna_W_Bolt.get(api);
-  if (cached) return cached;
-  const built = __buildJanna_W_Bolt(api);
-  __cacheJanna_W_Bolt.set(api, built);
-  return built;
-}
+});

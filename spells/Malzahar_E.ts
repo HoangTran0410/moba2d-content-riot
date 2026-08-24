@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -46,20 +47,12 @@ export const MANA_COST = 60;
 export const VISIONS_STACK_ID = 'malzahar_e';
 
 
-function __buildisVisionsTarget(api: ContentApi) {
+export const makeIsVisionsTarget = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const isVisionsTarget = (target: unknown): target is AttackableUnit =>
     target instanceof AttackableUnit && target.targetable && !target.toRemove;
   return isVisionsTarget;
-}
-const __cacheisVisionsTarget = new WeakMap<ContentApi, ReturnType<typeof __buildisVisionsTarget>>();
-export function makeIsVisionsTarget(api: ContentApi) {
-  const cached = __cacheisVisionsTarget.get(api);
-  if (cached) return cached;
-  const built = __buildisVisionsTarget(api);
-  __cacheisVisionsTarget.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -71,7 +64,7 @@ export function makeIsVisionsTarget(api: ContentApi) {
  * between two candidates, rather than the cursor-radius guess an auto-locking
  * spell would make.
  */
-function __buildMalzahar_E(api: ContentApi) {
+export const makeMalzahar_E = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
   const TargetResolver = api.combat.TargetResolver;
@@ -162,15 +155,8 @@ function __buildMalzahar_E(api: ContentApi) {
     }
   }
   return Malzahar_E;
-}
-const __cacheMalzahar_E = new WeakMap<ContentApi, ReturnType<typeof __buildMalzahar_E>>();
-export default function makeMalzahar_E(api: ContentApi) {
-  const cached = __cacheMalzahar_E.get(api);
-  if (cached) return cached;
-  const built = __buildMalzahar_E(api);
-  __cacheMalzahar_E.set(api, built);
-  return built;
-}
+});
+export default makeMalzahar_E;
 // infectWithVisions / Malzahar_E_Object reference each other as real values both ways —
 // see this file's own header comment on the codemod's cycle handling.
 function __group0_Malzahar_E_ObjectBuild(api: ContentApi) {

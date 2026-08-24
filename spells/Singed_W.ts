@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Ground = InstanceType<ContentApi['buffs']['Ground']>;
@@ -16,7 +17,7 @@ type Singed_W_Object = InstanceType<ReturnType<typeof makeSinged_W_Object>>;
  * The puddle heavily slows and GROUNDS everyone standing in it, so nobody
  * dashes or blinks their way out of the glue.
  */
-function __buildSinged_W(api: ContentApi) {
+export const makeSinged_W = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Singed_W_Object = makeSinged_W_Object(api);
@@ -52,15 +53,8 @@ function __buildSinged_W(api: ContentApi) {
     }
   }
   return Singed_W;
-}
-const __cacheSinged_W = new WeakMap<ContentApi, ReturnType<typeof __buildSinged_W>>();
-export default function makeSinged_W(api: ContentApi) {
-  const cached = __cacheSinged_W.get(api);
-  if (cached) return cached;
-  const built = __buildSinged_W(api);
-  __cacheSinged_W.set(api, built);
-  return built;
-}
+});
+export default makeSinged_W;
 
 
 interface GlueBlob {
@@ -81,7 +75,7 @@ const MAX_BLOBS = 18;
 const EDGE_SEGMENTS = 24;
 
 
-function __buildSinged_W_Object(api: ContentApi) {
+export const makeSinged_W_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const BuffAddType = api.enums.BuffAddType;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -275,12 +269,4 @@ function __buildSinged_W_Object(api: ContentApi) {
     }
   }
   return Singed_W_Object;
-}
-const __cacheSinged_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildSinged_W_Object>>();
-export function makeSinged_W_Object(api: ContentApi) {
-  const cached = __cacheSinged_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildSinged_W_Object(api);
-  __cacheSinged_W_Object.set(api, built);
-  return built;
-}
+});

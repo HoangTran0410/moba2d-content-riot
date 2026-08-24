@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type DamageReflect = InstanceType<ContentApi['buffs']['DamageReflect']>;
 type Shield = InstanceType<ContentApi['buffs']['Shield']>;
@@ -39,7 +40,7 @@ export const STACK_ID = 'annie_e';
  * which is most of the damage in this game. `DamageReflect` is the seam Rammus
  * W already uses; Annie's is the flat, once-per-enemy configuration of it.
  */
-function __buildAnnie_E(api: ContentApi) {
+export const makeAnnie_E = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const DamageReflect = api.buffs.DamageReflect;
   const Shield = api.buffs.Shield;
@@ -86,12 +87,5 @@ function __buildAnnie_E(api: ContentApi) {
     }
   }
   return Annie_E;
-}
-const __cacheAnnie_E = new WeakMap<ContentApi, ReturnType<typeof __buildAnnie_E>>();
-export default function makeAnnie_E(api: ContentApi) {
-  const cached = __cacheAnnie_E.get(api);
-  if (cached) return cached;
-  const built = __buildAnnie_E(api);
-  __cacheAnnie_E.set(api, built);
-  return built;
-}
+});
+export default makeAnnie_E;

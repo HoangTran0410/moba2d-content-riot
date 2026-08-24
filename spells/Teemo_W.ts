@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
 type Spell = InstanceType<ContentApi['Spell']>;
@@ -25,7 +26,7 @@ export const MANA_COST = 40;
  * never touches `owner.position`/`teleportTo`, so the Dash/blink grounding
  * rule does not apply to it.
  */
-function __buildTeemo_W(api: ContentApi) {
+export const makeTeemo_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Speedup = api.buffs.Speedup;
   const Teemo_W_Burst = makeTeemo_W_Burst(api);
@@ -59,19 +60,12 @@ function __buildTeemo_W(api: ContentApi) {
     }
   }
   return Teemo_W;
-}
-const __cacheTeemo_W = new WeakMap<ContentApi, ReturnType<typeof __buildTeemo_W>>();
-export default function makeTeemo_W(api: ContentApi) {
-  const cached = __cacheTeemo_W.get(api);
-  if (cached) return cached;
-  const built = __buildTeemo_W(api);
-  __cacheTeemo_W.set(api, built);
-  return built;
-}
+});
+export default makeTeemo_W;
 
 
 /** The moment of activation: a quick outward pulse so the button-press itself reads clearly. */
-function __buildTeemo_W_Burst(api: ContentApi) {
+export const makeTeemo_W_Burst = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Teemo_W_Burst extends SpellObject {
     position: p5.Vector = this.owner.position.copy();
@@ -126,12 +120,4 @@ function __buildTeemo_W_Burst(api: ContentApi) {
     }
   }
   return Teemo_W_Burst;
-}
-const __cacheTeemo_W_Burst = new WeakMap<ContentApi, ReturnType<typeof __buildTeemo_W_Burst>>();
-export function makeTeemo_W_Burst(api: ContentApi) {
-  const cached = __cacheTeemo_W_Burst.get(api);
-  if (cached) return cached;
-  const built = __buildTeemo_W_Burst(api);
-  __cacheTeemo_W_Burst.set(api, built);
-  return built;
-}
+});

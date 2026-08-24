@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
@@ -49,7 +50,7 @@ export const DUSK_GRACE_MS = 250;
  * point — that Duskbringer is a *lane* Nocturne carves and then has to stand
  * in, and that hitting a champion paints one wherever they run.
  */
-function __buildNocturne_Q(api: ContentApi) {
+export const makeNocturne_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Nocturne_Q_Object = makeNocturne_Q_Object(api);
@@ -90,18 +91,11 @@ function __buildNocturne_Q(api: ContentApi) {
     }
   }
   return Nocturne_Q;
-}
-const __cacheNocturne_Q = new WeakMap<ContentApi, ReturnType<typeof __buildNocturne_Q>>();
-export default function makeNocturne_Q(api: ContentApi) {
-  const cached = __cacheNocturne_Q.get(api);
-  if (cached) return cached;
-  const built = __buildNocturne_Q(api);
-  __cacheNocturne_Q.set(api, built);
-  return built;
-}
+});
+export default makeNocturne_Q;
 
 
-function __buildNocturne_Q_Object(api: ContentApi) {
+export const makeNocturne_Q_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const AttackableUnit = api.units.AttackableUnit;
   const Nocturne_Q_Trail = makeNocturne_Q_Trail(api);
@@ -139,15 +133,7 @@ function __buildNocturne_Q_Object(api: ContentApi) {
     }
   }
   return Nocturne_Q_Object;
-}
-const __cacheNocturne_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildNocturne_Q_Object>>();
-export function makeNocturne_Q_Object(api: ContentApi) {
-  const cached = __cacheNocturne_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildNocturne_Q_Object(api);
-  __cacheNocturne_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** One patch of ground the trail covers, with its own clock. */
@@ -166,7 +152,7 @@ interface DuskPatch {
  * living on its own until its last patch has aged out, which is what makes it
  * terrain rather than an attachment.
  */
-function __buildNocturne_Q_Trail(api: ContentApi) {
+export const makeNocturne_Q_Trail = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
@@ -340,19 +326,11 @@ function __buildNocturne_Q_Trail(api: ContentApi) {
     }
   }
   return Nocturne_Q_Trail;
-}
-const __cacheNocturne_Q_Trail = new WeakMap<ContentApi, ReturnType<typeof __buildNocturne_Q_Trail>>();
-export function makeNocturne_Q_Trail(api: ContentApi) {
-  const cached = __cacheNocturne_Q_Trail.get(api);
-  if (cached) return cached;
-  const built = __buildNocturne_Q_Trail(api);
-  __cacheNocturne_Q_Trail.set(api, built);
-  return built;
-}
+});
 
 
 /** Ghosted, faster, hitting harder — the three things the trail is worth. */
-function __buildNocturne_Dusk(api: ContentApi) {
+export const makeNocturne_Dusk = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const StatusFlags = api.enums.StatusFlags;
   const Buff = api.buffs.Buff;
@@ -380,12 +358,4 @@ function __buildNocturne_Dusk(api: ContentApi) {
     }
   }
   return Nocturne_Dusk;
-}
-const __cacheNocturne_Dusk = new WeakMap<ContentApi, ReturnType<typeof __buildNocturne_Dusk>>();
-export function makeNocturne_Dusk(api: ContentApi) {
-  const cached = __cacheNocturne_Dusk.get(api);
-  if (cached) return cached;
-  const built = __buildNocturne_Dusk(api);
-  __cacheNocturne_Dusk.set(api, built);
-  return built;
-}
+});

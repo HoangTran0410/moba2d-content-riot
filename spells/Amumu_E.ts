@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -23,7 +24,7 @@ export const TEAR_COUNT = 12;
 export const LINEN: [number, number, number] = [235, 222, 172];
 
 
-function __buildAmumu_E(api: ContentApi) {
+export const makeAmumu_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
@@ -72,15 +73,8 @@ function __buildAmumu_E(api: ContentApi) {
     }
   }
   return Amumu_E;
-}
-const __cacheAmumu_E = new WeakMap<ContentApi, ReturnType<typeof __buildAmumu_E>>();
-export default function makeAmumu_E(api: ContentApi) {
-  const cached = __cacheAmumu_E.get(api);
-  if (cached) return cached;
-  const built = __buildAmumu_E(api);
-  __cacheAmumu_E.set(api, built);
-  return built;
-}
+});
+export default makeAmumu_E;
 
 
 interface Tear {
@@ -102,7 +96,7 @@ interface Tear {
  * area damage is sadness, not fire, and the last thing this game needs is a
  * sixth orange circle.
  */
-function __buildAmumu_E_Object(api: ContentApi) {
+export const makeAmumu_E_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Amumu_E_Object extends SpellObject {
     position: p5.Vector = this.owner.position.copy();
@@ -220,12 +214,4 @@ function __buildAmumu_E_Object(api: ContentApi) {
     }
   }
   return Amumu_E_Object;
-}
-const __cacheAmumu_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildAmumu_E_Object>>();
-export function makeAmumu_E_Object(api: ContentApi) {
-  const cached = __cacheAmumu_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildAmumu_E_Object(api);
-  __cacheAmumu_E_Object.set(api, built);
-  return built;
-}
+});

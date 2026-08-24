@@ -2,6 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
 import { makeMoonlightOn } from './Diana_Q';
 import { MOON_CORE, MOON_PALE, drawCrescent } from './Diana_Q';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
@@ -39,7 +40,7 @@ const E_FOOTFALL_MS = 80;
 const E_FOOTFALL_RADIUS = 22;
 
 
-function __buildDiana_E(api: ContentApi) {
+export const makeDiana_E = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
   const AttackableUnit = api.units.AttackableUnit;
@@ -191,19 +192,12 @@ function __buildDiana_E(api: ContentApi) {
     }
   }
   return Diana_E;
-}
-const __cacheDiana_E = new WeakMap<ContentApi, ReturnType<typeof __buildDiana_E>>();
-export default function makeDiana_E(api: ContentApi) {
-  const cached = __cacheDiana_E.get(api);
-  if (cached) return cached;
-  const built = __buildDiana_E(api);
-  __cacheDiana_E.set(api, built);
-  return built;
-}
+});
+export default makeDiana_E;
 
 
 /** Moonlight left in the dust behind her. */
-function __buildDiana_E_Footfall(api: ContentApi) {
+export const makeDiana_E_Footfall = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Diana_E_Footfall extends SpellObject {
@@ -247,19 +241,11 @@ function __buildDiana_E_Footfall(api: ContentApi) {
     }
   }
   return Diana_E_Footfall;
-}
-const __cacheDiana_E_Footfall = new WeakMap<ContentApi, ReturnType<typeof __buildDiana_E_Footfall>>();
-export function makeDiana_E_Footfall(api: ContentApi) {
-  const cached = __cacheDiana_E_Footfall.get(api);
-  if (cached) return cached;
-  const built = __buildDiana_E_Footfall(api);
-  __cacheDiana_E_Footfall.set(api, built);
-  return built;
-}
+});
 
 
 /** The landing: crescents collapsing inward onto the body she chose. */
-function __buildDiana_E_Collapse(api: ContentApi) {
+export const makeDiana_E_Collapse = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Diana_E_Collapse extends SpellObject {
@@ -311,22 +297,14 @@ function __buildDiana_E_Collapse(api: ContentApi) {
     }
   }
   return Diana_E_Collapse;
-}
-const __cacheDiana_E_Collapse = new WeakMap<ContentApi, ReturnType<typeof __buildDiana_E_Collapse>>();
-export function makeDiana_E_Collapse(api: ContentApi) {
-  const cached = __cacheDiana_E_Collapse.get(api);
-  if (cached) return cached;
-  const built = __buildDiana_E_Collapse(api);
-  __cacheDiana_E_Collapse.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * The consumed mark, breaking. Only ever drawn on a reset dive, so a player can tell a reset
  * from a wasted dive without watching the cooldown.
  */
-function __buildDiana_E_Shatter(api: ContentApi) {
+export const makeDiana_E_Shatter = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Diana_E_Shatter extends SpellObject {
@@ -383,12 +361,4 @@ function __buildDiana_E_Shatter(api: ContentApi) {
     }
   }
   return Diana_E_Shatter;
-}
-const __cacheDiana_E_Shatter = new WeakMap<ContentApi, ReturnType<typeof __buildDiana_E_Shatter>>();
-export function makeDiana_E_Shatter(api: ContentApi) {
-  const cached = __cacheDiana_E_Shatter.get(api);
-  if (cached) return cached;
-  const built = __buildDiana_E_Shatter(api);
-  __cacheDiana_E_Shatter.set(api, built);
-  return built;
-}
+});

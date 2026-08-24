@@ -2,6 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
 import { makeApplyAblaze } from './Brand_Q';
 import { isAblaze } from './Brand_Q';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Champion = InstanceType<ContentApi['units']['Champion']>;
@@ -49,7 +50,7 @@ export const SLOW_PERCENT = 0.4;
 export const SLOW_DURATION_MS = 800;
 
 
-function __buildBrand_R(api: ContentApi) {
+export const makeBrand_R = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
   const Spell = api.Spell;
@@ -138,34 +139,19 @@ function __buildBrand_R(api: ContentApi) {
     }
   }
   return Brand_R;
-}
-const __cacheBrand_R = new WeakMap<ContentApi, ReturnType<typeof __buildBrand_R>>();
-export default function makeBrand_R(api: ContentApi) {
-  const cached = __cacheBrand_R.get(api);
-  if (cached) return cached;
-  const built = __buildBrand_R(api);
-  __cacheBrand_R.set(api, built);
-  return built;
-}
+});
+export default makeBrand_R;
 
 
-function __buildisBounceTarget(api: ContentApi) {
+export const makeIsBounceTarget = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const isBounceTarget = (target: unknown): target is AttackableUnit =>
     target instanceof AttackableUnit && target.targetable && !target.toRemove && !target.isDead;
   return isBounceTarget;
-}
-const __cacheisBounceTarget = new WeakMap<ContentApi, ReturnType<typeof __buildisBounceTarget>>();
-export function makeIsBounceTarget(api: ContentApi) {
-  const cached = __cacheisBounceTarget.get(api);
-  if (cached) return cached;
-  const built = __buildisBounceTarget(api);
-  __cacheisBounceTarget.set(api, built);
-  return built;
-}
+});
 
 
-function __buildBrand_R_Fireball(api: ContentApi) {
+export const makeBrand_R_Fireball = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const BuffAddType = api.enums.BuffAddType;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -360,12 +346,4 @@ function __buildBrand_R_Fireball(api: ContentApi) {
     }
   }
   return Brand_R_Fireball;
-}
-const __cacheBrand_R_Fireball = new WeakMap<ContentApi, ReturnType<typeof __buildBrand_R_Fireball>>();
-export function makeBrand_R_Fireball(api: ContentApi) {
-  const cached = __cacheBrand_R_Fireball.get(api);
-  if (cached) return cached;
-  const built = __buildBrand_R_Fireball(api);
-  __cacheBrand_R_Fireball.set(api, built);
-  return built;
-}
+});

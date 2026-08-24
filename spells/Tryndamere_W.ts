@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -26,7 +27,7 @@ export const TRYNDAMERE_W_AD_REDUCTION_MS = 4_000;
 export const TRYNDAMERE_W_STACK_ID = 'tryndamere-mocking-shout';
 
 
-function __buildTryndamere_W(api: ContentApi) {
+export const makeTryndamere_W = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
@@ -71,15 +72,8 @@ function __buildTryndamere_W(api: ContentApi) {
     }
   }
   return Tryndamere_W;
-}
-const __cacheTryndamere_W = new WeakMap<ContentApi, ReturnType<typeof __buildTryndamere_W>>();
-export default function makeTryndamere_W(api: ContentApi) {
-  const cached = __cacheTryndamere_W.get(api);
-  if (cached) return cached;
-  const built = __buildTryndamere_W(api);
-  __cacheTryndamere_W.set(api, built);
-  return built;
-}
+});
+export default makeTryndamere_W;
 
 
 /**
@@ -89,7 +83,7 @@ export default function makeTryndamere_W(api: ContentApi) {
  * as sound travelling outward instead of as another ground-slam AoE — nothing
  * in this spell touches the ground.
  */
-function __buildTryndamere_W_Object(api: ContentApi) {
+export const makeTryndamere_W_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
@@ -158,12 +152,4 @@ function __buildTryndamere_W_Object(api: ContentApi) {
     }
   }
   return Tryndamere_W_Object;
-}
-const __cacheTryndamere_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildTryndamere_W_Object>>();
-export function makeTryndamere_W_Object(api: ContentApi) {
-  const cached = __cacheTryndamere_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildTryndamere_W_Object(api);
-  __cacheTryndamere_W_Object.set(api, built);
-  return built;
-}
+});

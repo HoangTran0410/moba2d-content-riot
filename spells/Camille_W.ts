@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Slow = InstanceType<ContentApi['buffs']['Slow']>;
@@ -23,7 +24,7 @@ export const CAMILLE_W_SLOW_MS = 2000;
 export const CAMILLE_W_WINDUP_MS = 200;
 
 
-function __buildCamille_W(api: ContentApi) {
+export const makeCamille_W = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Camille_W_Object = makeCamille_W_Object(api);
@@ -47,15 +48,8 @@ function __buildCamille_W(api: ContentApi) {
     }
   }
   return Camille_W;
-}
-const __cacheCamille_W = new WeakMap<ContentApi, ReturnType<typeof __buildCamille_W>>();
-export default function makeCamille_W(api: ContentApi) {
-  const cached = __cacheCamille_W.get(api);
-  if (cached) return cached;
-  const built = __buildCamille_W(api);
-  __cacheCamille_W.set(api, built);
-  return built;
-}
+});
+export default makeCamille_W;
 
 
 /**
@@ -71,7 +65,7 @@ export default function makeCamille_W(api: ContentApi) {
  * The outer band is where the damage doubles, so it is drawn as its own lit edge
  * rather than a boundary line: whoever is standing in it can see that they are.
  */
-function __buildCamille_W_Object(api: ContentApi) {
+export const makeCamille_W_Object = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const SpellObject = api.SpellObject;
   const Slow = api.buffs.Slow;
@@ -245,12 +239,4 @@ function __buildCamille_W_Object(api: ContentApi) {
     }
   }
   return Camille_W_Object;
-}
-const __cacheCamille_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildCamille_W_Object>>();
-export function makeCamille_W_Object(api: ContentApi) {
-  const cached = __cacheCamille_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildCamille_W_Object(api);
-  __cacheCamille_W_Object.set(api, built);
-  return built;
-}
+});

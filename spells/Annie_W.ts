@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -20,7 +21,7 @@ export const DAMAGE = 30;
  * effect radius on Summoner's Rift — scaled here to the map this game runs on,
  * the way every other imported range is.
  */
-function __buildAnnie_W(api: ContentApi) {
+export const makeAnnie_W = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const VectorUtils = api.utils.VectorUtils;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -66,19 +67,12 @@ function __buildAnnie_W(api: ContentApi) {
     }
   }
   return Annie_W;
-}
-const __cacheAnnie_W = new WeakMap<ContentApi, ReturnType<typeof __buildAnnie_W>>();
-export default function makeAnnie_W(api: ContentApi) {
-  const cached = __cacheAnnie_W.get(api);
-  if (cached) return cached;
-  const built = __buildAnnie_W(api);
-  __cacheAnnie_W.set(api, built);
-  return built;
-}
+});
+export default makeAnnie_W;
 
 
 /** A wedge of fire. Its own draw because `AoePulse`'s shapes are all radial. */
-function __buildAnnie_W_Cone(api: ContentApi) {
+export const makeAnnie_W_Cone = packClass((api: ContentApi) => {
   const AoePulse = api.AoePulse;
   class Annie_W_Cone extends AoePulse {
     heading = 0;
@@ -107,12 +101,4 @@ function __buildAnnie_W_Cone(api: ContentApi) {
     }
   }
   return Annie_W_Cone;
-}
-const __cacheAnnie_W_Cone = new WeakMap<ContentApi, ReturnType<typeof __buildAnnie_W_Cone>>();
-export function makeAnnie_W_Cone(api: ContentApi) {
-  const cached = __cacheAnnie_W_Cone.get(api);
-  if (cached) return cached;
-  const built = __buildAnnie_W_Cone(api);
-  __cacheAnnie_W_Cone.set(api, built);
-  return built;
-}
+});

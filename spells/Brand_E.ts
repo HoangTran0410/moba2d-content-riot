@@ -2,6 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
 import { makeApplyAblaze } from './Brand_Q';
 import { isAblaze } from './Brand_Q';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -36,7 +37,7 @@ export const SPREAD_RADIUS = 130;
 export const ABLAZE_SPREAD_RADIUS = 260;
 
 
-function __buildBrand_E(api: ContentApi) {
+export const makeBrand_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
@@ -146,35 +147,20 @@ function __buildBrand_E(api: ContentApi) {
     }
   }
   return Brand_E;
-}
-const __cacheBrand_E = new WeakMap<ContentApi, ReturnType<typeof __buildBrand_E>>();
-export default function makeBrand_E(api: ContentApi) {
-  const cached = __cacheBrand_E.get(api);
-  if (cached) return cached;
-  const built = __buildBrand_E(api);
-  __cacheBrand_E.set(api, built);
-  return built;
-}
+});
+export default makeBrand_E;
 
 
-function __buildisBurnTarget(api: ContentApi) {
+export const makeIsBurnTarget = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const isBurnTarget = (target: unknown): target is AttackableUnit =>
     target instanceof AttackableUnit && target.targetable && !target.toRemove && !target.isDead;
   return isBurnTarget;
-}
-const __cacheisBurnTarget = new WeakMap<ContentApi, ReturnType<typeof __buildisBurnTarget>>();
-export function makeIsBurnTarget(api: ContentApi) {
-  const cached = __cacheisBurnTarget.get(api);
-  if (cached) return cached;
-  const built = __buildisBurnTarget(api);
-  __cacheisBurnTarget.set(api, built);
-  return built;
-}
+});
 
 
 /** The blast, and the arcs of fire leaping off it. */
-function __buildBrand_E_Object(api: ContentApi) {
+export const makeBrand_E_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
   class Brand_E_Object extends SpellObject {
@@ -277,12 +263,4 @@ function __buildBrand_E_Object(api: ContentApi) {
     }
   }
   return Brand_E_Object;
-}
-const __cacheBrand_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildBrand_E_Object>>();
-export function makeBrand_E_Object(api: ContentApi) {
-  const cached = __cacheBrand_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildBrand_E_Object(api);
-  __cacheBrand_E_Object.set(api, built);
-  return built;
-}
+});

@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { WallContact } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type Champion = InstanceType<ContentApi['units']['Champion']>;
@@ -26,7 +27,7 @@ export const CAMILLE_E_DIVE_RANGE = 450;
 export const CAMILLE_E_CC_MS = 750;
 
 
-function __buildCamille_E(api: ContentApi) {
+export const makeCamille_E = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Dash = api.buffs.Dash;
@@ -144,19 +145,12 @@ function __buildCamille_E(api: ContentApi) {
     }
   }
   return Camille_E;
-}
-const __cacheCamille_E = new WeakMap<ContentApi, ReturnType<typeof __buildCamille_E>>();
-export default function makeCamille_E(api: ContentApi) {
-  const cached = __cacheCamille_E.get(api);
-  if (cached) return cached;
-  const built = __buildCamille_E(api);
-  __cacheCamille_E.set(api, built);
-  return built;
-}
+});
+export default makeCamille_E;
 
 
 /** Grapple missile sent forward to seek terrain wall. */
-function __buildCamille_E_GrappleObject(api: ContentApi) {
+export const makeCamille_E_GrappleObject = packClass((api: ContentApi) => {
   const Dash = api.buffs.Dash;
   const sweepToWall = api.terrain.sweepToWall;
   const Rectangle = api.utils.Quadtree.Rectangle;
@@ -311,15 +305,7 @@ function __buildCamille_E_GrappleObject(api: ContentApi) {
     }
   }
   return Camille_E_GrappleObject;
-}
-const __cacheCamille_E_GrappleObject = new WeakMap<ContentApi, ReturnType<typeof __buildCamille_E_GrappleObject>>();
-export function makeCamille_E_GrappleObject(api: ContentApi) {
-  const cached = __cacheCamille_E_GrappleObject.get(api);
-  if (cached) return cached;
-  const built = __buildCamille_E_GrappleObject(api);
-  __cacheCamille_E_GrappleObject.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -328,7 +314,7 @@ export function makeCamille_E_GrappleObject(api: ContentApi) {
  * Without it the perch is a state the player can only find by looking at the
  * ability icon — the recast window was completely invisible in the world.
  */
-function __buildCamille_E_TetherObject(api: ContentApi) {
+export const makeCamille_E_TetherObject = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const Rectangle = api.utils.Quadtree.Rectangle;
   class Camille_E_TetherObject extends SpellObject {
@@ -402,15 +388,7 @@ function __buildCamille_E_TetherObject(api: ContentApi) {
     }
   }
   return Camille_E_TetherObject;
-}
-const __cacheCamille_E_TetherObject = new WeakMap<ContentApi, ReturnType<typeof __buildCamille_E_TetherObject>>();
-export function makeCamille_E_TetherObject(api: ContentApi) {
-  const cached = __cacheCamille_E_TetherObject.get(api);
-  if (cached) return cached;
-  const built = __buildCamille_E_TetherObject(api);
-  __cacheCamille_E_TetherObject.set(api, built);
-  return built;
-}
+});
 
 
 interface DiveImpact {
@@ -425,7 +403,7 @@ interface DiveImpact {
  * every body she catches. The dash used to be entirely unlit — the same
  * animation as walking, for a spell whose whole identity is the leap.
  */
-function __buildCamille_E_DiveStreak(api: ContentApi) {
+export const makeCamille_E_DiveStreak = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const TrailSystem = api.helpers.TrailSystem;
@@ -535,12 +513,4 @@ function __buildCamille_E_DiveStreak(api: ContentApi) {
     }
   }
   return Camille_E_DiveStreak;
-}
-const __cacheCamille_E_DiveStreak = new WeakMap<ContentApi, ReturnType<typeof __buildCamille_E_DiveStreak>>();
-export function makeCamille_E_DiveStreak(api: ContentApi) {
-  const cached = __cacheCamille_E_DiveStreak.get(api);
-  if (cached) return cached;
-  const built = __buildCamille_E_DiveStreak(api);
-  __cacheCamille_E_DiveStreak.set(api, built);
-  return built;
-}
+});

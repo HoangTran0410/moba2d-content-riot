@@ -1,6 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { makeShaco_W_Box } from './Shaco_W';
 import { ATTACK_DAMAGE, ATTACK_RANGE } from './Shaco_W';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Fear = InstanceType<ContentApi['buffs']['Fear']>;
@@ -13,7 +14,7 @@ type Shaco_W_Box = InstanceType<ReturnType<typeof makeShaco_W_Box>>;
 
 
 
-function __buildShaco_R(api: ContentApi) {
+export const makeShaco_R = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Shaco_R_Clone = makeShaco_R_Clone(api);
   class Shaco_R extends Spell {
@@ -74,15 +75,8 @@ function __buildShaco_R(api: ContentApi) {
     }
   }
   return Shaco_R;
-}
-const __cacheShaco_R = new WeakMap<ContentApi, ReturnType<typeof __buildShaco_R>>();
-export default function makeShaco_R(api: ContentApi) {
-  const cached = __cacheShaco_R.get(api);
-  if (cached) return cached;
-  const built = __buildShaco_R(api);
-  __cacheShaco_R.set(api, built);
-  return built;
-}
+});
+export default makeShaco_R;
 
 
 /**
@@ -92,7 +86,7 @@ export default function makeShaco_R(api: ContentApi) {
  * that walked around), while the recast keeps steering it, and it dies with
  * Shaco like every other summon.
  */
-function __buildShaco_R_Clone(api: ContentApi) {
+export const makeShaco_R_Clone = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Pet = api.units.Pet;
@@ -215,12 +209,4 @@ function __buildShaco_R_Clone(api: ContentApi) {
     }
   }
   return Shaco_R_Clone;
-}
-const __cacheShaco_R_Clone = new WeakMap<ContentApi, ReturnType<typeof __buildShaco_R_Clone>>();
-export function makeShaco_R_Clone(api: ContentApi) {
-  const cached = __cacheShaco_R_Clone.get(api);
-  if (cached) return cached;
-  const built = __buildShaco_R_Clone(api);
-  __cacheShaco_R_Clone.set(api, built);
-  return built;
-}
+});

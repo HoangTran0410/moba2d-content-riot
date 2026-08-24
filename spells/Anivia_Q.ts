@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Chilled = InstanceType<ContentApi['buffs']['Chilled']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -22,7 +23,7 @@ type Anivia_Q_Object = InstanceType<ReturnType<typeof makeAnivia_Q_Object>>;
  * branches on it, `checkCastCondition` gates the recast, and `onUpdate` puts the
  * spell back to Q1 (on full cooldown) once the missile is gone.
  */
-function __buildAnivia_Q(api: ContentApi) {
+export const makeAnivia_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Anivia_Q_Object = makeAnivia_Q_Object(api);
@@ -85,18 +86,11 @@ function __buildAnivia_Q(api: ContentApi) {
     }
   }
   return Anivia_Q;
-}
-const __cacheAnivia_Q = new WeakMap<ContentApi, ReturnType<typeof __buildAnivia_Q>>();
-export default function makeAnivia_Q(api: ContentApi) {
-  const cached = __cacheAnivia_Q.get(api);
-  if (cached) return cached;
-  const built = __buildAnivia_Q(api);
-  __cacheAnivia_Q.set(api, built);
-  return built;
-}
+});
+export default makeAnivia_Q;
 
 
-function __buildAnivia_Q_Object(api: ContentApi) {
+export const makeAnivia_Q_Object = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const MissileSpellObject = api.MissileSpellObject;
   const Chilled = api.buffs.Chilled;
@@ -237,19 +231,11 @@ function __buildAnivia_Q_Object(api: ContentApi) {
     }
   }
   return Anivia_Q_Object;
-}
-const __cacheAnivia_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildAnivia_Q_Object>>();
-export function makeAnivia_Q_Object(api: ContentApi) {
-  const cached = __cacheAnivia_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildAnivia_Q_Object(api);
-  __cacheAnivia_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** The shatter: one burst of damage and a stun, then it fades. */
-function __buildAnivia_Q_Blast(api: ContentApi) {
+export const makeAnivia_Q_Blast = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const BuffAddType = api.enums.BuffAddType;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -365,12 +351,4 @@ function __buildAnivia_Q_Blast(api: ContentApi) {
     }
   }
   return Anivia_Q_Blast;
-}
-const __cacheAnivia_Q_Blast = new WeakMap<ContentApi, ReturnType<typeof __buildAnivia_Q_Blast>>();
-export function makeAnivia_Q_Blast(api: ContentApi) {
-  const cached = __cacheAnivia_Q_Blast.get(api);
-  if (cached) return cached;
-  const built = __buildAnivia_Q_Blast(api);
-  __cacheAnivia_Q_Blast.set(api, built);
-  return built;
-}
+});

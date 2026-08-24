@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
@@ -59,7 +60,7 @@ const FOAM: [number, number, number] = [168, 230, 207];
  * arrives with it is applied by the same caster, and a pull that argued with its
  * own crowd control would drop half its victims on the spot.
  */
-function __buildhaul(api: ContentApi) {
+export const makeHaul = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const Dash = api.buffs.Dash;
   function haul(
@@ -77,18 +78,10 @@ function __buildhaul(api: ContentApi) {
     unit.addBuff(travel);
   }
   return haul;
-}
-const __cachehaul = new WeakMap<ContentApi, ReturnType<typeof __buildhaul>>();
-export function makeHaul(api: ContentApi) {
-  const cached = __cachehaul.get(api);
-  if (cached) return cached;
-  const built = __buildhaul(api);
-  __cachehaul.set(api, built);
-  return built;
-}
+});
 
 
-function __buildNautilus_Q(api: ContentApi) {
+export const makeNautilus_Q = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Nautilus_Q_Object = makeNautilus_Q_Object(api);
   class Nautilus_Q extends Spell {
@@ -125,15 +118,8 @@ function __buildNautilus_Q(api: ContentApi) {
     }
   }
   return Nautilus_Q;
-}
-const __cacheNautilus_Q = new WeakMap<ContentApi, ReturnType<typeof __buildNautilus_Q>>();
-export default function makeNautilus_Q(api: ContentApi) {
-  const cached = __cacheNautilus_Q.get(api);
-  if (cached) return cached;
-  const built = __buildNautilus_Q(api);
-  __cacheNautilus_Q.set(api, built);
-  return built;
-}
+});
+export default makeNautilus_Q;
 
 
 type ChainPhase = 'flight' | 'return';
@@ -148,7 +134,7 @@ type ChainPhase = 'flight' | 'return';
  * square around either — `squareDisplayBoundingBox` memoises on the object's own
  * position and would not notice the caster's end moving.
  */
-function __buildNautilus_Q_Object(api: ContentApi) {
+export const makeNautilus_Q_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const MissileSpellObject = api.MissileSpellObject;
   const AttackableUnit = api.units.AttackableUnit;
@@ -335,19 +321,11 @@ function __buildNautilus_Q_Object(api: ContentApi) {
     }
   }
   return Nautilus_Q_Object;
-}
-const __cacheNautilus_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildNautilus_Q_Object>>();
-export function makeNautilus_Q_Object(api: ContentApi) {
-  const cached = __cacheNautilus_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildNautilus_Q_Object(api);
-  __cacheNautilus_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** The bite, on the body (or the rock) that took it. */
-function __buildNautilus_Q_Impact(api: ContentApi) {
+export const makeNautilus_Q_Impact = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
@@ -385,12 +363,4 @@ function __buildNautilus_Q_Impact(api: ContentApi) {
     }
   }
   return Nautilus_Q_Impact;
-}
-const __cacheNautilus_Q_Impact = new WeakMap<ContentApi, ReturnType<typeof __buildNautilus_Q_Impact>>();
-export function makeNautilus_Q_Impact(api: ContentApi) {
-  const cached = __cacheNautilus_Q_Impact.get(api);
-  if (cached) return cached;
-  const built = __buildNautilus_Q_Impact(api);
-  __cacheNautilus_Q_Impact.set(api, built);
-  return built;
-}
+});

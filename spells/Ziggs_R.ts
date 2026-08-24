@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -31,7 +32,7 @@ export const R_DROP_HEIGHT = 420;
  * counterplay, so what the victims get for that second is a shadow growing to exactly the
  * radius that will hurt them.
  */
-function __buildZiggs_R(api: ContentApi) {
+export const makeZiggs_R = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const Spell = api.Spell;
   const Ziggs_R_Object = makeZiggs_R_Object(api);
@@ -73,15 +74,8 @@ function __buildZiggs_R(api: ContentApi) {
     }
   }
   return Ziggs_R;
-}
-const __cacheZiggs_R = new WeakMap<ContentApi, ReturnType<typeof __buildZiggs_R>>();
-export default function makeZiggs_R(api: ContentApi) {
-  const cached = __cacheZiggs_R.get(api);
-  if (cached) return cached;
-  const built = __buildZiggs_R(api);
-  __cacheZiggs_R.set(api, built);
-  return built;
-}
+});
+export default makeZiggs_R;
 
 
 /**
@@ -89,7 +83,7 @@ export default function makeZiggs_R(api: ContentApi) {
  * it takes `GROUND_Z_INDEX` explicitly: an un-overridden SpellObject subclass
  * would otherwise resolve to `SPELL_EFFECT_Z_INDEX`, above the champions standing in the blast.
  */
-function __buildZiggs_R_Object(api: ContentApi) {
+export const makeZiggs_R_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
@@ -203,22 +197,14 @@ function __buildZiggs_R_Object(api: ContentApi) {
     }
   }
   return Ziggs_R_Object;
-}
-const __cacheZiggs_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildZiggs_R_Object>>();
-export function makeZiggs_R_Object(api: ContentApi) {
-  const cached = __cacheZiggs_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildZiggs_R_Object(api);
-  __cacheZiggs_R_Object.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * The detonation. Two rules, two regions: a filled hot core with a hard rim at 150, and an open
  * band from 150 out to a hard rim at 300. Never one disc with a faint line in it.
  */
-function __buildZiggs_R_Blast(api: ContentApi) {
+export const makeZiggs_R_Blast = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
   class Ziggs_R_Blast extends SpellObject {
@@ -288,12 +274,4 @@ function __buildZiggs_R_Blast(api: ContentApi) {
     }
   }
   return Ziggs_R_Blast;
-}
-const __cacheZiggs_R_Blast = new WeakMap<ContentApi, ReturnType<typeof __buildZiggs_R_Blast>>();
-export function makeZiggs_R_Blast(api: ContentApi) {
-  const cached = __cacheZiggs_R_Blast.get(api);
-  if (cached) return cached;
-  const built = __buildZiggs_R_Blast(api);
-  __cacheZiggs_R_Blast.set(api, built);
-  return built;
-}
+});

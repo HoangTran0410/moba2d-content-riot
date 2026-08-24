@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
@@ -20,7 +21,7 @@ export const BONUS_DAMAGE = 10;
 
 
 /** Every buff Ragnarok tears off. Anything that takes Olaf's turn away from him. */
-function __buildCROWD_CONTROL(api: ContentApi) {
+export const makeCROWD_CONTROL = packClass((api: ContentApi) => {
   const Airborne = api.buffs.Airborne;
   const Charm = api.buffs.Charm;
   const Fear = api.buffs.Fear;
@@ -30,15 +31,7 @@ function __buildCROWD_CONTROL(api: ContentApi) {
   const Stun = api.buffs.Stun;
   const CROWD_CONTROL = [Stun, Root, Slow, Silence, Fear, Charm, Airborne];
   return CROWD_CONTROL;
-}
-const __cacheCROWD_CONTROL = new WeakMap<ContentApi, ReturnType<typeof __buildCROWD_CONTROL>>();
-export function makeCROWD_CONTROL(api: ContentApi) {
-  const cached = __cacheCROWD_CONTROL.get(api);
-  if (cached) return cached;
-  const built = __buildCROWD_CONTROL(api);
-  __cacheCROWD_CONTROL.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -46,7 +39,7 @@ export function makeCROWD_CONTROL(api: ContentApi) {
  * on Olaf the instant it is pressed — the point of the ultimate is being the
  * one champion a stun does not stop, so it has to *undo* one.
  */
-function __buildOlaf_R(api: ContentApi) {
+export const makeOlaf_R = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const AoePulse = api.AoePulse;
   const StatAmp = api.buffs.StatAmp;
@@ -87,12 +80,5 @@ function __buildOlaf_R(api: ContentApi) {
     }
   }
   return Olaf_R;
-}
-const __cacheOlaf_R = new WeakMap<ContentApi, ReturnType<typeof __buildOlaf_R>>();
-export default function makeOlaf_R(api: ContentApi) {
-  const cached = __cacheOlaf_R.get(api);
-  if (cached) return cached;
-  const built = __buildOlaf_R(api);
-  __cacheOlaf_R.set(api, built);
-  return built;
-}
+});
+export default makeOlaf_R;

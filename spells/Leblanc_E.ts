@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
@@ -9,7 +10,7 @@ type Leblanc_E_Object = InstanceType<ReturnType<typeof makeLeblanc_E_Object>>;
 
 
 
-function __buildLeblanc_E(api: ContentApi) {
+export const makeLeblanc_E = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Leblanc_E_Object = makeLeblanc_E_Object(api);
@@ -64,18 +65,11 @@ function __buildLeblanc_E(api: ContentApi) {
     }
   }
   return Leblanc_E;
-}
-const __cacheLeblanc_E = new WeakMap<ContentApi, ReturnType<typeof __buildLeblanc_E>>();
-export default function makeLeblanc_E(api: ContentApi) {
-  const cached = __cacheLeblanc_E.get(api);
-  if (cached) return cached;
-  const built = __buildLeblanc_E(api);
-  __cacheLeblanc_E.set(api, built);
-  return built;
-}
+});
+export default makeLeblanc_E;
 
 
-function __buildLeblanc_E_Object(api: ContentApi) {
+export const makeLeblanc_E_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const RootBuff = api.buffs.Root;
   const MissileSpellObject = api.MissileSpellObject;
@@ -196,12 +190,4 @@ function __buildLeblanc_E_Object(api: ContentApi) {
     }
   }
   return Leblanc_E_Object;
-}
-const __cacheLeblanc_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildLeblanc_E_Object>>();
-export function makeLeblanc_E_Object(api: ContentApi) {
-  const cached = __cacheLeblanc_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildLeblanc_E_Object(api);
-  __cacheLeblanc_E_Object.set(api, built);
-  return built;
-}
+});

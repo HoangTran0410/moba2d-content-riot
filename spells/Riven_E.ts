@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
@@ -31,7 +32,7 @@ const RUNE: [number, number, number] = [0, 210, 168];
 const RUNE_HOT: [number, number, number] = [150, 255, 228];
 
 
-function __buildRiven_E(api: ContentApi) {
+export const makeRiven_E = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const Dash = api.buffs.Dash;
   const Shield = api.buffs.Shield;
@@ -87,15 +88,8 @@ function __buildRiven_E(api: ContentApi) {
     }
   }
   return Riven_E;
-}
-const __cacheRiven_E = new WeakMap<ContentApi, ReturnType<typeof __buildRiven_E>>();
-export default function makeRiven_E(api: ContentApi) {
-  const cached = __cacheRiven_E.get(api);
-  if (cached) return cached;
-  const built = __buildRiven_E(api);
-  __cacheRiven_E.set(api, built);
-  return built;
-}
+});
+export default makeRiven_E;
 
 
 /**
@@ -103,7 +97,7 @@ export default function makeRiven_E(api: ContentApi) {
  * the live shield to decide how broken to look, so the player can see what is left of it.
  * Attached to the shield buff, so it drops exactly when the shield does.
  */
-function __buildRiven_E_Shell(api: ContentApi) {
+export const makeRiven_E_Shell = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const Buff = api.buffs.Buff;
   const SpellObject = api.SpellObject;
@@ -206,12 +200,4 @@ function __buildRiven_E_Shell(api: ContentApi) {
     }
   }
   return Riven_E_Shell;
-}
-const __cacheRiven_E_Shell = new WeakMap<ContentApi, ReturnType<typeof __buildRiven_E_Shell>>();
-export function makeRiven_E_Shell(api: ContentApi) {
-  const cached = __cacheRiven_E_Shell.get(api);
-  if (cached) return cached;
-  const built = __buildRiven_E_Shell(api);
-  __cacheRiven_E_Shell.set(api, built);
-  return built;
-}
+});

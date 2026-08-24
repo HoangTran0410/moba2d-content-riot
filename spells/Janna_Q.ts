@@ -1,6 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CancelReason, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { makeNotifyJannaControlLanded } from './Janna_E';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -56,7 +57,7 @@ type JannaTarget = AttackableUnit;
  * damage and knock-up duration. Recasting fires it early; holding it to full charge
  * releases it automatically.
  */
-function __buildJanna_Q(api: ContentApi) {
+export const makeJanna_Q = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const SpellForm = api.enums.SpellForm;
   const Janna_Q_Object = makeJanna_Q_Object(api);
@@ -138,18 +139,11 @@ function __buildJanna_Q(api: ContentApi) {
     }
   }
   return Janna_Q;
-}
-const __cacheJanna_Q = new WeakMap<ContentApi, ReturnType<typeof __buildJanna_Q>>();
-export default function makeJanna_Q(api: ContentApi) {
-  const cached = __cacheJanna_Q.get(api);
-  if (cached) return cached;
-  const built = __buildJanna_Q(api);
-  __cacheJanna_Q.set(api, built);
-  return built;
-}
+});
+export default makeJanna_Q;
 
 
-function __buildJanna_Q_Object(api: ContentApi) {
+export const makeJanna_Q_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const Airborne = api.buffs.Airborne;
   const TrailSystem = api.helpers.TrailSystem;
@@ -368,19 +362,11 @@ function __buildJanna_Q_Object(api: ContentApi) {
     }
   }
   return Janna_Q_Object;
-}
-const __cacheJanna_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildJanna_Q_Object>>();
-export function makeJanna_Q_Object(api: ContentApi) {
-  const cached = __cacheJanna_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildJanna_Q_Object(api);
-  __cacheJanna_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** The burst of wind that throws a unit into the air. */
-function __buildJanna_Q_Gust(api: ContentApi) {
+export const makeJanna_Q_Gust = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Janna_Q_Gust extends SpellObject {
     position = this.owner.position.copy();
@@ -428,12 +414,4 @@ function __buildJanna_Q_Gust(api: ContentApi) {
     }
   }
   return Janna_Q_Gust;
-}
-const __cacheJanna_Q_Gust = new WeakMap<ContentApi, ReturnType<typeof __buildJanna_Q_Gust>>();
-export function makeJanna_Q_Gust(api: ContentApi) {
-  const cached = __cacheJanna_Q_Gust.get(api);
-  if (cached) return cached;
-  const built = __buildJanna_Q_Gust(api);
-  __cacheJanna_Q_Gust.set(api, built);
-  return built;
-}
+});

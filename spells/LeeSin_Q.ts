@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
@@ -16,7 +17,7 @@ export const REVEAL_STACK_ID = 'leesin_q_reveal';
 export const REVEAL_DURATION_MS = 1_000;
 
 
-function __buildLeeSin_Q(api: ContentApi) {
+export const makeLeeSin_Q = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Dash = api.buffs.Dash;
   const VectorUtils = api.utils.VectorUtils;
@@ -127,18 +128,11 @@ function __buildLeeSin_Q(api: ContentApi) {
     }
   }
   return LeeSin_Q;
-}
-const __cacheLeeSin_Q = new WeakMap<ContentApi, ReturnType<typeof __buildLeeSin_Q>>();
-export default function makeLeeSin_Q(api: ContentApi) {
-  const cached = __cacheLeeSin_Q.get(api);
-  if (cached) return cached;
-  const built = __buildLeeSin_Q(api);
-  __cacheLeeSin_Q.set(api, built);
-  return built;
-}
+});
+export default makeLeeSin_Q;
 
 
-function __buildLeeSin_Q_Object(api: ContentApi) {
+export const makeLeeSin_Q_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const TrailSystem = api.helpers.TrailSystem;
   const Rectangle = api.utils.Quadtree.Rectangle;
@@ -235,12 +229,4 @@ function __buildLeeSin_Q_Object(api: ContentApi) {
     }
   }
   return LeeSin_Q_Object;
-}
-const __cacheLeeSin_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildLeeSin_Q_Object>>();
-export function makeLeeSin_Q_Object(api: ContentApi) {
-  const cached = __cacheLeeSin_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildLeeSin_Q_Object(api);
-  __cacheLeeSin_Q_Object.set(api, built);
-  return built;
-}
+});

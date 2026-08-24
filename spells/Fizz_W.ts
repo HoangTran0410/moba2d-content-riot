@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BasicAttackHit } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
 type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
@@ -19,7 +20,7 @@ export const STACK_ID = 'fizz_w';
 
 
 /** Seastone Trident: the trident keeps cutting after the swing has landed. */
-function __buildFizz_W(api: ContentApi) {
+export const makeFizz_W = packClass((api: ContentApi) => {
   const EventType = api.enums.EventType;
   const Spell = api.Spell;
   const DamageOverTime = api.buffs.DamageOverTime;
@@ -84,12 +85,5 @@ function __buildFizz_W(api: ContentApi) {
     }
   }
   return Fizz_W;
-}
-const __cacheFizz_W = new WeakMap<ContentApi, ReturnType<typeof __buildFizz_W>>();
-export default function makeFizz_W(api: ContentApi) {
-  const cached = __cacheFizz_W.get(api);
-  if (cached) return cached;
-  const built = __buildFizz_W(api);
-  __cacheFizz_W.set(api, built);
-  return built;
-}
+});
+export default makeFizz_W;

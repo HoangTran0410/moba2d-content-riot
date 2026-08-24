@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -9,7 +10,7 @@ type Blitzcrank_E_Object = InstanceType<ReturnType<typeof makeBlitzcrank_E_Objec
 
 
 
-function __buildBlitzcrank_E(api: ContentApi) {
+export const makeBlitzcrank_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const VectorUtils = api.utils.VectorUtils;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -100,18 +101,11 @@ function __buildBlitzcrank_E(api: ContentApi) {
     }
   }
   return Blitzcrank_E;
-}
-const __cacheBlitzcrank_E = new WeakMap<ContentApi, ReturnType<typeof __buildBlitzcrank_E>>();
-export default function makeBlitzcrank_E(api: ContentApi) {
-  const cached = __cacheBlitzcrank_E.get(api);
-  if (cached) return cached;
-  const built = __buildBlitzcrank_E(api);
-  __cacheBlitzcrank_E.set(api, built);
-  return built;
-}
+});
+export default makeBlitzcrank_E;
 
 
-function __buildBlitzcrank_E_Object(api: ContentApi) {
+export const makeBlitzcrank_E_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Blitzcrank_E_Object extends SpellObject {
     angle = 0;
@@ -221,12 +215,4 @@ function __buildBlitzcrank_E_Object(api: ContentApi) {
     }
   }
   return Blitzcrank_E_Object;
-}
-const __cacheBlitzcrank_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildBlitzcrank_E_Object>>();
-export function makeBlitzcrank_E_Object(api: ContentApi) {
-  const cached = __cacheBlitzcrank_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildBlitzcrank_E_Object(api);
-  __cacheBlitzcrank_E_Object.set(api, built);
-  return built;
-}
+});

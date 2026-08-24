@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type HomingMissileSpellObject = InstanceType<ContentApi['HomingMissileSpellObject']>;
@@ -16,20 +17,12 @@ type Veigar_R_Object = InstanceType<ReturnType<typeof makeVeigar_R_Object>>;
 type VeigarRTarget = AttackableUnit;
 
 
-function __buildisVeigarRTarget(api: ContentApi) {
+export const makeIsVeigarRTarget = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const isVeigarRTarget = (target: unknown): target is VeigarRTarget =>
     target instanceof AttackableUnit && target.targetable && !target.toRemove;
   return isVeigarRTarget;
-}
-const __cacheisVeigarRTarget = new WeakMap<ContentApi, ReturnType<typeof __buildisVeigarRTarget>>();
-export function makeIsVeigarRTarget(api: ContentApi) {
-  const cached = __cacheisVeigarRTarget.get(api);
-  if (cached) return cached;
-  const built = __buildisVeigarRTarget(api);
-  __cacheisVeigarRTarget.set(api, built);
-  return built;
-}
+});
 
 
 // Exported so the suite asserts the wiring, not a copy of the numbers —
@@ -57,7 +50,7 @@ export const MISSILE_SPEED = 1_500 / 60;
 export const MISSILE_SIZE = 30;
 
 
-function __buildVeigar_R(api: ContentApi) {
+export const makeVeigar_R = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
   const Spell = api.Spell;
@@ -150,18 +143,11 @@ function __buildVeigar_R(api: ContentApi) {
     }
   }
   return Veigar_R;
-}
-const __cacheVeigar_R = new WeakMap<ContentApi, ReturnType<typeof __buildVeigar_R>>();
-export default function makeVeigar_R(api: ContentApi) {
-  const cached = __cacheVeigar_R.get(api);
-  if (cached) return cached;
-  const built = __buildVeigar_R(api);
-  __cacheVeigar_R.set(api, built);
-  return built;
-}
+});
+export default makeVeigar_R;
 
 
-function __buildVeigar_R_Object(api: ContentApi) {
+export const makeVeigar_R_Object = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const HomingMissileSpellObject = api.HomingMissileSpellObject;
   const TrailSystem = api.helpers.TrailSystem;
@@ -250,19 +236,11 @@ function __buildVeigar_R_Object(api: ContentApi) {
     }
   }
   return Veigar_R_Object;
-}
-const __cacheVeigar_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildVeigar_R_Object>>();
-export function makeVeigar_R_Object(api: ContentApi) {
-  const cached = __cacheVeigar_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildVeigar_R_Object(api);
-  __cacheVeigar_R_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** The burst landing — a bigger, angrier cousin of Q's implode; flares redder the closer the kill was. */
-function __buildVeigar_R_Burst(api: ContentApi) {
+export const makeVeigar_R_Burst = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Veigar_R_Burst extends SpellObject {
     targetSize = 40;
@@ -313,12 +291,4 @@ function __buildVeigar_R_Burst(api: ContentApi) {
     }
   }
   return Veigar_R_Burst;
-}
-const __cacheVeigar_R_Burst = new WeakMap<ContentApi, ReturnType<typeof __buildVeigar_R_Burst>>();
-export function makeVeigar_R_Burst(api: ContentApi) {
-  const cached = __cacheVeigar_R_Burst.get(api);
-  if (cached) return cached;
-  const built = __buildVeigar_R_Burst(api);
-  __cacheVeigar_R_Burst.set(api, built);
-  return built;
-}
+});

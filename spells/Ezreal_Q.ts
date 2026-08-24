@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { makeDetonateEssenceFlux } from './Ezreal_W';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
@@ -31,7 +32,7 @@ export const EZREAL_Q_COOLDOWN_REFUND_MS = 1200;
 
 
 /** Mystic Shot — the cheap, fast bolt everything else in the kit is paid for by. */
-function __buildEzreal_Q(api: ContentApi) {
+export const makeEzreal_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Ezreal_Q_Object = makeEzreal_Q_Object(api);
@@ -63,15 +64,8 @@ function __buildEzreal_Q(api: ContentApi) {
     }
   }
   return Ezreal_Q;
-}
-const __cacheEzreal_Q = new WeakMap<ContentApi, ReturnType<typeof __buildEzreal_Q>>();
-export default function makeEzreal_Q(api: ContentApi) {
-  const cached = __cacheEzreal_Q.get(api);
-  if (cached) return cached;
-  const built = __buildEzreal_Q(api);
-  __cacheEzreal_Q.set(api, built);
-  return built;
-}
+});
+export default makeEzreal_Q;
 
 
 /**
@@ -101,7 +95,7 @@ export function refundEzrealCooldowns(caster: AttackableUnit): void {
  * pale gold so it reads at a glance against the fat amber W orb travelling the
  * same lane — those two are constantly in the air together.
  */
-function __buildEzreal_Q_Object(api: ContentApi) {
+export const makeEzreal_Q_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const AttackableUnit = api.units.AttackableUnit;
   const TrailSystem = api.helpers.TrailSystem;
@@ -188,19 +182,11 @@ function __buildEzreal_Q_Object(api: ContentApi) {
     }
   }
   return Ezreal_Q_Object;
-}
-const __cacheEzreal_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildEzreal_Q_Object>>();
-export function makeEzreal_Q_Object(api: ContentApi) {
-  const cached = __cacheEzreal_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildEzreal_Q_Object(api);
-  __cacheEzreal_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** The connect: a directional splash of sparks, not a symmetric bloom. */
-function __buildEzreal_Q_Impact(api: ContentApi) {
+export const makeEzreal_Q_Impact = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Ezreal_Q_Impact extends SpellObject {
     age = 0;
@@ -258,12 +244,4 @@ function __buildEzreal_Q_Impact(api: ContentApi) {
     }
   }
   return Ezreal_Q_Impact;
-}
-const __cacheEzreal_Q_Impact = new WeakMap<ContentApi, ReturnType<typeof __buildEzreal_Q_Impact>>();
-export function makeEzreal_Q_Impact(api: ContentApi) {
-  const cached = __cacheEzreal_Q_Impact.get(api);
-  if (cached) return cached;
-  const built = __buildEzreal_Q_Impact(api);
-  __cacheEzreal_Q_Impact.set(api, built);
-  return built;
-}
+});

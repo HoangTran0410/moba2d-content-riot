@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -57,7 +58,7 @@ const SHADOW: [number, number, number] = [26, 34, 58];
  * clock; the blink stays here because `Spell.blinkOwnerTo` is the one gate that
  * knows about `Ground`.
  */
-function __buildMasterYi_Q(api: ContentApi) {
+export const makeMasterYi_Q = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -162,15 +163,8 @@ function __buildMasterYi_Q(api: ContentApi) {
     }
   }
   return MasterYi_Q;
-}
-const __cacheMasterYi_Q = new WeakMap<ContentApi, ReturnType<typeof __buildMasterYi_Q>>();
-export default function makeMasterYi_Q(api: ContentApi) {
-  const cached = __cacheMasterYi_Q.get(api);
-  if (cached) return cached;
-  const built = __buildMasterYi_Q(api);
-  __cacheMasterYi_Q.set(api, built);
-  return built;
-}
+});
+export default makeMasterYi_Q;
 
 
 /** One landed blade, kept so it can fade instead of blinking out. */
@@ -191,7 +185,7 @@ interface BladeMark {
  * built distinct up front and each entry is consumed exactly once — so no body
  * can be visited twice however the fight moves during the 800ms it runs.
  */
-function __buildMasterYi_Q_Object(api: ContentApi) {
+export const makeMasterYi_Q_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const Untargetable = api.buffs.Untargetable;
@@ -353,12 +347,4 @@ function __buildMasterYi_Q_Object(api: ContentApi) {
     }
   }
   return MasterYi_Q_Object;
-}
-const __cacheMasterYi_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildMasterYi_Q_Object>>();
-export function makeMasterYi_Q_Object(api: ContentApi) {
-  const cached = __cacheMasterYi_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildMasterYi_Q_Object(api);
-  __cacheMasterYi_Q_Object.set(api, built);
-  return built;
-}
+});

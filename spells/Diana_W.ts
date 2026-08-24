@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { MOON_CORE, MOON_PALE, drawCrescent } from './Diana_Q';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
@@ -49,7 +50,7 @@ export interface MoonSphere {
 }
 
 
-function __buildDiana_W(api: ContentApi) {
+export const makeDiana_W = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const Shield = api.buffs.Shield;
   const Spell = api.Spell;
@@ -82,15 +83,8 @@ function __buildDiana_W(api: ContentApi) {
     }
   }
   return Diana_W;
-}
-const __cacheDiana_W = new WeakMap<ContentApi, ReturnType<typeof __buildDiana_W>>();
-export default function makeDiana_W(api: ContentApi) {
-  const cached = __cacheDiana_W.get(api);
-  if (cached) return cached;
-  const built = __buildDiana_W(api);
-  __cacheDiana_W.set(api, built);
-  return built;
-}
+});
+export default makeDiana_W;
 
 
 /**
@@ -98,7 +92,7 @@ export default function makeDiana_W(api: ContentApi) {
  * than caster VFX — Champion.draw() is skipped whenever she is culled, and the spheres would
  * keep detonating invisibly.
  */
-function __buildDiana_W_Orbit(api: ContentApi) {
+export const makeDiana_W_Orbit = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const AttackableUnit = api.units.AttackableUnit;
@@ -258,19 +252,11 @@ function __buildDiana_W_Orbit(api: ContentApi) {
     }
   }
   return Diana_W_Orbit;
-}
-const __cacheDiana_W_Orbit = new WeakMap<ContentApi, ReturnType<typeof __buildDiana_W_Orbit>>();
-export function makeDiana_W_Orbit(api: ContentApi) {
-  const cached = __cacheDiana_W_Orbit.get(api);
-  if (cached) return cached;
-  const built = __buildDiana_W_Orbit(api);
-  __cacheDiana_W_Orbit.set(api, built);
-  return built;
-}
+});
 
 
 /** A crescent bloom where a sphere met a body. */
-function __buildDiana_W_Bloom(api: ContentApi) {
+export const makeDiana_W_Bloom = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Diana_W_Bloom extends SpellObject {
@@ -326,12 +312,4 @@ function __buildDiana_W_Bloom(api: ContentApi) {
     }
   }
   return Diana_W_Bloom;
-}
-const __cacheDiana_W_Bloom = new WeakMap<ContentApi, ReturnType<typeof __buildDiana_W_Bloom>>();
-export function makeDiana_W_Bloom(api: ContentApi) {
-  const cached = __cacheDiana_W_Bloom.get(api);
-  if (cached) return cached;
-  const built = __buildDiana_W_Bloom(api);
-  __cacheDiana_W_Bloom.set(api, built);
-  return built;
-}
+});

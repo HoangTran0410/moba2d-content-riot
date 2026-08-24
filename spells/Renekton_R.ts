@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -58,7 +59,7 @@ export function isEnraged(unit: AttackableUnit | null | undefined): boolean {
  * past his body — `Champion.draw` is skipped whenever the camera culls him, and
  * an aura painted from there would deal its damage invisibly.
  */
-function __buildRenekton_R(api: ContentApi) {
+export const makeRenekton_R = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const StatAmp = api.buffs.StatAmp;
   const Renekton_R_Object = makeRenekton_R_Object(api);
@@ -109,22 +110,15 @@ function __buildRenekton_R(api: ContentApi) {
     }
   }
   return Renekton_R;
-}
-const __cacheRenekton_R = new WeakMap<ContentApi, ReturnType<typeof __buildRenekton_R>>();
-export default function makeRenekton_R(api: ContentApi) {
-  const cached = __cacheRenekton_R.get(api);
-  if (cached) return cached;
-  const built = __buildRenekton_R(api);
-  __cacheRenekton_R.set(api, built);
-  return built;
-}
+});
+export default makeRenekton_R;
 
 
 /** Serrated plates riding the rim — a crocodile's back, not a storm. */
 const TOOTH_COUNT = 18;
 
 
-function __buildRenekton_R_Object(api: ContentApi) {
+export const makeRenekton_R_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -222,12 +216,4 @@ function __buildRenekton_R_Object(api: ContentApi) {
     }
   }
   return Renekton_R_Object;
-}
-const __cacheRenekton_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildRenekton_R_Object>>();
-export function makeRenekton_R_Object(api: ContentApi) {
-  const cached = __cacheRenekton_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildRenekton_R_Object(api);
-  __cacheRenekton_R_Object.set(api, built);
-  return built;
-}
+});

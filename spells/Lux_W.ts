@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -14,7 +15,7 @@ type Lux_W_Object = InstanceType<ReturnType<typeof makeLux_W_Object>>;
 
 
 
-function __buildLux_W(api: ContentApi) {
+export const makeLux_W = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Lux_W_Object = makeLux_W_Object(api);
@@ -43,18 +44,11 @@ function __buildLux_W(api: ContentApi) {
     }
   }
   return Lux_W;
-}
-const __cacheLux_W = new WeakMap<ContentApi, ReturnType<typeof __buildLux_W>>();
-export default function makeLux_W(api: ContentApi) {
-  const cached = __cacheLux_W.get(api);
-  if (cached) return cached;
-  const built = __buildLux_W(api);
-  __cacheLux_W.set(api, built);
-  return built;
-}
+});
+export default makeLux_W;
 
 
-function __buildLux_W_Object(api: ContentApi) {
+export const makeLux_W_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -207,19 +201,11 @@ function __buildLux_W_Object(api: ContentApi) {
     }
   }
   return Lux_W_Object;
-}
-const __cacheLux_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildLux_W_Object>>();
-export function makeLux_W_Object(api: ContentApi) {
-  const cached = __cacheLux_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildLux_W_Object(api);
-  __cacheLux_W_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** The flash of a prismatic shield snapping into place on an ally. */
-function __buildLux_W_Burst(api: ContentApi) {
+export const makeLux_W_Burst = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Lux_W_Burst extends SpellObject {
     follow: any = null;
@@ -276,12 +262,4 @@ function __buildLux_W_Burst(api: ContentApi) {
     }
   }
   return Lux_W_Burst;
-}
-const __cacheLux_W_Burst = new WeakMap<ContentApi, ReturnType<typeof __buildLux_W_Burst>>();
-export function makeLux_W_Burst(api: ContentApi) {
-  const cached = __cacheLux_W_Burst.get(api);
-  if (cached) return cached;
-  const built = __buildLux_W_Burst(api);
-  __cacheLux_W_Burst.set(api, built);
-  return built;
-}
+});

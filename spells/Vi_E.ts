@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BasicAttackHit } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -44,7 +45,7 @@ export function viECleaveHalfWidth(along: number): number {
  * A spell that applied the attack's damage itself would look identical and
  * silently switch off every on-hit effect for that route.
  */
-function __buildVi_E(api: ContentApi) {
+export const makeVi_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const EventType = api.enums.EventType;
@@ -257,15 +258,8 @@ function __buildVi_E(api: ContentApi) {
     }
   }
   return Vi_E;
-}
-const __cacheVi_E = new WeakMap<ContentApi, ReturnType<typeof __buildVi_E>>();
-export default function makeVi_E(api: ContentApi) {
-  const cached = __cacheVi_E.get(api);
-  if (cached) return cached;
-  const built = __buildVi_E(api);
-  __cacheVi_E.set(api, built);
-  return built;
-}
+});
+export default makeVi_E;
 
 
 /**
@@ -273,7 +267,7 @@ export default function makeVi_E(api: ContentApi) {
  * victim and away from Vi. The apex sits on her but the art reaches 300 units
  * out, so this is a SpellObject with a real box rather than caster VFX.
  */
-function __buildVi_E_Cone(api: ContentApi) {
+export const makeVi_E_Cone = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
@@ -352,12 +346,4 @@ function __buildVi_E_Cone(api: ContentApi) {
     }
   }
   return Vi_E_Cone;
-}
-const __cacheVi_E_Cone = new WeakMap<ContentApi, ReturnType<typeof __buildVi_E_Cone>>();
-export function makeVi_E_Cone(api: ContentApi) {
-  const cached = __cacheVi_E_Cone.get(api);
-  if (cached) return cached;
-  const built = __buildVi_E_Cone(api);
-  __cacheVi_E_Cone.set(api, built);
-  return built;
-}
+});

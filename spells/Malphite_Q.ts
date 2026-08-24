@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type HomingMissileSpellObject = InstanceType<ContentApi['HomingMissileSpellObject']>;
@@ -20,20 +21,12 @@ type Malphite_Q_Speedup = InstanceType<ReturnType<typeof makeMalphite_Q_Speedup>
 type MalphiteTarget = AttackableUnit;
 
 
-function __buildisMalphiteTarget(api: ContentApi) {
+export const makeIsMalphiteTarget = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const isMalphiteTarget = (target: unknown): target is MalphiteTarget =>
     target instanceof AttackableUnit && target.targetable && !target.toRemove;
   return isMalphiteTarget;
-}
-const __cacheisMalphiteTarget = new WeakMap<ContentApi, ReturnType<typeof __buildisMalphiteTarget>>();
-export function makeIsMalphiteTarget(api: ContentApi) {
-  const cached = __cacheisMalphiteTarget.get(api);
-  if (cached) return cached;
-  const built = __buildisMalphiteTarget(api);
-  __cacheisMalphiteTarget.set(api, built);
-  return built;
-}
+});
 
 
 // Exported so the suite asserts the shard's wiring, not a copy of the
@@ -55,7 +48,7 @@ export const SPAWN_OFFSET_DISTANCE = 0;
 export const MISSILE_SPEED = 5;
 
 
-function __buildMalphite_Q(api: ContentApi) {
+export const makeMalphite_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
@@ -159,18 +152,11 @@ function __buildMalphite_Q(api: ContentApi) {
     }
   }
   return Malphite_Q;
-}
-const __cacheMalphite_Q = new WeakMap<ContentApi, ReturnType<typeof __buildMalphite_Q>>();
-export default function makeMalphite_Q(api: ContentApi) {
-  const cached = __cacheMalphite_Q.get(api);
-  if (cached) return cached;
-  const built = __buildMalphite_Q(api);
-  __cacheMalphite_Q.set(api, built);
-  return built;
-}
+});
+export default makeMalphite_Q;
 
 
-function __buildMalphite_Q_Object(api: ContentApi) {
+export const makeMalphite_Q_Object = packClass((api: ContentApi) => {
   const Slow = api.buffs.Slow;
   const TrailSystem = api.helpers.TrailSystem;
   const HomingMissileSpellObject = api.HomingMissileSpellObject;
@@ -314,18 +300,10 @@ function __buildMalphite_Q_Object(api: ContentApi) {
     }
   }
   return Malphite_Q_Object;
-}
-const __cacheMalphite_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildMalphite_Q_Object>>();
-export function makeMalphite_Q_Object(api: ContentApi) {
-  const cached = __cacheMalphite_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildMalphite_Q_Object(api);
-  __cacheMalphite_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
-function __buildMalphite_Q_Speedup(api: ContentApi) {
+export const makeMalphite_Q_Speedup = packClass((api: ContentApi) => {
   const Speedup = api.buffs.Speedup;
   class Malphite_Q_Speedup extends Speedup {
     amount = 0;
@@ -337,19 +315,11 @@ function __buildMalphite_Q_Speedup(api: ContentApi) {
     }
   }
   return Malphite_Q_Speedup;
-}
-const __cacheMalphite_Q_Speedup = new WeakMap<ContentApi, ReturnType<typeof __buildMalphite_Q_Speedup>>();
-export function makeMalphite_Q_Speedup(api: ContentApi) {
-  const cached = __cacheMalphite_Q_Speedup.get(api);
-  if (cached) return cached;
-  const built = __buildMalphite_Q_Speedup(api);
-  __cacheMalphite_Q_Speedup.set(api, built);
-  return built;
-}
+});
 
 
 /** Rock bursting off whoever the shard cut through. */
-function __buildMalphite_Q_Shatter(api: ContentApi) {
+export const makeMalphite_Q_Shatter = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Malphite_Q_Shatter extends SpellObject {
     targetSize = 40;
@@ -418,22 +388,14 @@ function __buildMalphite_Q_Shatter(api: ContentApi) {
     }
   }
   return Malphite_Q_Shatter;
-}
-const __cacheMalphite_Q_Shatter = new WeakMap<ContentApi, ReturnType<typeof __buildMalphite_Q_Shatter>>();
-export function makeMalphite_Q_Shatter(api: ContentApi) {
-  const cached = __cacheMalphite_Q_Shatter.get(api);
-  if (cached) return cached;
-  const built = __buildMalphite_Q_Shatter(api);
-  __cacheMalphite_Q_Shatter.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * Dust kicked up under Malphite while the shard's speed-up lasts. It watches the
  * buff instead of counting its own clock, so it can never outlive it.
  */
-function __buildMalphite_Q_Rush(api: ContentApi) {
+export const makeMalphite_Q_Rush = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Malphite_Q_Rush extends SpellObject {
     buff: { toRemove: boolean } | null = null;
@@ -486,12 +448,4 @@ function __buildMalphite_Q_Rush(api: ContentApi) {
     }
   }
   return Malphite_Q_Rush;
-}
-const __cacheMalphite_Q_Rush = new WeakMap<ContentApi, ReturnType<typeof __buildMalphite_Q_Rush>>();
-export function makeMalphite_Q_Rush(api: ContentApi) {
-  const cached = __cacheMalphite_Q_Rush.get(api);
-  if (cached) return cached;
-  const built = __buildMalphite_Q_Rush(api);
-  __cacheMalphite_Q_Rush.set(api, built);
-  return built;
-}
+});

@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BasicAttackHit } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
@@ -43,7 +44,7 @@ const HEXTECH: [number, number, number] = [0, 168, 255];
  * The count is also drawn on the victim rather than in the HUD, because the
  * player is looking at the enemy when they decide whether to keep hitting them.
  */
-function __buildVi_W(api: ContentApi) {
+export const makeVi_W = packClass((api: ContentApi) => {
   const EventType = api.enums.EventType;
   const AttackableUnit = api.units.AttackableUnit;
   const Slow = api.buffs.Slow;
@@ -158,34 +159,19 @@ function __buildVi_W(api: ContentApi) {
     }
   }
   return Vi_W;
-}
-const __cacheVi_W = new WeakMap<ContentApi, ReturnType<typeof __buildVi_W>>();
-export default function makeVi_W(api: ContentApi) {
-  const cached = __cacheVi_W.get(api);
-  if (cached) return cached;
-  const built = __buildVi_W(api);
-  __cacheVi_W.set(api, built);
-  return built;
-}
+});
+export default makeVi_W;
 
 
 /** The window itself: a timer with an icon, so the player can see it running out. */
-function __buildVi_W_Buff(api: ContentApi) {
+export const makeVi_W_Buff = packClass((api: ContentApi) => {
   const Buff = api.buffs.Buff;
   class Vi_W_Buff extends Buff {
     name = 'Phá Giáp';
     image = api.asset('spell_vi_w');
   }
   return Vi_W_Buff;
-}
-const __cacheVi_W_Buff = new WeakMap<ContentApi, ReturnType<typeof __buildVi_W_Buff>>();
-export function makeVi_W_Buff(api: ContentApi) {
-  const cached = __cacheVi_W_Buff.get(api);
-  if (cached) return cached;
-  const built = __buildVi_W_Buff(api);
-  __cacheVi_W_Buff.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -193,7 +179,7 @@ export function makeVi_W_Buff(api: ContentApi) {
  * It rides the unit, so it syncs position every frame and drops the moment the
  * body it is drawn on is gone.
  */
-function __buildVi_W_Fracture(api: ContentApi) {
+export const makeVi_W_Fracture = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Vi_W_Fracture extends SpellObject {
@@ -262,19 +248,11 @@ function __buildVi_W_Fracture(api: ContentApi) {
     }
   }
   return Vi_W_Fracture;
-}
-const __cacheVi_W_Fracture = new WeakMap<ContentApi, ReturnType<typeof __buildVi_W_Fracture>>();
-export function makeVi_W_Fracture(api: ContentApi) {
-  const cached = __cacheVi_W_Fracture.get(api);
-  if (cached) return cached;
-  const built = __buildVi_W_Fracture(api);
-  __cacheVi_W_Fracture.set(api, built);
-  return built;
-}
+});
 
 
 /** The third hit: the plating gives, and the shards leave the body outward. */
-function __buildVi_W_Shatter(api: ContentApi) {
+export const makeVi_W_Shatter = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Vi_W_Shatter extends SpellObject {
@@ -334,12 +312,4 @@ function __buildVi_W_Shatter(api: ContentApi) {
     }
   }
   return Vi_W_Shatter;
-}
-const __cacheVi_W_Shatter = new WeakMap<ContentApi, ReturnType<typeof __buildVi_W_Shatter>>();
-export function makeVi_W_Shatter(api: ContentApi) {
-  const cached = __cacheVi_W_Shatter.get(api);
-  if (cached) return cached;
-  const built = __buildVi_W_Shatter(api);
-  __cacheVi_W_Shatter.set(api, built);
-  return built;
-}
+});

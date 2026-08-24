@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -49,7 +50,7 @@ const MARK_LIFETIME = 340;
  * the thing that hits: it leaves her eyes, crosses the cone in
  * `SWEEP_DURATION`, and catches each victim at the moment it reaches them.
  */
-function __buildCassiopeia_R(api: ContentApi) {
+export const makeCassiopeia_R = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Cassiopeia_R_Cone = makeCassiopeia_R_Cone(api);
@@ -82,15 +83,8 @@ function __buildCassiopeia_R(api: ContentApi) {
     }
   }
   return Cassiopeia_R;
-}
-const __cacheCassiopeia_R = new WeakMap<ContentApi, ReturnType<typeof __buildCassiopeia_R>>();
-export default function makeCassiopeia_R(api: ContentApi) {
-  const cached = __cacheCassiopeia_R.get(api);
-  if (cached) return cached;
-  const built = __buildCassiopeia_R(api);
-  __cacheCassiopeia_R.set(api, built);
-  return built;
-}
+});
+export default makeCassiopeia_R;
 
 
 interface PetrifyMark {
@@ -105,7 +99,7 @@ interface PetrifyMark {
  * a circle and because this one is not cosmetic — `_sweep()` is where the
  * ultimate's damage and stun actually come from.
  */
-function __buildCassiopeia_R_Cone(api: ContentApi) {
+export const makeCassiopeia_R_Cone = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const AoePulse = api.AoePulse;
@@ -286,12 +280,4 @@ function __buildCassiopeia_R_Cone(api: ContentApi) {
     }
   }
   return Cassiopeia_R_Cone;
-}
-const __cacheCassiopeia_R_Cone = new WeakMap<ContentApi, ReturnType<typeof __buildCassiopeia_R_Cone>>();
-export function makeCassiopeia_R_Cone(api: ContentApi) {
-  const cached = __cacheCassiopeia_R_Cone.get(api);
-  if (cached) return cached;
-  const built = __buildCassiopeia_R_Cone(api);
-  __cacheCassiopeia_R_Cone.set(api, built);
-  return built;
-}
+});

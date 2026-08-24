@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
@@ -60,7 +61,7 @@ export const CHOMPED_STACK_ID = 'jinx_e_chomped';
  * with 20 health that the enemy can shoot off the ground before it ever bites.
  * That is the whole reason the pet system exists — a trap you can answer.
  */
-function __buildJinx_E(api: ContentApi) {
+export const makeJinx_E = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Jinx_E_Chomper = makeJinx_E_Chomper(api);
   class Jinx_E extends Spell {
@@ -115,18 +116,11 @@ function __buildJinx_E(api: ContentApi) {
     }
   }
   return Jinx_E;
-}
-const __cacheJinx_E = new WeakMap<ContentApi, ReturnType<typeof __buildJinx_E>>();
-export default function makeJinx_E(api: ContentApi) {
-  const cached = __cacheJinx_E.get(api);
-  if (cached) return cached;
-  const built = __buildJinx_E(api);
-  __cacheJinx_E.set(api, built);
-  return built;
-}
+});
+export default makeJinx_E;
 
 
-function __buildJinx_E_Chomper(api: ContentApi) {
+export const makeJinx_E_Chomper = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Champion = api.units.Champion;
@@ -337,12 +331,4 @@ function __buildJinx_E_Chomper(api: ContentApi) {
     }
   }
   return Jinx_E_Chomper;
-}
-const __cacheJinx_E_Chomper = new WeakMap<ContentApi, ReturnType<typeof __buildJinx_E_Chomper>>();
-export function makeJinx_E_Chomper(api: ContentApi) {
-  const cached = __cacheJinx_E_Chomper.get(api);
-  if (cached) return cached;
-  const built = __buildJinx_E_Chomper(api);
-  __cacheJinx_E_Chomper.set(api, built);
-  return built;
-}
+});

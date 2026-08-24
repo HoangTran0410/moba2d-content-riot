@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
@@ -19,7 +20,7 @@ export const DAMAGE_PER_TICK = 4;
 export const TICK_INTERVAL = 500;
 
 
-function __buildAlistar_E(api: ContentApi) {
+export const makeAlistar_E = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Speedup = api.buffs.Speedup;
   const Alistar_E_Object = makeAlistar_E_Object(api);
@@ -49,18 +50,11 @@ function __buildAlistar_E(api: ContentApi) {
     }
   }
   return Alistar_E;
-}
-const __cacheAlistar_E = new WeakMap<ContentApi, ReturnType<typeof __buildAlistar_E>>();
-export default function makeAlistar_E(api: ContentApi) {
-  const cached = __cacheAlistar_E.get(api);
-  if (cached) return cached;
-  const built = __buildAlistar_E(api);
-  __cacheAlistar_E.set(api, built);
-  return built;
-}
+});
+export default makeAlistar_E;
 
 
-function __buildAlistar_E_Object(api: ContentApi) {
+export const makeAlistar_E_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -132,12 +126,4 @@ function __buildAlistar_E_Object(api: ContentApi) {
     }
   }
   return Alistar_E_Object;
-}
-const __cacheAlistar_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildAlistar_E_Object>>();
-export function makeAlistar_E_Object(api: ContentApi) {
-  const cached = __cacheAlistar_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildAlistar_E_Object(api);
-  __cacheAlistar_E_Object.set(api, built);
-  return built;
-}
+});

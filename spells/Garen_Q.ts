@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BasicAttackHit } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
 type Silence = InstanceType<ContentApi['buffs']['Silence']>;
@@ -33,7 +34,7 @@ export const STACK_ID = 'garen_q';
  * for 1.5s. Three separate things, and the empowered swing is the one that
  * needed `onHitDamage` to be a stat before it could be written at all.
  */
-function __buildGaren_Q(api: ContentApi) {
+export const makeGaren_Q = packClass((api: ContentApi) => {
   const EventType = api.enums.EventType;
   const Spell = api.Spell;
   const Buff = api.buffs.Buff;
@@ -113,12 +114,5 @@ function __buildGaren_Q(api: ContentApi) {
     }
   }
   return Garen_Q;
-}
-const __cacheGaren_Q = new WeakMap<ContentApi, ReturnType<typeof __buildGaren_Q>>();
-export default function makeGaren_Q(api: ContentApi) {
-  const cached = __cacheGaren_Q.get(api);
-  if (cached) return cached;
-  const built = __buildGaren_Q(api);
-  __cacheGaren_Q.set(api, built);
-  return built;
-}
+});
+export default makeGaren_Q;

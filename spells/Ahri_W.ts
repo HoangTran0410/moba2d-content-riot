@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Slow = InstanceType<ContentApi['buffs']['Slow']>;
@@ -21,7 +22,7 @@ export const W_IMPACT_MS = 300;
 export const FIRE_PAINT_REACH = 2;
 
 
-function __buildAhri_W(api: ContentApi) {
+export const makeAhri_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Ahri_W_Object = makeAhri_W_Object(api);
   class Ahri_W extends Spell {
@@ -46,18 +47,11 @@ function __buildAhri_W(api: ContentApi) {
     }
   }
   return Ahri_W;
-}
-const __cacheAhri_W = new WeakMap<ContentApi, ReturnType<typeof __buildAhri_W>>();
-export default function makeAhri_W(api: ContentApi) {
-  const cached = __cacheAhri_W.get(api);
-  if (cached) return cached;
-  const built = __buildAhri_W(api);
-  __cacheAhri_W.set(api, built);
-  return built;
-}
+});
+export default makeAhri_W;
 
 
-function __buildAhri_W_Object(api: ContentApi) {
+export const makeAhri_W_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const VectorUtils = api.utils.VectorUtils;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -289,19 +283,11 @@ function __buildAhri_W_Object(api: ContentApi) {
     }
   }
   return Ahri_W_Object;
-}
-const __cacheAhri_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildAhri_W_Object>>();
-export function makeAhri_W_Object(api: ContentApi) {
-  const cached = __cacheAhri_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildAhri_W_Object(api);
-  __cacheAhri_W_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** Where a wisp burned itself out on someone: a short magenta scorch bloom. */
-function __buildAhri_W_Impact(api: ContentApi) {
+export const makeAhri_W_Impact = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Ahri_W_Impact extends SpellObject {
     angle = 0;
@@ -361,12 +347,4 @@ function __buildAhri_W_Impact(api: ContentApi) {
     }
   }
   return Ahri_W_Impact;
-}
-const __cacheAhri_W_Impact = new WeakMap<ContentApi, ReturnType<typeof __buildAhri_W_Impact>>();
-export function makeAhri_W_Impact(api: ContentApi) {
-  const cached = __cacheAhri_W_Impact.get(api);
-  if (cached) return cached;
-  const built = __buildAhri_W_Impact(api);
-  __cacheAhri_W_Impact.set(api, built);
-  return built;
-}
+});

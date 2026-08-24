@@ -1,6 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { CAITLYN_W_REVEAL_STACK_ID } from './Caitlyn_W';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
@@ -36,7 +37,7 @@ export const CAITLYN_Q_CAST_TIME_MS = 350;
  * open. A target already held by W is the exception: it takes the full number
  * wherever it is standing, which is the one combo in the kit.
  */
-function __buildCaitlyn_Q(api: ContentApi) {
+export const makeCaitlyn_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Caitlyn_Q_Object = makeCaitlyn_Q_Object(api);
@@ -110,15 +111,8 @@ function __buildCaitlyn_Q(api: ContentApi) {
     }
   }
   return Caitlyn_Q;
-}
-const __cacheCaitlyn_Q = new WeakMap<ContentApi, ReturnType<typeof __buildCaitlyn_Q>>();
-export default function makeCaitlyn_Q(api: ContentApi) {
-  const cached = __cacheCaitlyn_Q.get(api);
-  if (cached) return cached;
-  const built = __buildCaitlyn_Q(api);
-  __cacheCaitlyn_Q.set(api, built);
-  return built;
-}
+});
+export default makeCaitlyn_Q;
 
 
 /** True while this unit is wearing the reveal Caitlyn's own trap applied. */
@@ -138,7 +132,7 @@ export function isTrapRevealed(unit: AttackableUnit): boolean {
  * flat trail. It is deliberately the fastest thing in her kit and reads as one
  * continuous line rather than a travelling ball.
  */
-function __buildCaitlyn_Q_Object(api: ContentApi) {
+export const makeCaitlyn_Q_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const AttackableUnit = api.units.AttackableUnit;
   const TrailSystem = api.helpers.TrailSystem;
@@ -240,19 +234,11 @@ function __buildCaitlyn_Q_Object(api: ContentApi) {
     }
   }
   return Caitlyn_Q_Object;
-}
-const __cacheCaitlyn_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildCaitlyn_Q_Object>>();
-export function makeCaitlyn_Q_Object(api: ContentApi) {
-  const cached = __cacheCaitlyn_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildCaitlyn_Q_Object(api);
-  __cacheCaitlyn_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** The hit. A full-damage connect flares wider, so the falloff is visible. */
-function __buildCaitlyn_Q_Impact(api: ContentApi) {
+export const makeCaitlyn_Q_Impact = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Caitlyn_Q_Impact extends SpellObject {
     age = 0;
@@ -303,15 +289,7 @@ function __buildCaitlyn_Q_Impact(api: ContentApi) {
     }
   }
   return Caitlyn_Q_Impact;
-}
-const __cacheCaitlyn_Q_Impact = new WeakMap<ContentApi, ReturnType<typeof __buildCaitlyn_Q_Impact>>();
-export function makeCaitlyn_Q_Impact(api: ContentApi) {
-  const cached = __cacheCaitlyn_Q_Impact.get(api);
-  if (cached) return cached;
-  const built = __buildCaitlyn_Q_Impact(api);
-  __cacheCaitlyn_Q_Impact.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -321,7 +299,7 @@ export function makeCaitlyn_Q_Impact(api: ContentApi) {
  * survives her being culled or fogged — the 350ms window is the only chance
  * anyone gets to step out of the lane.
  */
-function __buildCaitlyn_Q_Brace(api: ContentApi) {
+export const makeCaitlyn_Q_Brace = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Caitlyn_Q_Brace extends SpellObject {
     age = 0;
@@ -366,12 +344,4 @@ function __buildCaitlyn_Q_Brace(api: ContentApi) {
     }
   }
   return Caitlyn_Q_Brace;
-}
-const __cacheCaitlyn_Q_Brace = new WeakMap<ContentApi, ReturnType<typeof __buildCaitlyn_Q_Brace>>();
-export function makeCaitlyn_Q_Brace(api: ContentApi) {
-  const cached = __cacheCaitlyn_Q_Brace.get(api);
-  if (cached) return cached;
-  const built = __buildCaitlyn_Q_Brace(api);
-  __cacheCaitlyn_Q_Brace.set(api, built);
-  return built;
-}
+});

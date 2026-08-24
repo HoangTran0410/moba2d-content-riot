@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -49,7 +50,7 @@ export function isChallengedBy(target: AttackableUnit, source: AttackableUnit): 
 }
 
 
-function __buildXinZhao_E(api: ContentApi) {
+export const makeXinZhao_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -188,15 +189,8 @@ function __buildXinZhao_E(api: ContentApi) {
     }
   }
   return XinZhao_E;
-}
-const __cacheXinZhao_E = new WeakMap<ContentApi, ReturnType<typeof __buildXinZhao_E>>();
-export default function makeXinZhao_E(api: ContentApi) {
-  const cached = __cacheXinZhao_E.get(api);
-  if (cached) return cached;
-  const built = __buildXinZhao_E(api);
-  __cacheXinZhao_E.set(api, built);
-  return built;
-}
+});
+export default makeXinZhao_E;
 
 
 /**
@@ -205,7 +199,7 @@ export default function makeXinZhao_E(api: ContentApi) {
  * Its own object rather than caster VFX because it paints 160px past his body,
  * and `Champion.draw` is skipped the moment he is culled or fogged.
  */
-function __buildXinZhao_E_Object(api: ContentApi) {
+export const makeXinZhao_E_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
@@ -289,12 +283,4 @@ function __buildXinZhao_E_Object(api: ContentApi) {
     }
   }
   return XinZhao_E_Object;
-}
-const __cacheXinZhao_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildXinZhao_E_Object>>();
-export function makeXinZhao_E_Object(api: ContentApi) {
-  const cached = __cacheXinZhao_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildXinZhao_E_Object(api);
-  __cacheXinZhao_E_Object.set(api, built);
-  return built;
-}
+});

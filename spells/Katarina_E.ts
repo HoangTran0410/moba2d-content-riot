@@ -2,6 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { makeKatarina_Blade_Impact, makeKatarina_Dagger } from './Katarina_Q';
 import { KATARINA_BLOOD, KATARINA_STEEL, KATARINA_DAGGER_SLASH_DAMAGE } from './Katarina_Q';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -26,7 +27,7 @@ export const KATARINA_E_DAGGER_DAMAGE = KATARINA_DAGGER_SLASH_DAMAGE;
 export const KATARINA_E_Q_REFUND_MS = 1_500;
 
 
-function __buildKatarina_E(api: ContentApi) {
+export const makeKatarina_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -181,19 +182,12 @@ function __buildKatarina_E(api: ContentApi) {
     }
   }
   return Katarina_E;
-}
-const __cacheKatarina_E = new WeakMap<ContentApi, ReturnType<typeof __buildKatarina_E>>();
-export default function makeKatarina_E(api: ContentApi) {
-  const cached = __cacheKatarina_E.get(api);
-  if (cached) return cached;
-  const built = __buildKatarina_E(api);
-  __cacheKatarina_E.set(api, built);
-  return built;
-}
+});
+export default makeKatarina_E;
 
 
 /** The red silhouette left behind, stretched along the teleport trajectory. */
-function __buildKatarina_E_Afterimage(api: ContentApi) {
+export const makeKatarina_E_Afterimage = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Katarina_E_Afterimage extends SpellObject {
@@ -243,21 +237,13 @@ function __buildKatarina_E_Afterimage(api: ContentApi) {
     }
   }
   return Katarina_E_Afterimage;
-}
-const __cacheKatarina_E_Afterimage = new WeakMap<ContentApi, ReturnType<typeof __buildKatarina_E_Afterimage>>();
-export function makeKatarina_E_Afterimage(api: ContentApi) {
-  const cached = __cacheKatarina_E_Afterimage.get(api);
-  if (cached) return cached;
-  const built = __buildKatarina_E_Afterimage(api);
-  __cacheKatarina_E_Afterimage.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * Arrival flash. Steel blades collapse inward onto Katarina.
  */
-function __buildKatarina_E_Arrival(api: ContentApi) {
+export const makeKatarina_E_Arrival = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Katarina_E_Arrival extends SpellObject {
@@ -303,12 +289,4 @@ function __buildKatarina_E_Arrival(api: ContentApi) {
     }
   }
   return Katarina_E_Arrival;
-}
-const __cacheKatarina_E_Arrival = new WeakMap<ContentApi, ReturnType<typeof __buildKatarina_E_Arrival>>();
-export function makeKatarina_E_Arrival(api: ContentApi) {
-  const cached = __cacheKatarina_E_Arrival.get(api);
-  if (cached) return cached;
-  const built = __buildKatarina_E_Arrival(api);
-  __cacheKatarina_E_Arrival.set(api, built);
-  return built;
-}
+});

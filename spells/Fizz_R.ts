@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -30,7 +31,7 @@ export const ERUPT_MS = 700;
  * shark comes up under *them* — so the ultimate is dodged by not being hit by
  * the throw, and by everyone else walking away from whoever was.
  */
-function __buildFizz_R(api: ContentApi) {
+export const makeFizz_R = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Fizz_R_Lure = makeFizz_R_Lure(api);
@@ -60,18 +61,11 @@ function __buildFizz_R(api: ContentApi) {
     }
   }
   return Fizz_R;
-}
-const __cacheFizz_R = new WeakMap<ContentApi, ReturnType<typeof __buildFizz_R>>();
-export default function makeFizz_R(api: ContentApi) {
-  const cached = __cacheFizz_R.get(api);
-  if (cached) return cached;
-  const built = __buildFizz_R(api);
-  __cacheFizz_R.set(api, built);
-  return built;
-}
+});
+export default makeFizz_R;
 
 
-function __buildFizz_R_Lure(api: ContentApi) {
+export const makeFizz_R_Lure = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const AttackableUnit = api.units.AttackableUnit;
   const Fizz_R_Shark = makeFizz_R_Shark(api);
@@ -109,18 +103,10 @@ function __buildFizz_R_Lure(api: ContentApi) {
     }
   }
   return Fizz_R_Lure;
-}
-const __cacheFizz_R_Lure = new WeakMap<ContentApi, ReturnType<typeof __buildFizz_R_Lure>>();
-export function makeFizz_R_Lure(api: ContentApi) {
-  const cached = __cacheFizz_R_Lure.get(api);
-  if (cached) return cached;
-  const built = __buildFizz_R_Lure(api);
-  __cacheFizz_R_Lure.set(api, built);
-  return built;
-}
+});
 
 
-function __buildFizz_R_Shark(api: ContentApi) {
+export const makeFizz_R_Shark = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
@@ -267,12 +253,4 @@ function __buildFizz_R_Shark(api: ContentApi) {
     }
   }
   return Fizz_R_Shark;
-}
-const __cacheFizz_R_Shark = new WeakMap<ContentApi, ReturnType<typeof __buildFizz_R_Shark>>();
-export function makeFizz_R_Shark(api: ContentApi) {
-  const cached = __cacheFizz_R_Shark.get(api);
-  if (cached) return cached;
-  const built = __buildFizz_R_Shark(api);
-  __cacheFizz_R_Shark.set(api, built);
-  return built;
-}
+});

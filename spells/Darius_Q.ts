@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CancelReason, CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 // Relative, not `@/`: `DariusAxe` moved into `packs/riot/vfx/` (Task 2 of the
 // content-pack extraction) — see `Lux_R.ts`'s identical note on `LuxBeamEffect`.
 import { drawAxeArc, drawDariusAxe } from '../vfx/DariusAxe';
@@ -88,7 +89,7 @@ export function hemorrhageStacks(unit: AttackableUnit): number {
 
 
 /** Cuts `victim`: one more stack, and the clock back to full. */
-function __buildapplyHemorrhage(api: ContentApi) {
+export const makeApplyHemorrhage = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const DamageOverTime = api.buffs.DamageOverTime;
   function applyHemorrhage(source: AttackableUnit, victim: AttackableUnit): void {
@@ -115,15 +116,7 @@ function __buildapplyHemorrhage(api: ContentApi) {
     victim.addBuff(bleed);
   }
   return applyHemorrhage;
-}
-const __cacheapplyHemorrhage = new WeakMap<ContentApi, ReturnType<typeof __buildapplyHemorrhage>>();
-export function makeApplyHemorrhage(api: ContentApi) {
-  const cached = __cacheapplyHemorrhage.get(api);
-  if (cached) return cached;
-  const built = __buildapplyHemorrhage(api);
-  __cacheapplyHemorrhage.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -134,7 +127,7 @@ export function makeApplyHemorrhage(api: ContentApi) {
  * so the interesting decision is his: start the swing early and chase, or hold
  * position and land it. Crowd control still takes it off him.
  */
-function __buildDarius_Q(api: ContentApi) {
+export const makeDarius_Q = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellForm = api.enums.SpellForm;
@@ -240,15 +233,8 @@ function __buildDarius_Q(api: ContentApi) {
     }
   }
   return Darius_Q;
-}
-const __cacheDarius_Q = new WeakMap<ContentApi, ReturnType<typeof __buildDarius_Q>>();
-export default function makeDarius_Q(api: ContentApi) {
-  const cached = __cacheDarius_Q.get(api);
-  if (cached) return cached;
-  const built = __buildDarius_Q(api);
-  __cacheDarius_Q.set(api, built);
-  return built;
-}
+});
+export default makeDarius_Q;
 
 
 /** One cut, recorded at the swing so the sweep can show where it landed. */
@@ -268,7 +254,7 @@ const CHIP_COUNT = 14;
 const SWEEP_MS = 320;
 
 
-function __buildDarius_Q_Object(api: ContentApi) {
+export const makeDarius_Q_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Darius_Q_Object extends SpellObject {
     /** Which half of the ability is on screen: the heft, then the swing. */
@@ -489,12 +475,4 @@ function __buildDarius_Q_Object(api: ContentApi) {
     }
   }
   return Darius_Q_Object;
-}
-const __cacheDarius_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildDarius_Q_Object>>();
-export function makeDarius_Q_Object(api: ContentApi) {
-  const cached = __cacheDarius_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildDarius_Q_Object(api);
-  __cacheDarius_Q_Object.set(api, built);
-  return built;
-}
+});

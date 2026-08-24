@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
@@ -22,7 +23,7 @@ export const DROP_INTERVAL = 220;
 export const POISON_PER_TICK = 3;
 
 
-function __buildSinged_Q(api: ContentApi) {
+export const makeSinged_Q = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Singed_Q_Trail = makeSinged_Q_Trail(api);
   class Singed_Q extends Spell {
@@ -40,19 +41,12 @@ function __buildSinged_Q(api: ContentApi) {
     }
   }
   return Singed_Q;
-}
-const __cacheSinged_Q = new WeakMap<ContentApi, ReturnType<typeof __buildSinged_Q>>();
-export default function makeSinged_Q(api: ContentApi) {
-  const cached = __cacheSinged_Q.get(api);
-  if (cached) return cached;
-  const built = __buildSinged_Q(api);
-  __cacheSinged_Q.set(api, built);
-  return built;
-}
+});
+export default makeSinged_Q;
 
 
 /** The emitter, not the gas: it walks with Singed and drops clouds behind him. */
-function __buildSinged_Q_Trail(api: ContentApi) {
+export const makeSinged_Q_Trail = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const Singed_Q_Cloud = makeSinged_Q_Cloud(api);
@@ -84,18 +78,10 @@ function __buildSinged_Q_Trail(api: ContentApi) {
     }
   }
   return Singed_Q_Trail;
-}
-const __cacheSinged_Q_Trail = new WeakMap<ContentApi, ReturnType<typeof __buildSinged_Q_Trail>>();
-export function makeSinged_Q_Trail(api: ContentApi) {
-  const cached = __cacheSinged_Q_Trail.get(api);
-  if (cached) return cached;
-  const built = __buildSinged_Q_Trail(api);
-  __cacheSinged_Q_Trail.set(api, built);
-  return built;
-}
+});
 
 
-function __buildSinged_Q_Cloud(api: ContentApi) {
+export const makeSinged_Q_Cloud = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
@@ -154,12 +140,4 @@ function __buildSinged_Q_Cloud(api: ContentApi) {
     }
   }
   return Singed_Q_Cloud;
-}
-const __cacheSinged_Q_Cloud = new WeakMap<ContentApi, ReturnType<typeof __buildSinged_Q_Cloud>>();
-export function makeSinged_Q_Cloud(api: ContentApi) {
-  const cached = __cacheSinged_Q_Cloud.get(api);
-  if (cached) return cached;
-  const built = __buildSinged_Q_Cloud(api);
-  __cacheSinged_Q_Cloud.set(api, built);
-  return built;
-}
+});

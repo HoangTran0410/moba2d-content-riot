@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -23,7 +24,7 @@ export const HEALTH_COST = 8;
  * Reckless Swing: the biggest single hit in the game for its cooldown, and it
  * costs Olaf health rather than mana — the reason to keep W up.
  */
-function __buildOlaf_E(api: ContentApi) {
+export const makeOlaf_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -94,15 +95,8 @@ function __buildOlaf_E(api: ContentApi) {
     }
   }
   return Olaf_E;
-}
-const __cacheOlaf_E = new WeakMap<ContentApi, ReturnType<typeof __buildOlaf_E>>();
-export default function makeOlaf_E(api: ContentApi) {
-  const cached = __cacheOlaf_E.get(api);
-  if (cached) return cached;
-  const built = __buildOlaf_E(api);
-  __cacheOlaf_E.set(api, built);
-  return built;
-}
+});
+export default makeOlaf_E;
 
 
 /** He hauls the axe back for this long before it comes down. */
@@ -128,7 +122,7 @@ export const RECOVER_MS = 240;
  * Olaf's own blood coming off him, which is the half of the trade that the old
  * version never showed at all.
  */
-function __buildOlaf_E_Swing(api: ContentApi) {
+export const makeOlaf_E_Swing = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
@@ -284,12 +278,4 @@ function __buildOlaf_E_Swing(api: ContentApi) {
     }
   }
   return Olaf_E_Swing;
-}
-const __cacheOlaf_E_Swing = new WeakMap<ContentApi, ReturnType<typeof __buildOlaf_E_Swing>>();
-export function makeOlaf_E_Swing(api: ContentApi) {
-  const cached = __cacheOlaf_E_Swing.get(api);
-  if (cached) return cached;
-  const built = __buildOlaf_E_Swing(api);
-  __cacheOlaf_E_Swing.set(api, built);
-  return built;
-}
+});

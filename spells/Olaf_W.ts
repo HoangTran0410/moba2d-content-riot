@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Spell = InstanceType<ContentApi['Spell']>;
 type SpellObject = InstanceType<ContentApi['SpellObject']>;
@@ -95,7 +96,7 @@ export const RUNES: number[][][] = [
  * is the buff, and the vamp works on Olaf's abilities too, which is what
  * "toàn phần" means.
  */
-function __buildOlaf_W(api: ContentApi) {
+export const makeOlaf_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const StatAmp = api.buffs.StatAmp;
   const Olaf_W_Object = makeOlaf_W_Object(api);
@@ -132,15 +133,8 @@ function __buildOlaf_W(api: ContentApi) {
     }
   }
   return Olaf_W;
-}
-const __cacheOlaf_W = new WeakMap<ContentApi, ReturnType<typeof __buildOlaf_W>>();
-export default function makeOlaf_W(api: ContentApi) {
-  const cached = __cacheOlaf_W.get(api);
-  if (cached) return cached;
-  const built = __buildOlaf_W(api);
-  __cacheOlaf_W.set(api, built);
-  return built;
-}
+});
+export default makeOlaf_W;
 
 
 interface Drop {
@@ -157,7 +151,7 @@ interface Drop {
  * spin on their own heads, which is what stops a pair of orbiting sprites from
  * reading as a decorative ring: real thrown steel tumbles.
  */
-function __buildOlaf_W_Object(api: ContentApi) {
+export const makeOlaf_W_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   class Olaf_W_Object extends SpellObject {
@@ -429,12 +423,4 @@ function __buildOlaf_W_Object(api: ContentApi) {
     }
   }
   return Olaf_W_Object;
-}
-const __cacheOlaf_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildOlaf_W_Object>>();
-export function makeOlaf_W_Object(api: ContentApi) {
-  const cached = __cacheOlaf_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildOlaf_W_Object(api);
-  __cacheOlaf_W_Object.set(api, built);
-  return built;
-}
+});

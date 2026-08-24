@@ -2,6 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { makeKatarina_Dagger } from './Katarina_Q';
 import { KATARINA_BLOOD, KATARINA_STEEL } from './Katarina_Q';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
@@ -20,7 +21,7 @@ export const KATARINA_W_SPEEDUP_MS = 1_250;
 export const KATARINA_W_DROP_DELAY_MS = 800;
 
 
-function __buildKatarina_W(api: ContentApi) {
+export const makeKatarina_W = packClass((api: ContentApi) => {
   const Speedup = api.buffs.Speedup;
   const Spell = api.Spell;
   const Katarina_Dagger = makeKatarina_Dagger(api);
@@ -62,21 +63,14 @@ function __buildKatarina_W(api: ContentApi) {
     }
   }
   return Katarina_W;
-}
-const __cacheKatarina_W = new WeakMap<ContentApi, ReturnType<typeof __buildKatarina_W>>();
-export default function makeKatarina_W(api: ContentApi) {
-  const cached = __cacheKatarina_W.get(api);
-  if (cached) return cached;
-  const built = __buildKatarina_W(api);
-  __cacheKatarina_W.set(api, built);
-  return built;
-}
+});
+export default makeKatarina_W;
 
 
 /**
  * Visual swirl when Katarina throws a dagger into the air.
  */
-function __buildKatarina_W_Toss(api: ContentApi) {
+export const makeKatarina_W_Toss = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Katarina_W_Toss extends SpellObject {
@@ -127,12 +121,4 @@ function __buildKatarina_W_Toss(api: ContentApi) {
     }
   }
   return Katarina_W_Toss;
-}
-const __cacheKatarina_W_Toss = new WeakMap<ContentApi, ReturnType<typeof __buildKatarina_W_Toss>>();
-export function makeKatarina_W_Toss(api: ContentApi) {
-  const cached = __cacheKatarina_W_Toss.get(api);
-  if (cached) return cached;
-  const built = __buildKatarina_W_Toss(api);
-  __cacheKatarina_W_Toss.set(api, built);
-  return built;
-}
+});

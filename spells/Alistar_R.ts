@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Shield = InstanceType<ContentApi['buffs']['Shield']>;
 type Spell = InstanceType<ContentApi['Spell']>;
@@ -59,7 +60,7 @@ function cubic(p0: number, p1: number, p2: number, p3: number, u: number): numbe
 }
 
 
-function __buildAlistar_R(api: ContentApi) {
+export const makeAlistar_R = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Shield = api.buffs.Shield;
   const StatAmp = api.buffs.StatAmp;
@@ -99,15 +100,8 @@ function __buildAlistar_R(api: ContentApi) {
     }
   }
   return Alistar_R;
-}
-const __cacheAlistar_R = new WeakMap<ContentApi, ReturnType<typeof __buildAlistar_R>>();
-export default function makeAlistar_R(api: ContentApi) {
-  const cached = __cacheAlistar_R.get(api);
-  if (cached) return cached;
-  const built = __buildAlistar_R(api);
-  __cacheAlistar_R.set(api, built);
-  return built;
-}
+});
+export default makeAlistar_R;
 
 
 interface Crack {
@@ -132,7 +126,7 @@ interface Chip {
  * Everything here is earth and bone — brown, tan, bull — so it never reads as
  * anyone else's buff at a glance across the map.
  */
-function __buildAlistar_R_Object(api: ContentApi) {
+export const makeAlistar_R_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   class Alistar_R_Object extends SpellObject {
@@ -328,12 +322,4 @@ function __buildAlistar_R_Object(api: ContentApi) {
     }
   }
   return Alistar_R_Object;
-}
-const __cacheAlistar_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildAlistar_R_Object>>();
-export function makeAlistar_R_Object(api: ContentApi) {
-  const cached = __cacheAlistar_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildAlistar_R_Object(api);
-  __cacheAlistar_R_Object.set(api, built);
-  return built;
-}
+});

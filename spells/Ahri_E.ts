@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Charm = InstanceType<ContentApi['buffs']['Charm']>;
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
@@ -37,7 +38,7 @@ function drawHeart(s: number) {
 }
 
 
-function __buildAhri_E(api: ContentApi) {
+export const makeAhri_E = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Ahri_E_Object = makeAhri_E_Object(api);
@@ -65,18 +66,11 @@ function __buildAhri_E(api: ContentApi) {
     }
   }
   return Ahri_E;
-}
-const __cacheAhri_E = new WeakMap<ContentApi, ReturnType<typeof __buildAhri_E>>();
-export default function makeAhri_E(api: ContentApi) {
-  const cached = __cacheAhri_E.get(api);
-  if (cached) return cached;
-  const built = __buildAhri_E(api);
-  __cacheAhri_E.set(api, built);
-  return built;
-}
+});
+export default makeAhri_E;
 
 
-function __buildAhri_E_Object(api: ContentApi) {
+export const makeAhri_E_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const Charm = api.buffs.Charm;
   const TrailSystem = api.helpers.TrailSystem;
@@ -175,19 +169,11 @@ function __buildAhri_E_Object(api: ContentApi) {
     }
   }
   return Ahri_E_Object;
-}
-const __cacheAhri_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildAhri_E_Object>>();
-export function makeAhri_E_Object(api: ContentApi) {
-  const cached = __cacheAhri_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildAhri_E_Object(api);
-  __cacheAhri_E_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** The charm taking hold: a ring on the victim and hearts rising off them. */
-function __buildAhri_E_Charm(api: ContentApi) {
+export const makeAhri_E_Charm = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Ahri_E_Charm extends SpellObject {
@@ -268,12 +254,4 @@ function __buildAhri_E_Charm(api: ContentApi) {
     }
   }
   return Ahri_E_Charm;
-}
-const __cacheAhri_E_Charm = new WeakMap<ContentApi, ReturnType<typeof __buildAhri_E_Charm>>();
-export function makeAhri_E_Charm(api: ContentApi) {
-  const cached = __cacheAhri_E_Charm.get(api);
-  if (cached) return cached;
-  const built = __buildAhri_E_Charm(api);
-  __cacheAhri_E_Charm.set(api, built);
-  return built;
-}
+});

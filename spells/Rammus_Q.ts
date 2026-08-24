@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -21,7 +22,7 @@ type Rammus_Q_Powerball = InstanceType<ReturnType<typeof makeRammus_Q_Powerball>
  * second he keeps rolling, up to a large cap, and stops the moment he hits
  * something — knocking the enemies he crashes into up, then slowing them.
  */
-function __buildRammus_Q(api: ContentApi) {
+export const makeRammus_Q = packClass((api: ContentApi) => {
   const SpellForm = api.enums.SpellForm;
   const Spell = api.Spell;
   const Phasing = api.buffs.Phasing;
@@ -126,15 +127,8 @@ function __buildRammus_Q(api: ContentApi) {
     }
   }
   return Rammus_Q;
-}
-const __cacheRammus_Q = new WeakMap<ContentApi, ReturnType<typeof __buildRammus_Q>>();
-export default function makeRammus_Q(api: ContentApi) {
-  const cached = __cacheRammus_Q.get(api);
-  if (cached) return cached;
-  const built = __buildRammus_Q(api);
-  __cacheRammus_Q.set(api, built);
-  return built;
-}
+});
+export default makeRammus_Q;
 
 
 /**
@@ -142,7 +136,7 @@ export default function makeRammus_Q(api: ContentApi) {
  * numbers in, not by holding a reference, so ramping means re-seating the
  * modifier each time the bonus changes.
  */
-function __buildRammus_Q_Powerball(api: ContentApi) {
+export const makeRammus_Q_Powerball = packClass((api: ContentApi) => {
   const StatusFlags = api.enums.StatusFlags;
   const Speedup = api.buffs.Speedup;
   class Rammus_Q_Powerball extends Speedup {
@@ -182,15 +176,7 @@ function __buildRammus_Q_Powerball(api: ContentApi) {
     }
   }
   return Rammus_Q_Powerball;
-}
-const __cacheRammus_Q_Powerball = new WeakMap<ContentApi, ReturnType<typeof __buildRammus_Q_Powerball>>();
-export function makeRammus_Q_Powerball(api: ContentApi) {
-  const cached = __cacheRammus_Q_Powerball.get(api);
-  if (cached) return cached;
-  const built = __buildRammus_Q_Powerball(api);
-  __cacheRammus_Q_Powerball.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -210,7 +196,7 @@ export const BALL_SIZE_RATIO = 1.1;
 export const FALLBACK_BODY_SIZE = 55;
 
 
-function __buildRammus_Q_Object(api: ContentApi) {
+export const makeRammus_Q_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
@@ -438,19 +424,11 @@ function __buildRammus_Q_Object(api: ContentApi) {
     }
   }
   return Rammus_Q_Object;
-}
-const __cacheRammus_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildRammus_Q_Object>>();
-export function makeRammus_Q_Object(api: ContentApi) {
-  const cached = __cacheRammus_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildRammus_Q_Object(api);
-  __cacheRammus_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** The pile-up when Powerball connects. */
-function __buildRammus_Q_Crash(api: ContentApi) {
+export const makeRammus_Q_Crash = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Rammus_Q_Crash extends SpellObject {
     /** How far the roll had ramped up — a faster crash throws more debris. */
@@ -521,12 +499,4 @@ function __buildRammus_Q_Crash(api: ContentApi) {
     }
   }
   return Rammus_Q_Crash;
-}
-const __cacheRammus_Q_Crash = new WeakMap<ContentApi, ReturnType<typeof __buildRammus_Q_Crash>>();
-export function makeRammus_Q_Crash(api: ContentApi) {
-  const cached = __cacheRammus_Q_Crash.get(api);
-  if (cached) return cached;
-  const built = __buildRammus_Q_Crash(api);
-  __cacheRammus_Q_Crash.set(api, built);
-  return built;
-}
+});

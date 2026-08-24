@@ -2,6 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { makeGroundedSpheres, makeSyndra_Burst, makeSyndra_Sphere } from './Syndra_Q';
 import { SPHERE_GRAB_RADIUS } from './Syndra_Q';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -35,7 +36,7 @@ export const SYNDRA_W_SLOW_MS = 1_500;
 export const SYNDRA_W_HOLD_MS = 4_000;
 
 
-function __buildSyndra_W(api: ContentApi) {
+export const makeSyndra_W = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const VectorUtils = api.utils.VectorUtils;
   const effectiveRange = api.combat.Reach.effectiveRange;
@@ -157,12 +158,5 @@ function __buildSyndra_W(api: ContentApi) {
     }
   }
   return Syndra_W;
-}
-const __cacheSyndra_W = new WeakMap<ContentApi, ReturnType<typeof __buildSyndra_W>>();
-export default function makeSyndra_W(api: ContentApi) {
-  const cached = __cacheSyndra_W.get(api);
-  if (cached) return cached;
-  const built = __buildSyndra_W(api);
-  __cacheSyndra_W.set(api, built);
-  return built;
-}
+});
+export default makeSyndra_W;

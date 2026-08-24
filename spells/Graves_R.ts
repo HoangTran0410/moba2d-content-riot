@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
@@ -37,7 +38,7 @@ export const CASING_COUNT = 2;
  * Collateral Damage: one barrel, everything in the line. Damage falls off per
  * body so the shot rewards catching the front of a group rather than the back.
  */
-function __buildGraves_R(api: ContentApi) {
+export const makeGraves_R = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Graves_R_Object = makeGraves_R_Object(api);
@@ -75,18 +76,11 @@ function __buildGraves_R(api: ContentApi) {
     }
   }
   return Graves_R;
-}
-const __cacheGraves_R = new WeakMap<ContentApi, ReturnType<typeof __buildGraves_R>>();
-export default function makeGraves_R(api: ContentApi) {
-  const cached = __cacheGraves_R.get(api);
-  if (cached) return cached;
-  const built = __buildGraves_R(api);
-  __cacheGraves_R.set(api, built);
-  return built;
-}
+});
+export default makeGraves_R;
 
 
-function __buildGraves_R_Object(api: ContentApi) {
+export const makeGraves_R_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const MissileSpellObject = api.MissileSpellObject;
   const Slow = api.buffs.Slow;
@@ -193,15 +187,7 @@ function __buildGraves_R_Object(api: ContentApi) {
     }
   }
   return Graves_R_Object;
-}
-const __cacheGraves_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildGraves_R_Object>>();
-export function makeGraves_R_Object(api: ContentApi) {
-  const cached = __cacheGraves_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildGraves_R_Object(api);
-  __cacheGraves_R_Object.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -209,7 +195,7 @@ export function makeGraves_R_Object(api: ContentApi) {
  * Fixed in world space rather than following Graves, because a muzzle flash
  * belongs to the moment of firing and not to the man walking away from it.
  */
-function __buildGraves_R_Muzzle(api: ContentApi) {
+export const makeGraves_R_Muzzle = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Graves_R_Muzzle extends SpellObject {
     angle = 0;
@@ -295,19 +281,11 @@ function __buildGraves_R_Muzzle(api: ContentApi) {
     }
   }
   return Graves_R_Muzzle;
-}
-const __cacheGraves_R_Muzzle = new WeakMap<ContentApi, ReturnType<typeof __buildGraves_R_Muzzle>>();
-export function makeGraves_R_Muzzle(api: ContentApi) {
-  const cached = __cacheGraves_R_Muzzle.get(api);
-  if (cached) return cached;
-  const built = __buildGraves_R_Muzzle(api);
-  __cacheGraves_R_Muzzle.set(api, built);
-  return built;
-}
+});
 
 
 /** Where the slug went through someone: a flash, a spall ring and splinters. */
-function __buildGraves_R_Impact(api: ContentApi) {
+export const makeGraves_R_Impact = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Graves_R_Impact extends SpellObject {
     angle = 0;
@@ -388,12 +366,4 @@ function __buildGraves_R_Impact(api: ContentApi) {
     }
   }
   return Graves_R_Impact;
-}
-const __cacheGraves_R_Impact = new WeakMap<ContentApi, ReturnType<typeof __buildGraves_R_Impact>>();
-export function makeGraves_R_Impact(api: ContentApi) {
-  const cached = __cacheGraves_R_Impact.get(api);
-  if (cached) return cached;
-  const built = __buildGraves_R_Impact(api);
-  __cacheGraves_R_Impact.set(api, built);
-  return built;
-}
+});

@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BasicAttackHit } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
 type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
@@ -50,7 +51,7 @@ export const HARD_STOP_MS = DURATION + 1200;
 
 
 /** Blighted Quiver: every arrow leaves rot behind it. */
-function __buildVarus_W(api: ContentApi) {
+export const makeVarus_W = packClass((api: ContentApi) => {
   const EventType = api.enums.EventType;
   const Spell = api.Spell;
   const DamageOverTime = api.buffs.DamageOverTime;
@@ -123,15 +124,8 @@ function __buildVarus_W(api: ContentApi) {
     }
   }
   return Varus_W;
-}
-const __cacheVarus_W = new WeakMap<ContentApi, ReturnType<typeof __buildVarus_W>>();
-export default function makeVarus_W(api: ContentApi) {
-  const cached = __cacheVarus_W.get(api);
-  if (cached) return cached;
-  const built = __buildVarus_W(api);
-  __cacheVarus_W.set(api, built);
-  return built;
-}
+});
+export default makeVarus_W;
 
 
 interface Tendril {
@@ -159,7 +153,7 @@ interface Drip {
  * target — these are short, radial and never leave his feet, which is what
  * keeps the two apart at a glance.
  */
-function __buildVarus_W_Object(api: ContentApi) {
+export const makeVarus_W_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   class Varus_W_Object extends SpellObject {
@@ -390,12 +384,4 @@ function __buildVarus_W_Object(api: ContentApi) {
     }
   }
   return Varus_W_Object;
-}
-const __cacheVarus_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildVarus_W_Object>>();
-export function makeVarus_W_Object(api: ContentApi) {
-  const cached = __cacheVarus_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildVarus_W_Object(api);
-  __cacheVarus_W_Object.set(api, built);
-  return built;
-}
+});

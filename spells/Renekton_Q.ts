@@ -1,6 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { isEnraged } from './Renekton_R';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Champion = InstanceType<ContentApi['units']['Champion']>;
@@ -44,7 +45,7 @@ export const ENRAGED_HEAL_CAP = 34;
  * per-hit number, and both are stated on the spell rather than buried in the
  * sweep object.
  */
-function __buildRenekton_Q(api: ContentApi) {
+export const makeRenekton_Q = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
@@ -113,15 +114,8 @@ function __buildRenekton_Q(api: ContentApi) {
     }
   }
   return Renekton_Q;
-}
-const __cacheRenekton_Q = new WeakMap<ContentApi, ReturnType<typeof __buildRenekton_Q>>();
-export default function makeRenekton_Q(api: ContentApi) {
-  const cached = __cacheRenekton_Q.get(api);
-  if (cached) return cached;
-  const built = __buildRenekton_Q(api);
-  __cacheRenekton_Q.set(api, built);
-  return built;
-}
+});
+export default makeRenekton_Q;
 
 
 export const SWEEP_LIFETIME_MS = 340;
@@ -137,7 +131,7 @@ const DEBRIS_COUNT = 12;
  * and from Darius's axe (a band between two radii): this is a single thick
  * crescent, widest at the leading edge, that scrapes the floor and throws it up.
  */
-function __buildRenekton_Q_Object(api: ContentApi) {
+export const makeRenekton_Q_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Renekton_Q_Object extends SpellObject {
@@ -262,12 +256,4 @@ function __buildRenekton_Q_Object(api: ContentApi) {
     }
   }
   return Renekton_Q_Object;
-}
-const __cacheRenekton_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildRenekton_Q_Object>>();
-export function makeRenekton_Q_Object(api: ContentApi) {
-  const cached = __cacheRenekton_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildRenekton_Q_Object(api);
-  __cacheRenekton_Q_Object.set(api, built);
-  return built;
-}
+});

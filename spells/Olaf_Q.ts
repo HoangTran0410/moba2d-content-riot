@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
 type ParticleSystem = InstanceType<ContentApi['helpers']['ParticleSystem']>;
@@ -12,7 +13,7 @@ type Olaf_Q_Object = InstanceType<ReturnType<typeof makeOlaf_Q_Object>>;
 
 
 
-function __buildOlaf_Q(api: ContentApi) {
+export const makeOlaf_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Olaf_Q_Object = makeOlaf_Q_Object(api);
@@ -51,18 +52,11 @@ function __buildOlaf_Q(api: ContentApi) {
     }
   }
   return Olaf_Q;
-}
-const __cacheOlaf_Q = new WeakMap<ContentApi, ReturnType<typeof __buildOlaf_Q>>();
-export default function makeOlaf_Q(api: ContentApi) {
-  const cached = __cacheOlaf_Q.get(api);
-  if (cached) return cached;
-  const built = __buildOlaf_Q(api);
-  __cacheOlaf_Q.set(api, built);
-  return built;
-}
+});
+export default makeOlaf_Q;
 
 
-function __buildOlaf_Q_Object(api: ContentApi) {
+export const makeOlaf_Q_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const ParticleSystem = api.helpers.ParticleSystem;
   const TrailSystem = api.helpers.TrailSystem;
@@ -233,12 +227,4 @@ function __buildOlaf_Q_Object(api: ContentApi) {
     }
   }
   return Olaf_Q_Object;
-}
-const __cacheOlaf_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildOlaf_Q_Object>>();
-export function makeOlaf_Q_Object(api: ContentApi) {
-  const cached = __cacheOlaf_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildOlaf_Q_Object(api);
-  __cacheOlaf_Q_Object.set(api, built);
-  return built;
-}
+});

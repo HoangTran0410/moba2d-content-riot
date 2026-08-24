@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
 type RootBuff = InstanceType<ContentApi['buffs']['Root']>;
@@ -21,7 +22,7 @@ export const PRISM_SPAWN_MS = 110;
 export const BIND_MS = 460;
 
 
-function __buildLux_Q(api: ContentApi) {
+export const makeLux_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Lux_Q_Object = makeLux_Q_Object(api);
@@ -53,18 +54,11 @@ function __buildLux_Q(api: ContentApi) {
     }
   }
   return Lux_Q;
-}
-const __cacheLux_Q = new WeakMap<ContentApi, ReturnType<typeof __buildLux_Q>>();
-export default function makeLux_Q(api: ContentApi) {
-  const cached = __cacheLux_Q.get(api);
-  if (cached) return cached;
-  const built = __buildLux_Q(api);
-  __cacheLux_Q.set(api, built);
-  return built;
-}
+});
+export default makeLux_Q;
 
 
-function __buildLux_Q_Object(api: ContentApi) {
+export const makeLux_Q_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const RootBuff = api.buffs.Root;
   const TrailSystem = api.helpers.TrailSystem;
@@ -177,15 +171,7 @@ function __buildLux_Q_Object(api: ContentApi) {
     }
   }
   return Lux_Q_Object;
-}
-const __cacheLux_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildLux_Q_Object>>();
-export function makeLux_Q_Object(api: ContentApi) {
-  const cached = __cacheLux_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildLux_Q_Object(api);
-  __cacheLux_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -193,7 +179,7 @@ export function makeLux_Q_Object(api: ContentApi) {
  * the victim's feet. The bands close *inward* on purpose — a binding, not a
  * blast, and the only cue distinguishing this from an ordinary damage hit.
  */
-function __buildLux_Q_Bind(api: ContentApi) {
+export const makeLux_Q_Bind = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Lux_Q_Bind extends SpellObject {
     targetSize = 40;
@@ -261,12 +247,4 @@ function __buildLux_Q_Bind(api: ContentApi) {
     }
   }
   return Lux_Q_Bind;
-}
-const __cacheLux_Q_Bind = new WeakMap<ContentApi, ReturnType<typeof __buildLux_Q_Bind>>();
-export function makeLux_Q_Bind(api: ContentApi) {
-  const cached = __cacheLux_Q_Bind.get(api);
-  if (cached) return cached;
-  const built = __buildLux_Q_Bind(api);
-  __cacheLux_Q_Bind.set(api, built);
-  return built;
-}
+});

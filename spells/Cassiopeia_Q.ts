@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
@@ -24,7 +25,7 @@ export const DELAY_MS = 400;
 
 
 /** Noxious Blast: a small, fast circle that poisons — and speeds Cassiopeia up when it lands. */
-function __buildCassiopeia_Q(api: ContentApi) {
+export const makeCassiopeia_Q = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Cassiopeia_Q_Object = makeCassiopeia_Q_Object(api);
   class Cassiopeia_Q extends Spell {
@@ -59,18 +60,11 @@ function __buildCassiopeia_Q(api: ContentApi) {
     }
   }
   return Cassiopeia_Q;
-}
-const __cacheCassiopeia_Q = new WeakMap<ContentApi, ReturnType<typeof __buildCassiopeia_Q>>();
-export default function makeCassiopeia_Q(api: ContentApi) {
-  const cached = __cacheCassiopeia_Q.get(api);
-  if (cached) return cached;
-  const built = __buildCassiopeia_Q(api);
-  __cacheCassiopeia_Q.set(api, built);
-  return built;
-}
+});
+export default makeCassiopeia_Q;
 
 
-function __buildCassiopeia_Q_Object(api: ContentApi) {
+export const makeCassiopeia_Q_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
@@ -147,12 +141,4 @@ function __buildCassiopeia_Q_Object(api: ContentApi) {
     }
   }
   return Cassiopeia_Q_Object;
-}
-const __cacheCassiopeia_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildCassiopeia_Q_Object>>();
-export function makeCassiopeia_Q_Object(api: ContentApi) {
-  const cached = __cacheCassiopeia_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildCassiopeia_Q_Object(api);
-  __cacheCassiopeia_Q_Object.set(api, built);
-  return built;
-}
+});

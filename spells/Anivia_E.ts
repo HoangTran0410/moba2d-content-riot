@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Chilled = InstanceType<ContentApi['buffs']['Chilled']>;
@@ -18,20 +19,12 @@ type Anivia_E_Impact = InstanceType<ReturnType<typeof makeAnivia_E_Impact>>;
 type FrostbiteTarget = AttackableUnit;
 
 
-function __buildisFrostbiteTarget(api: ContentApi) {
+export const makeIsFrostbiteTarget = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const isFrostbiteTarget = (target: unknown): target is FrostbiteTarget =>
     target instanceof AttackableUnit && target.targetable && !target.toRemove;
   return isFrostbiteTarget;
-}
-const __cacheisFrostbiteTarget = new WeakMap<ContentApi, ReturnType<typeof __buildisFrostbiteTarget>>();
-export function makeIsFrostbiteTarget(api: ContentApi) {
-  const cached = __cacheisFrostbiteTarget.get(api);
-  if (cached) return cached;
-  const built = __buildisFrostbiteTarget(api);
-  __cacheisFrostbiteTarget.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -62,7 +55,7 @@ export const CHILLED_DAMAGE = 40;
 export const SPAWN_OFFSET_DISTANCE = 60;
 
 
-function __buildAnivia_E(api: ContentApi) {
+export const makeAnivia_E = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
@@ -161,18 +154,11 @@ function __buildAnivia_E(api: ContentApi) {
     }
   }
   return Anivia_E;
-}
-const __cacheAnivia_E = new WeakMap<ContentApi, ReturnType<typeof __buildAnivia_E>>();
-export default function makeAnivia_E(api: ContentApi) {
-  const cached = __cacheAnivia_E.get(api);
-  if (cached) return cached;
-  const built = __buildAnivia_E(api);
-  __cacheAnivia_E.set(api, built);
-  return built;
-}
+});
+export default makeAnivia_E;
 
 
-function __buildAnivia_E_Bolt(api: ContentApi) {
+export const makeAnivia_E_Bolt = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const Chilled = api.buffs.Chilled;
   const TrailSystem = api.helpers.TrailSystem;
@@ -247,19 +233,11 @@ function __buildAnivia_E_Bolt(api: ContentApi) {
     }
   }
   return Anivia_E_Bolt;
-}
-const __cacheAnivia_E_Bolt = new WeakMap<ContentApi, ReturnType<typeof __buildAnivia_E_Bolt>>();
-export function makeAnivia_E_Bolt(api: ContentApi) {
-  const cached = __cacheAnivia_E_Bolt.get(api);
-  if (cached) return cached;
-  const built = __buildAnivia_E_Bolt(api);
-  __cacheAnivia_E_Bolt.set(api, built);
-  return built;
-}
+});
 
 
 /** The strike landing: a small frost burst, brighter and wider on a doubled hit. */
-function __buildAnivia_E_Impact(api: ContentApi) {
+export const makeAnivia_E_Impact = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Anivia_E_Impact extends SpellObject {
@@ -307,12 +285,4 @@ function __buildAnivia_E_Impact(api: ContentApi) {
     }
   }
   return Anivia_E_Impact;
-}
-const __cacheAnivia_E_Impact = new WeakMap<ContentApi, ReturnType<typeof __buildAnivia_E_Impact>>();
-export function makeAnivia_E_Impact(api: ContentApi) {
-  const cached = __cacheAnivia_E_Impact.get(api);
-  if (cached) return cached;
-  const built = __buildAnivia_E_Impact(api);
-  __cacheAnivia_E_Impact.set(api, built);
-  return built;
-}
+});

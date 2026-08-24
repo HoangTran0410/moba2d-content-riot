@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
@@ -46,7 +47,7 @@ const GOLD: [number, number, number] = [241, 196, 15];
 const PETAL_ORBIT = 52;
 
 
-function __buildJhin_R(api: ContentApi) {
+export const makeJhin_R = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const SpellForm = api.enums.SpellForm;
   const Root = api.buffs.Root;
@@ -249,21 +250,14 @@ function __buildJhin_R(api: ContentApi) {
     }
   }
   return Jhin_R;
-}
-const __cacheJhin_R = new WeakMap<ContentApi, ReturnType<typeof __buildJhin_R>>();
-export default function makeJhin_R(api: ContentApi) {
-  const cached = __cacheJhin_R.get(api);
-  if (cached) return cached;
-  const built = __buildJhin_R(api);
-  __cacheJhin_R.set(api, built);
-  return built;
-}
+});
+export default makeJhin_R;
 
 
 /**
  * Fast-flying sniper bullet missile object.
  */
-function __buildJhin_R_Bullet(api: ContentApi) {
+export const makeJhin_R_Bullet = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const TrailSystem = api.helpers.TrailSystem;
   const MissileSpellObject = api.MissileSpellObject;
@@ -357,21 +351,13 @@ function __buildJhin_R_Bullet(api: ContentApi) {
     }
   }
   return Jhin_R_Bullet;
-}
-const __cacheJhin_R_Bullet = new WeakMap<ContentApi, ReturnType<typeof __buildJhin_R_Bullet>>();
-export function makeJhin_R_Bullet(api: ContentApi) {
-  const cached = __cacheJhin_R_Bullet.get(api);
-  if (cached) return cached;
-  const built = __buildJhin_R_Bullet(api);
-  __cacheJhin_R_Bullet.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * The massive fan-shaped stage (Sân Khấu Tử Thần) drawn on the ground.
  */
-function __buildJhin_R_Stage(api: ContentApi) {
+export const makeJhin_R_Stage = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Jhin_R_Stage extends SpellObject {
@@ -455,21 +441,13 @@ function __buildJhin_R_Stage(api: ContentApi) {
     }
   }
   return Jhin_R_Stage;
-}
-const __cacheJhin_R_Stage = new WeakMap<ContentApi, ReturnType<typeof __buildJhin_R_Stage>>();
-export function makeJhin_R_Stage(api: ContentApi) {
-  const cached = __cacheJhin_R_Stage.get(api);
-  if (cached) return cached;
-  const built = __buildJhin_R_Stage(api);
-  __cacheJhin_R_Stage.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * The 4 ammo petals revolving around Jhin.
  */
-function __buildJhin_R_Petals(api: ContentApi) {
+export const makeJhin_R_Petals = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Jhin_R_Petals extends SpellObject {
@@ -534,19 +512,11 @@ function __buildJhin_R_Petals(api: ContentApi) {
     }
   }
   return Jhin_R_Petals;
-}
-const __cacheJhin_R_Petals = new WeakMap<ContentApi, ReturnType<typeof __buildJhin_R_Petals>>();
-export function makeJhin_R_Petals(api: ContentApi) {
-  const cached = __cacheJhin_R_Petals.get(api);
-  if (cached) return cached;
-  const built = __buildJhin_R_Petals(api);
-  __cacheJhin_R_Petals.set(api, built);
-  return built;
-}
+});
 
 
 /** The landing explosion on the victim. The finale gets a huge golden/magenta lotus. */
-function __buildJhin_R_Bloom(api: ContentApi) {
+export const makeJhin_R_Bloom = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Jhin_R_Bloom extends SpellObject {
@@ -622,12 +592,4 @@ function __buildJhin_R_Bloom(api: ContentApi) {
     }
   }
   return Jhin_R_Bloom;
-}
-const __cacheJhin_R_Bloom = new WeakMap<ContentApi, ReturnType<typeof __buildJhin_R_Bloom>>();
-export function makeJhin_R_Bloom(api: ContentApi) {
-  const cached = __cacheJhin_R_Bloom.get(api);
-  if (cached) return cached;
-  const built = __buildJhin_R_Bloom(api);
-  __cacheJhin_R_Bloom.set(api, built);
-  return built;
-}
+});

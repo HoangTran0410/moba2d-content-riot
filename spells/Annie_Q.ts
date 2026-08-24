@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastSpec, ExecuteSpell, TargetingRequest } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -50,7 +51,7 @@ const isAnnieTarget = (target: unknown): target is AttackableUnit =>
  * kills the target, the cooldown is reduced by 50% and the mana cost is
  * refunded"* — the reason Annie farms with it.
  */
-function __buildAnnie_Q(api: ContentApi) {
+export const makeAnnie_Q = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const withinRange = api.combat.Reach.withinRange;
@@ -187,18 +188,11 @@ function __buildAnnie_Q(api: ContentApi) {
     }
   }
   return Annie_Q;
-}
-const __cacheAnnie_Q = new WeakMap<ContentApi, ReturnType<typeof __buildAnnie_Q>>();
-export default function makeAnnie_Q(api: ContentApi) {
-  const cached = __cacheAnnie_Q.get(api);
-  if (cached) return cached;
-  const built = __buildAnnie_Q(api);
-  __cacheAnnie_Q.set(api, built);
-  return built;
-}
+});
+export default makeAnnie_Q;
 
 
-function __buildAnnie_Q_Object(api: ContentApi) {
+export const makeAnnie_Q_Object = packClass((api: ContentApi) => {
   const HomingMissileSpellObject = api.HomingMissileSpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   const AttackableUnit = api.units.AttackableUnit;
@@ -304,19 +298,11 @@ function __buildAnnie_Q_Object(api: ContentApi) {
     }
   }
   return Annie_Q_Object;
-}
-const __cacheAnnie_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildAnnie_Q_Object>>();
-export function makeAnnie_Q_Object(api: ContentApi) {
-  const cached = __cacheAnnie_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildAnnie_Q_Object(api);
-  __cacheAnnie_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** The detonation: a hard flash, a scorch ring, and flame shrapnel. */
-function __buildAnnie_Q_Burst(api: ContentApi) {
+export const makeAnnie_Q_Burst = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Annie_Q_Burst extends SpellObject {
     targetSize = 40;
@@ -401,12 +387,4 @@ function __buildAnnie_Q_Burst(api: ContentApi) {
     }
   }
   return Annie_Q_Burst;
-}
-const __cacheAnnie_Q_Burst = new WeakMap<ContentApi, ReturnType<typeof __buildAnnie_Q_Burst>>();
-export function makeAnnie_Q_Burst(api: ContentApi) {
-  const cached = __cacheAnnie_Q_Burst.get(api);
-  if (cached) return cached;
-  const built = __buildAnnie_Q_Burst(api);
-  __cacheAnnie_Q_Burst.set(api, built);
-  return built;
-}
+});

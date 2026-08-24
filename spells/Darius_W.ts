@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BasicAttackHit } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 // Relative, not `@/`: `DariusAxe` moved into `packs/riot/vfx/` (Task 2 of the
 // content-pack extraction) — see `Lux_R.ts`'s identical note on `LuxBeamEffect`.
 import { drawDariusAxe } from '../vfx/DariusAxe';
@@ -40,7 +41,7 @@ export const KILL_COOLDOWN_REFUND = 0.5;
  * attack's own validity rules all still apply) rather than being a second,
  * parallel hit the spell deals by hand.
  */
-function __buildDarius_W(api: ContentApi) {
+export const makeDarius_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Darius_W_Buff = makeDarius_W_Buff(api);
   class Darius_W extends Spell {
@@ -65,18 +66,11 @@ function __buildDarius_W(api: ContentApi) {
     }
   }
   return Darius_W;
-}
-const __cacheDarius_W = new WeakMap<ContentApi, ReturnType<typeof __buildDarius_W>>();
-export default function makeDarius_W(api: ContentApi) {
-  const cached = __cacheDarius_W.get(api);
-  if (cached) return cached;
-  const built = __buildDarius_W(api);
-  __cacheDarius_W.set(api, built);
-  return built;
-}
+});
+export default makeDarius_W;
 
 
-function __buildDarius_W_Buff(api: ContentApi) {
+export const makeDarius_W_Buff = packClass((api: ContentApi) => {
   const EventType = api.enums.EventType;
   const Buff = api.buffs.Buff;
   const AttackableUnit = api.units.AttackableUnit;
@@ -146,15 +140,7 @@ function __buildDarius_W_Buff(api: ContentApi) {
     }
   }
   return Darius_W_Buff;
-}
-const __cacheDarius_W_Buff = new WeakMap<ContentApi, ReturnType<typeof __buildDarius_W_Buff>>();
-export function makeDarius_W_Buff(api: ContentApi) {
-  const cached = __cacheDarius_W_Buff.get(api);
-  if (cached) return cached;
-  const built = __buildDarius_W_Buff(api);
-  __cacheDarius_W_Buff.set(api, built);
-  return built;
-}
+});
 
 
 /** How far off his body the blade rides while the swing is armed. */
@@ -171,7 +157,7 @@ const AXE_LENGTH = 52;
  * silhouette. This is one heavy shape on one side of him, so "W is up" reads
  * from the shape of his outline rather than from a colour.
  */
-function __buildDarius_W_Object(api: ContentApi) {
+export const makeDarius_W_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Darius_W_Object extends SpellObject {
@@ -279,12 +265,4 @@ function __buildDarius_W_Object(api: ContentApi) {
     }
   }
   return Darius_W_Object;
-}
-const __cacheDarius_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildDarius_W_Object>>();
-export function makeDarius_W_Object(api: ContentApi) {
-  const cached = __cacheDarius_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildDarius_W_Object(api);
-  __cacheDarius_W_Object.set(api, built);
-  return built;
-}
+});

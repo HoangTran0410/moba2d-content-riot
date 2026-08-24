@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type Spell = InstanceType<ContentApi['Spell']>;
 type Leblanc_R = InstanceType<ReturnType<typeof makeLeblanc_R>>;
@@ -76,7 +77,7 @@ const isInFlight = (state: string): boolean =>
  *  - With nothing cast yet, Mimic defaults to Sigil of Malice aimed at the
  *    current cursor, matching the wiki's documented default.
  */
-function __buildLeblanc_R(api: ContentApi) {
+export const makeLeblanc_R = packClass((api: ContentApi) => {
   const EventType = api.enums.EventType;
   const uuidv4 = api.utils.uuidv4;
   const Spell = api.Spell;
@@ -204,12 +205,5 @@ function __buildLeblanc_R(api: ContentApi) {
     };
   }
   return Leblanc_R;
-}
-const __cacheLeblanc_R = new WeakMap<ContentApi, ReturnType<typeof __buildLeblanc_R>>();
-export default function makeLeblanc_R(api: ContentApi) {
-  const cached = __cacheLeblanc_R.get(api);
-  if (cached) return cached;
-  const built = __buildLeblanc_R(api);
-  __cacheLeblanc_R.set(api, built);
-  return built;
-}
+});
+export default makeLeblanc_R;

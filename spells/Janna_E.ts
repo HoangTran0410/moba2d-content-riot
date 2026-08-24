@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Champion = InstanceType<ContentApi['units']['Champion']>;
@@ -17,20 +18,12 @@ type Janna_E_Shell = InstanceType<ReturnType<typeof makeJanna_E_Shell>>;
 type EyeTarget = AttackableUnit;
 
 
-function __buildisEyeTarget(api: ContentApi) {
+export const makeIsEyeTarget = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const isEyeTarget = (target: unknown): target is EyeTarget =>
     target instanceof AttackableUnit && target.targetable && !target.toRemove;
   return isEyeTarget;
-}
-const __cacheisEyeTarget = new WeakMap<ContentApi, ReturnType<typeof __buildisEyeTarget>>();
-export function makeIsEyeTarget(api: ContentApi) {
-  const cached = __cacheisEyeTarget.get(api);
-  if (cached) return cached;
-  const built = __buildisEyeTarget(api);
-  __cacheisEyeTarget.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -72,7 +65,7 @@ export const BONUS_ATTACK_DAMAGE = 5;
 export const REFUND_RATIO = 0.2;
 
 
-function __buildJanna_E(api: ContentApi) {
+export const makeJanna_E = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
   const Spell = api.Spell;
@@ -197,19 +190,12 @@ function __buildJanna_E(api: ContentApi) {
     }
   }
   return Janna_E;
-}
-const __cacheJanna_E = new WeakMap<ContentApi, ReturnType<typeof __buildJanna_E>>();
-export default function makeJanna_E(api: ContentApi) {
-  const cached = __cacheJanna_E.get(api);
-  if (cached) return cached;
-  const built = __buildJanna_E(api);
-  __cacheJanna_E.set(api, built);
-  return built;
-}
+});
+export default makeJanna_E;
 
 
 /** Feeds Eye of the Storm's passive from any of Janna's other abilities. */
-function __buildnotifyJannaControlLanded(api: ContentApi) {
+export const makeNotifyJannaControlLanded = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const Champion = api.units.Champion;
   const Janna_E = makeJanna_E(api);
@@ -220,19 +206,11 @@ function __buildnotifyJannaControlLanded(api: ContentApi) {
     eye?.notifyCrowdControlLanded();
   };
   return notifyJannaControlLanded;
-}
-const __cachenotifyJannaControlLanded = new WeakMap<ContentApi, ReturnType<typeof __buildnotifyJannaControlLanded>>();
-export function makeNotifyJannaControlLanded(api: ContentApi) {
-  const cached = __cachenotifyJannaControlLanded.get(api);
-  if (cached) return cached;
-  const built = __buildnotifyJannaControlLanded(api);
-  __cachenotifyJannaControlLanded.set(api, built);
-  return built;
-}
+});
 
 
 /** The shield shell: it rides the shielded ally, not the caster. */
-function __buildJanna_E_Shell(api: ContentApi) {
+export const makeJanna_E_Shell = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const AttackableUnit = api.units.AttackableUnit;
@@ -289,12 +267,4 @@ function __buildJanna_E_Shell(api: ContentApi) {
     }
   }
   return Janna_E_Shell;
-}
-const __cacheJanna_E_Shell = new WeakMap<ContentApi, ReturnType<typeof __buildJanna_E_Shell>>();
-export function makeJanna_E_Shell(api: ContentApi) {
-  const cached = __cacheJanna_E_Shell.get(api);
-  if (cached) return cached;
-  const built = __buildJanna_E_Shell(api);
-  __cacheJanna_E_Shell.set(api, built);
-  return built;
-}
+});

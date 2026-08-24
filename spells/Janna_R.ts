@@ -4,6 +4,7 @@ import makeGhost from './Ghost';
 import makeHeal from './Heal';
 import makeIgnite from './Ignite';
 import { makeNotifyJannaControlLanded } from './Janna_E';
+import { packClass } from '../packClass';
 
 type AreaSpellObject = InstanceType<ContentApi['AreaSpellObject']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -46,7 +47,7 @@ export const RADIUS = 420;
 type JannaTarget = AttackableUnit;
 
 
-function __buildJanna_R_Knockback(api: ContentApi) {
+export const makeJanna_R_Knockback = packClass((api: ContentApi) => {
   const StatusFlags = api.enums.StatusFlags;
   const Dash = api.buffs.Dash;
   class Janna_R_Knockback extends Dash {
@@ -64,18 +65,10 @@ function __buildJanna_R_Knockback(api: ContentApi) {
     }
   }
   return Janna_R_Knockback;
-}
-const __cacheJanna_R_Knockback = new WeakMap<ContentApi, ReturnType<typeof __buildJanna_R_Knockback>>();
-export function makeJanna_R_Knockback(api: ContentApi) {
-  const cached = __cacheJanna_R_Knockback.get(api);
-  if (cached) return cached;
-  const built = __buildJanna_R_Knockback(api);
-  __cacheJanna_R_Knockback.set(api, built);
-  return built;
-}
+});
 
 
-function __buildJanna_R(api: ContentApi) {
+export const makeJanna_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const EventType = api.enums.EventType;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -290,15 +283,8 @@ function __buildJanna_R(api: ContentApi) {
     }
   }
   return Janna_R;
-}
-const __cacheJanna_R = new WeakMap<ContentApi, ReturnType<typeof __buildJanna_R>>();
-export default function makeJanna_R(api: ContentApi) {
-  const cached = __cacheJanna_R.get(api);
-  if (cached) return cached;
-  const built = __buildJanna_R(api);
-  __cacheJanna_R.set(api, built);
-  return built;
-}
+});
+export default makeJanna_R;
 
 
 // AreaSpellObject on its own inherits GameObject's no-op draw() — it only
@@ -306,7 +292,7 @@ export default function makeJanna_R(api: ContentApi) {
 // subclasses it to actually paint something; Monsoon previously did not,
 // which is why the ultimate fired, knocked back, and healed with nothing
 // drawn on screen. This subclass is that missing visual.
-function __buildJanna_R_Object(api: ContentApi) {
+export const makeJanna_R_Object = packClass((api: ContentApi) => {
   const AreaSpellObject = api.AreaSpellObject;
   class Janna_R_Object extends AreaSpellObject {
     draw(): void {
@@ -395,12 +381,4 @@ function __buildJanna_R_Object(api: ContentApi) {
     }
   }
   return Janna_R_Object;
-}
-const __cacheJanna_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildJanna_R_Object>>();
-export function makeJanna_R_Object(api: ContentApi) {
-  const cached = __cacheJanna_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildJanna_R_Object(api);
-  __cacheJanna_R_Object.set(api, built);
-  return built;
-}
+});

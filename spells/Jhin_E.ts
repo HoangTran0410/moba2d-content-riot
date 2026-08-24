@@ -2,6 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastSpec } from '@moba2d/core/content/types';
 import { makeApplyJhinMark } from './Jhin_Q';
 import { JHIN_MARK_MS } from './Jhin_Q';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -82,7 +83,7 @@ function releaseTrap(trap: Jhin_E_Trap): void {
 }
 
 
-function __buildJhin_E(api: ContentApi) {
+export const makeJhin_E = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const Spell = api.Spell;
@@ -123,21 +124,14 @@ function __buildJhin_E(api: ContentApi) {
     }
   }
   return Jhin_E;
-}
-const __cacheJhin_E = new WeakMap<ContentApi, ReturnType<typeof __buildJhin_E>>();
-export default function makeJhin_E(api: ContentApi) {
-  const cached = __cacheJhin_E.get(api);
-  if (cached) return cached;
-  const built = __buildJhin_E(api);
-  __cacheJhin_E.set(api, built);
-  return built;
-}
+});
+export default makeJhin_E;
 
 
 /**
  * The thrown lotus trap grenade. Arcs through the air from Jhin to the target location.
  */
-function __buildJhin_E_Grenade(api: ContentApi) {
+export const makeJhin_E_Grenade = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const Jhin_E_Trap = makeJhin_E_Trap(api);
@@ -200,15 +194,7 @@ function __buildJhin_E_Grenade(api: ContentApi) {
     }
   }
   return Jhin_E_Grenade;
-}
-const __cacheJhin_E_Grenade = new WeakMap<ContentApi, ReturnType<typeof __buildJhin_E_Grenade>>();
-export function makeJhin_E_Grenade(api: ContentApi) {
-  const cached = __cacheJhin_E_Grenade.get(api);
-  if (cached) return cached;
-  const built = __buildJhin_E_Grenade(api);
-  __cacheJhin_E_Grenade.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -221,7 +207,7 @@ export function makeJhin_E_Grenade(api: ContentApi) {
  * a unit, so it is never targetable and concealment is purely a question of who may draw it.
  * `Shaco_R_Clone` sets the precedent for owner-only art.
  */
-function __buildJhin_E_Trap(api: ContentApi) {
+export const makeJhin_E_Trap = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const AttackableUnit = api.units.AttackableUnit;
@@ -442,19 +428,11 @@ function __buildJhin_E_Trap(api: ContentApi) {
     }
   }
   return Jhin_E_Trap;
-}
-const __cacheJhin_E_Trap = new WeakMap<ContentApi, ReturnType<typeof __buildJhin_E_Trap>>();
-export function makeJhin_E_Trap(api: ContentApi) {
-  const cached = __cacheJhin_E_Trap.get(api);
-  if (cached) return cached;
-  const built = __buildJhin_E_Trap(api);
-  __cacheJhin_E_Trap.set(api, built);
-  return built;
-}
+});
 
 
 /** The trap going off, on the body that stepped in it. */
-function __buildJhin_E_Bloom(api: ContentApi) {
+export const makeJhin_E_Bloom = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Jhin_E_Bloom extends SpellObject {
@@ -513,12 +491,4 @@ function __buildJhin_E_Bloom(api: ContentApi) {
     }
   }
   return Jhin_E_Bloom;
-}
-const __cacheJhin_E_Bloom = new WeakMap<ContentApi, ReturnType<typeof __buildJhin_E_Bloom>>();
-export function makeJhin_E_Bloom(api: ContentApi) {
-  const cached = __cacheJhin_E_Bloom.get(api);
-  if (cached) return cached;
-  const built = __buildJhin_E_Bloom(api);
-  __cacheJhin_E_Bloom.set(api, built);
-  return built;
-}
+});

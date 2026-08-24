@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -42,7 +43,7 @@ const SHARD_COUNT = 12;
  * down. The leap now carries the payload: `_land()` runs off the dash's own
  * arrival, and it only connects if he actually got there.
  */
-function __buildPantheon_W(api: ContentApi) {
+export const makePantheon_W = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -203,15 +204,8 @@ function __buildPantheon_W(api: ContentApi) {
     }
   }
   return Pantheon_W;
-}
-const __cachePantheon_W = new WeakMap<ContentApi, ReturnType<typeof __buildPantheon_W>>();
-export default function makePantheon_W(api: ContentApi) {
-  const cached = __cachePantheon_W.get(api);
-  if (cached) return cached;
-  const built = __buildPantheon_W(api);
-  __cachePantheon_W.set(api, built);
-  return built;
-}
+});
+export default makePantheon_W;
 
 
 /**
@@ -258,7 +252,7 @@ export const drawAegis = (size: number, alpha: number): void => {
  * The vault in flight: the shield braced ahead of him, with the comet he is
  * riding in on trailing behind. Ends with the dash it is attached to.
  */
-function __buildPantheon_W_Vault(api: ContentApi) {
+export const makePantheon_W_Vault = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Pantheon_W_Vault extends SpellObject {
     position = this.owner.position.copy();
@@ -310,15 +304,7 @@ function __buildPantheon_W_Vault(api: ContentApi) {
     }
   }
   return Pantheon_W_Vault;
-}
-const __cachePantheon_W_Vault = new WeakMap<ContentApi, ReturnType<typeof __buildPantheon_W_Vault>>();
-export function makePantheon_W_Vault(api: ContentApi) {
-  const cached = __cachePantheon_W_Vault.get(api);
-  if (cached) return cached;
-  const built = __buildPantheon_W_Vault(api);
-  __cachePantheon_W_Vault.set(api, built);
-  return built;
-}
+});
 
 
 interface Shard {
@@ -334,7 +320,7 @@ interface Shard {
  * collapses into it, and the shock goes out through the dirt — bronze and
  * starlight, which is Pantheon and nobody else here.
  */
-function __buildPantheon_W_Impact(api: ContentApi) {
+export const makePantheon_W_Impact = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Pantheon_W_Impact extends SpellObject {
     position = this.owner.position.copy();
@@ -443,12 +429,4 @@ function __buildPantheon_W_Impact(api: ContentApi) {
     }
   }
   return Pantheon_W_Impact;
-}
-const __cachePantheon_W_Impact = new WeakMap<ContentApi, ReturnType<typeof __buildPantheon_W_Impact>>();
-export function makePantheon_W_Impact(api: ContentApi) {
-  const cached = __cachePantheon_W_Impact.get(api);
-  if (cached) return cached;
-  const built = __buildPantheon_W_Impact(api);
-  __cachePantheon_W_Impact.set(api, built);
-  return built;
-}
+});

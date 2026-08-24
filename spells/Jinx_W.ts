@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -30,7 +31,7 @@ export const SLOW_DURATION = 2000;
 
 
 /** Zap!: her longest skillshot, and it stops whoever it finds. */
-function __buildJinx_W(api: ContentApi) {
+export const makeJinx_W = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Jinx_W_Object = makeJinx_W_Object(api);
@@ -59,22 +60,15 @@ function __buildJinx_W(api: ContentApi) {
     }
   }
   return Jinx_W;
-}
-const __cacheJinx_W = new WeakMap<ContentApi, ReturnType<typeof __buildJinx_W>>();
-export default function makeJinx_W(api: ContentApi) {
-  const cached = __cacheJinx_W.get(api);
-  if (cached) return cached;
-  const built = __buildJinx_W(api);
-  __cacheJinx_W.set(api, built);
-  return built;
-}
+});
+export default makeJinx_W;
 
 
 /** How far behind the head the bolt crackles. */
 export const BOLT_TAIL = 96;
 
 
-function __buildJinx_W_Object(api: ContentApi) {
+export const makeJinx_W_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const Slow = api.buffs.Slow;
   const AoePulse = api.AoePulse;
@@ -201,12 +195,4 @@ function __buildJinx_W_Object(api: ContentApi) {
     }
   }
   return Jinx_W_Object;
-}
-const __cacheJinx_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildJinx_W_Object>>();
-export function makeJinx_W_Object(api: ContentApi) {
-  const cached = __cacheJinx_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildJinx_W_Object(api);
-  __cacheJinx_W_Object.set(api, built);
-  return built;
-}
+});

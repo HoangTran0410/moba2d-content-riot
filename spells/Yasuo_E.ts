@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
@@ -32,7 +33,7 @@ export const E_STRIKE_MS = 300;
 export const E_TRAIL_HALF_WIDTH = 15;
 
 
-function __buildYasuo_E(api: ContentApi) {
+export const makeYasuo_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const VectorUtils = api.utils.VectorUtils;
   const effectiveRange = api.combat.Reach.effectiveRange;
@@ -135,15 +136,8 @@ function __buildYasuo_E(api: ContentApi) {
     }
   }
   return Yasuo_E;
-}
-const __cacheYasuo_E = new WeakMap<ContentApi, ReturnType<typeof __buildYasuo_E>>();
-export default function makeYasuo_E(api: ContentApi) {
-  const cached = __cacheYasuo_E.get(api);
-  if (cached) return cached;
-  const built = __buildYasuo_E(api);
-  __cacheYasuo_E.set(api, built);
-  return built;
-}
+});
+export default makeYasuo_E;
 
 
 /** One sample of where the blade has been, ageing out of the ribbon. */
@@ -171,7 +165,7 @@ interface SweepSample {
  * `hitTargets` is the multi-hit guard the pass needs: `tryStrike` runs on every
  * frame of the dash and would otherwise charge the same body ten times over.
  */
-function __buildYasuo_E_Object(api: ContentApi) {
+export const makeYasuo_E_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   const SpellObject = api.SpellObject;
@@ -467,12 +461,4 @@ function __buildYasuo_E_Object(api: ContentApi) {
     }
   }
   return Yasuo_E_Object;
-}
-const __cacheYasuo_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildYasuo_E_Object>>();
-export function makeYasuo_E_Object(api: ContentApi) {
-  const cached = __cacheYasuo_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildYasuo_E_Object(api);
-  __cacheYasuo_E_Object.set(api, built);
-  return built;
-}
+});

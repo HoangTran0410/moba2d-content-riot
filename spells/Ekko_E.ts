@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -21,7 +22,7 @@ export const EKKO_E_WINDOW_MS = 5000;
 export const EKKO_E_SEEK_RADIUS = 250;
 
 
-function __buildEkko_E(api: ContentApi) {
+export const makeEkko_E = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Dash = api.buffs.Dash;
@@ -122,15 +123,8 @@ function __buildEkko_E(api: ContentApi) {
     }
   }
   return Ekko_E;
-}
-const __cacheEkko_E = new WeakMap<ContentApi, ReturnType<typeof __buildEkko_E>>();
-export default function makeEkko_E(api: ContentApi) {
-  const cached = __cacheEkko_E.get(api);
-  if (cached) return cached;
-  const built = __buildEkko_E(api);
-  __cacheEkko_E.set(api, built);
-  return built;
-}
+});
+export default makeEkko_E;
 
 
 /**
@@ -140,7 +134,7 @@ export default function makeEkko_E(api: ContentApi) {
  * *him* — a plain dot the same size regardless of the champion is the shape that
  * makes every dash in a game look identical.
  */
-function __buildEkko_E_Afterimage(api: ContentApi) {
+export const makeEkko_E_Afterimage = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Ekko_E_Afterimage extends SpellObject {
@@ -197,19 +191,11 @@ function __buildEkko_E_Afterimage(api: ContentApi) {
     }
   }
   return Ekko_E_Afterimage;
-}
-const __cacheEkko_E_Afterimage = new WeakMap<ContentApi, ReturnType<typeof __buildEkko_E_Afterimage>>();
-export function makeEkko_E_Afterimage(api: ContentApi) {
-  const cached = __cacheEkko_E_Afterimage.get(api);
-  if (cached) return cached;
-  const built = __buildEkko_E_Afterimage(api);
-  __cacheEkko_E_Afterimage.set(api, built);
-  return built;
-}
+});
 
 
 /** The tear left between where Ekko was and where he reappeared. */
-function __buildEkko_E_Rift(api: ContentApi) {
+export const makeEkko_E_Rift = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Ekko_E_Rift extends SpellObject {
@@ -281,18 +267,10 @@ function __buildEkko_E_Rift(api: ContentApi) {
     }
   }
   return Ekko_E_Rift;
-}
-const __cacheEkko_E_Rift = new WeakMap<ContentApi, ReturnType<typeof __buildEkko_E_Rift>>();
-export function makeEkko_E_Rift(api: ContentApi) {
-  const cached = __cacheEkko_E_Rift.get(api);
-  if (cached) return cached;
-  const built = __buildEkko_E_Rift(api);
-  __cacheEkko_E_Rift.set(api, built);
-  return built;
-}
+});
 
 
-function __buildEkko_E_Buff(api: ContentApi) {
+export const makeEkko_E_Buff = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Buff = api.buffs.Buff;
   const EventType = api.enums.EventType;
@@ -345,15 +323,7 @@ function __buildEkko_E_Buff(api: ContentApi) {
     }
   }
   return Ekko_E_Buff;
-}
-const __cacheEkko_E_Buff = new WeakMap<ContentApi, ReturnType<typeof __buildEkko_E_Buff>>();
-export function makeEkko_E_Buff(api: ContentApi) {
-  const cached = __cacheEkko_E_Buff.get(api);
-  if (cached) return cached;
-  const built = __buildEkko_E_Buff(api);
-  __cacheEkko_E_Buff.set(api, built);
-  return built;
-}
+});
 
 
 const EKKO_E_AURA_RADIUS = 40;
@@ -366,7 +336,7 @@ const EKKO_E_AURA_RADIUS = 40;
  * a second hand, not a fan. It is the cheapest way to say "time" in a game where
  * half the champions already have a spinning ring on the floor.
  */
-function __buildEkko_E_AuraObject(api: ContentApi) {
+export const makeEkko_E_AuraObject = packClass((api: ContentApi) => {
   const Buff = api.buffs.Buff;
   const SpellObject = api.SpellObject;
   class Ekko_E_AuraObject extends SpellObject {
@@ -433,12 +403,4 @@ function __buildEkko_E_AuraObject(api: ContentApi) {
     }
   }
   return Ekko_E_AuraObject;
-}
-const __cacheEkko_E_AuraObject = new WeakMap<ContentApi, ReturnType<typeof __buildEkko_E_AuraObject>>();
-export function makeEkko_E_AuraObject(api: ContentApi) {
-  const cached = __cacheEkko_E_AuraObject.get(api);
-  if (cached) return cached;
-  const built = __buildEkko_E_AuraObject(api);
-  __cacheEkko_E_AuraObject.set(api, built);
-  return built;
-}
+});

@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
 type Nearsight = InstanceType<ContentApi['buffs']['Nearsight']>;
@@ -11,7 +12,7 @@ type Teemo_Q_Puff = InstanceType<ReturnType<typeof makeTeemo_Q_Puff>>;
 
 
 
-function __buildTeemo_Q(api: ContentApi) {
+export const makeTeemo_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Teemo_Q_Object = makeTeemo_Q_Object(api);
@@ -39,18 +40,11 @@ function __buildTeemo_Q(api: ContentApi) {
     }
   }
   return Teemo_Q;
-}
-const __cacheTeemo_Q = new WeakMap<ContentApi, ReturnType<typeof __buildTeemo_Q>>();
-export default function makeTeemo_Q(api: ContentApi) {
-  const cached = __cacheTeemo_Q.get(api);
-  if (cached) return cached;
-  const built = __buildTeemo_Q(api);
-  __cacheTeemo_Q.set(api, built);
-  return built;
-}
+});
+export default makeTeemo_Q;
 
 
-function __buildTeemo_Q_Object(api: ContentApi) {
+export const makeTeemo_Q_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const Nearsight = api.buffs.Nearsight;
   const TrailSystem = api.helpers.TrailSystem;
@@ -161,19 +155,11 @@ function __buildTeemo_Q_Object(api: ContentApi) {
     }
   }
   return Teemo_Q_Object;
-}
-const __cacheTeemo_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildTeemo_Q_Object>>();
-export function makeTeemo_Q_Object(api: ContentApi) {
-  const cached = __cacheTeemo_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildTeemo_Q_Object(api);
-  __cacheTeemo_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** Poison bursting in the victim's face — the blind landing. */
-function __buildTeemo_Q_Puff(api: ContentApi) {
+export const makeTeemo_Q_Puff = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Teemo_Q_Puff extends SpellObject {
     targetSize = 40;
@@ -240,12 +226,4 @@ function __buildTeemo_Q_Puff(api: ContentApi) {
     }
   }
   return Teemo_Q_Puff;
-}
-const __cacheTeemo_Q_Puff = new WeakMap<ContentApi, ReturnType<typeof __buildTeemo_Q_Puff>>();
-export function makeTeemo_Q_Puff(api: ContentApi) {
-  const cached = __cacheTeemo_Q_Puff.get(api);
-  if (cached) return cached;
-  const built = __buildTeemo_Q_Puff(api);
-  __cacheTeemo_Q_Puff.set(api, built);
-  return built;
-}
+});

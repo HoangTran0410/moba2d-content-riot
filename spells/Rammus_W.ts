@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type DamageReflect = InstanceType<ContentApi['buffs']['DamageReflect']>;
 type Shield = InstanceType<ContentApi['buffs']['Shield']>;
@@ -51,7 +52,7 @@ const SHELL: [number, number, number] = [168, 122, 68];
 const SHELL_LIGHT: [number, number, number] = [226, 194, 136];
 
 
-function __buildRammus_W(api: ContentApi) {
+export const makeRammus_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const DamageReflect = api.buffs.DamageReflect;
   const Shield = api.buffs.Shield;
@@ -100,15 +101,8 @@ function __buildRammus_W(api: ContentApi) {
     }
   }
   return Rammus_W;
-}
-const __cacheRammus_W = new WeakMap<ContentApi, ReturnType<typeof __buildRammus_W>>();
-export default function makeRammus_W(api: ContentApi) {
-  const cached = __cacheRammus_W.get(api);
-  if (cached) return cached;
-  const built = __buildRammus_W(api);
-  __cacheRammus_W.set(api, built);
-  return built;
-}
+});
+export default makeRammus_W;
 
 
 /** One jagged split running across the dome once the shield starts giving. */
@@ -122,7 +116,7 @@ interface Crack {
 
 
 /** The curled carapace: spiked plates clamped over Rammus for the duration. */
-function __buildRammus_W_Shell(api: ContentApi) {
+export const makeRammus_W_Shell = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const Shield = api.buffs.Shield;
   class Rammus_W_Shell extends SpellObject {
@@ -307,12 +301,4 @@ function __buildRammus_W_Shell(api: ContentApi) {
     }
   }
   return Rammus_W_Shell;
-}
-const __cacheRammus_W_Shell = new WeakMap<ContentApi, ReturnType<typeof __buildRammus_W_Shell>>();
-export function makeRammus_W_Shell(api: ContentApi) {
-  const cached = __cacheRammus_W_Shell.get(api);
-  if (cached) return cached;
-  const built = __buildRammus_W_Shell(api);
-  __cacheRammus_W_Shell.set(api, built);
-  return built;
-}
+});

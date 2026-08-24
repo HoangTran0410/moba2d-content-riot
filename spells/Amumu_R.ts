@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -15,7 +16,7 @@ export const DAMAGE = 30;
 export const ROOT_DURATION = 1500;
 
 
-function __buildAmumu_R(api: ContentApi) {
+export const makeAmumu_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
@@ -57,12 +58,5 @@ function __buildAmumu_R(api: ContentApi) {
     }
   }
   return Amumu_R;
-}
-const __cacheAmumu_R = new WeakMap<ContentApi, ReturnType<typeof __buildAmumu_R>>();
-export default function makeAmumu_R(api: ContentApi) {
-  const cached = __cacheAmumu_R.get(api);
-  if (cached) return cached;
-  const built = __buildAmumu_R(api);
-  __cacheAmumu_R.set(api, built);
-  return built;
-}
+});
+export default makeAmumu_R;

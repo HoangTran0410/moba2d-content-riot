@@ -2,6 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
 import { makeGroundedSpheres, makeSyndra_Burst } from './Syndra_Q';
 import { SPHERE_CORE_RADIUS, SPHERE_DARK, SPHERE_EDGE, SPHERE_VIOLET } from './Syndra_Q';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -41,7 +42,7 @@ function convergedDamage(spheres: number): number {
 }
 
 
-function __buildSyndra_R(api: ContentApi) {
+export const makeSyndra_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
@@ -194,15 +195,8 @@ function __buildSyndra_R(api: ContentApi) {
     }
   }
   return Syndra_R;
-}
-const __cacheSyndra_R = new WeakMap<ContentApi, ReturnType<typeof __buildSyndra_R>>();
-export default function makeSyndra_R(api: ContentApi) {
-  const cached = __cacheSyndra_R.get(api);
-  if (cached) return cached;
-  const built = __buildSyndra_R(api);
-  __cacheSyndra_R.set(api, built);
-  return built;
-}
+});
+export default makeSyndra_R;
 
 
 const STAGGER_MS = 60;
@@ -214,7 +208,7 @@ const FLIGHT_MS = 250;
  * The convergence. It fires spheres in sequential waves flying into the target,
  * dealing sequential damage impacts and culminating in an explosion.
  */
-function __buildSyndra_R_Strike(api: ContentApi) {
+export const makeSyndra_R_Strike = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const Syndra_Burst = makeSyndra_Burst(api);
@@ -395,12 +389,4 @@ function __buildSyndra_R_Strike(api: ContentApi) {
     }
   }
   return Syndra_R_Strike;
-}
-const __cacheSyndra_R_Strike = new WeakMap<ContentApi, ReturnType<typeof __buildSyndra_R_Strike>>();
-export function makeSyndra_R_Strike(api: ContentApi) {
-  const cached = __cacheSyndra_R_Strike.get(api);
-  if (cached) return cached;
-  const built = __buildSyndra_R_Strike(api);
-  __cacheSyndra_R_Strike.set(api, built);
-  return built;
-}
+});

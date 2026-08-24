@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { ExecuteSpell } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -19,7 +20,7 @@ type Veigar_Q_Power = InstanceType<ReturnType<typeof makeVeigar_Q_Power>>;
 export const ORB_SIZE = 26;
 
 
-function __buildVeigar_Q(api: ContentApi) {
+export const makeVeigar_Q = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const CollideUtils = api.utils.CollideUtils;
   const VectorUtils = api.utils.VectorUtils;
@@ -196,32 +197,17 @@ function __buildVeigar_Q(api: ContentApi) {
     }
   }
   return Veigar_Q;
-}
-const __cacheVeigar_Q = new WeakMap<ContentApi, ReturnType<typeof __buildVeigar_Q>>();
-export default function makeVeigar_Q(api: ContentApi) {
-  const cached = __cacheVeigar_Q.get(api);
-  if (cached) return cached;
-  const built = __buildVeigar_Q(api);
-  __cacheVeigar_Q.set(api, built);
-  return built;
-}
+});
+export default makeVeigar_Q;
 
 
 /** The live stacks on `owner` — see `Veigar_Q.stackCount` on why `toRemove` is skipped. */
-function __buildliveStacks(api: ContentApi) {
+export const makeLiveStacks = packClass((api: ContentApi) => {
   const Veigar_Q_Power = makeVeigar_Q_Power(api);
   const liveStacks = (owner: any): Veigar_Q_Power[] =>
     (owner?.buffs ?? []).filter((buff: any) => buff instanceof Veigar_Q_Power && !buff.toRemove);
   return liveStacks;
-}
-const __cacheliveStacks = new WeakMap<ContentApi, ReturnType<typeof __buildliveStacks>>();
-export function makeLiveStacks(api: ContentApi) {
-  const cached = __cacheliveStacks.get(api);
-  if (cached) return cached;
-  const built = __buildliveStacks(api);
-  __cacheliveStacks.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -233,7 +219,7 @@ export function makeLiveStacks(api: ContentApi) {
  * make a stack stack, and a second copy of them is a second definition of the
  * spell.
  */
-function __buildcreatePowerStack(api: ContentApi) {
+export const makeCreatePowerStack = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const Veigar_Q_Power = makeVeigar_Q_Power(api);
   function createPowerStack(
@@ -250,15 +236,7 @@ function __buildcreatePowerStack(api: ContentApi) {
     return buff;
   }
   return createPowerStack;
-}
-const __cachecreatePowerStack = new WeakMap<ContentApi, ReturnType<typeof __buildcreatePowerStack>>();
-export function makeCreatePowerStack(api: ContentApi) {
-  const cached = __cachecreatePowerStack.get(api);
-  if (cached) return cached;
-  const built = __buildcreatePowerStack(api);
-  __cachecreatePowerStack.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -266,7 +244,7 @@ export function makeCreatePowerStack(api: ContentApi) {
  * which makes the whole point of the spell invisible; this subclass only adds a
  * drawing, the stacking behaviour is untouched.
  */
-function __buildVeigar_Q_Power(api: ContentApi) {
+export const makeVeigar_Q_Power = packClass((api: ContentApi) => {
   const StatAmp = api.buffs.StatAmp;
   class Veigar_Q_Power extends StatAmp {
     /**
@@ -333,18 +311,10 @@ function __buildVeigar_Q_Power(api: ContentApi) {
     }
   }
   return Veigar_Q_Power;
-}
-const __cacheVeigar_Q_Power = new WeakMap<ContentApi, ReturnType<typeof __buildVeigar_Q_Power>>();
-export function makeVeigar_Q_Power(api: ContentApi) {
-  const cached = __cacheVeigar_Q_Power.get(api);
-  if (cached) return cached;
-  const built = __buildVeigar_Q_Power(api);
-  __cacheVeigar_Q_Power.set(api, built);
-  return built;
-}
+});
 
 
-function __buildVeigar_Q_Object(api: ContentApi) {
+export const makeVeigar_Q_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const TrailSystem = api.helpers.TrailSystem;
   const createPowerStack = makeCreatePowerStack(api);
@@ -458,19 +428,11 @@ function __buildVeigar_Q_Object(api: ContentApi) {
     }
   }
   return Veigar_Q_Object;
-}
-const __cacheVeigar_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildVeigar_Q_Object>>();
-export function makeVeigar_Q_Object(api: ContentApi) {
-  const cached = __cacheVeigar_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildVeigar_Q_Object(api);
-  __cacheVeigar_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** Dark matter collapsing on whoever the orb passed through. */
-function __buildVeigar_Q_Implode(api: ContentApi) {
+export const makeVeigar_Q_Implode = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Veigar_Q_Implode extends SpellObject {
     targetSize = 40;
@@ -520,12 +482,4 @@ function __buildVeigar_Q_Implode(api: ContentApi) {
     }
   }
   return Veigar_Q_Implode;
-}
-const __cacheVeigar_Q_Implode = new WeakMap<ContentApi, ReturnType<typeof __buildVeigar_Q_Implode>>();
-export function makeVeigar_Q_Implode(api: ContentApi) {
-  const cached = __cacheVeigar_Q_Implode.get(api);
-  if (cached) return cached;
-  const built = __buildVeigar_Q_Implode(api);
-  __cacheVeigar_Q_Implode.set(api, built);
-  return built;
-}
+});

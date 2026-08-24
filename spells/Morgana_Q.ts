@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
 type Root = InstanceType<ContentApi['buffs']['Root']>;
@@ -15,7 +16,7 @@ type Morgana_Q_Snap = InstanceType<ReturnType<typeof makeMorgana_Q_Snap>>;
 const BINDING_COLOR: [number, number, number] = [186, 96, 240];
 
 
-function __buildMorgana_Q(api: ContentApi) {
+export const makeMorgana_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Morgana_Q_Object = makeMorgana_Q_Object(api);
@@ -53,18 +54,11 @@ function __buildMorgana_Q(api: ContentApi) {
     }
   }
   return Morgana_Q;
-}
-const __cacheMorgana_Q = new WeakMap<ContentApi, ReturnType<typeof __buildMorgana_Q>>();
-export default function makeMorgana_Q(api: ContentApi) {
-  const cached = __cacheMorgana_Q.get(api);
-  if (cached) return cached;
-  const built = __buildMorgana_Q(api);
-  __cacheMorgana_Q.set(api, built);
-  return built;
-}
+});
+export default makeMorgana_Q;
 
 
-function __buildMorgana_Q_Object(api: ContentApi) {
+export const makeMorgana_Q_Object = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const MissileSpellObject = api.MissileSpellObject;
   const Root = api.buffs.Root;
@@ -176,19 +170,11 @@ function __buildMorgana_Q_Object(api: ContentApi) {
     }
   }
   return Morgana_Q_Object;
-}
-const __cacheMorgana_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildMorgana_Q_Object>>();
-export function makeMorgana_Q_Object(api: ContentApi) {
-  const cached = __cacheMorgana_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildMorgana_Q_Object(api);
-  __cacheMorgana_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** Shackles closing on whoever the binding caught. */
-function __buildMorgana_Q_Snap(api: ContentApi) {
+export const makeMorgana_Q_Snap = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Morgana_Q_Snap extends SpellObject {
     target: any = null;
@@ -256,12 +242,4 @@ function __buildMorgana_Q_Snap(api: ContentApi) {
     }
   }
   return Morgana_Q_Snap;
-}
-const __cacheMorgana_Q_Snap = new WeakMap<ContentApi, ReturnType<typeof __buildMorgana_Q_Snap>>();
-export function makeMorgana_Q_Snap(api: ContentApi) {
-  const cached = __cacheMorgana_Q_Snap.get(api);
-  if (cached) return cached;
-  const built = __buildMorgana_Q_Snap(api);
-  __cacheMorgana_Q_Snap.set(api, built);
-  return built;
-}
+});

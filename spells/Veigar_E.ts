@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type ParticleSystem = InstanceType<ContentApi['helpers']['ParticleSystem']>;
@@ -47,7 +48,7 @@ const ARCANE: [number, number, number] = [70, 40, 162];
 const ARCANE_BRIGHT: [number, number, number] = [178, 130, 255];
 
 
-function __buildVeigar_E(api: ContentApi) {
+export const makeVeigar_E = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Veigar_E_Object = makeVeigar_E_Object(api);
@@ -72,15 +73,8 @@ function __buildVeigar_E(api: ContentApi) {
     }
   }
   return Veigar_E;
-}
-const __cacheVeigar_E = new WeakMap<ContentApi, ReturnType<typeof __buildVeigar_E>>();
-export default function makeVeigar_E(api: ContentApi) {
-  const cached = __cacheVeigar_E.get(api);
-  if (cached) return cached;
-  const built = __buildVeigar_E(api);
-  __cacheVeigar_E.set(api, built);
-  return built;
-}
+});
+export default makeVeigar_E;
 
 
 /** One jagged link of the lightning that crawls between two pillar tops. */
@@ -92,7 +86,7 @@ interface Crackle {
 }
 
 
-function __buildVeigar_E_Object(api: ContentApi) {
+export const makeVeigar_E_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -428,12 +422,4 @@ function __buildVeigar_E_Object(api: ContentApi) {
     }
   }
   return Veigar_E_Object;
-}
-const __cacheVeigar_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildVeigar_E_Object>>();
-export function makeVeigar_E_Object(api: ContentApi) {
-  const cached = __cacheVeigar_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildVeigar_E_Object(api);
-  __cacheVeigar_E_Object.set(api, built);
-  return built;
-}
+});

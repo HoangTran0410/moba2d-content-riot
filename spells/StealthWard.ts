@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
 type Spell = InstanceType<ContentApi['Spell']>;
@@ -29,7 +30,7 @@ export const PULSE_INTERVAL_MS = 2000;
 export const WARD_EXPIRY_WARNING_MS = 3000;
 
 
-function __buildStealthWard(api: ContentApi) {
+export const makeStealthWard = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const StealthWard_Object = makeStealthWard_Object(api);
@@ -60,15 +61,8 @@ function __buildStealthWard(api: ContentApi) {
     }
   }
   return StealthWard;
-}
-const __cacheStealthWard = new WeakMap<ContentApi, ReturnType<typeof __buildStealthWard>>();
-export default function makeStealthWard(api: ContentApi) {
-  const cached = __cacheStealthWard.get(api);
-  if (cached) return cached;
-  const built = __buildStealthWard(api);
-  __cacheStealthWard.set(api, built);
-  return built;
-}
+});
+export default makeStealthWard;
 
 
 /**
@@ -80,7 +74,7 @@ export default function makeStealthWard(api: ContentApi) {
  * blinking turns frantic and the light drains, which is the only warning the
  * player gets that the vision is about to go out.
  */
-function __buildStealthWard_Object(api: ContentApi) {
+export const makeStealthWard_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class StealthWard_Object extends SpellObject {
@@ -206,12 +200,4 @@ function __buildStealthWard_Object(api: ContentApi) {
     }
   }
   return StealthWard_Object;
-}
-const __cacheStealthWard_Object = new WeakMap<ContentApi, ReturnType<typeof __buildStealthWard_Object>>();
-export function makeStealthWard_Object(api: ContentApi) {
-  const cached = __cacheStealthWard_Object.get(api);
-  if (cached) return cached;
-  const built = __buildStealthWard_Object(api);
-  __cacheStealthWard_Object.set(api, built);
-  return built;
-}
+});

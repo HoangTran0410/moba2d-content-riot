@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
 type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
@@ -27,7 +28,7 @@ const CHAIN_DARK: [number, number, number] = [20, 70, 45];
  * tug hauling the victim only a short distance. 0.5s after the hit Thresh may
  * recast to leap to the shackled victim himself.
  */
-function __buildThresh_Q(api: ContentApi) {
+export const makeThresh_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const BuffAddType = api.enums.BuffAddType;
   const Spell = api.Spell;
@@ -150,18 +151,11 @@ function __buildThresh_Q(api: ContentApi) {
     }
   }
   return Thresh_Q;
-}
-const __cacheThresh_Q = new WeakMap<ContentApi, ReturnType<typeof __buildThresh_Q>>();
-export default function makeThresh_Q(api: ContentApi) {
-  const cached = __cacheThresh_Q.get(api);
-  if (cached) return cached;
-  const built = __buildThresh_Q(api);
-  __cacheThresh_Q.set(api, built);
-  return built;
-}
+});
+export default makeThresh_Q;
 
 
-function __buildThresh_Q_Object(api: ContentApi) {
+export const makeThresh_Q_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const VectorUtils = api.utils.VectorUtils;
   const MissileSpellObject = api.MissileSpellObject;
@@ -449,19 +443,11 @@ function __buildThresh_Q_Object(api: ContentApi) {
     }
   }
   return Thresh_Q_Object;
-}
-const __cacheThresh_Q_Object = new WeakMap<ContentApi, ReturnType<typeof __buildThresh_Q_Object>>();
-export function makeThresh_Q_Object(api: ContentApi) {
-  const cached = __cacheThresh_Q_Object.get(api);
-  if (cached) return cached;
-  const built = __buildThresh_Q_Object(api);
-  __cacheThresh_Q_Object.set(api, built);
-  return built;
-}
+});
 
 
 /** The hook connecting: a burst of lantern light where the blade bit in. */
-function __buildThresh_Q_Impact(api: ContentApi) {
+export const makeThresh_Q_Impact = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Thresh_Q_Impact extends SpellObject {
     position = this.owner.position.copy();
@@ -522,12 +508,4 @@ function __buildThresh_Q_Impact(api: ContentApi) {
     }
   }
   return Thresh_Q_Impact;
-}
-const __cacheThresh_Q_Impact = new WeakMap<ContentApi, ReturnType<typeof __buildThresh_Q_Impact>>();
-export function makeThresh_Q_Impact(api: ContentApi) {
-  const cached = __cacheThresh_Q_Impact.get(api);
-  if (cached) return cached;
-  const built = __buildThresh_Q_Impact(api);
-  __cacheThresh_Q_Impact.set(api, built);
-  return built;
-}
+});

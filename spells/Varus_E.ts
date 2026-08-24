@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
@@ -24,7 +25,7 @@ export const FALL_TIME = 400;
 
 
 /** Hail of Arrows: a volley that lands, then a patch of ground nobody wants to stand on. */
-function __buildVarus_E(api: ContentApi) {
+export const makeVarus_E = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Varus_E_Object = makeVarus_E_Object(api);
   class Varus_E extends Spell {
@@ -58,18 +59,11 @@ function __buildVarus_E(api: ContentApi) {
     }
   }
   return Varus_E;
-}
-const __cacheVarus_E = new WeakMap<ContentApi, ReturnType<typeof __buildVarus_E>>();
-export default function makeVarus_E(api: ContentApi) {
-  const cached = __cacheVarus_E.get(api);
-  if (cached) return cached;
-  const built = __buildVarus_E(api);
-  __cacheVarus_E.set(api, built);
-  return built;
-}
+});
+export default makeVarus_E;
 
 
-function __buildVarus_E_Object(api: ContentApi) {
+export const makeVarus_E_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -164,12 +158,4 @@ function __buildVarus_E_Object(api: ContentApi) {
     }
   }
   return Varus_E_Object;
-}
-const __cacheVarus_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildVarus_E_Object>>();
-export function makeVarus_E_Object(api: ContentApi) {
-  const cached = __cacheVarus_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildVarus_E_Object(api);
-  __cacheVarus_E_Object.set(api, built);
-  return built;
-}
+});

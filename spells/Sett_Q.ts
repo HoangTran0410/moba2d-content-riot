@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastSpec } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Spell = InstanceType<ContentApi['Spell']>;
@@ -35,7 +36,7 @@ const BLOOD: [number, number, number] = [183, 21, 64];
  * spell listens on EventType.ON_ATTACK_HIT, which combat/BasicAttack.ts emits
  * once per landed basic attack, and adds its bonus on top of what already landed.
  */
-function __buildSett_Q(api: ContentApi) {
+export const makeSett_Q = packClass((api: ContentApi) => {
   const EventType = api.enums.EventType;
   const AttackableUnit = api.units.AttackableUnit;
   const StatAmp = api.buffs.StatAmp;
@@ -140,22 +141,15 @@ function __buildSett_Q(api: ContentApi) {
     }
   }
   return Sett_Q;
-}
-const __cacheSett_Q = new WeakMap<ContentApi, ReturnType<typeof __buildSett_Q>>();
-export default function makeSett_Q(api: ContentApi) {
-  const cached = __cacheSett_Q.get(api);
-  if (cached) return cached;
-  const built = __buildSett_Q(api);
-  __cacheSett_Q.set(api, built);
-  return built;
-}
+});
+export default makeSett_Q;
 
 
 /**
  * The pair of burning fists. Body-local, but a SpellObject rather than caster
  * vfx so it keeps its own draw slot while the spell that owns it is idle.
  */
-function __buildSett_Q_Glow(api: ContentApi) {
+export const makeSett_Q_Glow = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Sett_Q_Glow extends SpellObject {
@@ -219,19 +213,11 @@ function __buildSett_Q_Glow(api: ContentApi) {
     }
   }
   return Sett_Q_Glow;
-}
-const __cacheSett_Q_Glow = new WeakMap<ContentApi, ReturnType<typeof __buildSett_Q_Glow>>();
-export function makeSett_Q_Glow(api: ContentApi) {
-  const cached = __cacheSett_Q_Glow.get(api);
-  if (cached) return cached;
-  const built = __buildSett_Q_Glow(api);
-  __cacheSett_Q_Glow.set(api, built);
-  return built;
-}
+});
 
 
 /** The count-down the player reads: one ring on each body an armed punch lands on. */
-function __buildSett_Q_Knuckle(api: ContentApi) {
+export const makeSett_Q_Knuckle = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Sett_Q_Knuckle extends SpellObject {
@@ -272,12 +258,4 @@ function __buildSett_Q_Knuckle(api: ContentApi) {
     }
   }
   return Sett_Q_Knuckle;
-}
-const __cacheSett_Q_Knuckle = new WeakMap<ContentApi, ReturnType<typeof __buildSett_Q_Knuckle>>();
-export function makeSett_Q_Knuckle(api: ContentApi) {
-  const cached = __cacheSett_Q_Knuckle.get(api);
-  if (cached) return cached;
-  const built = __buildSett_Q_Knuckle(api);
-  __cacheSett_Q_Knuckle.set(api, built);
-  return built;
-}
+});

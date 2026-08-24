@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BasicAttackHit } from '@moba2d/core/content/types';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Champion = InstanceType<ContentApi['units']['Champion']>;
@@ -402,7 +403,7 @@ export function makeEzreal_W_Mark(api: ContentApi) {
 
 
 /** The detonation — the sigil collapsing inward and then blowing out. */
-function __buildEzreal_W_Burst(api: ContentApi) {
+export const makeEzreal_W_Burst = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Ezreal_W_Burst extends SpellObject {
     age = 0;
@@ -454,12 +455,4 @@ function __buildEzreal_W_Burst(api: ContentApi) {
     }
   }
   return Ezreal_W_Burst;
-}
-const __cacheEzreal_W_Burst = new WeakMap<ContentApi, ReturnType<typeof __buildEzreal_W_Burst>>();
-export function makeEzreal_W_Burst(api: ContentApi) {
-  const cached = __cacheEzreal_W_Burst.get(api);
-  if (cached) return cached;
-  const built = __buildEzreal_W_Burst(api);
-  __cacheEzreal_W_Burst.set(api, built);
-  return built;
-}
+});

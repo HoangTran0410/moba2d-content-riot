@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -22,7 +23,7 @@ type Fizz_E_Object = InstanceType<ReturnType<typeof makeFizz_E_Object>>;
  * (Trickster) drops him early: he hops to a new spot, hits a smaller area and
  * does not slow.
  */
-function __buildFizz_E(api: ContentApi) {
+export const makeFizz_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const VectorUtils = api.utils.VectorUtils;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -205,15 +206,8 @@ function __buildFizz_E(api: ContentApi) {
     }
   }
   return Fizz_E;
-}
-const __cacheFizz_E = new WeakMap<ContentApi, ReturnType<typeof __buildFizz_E>>();
-export default function makeFizz_E(api: ContentApi) {
-  const cached = __cacheFizz_E.get(api);
-  if (cached) return cached;
-  const built = __buildFizz_E(api);
-  __cacheFizz_E.set(api, built);
-  return built;
-}
+});
+export default makeFizz_E;
 
 
 /**
@@ -221,7 +215,7 @@ export default function makeFizz_E(api: ContentApi) {
  * able to cast, which is what makes the Trickster recast possible. The height
  * bonus is what the renderer reads as "off the ground".
  */
-function __buildFizz_E_Hover(api: ContentApi) {
+export const makeFizz_E_Hover = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const StatusFlags = api.enums.StatusFlags;
   const Buff = api.buffs.Buff;
@@ -326,15 +320,7 @@ function __buildFizz_E_Hover(api: ContentApi) {
     }
   }
   return Fizz_E_Hover;
-}
-const __cacheFizz_E_Hover = new WeakMap<ContentApi, ReturnType<typeof __buildFizz_E_Hover>>();
-export function makeFizz_E_Hover(api: ContentApi) {
-  const cached = __cacheFizz_E_Hover.get(api);
-  if (cached) return cached;
-  const built = __buildFizz_E_Hover(api);
-  __cacheFizz_E_Hover.set(api, built);
-  return built;
-}
+});
 
 
 interface Splash {
@@ -349,7 +335,7 @@ interface Splash {
 const SPLASH_COUNT = 20;
 
 
-function __buildFizz_E_Object(api: ContentApi) {
+export const makeFizz_E_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Fizz_E_Object extends SpellObject {
     position: p5.Vector = this.owner.position.copy();
@@ -439,12 +425,4 @@ function __buildFizz_E_Object(api: ContentApi) {
     }
   }
   return Fizz_E_Object;
-}
-const __cacheFizz_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildFizz_E_Object>>();
-export function makeFizz_E_Object(api: ContentApi) {
-  const cached = __cacheFizz_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildFizz_E_Object(api);
-  __cacheFizz_E_Object.set(api, built);
-  return built;
-}
+});

@@ -1,6 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BeamGeometry, CastSpec } from '@moba2d/core/content/types';
 import { makeConsumeJhinMark } from './Jhin_Q';
+import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Root = InstanceType<ContentApi['buffs']['Root']>;
@@ -33,7 +34,7 @@ const SIGHT_LINES = 4;
 const SHOT_LIFE_MS = 260;
 
 
-function __buildJhin_W(api: ContentApi) {
+export const makeJhin_W = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -131,22 +132,15 @@ function __buildJhin_W(api: ContentApi) {
     }
   }
   return Jhin_W;
-}
-const __cacheJhin_W = new WeakMap<ContentApi, ReturnType<typeof __buildJhin_W>>();
-export default function makeJhin_W(api: ContentApi) {
-  const cached = __cacheJhin_W.get(api);
-  if (cached) return cached;
-  const built = __buildJhin_W(api);
-  __cacheJhin_W.set(api, built);
-  return built;
-}
+});
+export default makeJhin_W;
 
 
 /**
  * The windup. Four thin sight lines converge on the firing axis over the cast time, drawn to
  * exactly the range the shot will cover — that number is the entire threat.
  */
-function __buildJhin_W_Telegraph(api: ContentApi) {
+export const makeJhin_W_Telegraph = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const jhinBeamDisplayBox = makeJhinBeamDisplayBox(api);
@@ -205,19 +199,11 @@ function __buildJhin_W_Telegraph(api: ContentApi) {
     }
   }
   return Jhin_W_Telegraph;
-}
-const __cacheJhin_W_Telegraph = new WeakMap<ContentApi, ReturnType<typeof __buildJhin_W_Telegraph>>();
-export function makeJhin_W_Telegraph(api: ContentApi) {
-  const cached = __cacheJhin_W_Telegraph.get(api);
-  if (cached) return cached;
-  const built = __buildJhin_W_Telegraph(api);
-  __cacheJhin_W_Telegraph.set(api, built);
-  return built;
-}
+});
 
 
 /** The shot itself: a bone-white line inside a magenta wash, spanning the whole range. */
-function __buildJhin_W_Shot(api: ContentApi) {
+export const makeJhin_W_Shot = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const jhinBeamDisplayBox = makeJhinBeamDisplayBox(api);
@@ -277,22 +263,14 @@ function __buildJhin_W_Shot(api: ContentApi) {
     }
   }
   return Jhin_W_Shot;
-}
-const __cacheJhin_W_Shot = new WeakMap<ContentApi, ReturnType<typeof __buildJhin_W_Shot>>();
-export function makeJhin_W_Shot(api: ContentApi) {
-  const cached = __cacheJhin_W_Shot.get(api);
-  if (cached) return cached;
-  const built = __buildJhin_W_Shot(api);
-  __cacheJhin_W_Shot.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * Two outcomes, two pictures. A rooted body's lotus shatters into petals at its feet; an
  * unmarked one only takes a thin cut across the firing line.
  */
-function __buildJhin_W_Impact(api: ContentApi) {
+export const makeJhin_W_Impact = packClass((api: ContentApi) => {
   const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Jhin_W_Impact extends SpellObject {
@@ -366,22 +344,14 @@ function __buildJhin_W_Impact(api: ContentApi) {
     }
   }
   return Jhin_W_Impact;
-}
-const __cacheJhin_W_Impact = new WeakMap<ContentApi, ReturnType<typeof __buildJhin_W_Impact>>();
-export function makeJhin_W_Impact(api: ContentApi) {
-  const cached = __cacheJhin_W_Impact.get(api);
-  if (cached) return cached;
-  const built = __buildJhin_W_Impact(api);
-  __cacheJhin_W_Impact.set(api, built);
-  return built;
-}
+});
 
 
 /**
  * A beam's box is not a square around its own centre, so it is built by hand from the two
  * endpoints — padded for the wash and the muzzle bloom.
  */
-function __buildjhinBeamDisplayBox(api: ContentApi) {
+export const makeJhinBeamDisplayBox = packClass((api: ContentApi) => {
   const beamBoundingBox = api.beamBoundingBox;
   function jhinBeamDisplayBox(
     start: { x: number; y: number },
@@ -403,12 +373,4 @@ function __buildjhinBeamDisplayBox(api: ContentApi) {
     );
   }
   return jhinBeamDisplayBox;
-}
-const __cachejhinBeamDisplayBox = new WeakMap<ContentApi, ReturnType<typeof __buildjhinBeamDisplayBox>>();
-export function makeJhinBeamDisplayBox(api: ContentApi) {
-  const cached = __cachejhinBeamDisplayBox.get(api);
-  if (cached) return cached;
-  const built = __buildjhinBeamDisplayBox(api);
-  __cachejhinBeamDisplayBox.set(api, built);
-  return built;
-}
+});

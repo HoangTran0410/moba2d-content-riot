@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
@@ -19,7 +20,7 @@ export const FEAR_DURATION = 1200;
 
 
 /** Primal Howl: brace, then scatter everything standing too close. */
-function __buildWarwick_E(api: ContentApi) {
+export const makeWarwick_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
@@ -68,12 +69,5 @@ function __buildWarwick_E(api: ContentApi) {
     }
   }
   return Warwick_E;
-}
-const __cacheWarwick_E = new WeakMap<ContentApi, ReturnType<typeof __buildWarwick_E>>();
-export default function makeWarwick_E(api: ContentApi) {
-  const cached = __cacheWarwick_E.get(api);
-  if (cached) return cached;
-  const built = __buildWarwick_E(api);
-  __cacheWarwick_E.set(api, built);
-  return built;
-}
+});
+export default makeWarwick_E;

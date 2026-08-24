@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
@@ -52,7 +53,7 @@ export const HARD_STOP_MS = DURATION + 1200;
  * that — the speed is unconditional, but the *reveal* only lands on the wounded,
  * so the ability tells Warwick who to go after rather than just moving him.
  */
-function __buildWarwick_W(api: ContentApi) {
+export const makeWarwick_W = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
@@ -117,15 +118,8 @@ function __buildWarwick_W(api: ContentApi) {
     }
   }
   return Warwick_W;
-}
-const __cacheWarwick_W = new WeakMap<ContentApi, ReturnType<typeof __buildWarwick_W>>();
-export default function makeWarwick_W(api: ContentApi) {
-  const cached = __cacheWarwick_W.get(api);
-  if (cached) return cached;
-  const built = __buildWarwick_W(api);
-  __cacheWarwick_W.set(api, built);
-  return built;
-}
+});
+export default makeWarwick_W;
 
 
 /** One thump of the double heartbeat: a half-sine bump starting at `at`. */
@@ -159,7 +153,7 @@ interface Swipe {
  * every other buff in the game, where the effect radiates out. Warwick is taking
  * something, not giving it off, and the motion should say so before the colour does.
  */
-function __buildWarwick_W_Object(api: ContentApi) {
+export const makeWarwick_W_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   class Warwick_W_Object extends SpellObject {
@@ -342,12 +336,4 @@ function __buildWarwick_W_Object(api: ContentApi) {
     }
   }
   return Warwick_W_Object;
-}
-const __cacheWarwick_W_Object = new WeakMap<ContentApi, ReturnType<typeof __buildWarwick_W_Object>>();
-export function makeWarwick_W_Object(api: ContentApi) {
-  const cached = __cacheWarwick_W_Object.get(api);
-  if (cached) return cached;
-  const built = __buildWarwick_W_Object(api);
-  __cacheWarwick_W_Object.set(api, built);
-  return built;
-}
+});

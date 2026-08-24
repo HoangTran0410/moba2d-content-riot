@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Phasing = InstanceType<ContentApi['buffs']['Phasing']>;
 type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
@@ -36,7 +37,7 @@ export const BOUNDING_MARGIN = 150;
 export const HARD_STOP_MS = DURATION + 1200;
 
 
-function __buildGhost(api: ContentApi) {
+export const makeGhost = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Speedup = api.buffs.Speedup;
   const Phasing = api.buffs.Phasing;
@@ -73,15 +74,8 @@ function __buildGhost(api: ContentApi) {
     }
   }
   return Ghost;
-}
-const __cacheGhost = new WeakMap<ContentApi, ReturnType<typeof __buildGhost>>();
-export default function makeGhost(api: ContentApi) {
-  const cached = __cacheGhost.get(api);
-  if (cached) return cached;
-  const built = __buildGhost(api);
-  __cacheGhost.set(api, built);
-  return built;
-}
+});
+export default makeGhost;
 
 
 interface Streak {
@@ -101,7 +95,7 @@ interface Streak {
  * standing shimmer the moment he stops. A trail that keeps streaming at full
  * length while the runner is parked reads as decoration, not as haste.
  */
-function __buildGhost_Object(api: ContentApi) {
+export const makeGhost_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   class Ghost_Object extends SpellObject {
     age = 0;
@@ -257,12 +251,4 @@ function __buildGhost_Object(api: ContentApi) {
     }
   }
   return Ghost_Object;
-}
-const __cacheGhost_Object = new WeakMap<ContentApi, ReturnType<typeof __buildGhost_Object>>();
-export function makeGhost_Object(api: ContentApi) {
-  const cached = __cacheGhost_Object.get(api);
-  if (cached) return cached;
-  const built = __buildGhost_Object(api);
-  __cacheGhost_Object.set(api, built);
-  return built;
-}
+});

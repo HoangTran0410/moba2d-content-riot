@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
@@ -32,7 +33,7 @@ export const SHIELD_AMOUNT = 35;
 export const SHIELD_DURATION_MS = 5_000;
 
 
-function __buildMorgana_E(api: ContentApi) {
+export const makeMorgana_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -94,15 +95,8 @@ function __buildMorgana_E(api: ContentApi) {
     }
   }
   return Morgana_E;
-}
-const __cacheMorgana_E = new WeakMap<ContentApi, ReturnType<typeof __buildMorgana_E>>();
-export default function makeMorgana_E(api: ContentApi) {
-  const cached = __cacheMorgana_E.get(api);
-  if (cached) return cached;
-  const built = __buildMorgana_E(api);
-  __cacheMorgana_E.set(api, built);
-  return built;
-}
+});
+export default makeMorgana_E;
 
 
 /**
@@ -121,7 +115,7 @@ export default function makeMorgana_E(api: ContentApi) {
  *  - it does not resist self or allied crowd control,
  *  - it does not resist nearsight (so `Nearsight` is absent from the blocked list).
  */
-function __buildMorgana_E_BlackShield(api: ContentApi) {
+export const makeMorgana_E_BlackShield = packClass((api: ContentApi) => {
   const Airborne = api.buffs.Airborne;
   const Charm = api.buffs.Charm;
   const Dash = api.buffs.Dash;
@@ -260,19 +254,11 @@ function __buildMorgana_E_BlackShield(api: ContentApi) {
     }
   }
   return Morgana_E_BlackShield;
-}
-const __cacheMorgana_E_BlackShield = new WeakMap<ContentApi, ReturnType<typeof __buildMorgana_E_BlackShield>>();
-export function makeMorgana_E_BlackShield(api: ContentApi) {
-  const cached = __cacheMorgana_E_BlackShield.get(api);
-  if (cached) return cached;
-  const built = __buildMorgana_E_BlackShield(api);
-  __cacheMorgana_E_BlackShield.set(api, built);
-  return built;
-}
+});
 
 
 /** The cast flash: a dark ring blooming outwards on whoever got the shield. */
-function __buildMorgana_E_Object(api: ContentApi) {
+export const makeMorgana_E_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Morgana_E_Object extends SpellObject {
@@ -345,12 +331,4 @@ function __buildMorgana_E_Object(api: ContentApi) {
     }
   }
   return Morgana_E_Object;
-}
-const __cacheMorgana_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildMorgana_E_Object>>();
-export function makeMorgana_E_Object(api: ContentApi) {
-  const cached = __cacheMorgana_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildMorgana_E_Object(api);
-  __cacheMorgana_E_Object.set(api, built);
-  return built;
-}
+});

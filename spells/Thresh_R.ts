@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
@@ -58,7 +59,7 @@ const SPECTRE: [number, number, number] = [130, 255, 180];
  * breaks a wall and hurts. One break per victim, exactly as in League — which
  * is why `broken` is a list rather than a flag.
  */
-function __buildThresh_R(api: ContentApi) {
+export const makeThresh_R = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Thresh_R_Object = makeThresh_R_Object(api);
   class Thresh_R extends Spell {
@@ -82,18 +83,11 @@ function __buildThresh_R(api: ContentApi) {
     }
   }
   return Thresh_R;
-}
-const __cacheThresh_R = new WeakMap<ContentApi, ReturnType<typeof __buildThresh_R>>();
-export default function makeThresh_R(api: ContentApi) {
-  const cached = __cacheThresh_R.get(api);
-  if (cached) return cached;
-  const built = __buildThresh_R(api);
-  __cacheThresh_R.set(api, built);
-  return built;
-}
+});
+export default makeThresh_R;
 
 
-function __buildThresh_R_Object(api: ContentApi) {
+export const makeThresh_R_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -427,12 +421,4 @@ function __buildThresh_R_Object(api: ContentApi) {
     }
   }
   return Thresh_R_Object;
-}
-const __cacheThresh_R_Object = new WeakMap<ContentApi, ReturnType<typeof __buildThresh_R_Object>>();
-export function makeThresh_R_Object(api: ContentApi) {
-  const cached = __cacheThresh_R_Object.get(api);
-  if (cached) return cached;
-  const built = __buildThresh_R_Object(api);
-  __cacheThresh_R_Object.set(api, built);
-  return built;
-}
+});

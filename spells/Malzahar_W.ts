@@ -1,4 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 
 type Pet = InstanceType<ContentApi['units']['Pet']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
@@ -59,7 +60,7 @@ const VOID_EYE: [number, number, number] = [206, 255, 140];
  * it every voidling killed would land on somebody's KDA — and this subclass
  * inherits it rather than restating it.
  */
-function __buildMalzahar_W(api: ContentApi) {
+export const makeMalzahar_W = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
   const Malzahar_W_Rift = makeMalzahar_W_Rift(api);
@@ -90,15 +91,8 @@ function __buildMalzahar_W(api: ContentApi) {
     }
   }
   return Malzahar_W;
-}
-const __cacheMalzahar_W = new WeakMap<ContentApi, ReturnType<typeof __buildMalzahar_W>>();
-export default function makeMalzahar_W(api: ContentApi) {
-  const cached = __cacheMalzahar_W.get(api);
-  if (cached) return cached;
-  const built = __buildMalzahar_W(api);
-  __cacheMalzahar_W.set(api, built);
-  return built;
-}
+});
+export default makeMalzahar_W;
 
 
 /**
@@ -107,7 +101,7 @@ export default function makeMalzahar_W(api: ContentApi) {
  * to `SPELL_EFFECT_Z_INDEX` instead and paints over the feet of everything
  * standing on it.
  */
-function __buildMalzahar_W_Rift(api: ContentApi) {
+export const makeMalzahar_W_Rift = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
@@ -216,15 +210,7 @@ function __buildMalzahar_W_Rift(api: ContentApi) {
     }
   }
   return Malzahar_W_Rift;
-}
-const __cacheMalzahar_W_Rift = new WeakMap<ContentApi, ReturnType<typeof __buildMalzahar_W_Rift>>();
-export function makeMalzahar_W_Rift(api: ContentApi) {
-  const cached = __cacheMalzahar_W_Rift.get(api);
-  if (cached) return cached;
-  const built = __buildMalzahar_W_Rift(api);
-  __cacheMalzahar_W_Rift.set(api, built);
-  return built;
-}
+});
 
 
 /**
@@ -232,7 +218,7 @@ export function makeMalzahar_W_Rift(api: ContentApi) {
  * only supplies the body, because a summon that borrowed another champion's
  * artwork would break the first rule in `docs/VFX_STANDARD.md`.
  */
-function __buildMalzahar_W_Voidling(api: ContentApi) {
+export const makeMalzahar_W_Voidling = packClass((api: ContentApi) => {
   const Pet = api.units.Pet;
   class Malzahar_W_Voidling extends Pet {
     /** Counts up from spawn: it hauls itself out rather than popping into place. */
@@ -313,12 +299,4 @@ function __buildMalzahar_W_Voidling(api: ContentApi) {
     // size, so there is nothing to widen it for.
   }
   return Malzahar_W_Voidling;
-}
-const __cacheMalzahar_W_Voidling = new WeakMap<ContentApi, ReturnType<typeof __buildMalzahar_W_Voidling>>();
-export function makeMalzahar_W_Voidling(api: ContentApi) {
-  const cached = __cacheMalzahar_W_Voidling.get(api);
-  if (cached) return cached;
-  const built = __buildMalzahar_W_Voidling(api);
-  __cacheMalzahar_W_Voidling.set(api, built);
-  return built;
-}
+});

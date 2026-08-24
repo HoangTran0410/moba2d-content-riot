@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { makeShaco_W_Bullet_Object } from './Shaco_W';
+import { packClass } from '../packClass';
 
 type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
@@ -34,7 +35,7 @@ const HILT: [number, number, number] = [190, 44, 72];
 const VENOM: [number, number, number] = [126, 214, 74];
 
 
-function __buildShaco_E(api: ContentApi) {
+export const makeShaco_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -109,15 +110,8 @@ function __buildShaco_E(api: ContentApi) {
     }
   }
   return Shaco_E;
-}
-const __cacheShaco_E = new WeakMap<ContentApi, ReturnType<typeof __buildShaco_E>>();
-export default function makeShaco_E(api: ContentApi) {
-  const cached = __cacheShaco_E.get(api);
-  if (cached) return cached;
-  const built = __buildShaco_E(api);
-  __cacheShaco_E.set(api, built);
-  return built;
-}
+});
+export default makeShaco_E;
 
 
 /**
@@ -130,7 +124,7 @@ export default function makeShaco_E(api: ContentApi) {
  * that a player is meant to see coming has to look like a knife, so this one
  * tumbles end over end with venom coming off the edge.
  */
-function __buildShaco_E_Object(api: ContentApi) {
+export const makeShaco_E_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const TrailSystem = api.helpers.TrailSystem;
   const Shaco_W_Bullet_Object = makeShaco_W_Bullet_Object(api);
@@ -289,12 +283,4 @@ function __buildShaco_E_Object(api: ContentApi) {
     }
   }
   return Shaco_E_Object;
-}
-const __cacheShaco_E_Object = new WeakMap<ContentApi, ReturnType<typeof __buildShaco_E_Object>>();
-export function makeShaco_E_Object(api: ContentApi) {
-  const cached = __cacheShaco_E_Object.get(api);
-  if (cached) return cached;
-  const built = __buildShaco_E_Object(api);
-  __cacheShaco_E_Object.set(api, built);
-  return built;
-}
+});
