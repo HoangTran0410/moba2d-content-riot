@@ -85,6 +85,12 @@ writeFileSync(
       entry: 'pack.js',
       assets: 'assets/',
       champions: championCount,
+      // Copied verbatim out of `public/` by Vite, so the name is stable and
+      // unhashed — core resolves it against the manifest and shows it beside
+      // an *installed* pack only, never on the install confirmation (core's
+      // spec §3.2). It is this pack's own artwork, served from this pack's
+      // own host: core ships no content and carries no content's branding.
+      icon: 'icon.png',
       files,
     },
     null,
