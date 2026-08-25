@@ -211,7 +211,15 @@ describe("the pack's tests speak only published core surfaces", () => {
     // There is no memo left to ban: a spell is an ordinary class now, and the
     // rule that took its place is that the data half must not statically
     // import one. Both read `node:fs`/`node:path` and reach core not at all.
-    expect(files.length).toBe(78);
+    //
+    // 79, not 78, pack pinning: `tests/buildId.test.ts` checks the value core
+    // hangs off the entry URL so that two builds are two URLs — the fix for a
+    // republished pack whose old chunk graph 404'd and turned a champion's
+    // ability into a basic attack in silence. It reads this pack's own
+    // `scripts/write-manifest.mjs` and `dist/manifest.json` through
+    // `node:fs`/`node:crypto` and reaches core not at all, so the population
+    // count moves and the offender count below does not.
+    expect(files.length).toBe(79);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {
