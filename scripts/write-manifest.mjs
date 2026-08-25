@@ -39,9 +39,52 @@ if (!coreSpec) {
   throw new Error('package.json declares no @moba2d/core dependency to derive coreRange from');
 }
 
-// A git dependency carries no version, so the range is the floor this pack
-// was authored against. Bump it deliberately when core's contract changes.
+/**
+ * The oldest core this pack works against.
+ *
+ * The minor is core's **contract number** — the version of `ContentApi`'s
+ * shape, moved by core's `npm run contract:bump` whenever that surface
+ * changes. Raise this floor when this pack starts using something a newer
+ * contract added, and **only after a core carrying that contract is deployed**:
+ * this pack is the half that is already published, so a floor the live core
+ * cannot meet is refused on every player's machine at once.
+ *
+ * Still `>=1.0.0` on purpose. Nothing here needs contract 1, and a floor
+ * raised for no reason only narrows who can play.
+ */
 const coreRange = '>=1.0.0';
+
+/**
+ * A floor no core can satisfy is a pack nobody can install, and this build is
+ * the last place to notice before it is a URL people already have.
+ *
+ * Two failures, both silent otherwise: a range core's parser does not
+ * understand (`^1`, `>=1.0`, `~1.2.3` — `satisfiesCoreRange` reads `*` and
+ * `>=X.Y.Z` and nothing else), and a floor above the core this pack was
+ * actually built against, which cannot be right because the members it
+ * promises did not exist in what compiled it.
+ */
+const installedCore = JSON.parse(
+  readFileSync(join(root, 'node_modules/@moba2d/core/package.json'), 'utf8')
+).version;
+
+const floor = /^>=(\d+)\.(\d+)\.(\d+)$/.exec(coreRange);
+if (coreRange !== '*' && !floor) {
+  throw new Error(
+    `coreRange "${coreRange}" is not a shape core can parse — use '*' or '>=X.Y.Z'.`
+  );
+}
+const have = /^(\d+)\.(\d+)\.(\d+)$/.exec(installedCore);
+if (floor && have) {
+  let ordering = 0;
+  for (let i = 1; i <= 3 && ordering === 0; i++) ordering = Number(floor[i]) - Number(have[i]);
+  if (ordering > 0) {
+    throw new Error(
+      `coreRange "${coreRange}" is above the core this pack was built against ` +
+        `(${installedCore}). Nothing here can be using members that core does not have.`
+    );
+  }
+}
 
 const { data } = await import(pathToFileURL(join(dist, 'pack.js')).href);
 const championCount = data.champions.filter(champion => champion.playable).length;
