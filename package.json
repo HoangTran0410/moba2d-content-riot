@@ -19,9 +19,11 @@
     "ability:import": "node scripts/wiki/import-abilities.mjs",
     "ability:update": "node scripts/wiki/import-abilities.mjs --update",
     "ability:check": "node scripts/wiki/check-abilities.mjs",
+    "items:import": "node scripts/import-items.mjs",
+    "items:check": "node scripts/import-items.mjs --check",
     "names:sync": "node scripts/wiki/sync-spell-names.mjs",
     "names:apply": "node scripts/wiki/sync-spell-names.mjs --apply",
-    "verify": "npm run assets:check && npm run catalog:check && npm run ability:check && npm run typecheck && npm run check-unused && npm run check-seams && npm run check-seams:monsters && npm run build && npm test"
+    "verify": "npm run assets:check && npm run catalog:check && npm run ability:check && npm run items:check && npm run typecheck && npm run check-unused && npm run check-seams && npm run check-seams:monsters && npm run build && npm test"
   },
   "devDependencies": {
     "@moba2d/core": "github:HoangTran0410/moba2d-core#main",

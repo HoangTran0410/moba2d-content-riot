@@ -30,13 +30,48 @@ describe('catalogue completeness', () => {
     expect(codeIds.size).toBeGreaterThan(200);
   });
 
-  it('every spell code.ts exports is referenced by some champion or the summoner shelf in data.ts (nothing silently unreachable)', () => {
+  it('every spell code.ts exports is referenced by some champion, the summoner shelf, or an item in data.ts (nothing silently unreachable)', () => {
     const referenced = new Set<string>();
     for (const champion of data.champions ?? []) {
       for (const id of champion.spells) referenced.add(id);
     }
+    // The third way in, added with the shop: `ItemDef.passive`/`ItemDef.active`
+    // name a spell exactly the way a kit slot does — see `Item.ts`'s own
+    // "three grants, three existing mechanisms". A `spells[]` entry is the only
+    // reachability a kit has; an item is a *parallel* row and its two are the
+    // same question asked of a different owner.
+    for (const item of Object.values(data.items ?? {})) {
+      if (item.passive) referenced.add(item.passive);
+      if (item.active) referenced.add(item.active);
+    }
     const missing = [...codeIds].filter(id => !referenced.has(id));
     expect(missing).toEqual([]);
+  });
+
+  it('reaches the item spells through items only — never through a champion kit', () => {
+    // The other half of the rule above. An `Item_*` id appearing in some
+    // champion's `spells[]` would be reachable, so the test above would stay
+    // green, and it would hand a champion an item's ninety-second active as an
+    // ability slot — which is the same failure `tests/items.test.ts` guards on
+    // the `spellDisplay` axis, one field over.
+    const inKits: string[] = [];
+    for (const champion of data.champions ?? []) {
+      for (const id of champion.spells) {
+        if (id.startsWith('Item_')) inKits.push(`${champion.name}: ${id}`);
+      }
+    }
+    expect(inKits).toEqual([]);
+
+    const fromItems = new Set<string>();
+    for (const item of Object.values(data.items ?? {})) {
+      if (item.passive) fromItems.add(item.passive);
+      if (item.active) fromItems.add(item.active);
+    }
+    // ...and every item spell this pack ships is claimed by an item, or it is
+    // dead code no shop row can ever press.
+    const orphaned = [...codeIds].filter(id => id.startsWith('Item_') && !fromItems.has(id));
+    expect(orphaned).toEqual([]);
+    expect(fromItems.size).toBe(4);
   });
 
   it('has exactly one generated catalogue entry per spell code.ts exports (nothing silently missing from the free-form picker)', () => {

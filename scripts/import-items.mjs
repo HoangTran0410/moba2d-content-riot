@@ -1,0 +1,208 @@
+/**
+ * Fetches this pack's shop-item icons from Riot's own Data Dragon CDN, and
+ * records where every byte came from.
+ *
+ * **This is a pack, so third-party art belongs here.** Core ships none — the
+ * engine draws every pixel it carries, and Riot-derived material lives in the
+ * pack that is named for Riot's game. Item icons are the same class of asset
+ * as the champion portraits and ability icons already under `assets/`: the
+ * files the League client itself serves, unaltered.
+ *
+ * ## Why the ledger is not `assets/source-manifest.json`
+ *
+ * That file is the *wiki* importer's, and `scripts/wiki/check-abilities.mjs`
+ * holds it to a rule these icons cannot satisfy: every key in it must be
+ * referenced by a record under `docs/abilities/` ("unreferenced asset key"),
+ * because it exists to tie an ability's imported artwork to the ability record
+ * that imported it. An item is not an ability and has no such record, so a row
+ * for `item_thornmail` in that manifest would fail `npm run ability:check` the
+ * moment it was written.
+ *
+ * The ledger therefore lives beside `docs/spell-names-vi.json`, which sits
+ * outside `docs/abilities/` for the same shape of reason — a cache that
+ * `ability:check` validates against a different schema has no business inside
+ * the tree it validates. It also may not live under `assets/` at all:
+ * `generate-assets.mjs` excludes exactly two files by name from the manifest
+ * walk, and a third JSON file there would silently mint an asset key
+ * (`items_source_manifest`) and ship the provenance record itself into every
+ * player's download.
+ *
+ * ## Verbatim, and why both hashes are recorded anyway
+ *
+ * Data Dragon serves item icons at 64x64, which is the size the shop draws
+ * them at, so nothing is resized, cropped or re-encoded on the way in — the
+ * bytes on disk are the bytes Riot served, which is the strongest form the
+ * provenance claim can take. `sourceHash` and `contentHash` are consequently
+ * equal on every row today. Both are still written, and the schema matches the
+ * dota pack's `scripts/import-art.mjs` field for field, because the day one of
+ * these needs a transform is the day the two stop being equal — and a schema
+ * that has to change at that point is a schema that will not be changed.
+ *
+ * (The build re-encodes raster art to WebP on the way into `dist/` — see
+ * `vite.config.ts` and core's `scripts/pack-webp.mjs` — so shrinking these
+ * files here would buy nothing and cost the provenance claim.)
+ *
+ * `--check` re-hashes what is on disk against the ledger and touches the
+ * network for nothing. That is what `verify` runs, so a build on a machine
+ * with no internet still fails loudly when the committed art and the recorded
+ * provenance have drifted apart — rather than silently re-fetching and turning
+ * a review of "which art changed" into a diff of binary blobs.
+ */
+import { createHash } from 'node:crypto';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const MANIFEST = join(root, 'docs/items-source-manifest.json');
+const UA = 'moba2d-content-lol item icon importer (+https://github.com/HoangTran0410/moba2d-content-riot)';
+
+/**
+ * The Data Dragon patch these icons were taken from. Pinned, not "latest": a
+ * floating version turns `items:check` into a check of what Riot published
+ * this morning, and the whole point of the ledger is that the bytes on disk
+ * are reproducible from a URL that still means what it meant.
+ */
+const PATCH = '16.16.1';
+
+const CDN = `https://ddragon.leagueoflegends.com/cdn/${PATCH}/img/item`;
+
+/**
+ * The item set, and the only place a Riot item id is written down.
+ *
+ * `local` is this pack's own id for the item — the key in `data.ts`'s `items`
+ * record, the `id` on its `ItemDef`, and half of its asset key: core's asset
+ * generator maps `assets/images/items/long_sword.png` to `item_long_sword`,
+ * which is the string `ItemDef.icon` carries. `riot` is the number Data Dragon
+ * files the icon under, and it is *only* an icon coordinate — none of the
+ * stats, costs or build paths in `data.ts` come from Riot's own item data, and
+ * they are not meant to: this engine's champion has a 100-point health pool.
+ */
+export const ITEMS = [
+  { local: 'long_sword', riot: 1036 },
+  { local: 'cloth_armor', riot: 1029 },
+  { local: 'null_magic_mantle', riot: 1033 },
+  { local: 'ruby_crystal', riot: 1028 },
+  { local: 'boots', riot: 1001 },
+  { local: 'recurve_bow', riot: 1043 },
+  { local: 'berserkers_greaves', riot: 3006 },
+  { local: 'warmogs_armor', riot: 3083 },
+  { local: 'thornmail', riot: 3075 },
+  { local: 'infinity_edge', riot: 3031 },
+  { local: 'quicksilver_sash', riot: 3140 },
+  { local: 'blade_of_the_ruined_king', riot: 3153 },
+  { local: 'zhonyas_hourglass', riot: 3157 },
+  { local: 'youmuus_ghostblade', riot: 3142 },
+];
+
+const sha256 = buffer => createHash('sha256').update(buffer).digest('hex');
+
+async function download(url) {
+  const response = await fetch(url, { headers: { 'user-agent': UA } });
+  if (!response.ok) throw new Error(`${response.status} ${response.statusText} for ${url}`);
+  return Buffer.from(await response.arrayBuffer());
+}
+
+function check() {
+  if (!existsSync(MANIFEST)) {
+    console.error(
+      'import-items --check: docs/items-source-manifest.json is missing. Run `npm run items:import`.'
+    );
+    process.exit(1);
+  }
+  const manifest = JSON.parse(readFileSync(MANIFEST, 'utf8'));
+  if (manifest.schemaVersion !== 1 || !Array.isArray(manifest.sources)) {
+    console.error('import-items --check: docs/items-source-manifest.json: invalid schema');
+    process.exit(1);
+  }
+
+  const problems = [];
+  const recorded = new Set();
+  for (const entry of manifest.sources) {
+    if (!entry?.localPath || !entry.localAssetKey || !/^[a-f0-9]{64}$/.test(entry.contentHash)) {
+      problems.push(`${entry?.localPath ?? '(no path)'} — invalid source metadata`);
+      continue;
+    }
+    if (recorded.has(entry.localAssetKey)) {
+      problems.push(`${entry.localAssetKey} — recorded twice`);
+      continue;
+    }
+    recorded.add(entry.localAssetKey);
+    const path = join(root, entry.localPath);
+    if (!existsSync(path)) {
+      problems.push(`${entry.localPath} — recorded but not on disk`);
+      continue;
+    }
+    if (sha256(readFileSync(path)) !== entry.contentHash) {
+      problems.push(`${entry.localPath} — content does not match the recorded hash`);
+    }
+  }
+
+  // The other direction, which a hash sweep alone cannot see: an item added to
+  // `ITEMS` and never imported has no row here, so nothing would be re-hashed
+  // and the run would pass with the icon simply missing.
+  for (const item of ITEMS) {
+    if (!recorded.has(`item_${item.local}`)) {
+      problems.push(`item_${item.local} — in ITEMS but absent from the ledger`);
+    }
+  }
+
+  if (problems.length) {
+    console.error(`import-items --check: ${problems.length} problem(s):`);
+    for (const problem of problems) console.error('  ' + problem);
+    console.error('Run `npm run items:import` and commit the art together with the manifest.');
+    process.exit(1);
+  }
+  console.log(
+    `import-items --check: ${manifest.sources.length} item icon(s) match their recorded source`
+  );
+}
+
+async function importAll() {
+  const sources = [];
+  for (const item of ITEMS) {
+    const url = `${CDN}/${item.riot}.png`;
+    const bytes = await download(url);
+    const localPath = `assets/images/items/${item.local}.png`;
+    const path = join(root, localPath);
+    mkdirSync(dirname(path), { recursive: true });
+    writeFileSync(path, bytes);
+    sources.push({
+      contentHash: sha256(bytes),
+      fetchedAt: new Date().toISOString(),
+      localAssetKey: `item_${item.local}`,
+      localPath,
+      riotItemId: item.riot,
+      // Equal to `contentHash` while nothing transforms these — see the header.
+      sourceHash: sha256(bytes),
+      sourceUrl: url,
+    });
+    console.log(`  ${localPath}  <-  ${url}`);
+  }
+
+  sources.sort((a, b) => a.localPath.localeCompare(b.localPath));
+  writeFileSync(
+    MANIFEST,
+    JSON.stringify(
+      {
+        schemaVersion: 1,
+        patch: PATCH,
+        note:
+          'League of Legends item icons, fetched verbatim from Riot\'s own Data Dragon CDN. ' +
+          'League of Legends and all related trademarks and artwork are the property of Riot ' +
+          'Games; this pack is an unofficial, non-commercial fan project and claims no ownership ' +
+          'of them. The stats, costs and build paths in data.ts are this pack\'s own and are ' +
+          'not Riot\'s. See README.md.',
+        sources,
+      },
+      null,
+      2
+    ) + '\n'
+  );
+  console.log(
+    `import-items: ${sources.length} icon(s) written, provenance in docs/items-source-manifest.json`
+  );
+}
+
+if (process.argv.includes('--check')) check();
+else await importAll();

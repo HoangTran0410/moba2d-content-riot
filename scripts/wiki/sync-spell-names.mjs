@@ -54,7 +54,23 @@ const SUMMONER_KEYS = {
   Heal: 'SummonerHeal',
   Ignite: 'SummonerDot',
 };
-const ITEM_KEYS = { StealthWard: '3340' };
+/**
+ * Spells whose Vietnamese name is an *item's* name in `item.json`, not an
+ * ability's. The ward has always been one; the shop's four actives and
+ * passives are the rest — an item spell is named for the item a player bought,
+ * so Riot's own string for that item is the right one to hold it to.
+ *
+ * `Item_Quicksilver` points at 3140 and `quicksilver_sash` in `data.ts`
+ * points at the same icon, deliberately: the two agree, and the local id is
+ * the odd one out. See that row's own note.
+ */
+const ITEM_KEYS = {
+  StealthWard: '3340',
+  Item_Thornmail: '3075',
+  Item_Zhonyas: '3157',
+  Item_Ghostblade: '3142',
+  Item_Quicksilver: '3140',
+};
 /** No upstream string exists for these, so they are left exactly as written. */
 const NOT_FROM_RIOT = new Set(['BasicAttack', '_EmptyExample', 'index']);
 
@@ -92,7 +108,15 @@ const download = async () => {
   // Only `Champion_Q.ts`-shaped files name a champion; Flash and the ward are
   // looked up further down, in `summoner.json` and `item.json`.
   const champions = [
-    ...new Set(spellFiles().filter(entry => entry.slot).map(entry => entry.champion)),
+    ...new Set(
+      spellFiles()
+        // A `Champion_Slot`-shaped filename is not proof of a champion: the
+        // shop's spells are `Item_Thornmail`-shaped and are looked up in
+        // `item.json` below, so without this the sync goes hunting for a
+        // champion called "Item" and reports it missing on every run.
+        .filter(entry => entry.slot && !(entry.slug in ITEM_KEYS) && !(entry.slug in SUMMONER_KEYS))
+        .map(entry => entry.champion)
+    ),
   ].sort();
 
   const names = {};

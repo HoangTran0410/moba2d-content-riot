@@ -259,3 +259,12 @@ export { default as Irelia_Q } from './Irelia_Q';
 export { default as Irelia_W } from './Irelia_W';
 export { default as Irelia_E } from './Irelia_E';
 export { default as Irelia_R } from './Irelia_R';
+
+// The shop's four item spells. Not a champion's kit and not the summoner
+// shelf — `data.ts`'s `items` record is what points at them, and `data.ts`'s
+// `displayData()` deliberately leaves them out of `spellDisplay` so a
+// `'random'` loadout slot can never deal Zhonya's active as somebody's Q.
+export { default as Item_Thornmail } from './Item_Thornmail';
+export { default as Item_Zhonyas } from './Item_Zhonyas';
+export { default as Item_Ghostblade } from './Item_Ghostblade';
+export { default as Item_Quicksilver } from './Item_Quicksilver';

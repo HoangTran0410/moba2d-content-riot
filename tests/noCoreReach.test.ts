@@ -226,7 +226,14 @@ describe("the pack's tests speak only published core surfaces", () => {
     // `scripts/write-manifest.mjs` and `dist/manifest.json` through
     // `node:fs`/`node:crypto` and reaches core not at all, so the population
     // count moves and the offender count below does not.
-    expect(files.length).toBe(79);
+    //
+    // 81, not 79, the shop: `tests/items.test.ts` and
+    // `tests/spells/Item_actives.test.ts` arrived with this pack's item set.
+    // Both reach core only through `@moba2d/core/testing`,
+    // `@moba2d/core/testing/spell` and `@moba2d/core/content/types` — all
+    // three already on `ALLOWED_CORE_SUBPATHS` — so the population count
+    // moves and the offender count below does not.
+    expect(files.length).toBe(81);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

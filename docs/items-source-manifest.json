@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "patch": "16.16.1",
+  "note": "League of Legends item icons, fetched verbatim from Riot's own Data Dragon CDN. League of Legends and all related trademarks and artwork are the property of Riot Games; this pack is an unofficial, non-commercial fan project and claims no ownership of them. The stats, costs and build paths in data.ts are this pack's own and are not Riot's. See README.md.",
+  "sources": [
+    {
+      "contentHash": "81089b0f6e9514f812189ee9b664e44045933c812ef3a62c0732cc2655397264",
+      "fetchedAt": "2026-08-25T18:15:42.831Z",
+      "localAssetKey": "item_berserkers_greaves",
+      "localPath": "assets/images/items/berserkers_greaves.png",
+      "riotItemId": 3006,
+      "sourceHash": "81089b0f6e9514f812189ee9b664e44045933c812ef3a62c0732cc2655397264",
+      "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/3006.png"
+    },
+    {
+      "contentHash": "626dbfdca488a6e42602dd6e8a28e9b65b26992a6cdc805f0d6c1ab0de3b7627",
+      "fetchedAt": "2026-08-25T18:15:44.376Z",
+      "localAssetKey": "item_blade_of_the_ruined_king",
+      "localPath": "assets/images/items/blade_of_the_ruined_king.png",
+      "riotItemId": 3153,
+      "sourceHash": "626dbfdca488a6e42602dd6e8a28e9b65b26992a6cdc805f0d6c1ab0de3b7627",
+      "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/3153.png"
+    },
+    {
+      "contentHash": "f2b2a8ba7ae715c8906d3037d38778aa545f3d0740091640484aa3d126396ad0",
+      "fetchedAt": "2026-08-25T18:15:42.763Z",
+      "localAssetKey": "item_boots",
+      "localPath": "assets/images/items/boots.png",
+      "riotItemId": 1001,
+      "sourceHash": "f2b2a8ba7ae715c8906d3037d38778aa545f3d0740091640484aa3d126396ad0",
+      "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/1001.png"
+    },
+    {
+      "contentHash": "3b89234b2be140f17b06a92297abdc54ce23e6034b6b80335d612fac3d20720d",
+      "fetchedAt": "2026-08-25T18:15:42.663Z",
+      "localAssetKey": "item_cloth_armor",
+      "localPath": "assets/images/items/cloth_armor.png",
+      "riotItemId": 1029,
+      "sourceHash": "3b89234b2be140f17b06a92297abdc54ce23e6034b6b80335d612fac3d20720d",
+      "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/1029.png"
+    },
+    {
+      "contentHash": "39382e1bef39a48d14e6d37e52e9d02068df9153ca60c2bcca033dd276fae5df",
+      "fetchedAt": "2026-08-25T18:15:44.313Z",
+      "localAssetKey": "item_infinity_edge",
+      "localPath": "assets/images/items/infinity_edge.png",
+      "riotItemId": 3031,
+      "sourceHash": "39382e1bef39a48d14e6d37e52e9d02068df9153ca60c2bcca033dd276fae5df",
+      "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/3031.png"
+    },
+    {
+      "contentHash": "c57b71ae65b3b38241f8ed97fe6fb5ae78db5a82002be392d91ebb6f5ffde8af",
+      "fetchedAt": "2026-08-25T18:15:42.572Z",
+      "localAssetKey": "item_long_sword",
+      "localPath": "assets/images/items/long_sword.png",
+      "riotItemId": 1036,
+      "sourceHash": "c57b71ae65b3b38241f8ed97fe6fb5ae78db5a82002be392d91ebb6f5ffde8af",
+      "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/1036.png"
+    },
+    {
+      "contentHash": "07e375e152ba901b1f7acc2ba4c05e9c7f2f21544aba928dfec42d3e36236b03",
+      "fetchedAt": "2026-08-25T18:15:42.697Z",
+      "localAssetKey": "item_null_magic_mantle",
+      "localPath": "assets/images/items/null_magic_mantle.png",
+      "riotItemId": 1033,
+      "sourceHash": "07e375e152ba901b1f7acc2ba4c05e9c7f2f21544aba928dfec42d3e36236b03",
+      "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/1033.png"
+    },
+    {
+      "contentHash": "16cedabad67792f551e8893a34338f7981b3b52c444a23035846fcab954a299f",
+      "fetchedAt": "2026-08-25T18:15:44.346Z",
+      "localAssetKey": "item_quicksilver_sash",
+      "localPath": "assets/images/items/quicksilver_sash.png",
+      "riotItemId": 3140,
+      "sourceHash": "16cedabad67792f551e8893a34338f7981b3b52c444a23035846fcab954a299f",
+      "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/3140.png"
+    },
+    {
+      "contentHash": "14b0096f1ecda8179ad0b067afee0fa4a39d80e70df4798c3eb3943f62b17a5c",
+      "fetchedAt": "2026-08-25T18:15:42.798Z",
+      "localAssetKey": "item_recurve_bow",
+      "localPath": "assets/images/items/recurve_bow.png",
+      "riotItemId": 1043,
+      "sourceHash": "14b0096f1ecda8179ad0b067afee0fa4a39d80e70df4798c3eb3943f62b17a5c",
+      "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/1043.png"
+    },
+    {
+      "contentHash": "90f702e7d757914c96e546ae4076b624800dafc140edffac70733f104684b412",
+      "fetchedAt": "2026-08-25T18:15:42.730Z",
+      "localAssetKey": "item_ruby_crystal",
+      "localPath": "assets/images/items/ruby_crystal.png",
+      "riotItemId": 1028,
+      "sourceHash": "90f702e7d757914c96e546ae4076b624800dafc140edffac70733f104684b412",
+      "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/1028.png"
+    },
+    {
+      "contentHash": "a94887d0c8711631ef0257eff8afea080c92c0d3360e816282d7c4975df49e41",
+      "fetchedAt": "2026-08-25T18:15:44.242Z",
+      "localAssetKey": "item_thornmail",
+      "localPath": "assets/images/items/thornmail.png",
+      "riotItemId": 3075,
+      "sourceHash": "a94887d0c8711631ef0257eff8afea080c92c0d3360e816282d7c4975df49e41",
+      "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/3075.png"
+    },
+    {
+      "contentHash": "642f3290afef9f937ab0cab22e290661250e277f1f1491945ed54d58dabf5f19",
+      "fetchedAt": "2026-08-25T18:15:43.618Z",
+      "localAssetKey": "item_warmogs_armor",
+      "localPath": "assets/images/items/warmogs_armor.png",
+      "riotItemId": 3083,
+      "sourceHash": "642f3290afef9f937ab0cab22e290661250e277f1f1491945ed54d58dabf5f19",
+      "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/3083.png"
+    },
+    {
+      "contentHash": "7367b7078ad4a0096f7068c9c4a6b5e37ba748f8367ef33e6abdde1b74776bbd",
+      "fetchedAt": "2026-08-25T18:15:44.443Z",
+      "localAssetKey": "item_youmuus_ghostblade",
+      "localPath": "assets/images/items/youmuus_ghostblade.png",
+      "riotItemId": 3142,
+      "sourceHash": "7367b7078ad4a0096f7068c9c4a6b5e37ba748f8367ef33e6abdde1b74776bbd",
+      "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/3142.png"
+    },
+    {
+      "contentHash": "fc0908ad8621e96ad635b5bac67e09f663ec80735efd732b10f07d8c498443aa",
+      "fetchedAt": "2026-08-25T18:15:44.411Z",
+      "localAssetKey": "item_zhonyas_hourglass",
+      "localPath": "assets/images/items/zhonyas_hourglass.png",
+      "riotItemId": 3157,
+      "sourceHash": "fc0908ad8621e96ad635b5bac67e09f663ec80735efd732b10f07d8c498443aa",
+      "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/3157.png"
+    }
+  ]
+}

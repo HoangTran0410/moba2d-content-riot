@@ -59,7 +59,9 @@ npm run verify
 `verify` runs, in order: `assets:check` (the generated asset manifest is
 current), `catalog:check` (the generated spell catalogue is current),
 `ability:check` (the imported ability data under `docs/abilities/` is
-internally consistent and every image it references exists), `typecheck`,
+internally consistent and every image it references exists), `items:check`
+(every shop item icon still hashes to what `docs/items-source-manifest.json`
+recorded), `typecheck`,
 `check-seams` and `check-seams:monsters` (the source-scan rules that keep
 this pack from reaching into core through anything but `ContentApi`), and
 `npm test` (this pack's own Vitest suite).
@@ -77,6 +79,15 @@ first place, and how a future refresh (`npm run ability:update`,
 `npm run names:sync`) would pull an update. They touch the network only when
 explicitly invoked; nothing in `verify` does.
 
+The shop's item icons come off Data Dragon directly rather than the wiki, so
+they have their own importer and their own ledger — `scripts/import-items.mjs`
+and `docs/items-source-manifest.json` (`npm run items:import` to refetch,
+`npm run items:check` to re-hash offline). The ledger lives outside `assets/`
+on purpose: `assets/source-manifest.json` is the *wiki* importer's and
+`ability:check` requires every key in it to be referenced by a record under
+`docs/abilities/`, which an item — not being an ability — can never satisfy.
+Same reason `docs/spell-names-vi.json` sits where it does.
+
 ## Trademarks and third-party assets
 
 This is a **non-commercial, unofficial fan project**. It is **not affiliated
@@ -88,7 +99,11 @@ their artwork. `assets/` holds champion portraits and ability icons imported
 from the League of Legends Wiki — `assets/source-manifest.json` records, for
 every one of them, the URL it came from, the revision it was, and a SHA-256 of
 the bytes, and `npm run ability:check` re-hashes each file against that record
-so the provenance stays true. The Vietnamese ability names come from Riot's own
+so the provenance stays true. The shop's fourteen item icons are the same
+deal one ledger over: taken byte-for-byte off Data Dragon, recorded in
+`docs/items-source-manifest.json`, re-hashed by `npm run items:check`. The
+items' own stats, costs and build paths are *not* Riot's — they are written
+here, for a champion with a 100-point health pool. The Vietnamese ability names come from Riot's own
 `vi_VN` locale via Data Dragon (`npm run names:sync`); only the descriptions are
 written here, because the official ones carry no numbers and these are scaled to
 a 100-health champion.

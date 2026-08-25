@@ -2,6 +2,7 @@ import type {
   ChampionAttack,
   ChampionEntry,
   ContentPackData,
+  ItemDef,
   MonsterDef,
   SpellDisplayData,
 } from '@moba2d/core/content/ContentPack';
@@ -533,10 +534,29 @@ const championEntries = (): ChampionEntry[] => {
  * `src/content/install.ts` folds it on afterward, onto the `data` this
  * module exports — see that file's own header for why the merge belongs to
  * core rather than to this pack.
+ *
+ * **The four `Item_*` spells are deliberately left out.** This is the
+ * population a `'random'` loadout slot is drawn from and a persisted slot is
+ * validated against — `PackRegistry.spellDisplayIds`, read by
+ * `spellRegistry.ts`'s `allSpellIds`/`isSpellId` — so without this skip
+ * "Đồng Hồ Cát Zhonya's active" could be dealt as somebody's Q, on a champion
+ * who does not own the item, with a ninety-second cooldown and no way to see
+ * where it came from. They still belong to the *code* half (`code.ts`'s
+ * `spells`, built from `generated/spellModules.ts`), which is what makes
+ * `ItemDef.passive`/`ItemDef.active` resolvable at all; core's own
+ * `lol:Recall` is the existing precedent for "loadable but not displayed", and
+ * `PackRegistry.spellDisplay`'s own doc comment says a declared spell with no
+ * display entry is a shape rather than a defect.
+ *
+ * Matched on the `Item_` prefix rather than a hand-kept list of four, because
+ * the failure mode of the list is a fifth item spell added a year from now
+ * that nobody remembers to add to it. `tests/items.test.ts` scans this
+ * module's output for the leak either way.
  */
 const displayData = (): Record<string, SpellDisplayData> => {
   const out: Record<string, SpellDisplayData> = {};
   for (const [id, entry] of Object.entries(spellCatalog)) {
+    if (id.startsWith('Item_')) continue;
     out[id] = {
       name: entry.name,
       description: entry.description,
@@ -548,6 +568,166 @@ const displayData = (): Record<string, SpellDisplayData> => {
   }
   return out;
 };
+
+/**
+ * The shop, as this pack declares it — six components and eight finished
+ * items, keyed by local id exactly the way `ItemDef.id` requires.
+ *
+ * **None of these numbers is Riot's, and they are not meant to be.** A
+ * champion in this engine has a 100-point health pool, 14 attack damage and 3
+ * movement speed; a player starts on 500 gold, earns 2 a second, 20 a minion
+ * and 200 a kill, so a ten-minute match is 3000–4000 gold and a full build is
+ * three finished items, not six. Every value below is sized to that economy.
+ * The only thing taken from Riot is the artwork and the Vietnamese name — see
+ * `scripts/import-items.mjs` and `docs/items-source-manifest.json`, which
+ * record every icon's source URL and hash.
+ *
+ * `stats` keys are core's `ITEM_STAT_KEYS` allow-list and nothing else;
+ * `validate.ts` refuses the whole pack over a key that is not on it. Two of
+ * them mean something a reader is likely to guess wrong, so they are worth
+ * stating once here rather than in six descriptions: `attackSpeed` is
+ * *attacks per second* and every item grant lands on `flatBonus`, so
+ * `attackSpeed: 0.3` is +0.3 swings a second on a base of 1.1 — not +30%; and
+ * `healthRegen` is applied per frame (`Stats.update`, base 0.06), so
+ * `healthRegen: 0.25` is roughly four times the regeneration a champion has
+ * for free.
+ *
+ * **A component with no passive and no active is legal and is the point.**
+ * `ItemDef`'s own doc comment says so: a pack that could not express an inert
+ * component could not express a build path, and a build path is what makes the
+ * cheap rows above worth selling at all.
+ */
+const itemEntries = (): Record<string, ItemDef> => ({
+  // ---- Components ------------------------------------------------------
+  long_sword: {
+    id: 'long_sword',
+    name: 'Kiếm Dài',
+    icon: 'item_long_sword',
+    cost: 350,
+    description: 'Tăng 6 sát thương công.',
+    stats: { attackDamage: 6 },
+  },
+  cloth_armor: {
+    id: 'cloth_armor',
+    name: 'Giáp Lụa',
+    icon: 'item_cloth_armor',
+    cost: 300,
+    description: 'Tăng 18 giáp, giảm khoảng 15% sát thương vật lý nhận vào.',
+    stats: { armor: 18 },
+  },
+  null_magic_mantle: {
+    id: 'null_magic_mantle',
+    name: 'Áo Vải',
+    icon: 'item_null_magic_mantle',
+    cost: 350,
+    description: 'Tăng 18 kháng phép, giảm khoảng 15% sát thương phép nhận vào.',
+    stats: { magicResist: 18 },
+  },
+  ruby_crystal: {
+    id: 'ruby_crystal',
+    name: 'Hồng Ngọc',
+    icon: 'item_ruby_crystal',
+    cost: 400,
+    description: 'Tăng 25 máu tối đa.',
+    stats: { maxHealth: 25 },
+  },
+  boots: {
+    id: 'boots',
+    name: 'Giày',
+    icon: 'item_boots',
+    cost: 300,
+    description: 'Tăng 0.35 tốc chạy.',
+    stats: { speed: 0.35 },
+  },
+  recurve_bow: {
+    id: 'recurve_bow',
+    name: 'Cung Gỗ',
+    icon: 'item_recurve_bow',
+    cost: 500,
+    description: 'Tăng 0.25 đòn đánh mỗi giây.',
+    stats: { attackSpeed: 0.25 },
+  },
+
+  // ---- Finished items --------------------------------------------------
+  berserkers_greaves: {
+    id: 'berserkers_greaves',
+    name: 'Giày Cuồng Nộ',
+    icon: 'item_berserkers_greaves',
+    cost: 900,
+    description: 'Tăng 0.45 tốc chạy và 0.3 đòn đánh mỗi giây.',
+    stats: { speed: 0.45, attackSpeed: 0.3 },
+  },
+  warmogs_armor: {
+    id: 'warmogs_armor',
+    name: 'Giáp Máu Warmog',
+    icon: 'item_warmogs_armor',
+    cost: 1200,
+    // `healthRegen` is applied per *frame* by `Stats.update`, not per second —
+    // base is 0.06, which is 3.6 health a second at 60fps. 0.25 was ~15/s on a
+    // 100-health pool, which outheals most of the abilities in this pack.
+    description: 'Tăng 70 máu tối đa và hồi máu nhanh gần gấp đôi mức cơ bản.',
+    stats: { maxHealth: 70, healthRegen: 0.05 },
+  },
+  thornmail: {
+    id: 'thornmail',
+    name: 'Giáp Gai',
+    icon: 'item_thornmail',
+    cost: 1100,
+    description: 'Tăng 45 giáp, và phản 25% sát thương nhận vào về kẻ đã gây ra nó.',
+    stats: { armor: 45 },
+    passive: 'Item_Thornmail',
+  },
+  infinity_edge: {
+    id: 'infinity_edge',
+    name: 'Vô Cực Kiếm',
+    icon: 'item_infinity_edge',
+    cost: 1300,
+    description: 'Tăng 18 sát thương công, 25% tỉ lệ chí mạng và 20% sát thương chí mạng.',
+    stats: { attackDamage: 18, critChance: 0.25, critDamage: 0.2 },
+  },
+  // The name and the icon are Data Dragon item 3140, whose Vietnamese name is
+  // 'Khăn Giải Thuật' — Quicksilver Sash. The local id says Mercurial Scimitar
+  // (which is item 3139, 'Đao Thủy Ngân'). The three were specified together
+  // and are shipped as specified; anyone correcting one of them has to correct
+  // all three, or the row goes from inconsistent to broken.
+  quicksilver_sash: {
+    id: 'quicksilver_sash',
+    name: 'Khăn Giải Thuật',
+    icon: 'item_quicksilver_sash',
+    cost: 1100,
+    description:
+      'Tăng 25 kháng phép và 6 sát thương công. Kích hoạt: gỡ bỏ mọi hiệu ứng khống chế đang chịu.',
+    stats: { magicResist: 25, attackDamage: 6 },
+    active: 'Item_Quicksilver',
+  },
+  blade_of_the_ruined_king: {
+    id: 'blade_of_the_ruined_king',
+    name: 'Gươm Suy Vong',
+    icon: 'item_blade_of_the_ruined_king',
+    cost: 1200,
+    description: 'Tăng 10 sát thương công, 0.25 đòn đánh mỗi giây và hút 12% sát thương gây ra.',
+    stats: { attackDamage: 10, attackSpeed: 0.25, omnivamp: 0.12 },
+  },
+  zhonyas_hourglass: {
+    id: 'zhonyas_hourglass',
+    name: 'Đồng Hồ Cát Zhonya',
+    icon: 'item_zhonyas_hourglass',
+    cost: 1400,
+    description:
+      'Tăng 30 giáp. Kích hoạt: đóng băng bản thân 2.5 giây, không thể bị nhắm và không nhận sát thương.',
+    stats: { armor: 30 },
+    active: 'Item_Zhonyas',
+  },
+  youmuus_ghostblade: {
+    id: 'youmuus_ghostblade',
+    name: 'Kiếm Ma Youmuu',
+    icon: 'item_youmuus_ghostblade',
+    cost: 1200,
+    description: 'Tăng 12 sát thương công. Kích hoạt: tăng 40% tốc chạy trong 5 giây.',
+    stats: { attackDamage: 12 },
+    active: 'Item_Ghostblade',
+  },
+});
 
 /**
  * The jungle, as monster identities — six of them, matching Task 7's split:
@@ -763,9 +943,24 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
  * `packs/reference/pack.ts`'s own `data`, which never needed getters either.
  */
 export const data: ContentPackData = {
-  manifest: { id: BUNDLED_PACK_ID, version: '1.0.0', coreRange: '^1', assets: BUNDLED_PACK_ID },
+  /**
+   * `coreRange` is `>=1.3.0` because of `items` below, and the floor is
+   * load-bearing rather than documentation. `ContentPackData.items` existed as
+   * a *field* before core read it, so a pack declaring a shop against an older
+   * core validates cleanly, installs cleanly, and has every one of its
+   * fourteen items silently ignored — no error, no shop, nothing to look at.
+   * `satisfiesCoreRange` parses `*` and `>=X.Y.Z` and nothing else, which is
+   * also why this is no longer the unparseable `'^1'` it used to be.
+   */
+  manifest: {
+    id: BUNDLED_PACK_ID,
+    version: '1.0.0',
+    coreRange: '>=1.3.0',
+    assets: BUNDLED_PACK_ID,
+  },
   spellDisplay: displayData(),
   champions: championEntries(),
+  items: itemEntries(),
   monsters: monsterEntries(),
   maps: [summonersRift],
 };

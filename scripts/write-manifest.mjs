@@ -50,10 +50,15 @@ if (!coreSpec) {
  * this pack is the half that is already published, so a floor the live core
  * cannot meet is refused on every player's machine at once.
  *
- * Still `>=1.0.0` on purpose. Nothing here needs contract 1, and a floor
- * raised for no reason only narrows who can play.
+ * Raised to `>=1.3.0` when this pack grew a shop. `ContentPackData.items`
+ * existed as a *field* before core read it, so a pack declaring items against
+ * an older core validates, installs, and has every one of them silently
+ * ignored — the exact silent-compatibility failure this paragraph warns
+ * about, just in the direction nobody expects. It matches `data.ts`'s own
+ * `manifest.coreRange`, which is the copy `PackRegistry` holds; this is the
+ * copy a *runtime* install checks, before a line of this pack's code runs.
  */
-const coreRange = '>=1.0.0';
+const coreRange = '>=1.3.0';
 
 /**
  * A floor no core can satisfy is a pack nobody can install, and this build is
