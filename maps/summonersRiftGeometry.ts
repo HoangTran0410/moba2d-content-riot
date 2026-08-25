@@ -148,11 +148,20 @@ export const NEUTRAL_SLOTS: NeutralSlot[] = [
   { role: 'red', x: 3368, y: 4698, r: 300 },
   { role: 'red', x: 3085, y: 1672, r: 300 },
   { role: 'wolves', x: 1685, y: 3562, r: 300 },
-  { role: 'wolves', x: 4728, y: 2835, r: 300 },
+  // `rotationDeg: 180` on the red-side halves of the two multi-body camps, and
+  // it is a bug fix, not decoration. Each of those camps is one `MonsterDef`
+  // serving two slots, and its `offset` layout was derived from the *blue*
+  // pit's own body positions — but this map's two halves are 180° rotations of
+  // each other, not copies, so at the red slot the same offsets pointed the
+  // wrong way and put bodies through the pit wall. Measured in a running match
+  // through `NavGrid.isWalkable`: two of two wolves and three of three raptors
+  // stood on unwalkable ground here, and every one of them became walkable once
+  // its offset was turned. See `NeutralSlot.rotationDeg` in core.
+  { role: 'wolves', x: 4728, y: 2835, r: 300, rotationDeg: 180 },
   { role: 'gromp', x: 914, y: 2784, r: 300 },
   { role: 'gromp', x: 5540, y: 3599, r: 300 },
   { role: 'raptors', x: 2954, y: 4110, r: 300 },
-  { role: 'raptors', x: 3498, y: 2258, r: 300 },
+  { role: 'raptors', x: 3498, y: 2258, r: 300, rotationDeg: 180 },
 ];
 
 /**
