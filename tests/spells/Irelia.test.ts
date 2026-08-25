@@ -11,31 +11,18 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { IRELIA_MARK_MS, Q_DAMAGE, Q_RANGE } from '../../spells/Irelia_Q';
-import makeIrelia_Q, { makeApplyIreliaMark, makeIrelia_Q_Blades, makeFindIreliaMark } from '../../spells/Irelia_Q';
+import Irelia_Q, { applyIreliaMark, Irelia_Q_Blades, findIreliaMark } from '../../spells/Irelia_Q';
 import { W_CHARGE_MS, W_DAMAGE_REDUCTION, W_HEAL_PER_HIT, W_MAX_DAMAGE, W_MIN_DAMAGE, W_MIN_REACH } from '../../spells/Irelia_W';
-import makeIrelia_W, { makeIrelia_W_Guard } from '../../spells/Irelia_W';
+import Irelia_W, { Irelia_W_Guard } from '../../spells/Irelia_W';
 import { E_DAMAGE, E_RANGE, E_RECAST_DELAY_MS, E_THROW_SPEED, E_WINDOW_MS } from '../../spells/Irelia_E';
-import makeIrelia_E, { makeIrelia_E_Blade, makeIrelia_E_Throw } from '../../spells/Irelia_E';
+import Irelia_E, { Irelia_E_Blade, Irelia_E_Throw } from '../../spells/Irelia_E';
 import { R_APEX_OVERSHOOT, R_ARM_LENGTH, R_HOOK_LENGTH, R_HOOK_TURN, R_OPEN_MS, R_DAMAGE, R_RANGE, R_VOLLEY_SIZE, R_VOLLEY_SPEED, R_WALL_COLLAPSE_MS, R_WALL_DAMAGE, R_WALL_MS } from '../../spells/Irelia_R';
-import makeIrelia_R, { makeIrelia_R_Volley, makeIrelia_R_Wall } from '../../spells/Irelia_R';
+import Irelia_R, { Irelia_R_Volley, Irelia_R_Wall } from '../../spells/Irelia_R';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
 const { Dash, Slow, Stun } = __api.buffs;
 type Spell = InstanceType<typeof __api.Spell>;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Irelia_Q = makeIrelia_Q(__api);
-const applyIreliaMark = makeApplyIreliaMark(__api);
-const Irelia_Q_Blades = makeIrelia_Q_Blades(__api);
-const findIreliaMark = makeFindIreliaMark(__api);
-const Irelia_W = makeIrelia_W(__api);
-const Irelia_W_Guard = makeIrelia_W_Guard(__api);
-type Irelia_W_Guard = InstanceType<typeof Irelia_W_Guard>;
-const Irelia_E = makeIrelia_E(__api);
-const Irelia_E_Blade = makeIrelia_E_Blade(__api);
-const Irelia_E_Throw = makeIrelia_E_Throw(__api);
-const Irelia_R = makeIrelia_R(__api);
-const Irelia_R_Volley = makeIrelia_R_Volley(__api);
-const Irelia_R_Wall = makeIrelia_R_Wall(__api);
 
 const FRAME_MS = 16;
 

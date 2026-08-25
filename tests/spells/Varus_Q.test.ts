@@ -1,12 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { buildTestApi, Stats } from '@moba2d/core/testing';
+import { Stats } from '@moba2d/core/testing';
 import type { CastContext } from '@moba2d/core/content/types';
 import { ARROW_SIZE, ARROW_SPEED, ARROW_VISUAL_HEIGHT, ARROW_VISUAL_WIDTH, DAMAGE_CHARGE_MS, MANA_COST, MAX_CENTER_TRAVEL, MAX_CHARGE_MS, MAX_DAMAGE, MIN_CENTER_TRAVEL, RANGE_CHARGE_MS, SELF_SLOW_PERCENT } from '../../spells/Varus_Q';
-import makeVarus_Q, { makeVarus_Q_Arrow } from '../../spells/Varus_Q';
-const __api = buildTestApi();
-const Varus_Q = makeVarus_Q(__api);
-const Varus_Q_Arrow = makeVarus_Q_Arrow(__api);
-type Varus_Q_Arrow = InstanceType<typeof Varus_Q_Arrow>;
+import Varus_Q, { Varus_Q_Arrow } from '../../spells/Varus_Q';
 
 class Vector {
   constructor(

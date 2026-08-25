@@ -8,16 +8,12 @@ import {
   installSpellObjectGlobals,
 } from '@moba2d/core/testing/spell';
 import { CAST_TIME_MS, INITIAL_DAMAGE, LATCH_RADIUS, MANA_COST, RESOLVE_DAMAGE, SELF_HASTE_PERCENT, SLOW_PERCENT, STUN_DURATION_MS, TETHER_DURATION_MS, TETHER_RANGE } from '../../spells/Morgana_R';
-import makeMorgana_R, { makeMorgana_R_Tether, makeMorgana_R_Tether_Object } from '../../spells/Morgana_R';
+import Morgana_R, { Morgana_R_Tether, Morgana_R_Tether_Object } from '../../spells/Morgana_R';
 const __api = buildTestApi();
 const { Slow, Stun, Speedup, TrueSight } = __api.buffs;
 type Stun = InstanceType<typeof __api.buffs.Stun>;
 type Speedup = InstanceType<typeof __api.buffs.Speedup>;
 type Slow = InstanceType<typeof __api.buffs.Slow>;
-const Morgana_R = makeMorgana_R(__api);
-type Morgana_R = InstanceType<typeof Morgana_R>;
-const Morgana_R_Tether = makeMorgana_R_Tether(__api);
-const Morgana_R_Tether_Object = makeMorgana_R_Tether_Object(__api);
 
 const context = (owner: { position: { x: number; y: number } }): CastContext =>
   Object.freeze({

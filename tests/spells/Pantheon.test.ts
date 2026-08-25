@@ -8,26 +8,17 @@ import {
   installSpellObjectGlobals,
   type TestGame,
 } from '@moba2d/core/testing/spell';
-import makePantheon_W from '../../spells/Pantheon_W';
+import Pantheon_W from '../../spells/Pantheon_W';
 import { DURATION as E_DURATION, HALF_ANGLE, REACH } from '../../spells/Pantheon_E';
-import makePantheon_E, { makePantheon_E_Aegis, makePantheon_E_Object } from '../../spells/Pantheon_E';
+import Pantheon_E, { Pantheon_E_Aegis, Pantheon_E_Object } from '../../spells/Pantheon_E';
 import { DAMAGE as R_DAMAGE, FALL_MS, FLIGHT_MS, LAUNCH_MS, MAX_RANGE, SKY_HEIGHT } from '../../spells/Pantheon_R';
-import makePantheon_R, { makePantheon_R_Meteor, makePantheon_R_Object, makePantheon_R_Skyward } from '../../spells/Pantheon_R';
+import Pantheon_R, { Pantheon_R_Meteor, Pantheon_R_Object, Pantheon_R_Skyward } from '../../spells/Pantheon_R';
 const __api = buildTestApi();
 const { Champion } = __api.units;
 const { Dash, Slow } = __api.buffs;
 type Dash = InstanceType<typeof __api.buffs.Dash>;
 const { StatusFlags } = __api.enums;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Pantheon_W = makePantheon_W(__api);
-const Pantheon_E = makePantheon_E(__api);
-const Pantheon_E_Aegis = makePantheon_E_Aegis(__api);
-const Pantheon_E_Object = makePantheon_E_Object(__api);
-const Pantheon_R = makePantheon_R(__api);
-const Pantheon_R_Meteor = makePantheon_R_Meteor(__api);
-const Pantheon_R_Object = makePantheon_R_Object(__api);
-const Pantheon_R_Skyward = makePantheon_R_Skyward(__api);
-type Pantheon_R_Skyward = InstanceType<typeof Pantheon_R_Skyward>;
 
 const at = (game: TestGame, x: number, y: number, teamId: string): AttackableUnit => {
   const unit = createUnit(game, x, teamId);

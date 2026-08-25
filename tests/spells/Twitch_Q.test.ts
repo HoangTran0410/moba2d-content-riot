@@ -1,12 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createGame, createUnit, installSpellObjectGlobals } from '@moba2d/core/testing/spell';
 import type { CastContext } from '@moba2d/core/content/types';
-import { buildTestApi } from '@moba2d/core/testing';
-import makeTwitch_Q, { makeTwitch_Q_Object } from '../../spells/Twitch_Q';
-const __api = buildTestApi();
-const Twitch_Q = makeTwitch_Q(__api);
-const Twitch_Q_Object = makeTwitch_Q_Object(__api);
-type Twitch_Q_Object = InstanceType<typeof Twitch_Q_Object>;
+import Twitch_Q, { Twitch_Q_Object } from '../../spells/Twitch_Q';
 
 const context: CastContext = Object.freeze({
   spellId: 'twitch-q',

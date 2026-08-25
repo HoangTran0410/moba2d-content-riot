@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { ContentPackCode, SpellSource } from '@moba2d/core/content/ContentPack';
+import { setPackApi } from './packApi';
 import { spellModules } from './generated/spellModules';
 import makeBaronAbilities from './monsters/Baron';
 
@@ -23,10 +24,10 @@ import makeBaronAbilities from './monsters/Baron';
  * `install.ts` is what makes that id resolve to a real class, exactly the
  * way it already does for the bare `'BasicAttack'` every kit's slot 0 names.
  */
-const spellSources = (api: ContentApi): Record<string, SpellSource> => {
+const spellSources = (): Record<string, SpellSource> => {
   const out: Record<string, SpellSource> = {};
   for (const [id, load] of Object.entries(spellModules)) {
-    out[id] = () => load().then(module => module.default(api));
+    out[id] = () => load().then(module => module.default);
   }
   return out;
 };
@@ -37,11 +38,19 @@ const spellSources = (api: ContentApi): Record<string, SpellSource> => {
  * see `./monsters/Baron.ts`'s own header for why abilities live in the code
  * half rather than on `MonsterBody`/`MonsterDef`.
  */
-const code = (api: ContentApi): ContentPackCode => ({
-  spells: spellSources(api),
-  monsterAbilities: {
-    baron: makeBaronAbilities(api),
-  },
-});
+const code = (api: ContentApi): ContentPackCode => {
+  // **First, and before anything reaches a spell module.** Every class in
+  // `spells/` is declared against `packApi.ts`'s `api` and reads it the moment
+  // its module evaluates; the loaders below are lazy, so nothing has evaluated
+  // yet when this runs. See `packApi.ts`'s header for the other two callers.
+  setPackApi(api);
+
+  return {
+    spells: spellSources(),
+    monsterAbilities: {
+      baron: makeBaronAbilities(api),
+    },
+  };
+};
 
 export default code;

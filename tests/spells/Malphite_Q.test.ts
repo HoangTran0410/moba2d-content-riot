@@ -10,7 +10,7 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { DAMAGE, MISSILE_SPEED, RANGE, SLOW_DURATION_MS, SLOW_PERCENT, SPAWN_OFFSET_DISTANCE, SPEEDUP_DURATION_MS } from '../../spells/Malphite_Q';
-import makeMalphite_Q, { makeMalphite_Q_Object } from '../../spells/Malphite_Q';
+import Malphite_Q, { Malphite_Q_Object } from '../../spells/Malphite_Q';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
 const { Slow, Speedup } = __api.buffs;
@@ -19,9 +19,6 @@ type Slow = InstanceType<typeof __api.buffs.Slow>;
 const { TargetResolver } = __api.combat;
 const { HomingMissileSpellObject } = __api;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Malphite_Q = makeMalphite_Q(__api);
-const Malphite_Q_Object = makeMalphite_Q_Object(__api);
-type Malphite_Q_Object = InstanceType<typeof Malphite_Q_Object>;
 
 /** The cast window this suite drives the runtime through — see `withCastTime`. */
 const TEST_CAST_TIME_MS = 250;

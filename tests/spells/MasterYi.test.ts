@@ -15,12 +15,12 @@ import {
 import type { CastContext } from '@moba2d/core/content/types';
 import { installSketchMathGlobals, installSpellObjectGlobals } from '@moba2d/core/testing/spell';
 import { EXTRA_STRIKE_DAMAGE, FIRST_STRIKE_DAMAGE, MAX_STRIKES, SEARCH_RADIUS, STRIKE_INTERVAL_MS, VANISH_MS } from '../../spells/MasterYi_Q';
-import makeMasterYi_Q, { makeMasterYi_Q_Object } from '../../spells/MasterYi_Q';
+import MasterYi_Q, { MasterYi_Q_Object } from '../../spells/MasterYi_Q';
 import { HEAL_PER_TICK, SHIELD_AMOUNT } from '../../spells/MasterYi_W';
-import makeMasterYi_W from '../../spells/MasterYi_W';
+import MasterYi_W from '../../spells/MasterYi_W';
 import { BONUS_TRUE_DAMAGE, DURATION_MS as WUJU_DURATION_MS } from '../../spells/MasterYi_E';
-import makeMasterYi_E from '../../spells/MasterYi_E';
-import makeMasterYi_R from '../../spells/MasterYi_R';
+import MasterYi_E from '../../spells/MasterYi_E';
+import MasterYi_R from '../../spells/MasterYi_R';
 const __api = buildTestApi();
 const { Champion } = __api.units;
 type Champion = InstanceType<typeof __api.units.Champion>;
@@ -29,12 +29,6 @@ type Untargetable = InstanceType<typeof __api.buffs.Untargetable>;
 type Shield = InstanceType<typeof __api.buffs.Shield>;
 const { EventType } = __api.enums;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const MasterYi_Q = makeMasterYi_Q(__api);
-const MasterYi_Q_Object = makeMasterYi_Q_Object(__api);
-type MasterYi_Q_Object = InstanceType<typeof MasterYi_Q_Object>;
-const MasterYi_W = makeMasterYi_W(__api);
-const MasterYi_E = makeMasterYi_E(__api);
-const MasterYi_R = makeMasterYi_R(__api);
 
 let game: TestGame;
 

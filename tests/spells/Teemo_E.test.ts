@@ -15,17 +15,13 @@ import {
 } from '@moba2d/core/testing';
 import { TestVector } from '@moba2d/core/testing/spell';
 import { MANA_COST, ON_HIT_DAMAGE, POISON_DAMAGE_PER_TICK, POISON_DURATION_MS, POISON_TICK_INTERVAL_MS, RANGE } from '../../spells/Teemo_E';
-import makeTeemo_E, { makeTeemo_E_Object, makeTeemo_E_Splash } from '../../spells/Teemo_E';
+import Teemo_E, { Teemo_E_Object, Teemo_E_Splash } from '../../spells/Teemo_E';
 const __api = buildTestApi();
 const { AttackableUnit, Champion } = __api.units;
 const { DamageOverTime } = __api.buffs;
 type DamageOverTime = InstanceType<typeof __api.buffs.DamageOverTime>;
 const { EventType } = __api.enums;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Teemo_E = makeTeemo_E(__api);
-const Teemo_E_Object = makeTeemo_E_Object(__api);
-type Teemo_E_Object = InstanceType<typeof Teemo_E_Object>;
-const Teemo_E_Splash = makeTeemo_E_Splash(__api);
 
 const target = (teamId: string) =>
   Object.assign(Object.create(AttackableUnit.prototype) as AttackableUnit, {

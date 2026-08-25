@@ -9,142 +9,126 @@
  * `AssetManager.get`/`.placeholder` (a pack may not import `AssetManager` at
  * all — the `pack-core-boundary` seam enforces it).
  *
- * **Every factory here is memoized, and a real spell's must be too.** A bare
- * `class X extends api.Spell {}` returned straight from a function is a new
- * class object on every call — two independent resolutions of the same spell
- * (the real game's `spellRegistry.ts` loading it once, an e2e script or a
- * test building its own copy to compare against) then get two different,
- * `instanceof`-incompatible classes with the same name, and nothing about the
- * failure points at why. `buildContentApi()` is a cached, process-wide
- * singleton for exactly this reason ("one core in the process"); a memoized
- * factory extends that same guarantee to the classes it builds.
+ * **A spell is an ordinary class.** It extends something off `api` — the engine
+ * cannot be imported by a pack, only handed over (see `../packApi.ts`) — and
+ * that is the whole of the ceremony:
  *
- * `packClass` is that memo, written once. Wrap the builder in it and nothing
- * else is required:
+ *     import { api } from '../packApi';
+ *     export default class SpellName extends api.Spell { ... }
  *
- *     export const makeX = packClass((api: ContentApi) => class X extends api.Spell {});
- *     export default makeX;
+ * The module evaluates once, so this is one class for the life of the page,
+ * which is what makes `instanceof` mean something between the registry, an
+ * e2e script and a test. It used to be a factory per class plus a
+ * `WeakMap<ContentApi, …>` memo to guarantee exactly that, 650 times across
+ * this pack; an ES module already guarantees it.
  *
- * The name is worth keeping even on a default export: sibling factories in the
- * same file call it, and `InstanceType<ReturnType<typeof makeX>>` is how this
- * pack names the instance type.
+ * The one rule that comes with it: `api` must be set before this module
+ * evaluates. Three callers do it — `code.ts` for the game, `vitest.setup.ts`
+ * for tests, `catalog.config.mjs` for the generator — and each runs before
+ * anything reaches a spell. Which is also why **the data half must never
+ * statically import a spell**; `tests/dataHalf.test.ts` keeps that true.
  *
- * It used to be spelled out per class instead — a `__build<Name>`, a
- * `WeakMap<ContentApi, ReturnType<typeof __build<Name>>>` and a `make<Name>`
- * cache-check wrapper, 650 times across this pack, which is where its
- * reputation for reading like build output came from. Do not go back to that,
- * and do not "simplify" past it to a bare `return class ...` either: the memo
- * is load-bearing, only its spelling was not.
+ * After creating the file, register it in two places or it will not show up:
+ *   1. `spells/index.ts` — export it; the catalogue generator reads this file
+ *   2. `data.ts`         — add its id to the champion's kit
  *
- * After creating the file, register it in three places or it will not show up:
- *   1. `packs/riot/spells/index.ts` — export it
- *   2. `preset.ts` SpellGroups      — add it to the champion's kit
- *   3. `AssetManager` AssetPaths    — add `spell_<name>` pointing at the icon
+ * There is no third entry for the name, description, icon, cooldown or mana:
+ * `npm run catalog:generate` constructs the class and reads them off it.
  */
-import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import { api } from '../packApi';
 
-export const makeSpellName = packClass((api: ContentApi) => {
-  return class SpellName extends api.Spell {
-    image = api.asset('spell_name');
-    name = '';
-    description = 'Spell description';
-    coolDown = 1000;
+export default class SpellName extends api.Spell {
+  image = api.asset('spell_name');
+  name = '';
+  description = 'Spell description';
+  coolDown = 1000;
 
-    onSpellCast() {}
-    onUpdate() {}
-  };
-});
-export default makeSpellName;
+  onSpellCast() {}
+  onUpdate() {}
+}
 
 /**
  * A skillshot. `MissileSpellObject` already handles travelling to the
  * destination, hitting each enemy once, the trail, and the bounding box — so a
  * normal projectile is just tuning fields plus `onHit` and `draw`.
+ *
+ * It names `SpellName_Missile` directly. Two classes in one module see each
+ * other, whatever order they are written in, because the reference is inside a
+ * method that runs long after both are declared.
  */
-export const makeSpellNameSkillshot = packClass((api: ContentApi) => {
-  const SpellName_Missile = makeSpellNameMissile(api);
+export class SpellName_Skillshot extends api.Spell {
+  image = api.asset('spell_name');
+  name = '';
+  description = '';
+  coolDown = 5000;
+  range = 400;
 
-  return class SpellName_Skillshot extends api.Spell {
-    image = api.asset('spell_name');
-    name = '';
-    description = '';
-    coolDown = 5000;
-    range = 400;
+  onSpellCast() {
+    const { to } = api.utils.VectorUtils.getVectorWithRange(
+      this.owner.position,
+      this.aimPoint,
+      this.range
+    );
 
-    onSpellCast() {
-      const { to } = api.utils.VectorUtils.getVectorWithRange(
-        this.owner.position,
-        this.aimPoint,
-        this.range
-      );
+    const obj = new SpellName_Missile(this.owner);
+    obj.destination = to;
+    this.game.objectManager.addObject(obj);
+  }
+}
 
-      const obj = new SpellName_Missile(this.owner);
-      obj.destination = to;
-      this.game.objectManager.addObject(obj);
-    }
-  };
-});
+export class SpellName_Missile extends api.MissileSpellObject {
+  speed = 8;
+  size = 25;
+  damage = 20;
 
-export const makeSpellNameMissile = packClass((api: ContentApi) => {
-  return class SpellName_Missile extends api.MissileSpellObject {
-    speed = 8;
-    size = 25;
-    damage = 20;
+  // Infinity pierces everything, 1 dies on the first enemy, 0 never collides.
+  maxHitCount = 1;
+  // removeOnArrive = false;  // keep flying past the destination (boomerangs)
+  // removeOnMaxHit = false;  // survive the last hit (chains that latch on)
 
-    // Infinity pierces everything, 1 dies on the first enemy, 0 never collides.
-    maxHitCount = 1;
-    // removeOnArrive = false;  // keep flying past the destination (boomerangs)
-    // removeOnMaxHit = false;  // survive the last hit (chains that latch on)
+  // declare the trail here, not in the base — it needs this class's `size`
+  trailSystem = new api.helpers.TrailSystem({
+    trailSize: this.size,
+    trailColor: '#77F5',
+  });
 
-    // declare the trail here, not in the base — it needs this class's `size`
-    trailSystem = new api.helpers.TrailSystem({
-      trailSize: this.size,
-      trailColor: '#77F5',
-    });
+  onHit(enemy: any) {
+    enemy.takeDamage(this.damage, this.owner);
+    // enemy.addBuff(new api.buffs.SomeBuff(1000, this.owner, enemy));
+  }
 
-    onHit(enemy: any) {
-      enemy.takeDamage(this.damage, this.owner);
-      // enemy.addBuff(new api.buffs.SomeBuff(1000, this.owner, enemy));
-    }
+  draw() {
+    push();
+    noStroke();
+    fill('#77f');
+    circle(this.position.x, this.position.y, this.size);
+    pop();
+  }
 
-    draw() {
-      push();
-      noStroke();
-      fill('#77f');
-      circle(this.position.x, this.position.y, this.size);
-      pop();
-    }
+  // Hooks for bending the default flight:
+  // onBeforeMove()      — runs each frame before the step (rotation, speed ramps)
+  // onAfterMove()       — after the step, before collision (size that tracks distance)
+  // onArrive()          — reached the destination
+  // getTrailPosition()  — emit the trail somewhere other than the centre
+}
 
-    // Hooks for bending the default flight:
-    // onBeforeMove()      — runs each frame before the step (rotation, speed ramps)
-    // onAfterMove()       — after the step, before collision (size that tracks distance)
-    // onArrive()          — reached the destination
-    // getTrailPosition()  — emit the trail somewhere other than the centre
-  };
-});
-
-export const makeSpellNameBuff = packClass((api: ContentApi) => {
-  return class SpellName_Buff extends api.buffs.Buff {
-    image = api.asset('buff_name');
-    description = '';
-    buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
-    maxStacks = 1;
-    onCreate() {}
-    onActivate() {}
-    onDeactivate() {}
-    onUpdate() {}
-    draw() {}
-  };
-});
+export class SpellName_Buff extends api.buffs.Buff {
+  image = api.asset('buff_name');
+  description = '';
+  buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
+  maxStacks = 1;
+  onCreate() {}
+  onActivate() {}
+  onDeactivate() {}
+  onUpdate() {}
+  draw() {}
+}
 
 /** For effects that are not projectiles: zones, wards, tethers, summons. */
-export const makeSpellNameObject = packClass((api: ContentApi) => {
-  return class SpellName_Object extends api.SpellObject {
-    onAdded() {}
-    onRemoved() {}
-    update() {}
-    draw() {}
-    getDisplayBoundingBox(): any {}
-  };
-});
+export class SpellName_Object extends api.SpellObject {
+  onAdded() {}
+  onRemoved() {}
+  update() {}
+  draw() {}
+  getDisplayBoundingBox(): any {}
+}

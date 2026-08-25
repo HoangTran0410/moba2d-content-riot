@@ -1,17 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 
 import { createGame, createUnit, installSpellObjectGlobals } from '@moba2d/core/testing/spell';
-import { buildTestApi } from '@moba2d/core/testing';
 import { DUSK_GRACE_MS, SPEED_PERCENT, TRAIL_MS, TRAIL_RADIUS } from '../../spells/Nocturne_Q';
-import makeNocturne_Q, { makeNocturne_Dusk, makeNocturne_Q_Object, makeNocturne_Q_Trail } from '../../spells/Nocturne_Q';
-const __api = buildTestApi();
-const Nocturne_Q = makeNocturne_Q(__api);
-const Nocturne_Dusk = makeNocturne_Dusk(__api);
-type Nocturne_Dusk = InstanceType<typeof Nocturne_Dusk>;
-const Nocturne_Q_Object = makeNocturne_Q_Object(__api);
-type Nocturne_Q_Object = InstanceType<typeof Nocturne_Q_Object>;
-const Nocturne_Q_Trail = makeNocturne_Q_Trail(__api);
-type Nocturne_Q_Trail = InstanceType<typeof Nocturne_Q_Trail>;
+import Nocturne_Q, { Nocturne_Dusk, Nocturne_Q_Object, Nocturne_Q_Trail } from '../../spells/Nocturne_Q';
 
 installSpellObjectGlobals();
 

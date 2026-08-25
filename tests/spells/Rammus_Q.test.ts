@@ -4,14 +4,12 @@ import { buildTestApi } from '@moba2d/core/testing';
 import { createGame, createUnit, TestVector } from '@moba2d/core/testing/spell';
 import { BALL_SIZE_RATIO, FALLBACK_BODY_SIZE } from '../../spells/Rammus_Q';
 import {
-  makeRammus_Q_Object,
-  makeRammus_Q_Powerball,
+  Rammus_Q_Object,
+  Rammus_Q_Powerball,
 } from '../../spells/Rammus_Q';
 const __api = buildTestApi();
 const { MAX_UNIT_SIZE } = __api.units;
 const { StatusFlags } = __api.enums;
-const Rammus_Q_Object = makeRammus_Q_Object(__api);
-const Rammus_Q_Powerball = makeRammus_Q_Powerball(__api);
 
 const caster = (bodySize: number) => ({
   position: new TestVector(0, 0),

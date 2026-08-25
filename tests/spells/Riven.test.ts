@@ -9,16 +9,12 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { Q_CHARGES, Q_DAMAGE, Q_DAMAGE_FINAL, Q_WINDOW_MS } from '../../spells/Riven_Q';
-import makeRiven_Q from '../../spells/Riven_Q';
+import Riven_Q from '../../spells/Riven_Q';
 import { R_DAMAGE, R_DAMAGE_MAX, R_DURATION_MS, R_EXECUTE_THRESHOLD } from '../../spells/Riven_R';
-import makeRiven_R, { makeRiven_R_WindSlash } from '../../spells/Riven_R';
+import Riven_R, { Riven_R_WindSlash } from '../../spells/Riven_R';
 const __api = buildTestApi();
 const { Airborne } = __api.buffs;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Riven_Q = makeRiven_Q(__api);
-const Riven_R = makeRiven_R(__api);
-const Riven_R_WindSlash = makeRiven_R_WindSlash(__api);
-type Riven_R_WindSlash = InstanceType<typeof Riven_R_WindSlash>;
 
 function unit(game: TestGame, x: number, teamId: string): AttackableUnit {
   const result = createUnit(game, x, teamId);

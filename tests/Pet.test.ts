@@ -15,12 +15,12 @@
 import { describe, expect, it, vi } from 'vitest';
 import { buildTestApi } from '@moba2d/core/testing';
 import { createGame, createUnit, installSpellObjectGlobals, pressSpell } from '@moba2d/core/testing/spell';
-import makeShaco_R from '../spells/Shaco_R';
+import Shaco_R from '../spells/Shaco_R';
 import { ARM_TIME_MS } from '../spells/Shaco_W';
-import makeShaco_W, { makeShaco_W_Box } from '../spells/Shaco_W';
+import Shaco_W, { Shaco_W_Box } from '../spells/Shaco_W';
 import { CHOMPED_STACK_ID, LAND_TIME_MS, ARM_TIME_MS as CHOMPER_ARM_MS } from '../spells/Jinx_E';
-import makeJinx_E, { makeJinx_E_Chomper } from '../spells/Jinx_E';
-import makeAnnie_R from '../spells/Annie_R';
+import Jinx_E, { Jinx_E_Chomper } from '../spells/Jinx_E';
+import Annie_R from '../spells/Annie_R';
 
 const __api = buildTestApi();
 const { Pet, Champion } = __api.units;
@@ -32,18 +32,10 @@ type Champion = InstanceType<typeof __api.units.Champion>;
 // than necessary, not pass when it should fail.
 const PET_SCAN_INTERVAL_MS = 250;
 
-const Shaco_R = makeShaco_R(__api);
-const Shaco_W = makeShaco_W(__api);
-const Shaco_W_Box = makeShaco_W_Box(__api);
-const Jinx_E = makeJinx_E(__api);
-const Jinx_E_Chomper = makeJinx_E_Chomper(__api);
-const Annie_R = makeAnnie_R(__api);
 
 // Both classes are named as bare types below (`let box: Shaco_W_Box`) as well
-// as constructed — `const Shaco_W_Box = makeShaco_W_Box(__api)` only binds
+// as constructed — `const Shaco_W_Box = Shaco_W_Box` only binds
 // the value, so the type needs its own alias off the factory's return type.
-type Shaco_W_Box = InstanceType<ReturnType<typeof makeShaco_W_Box>>;
-type Jinx_E_Chomper = InstanceType<ReturnType<typeof makeJinx_E_Chomper>>;
 
 installSpellObjectGlobals();
 

@@ -1,5 +1,9 @@
-import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import { api } from '../packApi';
+
+const Spell = api.Spell;
+const DamageReflect = api.buffs.DamageReflect;
+const Shield = api.buffs.Shield;
+const Speedup = api.buffs.Speedup;
 
 export const DURATION = 3000;
 
@@ -32,52 +36,44 @@ export const STACK_ID = 'annie_e';
  * which is most of the damage in this game. `DamageReflect` is the seam Rammus
  * W already uses; Annie's is the flat, once-per-enemy configuration of it.
  */
-export const makeAnnie_E = packClass((api: ContentApi) => {
-  const Spell = api.Spell;
-  const DamageReflect = api.buffs.DamageReflect;
-  const Shield = api.buffs.Shield;
-  const Speedup = api.buffs.Speedup;
-  class Annie_E extends Spell {
-    targetingMode = 'SELF' as const;
-    image = api.asset('spell_annie_e');
-    name = 'Khiên Lửa (Annie_E)';
-    description =
-      `Nhận <span class="buff">Khiên ${SHIELD_AMOUNT}</span> và <span class="buff">+${SPEED_PERCENT * 100}% tốc chạy</span>` +
-      ` trong <span class="time">${DURATION / 1000} giây</span>. <span class="buff">Mỗi lần</span> có kẻ` +
-      ` gây sát thương lên Annie (kể cả khi khiên đỡ hết), kẻ đó bị đốt lại` +
-      ` <span class="damage">${RETURN_DAMAGE} sát thương</span>`;
-    coolDown = 10000;
-    manaCost = 30;
+export default class Annie_E extends Spell {
+  targetingMode = 'SELF' as const;
+  image = api.asset('spell_annie_e');
+  name = 'Khiên Lửa (Annie_E)';
+  description =
+    `Nhận <span class="buff">Khiên ${SHIELD_AMOUNT}</span> và <span class="buff">+${SPEED_PERCENT * 100}% tốc chạy</span>` +
+    ` trong <span class="time">${DURATION / 1000} giây</span>. <span class="buff">Mỗi lần</span> có kẻ` +
+    ` gây sát thương lên Annie (kể cả khi khiên đỡ hết), kẻ đó bị đốt lại` +
+    ` <span class="damage">${RETURN_DAMAGE} sát thương</span>`;
+  coolDown = 10000;
+  manaCost = 30;
 
-    onSpellCast() {
-      // Order-independent: `DamageReflect` runs on `Buff.onDamageTaken`, after
-      // the whole mitigation chain, and is handed the damage as it arrived. That
-      // is what makes "even when the shield ate all of it" work — and what makes
-      // a recast while the old shield is still up work, which insertion order
-      // could not.
-      const burn = new DamageReflect(DURATION, this.owner, this.owner);
-      burn.stackId = 'annie_e_burn';
-      burn.image = this.image;
-      burn.name = 'Dung Nham';
-      burn.percent = 0;
-      burn.flat = RETURN_DAMAGE;
-      burn.color = [255, 160, 70];
-      this.owner.addBuff(burn);
+  onSpellCast() {
+    // Order-independent: `DamageReflect` runs on `Buff.onDamageTaken`, after
+    // the whole mitigation chain, and is handed the damage as it arrived. That
+    // is what makes "even when the shield ate all of it" work — and what makes
+    // a recast while the old shield is still up work, which insertion order
+    // could not.
+    const burn = new DamageReflect(DURATION, this.owner, this.owner);
+    burn.stackId = 'annie_e_burn';
+    burn.image = this.image;
+    burn.name = 'Dung Nham';
+    burn.percent = 0;
+    burn.flat = RETURN_DAMAGE;
+    burn.color = [255, 160, 70];
+    this.owner.addBuff(burn);
 
-      const shield = new Shield(DURATION, this.owner, this.owner);
-      shield.stackId = STACK_ID;
-      shield.image = this.image;
-      shield.amount = SHIELD_AMOUNT;
-      shield.color = [255, 160, 70];
-      this.owner.addBuff(shield);
+    const shield = new Shield(DURATION, this.owner, this.owner);
+    shield.stackId = STACK_ID;
+    shield.image = this.image;
+    shield.amount = SHIELD_AMOUNT;
+    shield.color = [255, 160, 70];
+    this.owner.addBuff(shield);
 
-      const haste = new Speedup(DURATION, this.owner, this.owner);
-      haste.stackId = 'annie_e_haste';
-      haste.image = this.image;
-      haste.percent = SPEED_PERCENT;
-      this.owner.addBuff(haste);
-    }
+    const haste = new Speedup(DURATION, this.owner, this.owner);
+    haste.stackId = 'annie_e_haste';
+    haste.image = this.image;
+    haste.percent = SPEED_PERCENT;
+    this.owner.addBuff(haste);
   }
-  return Annie_E;
-});
-export default makeAnnie_E;
+}

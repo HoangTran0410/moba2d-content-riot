@@ -9,28 +9,19 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { CAITLYN_Q_DAMAGE, CAITLYN_Q_REDUCED_DAMAGE } from '../../spells/Caitlyn_Q';
-import makeCaitlyn_Q, { makeCaitlyn_Q_Object } from '../../spells/Caitlyn_Q';
+import Caitlyn_Q, { Caitlyn_Q_Object } from '../../spells/Caitlyn_Q';
 import { CAITLYN_W_DAMAGE, CAITLYN_W_MAX_TRAPS, CAITLYN_W_PLACE_RANGE, CAITLYN_W_REVEAL_STACK_ID, CAITLYN_W_ROOT_MS } from '../../spells/Caitlyn_W';
-import makeCaitlyn_W, { makeCaitlyn_W_Trap } from '../../spells/Caitlyn_W';
+import Caitlyn_W, { Caitlyn_W_Trap } from '../../spells/Caitlyn_W';
 import { CAITLYN_E_DAMAGE, CAITLYN_E_RECOIL_DISTANCE, CAITLYN_E_SLOW_PERCENT } from '../../spells/Caitlyn_E';
-import makeCaitlyn_E, { makeCaitlyn_E_Net } from '../../spells/Caitlyn_E';
+import Caitlyn_E, { Caitlyn_E_Net } from '../../spells/Caitlyn_E';
 import { CAITLYN_R_CANCEL_COOLDOWN_MS, CAITLYN_R_CHANNEL_MS } from '../../spells/Caitlyn_R';
-import makeCaitlyn_R from '../../spells/Caitlyn_R';
+import Caitlyn_R from '../../spells/Caitlyn_R';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
 const { Dash, Root, Slow } = __api.buffs;
 type Slow = InstanceType<typeof __api.buffs.Slow>;
 type Dash = InstanceType<typeof __api.buffs.Dash>;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Caitlyn_Q = makeCaitlyn_Q(__api);
-const Caitlyn_Q_Object = makeCaitlyn_Q_Object(__api);
-const Caitlyn_W = makeCaitlyn_W(__api);
-const Caitlyn_W_Trap = makeCaitlyn_W_Trap(__api);
-type Caitlyn_W_Trap = InstanceType<typeof Caitlyn_W_Trap>;
-const Caitlyn_E = makeCaitlyn_E(__api);
-const Caitlyn_E_Net = makeCaitlyn_E_Net(__api);
-type Caitlyn_E_Net = InstanceType<typeof Caitlyn_E_Net>;
-const Caitlyn_R = makeCaitlyn_R(__api);
 
 function unit(game: TestGame, x: number, teamId: string): AttackableUnit {
   const result = createUnit(game, x, teamId);

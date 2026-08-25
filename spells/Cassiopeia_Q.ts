@@ -1,5 +1,11 @@
-import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import { api } from '../packApi';
+
+const Spell = api.Spell;
+const Circle = api.utils.Quadtree.Circle;
+const PredefinedFilters = api.combat.PredefinedFilters;
+const SpellObject = api.SpellObject;
+const DamageOverTime = api.buffs.DamageOverTime;
+const Speedup = api.buffs.Speedup;
 
 export const MAX_RANGE = 550;
 
@@ -15,120 +21,106 @@ export const DELAY_MS = 400;
 
 
 /** Noxious Blast: a small, fast circle that poisons — and speeds Cassiopeia up when it lands. */
-export const makeCassiopeia_Q = packClass((api: ContentApi) => {
-  const Spell = api.Spell;
-  const Cassiopeia_Q_Object = makeCassiopeia_Q_Object(api);
-  class Cassiopeia_Q extends Spell {
-    targetingMode = 'POINT' as const;
-    image = api.asset('spell_cassiopeia_q');
-    name = 'Vụ Nổ Độc Hại (Cassiopeia_Q)';
-    description =
-      `Nổ một đám độc bán kính <span>${RADIUS}px</span> sau <span class="time">${DELAY_MS / 1000} giây</span>:` +
-      ` <span class="damage">${IMPACT_DAMAGE} sát thương</span> và <span class="damage">nhiễm độc</span>` +
-      ` trong <span class="time">${POISON_DURATION / 1000} giây</span>. Trúng mục tiêu thì Cassiopeia` +
-      ` <span class="buff">+30% tốc chạy</span>`;
-    coolDown = 5000;
-    manaCost = 20;
+export default class Cassiopeia_Q extends Spell {
+  targetingMode = 'POINT' as const;
+  image = api.asset('spell_cassiopeia_q');
+  name = 'Vụ Nổ Độc Hại (Cassiopeia_Q)';
+  description =
+    `Nổ một đám độc bán kính <span>${RADIUS}px</span> sau <span class="time">${DELAY_MS / 1000} giây</span>:` +
+    ` <span class="damage">${IMPACT_DAMAGE} sát thương</span> và <span class="damage">nhiễm độc</span>` +
+    ` trong <span class="time">${POISON_DURATION / 1000} giây</span>. Trúng mục tiêu thì Cassiopeia` +
+    ` <span class="buff">+30% tốc chạy</span>`;
+  coolDown = 5000;
+  manaCost = 20;
 
-    maxRange = MAX_RANGE;
+  maxRange = MAX_RANGE;
 
-    onSpellCast() {
-      const aim = this.aimPoint;
-      const spot = aim
-        .copy()
-        .sub(this.owner.position)
-        .setMag(Math.min(this.maxRange, aim.dist(this.owner.position)))
-        .add(this.owner.position);
+  onSpellCast() {
+    const aim = this.aimPoint;
+    const spot = aim
+      .copy()
+      .sub(this.owner.position)
+      .setMag(Math.min(this.maxRange, aim.dist(this.owner.position)))
+      .add(this.owner.position);
 
-      const blast = new Cassiopeia_Q_Object(this.owner);
-      blast.position = spot;
-      this.game.objectManager.addObject(blast);
-    }
-
-    drawPreview() {
-      super.drawPreview(this.maxRange);
-    }
+    const blast = new Cassiopeia_Q_Object(this.owner);
+    blast.position = spot;
+    this.game.objectManager.addObject(blast);
   }
-  return Cassiopeia_Q;
-});
-export default makeCassiopeia_Q;
+
+  drawPreview() {
+    super.drawPreview(this.maxRange);
+  }
+}
 
 
-export const makeCassiopeia_Q_Object = packClass((api: ContentApi) => {
-  const Circle = api.utils.Quadtree.Circle;
-  const PredefinedFilters = api.combat.PredefinedFilters;
-  const SpellObject = api.SpellObject;
-  const DamageOverTime = api.buffs.DamageOverTime;
-  const Speedup = api.buffs.Speedup;
-  class Cassiopeia_Q_Object extends SpellObject {
-    position: p5.Vector = this.owner.position.copy();
-    radius = RADIUS;
-    visionRadius = RADIUS;
-    lifeTime = DELAY_MS + 250;
-    age = 0;
-    detonated = false;
+export class Cassiopeia_Q_Object extends SpellObject {
+  position: p5.Vector = this.owner.position.copy();
+  radius = RADIUS;
+  visionRadius = RADIUS;
+  lifeTime = DELAY_MS + 250;
+  age = 0;
+  detonated = false;
 
-    update() {
-      this.age += deltaTime;
-      if (this.age >= this.lifeTime) {
-        this.toRemove = true;
-        return;
-      }
-      if (this.detonated || this.age < DELAY_MS) return;
-      this.detonated = true;
-
-      const enemies = this.game.objectManager.queryObjects({
-        area: new Circle({ x: this.position.x, y: this.position.y, r: this.radius }),
-        filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
-      });
-
-      enemies.forEach((enemy: any) => {
-        enemy.takeDamage(IMPACT_DAMAGE, this.owner);
-        const poison = new DamageOverTime(POISON_DURATION, this.owner, enemy);
-        poison.stackId = 'cassiopeia_poison';
-        poison.name = 'Nọc Độc';
-        poison.damagePerTick = POISON_PER_TICK;
-        poison.tickInterval = 500;
-        poison.flameColor = [170, 255, 130];
-        poison.emberColor = [30, 100, 40];
-        enemy.addBuff(poison);
-      });
-
-      if (enemies.length === 0) return;
-      const haste = new Speedup(1500, this.owner, this.owner);
-      haste.stackId = 'cassiopeia_q_haste';
-      haste.percent = 0.3;
-      this.owner.addBuff(haste);
+  update() {
+    this.age += deltaTime;
+    if (this.age >= this.lifeTime) {
+      this.toRemove = true;
+      return;
     }
+    if (this.detonated || this.age < DELAY_MS) return;
+    this.detonated = true;
 
-    draw() {
-      const t = constrain(this.age / DELAY_MS, 0, 1);
-      push();
-      translate(this.position.x, this.position.y);
-      if (!this.detonated) {
-        noFill();
-        stroke(150, 240, 120, 220);
-        strokeWeight(2);
-        circle(0, 0, this.radius * 2);
-        noStroke();
-        fill(120, 220, 90, 90 * t);
-        circle(0, 0, this.radius * 2 * t);
-        pop();
-        return;
-      }
-      const after = 1 - (this.age - DELAY_MS) / 250;
+    const enemies = this.game.objectManager.queryObjects({
+      area: new Circle({ x: this.position.x, y: this.position.y, r: this.radius }),
+      filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
+    });
+
+    enemies.forEach((enemy: any) => {
+      enemy.takeDamage(IMPACT_DAMAGE, this.owner);
+      const poison = new DamageOverTime(POISON_DURATION, this.owner, enemy);
+      poison.stackId = 'cassiopeia_poison';
+      poison.name = 'Nọc Độc';
+      poison.damagePerTick = POISON_PER_TICK;
+      poison.tickInterval = 500;
+      poison.flameColor = [170, 255, 130];
+      poison.emberColor = [30, 100, 40];
+      enemy.addBuff(poison);
+    });
+
+    if (enemies.length === 0) return;
+    const haste = new Speedup(1500, this.owner, this.owner);
+    haste.stackId = 'cassiopeia_q_haste';
+    haste.percent = 0.3;
+    this.owner.addBuff(haste);
+  }
+
+  draw() {
+    const t = constrain(this.age / DELAY_MS, 0, 1);
+    push();
+    translate(this.position.x, this.position.y);
+    if (!this.detonated) {
+      noFill();
+      stroke(150, 240, 120, 220);
+      strokeWeight(2);
+      circle(0, 0, this.radius * 2);
       noStroke();
-      for (let i = 0; i < 7; i++) {
-        const a = (i / 7) * TWO_PI;
-        fill(160, 255, 120, 200 * after);
-        circle(cos(a) * this.radius * 0.6, sin(a) * this.radius * 0.6, 34 * after + 8);
-      }
+      fill(120, 220, 90, 90 * t);
+      circle(0, 0, this.radius * 2 * t);
       pop();
+      return;
     }
-
-    getDisplayBoundingBox() {
-      return this.squareDisplayBoundingBox(this.radius * 2);
+    const after = 1 - (this.age - DELAY_MS) / 250;
+    noStroke();
+    for (let i = 0; i < 7; i++) {
+      const a = (i / 7) * TWO_PI;
+      fill(160, 255, 120, 200 * after);
+      circle(cos(a) * this.radius * 0.6, sin(a) * this.radius * 0.6, 34 * after + 8);
     }
+    pop();
   }
-  return Cassiopeia_Q_Object;
-});
+
+  getDisplayBoundingBox() {
+    return this.squareDisplayBoundingBox(this.radius * 2);
+  }
+}

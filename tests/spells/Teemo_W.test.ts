@@ -4,13 +4,10 @@ import { buildTestApi } from '@moba2d/core/testing';
 import type { CastContext } from '@moba2d/core/content/types';
 import teemoWSource from '../../spells/Teemo_W.ts?raw';
 import { DURATION_MS, MANA_COST, SPEED_PERCENT } from '../../spells/Teemo_W';
-import makeTeemo_W, { makeTeemo_W_Burst } from '../../spells/Teemo_W';
+import Teemo_W, { Teemo_W_Burst } from '../../spells/Teemo_W';
 const __api = buildTestApi();
 const { Speedup } = __api.buffs;
 type Speedup = InstanceType<typeof __api.buffs.Speedup>;
-const Teemo_W = makeTeemo_W(__api);
-const Teemo_W_Burst = makeTeemo_W_Burst(__api);
-type Teemo_W_Burst = InstanceType<typeof Teemo_W_Burst>;
 
 class TestVector {
   constructor(

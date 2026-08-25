@@ -2,13 +2,8 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vite
 import { buildTestApi, EventManager, withWalls } from '@moba2d/core/testing';
 import { loadSpellsForTests, resolveSpellBarrel } from '@moba2d/core/testing/spells';
 import type { CastContext } from '@moba2d/core/content/types';
-import * as AllSpellFactories from '../../spells/index';
+import { setPackApi } from '../../packApi';
 import { data } from '../../data';
-import makeGhost from '../../spells/Ghost';
-import makeHeal from '../../spells/Heal';
-import makeIgnite from '../../spells/Ignite';
-import { CHANNEL_DURATION_MS, HEAL_PER_TICK, KNOCKBACK_DISTANCE, KNOCKBACK_DURATION_MS, MANA_COST, RADIUS, TICK_EVERY_MS } from '../../spells/Janna_R';
-import makeJanna_R, { makeJanna_R_Object } from '../../spells/Janna_R';
 
 /**
  * The replacement for `vi.mock('.../src/managers/AssetManager')` +
@@ -49,18 +44,53 @@ class SpyTelegraph {
   }
 }
 
+/**
+ * The api goes in **before** the spell module is imported, and the import is
+ * dynamic for exactly that reason.
+ *
+ * A spell is a module-scope class now — `Janna_R.ts` opens with `const
+ * CastTelegraph = api.vfx.CastTelegraph;` — so it reads what it needs the
+ * moment its module evaluates, and a static import at the top of this file
+ * evaluates it before any line here runs. That was fine when the file called
+ * `makeJanna_R(__api)` and could hand a doubled api to one spell; it is not
+ * fine now, and the failure is quiet: the real `CastTelegraph` is captured,
+ * the spy records nothing, and four assertions look at an empty array.
+ *
+ * `vitest.setup.ts` has already set the pack's real api; replacing it here is
+ * this file's own environment, and vitest isolates a test file's module graph,
+ * so no other file sees the double.
+ */
 const __api = buildTestApi({ vfx: { CastTelegraph: SpyTelegraph as never } });
+setPackApi(__api);
+
+const { default: Janna_R, Janna_R_Object } = await import('../../spells/Janna_R');
+const {
+  CHANNEL_DURATION_MS,
+  HEAL_PER_TICK,
+  KNOCKBACK_DISTANCE,
+  KNOCKBACK_DURATION_MS,
+  MANA_COST,
+  RADIUS,
+  TICK_EVERY_MS,
+} = await import('../../spells/Janna_R');
+const { default: Ghost } = await import('../../spells/Ghost');
+const { default: Heal } = await import('../../spells/Heal');
+const { default: Ignite } = await import('../../spells/Ignite');
+const AllSpellFactories = await import('../../spells/index');
+
+/**
+ * The one place an alias is still needed, and it earns it: a *dynamic* import
+ * binds a value, not a type, so `Janna_R_Object` cannot be written in a type
+ * position without this. A static `import { Janna_R_Object }` carries both,
+ * which is why no other test file has one.
+ */
+type Janna_R_Object = InstanceType<typeof Janna_R_Object>;
+
 const { EventType, StatusFlags } = __api.enums;
 const { Spell, AreaSpellObject } = __api;
 type AreaSpellObject = InstanceType<typeof __api.AreaSpellObject>;
 const { AttackableUnit } = __api.units;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Ghost = makeGhost(__api);
-const Heal = makeHeal(__api);
-const Ignite = makeIgnite(__api);
-const Janna_R = makeJanna_R(__api);
-const Janna_R_Object = makeJanna_R_Object(__api);
-type Janna_R_Object = InstanceType<typeof Janna_R_Object>;
 const AllSpells = resolveSpellBarrel(AllSpellFactories);
 
 /**

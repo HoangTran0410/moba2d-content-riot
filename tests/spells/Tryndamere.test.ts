@@ -9,22 +9,18 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { TRYNDAMERE_Q_AD_BONUS_MAX, TRYNDAMERE_Q_BASE_HEAL, TRYNDAMERE_Q_MAX_HEAL, TRYNDAMERE_Q_MISSING_HEALTH_HEAL, TRYNDAMERE_Q_STACK_ID } from '../../spells/Tryndamere_Q';
-import makeTryndamere_Q from '../../spells/Tryndamere_Q';
+import Tryndamere_Q from '../../spells/Tryndamere_Q';
 import { TRYNDAMERE_W_AD_REDUCTION, TRYNDAMERE_W_RADIUS, TRYNDAMERE_W_STACK_ID } from '../../spells/Tryndamere_W';
-import makeTryndamere_W from '../../spells/Tryndamere_W';
+import Tryndamere_W from '../../spells/Tryndamere_W';
 import { TRYNDAMERE_E_DAMAGE } from '../../spells/Tryndamere_E';
-import makeTryndamere_E from '../../spells/Tryndamere_E';
+import Tryndamere_E from '../../spells/Tryndamere_E';
 import { TRYNDAMERE_R_STACK_ID } from '../../spells/Tryndamere_R';
-import makeTryndamere_R from '../../spells/Tryndamere_R';
+import Tryndamere_R from '../../spells/Tryndamere_R';
 const __api = buildTestApi();
 const { Dash, Slow, StatAmp } = __api.buffs;
 type StatAmp = InstanceType<typeof __api.buffs.StatAmp>;
 type Dash = InstanceType<typeof __api.buffs.Dash>;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Tryndamere_Q = makeTryndamere_Q(__api);
-const Tryndamere_W = makeTryndamere_W(__api);
-const Tryndamere_E = makeTryndamere_E(__api);
-const Tryndamere_R = makeTryndamere_R(__api);
 
 describe('Tryndamere', () => {
   let game: TestGame;

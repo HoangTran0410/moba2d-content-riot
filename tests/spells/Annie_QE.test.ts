@@ -22,17 +22,14 @@ import {
   type TestGame,
 } from '@moba2d/core/testing';
 import { DAMAGE as Q_DAMAGE } from '../../spells/Annie_Q';
-import makeAnnie_Q from '../../spells/Annie_Q';
+import Annie_Q from '../../spells/Annie_Q';
 import { RETURN_DAMAGE, SHIELD_AMOUNT } from '../../spells/Annie_E';
-import makeAnnie_E from '../../spells/Annie_E';
+import Annie_E from '../../spells/Annie_E';
 const __api = buildTestApi();
 const { Champion } = __api.units;
 type Champion = InstanceType<typeof __api.units.Champion>;
 const { TargetResolver } = __api.combat;
 const { lethalTargets } = __api.combat.ExecuteTargeting;
-const Annie_Q = makeAnnie_Q(__api);
-type Annie_Q = InstanceType<typeof Annie_Q>;
-const Annie_E = makeAnnie_E(__api);
 
 let game: TestGame;
 

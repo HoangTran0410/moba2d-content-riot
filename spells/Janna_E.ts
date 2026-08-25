@@ -1,18 +1,23 @@
-import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { AttackableUnit, CastContext, CastSpec, Rectangle, TargetingRequest } from '@moba2d/core/content/types';
-import { packClass, type Instance } from '../packClass';
+import { api } from '../packApi';
 
-type Janna_E = Instance<typeof makeJanna_E>;
+const AttackableUnit = api.units.AttackableUnit;
+const effectiveRange = api.combat.Reach.effectiveRange;
+const withinRange = api.combat.Reach.withinRange;
+const Spell = api.Spell;
+const Shield = api.buffs.Shield;
+const StatAmp = api.buffs.StatAmp;
+const TargetResolver = api.combat.TargetResolver;
+const canSee = api.combat.Vision.canSee;
+const Champion = api.units.Champion;
+const SpellObject = api.SpellObject;
+
 
 type EyeTarget = AttackableUnit;
 
 
-export const makeIsEyeTarget = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
-  const isEyeTarget = (target: unknown): target is EyeTarget =>
-    target instanceof AttackableUnit && target.targetable && !target.toRemove;
-  return isEyeTarget;
-});
+export const isEyeTarget = (target: unknown): target is EyeTarget =>
+  target instanceof AttackableUnit && target.targetable && !target.toRemove;
 
 
 /**
@@ -54,203 +59,181 @@ export const BONUS_ATTACK_DAMAGE = 5;
 export const REFUND_RATIO = 0.2;
 
 
-export const makeJanna_E = packClass((api: ContentApi) => {
-  const effectiveRange = api.combat.Reach.effectiveRange;
-  const withinRange = api.combat.Reach.withinRange;
-  const Spell = api.Spell;
-  const Shield = api.buffs.Shield;
-  const StatAmp = api.buffs.StatAmp;
-  const TargetResolver = api.combat.TargetResolver;
-  const canSee = api.combat.Vision.canSee;
-  const isEyeTarget = makeIsEyeTarget(api);
-  const Janna_E_Shell = makeJanna_E_Shell(api);
-  class Janna_E extends Spell {
-    image = api.asset('spell_janna_e');
-    name = 'Mắt Bão (Janna_E)';
-    description = `Nội tại: khi một kỹ năng của Janna làm chậm hoặc hất tung ít nhất một tướng địch, hoàn <span class="buff">${Math.round(REFUND_RATIO * 100)}% hồi chiêu</span> của kỹ năng này (một lần mỗi chu kỳ hồi chiêu). Chủ động: khiên cho tướng đồng minh hoặc trụ, hấp thụ <span class="damage">${SHIELD_AMOUNT} sát thương</span> và <span class="buff">+${BONUS_ATTACK_DAMAGE} sát thương đánh thường</span> trong <span class="time">${SHIELD_DURATION_MS / 1000} giây</span>.`;
-    coolDown = COOLDOWN_MS;
-    manaCost = MANA_COST;
+export default class Janna_E extends Spell {
+  image = api.asset('spell_janna_e');
+  name = 'Mắt Bão (Janna_E)';
+  description = `Nội tại: khi một kỹ năng của Janna làm chậm hoặc hất tung ít nhất một tướng địch, hoàn <span class="buff">${Math.round(REFUND_RATIO * 100)}% hồi chiêu</span> của kỹ năng này (một lần mỗi chu kỳ hồi chiêu). Chủ động: khiên cho tướng đồng minh hoặc trụ, hấp thụ <span class="damage">${SHIELD_AMOUNT} sát thương</span> và <span class="buff">+${BONUS_ATTACK_DAMAGE} sát thương đánh thường</span> trong <span class="time">${SHIELD_DURATION_MS / 1000} giây</span>.`;
+  coolDown = COOLDOWN_MS;
+  manaCost = MANA_COST;
 
-    range = RANGE;
-    shieldAmount = SHIELD_AMOUNT;
-    shieldDuration = SHIELD_DURATION_MS;
+  range = RANGE;
+  shieldAmount = SHIELD_AMOUNT;
+  shieldDuration = SHIELD_DURATION_MS;
 
-    private refundArmed = true;
+  private refundArmed = true;
 
-    get castSpec(): Readonly<CastSpec> {
-      return {
-        activation: 'PRESS',
-        targeting: 'UNIT',
-        resource: { commitAt: 'release', refundOn: ['TARGET_INVALID', 'OUT_OF_RANGE'] },
-        cooldown: { startAt: 'release', durationMs: this.coolDown },
-      };
-    }
+  get castSpec(): Readonly<CastSpec> {
+    return {
+      activation: 'PRESS',
+      targeting: 'UNIT',
+      resource: { commitAt: 'release', refundOn: ['TARGET_INVALID', 'OUT_OF_RANGE'] },
+      cooldown: { startAt: 'release', durationMs: this.coolDown },
+    };
+  }
 
-    get targetingRequest(): Readonly<TargetingRequest> {
-      return {
-        range: this.range,
-        targetTeam: 'ALLY',
-        queryCandidates: () => this.game.objectManager.objects,
-        isTargetable: candidate => isEyeTarget(candidate),
-        getTargetInfo: candidate =>
-          isEyeTarget(candidate)
-            ? {
-                position: candidate.position,
-                teamId: candidate.teamId,
-                selectionRadius: candidate.animatedValues?.displaySize
-                  ? candidate.animatedValues.displaySize / 2
-                  : candidate.collisionRadius,
-              }
-            : null,
-      };
-    }
+  get targetingRequest(): Readonly<TargetingRequest> {
+    return {
+      range: this.range,
+      targetTeam: 'ALLY',
+      queryCandidates: () => this.game.objectManager.objects,
+      isTargetable: candidate => isEyeTarget(candidate),
+      getTargetInfo: candidate =>
+        isEyeTarget(candidate)
+          ? {
+              position: candidate.position,
+              teamId: candidate.teamId,
+              selectionRadius: candidate.animatedValues?.displaySize
+                ? candidate.animatedValues.displaySize / 2
+                : candidate.collisionRadius,
+            }
+          : null,
+    };
+  }
 
-    checkCastCondition(): boolean {
-      return this.isValidTarget(this.castContext?.target);
-    }
+  checkCastCondition(): boolean {
+    return this.isValidTarget(this.castContext?.target);
+  }
 
-    press(context: CastContext): boolean {
-      if (context.target !== undefined) return super.press(context);
-      const result = TargetResolver.resolve('UNIT', {
-        ...context,
-        casterTeamId: this.owner.teamId,
-        ...this.targetingRequest,
-      });
-      return result.ok ? super.press(result.context) : false;
-    }
+  press(context: CastContext): boolean {
+    if (context.target !== undefined) return super.press(context);
+    const result = TargetResolver.resolve('UNIT', {
+      ...context,
+      casterTeamId: this.owner.teamId,
+      ...this.targetingRequest,
+    });
+    return result.ok ? super.press(result.context) : false;
+  }
 
-    onUpdate(): void {
-      if (this.state === 'CASTING' && !this.isValidTarget(this.castContext?.target)) {
-        this.cancel('TARGET_INVALID');
-      }
-    }
-
-    onSpellCast(context: CastContext): void {
-      if (!isEyeTarget(context.target)) return;
-      this.refundArmed = true;
-
-      const shield = new Shield(this.shieldDuration, this.owner, context.target);
-      shield.amount = this.shieldAmount;
-      shield.color = [200, 240, 235];
-      // Its own pool: a shielded ally may already be carrying an unrelated
-      // Shield instance (Malphite W, an item, ...) that must not merge with this.
-      shield.stackId = 'janna_e_shield';
-      context.target.addBuff(shield);
-
-      // Same duration, own pool: the shield and the damage are one payload, but
-      // two buff classes, and this must not merge with an unrelated StatAmp.
-      const might = new StatAmp(this.shieldDuration, this.owner, context.target);
-      might.name = 'Mắt Bão';
-      might.image = this.image;
-      might.stackId = 'janna_e_might';
-      might.bonuses = { attackDamage: { baseBonus: BONUS_ATTACK_DAMAGE } };
-      context.target.addBuff(might);
-
-      const shell = new Janna_E_Shell(this.owner, context.target);
-      shell.attachTo(context.target, shield);
-      this.game.objectManager.addObject(shell);
-    }
-
-    drawPreview(): void {
-      super.drawPreview(effectiveRange(this.range, this.owner));
-    }
-
-    /** Called by Q/W/R when they land a slow or knock-up on an enemy champion. */
-    notifyCrowdControlLanded(): void {
-      if (!this.refundArmed || this.currentCooldown <= 0) return;
-      this.refundArmed = false;
-      // A fraction of the *reduced* cooldown, not the raw one: under cooldown
-      // reduction the running cooldown is already shorter, so refunding a slice
-      // of the raw number would hand back proportionally more than the refund is
-      // meant to be — enough to zero it outright at high CDR.
-      this.currentCooldown = Math.max(
-        0,
-        this.currentCooldown - this.reducedCooldown(this.coolDown) * REFUND_RATIO
-      );
-    }
-
-    private isValidTarget(target: unknown): target is EyeTarget {
-      return (
-        isEyeTarget(target) &&
-        canSee(this.owner, target) &&
-        target.teamId === this.owner.teamId &&
-        withinRange(this.range, this.owner, target)
-      );
+  onUpdate(): void {
+    if (this.state === 'CASTING' && !this.isValidTarget(this.castContext?.target)) {
+      this.cancel('TARGET_INVALID');
     }
   }
-  return Janna_E;
-});
-export default makeJanna_E;
+
+  onSpellCast(context: CastContext): void {
+    if (!isEyeTarget(context.target)) return;
+    this.refundArmed = true;
+
+    const shield = new Shield(this.shieldDuration, this.owner, context.target);
+    shield.amount = this.shieldAmount;
+    shield.color = [200, 240, 235];
+    // Its own pool: a shielded ally may already be carrying an unrelated
+    // Shield instance (Malphite W, an item, ...) that must not merge with this.
+    shield.stackId = 'janna_e_shield';
+    context.target.addBuff(shield);
+
+    // Same duration, own pool: the shield and the damage are one payload, but
+    // two buff classes, and this must not merge with an unrelated StatAmp.
+    const might = new StatAmp(this.shieldDuration, this.owner, context.target);
+    might.name = 'Mắt Bão';
+    might.image = this.image;
+    might.stackId = 'janna_e_might';
+    might.bonuses = { attackDamage: { baseBonus: BONUS_ATTACK_DAMAGE } };
+    context.target.addBuff(might);
+
+    const shell = new Janna_E_Shell(this.owner, context.target);
+    shell.attachTo(context.target, shield);
+    this.game.objectManager.addObject(shell);
+  }
+
+  drawPreview(): void {
+    super.drawPreview(effectiveRange(this.range, this.owner));
+  }
+
+  /** Called by Q/W/R when they land a slow or knock-up on an enemy champion. */
+  notifyCrowdControlLanded(): void {
+    if (!this.refundArmed || this.currentCooldown <= 0) return;
+    this.refundArmed = false;
+    // A fraction of the *reduced* cooldown, not the raw one: under cooldown
+    // reduction the running cooldown is already shorter, so refunding a slice
+    // of the raw number would hand back proportionally more than the refund is
+    // meant to be — enough to zero it outright at high CDR.
+    this.currentCooldown = Math.max(
+      0,
+      this.currentCooldown - this.reducedCooldown(this.coolDown) * REFUND_RATIO
+    );
+  }
+
+  private isValidTarget(target: unknown): target is EyeTarget {
+    return (
+      isEyeTarget(target) &&
+      canSee(this.owner, target) &&
+      target.teamId === this.owner.teamId &&
+      withinRange(this.range, this.owner, target)
+    );
+  }
+}
 
 
 /** Feeds Eye of the Storm's passive from any of Janna's other abilities. */
-export const makeNotifyJannaControlLanded = packClass((api: ContentApi) => {
-  const Champion = api.units.Champion;
-  const Janna_E = makeJanna_E(api);
-  const notifyJannaControlLanded = (owner: AttackableUnit, target: AttackableUnit): void => {
-    if (!(owner instanceof Champion) || !(target instanceof Champion)) return;
-    if (target.teamId === owner.teamId) return;
-    const eye = owner.spells.find((spell): spell is Janna_E => spell instanceof Janna_E);
-    eye?.notifyCrowdControlLanded();
-  };
-  return notifyJannaControlLanded;
-});
+export const notifyJannaControlLanded = (owner: AttackableUnit, target: AttackableUnit): void => {
+  if (!(owner instanceof Champion) || !(target instanceof Champion)) return;
+  if (target.teamId === owner.teamId) return;
+  const eye = owner.spells.find((spell): spell is Janna_E => spell instanceof Janna_E);
+  eye?.notifyCrowdControlLanded();
+};
 
 
 /** The shield shell: it rides the shielded ally, not the caster. */
-export const makeJanna_E_Shell = packClass((api: ContentApi) => {
-  const SpellObject = api.SpellObject;
-  class Janna_E_Shell extends SpellObject {
-    target: AttackableUnit;
-    age = 0;
+export class Janna_E_Shell extends SpellObject {
+  target: AttackableUnit;
+  age = 0;
 
-    constructor(owner: AttackableUnit, target: AttackableUnit) {
-      super(owner);
-      this.target = target;
-      this.position = target.position.copy();
-    }
-
-    update(): void {
-      this.age += deltaTime;
-      if (this.dropIfAttachmentLost()) return;
-      this.position.set(this.target.position.x, this.target.position.y);
-    }
-
-    draw(): void {
-      const size = this.target.animatedValues?.displaySize ?? 40;
-      const radius = size / 2 + 14;
-      const spin = this.age / 500;
-      // slams on over the first 150ms, matching Malphite W's armour cue
-      const slam = constrain(this.age / 150, 0, 1);
-
-      push();
-      translate(this.position.x, this.position.y);
-
-      // curling wind ribbons, in Janna's palette rather than Malphite's stone
-      noFill();
-      for (let i = 0; i < 3; i++) {
-        const offset = spin + (i / 3) * TWO_PI;
-        stroke(150, 235, 220, 60 * slam);
-        strokeWeight(6);
-        arc(0, 0, radius * 2 + 6, radius * 2 + 6, offset, offset + PI * 1.1);
-        stroke(225, 255, 245, 200 * slam);
-        strokeWeight(2);
-        arc(0, 0, radius * 2 + 6, radius * 2 + 6, offset, offset + PI * 1.1);
-      }
-
-      // a soft halo so the shield reads at a glance under fog/terrain
-      noStroke();
-      fill(190, 245, 230, 26 * slam);
-      circle(0, 0, radius * 2);
-
-      pop();
-    }
-
-    getDisplayBoundingBox(): Rectangle {
-      const size = this.target.animatedValues?.displaySize ?? 40;
-      const r = size / 2 + 30;
-      return this.squareDisplayBoundingBox(r * 2);
-    }
+  constructor(owner: AttackableUnit, target: AttackableUnit) {
+    super(owner);
+    this.target = target;
+    this.position = target.position.copy();
   }
-  return Janna_E_Shell;
-});
+
+  update(): void {
+    this.age += deltaTime;
+    if (this.dropIfAttachmentLost()) return;
+    this.position.set(this.target.position.x, this.target.position.y);
+  }
+
+  draw(): void {
+    const size = this.target.animatedValues?.displaySize ?? 40;
+    const radius = size / 2 + 14;
+    const spin = this.age / 500;
+    // slams on over the first 150ms, matching Malphite W's armour cue
+    const slam = constrain(this.age / 150, 0, 1);
+
+    push();
+    translate(this.position.x, this.position.y);
+
+    // curling wind ribbons, in Janna's palette rather than Malphite's stone
+    noFill();
+    for (let i = 0; i < 3; i++) {
+      const offset = spin + (i / 3) * TWO_PI;
+      stroke(150, 235, 220, 60 * slam);
+      strokeWeight(6);
+      arc(0, 0, radius * 2 + 6, radius * 2 + 6, offset, offset + PI * 1.1);
+      stroke(225, 255, 245, 200 * slam);
+      strokeWeight(2);
+      arc(0, 0, radius * 2 + 6, radius * 2 + 6, offset, offset + PI * 1.1);
+    }
+
+    // a soft halo so the shield reads at a glance under fog/terrain
+    noStroke();
+    fill(190, 245, 230, 26 * slam);
+    circle(0, 0, radius * 2);
+
+    pop();
+  }
+
+  getDisplayBoundingBox(): Rectangle {
+    const size = this.target.animatedValues?.displaySize ?? 40;
+    const r = size / 2 + 30;
+    return this.squareDisplayBoundingBox(r * 2);
+  }
+}

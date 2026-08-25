@@ -7,17 +7,13 @@ import {
   installSpellObjectGlobals,
   type TestGame,
 } from '@moba2d/core/testing/spell';
-import makeJarvanIV_Q from '../../spells/JarvanIV_Q';
-import makeJarvanIV_W from '../../spells/JarvanIV_W';
-import makeJarvanIV_E from '../../spells/JarvanIV_E';
-import makeJarvanIV_R from '../../spells/JarvanIV_R';
+import JarvanIV_Q from '../../spells/JarvanIV_Q';
+import JarvanIV_W from '../../spells/JarvanIV_W';
+import JarvanIV_E from '../../spells/JarvanIV_E';
+import JarvanIV_R from '../../spells/JarvanIV_R';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const JarvanIV_Q = makeJarvanIV_Q(__api);
-const JarvanIV_W = makeJarvanIV_W(__api);
-const JarvanIV_E = makeJarvanIV_E(__api);
-const JarvanIV_R = makeJarvanIV_R(__api);
 
 function unit(game: TestGame, x: number, teamId: string): AttackableUnit {
   const result = createUnit(game, x, teamId);

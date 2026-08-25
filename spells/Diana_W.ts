@@ -1,7 +1,13 @@
-import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { AttackableUnit, Buff } from '@moba2d/core/content/types';
 import { MOON_CORE, MOON_PALE, drawCrescent } from './Diana_Q';
-import { packClass } from '../packClass';
+import { api } from '../packApi';
+
+const effectiveRange = api.combat.Reach.effectiveRange;
+const Shield = api.buffs.Shield;
+const Spell = api.Spell;
+const Circle = api.utils.Quadtree.Circle;
+const PredefinedFilters = api.combat.PredefinedFilters;
+const SpellObject = api.SpellObject;
 
 
 export const W_SPHERES = 3;
@@ -40,41 +46,33 @@ export interface MoonSphere {
 }
 
 
-export const makeDiana_W = packClass((api: ContentApi) => {
-  const effectiveRange = api.combat.Reach.effectiveRange;
-  const Shield = api.buffs.Shield;
-  const Spell = api.Spell;
-  const Diana_W_Orbit = makeDiana_W_Orbit(api);
-  class Diana_W extends Spell {
-    targetingMode = 'SELF' as const;
-    image = api.asset('spell_diana_w');
-    name = 'Thác Bạc (Diana_W)';
-    description = `Ba lưỡi liềm bay quanh Diana. Mỗi lưỡi nổ khi chạm kẻ địch, gây
-      <span class="damage">${W_SPHERE_DAMAGE} sát thương</span> trong vùng nhỏ. Diana nhận lá
-      chắn ${W_SHIELD}; nổ hết cả ba lưỡi thì lá chắn được làm mới một lần.`;
-    coolDown = 10_000;
-    manaCost = 40;
-    range = W_THREAT;
+export default class Diana_W extends Spell {
+  targetingMode = 'SELF' as const;
+  image = api.asset('spell_diana_w');
+  name = 'Thác Bạc (Diana_W)';
+  description = `Ba lưỡi liềm bay quanh Diana. Mỗi lưỡi nổ khi chạm kẻ địch, gây
+    <span class="damage">${W_SPHERE_DAMAGE} sát thương</span> trong vùng nhỏ. Diana nhận lá
+    chắn ${W_SHIELD}; nổ hết cả ba lưỡi thì lá chắn được làm mới một lần.`;
+  coolDown = 10_000;
+  manaCost = 40;
+  range = W_THREAT;
 
-    onSpellCast(): void {
-      const shield = new Shield(W_DURATION_MS, this.owner, this.owner);
-      shield.amount = W_SHIELD;
-      shield.color = [MOON_CORE[0], MOON_CORE[1], MOON_CORE[2]];
-      shield.stackId = W_SHIELD_STACK_ID;
-      this.owner.addBuff(shield);
+  onSpellCast(): void {
+    const shield = new Shield(W_DURATION_MS, this.owner, this.owner);
+    shield.amount = W_SHIELD;
+    shield.color = [MOON_CORE[0], MOON_CORE[1], MOON_CORE[2]];
+    shield.stackId = W_SHIELD_STACK_ID;
+    this.owner.addBuff(shield);
 
-      const orbit = new Diana_W_Orbit(this.owner, shield);
-      orbit.attachTo(this.owner);
-      this.game.objectManager.addObject(orbit);
-    }
-
-    drawPreview(): void {
-      super.drawPreview(effectiveRange(this.range, this.owner));
-    }
+    const orbit = new Diana_W_Orbit(this.owner, shield);
+    orbit.attachTo(this.owner);
+    this.game.objectManager.addObject(orbit);
   }
-  return Diana_W;
-});
-export default makeDiana_W;
+
+  drawPreview(): void {
+    super.drawPreview(effectiveRange(this.range, this.owner));
+  }
+}
 
 
 /**
@@ -82,221 +80,209 @@ export default makeDiana_W;
  * than caster VFX — Champion.draw() is skipped whenever she is culled, and the spheres would
  * keep detonating invisibly.
  */
-export const makeDiana_W_Orbit = packClass((api: ContentApi) => {
-  const Circle = api.utils.Quadtree.Circle;
-  const PredefinedFilters = api.combat.PredefinedFilters;
-  const Shield = api.buffs.Shield;
-  const SpellObject = api.SpellObject;
-  const Diana_W_Bloom = makeDiana_W_Bloom(api);
-  class Diana_W_Orbit extends SpellObject {
-    age = 0;
-    readonly spheres: MoonSphere[] = [];
-    /** Counted, not flagged: the spec allows exactly one refresh per cast. */
-    shieldRefreshCount = 0;
-    private shieldBuff: Buff | null;
-    private lastPopAt = -1;
-    private refreshPulseAt = -1;
+export class Diana_W_Orbit extends SpellObject {
+  age = 0;
+  readonly spheres: MoonSphere[] = [];
+  /** Counted, not flagged: the spec allows exactly one refresh per cast. */
+  shieldRefreshCount = 0;
+  private shieldBuff: Buff | null;
+  private lastPopAt = -1;
+  private refreshPulseAt = -1;
 
-    constructor(owner: AttackableUnit, shield: Buff | null) {
-      super(owner);
-      this.shieldBuff = shield;
-      for (let i = 0; i < W_SPHERES; i++) {
-        this.spheres.push({
-          angleOffset: (i / W_SPHERES) * Math.PI * 2,
-          detonated: false,
-          poppedAt: -1,
-        });
-      }
-    }
-
-    get liveSpheres(): MoonSphere[] {
-      const alive: MoonSphere[] = [];
-      for (const sphere of this.spheres) if (!sphere.detonated) alive.push(sphere);
-      return alive;
-    }
-
-    get spentCount(): number {
-      return this.spheres.length - this.liveSpheres.length;
-    }
-
-    spherePosition(sphere: MoonSphere): { x: number; y: number } {
-      const spin = (this.age / W_ORBIT_PERIOD_MS) * Math.PI * 2 + sphere.angleOffset;
-      return {
-        x: this.position.x + Math.cos(spin) * W_ORBIT,
-        y: this.position.y + Math.sin(spin) * W_ORBIT,
-      };
-    }
-
-    update(): void {
-      if (this.dropIfAttachmentLost()) return;
-      this.age += deltaTime;
-      this.position.set(this.owner.position.x, this.owner.position.y);
-
-      for (const sphere of this.spheres) {
-        if (sphere.detonated) continue;
-        const at = this.spherePosition(sphere);
-        const touching = this.game.objectManager.queryObjects({
-          area: new Circle({ x: at.x, y: at.y, r: W_CONTACT_RADIUS }),
-          filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
-        }) as AttackableUnit[];
-        if (touching.length === 0) continue;
-        // The contact point is on the body that walked into it, not out at the orbit.
-        this.detonate(sphere, touching[0].position.copy());
-      }
-
-      if (this.age >= W_DURATION_MS) this.toRemove = true;
-      if (this.liveSpheres.length === 0 && this.age - this.lastPopAt >= W_REFRESH_PULSE_MS) {
-        this.toRemove = true;
-      }
-    }
-
-    detonate(sphere: MoonSphere, at: p5.Vector): void {
-      if (sphere.detonated) return;
-      sphere.detonated = true;
-      sphere.poppedAt = this.age;
-      this.lastPopAt = this.age;
-
-      const caught = this.game.objectManager.queryObjects({
-        area: new Circle({ x: at.x, y: at.y, r: W_SPHERE_RADIUS }),
-        filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
-      }) as AttackableUnit[];
-      for (const victim of caught) {
-        victim.takeDamage(W_SPHERE_DAMAGE, this.owner);
-      }
-
-      this.game.objectManager.addObject(new Diana_W_Bloom(this.owner, at.copy()));
-
-      if (this.liveSpheres.length === 0 && this.shieldRefreshCount === 0) {
-        this.refreshShield();
-      }
-    }
-
-    private refreshShield(): void {
-      this.shieldRefreshCount += 1;
-      this.refreshPulseAt = this.age;
-      const live = this.shieldBuff ? SpellObject.liveBuffOn(this.owner, this.shieldBuff) : null;
-      if (live) {
-        live.renewBuff();
-        return;
-      }
-      const fresh = new Shield(W_DURATION_MS, this.owner, this.owner);
-      fresh.amount = W_SHIELD;
-      fresh.color = [MOON_CORE[0], MOON_CORE[1], MOON_CORE[2]];
-      fresh.stackId = W_SHIELD_STACK_ID;
-      this.owner.addBuff(fresh);
-      this.shieldBuff = fresh;
-    }
-
-    draw(): void {
-      const spent = constrain(this.age / W_DURATION_MS, 0, 1);
-      const pulse =
-        this.refreshPulseAt < 0
-          ? 0
-          : constrain(1 - (this.age - this.refreshPulseAt) / W_REFRESH_PULSE_MS, 0, 1);
-
-      push();
-      noFill();
-      // The shell the shield sits on: one bright pulse when it is made new, nothing else.
-      stroke(MOON_CORE[0], MOON_CORE[1], MOON_CORE[2], 50 * (1 - spent * 0.5) + 190 * pulse);
-      strokeWeight(1.4 + 5 * pulse);
-      circle(this.position.x, this.position.y, W_ORBIT * 2 * (1 - 0.05 * pulse));
-
-      for (const sphere of this.spheres) {
-        if (sphere.detonated) continue;
-        const at = this.spherePosition(sphere);
-        const spin = (this.age / W_ORBIT_PERIOD_MS) * Math.PI * 2 + sphere.angleOffset;
-        const breathe = 1 + 0.15 * sin(this.age / 180 + sphere.angleOffset);
-
-        // Outer soft moonlight aura
-        noStroke();
-        fill(MOON_CORE[0], MOON_CORE[1], MOON_CORE[2], 75);
-        circle(at.x, at.y, 36 * breathe);
-
-        // Bright lunar halo
-        stroke(MOON_PALE[0], MOON_PALE[1], MOON_PALE[2], 220);
-        strokeWeight(2.5);
-        fill(MOON_CORE[0], MOON_CORE[1], MOON_CORE[2], 180);
-        circle(at.x, at.y, 22 * breathe);
-
-        // Brilliant white core
-        fill(255, 255, 255, 250);
-        noStroke();
-        circle(at.x, at.y, 14 * breathe);
-
-        // Orbital sparkle trail
-        const trailAngle = spin - 0.28;
-        stroke(MOON_PALE[0], MOON_PALE[1], MOON_PALE[2], 180);
-        strokeWeight(3.5);
-        point(
-          this.position.x + Math.cos(trailAngle) * W_ORBIT,
-          this.position.y + Math.sin(trailAngle) * W_ORBIT
-        );
-      }
-      pop();
-    }
-
-    getDisplayBoundingBox() {
-      return this.squareDisplayBoundingBox((W_ORBIT + 46) * 2);
+  constructor(owner: AttackableUnit, shield: Buff | null) {
+    super(owner);
+    this.shieldBuff = shield;
+    for (let i = 0; i < W_SPHERES; i++) {
+      this.spheres.push({
+        angleOffset: (i / W_SPHERES) * Math.PI * 2,
+        detonated: false,
+        poppedAt: -1,
+      });
     }
   }
-  return Diana_W_Orbit;
-});
+
+  get liveSpheres(): MoonSphere[] {
+    const alive: MoonSphere[] = [];
+    for (const sphere of this.spheres) if (!sphere.detonated) alive.push(sphere);
+    return alive;
+  }
+
+  get spentCount(): number {
+    return this.spheres.length - this.liveSpheres.length;
+  }
+
+  spherePosition(sphere: MoonSphere): { x: number; y: number } {
+    const spin = (this.age / W_ORBIT_PERIOD_MS) * Math.PI * 2 + sphere.angleOffset;
+    return {
+      x: this.position.x + Math.cos(spin) * W_ORBIT,
+      y: this.position.y + Math.sin(spin) * W_ORBIT,
+    };
+  }
+
+  update(): void {
+    if (this.dropIfAttachmentLost()) return;
+    this.age += deltaTime;
+    this.position.set(this.owner.position.x, this.owner.position.y);
+
+    for (const sphere of this.spheres) {
+      if (sphere.detonated) continue;
+      const at = this.spherePosition(sphere);
+      const touching = this.game.objectManager.queryObjects({
+        area: new Circle({ x: at.x, y: at.y, r: W_CONTACT_RADIUS }),
+        filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
+      }) as AttackableUnit[];
+      if (touching.length === 0) continue;
+      // The contact point is on the body that walked into it, not out at the orbit.
+      this.detonate(sphere, touching[0].position.copy());
+    }
+
+    if (this.age >= W_DURATION_MS) this.toRemove = true;
+    if (this.liveSpheres.length === 0 && this.age - this.lastPopAt >= W_REFRESH_PULSE_MS) {
+      this.toRemove = true;
+    }
+  }
+
+  detonate(sphere: MoonSphere, at: p5.Vector): void {
+    if (sphere.detonated) return;
+    sphere.detonated = true;
+    sphere.poppedAt = this.age;
+    this.lastPopAt = this.age;
+
+    const caught = this.game.objectManager.queryObjects({
+      area: new Circle({ x: at.x, y: at.y, r: W_SPHERE_RADIUS }),
+      filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
+    }) as AttackableUnit[];
+    for (const victim of caught) {
+      victim.takeDamage(W_SPHERE_DAMAGE, this.owner);
+    }
+
+    this.game.objectManager.addObject(new Diana_W_Bloom(this.owner, at.copy()));
+
+    if (this.liveSpheres.length === 0 && this.shieldRefreshCount === 0) {
+      this.refreshShield();
+    }
+  }
+
+  private refreshShield(): void {
+    this.shieldRefreshCount += 1;
+    this.refreshPulseAt = this.age;
+    const live = this.shieldBuff ? SpellObject.liveBuffOn(this.owner, this.shieldBuff) : null;
+    if (live) {
+      live.renewBuff();
+      return;
+    }
+    const fresh = new Shield(W_DURATION_MS, this.owner, this.owner);
+    fresh.amount = W_SHIELD;
+    fresh.color = [MOON_CORE[0], MOON_CORE[1], MOON_CORE[2]];
+    fresh.stackId = W_SHIELD_STACK_ID;
+    this.owner.addBuff(fresh);
+    this.shieldBuff = fresh;
+  }
+
+  draw(): void {
+    const spent = constrain(this.age / W_DURATION_MS, 0, 1);
+    const pulse =
+      this.refreshPulseAt < 0
+        ? 0
+        : constrain(1 - (this.age - this.refreshPulseAt) / W_REFRESH_PULSE_MS, 0, 1);
+
+    push();
+    noFill();
+    // The shell the shield sits on: one bright pulse when it is made new, nothing else.
+    stroke(MOON_CORE[0], MOON_CORE[1], MOON_CORE[2], 50 * (1 - spent * 0.5) + 190 * pulse);
+    strokeWeight(1.4 + 5 * pulse);
+    circle(this.position.x, this.position.y, W_ORBIT * 2 * (1 - 0.05 * pulse));
+
+    for (const sphere of this.spheres) {
+      if (sphere.detonated) continue;
+      const at = this.spherePosition(sphere);
+      const spin = (this.age / W_ORBIT_PERIOD_MS) * Math.PI * 2 + sphere.angleOffset;
+      const breathe = 1 + 0.15 * sin(this.age / 180 + sphere.angleOffset);
+
+      // Outer soft moonlight aura
+      noStroke();
+      fill(MOON_CORE[0], MOON_CORE[1], MOON_CORE[2], 75);
+      circle(at.x, at.y, 36 * breathe);
+
+      // Bright lunar halo
+      stroke(MOON_PALE[0], MOON_PALE[1], MOON_PALE[2], 220);
+      strokeWeight(2.5);
+      fill(MOON_CORE[0], MOON_CORE[1], MOON_CORE[2], 180);
+      circle(at.x, at.y, 22 * breathe);
+
+      // Brilliant white core
+      fill(255, 255, 255, 250);
+      noStroke();
+      circle(at.x, at.y, 14 * breathe);
+
+      // Orbital sparkle trail
+      const trailAngle = spin - 0.28;
+      stroke(MOON_PALE[0], MOON_PALE[1], MOON_PALE[2], 180);
+      strokeWeight(3.5);
+      point(
+        this.position.x + Math.cos(trailAngle) * W_ORBIT,
+        this.position.y + Math.sin(trailAngle) * W_ORBIT
+      );
+    }
+    pop();
+  }
+
+  getDisplayBoundingBox() {
+    return this.squareDisplayBoundingBox((W_ORBIT + 46) * 2);
+  }
+}
 
 
 /** A crescent bloom where a sphere met a body. */
-export const makeDiana_W_Bloom = packClass((api: ContentApi) => {
-  const SpellObject = api.SpellObject;
-  class Diana_W_Bloom extends SpellObject {
-    lifeTime = W_BLOOM_MS;
-    age = 0;
-    private petals: number[] = [];
+export class Diana_W_Bloom extends SpellObject {
+  lifeTime = W_BLOOM_MS;
+  age = 0;
+  private petals: number[] = [];
 
-    constructor(owner: AttackableUnit, at: p5.Vector) {
-      super(owner);
-      this.position = at;
-    }
-
-    onAdded(): void {
-      for (let i = 0; i < 3; i++) this.petals.push(random(0, TWO_PI));
-    }
-
-    update(): void {
-      this.age += deltaTime;
-      if (this.age >= this.lifeTime) this.toRemove = true;
-    }
-
-    draw(): void {
-      const t = constrain(this.age / this.lifeTime, 0, 1);
-      const opened = 1 - (1 - t) * (1 - t);
-      push();
-      noFill();
-      // Glowing lunar blast fill
-      fill(MOON_CORE[0], MOON_CORE[1], MOON_CORE[2], 60 * (1 - t));
-      circle(this.position.x, this.position.y, W_SPHERE_RADIUS * 2 * opened);
-
-      // Hard rim on the real damage radius, so the pop states its own area.
-      noFill();
-      stroke(MOON_PALE[0], MOON_PALE[1], MOON_PALE[2], 230 * (1 - t));
-      strokeWeight(3.5 * (1 - t) + 1);
-      circle(this.position.x, this.position.y, W_SPHERE_RADIUS * 2 * opened);
-      for (const petal of this.petals) {
-        drawCrescent(
-          this.position.x,
-          this.position.y,
-          W_SPHERE_RADIUS * 0.55 * opened + 5,
-          petal,
-          1.7,
-          5 * (1 - t) + 1,
-          MOON_CORE,
-          225 * (1 - t)
-        );
-      }
-      pop();
-    }
-
-    getDisplayBoundingBox() {
-      return this.squareDisplayBoundingBox((W_SPHERE_RADIUS + 26) * 2);
-    }
+  constructor(owner: AttackableUnit, at: p5.Vector) {
+    super(owner);
+    this.position = at;
   }
-  return Diana_W_Bloom;
-});
+
+  onAdded(): void {
+    for (let i = 0; i < 3; i++) this.petals.push(random(0, TWO_PI));
+  }
+
+  update(): void {
+    this.age += deltaTime;
+    if (this.age >= this.lifeTime) this.toRemove = true;
+  }
+
+  draw(): void {
+    const t = constrain(this.age / this.lifeTime, 0, 1);
+    const opened = 1 - (1 - t) * (1 - t);
+    push();
+    noFill();
+    // Glowing lunar blast fill
+    fill(MOON_CORE[0], MOON_CORE[1], MOON_CORE[2], 60 * (1 - t));
+    circle(this.position.x, this.position.y, W_SPHERE_RADIUS * 2 * opened);
+
+    // Hard rim on the real damage radius, so the pop states its own area.
+    noFill();
+    stroke(MOON_PALE[0], MOON_PALE[1], MOON_PALE[2], 230 * (1 - t));
+    strokeWeight(3.5 * (1 - t) + 1);
+    circle(this.position.x, this.position.y, W_SPHERE_RADIUS * 2 * opened);
+    for (const petal of this.petals) {
+      drawCrescent(
+        this.position.x,
+        this.position.y,
+        W_SPHERE_RADIUS * 0.55 * opened + 5,
+        petal,
+        1.7,
+        5 * (1 - t) + 1,
+        MOON_CORE,
+        225 * (1 - t)
+      );
+    }
+    pop();
+  }
+
+  getDisplayBoundingBox() {
+    return this.squareDisplayBoundingBox((W_SPHERE_RADIUS + 26) * 2);
+  }
+}

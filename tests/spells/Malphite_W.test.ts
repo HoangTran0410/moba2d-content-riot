@@ -9,14 +9,11 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { BOUNDING_MARGIN, DURATION_MS, HARD_STOP_MS, PLATE_COUNT, SHIELD_AMOUNT, SIZE_BONUS } from '../../spells/Malphite_W';
-import makeMalphite_W, { makeMalphite_W_Armor } from '../../spells/Malphite_W';
+import Malphite_W, { Malphite_W_Armor } from '../../spells/Malphite_W';
 const __api = buildTestApi();
 const { Shield, StatAmp, Buff } = __api.buffs;
 type Shield = InstanceType<typeof __api.buffs.Shield>;
 type StatAmp = InstanceType<typeof __api.buffs.StatAmp>;
-const Malphite_W = makeMalphite_W(__api);
-const Malphite_W_Armor = makeMalphite_W_Armor(__api);
-type Malphite_W_Armor = InstanceType<typeof Malphite_W_Armor>;
 
 function unit(game: TestGame, x = 0, teamId = 'blue') {
   const result = createUnit(game, x, teamId);

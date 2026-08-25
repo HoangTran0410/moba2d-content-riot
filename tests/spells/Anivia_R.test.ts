@@ -1,14 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 
 import type { CastContext, MatchRules } from '@moba2d/core/content/types';
-import { buildTestApi } from '@moba2d/core/testing';
 import { DAMAGE_TICK_MS, EMPOWERED_DAMAGE, EMPOWERED_SLOW, EMPOWERED_SLOW_DURATION_MS, END_RADIUS, GROWTH_MS, MANA_COST, NORMAL_DAMAGE, NORMAL_SLOW, NORMAL_SLOW_DURATION_MS, START_RADIUS, stormRadiusAt, TETHER_RANGE, UPKEEP_COST, UPKEEP_TICK_MS } from '../../spells/Anivia_R';
-import makeAnivia_R, { makeAnivia_R_Object } from '../../spells/Anivia_R';
-const __api = buildTestApi();
-const Anivia_R = makeAnivia_R(__api);
-type Anivia_R = InstanceType<typeof Anivia_R>;
-const Anivia_R_Object = makeAnivia_R_Object(__api);
-type Anivia_R_Object = InstanceType<typeof Anivia_R_Object>;
+import Anivia_R, { Anivia_R_Object } from '../../spells/Anivia_R';
 
 const URF: MatchRules = { cooldownMultiplier: 1, manaFree: true };
 

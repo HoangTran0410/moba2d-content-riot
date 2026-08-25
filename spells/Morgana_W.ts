@@ -1,8 +1,13 @@
-import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { AttackableUnit, CastContext, CastSpec, Rectangle, Vec2 } from '@moba2d/core/content/types';
-import { packClass, type Instance } from '../packClass';
+import { api } from '../packApi';
 
-type Morgana_W_Object = Instance<typeof makeMorgana_W_Object>;
+const Spell = api.Spell;
+const Rectangle = api.utils.Quadtree.Rectangle;
+const Circle = api.utils.Quadtree.Circle;
+const PredefinedFilters = api.combat.PredefinedFilters;
+const Monster = api.units.Monster;
+const AreaSpellObject = api.AreaSpellObject;
+
 
 
 
@@ -95,161 +100,147 @@ export const SPIKE_COUNT = 18;
 const SPIKES = spikeLayout(SPIKE_COUNT);
 
 
-export const makeMorgana_W = packClass((api: ContentApi) => {
-  const Spell = api.Spell;
-  const Morgana_W_Object = makeMorgana_W_Object(api);
-  class Morgana_W extends Spell {
-    image = api.asset('spell_morgana_w');
-    name = 'Vùng Đất Chết (Morgana_W)';
-    description =
-      'Nguyền rủa mặt đất tại vị trí chỉ định trong <span class="time">5 giây</span>, gây <span class="damage">3-5 sát thương phép mỗi 0.5 giây</span> cho kẻ địch đứng trong đó — sát thương tăng theo phần trăm máu đã mất của mục tiêu, và tăng 70% khi nhắm vào quái rừng.';
-    coolDown = 9_000;
-    manaCost = MANA_COST;
+export default class Morgana_W extends Spell {
+  image = api.asset('spell_morgana_w');
+  name = 'Vùng Đất Chết (Morgana_W)';
+  description =
+    'Nguyền rủa mặt đất tại vị trí chỉ định trong <span class="time">5 giây</span>, gây <span class="damage">3-5 sát thương phép mỗi 0.5 giây</span> cho kẻ địch đứng trong đó — sát thương tăng theo phần trăm máu đã mất của mục tiêu, và tăng 70% khi nhắm vào quái rừng.';
+  coolDown = 9_000;
+  manaCost = MANA_COST;
 
-    range = RANGE;
-    activeZone: Morgana_W_Object | null = null;
+  range = RANGE;
+  activeZone: Morgana_W_Object | null = null;
 
-    get castSpec(): Readonly<CastSpec> {
-      return {
-        activation: 'PRESS',
-        targeting: 'POINT',
-        castTimeMs: CAST_TIME_MS,
-        resource: { commitAt: 'release', refundOn: [] },
-        cooldown: { startAt: 'release', durationMs: this.coolDown },
-      };
-    }
-
-    onRelease(context: CastContext): void {
-      const center = this.pointInRange(context.cursorWorld);
-      const zone = new Morgana_W_Object(this.owner, center);
-      this.activeZone = zone;
-      this.game.objectManager.addObject(zone);
-    }
-
-    onUpdate(): void {
-      if (this.activeZone?.toRemove) this.activeZone = null;
-    }
-
-    drawPreview(): void {
-      super.drawPreview(this.range);
-    }
-
-    private pointInRange(point: Vec2): Vec2 {
-      const dx = point.x - this.owner.position.x;
-      const dy = point.y - this.owner.position.y;
-      const distance = Math.hypot(dx, dy);
-      const ratio = distance > this.range ? this.range / distance : 1;
-      return { x: this.owner.position.x + dx * ratio, y: this.owner.position.y + dy * ratio };
-    }
+  get castSpec(): Readonly<CastSpec> {
+    return {
+      activation: 'PRESS',
+      targeting: 'POINT',
+      castTimeMs: CAST_TIME_MS,
+      resource: { commitAt: 'release', refundOn: [] },
+      cooldown: { startAt: 'release', durationMs: this.coolDown },
+    };
   }
-  return Morgana_W;
-});
-export default makeMorgana_W;
+
+  onRelease(context: CastContext): void {
+    const center = this.pointInRange(context.cursorWorld);
+    const zone = new Morgana_W_Object(this.owner, center);
+    this.activeZone = zone;
+    this.game.objectManager.addObject(zone);
+  }
+
+  onUpdate(): void {
+    if (this.activeZone?.toRemove) this.activeZone = null;
+  }
+
+  drawPreview(): void {
+    super.drawPreview(this.range);
+  }
+
+  private pointInRange(point: Vec2): Vec2 {
+    const dx = point.x - this.owner.position.x;
+    const dy = point.y - this.owner.position.y;
+    const distance = Math.hypot(dx, dy);
+    const ratio = distance > this.range ? this.range / distance : 1;
+    return { x: this.owner.position.x + dx * ratio, y: this.owner.position.y + dy * ratio };
+  }
+}
 
 
-export const makeMorgana_W_Object = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
-  const Circle = api.utils.Quadtree.Circle;
-  const PredefinedFilters = api.combat.PredefinedFilters;
-  const Monster = api.units.Monster;
-  const AreaSpellObject = api.AreaSpellObject;
-  class Morgana_W_Object extends AreaSpellObject {
-    constructor(owner: AttackableUnit, center: Vec2) {
-      super(owner, center, RADIUS, {
-        candidates: () =>
-          this.game.objectManager.queryObjects({
-            area: new Circle({ x: center.x, y: center.y, r: RADIUS }),
-            filters: [PredefinedFilters.canTakeDamageFromTeam(owner.teamId)],
-          }),
-        tickEveryMs: TICK_EVERY_MS,
-        durationMs: DURATION_MS,
-        onEnter: target => this.damageTarget(target),
-        onTick: target => this.damageTarget(target),
-      });
-    }
+export class Morgana_W_Object extends AreaSpellObject {
+  constructor(owner: AttackableUnit, center: Vec2) {
+    super(owner, center, RADIUS, {
+      candidates: () =>
+        this.game.objectManager.queryObjects({
+          area: new Circle({ x: center.x, y: center.y, r: RADIUS }),
+          filters: [PredefinedFilters.canTakeDamageFromTeam(owner.teamId)],
+        }),
+      tickEveryMs: TICK_EVERY_MS,
+      durationMs: DURATION_MS,
+      onEnter: target => this.damageTarget(target),
+      onTick: target => this.damageTarget(target),
+    });
+  }
 
-    private damageTarget(target: ShadowTarget): void {
-      const maxHealth = target.stats.maxHealth.value;
-      const missingRatio = maxHealth > 0 ? 1 - target.stats.health.value / maxHealth : 0;
-      const base =
-        MIN_TICK_DAMAGE + (MAX_TICK_DAMAGE - MIN_TICK_DAMAGE) * constrain(missingRatio, 0, 1);
-      const multiplier = target instanceof Monster ? MONSTER_DAMAGE_MULTIPLIER : 1;
-      target.takeDamage(base * multiplier, this.owner);
-    }
+  private damageTarget(target: ShadowTarget): void {
+    const maxHealth = target.stats.maxHealth.value;
+    const missingRatio = maxHealth > 0 ? 1 - target.stats.health.value / maxHealth : 0;
+    const base =
+      MIN_TICK_DAMAGE + (MAX_TICK_DAMAGE - MIN_TICK_DAMAGE) * constrain(missingRatio, 0, 1);
+    const multiplier = target instanceof Monster ? MONSTER_DAMAGE_MULTIPLIER : 1;
+    target.takeDamage(base * multiplier, this.owner);
+  }
 
-    draw(): void {
-      const fadeIn = constrain(this.elapsedMs / 250, 0, 1);
-      const fadeOut = 1 - constrain((this.elapsedMs - (DURATION_MS - 400)) / 400, 0, 1);
-      const alpha = Math.min(fadeIn, fadeOut);
-      const pulse = 0.6 + 0.4 * sin(this.elapsedMs / 260);
+  draw(): void {
+    const fadeIn = constrain(this.elapsedMs / 250, 0, 1);
+    const fadeOut = 1 - constrain((this.elapsedMs - (DURATION_MS - 400)) / 400, 0, 1);
+    const alpha = Math.min(fadeIn, fadeOut);
+    const pulse = 0.6 + 0.4 * sin(this.elapsedMs / 260);
+
+    push();
+    translate(this.center.x, this.center.y);
+
+    // desecrated ground: a pooling dark stain, not a flat tinted circle
+    noStroke();
+    fill(30, 5, 45, 90 * alpha);
+    circle(0, 0, this.radius * 2);
+    fill(60, 10, 85, 60 * alpha * pulse);
+    circle(0, 0, this.radius * 1.5);
+
+    // boundary ring, breathing with the curse
+    noFill();
+    stroke(20, 0, 30, 200 * alpha);
+    strokeWeight(5);
+    circle(0, 0, this.radius * 2);
+    stroke(190, 90, 230, (140 + 90 * pulse) * alpha);
+    strokeWeight(2);
+    circle(0, 0, this.radius * 2);
+
+    // corrupted spikes rising and sinking back into the ground
+    for (const spike of SPIKES) {
+      const phase = ((this.elapsedMs + spike.phaseOffsetMs) % spike.loopMs) / spike.loopMs;
+      const rise = sin(phase * PI);
+      if (rise <= 0.02) continue;
+      const r = this.radius * spike.radiusRatio;
+      const px = cos(spike.angle) * r;
+      const py = sin(spike.angle) * r;
+      const spikeHeight = 10 + rise * 26;
 
       push();
-      translate(this.center.x, this.center.y);
-
-      // desecrated ground: a pooling dark stain, not a flat tinted circle
+      translate(px, py);
       noStroke();
-      fill(30, 5, 45, 90 * alpha);
-      circle(0, 0, this.radius * 2);
-      fill(60, 10, 85, 60 * alpha * pulse);
-      circle(0, 0, this.radius * 1.5);
-
-      // boundary ring, breathing with the curse
-      noFill();
-      stroke(20, 0, 30, 200 * alpha);
-      strokeWeight(5);
-      circle(0, 0, this.radius * 2);
-      stroke(190, 90, 230, (140 + 90 * pulse) * alpha);
-      strokeWeight(2);
-      circle(0, 0, this.radius * 2);
-
-      // corrupted spikes rising and sinking back into the ground
-      for (const spike of SPIKES) {
-        const phase = ((this.elapsedMs + spike.phaseOffsetMs) % spike.loopMs) / spike.loopMs;
-        const rise = sin(phase * PI);
-        if (rise <= 0.02) continue;
-        const r = this.radius * spike.radiusRatio;
-        const px = cos(spike.angle) * r;
-        const py = sin(spike.angle) * r;
-        const spikeHeight = 10 + rise * 26;
-
-        push();
-        translate(px, py);
-        noStroke();
-        fill(150, 60, 200, 210 * rise * alpha);
-        triangle(-4, 0, 4, 0, 0, -spikeHeight);
-        fill(220, 170, 255, 160 * rise * alpha);
-        triangle(-1.4, 0, 1.4, 0, 0, -spikeHeight);
-        pop();
-      }
-
-      // slow-drifting motes of corruption over the whole area, keyed off
-      // elapsedMs rather than random() so they drift instead of flickering
-      noStroke();
-      fill(210, 150, 255, 130 * alpha);
-      const MOTE_COUNT = 16;
-      for (let i = 0; i < MOTE_COUNT; i++) {
-        const seed = i * 2.399963;
-        const loopMs = 2_600 + (i % 5) * 220;
-        const phase = ((this.elapsedMs + seed * 500) % loopMs) / loopMs;
-        const r = this.radius * (0.1 + phase * 0.85);
-        const a = seed + this.elapsedMs / 3_400;
-        circle(cos(a) * r, sin(a) * r, 2 + (i % 3));
-      }
-
+      fill(150, 60, 200, 210 * rise * alpha);
+      triangle(-4, 0, 4, 0, 0, -spikeHeight);
+      fill(220, 170, 255, 160 * rise * alpha);
+      triangle(-1.4, 0, 1.4, 0, 0, -spikeHeight);
       pop();
     }
 
-    // the spikes reach a little past the collision radius; pad the culling box
-    getDisplayBoundingBox(): Rectangle {
-      const pad = this.radius + 30;
-      return new Rectangle({
-        x: this.center.x - pad,
-        y: this.center.y - pad,
-        w: pad * 2,
-        h: pad * 2,
-        data: this,
-      });
+    // slow-drifting motes of corruption over the whole area, keyed off
+    // elapsedMs rather than random() so they drift instead of flickering
+    noStroke();
+    fill(210, 150, 255, 130 * alpha);
+    const MOTE_COUNT = 16;
+    for (let i = 0; i < MOTE_COUNT; i++) {
+      const seed = i * 2.399963;
+      const loopMs = 2_600 + (i % 5) * 220;
+      const phase = ((this.elapsedMs + seed * 500) % loopMs) / loopMs;
+      const r = this.radius * (0.1 + phase * 0.85);
+      const a = seed + this.elapsedMs / 3_400;
+      circle(cos(a) * r, sin(a) * r, 2 + (i % 3));
     }
+
+    pop();
   }
-  return Morgana_W_Object;
-});
+
+  // the spikes reach a little past the collision radius; pad the culling box
+  getDisplayBoundingBox(): Rectangle {
+    const pad = this.radius + 30;
+    return new Rectangle({
+      x: this.center.x - pad,
+      y: this.center.y - pad,
+      w: pad * 2,
+      h: pad * 2,
+      data: this,
+    });
+  }
+}

@@ -10,27 +10,18 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { KATARINA_DAGGER_E_REFUND_MS, KATARINA_DAGGER_SLASH_DAMAGE, KATARINA_MAX_DAGGERS, KATARINA_Q_BOUNCE_DAMAGE, KATARINA_Q_FIRST_DAMAGE, KATARINA_Q_MAX_TARGETS, KATARINA_Q_WINDUP_MS } from '../../spells/Katarina_Q';
-import makeKatarina_Q, { makeKatarina_Dagger, makeKatarina_Q_Object } from '../../spells/Katarina_Q';
+import Katarina_Q, { Katarina_Dagger, Katarina_Q_Object } from '../../spells/Katarina_Q';
 import { KATARINA_W_DROP_DELAY_MS, KATARINA_W_SPEEDUP_MS } from '../../spells/Katarina_W';
-import makeKatarina_W from '../../spells/Katarina_W';
+import Katarina_W from '../../spells/Katarina_W';
 import { KATARINA_E_STRIKE_DAMAGE } from '../../spells/Katarina_E';
-import makeKatarina_E from '../../spells/Katarina_E';
+import Katarina_E from '../../spells/Katarina_E';
 import { KATARINA_R_DURATION_MS, KATARINA_R_TICK_DAMAGE, KATARINA_R_TICK_MS } from '../../spells/Katarina_R';
-import makeKatarina_R, { makeKatarina_R_Lotus } from '../../spells/Katarina_R';
+import Katarina_R, { Katarina_R_Lotus } from '../../spells/Katarina_R';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
 const { Speedup } = __api.buffs;
 type Speedup = InstanceType<typeof __api.buffs.Speedup>;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Katarina_Q = makeKatarina_Q(__api);
-const Katarina_Q_Object = makeKatarina_Q_Object(__api);
-type Katarina_Q_Object = InstanceType<typeof Katarina_Q_Object>;
-const Katarina_Dagger = makeKatarina_Dagger(__api);
-const Katarina_W = makeKatarina_W(__api);
-const Katarina_E = makeKatarina_E(__api);
-const Katarina_R = makeKatarina_R(__api);
-const Katarina_R_Lotus = makeKatarina_R_Lotus(__api);
-type Katarina_R_Lotus = InstanceType<typeof Katarina_R_Lotus>;
 
 const EXPECTED_R_TICKS = Math.floor(KATARINA_R_DURATION_MS / KATARINA_R_TICK_MS);
 

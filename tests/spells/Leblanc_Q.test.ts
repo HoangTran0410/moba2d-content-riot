@@ -9,17 +9,12 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { CAST_TIME_MS, DAMAGE, MANA_COST, MARK_DURATION_MS, MISSILE_SIZE, MISSILE_SPEED, RANGE } from '../../spells/Leblanc_Q';
-import makeLeblanc_Q, { makeLeblanc_Q_Mark, makeLeblanc_Q_Object } from '../../spells/Leblanc_Q';
+import Leblanc_Q, { Leblanc_Q_Mark, Leblanc_Q_Object } from '../../spells/Leblanc_Q';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
 const { TargetResolver } = __api.combat;
 const { HomingMissileSpellObject } = __api;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Leblanc_Q = makeLeblanc_Q(__api);
-const Leblanc_Q_Mark = makeLeblanc_Q_Mark(__api);
-type Leblanc_Q_Mark = InstanceType<typeof Leblanc_Q_Mark>;
-const Leblanc_Q_Object = makeLeblanc_Q_Object(__api);
-type Leblanc_Q_Object = InstanceType<typeof Leblanc_Q_Object>;
 
 function unit(game: TestGame, x: number, teamId: string) {
   const result = createUnit(game, x, teamId);

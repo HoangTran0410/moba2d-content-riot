@@ -10,17 +10,12 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { BASE_DAMAGE, CAST_TIME_MS, MANA_COST, MAX_MISSING_HEALTH_MULTIPLIER, MISSILE_SPEED, RANGE } from '../../spells/Veigar_R';
-import makeVeigar_R, { makeVeigar_R_Burst, makeVeigar_R_Object } from '../../spells/Veigar_R';
+import Veigar_R, { Veigar_R_Burst, Veigar_R_Object } from '../../spells/Veigar_R';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
 const { TargetResolver } = __api.combat;
 const { HomingMissileSpellObject } = __api;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Veigar_R = makeVeigar_R(__api);
-const Veigar_R_Burst = makeVeigar_R_Burst(__api);
-type Veigar_R_Burst = InstanceType<typeof Veigar_R_Burst>;
-const Veigar_R_Object = makeVeigar_R_Object(__api);
-type Veigar_R_Object = InstanceType<typeof Veigar_R_Object>;
 
 /** The cast window this suite drives the runtime through — see `withCastTime`. */
 const TEST_CAST_TIME_MS = 250;

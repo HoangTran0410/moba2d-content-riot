@@ -7,17 +7,13 @@ import {
   installSpellObjectGlobals,
   type TestGame,
 } from '@moba2d/core/testing/spell';
-import makeCamille_Q from '../../spells/Camille_Q';
-import makeCamille_W from '../../spells/Camille_W';
-import makeCamille_E from '../../spells/Camille_E';
-import makeCamille_R from '../../spells/Camille_R';
+import Camille_Q from '../../spells/Camille_Q';
+import Camille_W from '../../spells/Camille_W';
+import Camille_E from '../../spells/Camille_E';
+import Camille_R from '../../spells/Camille_R';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Camille_Q = makeCamille_Q(__api);
-const Camille_W = makeCamille_W(__api);
-const Camille_E = makeCamille_E(__api);
-const Camille_R = makeCamille_R(__api);
 
 function unit(game: TestGame, x: number, teamId: string): AttackableUnit {
   const result = createUnit(game, x, teamId);

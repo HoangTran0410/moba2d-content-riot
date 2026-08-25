@@ -9,22 +9,16 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { MOONLIGHT_MS, Q_DAMAGE, Q_SWEEP_MS } from '../../spells/Diana_Q';
-import makeDiana_Q, { makeMoonlight, makeMoonlightOn } from '../../spells/Diana_Q';
+import Diana_Q, { Moonlight, moonlightOn } from '../../spells/Diana_Q';
 import { W_SHIELD, W_SPHERES, W_SPHERE_DAMAGE } from '../../spells/Diana_W';
-import makeDiana_W from '../../spells/Diana_W';
+import Diana_W from '../../spells/Diana_W';
 import { E_DAMAGE } from '../../spells/Diana_E';
-import makeDiana_E from '../../spells/Diana_E';
+import Diana_E from '../../spells/Diana_E';
 import { R_DAMAGE, R_PULL_MS } from '../../spells/Diana_R';
-import makeDiana_R from '../../spells/Diana_R';
+import Diana_R from '../../spells/Diana_R';
 const __api = buildTestApi();
 const { Dash } = __api.buffs;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Diana_Q = makeDiana_Q(__api);
-const Moonlight = makeMoonlight(__api);
-const moonlightOn = makeMoonlightOn(__api);
-const Diana_W = makeDiana_W(__api);
-const Diana_E = makeDiana_E(__api);
-const Diana_R = makeDiana_R(__api);
 
 /** Diana stands well inside the fixture's 1000x1000 map so no victim falls out of the tree. */
 const HOME_X = 500;

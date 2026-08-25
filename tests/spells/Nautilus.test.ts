@@ -10,11 +10,11 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { Q_DAMAGE, Q_RANGE } from '../../spells/Nautilus_Q';
-import makeNautilus_Q, { makeNautilus_Q_Object } from '../../spells/Nautilus_Q';
+import Nautilus_Q, { Nautilus_Q_Object } from '../../spells/Nautilus_Q';
 import { E_RADII, E_WAVE_DAMAGE } from '../../spells/Nautilus_E';
-import makeNautilus_E, { makeNautilus_E_Object } from '../../spells/Nautilus_E';
+import Nautilus_E, { Nautilus_E_Object } from '../../spells/Nautilus_E';
 import { R_DAMAGE, R_PASS_DAMAGE } from '../../spells/Nautilus_R';
-import makeNautilus_R, { makeNautilus_R_Eruption, makeNautilus_R_Object } from '../../spells/Nautilus_R';
+import Nautilus_R, { Nautilus_R_Eruption, Nautilus_R_Object } from '../../spells/Nautilus_R';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
 const { Dash, Stun } = __api.buffs;
@@ -24,15 +24,6 @@ const { Rectangle } = __api.utils.Quadtree;
 const { SpellObject } = __api;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
 type Rectangle = InstanceType<typeof __api.utils.Quadtree.Rectangle>;
-const Nautilus_Q = makeNautilus_Q(__api);
-const Nautilus_Q_Object = makeNautilus_Q_Object(__api);
-type Nautilus_Q_Object = InstanceType<typeof Nautilus_Q_Object>;
-const Nautilus_E = makeNautilus_E(__api);
-const Nautilus_E_Object = makeNautilus_E_Object(__api);
-const Nautilus_R = makeNautilus_R(__api);
-const Nautilus_R_Eruption = makeNautilus_R_Eruption(__api);
-type Nautilus_R_Eruption = InstanceType<typeof Nautilus_R_Eruption>;
-const Nautilus_R_Object = makeNautilus_R_Object(__api);
 
 /** A spell-built slab: real, impassable terrain that `terrainMap` knows nothing about. */
 class TestSlab extends SpellObject {

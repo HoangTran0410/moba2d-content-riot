@@ -10,23 +10,14 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { COOLDOWN_MS, MANA_COST } from '../../spells/Leblanc_R';
-import makeLeblanc_R from '../../spells/Leblanc_R';
-import makeLeblanc_Q, { makeLeblanc_Q_Object } from '../../spells/Leblanc_Q';
-import makeLeblanc_W from '../../spells/Leblanc_W';
-import makeAhri_Q from '../../spells/Ahri_Q';
-import makeFlash from '../../spells/Flash';
+import Leblanc_R from '../../spells/Leblanc_R';
+import Leblanc_Q, { Leblanc_Q_Object } from '../../spells/Leblanc_Q';
+import Leblanc_W from '../../spells/Leblanc_W';
+import Ahri_Q from '../../spells/Ahri_Q';
+import Flash from '../../spells/Flash';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Leblanc_R = makeLeblanc_R(__api);
-type Leblanc_R = InstanceType<typeof Leblanc_R>;
-const Leblanc_Q = makeLeblanc_Q(__api);
-type Leblanc_Q = InstanceType<typeof Leblanc_Q>;
-const Leblanc_Q_Object = makeLeblanc_Q_Object(__api);
-type Leblanc_Q_Object = InstanceType<typeof Leblanc_Q_Object>;
-const Leblanc_W = makeLeblanc_W(__api);
-const Ahri_Q = makeAhri_Q(__api);
-const Flash = makeFlash(__api);
 
 // Leblanc_W's real onSpellCast calls VectorUtils.getVectorWithMaxRange, which
 // needs `.limit()`. The shared fixture vector does not have one; add it once

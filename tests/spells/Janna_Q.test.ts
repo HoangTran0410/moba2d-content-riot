@@ -3,12 +3,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { buildTestApi } from '@moba2d/core/testing';
 import type { CastContext } from '@moba2d/core/content/types';
 import { MAX_AIRBORNE_MS, MAX_CHARGE_MS, MAX_DAMAGE, MAX_RANGE, MAX_SIZE, MAX_SPEED, MIN_AIRBORNE_MS, MIN_DAMAGE, MIN_RANGE, MIN_SIZE, MIN_SPEED } from '../../spells/Janna_Q';
-import makeJanna_Q, { makeJanna_Q_Object } from '../../spells/Janna_Q';
+import Janna_Q, { Janna_Q_Object } from '../../spells/Janna_Q';
 const __api = buildTestApi();
 const { StatusFlags } = __api.enums;
-const Janna_Q = makeJanna_Q(__api);
-const Janna_Q_Object = makeJanna_Q_Object(__api);
-type Janna_Q_Object = InstanceType<typeof Janna_Q_Object>;
 
 class TestVector {
   constructor(

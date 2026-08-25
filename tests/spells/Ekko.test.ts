@@ -7,17 +7,13 @@ import {
   installSpellObjectGlobals,
   type TestGame,
 } from '@moba2d/core/testing/spell';
-import makeEkko_Q from '../../spells/Ekko_Q';
-import makeEkko_W from '../../spells/Ekko_W';
-import makeEkko_E from '../../spells/Ekko_E';
-import makeEkko_R from '../../spells/Ekko_R';
+import Ekko_Q from '../../spells/Ekko_Q';
+import Ekko_W from '../../spells/Ekko_W';
+import Ekko_E from '../../spells/Ekko_E';
+import Ekko_R from '../../spells/Ekko_R';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Ekko_Q = makeEkko_Q(__api);
-const Ekko_W = makeEkko_W(__api);
-const Ekko_E = makeEkko_E(__api);
-const Ekko_R = makeEkko_R(__api);
 
 function unit(game: TestGame, x: number, teamId: string): AttackableUnit {
   const result = createUnit(game, x, teamId);

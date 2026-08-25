@@ -9,23 +9,17 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { XINZHAO_Q_ATTACKS, XINZHAO_Q_BONUS_DAMAGE } from '../../spells/XinZhao_Q';
-import makeXinZhao_Q from '../../spells/XinZhao_Q';
+import XinZhao_Q from '../../spells/XinZhao_Q';
 import { XINZHAO_W_SLASH_DAMAGE, XINZHAO_W_THRUST_DAMAGE, XINZHAO_W_THRUST_DELAY_MS } from '../../spells/XinZhao_W';
-import makeXinZhao_W, { makeXinZhao_W_Object } from '../../spells/XinZhao_W';
+import XinZhao_W, { XinZhao_W_Object } from '../../spells/XinZhao_W';
 import { isChallengedBy, XINZHAO_E_CHALLENGE_STACK_ID } from '../../spells/XinZhao_E';
-import makeXinZhao_E from '../../spells/XinZhao_E';
+import XinZhao_E from '../../spells/XinZhao_E';
 import { XINZHAO_R_DAMAGE } from '../../spells/XinZhao_R';
-import makeXinZhao_R from '../../spells/XinZhao_R';
+import XinZhao_R from '../../spells/XinZhao_R';
 const __api = buildTestApi();
 const { Airborne, Dash, Slow } = __api.buffs;
 const { EventType } = __api.enums;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const XinZhao_Q = makeXinZhao_Q(__api);
-const XinZhao_W = makeXinZhao_W(__api);
-const XinZhao_W_Object = makeXinZhao_W_Object(__api);
-type XinZhao_W_Object = InstanceType<typeof XinZhao_W_Object>;
-const XinZhao_E = makeXinZhao_E(__api);
-const XinZhao_R = makeXinZhao_R(__api);
 
 describe('Xin Zhao', () => {
   let game: TestGame;

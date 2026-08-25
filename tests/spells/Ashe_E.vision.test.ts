@@ -22,10 +22,9 @@ import {
   stubGameGlobals,
   type TestGame,
 } from '@moba2d/core/testing';
-import { makeAshe_E_Object } from '../../spells/Ashe_E';
+import { Ashe_E_Object } from '../../spells/Ashe_E';
 const __api = buildTestApi();
 const { Champion } = __api.units;
-const Ashe_E_Object = makeAshe_E_Object(__api);
 
 const CAMERA = { x: 0, y: 0, w: 800, h: 600 };
 const AWAY = { x: 3_000, y: 3_000 };

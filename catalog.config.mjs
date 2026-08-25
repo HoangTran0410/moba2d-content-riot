@@ -25,13 +25,13 @@ export default {
   // `src/`, and a pack imports its own siblings the way
   // `packs/reference/pack.ts` already does.
   barrels: [{ path: 'spells/index.ts', importBase: '../spells' }],
-  // A pack barrel's `default` export is `(api: ContentApi) => SpellClass`,
-  // never the class itself (`packBoundary.test.ts` forbids a pack from
-  // importing `Spell` etc. any other way) — `renderSpellCatalogSource`
-  // calls each factory with one real, shared `api` before `describe()`
-  // ever sees it. Core's own barrels are unaffected: `BasicAttack` stays a
-  // plain class, exactly as before this tree existed.
-  isPackFactory: true,
+  // This pack's spells are ordinary class declarations — `class Ahri_Q extends
+  // api.Spell` — so they read `api` the moment their module evaluates, and
+  // loading the barrel below is exactly that moment. `apiSetter` is how the
+  // generator hands this pack its engine first. (It replaces `isPackFactory`,
+  // which described the shape this pack used when every class was built by a
+  // factory the generator called itself.)
+  apiSetter: { path: 'packApi.ts', export: 'setPackApi' },
   // `iconKeyType` is gone: `render()` defaults to `'AssetKey'` and imports
   // it from `'./assetManifest'`, this pack's own sibling file, not core's —
   // a pack-local union, not a reach into core (`packBoundary.test.ts` would

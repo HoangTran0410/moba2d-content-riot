@@ -18,15 +18,13 @@ import {
   type TestGame,
 } from '@moba2d/core/testing';
 import { REFLECT_PERCENT, SHIELD_AMOUNT } from '../../spells/Rammus_W';
-import makeRammus_W from '../../spells/Rammus_W';
+import Rammus_W from '../../spells/Rammus_W';
 import { DAMAGE as TAUNT_DAMAGE, RANGE } from '../../spells/Rammus_E';
-import makeRammus_E from '../../spells/Rammus_E';
+import Rammus_E from '../../spells/Rammus_E';
 const __api = buildTestApi();
 const { Champion } = __api.units;
 type Champion = InstanceType<typeof __api.units.Champion>;
 const { Taunt } = __api.buffs;
-const Rammus_W = makeRammus_W(__api);
-const Rammus_E = makeRammus_E(__api);
 
 let game: TestGame;
 

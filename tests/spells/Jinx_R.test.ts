@@ -3,20 +3,15 @@ import { describe, expect, it, vi } from 'vitest';
 import { buildTestApi } from '@moba2d/core/testing';
 import { createGame, createUnit, installSpellObjectGlobals } from '@moba2d/core/testing/spell';
 import { SMOKE_MS, SMOKE_STEP } from '../../spells/Jinx_R';
-import makeJinx_R, {
-  makeJinx_R_Object,
-  makeJinx_R_Smoke,
+import Jinx_R, {
+  Jinx_R_Object,
+  Jinx_R_Smoke,
 } from '../../spells/Jinx_R';
 const __api = buildTestApi();
 const { Rectangle } = __api.utils.Quadtree;
 const { AoePulse } = __api;
 type AoePulse = InstanceType<typeof __api.AoePulse>;
 type Rectangle = InstanceType<typeof __api.utils.Quadtree.Rectangle>;
-const Jinx_R = makeJinx_R(__api);
-const Jinx_R_Object = makeJinx_R_Object(__api);
-type Jinx_R_Object = InstanceType<typeof Jinx_R_Object>;
-const Jinx_R_Smoke = makeJinx_R_Smoke(__api);
-type Jinx_R_Smoke = InstanceType<typeof Jinx_R_Smoke>;
 
 installSpellObjectGlobals();
 

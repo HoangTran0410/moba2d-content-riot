@@ -3,11 +3,10 @@ import { describe, expect, it, vi } from 'vitest';
 import { buildTestApi } from '@moba2d/core/testing';
 import { createGame, createUnit, installSpellObjectGlobals } from '@moba2d/core/testing/spell';
 import { THROW_DISTANCE } from '../../spells/Singed_E';
-import makeSinged_E from '../../spells/Singed_E';
+import Singed_E from '../../spells/Singed_E';
 const __api = buildTestApi();
 const { Dash, Airborne } = __api.buffs;
 type Dash = InstanceType<typeof __api.buffs.Dash>;
-const Singed_E = makeSinged_E(__api);
 
 installSpellObjectGlobals();
 

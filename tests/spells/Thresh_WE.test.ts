@@ -3,20 +3,12 @@ import { describe, expect, it, vi } from 'vitest';
 import { buildTestApi } from '@moba2d/core/testing';
 import { createGame, createUnit, installSpellObjectGlobals } from '@moba2d/core/testing/spell';
 import { HALF_LENGTH, HALF_WIDTH, SWEEP_DISTANCE } from '../../spells/Thresh_E';
-import makeThresh_E, { makeThresh_E_Object } from '../../spells/Thresh_E';
+import Thresh_E, { Thresh_E_Object } from '../../spells/Thresh_E';
 import { RADIUS } from '../../spells/Thresh_W';
-import makeThresh_W, { makeThresh_W_Lantern_Throw, makeThresh_W_Object } from '../../spells/Thresh_W';
+import Thresh_W, { Thresh_W_Lantern_Throw, Thresh_W_Object } from '../../spells/Thresh_W';
 const __api = buildTestApi();
 const { Dash, Shield } = __api.buffs;
 type Dash = InstanceType<typeof __api.buffs.Dash>;
-const Thresh_E = makeThresh_E(__api);
-const Thresh_E_Object = makeThresh_E_Object(__api);
-type Thresh_E_Object = InstanceType<typeof Thresh_E_Object>;
-const Thresh_W = makeThresh_W(__api);
-const Thresh_W_Lantern_Throw = makeThresh_W_Lantern_Throw(__api);
-type Thresh_W_Lantern_Throw = InstanceType<typeof Thresh_W_Lantern_Throw>;
-const Thresh_W_Object = makeThresh_W_Object(__api);
-type Thresh_W_Object = InstanceType<typeof Thresh_W_Object>;
 
 installSpellObjectGlobals();
 

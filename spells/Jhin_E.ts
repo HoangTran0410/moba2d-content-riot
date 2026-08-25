@@ -1,10 +1,17 @@
-import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { AttackableUnit, CastSpec } from '@moba2d/core/content/types';
-import { makeApplyJhinMark } from './Jhin_Q';
+import { applyJhinMark } from './Jhin_Q';
 import { JHIN_MARK_MS } from './Jhin_Q';
-import { packClass, type Instance } from '../packClass';
+import { api } from '../packApi';
 
-type Jhin_E_Trap = Instance<typeof makeJhin_E_Trap>;
+const VectorUtils = api.utils.VectorUtils;
+const effectiveRange = api.combat.Reach.effectiveRange;
+const Spell = api.Spell;
+const SpellObject = api.SpellObject;
+const Circle = api.utils.Quadtree.Circle;
+const PredefinedFilters = api.combat.PredefinedFilters;
+const Slow = api.buffs.Slow;
+const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+
 
 
 
@@ -75,117 +82,104 @@ function releaseTrap(trap: Jhin_E_Trap): void {
 }
 
 
-export const makeJhin_E = packClass((api: ContentApi) => {
-  const VectorUtils = api.utils.VectorUtils;
-  const effectiveRange = api.combat.Reach.effectiveRange;
-  const Spell = api.Spell;
-  const Jhin_E_Grenade = makeJhin_E_Grenade(api);
-  class Jhin_E extends Spell {
-    image = api.asset('spell_jhin_e');
-    name = 'Cạm Bẫy Nghệ Thuật (Jhin_E)';
-    description = `Đặt một bông sen bẫy <b>tàng hình</b> sau ${JHIN_E_ARM_MS / 1000} giây, chờ
-      ${JHIN_E_LIFETIME_MS / 1000} giây. Kẻ địch bước vào bán kính ${JHIN_E_TRIGGER_RADIUS} bị làm chậm
-      ${JHIN_E_SLOW * 100}% trong ${JHIN_E_SLOW_MS / 1000} giây và bị <b>đánh dấu</b>
-      ${JHIN_MARK_MS / 1000} giây; bẫy lộ ra và <b>nở dần</b> trong ${JHIN_E_FUSE_MS / 1000} giây rồi
-      nổ, gây <span class="damage">${JHIN_E_DAMAGE} sát thương</span> cho mọi kẻ địch còn đứng trong
-      bán kính ${JHIN_E_BLAST_RADIUS} — chạy kịp thì thoát. Tối đa ${JHIN_E_MAX_TRAPS} bẫy cùng lúc.`;
-    coolDown = 9_000;
-    manaCost = 25;
-    range = JHIN_E_RANGE;
+export default class Jhin_E extends Spell {
+  image = api.asset('spell_jhin_e');
+  name = 'Cạm Bẫy Nghệ Thuật (Jhin_E)';
+  description = `Đặt một bông sen bẫy <b>tàng hình</b> sau ${JHIN_E_ARM_MS / 1000} giây, chờ
+    ${JHIN_E_LIFETIME_MS / 1000} giây. Kẻ địch bước vào bán kính ${JHIN_E_TRIGGER_RADIUS} bị làm chậm
+    ${JHIN_E_SLOW * 100}% trong ${JHIN_E_SLOW_MS / 1000} giây và bị <b>đánh dấu</b>
+    ${JHIN_MARK_MS / 1000} giây; bẫy lộ ra và <b>nở dần</b> trong ${JHIN_E_FUSE_MS / 1000} giây rồi
+    nổ, gây <span class="damage">${JHIN_E_DAMAGE} sát thương</span> cho mọi kẻ địch còn đứng trong
+    bán kính ${JHIN_E_BLAST_RADIUS} — chạy kịp thì thoát. Tối đa ${JHIN_E_MAX_TRAPS} bẫy cùng lúc.`;
+  coolDown = 9_000;
+  manaCost = 25;
+  range = JHIN_E_RANGE;
 
-    get castSpec(): Readonly<CastSpec> {
-      return {
-        activation: 'PRESS',
-        targeting: 'POINT',
-        resource: { commitAt: 'start', refundOn: [] },
-        cooldown: { startAt: 'release', durationMs: this.coolDown },
-      };
-    }
-
-    onSpellCast(): void {
-      const { to } = VectorUtils.getVectorWithMaxRange(
-        this.owner.position,
-        this.aimPoint,
-        effectiveRange(this.range, this.owner)
-      );
-      this.game.objectManager.addObject(new Jhin_E_Grenade(this.owner, this.owner.position, to));
-    }
-
-    drawPreview(): void {
-      super.drawPreview(effectiveRange(this.range, this.owner));
-    }
+  get castSpec(): Readonly<CastSpec> {
+    return {
+      activation: 'PRESS',
+      targeting: 'POINT',
+      resource: { commitAt: 'start', refundOn: [] },
+      cooldown: { startAt: 'release', durationMs: this.coolDown },
+    };
   }
-  return Jhin_E;
-});
-export default makeJhin_E;
+
+  onSpellCast(): void {
+    const { to } = VectorUtils.getVectorWithMaxRange(
+      this.owner.position,
+      this.aimPoint,
+      effectiveRange(this.range, this.owner)
+    );
+    this.game.objectManager.addObject(new Jhin_E_Grenade(this.owner, this.owner.position, to));
+  }
+
+  drawPreview(): void {
+    super.drawPreview(effectiveRange(this.range, this.owner));
+  }
+}
 
 
 /**
  * The thrown lotus trap grenade. Arcs through the air from Jhin to the target location.
  */
-export const makeJhin_E_Grenade = packClass((api: ContentApi) => {
-  const SpellObject = api.SpellObject;
-  const Jhin_E_Trap = makeJhin_E_Trap(api);
-  class Jhin_E_Grenade extends SpellObject {
-    lifeTime = 380;
-    age = 0;
-    start: p5.Vector;
-    target: p5.Vector;
+export class Jhin_E_Grenade extends SpellObject {
+  lifeTime = 380;
+  age = 0;
+  start: p5.Vector;
+  target: p5.Vector;
 
-    constructor(owner: AttackableUnit, start: p5.Vector, target: p5.Vector) {
-      super(owner);
-      this.start = start.copy();
-      this.target = target.copy();
-      this.position = start.copy();
-    }
+  constructor(owner: AttackableUnit, start: p5.Vector, target: p5.Vector) {
+    super(owner);
+    this.start = start.copy();
+    this.target = target.copy();
+    this.position = start.copy();
+  }
 
-    update(): void {
-      this.age += deltaTime;
-      const t = constrain(this.age / this.lifeTime, 0, 1);
-      this.position.x = lerp(this.start.x, this.target.x, t);
-      this.position.y = lerp(this.start.y, this.target.y, t);
+  update(): void {
+    this.age += deltaTime;
+    const t = constrain(this.age / this.lifeTime, 0, 1);
+    this.position.x = lerp(this.start.x, this.target.x, t);
+    this.position.y = lerp(this.start.y, this.target.y, t);
 
-      if (this.age >= this.lifeTime) {
-        this.toRemove = true;
-        this.game.objectManager.addObject(new Jhin_E_Trap(this.owner, this.target.copy()));
-      }
-    }
-
-    draw(): void {
-      const t = constrain(this.age / this.lifeTime, 0, 1);
-      // Parabolic arc height
-      const height = sin(t * PI) * 110;
-      const spin = (this.age / 50) * TWO_PI;
-
-      push();
-      // Shadow on the ground
-      noStroke();
-      fill(0, 0, 0, 80 * (1 - 0.5 * sin(t * PI)));
-      ellipse(this.position.x, this.position.y + 4, 18, 7);
-
-      // Flying grenade lotus in the air
-      translate(this.position.x, this.position.y - height);
-      rotate(spin);
-
-      fill(MAGENTA[0], MAGENTA[1], MAGENTA[2], 240);
-      ellipse(0, 0, 14, 14);
-      for (let i = 0; i < 4; i++) {
-        push();
-        rotate((i * TWO_PI) / 4);
-        triangle(0, 0, 10, -3, 10, 3);
-        pop();
-      }
-      fill(BONE[0], BONE[1], BONE[2], 255);
-      circle(0, 0, 6);
-      pop();
-    }
-
-    getDisplayBoundingBox() {
-      return this.squareDisplayBoundingBox(160);
+    if (this.age >= this.lifeTime) {
+      this.toRemove = true;
+      this.game.objectManager.addObject(new Jhin_E_Trap(this.owner, this.target.copy()));
     }
   }
-  return Jhin_E_Grenade;
-});
+
+  draw(): void {
+    const t = constrain(this.age / this.lifeTime, 0, 1);
+    // Parabolic arc height
+    const height = sin(t * PI) * 110;
+    const spin = (this.age / 50) * TWO_PI;
+
+    push();
+    // Shadow on the ground
+    noStroke();
+    fill(0, 0, 0, 80 * (1 - 0.5 * sin(t * PI)));
+    ellipse(this.position.x, this.position.y + 4, 18, 7);
+
+    // Flying grenade lotus in the air
+    translate(this.position.x, this.position.y - height);
+    rotate(spin);
+
+    fill(MAGENTA[0], MAGENTA[1], MAGENTA[2], 240);
+    ellipse(0, 0, 14, 14);
+    for (let i = 0; i < 4; i++) {
+      push();
+      rotate((i * TWO_PI) / 4);
+      triangle(0, 0, 10, -3, 10, 3);
+      pop();
+    }
+    fill(BONE[0], BONE[1], BONE[2], 255);
+    circle(0, 0, 6);
+    pop();
+  }
+
+  getDisplayBoundingBox() {
+    return this.squareDisplayBoundingBox(160);
+  }
+}
 
 
 /**
@@ -198,286 +192,272 @@ export const makeJhin_E_Grenade = packClass((api: ContentApi) => {
  * a unit, so it is never targetable and concealment is purely a question of who may draw it.
  * `Shaco_R_Clone` sets the precedent for owner-only art.
  */
-export const makeJhin_E_Trap = packClass((api: ContentApi) => {
-  const Circle = api.utils.Quadtree.Circle;
-  const PredefinedFilters = api.combat.PredefinedFilters;
-  const Slow = api.buffs.Slow;
-  const SpellObject = api.SpellObject;
-  const applyJhinMark = makeApplyJhinMark(api);
-  const Jhin_E_Bloom = makeJhin_E_Bloom(api);
-  const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
-  class Jhin_E_Trap extends SpellObject {
-    zIndex = GROUND_Z_INDEX;
-    radius = JHIN_E_TRIGGER_RADIUS;
-    age = 0;
-    triggered = false;
-    /** Time since something tripped it; -1 until then. The fuse is this clock. */
-    fuseMs = -1;
-    petals: { lean: number; curl: number }[] = [];
+export class Jhin_E_Trap extends SpellObject {
+  zIndex = GROUND_Z_INDEX;
+  radius = JHIN_E_TRIGGER_RADIUS;
+  age = 0;
+  triggered = false;
+  /** Time since something tripped it; -1 until then. The fuse is this clock. */
+  fuseMs = -1;
+  petals: { lean: number; curl: number }[] = [];
 
-    constructor(owner: AttackableUnit, at: p5.Vector) {
-      super(owner);
-      this.position = at;
-      registerTrap(this);
+  constructor(owner: AttackableUnit, at: p5.Vector) {
+    super(owner);
+    this.position = at;
+    registerTrap(this);
+  }
+
+  get armed(): boolean {
+    return this.age >= JHIN_E_ARM_MS;
+  }
+
+  /** Armed, untripped, and therefore invisible to everyone but its owner. */
+  get concealed(): boolean {
+    return this.armed && !this.triggered;
+  }
+
+  /** How far the bloom has opened, 0 to 1. At 1 it detonates. */
+  get fuseProgress(): number {
+    if (this.fuseMs < 0) return 0;
+    return constrain(this.fuseMs / JHIN_E_FUSE_MS, 0, 1);
+  }
+
+  onAdded(): void {
+    for (let i = 0; i < TRAP_PETALS; i++) {
+      this.petals.push({ lean: random(-0.16, 0.16), curl: random(0.85, 1.15) });
+    }
+  }
+
+  onRemoved(): void {
+    releaseTrap(this);
+    super.onRemoved();
+  }
+
+  update(): void {
+    this.age += deltaTime;
+
+    // Once it is counting down, nothing else matters: it will go off wherever it was planted.
+    if (this.triggered) {
+      this.fuseMs += deltaTime;
+      if (this.fuseMs >= JHIN_E_FUSE_MS) this.detonate();
+      return;
     }
 
-    get armed(): boolean {
-      return this.age >= JHIN_E_ARM_MS;
+    if (this.age >= JHIN_E_ARM_MS + JHIN_E_LIFETIME_MS) {
+      this.toRemove = true;
+      return;
     }
+    if (!this.armed) return;
 
-    /** Armed, untripped, and therefore invisible to everyone but its owner. */
-    get concealed(): boolean {
-      return this.armed && !this.triggered;
+    // A trap triggers on whoever stands on it, lit or not: proximity, not acquisition.
+    const victims = this.game.objectManager.queryObjects({
+      area: new Circle({
+        x: this.position.x,
+        y: this.position.y,
+        r: JHIN_E_TRIGGER_RADIUS,
+      }),
+      filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
+    }) as AttackableUnit[];
+
+    for (const victim of victims) {
+      this.spring(victim);
+      return;
     }
+  }
 
-    /** How far the bloom has opened, 0 to 1. At 1 it detonates. */
-    get fuseProgress(): number {
-      if (this.fuseMs < 0) return 0;
-      return constrain(this.fuseMs / JHIN_E_FUSE_MS, 0, 1);
-    }
+  /**
+   * Someone stepped on it. They are slowed and marked *now* — that is the price of tripping it
+   * — but the damage waits for the bloom, so it lands on whoever is still standing there.
+   */
+  spring(victim: AttackableUnit): void {
+    if (this.triggered) return;
+    this.triggered = true;
+    this.fuseMs = 0;
 
-    onAdded(): void {
-      for (let i = 0; i < TRAP_PETALS; i++) {
-        this.petals.push({ lean: random(-0.16, 0.16), curl: random(0.85, 1.15) });
-      }
-    }
+    const slow = new Slow(JHIN_E_SLOW_MS, this.owner, victim);
+    slow.percent = JHIN_E_SLOW;
+    slow.stackId = 'jhin_trap_slow';
+    victim.addBuff(slow);
+    applyJhinMark(this.owner, victim);
+  }
 
-    onRemoved(): void {
-      releaseTrap(this);
-      super.onRemoved();
-    }
+  /** The bloom reached full size. Everyone inside it at this instant pays, and nobody else. */
+  detonate(): void {
+    if (this.toRemove) return;
 
-    update(): void {
-      this.age += deltaTime;
+    const caught = this.game.objectManager.queryObjects({
+      area: new Circle({
+        x: this.position.x,
+        y: this.position.y,
+        r: JHIN_E_BLAST_RADIUS,
+      }),
+      filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
+    }) as AttackableUnit[];
 
-      // Once it is counting down, nothing else matters: it will go off wherever it was planted.
-      if (this.triggered) {
-        this.fuseMs += deltaTime;
-        if (this.fuseMs >= JHIN_E_FUSE_MS) this.detonate();
-        return;
-      }
-
-      if (this.age >= JHIN_E_ARM_MS + JHIN_E_LIFETIME_MS) {
-        this.toRemove = true;
-        return;
-      }
-      if (!this.armed) return;
-
-      // A trap triggers on whoever stands on it, lit or not: proximity, not acquisition.
-      const victims = this.game.objectManager.queryObjects({
-        area: new Circle({
-          x: this.position.x,
-          y: this.position.y,
-          r: JHIN_E_TRIGGER_RADIUS,
-        }),
-        filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
-      }) as AttackableUnit[];
-
-      for (const victim of victims) {
-        this.spring(victim);
-        return;
-      }
-    }
-
-    /**
-     * Someone stepped on it. They are slowed and marked *now* — that is the price of tripping it
-     * — but the damage waits for the bloom, so it lands on whoever is still standing there.
-     */
-    spring(victim: AttackableUnit): void {
-      if (this.triggered) return;
-      this.triggered = true;
-      this.fuseMs = 0;
-
-      const slow = new Slow(JHIN_E_SLOW_MS, this.owner, victim);
-      slow.percent = JHIN_E_SLOW;
-      slow.stackId = 'jhin_trap_slow';
-      victim.addBuff(slow);
+    for (const victim of caught) {
+      victim.takeDamage(JHIN_E_DAMAGE, this.owner);
       applyJhinMark(this.owner, victim);
     }
 
-    /** The bloom reached full size. Everyone inside it at this instant pays, and nobody else. */
-    detonate(): void {
-      if (this.toRemove) return;
-
-      const caught = this.game.objectManager.queryObjects({
-        area: new Circle({
-          x: this.position.x,
-          y: this.position.y,
-          r: JHIN_E_BLAST_RADIUS,
-        }),
-        filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
-      }) as AttackableUnit[];
-
-      for (const victim of caught) {
-        victim.takeDamage(JHIN_E_DAMAGE, this.owner);
-        applyJhinMark(this.owner, victim);
-      }
-
-      this.game.objectManager.addObject(new Jhin_E_Bloom(this.owner, this.position.copy()));
-      this.toRemove = true;
-    }
-
-    draw(): void {
-      // A concealed trap is Jhin's secret. His own side gets a faint ghost so he can play around
-      // his own mines; anyone else is drawn nothing at all, which is what makes it a trap.
-      if (this.concealed && this.owner !== this.game?.player) return;
-
-      if (this.triggered) {
-        this.drawBloom();
-        return;
-      }
-
-      const planting = constrain(this.age / JHIN_E_ARM_MS, 0, 1);
-      // It folds *shut* as it hides: petals lie flat while it is being planted, then curl in.
-      const closed = planting * planting;
-
-      push();
-      translate(this.position.x, this.position.y);
-
-      if (this.concealed) {
-        // Owner-only, and deliberately dim — enough for Jhin to route a fight
-        // through his own mines, nowhere near enough to read as a live effect.
-        noFill();
-        stroke(MAGENTA[0], MAGENTA[1], MAGENTA[2], 80);
-        strokeWeight(1.5);
-        circle(0, 0, JHIN_E_TRIGGER_RADIUS * 2);
-        noStroke();
-        fill(MAGENTA[0], MAGENTA[1], MAGENTA[2], 85);
-        circle(0, 0, 17);
-        fill(BONE[0], BONE[1], BONE[2], 105);
-        circle(0, 0, 7);
-        pop();
-        return;
-      }
-
-      noStroke();
-      for (let i = 0; i < this.petals.length; i++) {
-        const petal = this.petals[i];
-        const reach = (30 - 17 * closed) * petal.curl;
-        push();
-        rotate((i * TWO_PI) / this.petals.length + petal.lean + closed * 0.7);
-        fill(MAGENTA[0], MAGENTA[1], MAGENTA[2], 210 - 90 * closed);
-        triangle(0, 0, reach, -reach * (0.4 - 0.2 * closed), reach, reach * (0.4 - 0.2 * closed));
-        pop();
-      }
-      fill(BONE[0], BONE[1], BONE[2], 230 - 90 * closed);
-      circle(0, 0, 10 - 3 * closed);
-      pop();
-    }
-
-    /**
-     * The fuse, and the only warning the enemy gets. The hard rim sits on
-     * `JHIN_E_BLAST_RADIUS` and grows into it, so "am I still inside it?" is answerable at a
-     * glance, and the flashing quickens as the bloom fills to say the time is nearly up.
-     */
-    private drawBloom(): void {
-      const t = this.fuseProgress;
-      const opened = 1 - (1 - t) * (1 - t);
-      const reach = JHIN_E_BLAST_RADIUS * opened;
-      // 3Hz at the start, 12Hz at the end — urgency the player hears without reading a number.
-      const urgency = 0.5 + 0.5 * sin((this.fuseMs / 1000) * (3 + 9 * t) * TWO_PI);
-
-      push();
-      translate(this.position.x, this.position.y);
-
-      // the filled danger zone, at the radius the damage really claims
-      noStroke();
-      fill(MAGENTA[0], MAGENTA[1], MAGENTA[2], 30 + 45 * t);
-      circle(0, 0, reach * 2);
-
-      // the hard rim: this is the line to be outside of
-      noFill();
-      stroke(BONE[0], BONE[1], BONE[2], 150 + 105 * urgency);
-      strokeWeight(2 + 2 * t);
-      circle(0, 0, reach * 2);
-
-      stroke(MAGENTA[0], MAGENTA[1], MAGENTA[2], 220);
-      strokeWeight(3 + 3 * t);
-      circle(0, 0, reach * 2 * 0.96);
-
-      // petals forcing themselves open — the growth that says "not yet, but soon"
-      noStroke();
-      for (let i = 0; i < this.petals.length; i++) {
-        const petal = this.petals[i];
-        const blade = reach * 0.55 * petal.curl;
-        push();
-        rotate((i * TWO_PI) / this.petals.length + petal.lean + opened * 1.1);
-        fill(MAGENTA[0], MAGENTA[1], MAGENTA[2], 235);
-        triangle(0, 0, blade, -blade * 0.34, blade, blade * 0.34);
-        pop();
-      }
-
-      // the core, brightening to white as it fills
-      fill(255, 255, 255, 140 + 115 * t);
-      circle(0, 0, 12 + 16 * t);
-      pop();
-    }
-
-    getDisplayBoundingBox() {
-      return this.squareDisplayBoundingBox((JHIN_E_BLAST_RADIUS + 24) * 2);
-    }
+    this.game.objectManager.addObject(new Jhin_E_Bloom(this.owner, this.position.copy()));
+    this.toRemove = true;
   }
-  return Jhin_E_Trap;
-});
+
+  draw(): void {
+    // A concealed trap is Jhin's secret. His own side gets a faint ghost so he can play around
+    // his own mines; anyone else is drawn nothing at all, which is what makes it a trap.
+    if (this.concealed && this.owner !== this.game?.player) return;
+
+    if (this.triggered) {
+      this.drawBloom();
+      return;
+    }
+
+    const planting = constrain(this.age / JHIN_E_ARM_MS, 0, 1);
+    // It folds *shut* as it hides: petals lie flat while it is being planted, then curl in.
+    const closed = planting * planting;
+
+    push();
+    translate(this.position.x, this.position.y);
+
+    if (this.concealed) {
+      // Owner-only, and deliberately dim — enough for Jhin to route a fight
+      // through his own mines, nowhere near enough to read as a live effect.
+      noFill();
+      stroke(MAGENTA[0], MAGENTA[1], MAGENTA[2], 80);
+      strokeWeight(1.5);
+      circle(0, 0, JHIN_E_TRIGGER_RADIUS * 2);
+      noStroke();
+      fill(MAGENTA[0], MAGENTA[1], MAGENTA[2], 85);
+      circle(0, 0, 17);
+      fill(BONE[0], BONE[1], BONE[2], 105);
+      circle(0, 0, 7);
+      pop();
+      return;
+    }
+
+    noStroke();
+    for (let i = 0; i < this.petals.length; i++) {
+      const petal = this.petals[i];
+      const reach = (30 - 17 * closed) * petal.curl;
+      push();
+      rotate((i * TWO_PI) / this.petals.length + petal.lean + closed * 0.7);
+      fill(MAGENTA[0], MAGENTA[1], MAGENTA[2], 210 - 90 * closed);
+      triangle(0, 0, reach, -reach * (0.4 - 0.2 * closed), reach, reach * (0.4 - 0.2 * closed));
+      pop();
+    }
+    fill(BONE[0], BONE[1], BONE[2], 230 - 90 * closed);
+    circle(0, 0, 10 - 3 * closed);
+    pop();
+  }
+
+  /**
+   * The fuse, and the only warning the enemy gets. The hard rim sits on
+   * `JHIN_E_BLAST_RADIUS` and grows into it, so "am I still inside it?" is answerable at a
+   * glance, and the flashing quickens as the bloom fills to say the time is nearly up.
+   */
+  private drawBloom(): void {
+    const t = this.fuseProgress;
+    const opened = 1 - (1 - t) * (1 - t);
+    const reach = JHIN_E_BLAST_RADIUS * opened;
+    // 3Hz at the start, 12Hz at the end — urgency the player hears without reading a number.
+    const urgency = 0.5 + 0.5 * sin((this.fuseMs / 1000) * (3 + 9 * t) * TWO_PI);
+
+    push();
+    translate(this.position.x, this.position.y);
+
+    // the filled danger zone, at the radius the damage really claims
+    noStroke();
+    fill(MAGENTA[0], MAGENTA[1], MAGENTA[2], 30 + 45 * t);
+    circle(0, 0, reach * 2);
+
+    // the hard rim: this is the line to be outside of
+    noFill();
+    stroke(BONE[0], BONE[1], BONE[2], 150 + 105 * urgency);
+    strokeWeight(2 + 2 * t);
+    circle(0, 0, reach * 2);
+
+    stroke(MAGENTA[0], MAGENTA[1], MAGENTA[2], 220);
+    strokeWeight(3 + 3 * t);
+    circle(0, 0, reach * 2 * 0.96);
+
+    // petals forcing themselves open — the growth that says "not yet, but soon"
+    noStroke();
+    for (let i = 0; i < this.petals.length; i++) {
+      const petal = this.petals[i];
+      const blade = reach * 0.55 * petal.curl;
+      push();
+      rotate((i * TWO_PI) / this.petals.length + petal.lean + opened * 1.1);
+      fill(MAGENTA[0], MAGENTA[1], MAGENTA[2], 235);
+      triangle(0, 0, blade, -blade * 0.34, blade, blade * 0.34);
+      pop();
+    }
+
+    // the core, brightening to white as it fills
+    fill(255, 255, 255, 140 + 115 * t);
+    circle(0, 0, 12 + 16 * t);
+    pop();
+  }
+
+  getDisplayBoundingBox() {
+    return this.squareDisplayBoundingBox((JHIN_E_BLAST_RADIUS + 24) * 2);
+  }
+}
 
 
 /** The trap going off, on the body that stepped in it. */
-export const makeJhin_E_Bloom = packClass((api: ContentApi) => {
-  const SpellObject = api.SpellObject;
-  class Jhin_E_Bloom extends SpellObject {
-    lifeTime = 460;
-    age = 0;
-    radius = JHIN_E_BLAST_RADIUS;
-    petals: { angle: number; reach: number }[] = [];
+export class Jhin_E_Bloom extends SpellObject {
+  lifeTime = 460;
+  age = 0;
+  radius = JHIN_E_BLAST_RADIUS;
+  petals: { angle: number; reach: number }[] = [];
 
-    constructor(owner: AttackableUnit, at: p5.Vector) {
-      super(owner);
-      this.position = at;
-    }
+  constructor(owner: AttackableUnit, at: p5.Vector) {
+    super(owner);
+    this.position = at;
+  }
 
-    onAdded(): void {
-      for (let i = 0; i < TRAP_PETALS * 3; i++) {
-        this.petals.push({
-          angle: (i * TWO_PI) / (TRAP_PETALS * 3),
-          reach: random(0.55, 1),
-        });
-      }
-    }
-
-    update(): void {
-      this.age += deltaTime;
-      if (this.age >= this.lifeTime) this.toRemove = true;
-    }
-
-    draw(): void {
-      const t = constrain(this.age / this.lifeTime, 0, 1);
-      const opened = 1 - (1 - t) * (1 - t);
-      const fade = 1 - t;
-
-      push();
-      noFill();
-      stroke(BONE[0], BONE[1], BONE[2], 200 * fade);
-      strokeWeight(2 * fade + 1);
-      circle(this.position.x, this.position.y, this.radius * 2 * opened);
-      noStroke();
-      for (const petal of this.petals) {
-        const reach = this.radius * petal.reach * opened;
-        push();
-        translate(
-          this.position.x + cos(petal.angle) * reach,
-          this.position.y + sin(petal.angle) * reach
-        );
-        rotate(petal.angle);
-        fill(MAGENTA[0], MAGENTA[1], MAGENTA[2], 225 * fade);
-        triangle(0, 0, 13 * fade + 3, -5, 13 * fade + 3, 5);
-        pop();
-      }
-      pop();
-    }
-
-    getDisplayBoundingBox() {
-      return this.squareDisplayBoundingBox((this.radius + 22) * 2);
+  onAdded(): void {
+    for (let i = 0; i < TRAP_PETALS * 3; i++) {
+      this.petals.push({
+        angle: (i * TWO_PI) / (TRAP_PETALS * 3),
+        reach: random(0.55, 1),
+      });
     }
   }
-  return Jhin_E_Bloom;
-});
+
+  update(): void {
+    this.age += deltaTime;
+    if (this.age >= this.lifeTime) this.toRemove = true;
+  }
+
+  draw(): void {
+    const t = constrain(this.age / this.lifeTime, 0, 1);
+    const opened = 1 - (1 - t) * (1 - t);
+    const fade = 1 - t;
+
+    push();
+    noFill();
+    stroke(BONE[0], BONE[1], BONE[2], 200 * fade);
+    strokeWeight(2 * fade + 1);
+    circle(this.position.x, this.position.y, this.radius * 2 * opened);
+    noStroke();
+    for (const petal of this.petals) {
+      const reach = this.radius * petal.reach * opened;
+      push();
+      translate(
+        this.position.x + cos(petal.angle) * reach,
+        this.position.y + sin(petal.angle) * reach
+      );
+      rotate(petal.angle);
+      fill(MAGENTA[0], MAGENTA[1], MAGENTA[2], 225 * fade);
+      triangle(0, 0, 13 * fade + 3, -5, 13 * fade + 3, 5);
+      pop();
+    }
+    pop();
+  }
+
+  getDisplayBoundingBox() {
+    return this.squareDisplayBoundingBox((this.radius + 22) * 2);
+  }
+}

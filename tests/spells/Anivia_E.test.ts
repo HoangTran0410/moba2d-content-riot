@@ -9,15 +9,12 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { BASE_DAMAGE, CHILLED_DAMAGE, MISSILE_SPEED, RANGE, SPAWN_OFFSET_DISTANCE } from '../../spells/Anivia_E';
-import makeAnivia_E, { makeAnivia_E_Bolt } from '../../spells/Anivia_E';
+import Anivia_E, { Anivia_E_Bolt } from '../../spells/Anivia_E';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
 const { Chilled } = __api.buffs;
 const { HomingMissileSpellObject } = __api;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Anivia_E = makeAnivia_E(__api);
-const Anivia_E_Bolt = makeAnivia_E_Bolt(__api);
-type Anivia_E_Bolt = InstanceType<typeof Anivia_E_Bolt>;
 
 function unit(game: TestGame, x: number, teamId: string): AttackableUnit {
   const result = createUnit(game, x, teamId);

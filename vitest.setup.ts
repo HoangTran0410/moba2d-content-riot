@@ -1,5 +1,6 @@
 import { installEngineGlobalsForTests, installPackForTests } from '@moba2d/core/testing/setup';
-import { setActiveLanes } from '@moba2d/core/testing';
+import { buildTestApi, setActiveLanes } from '@moba2d/core/testing';
+import { setPackApi } from './packApi';
 import { data, BUNDLED_PACK_ID } from './pack';
 import { assetManifest } from './generated/assetManifest';
 
@@ -17,6 +18,19 @@ import { assetManifest } from './generated/assetManifest';
  * `BUNDLED_PACK_ID` rather than the literal `'riot'`: this pack states its
  * own id once, in its own data, and its test setup reads it from there.
  */
+/**
+ * **First.** Every class in `spells/` is declared against `packApi.ts`'s `api`
+ * and reads it the moment its module evaluates — and a test file importing a
+ * spell is exactly that moment. Vitest runs this setup before it imports the
+ * test file, which is the only reason a test can `import Ahri_Q from
+ * '../../spells/Ahri_Q'` like an ordinary module.
+ *
+ * Miss this and the failure is legible on purpose: `packApi.ts`'s proxy throws
+ * "pack api read before it was set" rather than an undefined-property error on
+ * a line that looks fine.
+ */
+setPackApi(buildTestApi());
+
 installEngineGlobalsForTests();
 await installPackForTests({ id: BUNDLED_PACK_ID, assetManifest, data });
 

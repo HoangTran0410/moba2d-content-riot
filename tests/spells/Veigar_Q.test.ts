@@ -16,16 +16,11 @@ import {
   stubGameGlobals,
   type TestGame,
 } from '@moba2d/core/testing';
-import makeVeigar_Q, { makeVeigar_Q_Object, makeLiveStacks } from '../../spells/Veigar_Q';
+import Veigar_Q, { Veigar_Q_Object, liveStacks } from '../../spells/Veigar_Q';
 const __api = buildTestApi();
 const { Champion } = __api.units;
 type Champion = InstanceType<typeof __api.units.Champion>;
 const { lethalTargets } = __api.combat.ExecuteTargeting;
-const Veigar_Q = makeVeigar_Q(__api);
-type Veigar_Q = InstanceType<typeof Veigar_Q>;
-const Veigar_Q_Object = makeVeigar_Q_Object(__api);
-type Veigar_Q_Object = InstanceType<typeof Veigar_Q_Object>;
-const liveStacks = makeLiveStacks(__api);
 
 let game: TestGame;
 

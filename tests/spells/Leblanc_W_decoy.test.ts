@@ -1,10 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { buildTestApi, createGame } from '@moba2d/core/testing';
-import { makeLeblanc_W_Object } from '../../spells/Leblanc_W';
+import { Leblanc_W_Object } from '../../spells/Leblanc_W';
 const __api = buildTestApi();
 const { Champion } = __api.units;
-const Leblanc_W_Object = makeLeblanc_W_Object(__api);
 
 /**
  * LeBlanc's W marker is a decoy, and a decoy has to fool somebody.

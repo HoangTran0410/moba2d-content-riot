@@ -10,23 +10,18 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { VAYNE_Q_BONUS } from '../../spells/Vayne_Q';
-import makeVayne_Q from '../../spells/Vayne_Q';
+import Vayne_Q from '../../spells/Vayne_Q';
 import { VAYNE_W_PROC, VAYNE_W_STACKS } from '../../spells/Vayne_W';
-import makeVayne_W from '../../spells/Vayne_W';
+import Vayne_W from '../../spells/Vayne_W';
 import { VAYNE_E_DAMAGE, VAYNE_E_PUSH, VAYNE_E_STUN_MS, VAYNE_E_WALL_BONUS } from '../../spells/Vayne_E';
-import makeVayne_E, { makeVayne_E_Object } from '../../spells/Vayne_E';
+import Vayne_E, { Vayne_E_Object } from '../../spells/Vayne_E';
 import { VAYNE_R_DURATION_MS, VAYNE_R_Q_CDR } from '../../spells/Vayne_R';
-import makeVayne_R from '../../spells/Vayne_R';
+import Vayne_R from '../../spells/Vayne_R';
 const __api = buildTestApi();
 const { Dash, Stun } = __api.buffs;
 type Dash = InstanceType<typeof __api.buffs.Dash>;
 const { EventType } = __api.enums;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Vayne_Q = makeVayne_Q(__api);
-const Vayne_W = makeVayne_W(__api);
-const Vayne_E = makeVayne_E(__api);
-const Vayne_E_Object = makeVayne_E_Object(__api);
-const Vayne_R = makeVayne_R(__api);
 
 /**
  * The pool every unit here starts from. Written by the test, so every expected

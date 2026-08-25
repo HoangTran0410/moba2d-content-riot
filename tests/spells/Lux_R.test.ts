@@ -6,12 +6,12 @@ import { buildTestApi } from '@moba2d/core/testing';
 import LuxBeamEffect from '../../vfx/LuxBeamEffect';
 import type { CastContext } from '@moba2d/core/content/types';
 import { CAST_TIME_MS, DAMAGE, MANA_COST, RANGE, REVEAL_DURATION_MS, REVEAL_VISION_RADIUS, VISION_LIFETIME_MS, WIDTH } from '../../spells/Lux_R';
-import makeLux_R from '../../spells/Lux_R';
-import makeFlash from '../../spells/Flash';
-import makeGhost from '../../spells/Ghost';
-import makeHeal from '../../spells/Heal';
-import makeIgnite from '../../spells/Ignite';
-import makeLux_E, { makeLux_E_Object } from '../../spells/Lux_E';
+import Lux_R from '../../spells/Lux_R';
+import Flash from '../../spells/Flash';
+import Ghost from '../../spells/Ghost';
+import Heal from '../../spells/Heal';
+import Ignite from '../../spells/Ignite';
+import Lux_E, { Lux_E_Object } from '../../spells/Lux_E';
 const __api = buildTestApi();
 const { StatusFlags } = __api.enums;
 const { CastBar } = __api.vfx;
@@ -20,14 +20,6 @@ const { Spell, BeamSpellObject } = __api;
 type BeamSpellObject = InstanceType<typeof __api.BeamSpellObject>;
 type Spell = InstanceType<typeof __api.Spell>;
 type Rectangle = InstanceType<typeof __api.utils.Quadtree.Rectangle>;
-const Lux_R = makeLux_R(__api);
-const Flash = makeFlash(__api);
-const Ghost = makeGhost(__api);
-const Heal = makeHeal(__api);
-const Ignite = makeIgnite(__api);
-const Lux_E = makeLux_E(__api);
-const Lux_E_Object = makeLux_E_Object(__api);
-type Lux_E_Object = InstanceType<typeof Lux_E_Object>;
 
 class TestVector {
   constructor(

@@ -9,16 +9,13 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { CAST_TIME_MS, COOLDOWN_MS, DAMAGE, FADE_MS, CRIPPLE_PERCENT, RADIUS, SLOW_DURATION_MS, SLOW_PERCENT } from '../../spells/Malphite_E';
-import makeMalphite_E, { makeMalphite_E_Object } from '../../spells/Malphite_E';
+import Malphite_E, { Malphite_E_Object } from '../../spells/Malphite_E';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
 const { Slow, StatAmp } = __api.buffs;
 type Slow = InstanceType<typeof __api.buffs.Slow>;
 type StatAmp = InstanceType<typeof __api.buffs.StatAmp>;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Malphite_E = makeMalphite_E(__api);
-const Malphite_E_Object = makeMalphite_E_Object(__api);
-type Malphite_E_Object = InstanceType<typeof Malphite_E_Object>;
 
 function unit(game: TestGame, x: number, teamId: string): AttackableUnit {
   const result = createUnit(game, x, teamId);

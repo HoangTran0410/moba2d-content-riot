@@ -9,8 +9,8 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { DAMAGE, MISSILE_SPEED, PASSIVE_SPEED_PERCENT, RANGE, SLOW_DURATION_MS, SLOW_PERCENT, SPAWN_OFFSET_DISTANCE } from '../../spells/Janna_W';
-import makeJanna_W, { makeJanna_W_Bolt, makeJanna_W_Passive } from '../../spells/Janna_W';
-import makeJanna_E, { makeNotifyJannaControlLanded } from '../../spells/Janna_E';
+import Janna_W, { Janna_W_Bolt, Janna_W_Passive } from '../../spells/Janna_W';
+import Janna_E, { notifyJannaControlLanded } from '../../spells/Janna_E';
 const __api = buildTestApi();
 const { Champion, AttackableUnit } = __api.units;
 type Champion = InstanceType<typeof __api.units.Champion>;
@@ -19,13 +19,6 @@ type Slow = InstanceType<typeof __api.buffs.Slow>;
 const { StatusFlags } = __api.enums;
 const { HomingMissileSpellObject } = __api;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Janna_W = makeJanna_W(__api);
-const Janna_W_Bolt = makeJanna_W_Bolt(__api);
-type Janna_W_Bolt = InstanceType<typeof Janna_W_Bolt>;
-const Janna_W_Passive = makeJanna_W_Passive(__api);
-type Janna_W_Passive = InstanceType<typeof Janna_W_Passive>;
-const Janna_E = makeJanna_E(__api);
-const notifyJannaControlLanded = makeNotifyJannaControlLanded(__api);
 
 function unit(game: TestGame, x: number, teamId: string): AttackableUnit {
   const result = createUnit(game, x, teamId);

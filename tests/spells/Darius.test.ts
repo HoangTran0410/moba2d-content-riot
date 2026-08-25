@@ -9,21 +9,17 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { BLADE_DAMAGE, HANDLE_DAMAGE, HEAL_PERCENT_CHAMPION, HEAL_PERCENT_UNIT, HEMORRHAGE_MAX_STACKS, INNER_RADIUS, OUTER_RADIUS, hemorrhageStacks } from '../../spells/Darius_Q';
-import makeDarius_Q, { makeApplyHemorrhage } from '../../spells/Darius_Q';
+import Darius_Q, { applyHemorrhage } from '../../spells/Darius_Q';
 import { CONE_RANGE, PULL_STOP_DISTANCE } from '../../spells/Darius_E';
-import makeDarius_E from '../../spells/Darius_E';
+import Darius_E from '../../spells/Darius_E';
 import { BASE_DAMAGE, DAMAGE_PER_STACK } from '../../spells/Darius_R';
-import makeDarius_R from '../../spells/Darius_R';
+import Darius_R from '../../spells/Darius_R';
 const __api = buildTestApi();
 const { Champion } = __api.units;
 const { Dash } = __api.buffs;
 type Dash = InstanceType<typeof __api.buffs.Dash>;
 const { pickExecuteTarget } = __api.combat.ExecuteTargeting;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Darius_Q = makeDarius_Q(__api);
-const applyHemorrhage = makeApplyHemorrhage(__api);
-const Darius_E = makeDarius_E(__api);
-const Darius_R = makeDarius_R(__api);
 
 const makeMinion = (game: TestGame, x: number, y: number): Minion =>
   new Minion({

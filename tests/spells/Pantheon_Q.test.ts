@@ -2,18 +2,13 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { buildTestApi, Stats } from '@moba2d/core/testing';
 import type { CastContext } from '@moba2d/core/content/types';
 import { THRUST_BACKSWING, THRUST_REACH, THRUST_WIDTH } from '../../spells/Pantheon_Q';
-import makePantheon_Q, { makePantheon_Q_Spear, makePantheon_Q_Thrust } from '../../spells/Pantheon_Q';
+import Pantheon_Q, { Pantheon_Q_Spear, Pantheon_Q_Thrust } from '../../spells/Pantheon_Q';
 const __api = buildTestApi();
 const { AttackableUnit, Monster } = __api.units;
 const { ActionState } = __api.enums;
 const { BeamSpellObject } = __api;
 type BeamSpellObject = InstanceType<typeof __api.BeamSpellObject>;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Pantheon_Q = makePantheon_Q(__api);
-const Pantheon_Q_Spear = makePantheon_Q_Spear(__api);
-type Pantheon_Q_Spear = InstanceType<typeof Pantheon_Q_Spear>;
-const Pantheon_Q_Thrust = makePantheon_Q_Thrust(__api);
-type Pantheon_Q_Thrust = InstanceType<typeof Pantheon_Q_Thrust>;
 
 class Vector {
   constructor(

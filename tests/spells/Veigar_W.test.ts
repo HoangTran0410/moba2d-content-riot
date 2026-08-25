@@ -2,13 +2,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { CastContext } from '@moba2d/core/content/types';
 import { createGame, createUnit, installSpellObjectGlobals } from '@moba2d/core/testing/spell';
-import { buildTestApi } from '@moba2d/core/testing';
 import { DAMAGE, IMPACT_LIFETIME_MS, MANA_COST, RADIUS, RANGE, WINDUP_MS } from '../../spells/Veigar_W';
-import makeVeigar_W, { makeVeigar_W_Object } from '../../spells/Veigar_W';
-const __api = buildTestApi();
-const Veigar_W = makeVeigar_W(__api);
-const Veigar_W_Object = makeVeigar_W_Object(__api);
-type Veigar_W_Object = InstanceType<typeof Veigar_W_Object>;
+import Veigar_W, { Veigar_W_Object } from '../../spells/Veigar_W';
 
 // A local vector with `.limit()`, which VectorUtils.getVectorWithMaxRange needs
 // and the shared test fixture's TestVector does not implement.

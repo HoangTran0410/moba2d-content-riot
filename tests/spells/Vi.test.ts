@@ -9,23 +9,19 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { Q_MAX_CHARGE_MS, Q_MAX_DAMAGE, Q_MAX_DISTANCE, Q_MIN_DAMAGE, Q_MIN_DISTANCE, viQDamage, viQDashDistance } from '../../spells/Vi_Q';
-import makeVi_Q from '../../spells/Vi_Q';
+import Vi_Q from '../../spells/Vi_Q';
 import { W_PROC, W_STACKS } from '../../spells/Vi_W';
-import makeVi_W from '../../spells/Vi_W';
+import Vi_W from '../../spells/Vi_W';
 import { E_CHARGES, E_DAMAGE } from '../../spells/Vi_E';
-import makeVi_E from '../../spells/Vi_E';
+import Vi_E from '../../spells/Vi_E';
 import { R_DAMAGE, R_PASS_DAMAGE } from '../../spells/Vi_R';
-import makeVi_R from '../../spells/Vi_R';
+import Vi_R from '../../spells/Vi_R';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
 const { Airborne, Dash } = __api.buffs;
 type Dash = InstanceType<typeof __api.buffs.Dash>;
 const { EventType } = __api.enums;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Vi_Q = makeVi_Q(__api);
-const Vi_W = makeVi_W(__api);
-const Vi_E = makeVi_E(__api);
-const Vi_R = makeVi_R(__api);
 
 function unit(game: TestGame, x: number, teamId: string): AttackableUnit {
   const result = createUnit(game, x, teamId);

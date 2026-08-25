@@ -20,16 +20,13 @@ import {
   type TestGame,
 } from '@moba2d/core/testing';
 import blitzSource from '../../spells/Blitzcrank_Q.ts?raw';
-import { makeBlitzcrank_Q_Object } from '../../spells/Blitzcrank_Q';
-import { makeMorgana_E_BlackShield } from '../../spells/Morgana_E';
+import { Blitzcrank_Q_Object } from '../../spells/Blitzcrank_Q';
+import { Morgana_E_BlackShield } from '../../spells/Morgana_E';
 const __api = buildTestApi();
 const { Champion } = __api.units;
 type Champion = InstanceType<typeof __api.units.Champion>;
 const { Dash } = __api.buffs;
 type Dash = InstanceType<typeof __api.buffs.Dash>;
-const Blitzcrank_Q_Object = makeBlitzcrank_Q_Object(__api);
-type Blitzcrank_Q_Object = InstanceType<typeof Blitzcrank_Q_Object>;
-const Morgana_E_BlackShield = makeMorgana_E_BlackShield(__api);
 
 let game: TestGame;
 

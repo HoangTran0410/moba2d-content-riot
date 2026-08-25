@@ -48,7 +48,10 @@ const ours = output
   .split('\n')
   .map(line => line.trim())
   .filter(line => /error TS(6133|6196):/.test(line))
-  .filter(line => !line.includes('node_modules'));
+  // `node_modules/@moba2d/core/...` normally, but `../moba2d-core/...` when
+  // core is linked from a local checkout — the same files either way, and
+  // neither is this package's to fix.
+  .filter(line => !line.includes('node_modules') && !line.startsWith('..'));
 
 // Anything else the compiler said is a real type error and belongs to
 // `npm run typecheck`, which runs first in `verify` — but if this script is
@@ -56,7 +59,7 @@ const ours = output
 const otherErrors = output
   .split('\n')
   .filter(line => /error TS/.test(line) && !/error TS(6133|6196):/.test(line))
-  .filter(line => !line.includes('node_modules'));
+  .filter(line => !line.includes('node_modules') && !line.trim().startsWith('..'));
 
 if (ours.length === 0 && otherErrors.length === 0) {
   console.log('check-unused: no unused declarations in @moba2d/content-riot');

@@ -23,13 +23,10 @@ import {
   type TestGame,
 } from '@moba2d/core/testing';
 import type { CastContext } from '@moba2d/core/content/types';
-import makeAnivia_W, { makeAnivia_W_Object } from '../../spells/Anivia_W';
+import Anivia_W, { Anivia_W_Object } from '../../spells/Anivia_W';
 const __api = buildTestApi();
 const { Champion } = __api.units;
 type Champion = InstanceType<typeof __api.units.Champion>;
-const Anivia_W = makeAnivia_W(__api);
-const Anivia_W_Object = makeAnivia_W_Object(__api);
-type Anivia_W_Object = InstanceType<typeof Anivia_W_Object>;
 
 let game: TestGame;
 

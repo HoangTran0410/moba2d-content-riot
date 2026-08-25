@@ -27,8 +27,27 @@ describe("the pack's runtime bundle", () => {
   });
 
   it('keeps the dynamic imports relative, so they resolve against the pack URL', () => {
-    const entry = readFileSync(join(dist, 'pack.js'), 'utf8');
-    expect(entry).toMatch(/import\(\s*["']\.\//);
+    // Read the entry *and what it pulls in*, not `pack.js` alone. Once the
+    // spells became module-scope classes the entry stopped carrying the 238
+    // `import()` calls itself: Rollup emits a small facade at `pack.js` and
+    // puts the body in a chunk beside it. Nothing about the guarantee changed —
+    // a browser resolves an emitted specifier against the importing chunk's own
+    // URL either way — but an assertion pinned to one filename was reading a
+    // 134-byte re-export and calling the build broken.
+    const emitted = [
+      readFileSync(join(dist, 'pack.js'), 'utf8'),
+      ...readdirSync(join(dist, 'chunks'))
+        .filter(name => name.endsWith('.js'))
+        .map(name => readFileSync(join(dist, 'chunks', name), 'utf8')),
+    ].join('\n');
+
+    const dynamic = emitted.match(/import\(\s*["'][^"']+["']\)/g) ?? [];
+    expect(dynamic.length, 'a pack that loads no kit lazily is the whole cost this avoids')
+      .toBeGreaterThan(200);
+    expect(
+      dynamic.filter(call => !/import\(\s*["']\.\//.test(call)),
+      'an absolute specifier resolves against the *host page*, not the pack'
+    ).toEqual([]);
   });
 
   it('bundles no part of core', () => {

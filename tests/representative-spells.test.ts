@@ -2,27 +2,18 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { buildTestApi } from '@moba2d/core/testing';
 import { createGame, createUnit, withCastTime } from '@moba2d/core/testing/spell';
 import type { ActivationPattern, CastContext } from '@moba2d/core/content/types';
-import makeAnivia_R from '../spells/Anivia_R';
-import makeJanna_Q from '../spells/Janna_Q';
+import Anivia_R from '../spells/Anivia_R';
+import Janna_Q from '../spells/Janna_Q';
 import { CHANNEL_DURATION_MS as JANNA_R_CHANNEL_DURATION_MS } from '../spells/Janna_R';
-import makeJanna_R from '../spells/Janna_R';
+import Janna_R from '../spells/Janna_R';
 import { CAST_TIME_MS as LUX_R_CAST_TIME_MS } from '../spells/Lux_R';
-import makeLux_R from '../spells/Lux_R';
-import makeMalphite_Q from '../spells/Malphite_Q';
-import makePantheon_Q, { makePantheon_Q_Spear } from '../spells/Pantheon_Q';
-import makeVarus_Q, { makeVarus_Q_Arrow } from '../spells/Varus_Q';
+import Lux_R from '../spells/Lux_R';
+import Malphite_Q from '../spells/Malphite_Q';
+import Pantheon_Q, { Pantheon_Q_Spear } from '../spells/Pantheon_Q';
+import Varus_Q, { Varus_Q_Arrow } from '../spells/Varus_Q';
 
 const __api = buildTestApi();
 const { BeamSpellObject } = __api;
-const Anivia_R = makeAnivia_R(__api);
-const Janna_Q = makeJanna_Q(__api);
-const Janna_R = makeJanna_R(__api);
-const Lux_R = makeLux_R(__api);
-const Malphite_Q = makeMalphite_Q(__api);
-const Pantheon_Q = makePantheon_Q(__api);
-const Pantheon_Q_Spear = makePantheon_Q_Spear(__api);
-const Varus_Q = makeVarus_Q(__api);
-const Varus_Q_Arrow = makeVarus_Q_Arrow(__api);
 
 /** The cast window this suite drives the runtime through — see `withCastTime`. */
 const TEST_CAST_TIME_MS = 250;

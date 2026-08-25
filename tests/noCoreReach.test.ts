@@ -206,11 +206,11 @@ describe("the pack's tests speak only published core surfaces", () => {
     // not at all, so the population count moves and the offender count
     // below does not.
     //
-    // 78, not 77: `tests/packClassSeam.test.ts`, which scans this repository
-    // for `new WeakMap<ContentApi` — a hand-rolled per-api memo, which
-    // `packClass` replaced 650 times and which four `__group0_*` files kept
-    // because the migration's leftover check matched a name rather than the
-    // thing. It reads `node:fs`/`node:path` and reaches core not at all.
+    // Still 78: `tests/packClassSeam.test.ts` — which banned a hand-rolled
+    // per-api memo — is replaced one-for-one by `tests/dataHalf.test.ts`.
+    // There is no memo left to ban: a spell is an ordinary class now, and the
+    // rule that took its place is that the data half must not statically
+    // import one. Both read `node:fs`/`node:path` and reach core not at all.
     expect(files.length).toBe(78);
   });
 

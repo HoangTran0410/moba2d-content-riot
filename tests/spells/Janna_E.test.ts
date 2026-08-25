@@ -8,7 +8,7 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { COOLDOWN_MS, REFUND_RATIO, RANGE, BONUS_ATTACK_DAMAGE, SHIELD_AMOUNT, SHIELD_DURATION_MS } from '../../spells/Janna_E';
-import makeJanna_E, { makeJanna_E_Shell, makeNotifyJannaControlLanded } from '../../spells/Janna_E';
+import Janna_E, { Janna_E_Shell, notifyJannaControlLanded } from '../../spells/Janna_E';
 const __api = buildTestApi();
 const { Champion, AttackableUnit } = __api.units;
 type Champion = InstanceType<typeof __api.units.Champion>;
@@ -16,10 +16,6 @@ const { Shield, StatAmp } = __api.buffs;
 type Shield = InstanceType<typeof __api.buffs.Shield>;
 type StatAmp = InstanceType<typeof __api.buffs.StatAmp>;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Janna_E = makeJanna_E(__api);
-const Janna_E_Shell = makeJanna_E_Shell(__api);
-type Janna_E_Shell = InstanceType<typeof Janna_E_Shell>;
-const notifyJannaControlLanded = makeNotifyJannaControlLanded(__api);
 
 function champion(game: TestGame, x: number, teamId: string): Champion {
   const result = new Champion({ game, position: createVector(x, 0), teamId });

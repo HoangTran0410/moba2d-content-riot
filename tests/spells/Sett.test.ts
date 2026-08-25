@@ -9,24 +9,18 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { SETT_E_DAMAGE } from '../../spells/Sett_E';
-import makeSett_E from '../../spells/Sett_E';
+import Sett_E from '../../spells/Sett_E';
 import { SETT_Q_BONUS, SETT_Q_HITS } from '../../spells/Sett_Q';
-import makeSett_Q from '../../spells/Sett_Q';
+import Sett_Q from '../../spells/Sett_Q';
 import { SETT_R_BLAST, SETT_R_SLAM } from '../../spells/Sett_R';
-import makeSett_R, { makeSett_R_Carry } from '../../spells/Sett_R';
+import Sett_R, { Sett_R_Carry } from '../../spells/Sett_R';
 import { SETT_W_BASE, SETT_W_GRIT_RATIO, SETT_W_GRIT_SCALE } from '../../spells/Sett_W';
-import makeSett_W from '../../spells/Sett_W';
+import Sett_W from '../../spells/Sett_W';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
 const { Shield, Stun } = __api.buffs;
 const { EventType } = __api.enums;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Sett_E = makeSett_E(__api);
-const Sett_Q = makeSett_Q(__api);
-const Sett_R = makeSett_R(__api);
-const Sett_R_Carry = makeSett_R_Carry(__api);
-type Sett_R_Carry = InstanceType<typeof Sett_R_Carry>;
-const Sett_W = makeSett_W(__api);
 
 /**
  * Every unit lives on the +x axis so it stays inside the fixture's 1000-unit

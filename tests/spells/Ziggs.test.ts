@@ -9,25 +9,17 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { Q_BLAST_RADIUS, Q_BOUNCE_COUNT, Q_BOUNCE_GAP_MS, Q_BOUNCE_STEP, Q_DAMAGE, Q_TRAVEL_MS } from '../../spells/Ziggs_Q';
-import makeZiggs_Q, { makeZiggs_Q_Object } from '../../spells/Ziggs_Q';
+import Ziggs_Q, { Ziggs_Q_Object } from '../../spells/Ziggs_Q';
 import { W_DAMAGE, W_FUSE_MS, W_PUSH } from '../../spells/Ziggs_W';
-import makeZiggs_W, { makeZiggs_W_Object } from '../../spells/Ziggs_W';
+import Ziggs_W, { Ziggs_W_Object } from '../../spells/Ziggs_W';
 import { E_ARM_MS, E_DAMAGE, E_MAX_TRIPS_PER_UNIT, E_MINE_COUNT } from '../../spells/Ziggs_E';
-import makeZiggs_E, { makeZiggs_E_Object } from '../../spells/Ziggs_E';
+import Ziggs_E, { Ziggs_E_Object } from '../../spells/Ziggs_E';
 import { R_FLIGHT_MS, R_INNER_DAMAGE, R_OUTER_DAMAGE } from '../../spells/Ziggs_R';
-import makeZiggs_R, { makeZiggs_R_Object } from '../../spells/Ziggs_R';
+import Ziggs_R, { Ziggs_R_Object } from '../../spells/Ziggs_R';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
 const { Dash } = __api.buffs;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Ziggs_Q = makeZiggs_Q(__api);
-const Ziggs_Q_Object = makeZiggs_Q_Object(__api);
-const Ziggs_W = makeZiggs_W(__api);
-const Ziggs_W_Object = makeZiggs_W_Object(__api);
-const Ziggs_E = makeZiggs_E(__api);
-const Ziggs_E_Object = makeZiggs_E_Object(__api);
-const Ziggs_R = makeZiggs_R(__api);
-const Ziggs_R_Object = makeZiggs_R_Object(__api);
 
 function unit(game: TestGame, x: number, teamId: string): AttackableUnit {
   const result = createUnit(game, x, teamId);

@@ -3,13 +3,10 @@ import { describe, expect, it, vi } from 'vitest';
 import { buildTestApi } from '@moba2d/core/testing';
 import { createGame, createUnit, installSpellObjectGlobals } from '@moba2d/core/testing/spell';
 import { RADIUS } from '../../spells/Rammus_R';
-import makeRammus_R, { makeRammus_R_Leap } from '../../spells/Rammus_R';
+import Rammus_R, { Rammus_R_Leap } from '../../spells/Rammus_R';
 const __api = buildTestApi();
 const { Dash, Untargetable } = __api.buffs;
 type Dash = InstanceType<typeof __api.buffs.Dash>;
-const Rammus_R = makeRammus_R(__api);
-const Rammus_R_Leap = makeRammus_R_Leap(__api);
-type Rammus_R_Leap = InstanceType<typeof Rammus_R_Leap>;
 
 installSpellObjectGlobals();
 

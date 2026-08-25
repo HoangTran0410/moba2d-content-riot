@@ -8,12 +8,9 @@ import {
   installSpellObjectGlobals,
 } from '@moba2d/core/testing/spell';
 import { CAST_TIME_MS, DURATION_MS, MANA_COST, MAX_TICK_DAMAGE, MIN_TICK_DAMAGE, MONSTER_DAMAGE_MULTIPLIER, RADIUS, RANGE, SPIKE_COUNT, spikeLayout, TICK_EVERY_MS } from '../../spells/Morgana_W';
-import makeMorgana_W, { makeMorgana_W_Object } from '../../spells/Morgana_W';
+import Morgana_W, { Morgana_W_Object } from '../../spells/Morgana_W';
 const __api = buildTestApi();
 const { Monster } = __api.units;
-const Morgana_W = makeMorgana_W(__api);
-type Morgana_W = InstanceType<typeof Morgana_W>;
-const Morgana_W_Object = makeMorgana_W_Object(__api);
 
 const context = (
   owner: { position: { x: number; y: number } },

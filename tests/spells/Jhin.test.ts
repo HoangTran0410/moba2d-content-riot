@@ -10,30 +10,17 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { JHIN_MARK_MS, JHIN_Q_DAMAGE, JHIN_Q_MAX_HITS } from '../../spells/Jhin_Q';
-import makeJhin_Q, { makeJhin_Q_Object, makeApplyJhinMark, makeHasJhinMark } from '../../spells/Jhin_Q';
+import Jhin_Q, { Jhin_Q_Object, applyJhinMark, hasJhinMark } from '../../spells/Jhin_Q';
 import { JHIN_W_CAST_MS, JHIN_W_DAMAGE, JHIN_W_RANGE } from '../../spells/Jhin_W';
-import makeJhin_W from '../../spells/Jhin_W';
+import Jhin_W from '../../spells/Jhin_W';
 import { JHIN_E_ARM_MS, JHIN_E_BLAST_RADIUS, JHIN_E_DAMAGE, JHIN_E_FUSE_MS, JHIN_E_MAX_TRAPS } from '../../spells/Jhin_E';
-import makeJhin_E, { makeJhin_E_Trap } from '../../spells/Jhin_E';
+import Jhin_E, { Jhin_E_Trap } from '../../spells/Jhin_E';
 import { JHIN_R_DAMAGE, JHIN_R_FINAL_DAMAGE, JHIN_R_RANGE, JHIN_R_SHOTS, JHIN_R_SHOT_GAP_MS, JHIN_R_WINDOW_MS } from '../../spells/Jhin_R';
-import makeJhin_R from '../../spells/Jhin_R';
+import Jhin_R from '../../spells/Jhin_R';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
 const { Root } = __api.buffs;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Jhin_Q = makeJhin_Q(__api);
-type Jhin_Q = InstanceType<typeof Jhin_Q>;
-const Jhin_Q_Object = makeJhin_Q_Object(__api);
-type Jhin_Q_Object = InstanceType<typeof Jhin_Q_Object>;
-const applyJhinMark = makeApplyJhinMark(__api);
-const hasJhinMark = makeHasJhinMark(__api);
-const Jhin_W = makeJhin_W(__api);
-type Jhin_W = InstanceType<typeof Jhin_W>;
-const Jhin_E = makeJhin_E(__api);
-const Jhin_E_Trap = makeJhin_E_Trap(__api);
-type Jhin_E_Trap = InstanceType<typeof Jhin_E_Trap>;
-const Jhin_R = makeJhin_R(__api);
-type Jhin_R = InstanceType<typeof Jhin_R>;
 
 function unit(game: TestGame, x: number, teamId: string, pool = 100): AttackableUnit {
   const result = createUnit(game, x, teamId);

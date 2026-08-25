@@ -1,68 +1,63 @@
-import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { AttackableUnit, BeamGeometry, CastContext, CastSpec, Rectangle, Spell, SpellObject } from '@moba2d/core/content/types';
-import { packClass, type Instance } from '../packClass';
+import { api } from '../packApi';
 // Relative, not `@/`: `LuxBeamEffect` moved into `packs/riot/vfx/` (Task 2 of
 // the content-pack extraction) and this file has not moved yet, so this is a
 // core file reaching into the Riot pack rather than the reverse. Temporary —
 // `Lux_R.ts` itself moves into `packs/riot/spells/` in a later task of the
 // same batch, at which point this becomes an ordinary sibling import.
 import LuxBeamEffect from '../vfx/LuxBeamEffect';
-import makeFlash from './Flash';
-import makeGhost from './Ghost';
-import makeHeal from './Heal';
-import makeIgnite from './Ignite';
-import makeLux_E, { makeLux_E_Object } from './Lux_E';
+import Flash from './Flash';
+import Ghost from './Ghost';
+import Heal from './Heal';
+import Ignite from './Ignite';
+import Lux_E, { Lux_E_Object } from './Lux_E';
 
-type Lux_R_Beam = Instance<typeof makeLux_R_Beam>;
-type Lux_R_CastLock = Instance<typeof makeLux_R_CastLock>;
-type Lux_R_Vision = Instance<typeof makeLux_R_Vision>;
+const StatusFlags = api.enums.StatusFlags;
+const Buff = api.buffs.Buff;
+const SpellObject = api.SpellObject;
+const beamBoundingBox = api.beamBoundingBox;
+const SpellForm = api.enums.SpellForm;
+const CastBar = api.vfx.CastBar;
+const Spell = api.Spell;
+const createReveal = api.buffs.createReveal;
+const BeamSpellObject = api.BeamSpellObject;
+
 
 function hasSpells(unit: AttackableUnit): unit is AttackableUnit & { spells: Spell[] } {
   return 'spells' in unit && Array.isArray(unit.spells);
 }
 
 
-export const makeLux_R_CastLock = packClass((api: ContentApi) => {
-  const StatusFlags = api.enums.StatusFlags;
-  const Buff = api.buffs.Buff;
-  const Flash = makeFlash(api);
-  const Ghost = makeGhost(api);
-  const Heal = makeHeal(api);
-  const Ignite = makeIgnite(api);
-  const Lux_E = makeLux_E(api);
-  const Lux_E_Object = makeLux_E_Object(api);
-  class Lux_R_CastLock extends Buff {
-    name = 'Cầu Vồng Tối Thượng';
-    stackId = 'lux_r_cast_lock';
-    statusFlagsToEnable = StatusFlags.Immovable;
-    private readonly disabledBeforeCast = new Map<Spell, boolean>();
+export class Lux_R_CastLock extends Buff {
+  name = 'Cầu Vồng Tối Thượng';
+  stackId = 'lux_r_cast_lock';
+  statusFlagsToEnable = StatusFlags.Immovable;
+  private readonly disabledBeforeCast = new Map<Spell, boolean>();
 
-    onActivate(): void {
-      this.targetUnit.stopMovement?.();
-      if (!hasSpells(this.targetUnit)) return;
-      for (const spell of this.targetUnit.spells) {
-        this.disabledBeforeCast.set(spell, spell.disabled);
-        if (!this.isPermitted(spell)) spell.disabled = true;
-      }
-    }
-
-    onDeactivate(): void {
-      for (const [spell, wasDisabled] of this.disabledBeforeCast) spell.disabled = wasDisabled;
-      this.disabledBeforeCast.clear();
-    }
-
-    private isPermitted(spell: Spell): boolean {
-      return (
-        spell instanceof Ghost ||
-        spell instanceof Heal ||
-        spell instanceof Ignite ||
-        spell instanceof Flash ||
-        (spell instanceof Lux_E && spell.luxEObject?.phase === Lux_E_Object.PHASES.STATIC)
-      );
+  onActivate(): void {
+    this.targetUnit.stopMovement?.();
+    if (!hasSpells(this.targetUnit)) return;
+    for (const spell of this.targetUnit.spells) {
+      this.disabledBeforeCast.set(spell, spell.disabled);
+      if (!this.isPermitted(spell)) spell.disabled = true;
     }
   }
-  return Lux_R_CastLock;
-});
+
+  onDeactivate(): void {
+    for (const [spell, wasDisabled] of this.disabledBeforeCast) spell.disabled = wasDisabled;
+    this.disabledBeforeCast.clear();
+  }
+
+  private isPermitted(spell: Spell): boolean {
+    return (
+      spell instanceof Ghost ||
+      spell instanceof Heal ||
+      spell instanceof Ignite ||
+      spell instanceof Flash ||
+      (spell instanceof Lux_E && spell.luxEObject?.phase === Lux_E_Object.PHASES.STATIC)
+    );
+  }
+}
 
 
 // Exported so the suite asserts the beam and reveal wiring, not a copy of the
@@ -108,216 +103,195 @@ export const MANA_COST = 100;
  * along with a caster nobody can see is correct. The beam is the effect, not a
  * telegraph of one, and only effects belong in the world.
  */
-export const makeLux_R_Beam = packClass((api: ContentApi) => {
-  const SpellObject = api.SpellObject;
-  const beamBoundingBox = api.beamBoundingBox;
-  class Lux_R_Beam extends SpellObject {
-    private readonly effect: LuxBeamEffect;
+export class Lux_R_Beam extends SpellObject {
+  private readonly effect: LuxBeamEffect;
 
-    constructor(
-      owner: SpellObject['owner'],
-      private readonly geometry: BeamGeometry,
-      phase: 'prepare' | 'release',
-      getProgress?: () => number
-    ) {
-      super(owner);
-      this.effect = new LuxBeamEffect(geometry, phase, getProgress);
-    }
-
-    update(deltaMs = deltaTime): void {
-      if (this.dropIfAttachmentLost()) return;
-      this.effect.update(deltaMs);
-      if (this.effect.complete) this.toRemove = true;
-    }
-
-    draw(): void {
-      this.effect.draw();
-    }
-
-    getDisplayBoundingBox(): Rectangle {
-      return beamBoundingBox(this.geometry, this);
-    }
-
-    /** Ends the beam now, for a cast that never reached its release. */
-    dispose(): void {
-      this.effect.dispose();
-      this.toRemove = true;
-    }
+  constructor(
+    owner: SpellObject['owner'],
+    private readonly geometry: BeamGeometry,
+    phase: 'prepare' | 'release',
+    getProgress?: () => number
+  ) {
+    super(owner);
+    this.effect = new LuxBeamEffect(geometry, phase, getProgress);
   }
-  return Lux_R_Beam;
-});
 
-
-export const makeLux_R_Vision = packClass((api: ContentApi) => {
-  const SpellObject = api.SpellObject;
-  class Lux_R_Vision extends SpellObject {
-    visionRadius = 250;
-    private elapsedMs = 0;
-
-    constructor(owner: SpellObject['owner'], position: { x: number; y: number }) {
-      super(owner);
-      this.position = createVector(position.x, position.y);
-    }
-
-    update(deltaMs = deltaTime): void {
-      this.elapsedMs += Math.max(0, deltaMs);
-      if (this.elapsedMs >= VISION_LIFETIME_MS) this.toRemove = true;
-    }
+  update(deltaMs = deltaTime): void {
+    if (this.dropIfAttachmentLost()) return;
+    this.effect.update(deltaMs);
+    if (this.effect.complete) this.toRemove = true;
   }
-  return Lux_R_Vision;
-});
+
+  draw(): void {
+    this.effect.draw();
+  }
+
+  getDisplayBoundingBox(): Rectangle {
+    return beamBoundingBox(this.geometry, this);
+  }
+
+  /** Ends the beam now, for a cast that never reached its release. */
+  dispose(): void {
+    this.effect.dispose();
+    this.toRemove = true;
+  }
+}
 
 
-export const makeLux_R = packClass((api: ContentApi) => {
-  const SpellForm = api.enums.SpellForm;
-  const CastBar = api.vfx.CastBar;
-  const Spell = api.Spell;
-  const createReveal = api.buffs.createReveal;
-  const BeamSpellObject = api.BeamSpellObject;
-  const Lux_R_CastLock = makeLux_R_CastLock(api);
-  const Lux_R_Beam = makeLux_R_Beam(api);
-  const Lux_R_Vision = makeLux_R_Vision(api);
-  class Lux_R extends Spell {
-    image = api.asset('spell_lux_r');
-    name = 'Cầu Vồng Tối Thượng (Lux_R)';
-    description =
-      'Niệm <span class="time">1 giây</span> rồi bắn một dải sáng theo hướng đã chốt, gây <span class="damage">30 sát thương</span> lên mọi kẻ địch trúng phải';
-    coolDown = 10_000;
-    manaCost = MANA_COST;
+export class Lux_R_Vision extends SpellObject {
+  visionRadius = 250;
+  private elapsedMs = 0;
 
-    private readonly castTimeMs = CAST_TIME_MS;
-    private readonly range = RANGE;
-    private readonly width = WIDTH;
-    private readonly damage = DAMAGE;
-    private castElapsedMs = 0;
-    private geometry?: BeamGeometry;
-    private castLock?: Lux_R_CastLock;
-    private prepareBeam?: Lux_R_Beam;
-    private sightObjects: Lux_R_Vision[] = [];
+  constructor(owner: SpellObject['owner'], position: { x: number; y: number }) {
+    super(owner);
+    this.position = createVector(position.x, position.y);
+  }
 
-    get castSpec(): Readonly<CastSpec> {
-      return {
-        activation: 'PRESS',
-        targeting: 'DIRECTION',
-        castTimeMs: this.castTimeMs,
-        resource: { commitAt: 'start', refundOn: [] },
-        cooldown: { startAt: 'release', durationMs: this.coolDown },
-        // Once the beam is called down it is in the sky, not in Lux's hands: the
-        // cast time is a wind-up on an effect that is already committed, so only
-        // her dying takes it back.
-        interrupts: SpellForm.INDEPENDENT,
-        // The cast bar only, on purpose. It hangs over Lux's head and means
-        // nothing without her, so inheriting her visibility is right. The beam
-        // does not — see `Lux_R_Beam`.
-        vfx: {
-          castStart: context => new CastBar(context, () => this.castElapsedMs / this.castTimeMs),
-        },
-      };
-    }
+  update(deltaMs = deltaTime): void {
+    this.elapsedMs += Math.max(0, deltaMs);
+    if (this.elapsedMs >= VISION_LIFETIME_MS) this.toRemove = true;
+  }
+}
 
-    onCastStart(context: CastContext): void {
-      this.castElapsedMs = 0;
-      this.geometry = this.beamGeometry(context);
-      this.castLock = new Lux_R_CastLock(this.castTimeMs, this.owner, this.owner);
-      this.castLock.image = this.image;
-      this.owner.addBuff(this.castLock);
-      this.addBeamSight(this.geometry);
 
-      this.prepareBeam = new Lux_R_Beam(
-        this.owner,
-        this.geometry,
-        'prepare',
-        () => this.castElapsedMs / this.castTimeMs
-      );
-      // The wind-up is a telegraph of a cast still in progress, so it rides Lux:
-      // if she dies the beam never arrives and the lane must go with her. The
-      // release flash below does not, because by then the beam is already in the
-      // sky and out of her hands.
-      this.prepareBeam.attachTo(this.owner);
-      this.game.objectManager.addObject(this.prepareBeam);
-    }
+export default class Lux_R extends Spell {
+  image = api.asset('spell_lux_r');
+  name = 'Cầu Vồng Tối Thượng (Lux_R)';
+  description =
+    'Niệm <span class="time">1 giây</span> rồi bắn một dải sáng theo hướng đã chốt, gây <span class="damage">30 sát thương</span> lên mọi kẻ địch trúng phải';
+  coolDown = 10_000;
+  manaCost = MANA_COST;
 
-    onUpdate(): void {
-      if (this.state === 'CASTING') this.castElapsedMs += deltaTime;
-    }
+  private readonly castTimeMs = CAST_TIME_MS;
+  private readonly range = RANGE;
+  private readonly width = WIDTH;
+  private readonly damage = DAMAGE;
+  private castElapsedMs = 0;
+  private geometry?: BeamGeometry;
+  private castLock?: Lux_R_CastLock;
+  private prepareBeam?: Lux_R_Beam;
+  private sightObjects: Lux_R_Vision[] = [];
 
-    onSpellCast(): void {
-      if (!this.geometry) return;
+  get castSpec(): Readonly<CastSpec> {
+    return {
+      activation: 'PRESS',
+      targeting: 'DIRECTION',
+      castTimeMs: this.castTimeMs,
+      resource: { commitAt: 'start', refundOn: [] },
+      cooldown: { startAt: 'release', durationMs: this.coolDown },
+      // Once the beam is called down it is in the sky, not in Lux's hands: the
+      // cast time is a wind-up on an effect that is already committed, so only
+      // her dying takes it back.
+      interrupts: SpellForm.INDEPENDENT,
+      // The cast bar only, on purpose. It hangs over Lux's head and means
+      // nothing without her, so inheriting her visibility is right. The beam
+      // does not — see `Lux_R_Beam`.
+      vfx: {
+        castStart: context => new CastBar(context, () => this.castElapsedMs / this.castTimeMs),
+      },
+    };
+  }
 
-      this.endPrepareBeam();
-      this.game.objectManager.addObject(new Lux_R_Beam(this.owner, this.geometry, 'release'));
+  onCastStart(context: CastContext): void {
+    this.castElapsedMs = 0;
+    this.geometry = this.beamGeometry(context);
+    this.castLock = new Lux_R_CastLock(this.castTimeMs, this.owner, this.owner);
+    this.castLock.image = this.image;
+    this.owner.addBuff(this.castLock);
+    this.addBeamSight(this.geometry);
 
-      const beam = new BeamSpellObject(this.owner, this.geometry, {
-        candidateFilter: target =>
-          typeof target.takeDamage === 'function' &&
-          typeof target.addBuff === 'function' &&
-          !target.isDead &&
-          target.teamId !== this.owner.teamId,
-        onHit: target => {
-          target.takeDamage(this.damage, this.owner);
-          target.addBuff(
-            createReveal({
-              stackId: REVEAL_STACK_ID,
-              durationMs: REVEAL_DURATION_MS,
-              source: this.owner,
-              target,
-              visionRadius: REVEAL_VISION_RADIUS,
-              image: this.image,
-            })
-          );
-        },
+    this.prepareBeam = new Lux_R_Beam(
+      this.owner,
+      this.geometry,
+      'prepare',
+      () => this.castElapsedMs / this.castTimeMs
+    );
+    // The wind-up is a telegraph of a cast still in progress, so it rides Lux:
+    // if she dies the beam never arrives and the lane must go with her. The
+    // release flash below does not, because by then the beam is already in the
+    // sky and out of her hands.
+    this.prepareBeam.attachTo(this.owner);
+    this.game.objectManager.addObject(this.prepareBeam);
+  }
+
+  onUpdate(): void {
+    if (this.state === 'CASTING') this.castElapsedMs += deltaTime;
+  }
+
+  onSpellCast(): void {
+    if (!this.geometry) return;
+
+    this.endPrepareBeam();
+    this.game.objectManager.addObject(new Lux_R_Beam(this.owner, this.geometry, 'release'));
+
+    const beam = new BeamSpellObject(this.owner, this.geometry, {
+      candidateFilter: target =>
+        typeof target.takeDamage === 'function' &&
+        typeof target.addBuff === 'function' &&
+        !target.isDead &&
+        target.teamId !== this.owner.teamId,
+      onHit: target => {
+        target.takeDamage(this.damage, this.owner);
+        target.addBuff(
+          createReveal({
+            stackId: REVEAL_STACK_ID,
+            durationMs: REVEAL_DURATION_MS,
+            source: this.owner,
+            target,
+            visionRadius: REVEAL_VISION_RADIUS,
+            image: this.image,
+          })
+        );
+      },
+    });
+    this.game.objectManager.addObject(beam);
+  }
+
+  onCancel(): void {
+    this.releaseCastLock();
+    this.endPrepareBeam();
+    for (const sight of this.sightObjects) sight.toRemove = true;
+    this.sightObjects = [];
+  }
+
+  onComplete(): void {
+    this.releaseCastLock();
+    this.endPrepareBeam();
+  }
+
+  private beamGeometry(context: CastContext): BeamGeometry {
+    const direction = this.firingDirection(context);
+    return {
+      start: context.origin,
+      end: {
+        x: context.origin.x + direction.x * this.range,
+        y: context.origin.y + direction.y * this.range,
+      },
+      width: this.width,
+    };
+  }
+
+  private addBeamSight(geometry: BeamGeometry): void {
+    const segments = Math.ceil(this.range / 400);
+    this.sightObjects = [];
+    for (let index = 0; index <= segments; index++) {
+      const ratio = index / segments;
+      const sight = new Lux_R_Vision(this.owner, {
+        x: geometry.start.x + (geometry.end.x - geometry.start.x) * ratio,
+        y: geometry.start.y + (geometry.end.y - geometry.start.y) * ratio,
       });
-      this.game.objectManager.addObject(beam);
-    }
-
-    onCancel(): void {
-      this.releaseCastLock();
-      this.endPrepareBeam();
-      for (const sight of this.sightObjects) sight.toRemove = true;
-      this.sightObjects = [];
-    }
-
-    onComplete(): void {
-      this.releaseCastLock();
-      this.endPrepareBeam();
-    }
-
-    private beamGeometry(context: CastContext): BeamGeometry {
-      const direction = this.firingDirection(context);
-      return {
-        start: context.origin,
-        end: {
-          x: context.origin.x + direction.x * this.range,
-          y: context.origin.y + direction.y * this.range,
-        },
-        width: this.width,
-      };
-    }
-
-    private addBeamSight(geometry: BeamGeometry): void {
-      const segments = Math.ceil(this.range / 400);
-      this.sightObjects = [];
-      for (let index = 0; index <= segments; index++) {
-        const ratio = index / segments;
-        const sight = new Lux_R_Vision(this.owner, {
-          x: geometry.start.x + (geometry.end.x - geometry.start.x) * ratio,
-          y: geometry.start.y + (geometry.end.y - geometry.start.y) * ratio,
-        });
-        this.sightObjects.push(sight);
-        this.game.objectManager.addObject(sight);
-      }
-    }
-
-    private releaseCastLock(): void {
-      this.castLock?.deactivateBuff();
-      this.castLock = undefined;
-    }
-
-    private endPrepareBeam(): void {
-      this.prepareBeam?.dispose();
-      this.prepareBeam = undefined;
+      this.sightObjects.push(sight);
+      this.game.objectManager.addObject(sight);
     }
   }
-  return Lux_R;
-});
-export default makeLux_R;
+
+  private releaseCastLock(): void {
+    this.castLock?.deactivateBuff();
+    this.castLock = undefined;
+  }
+
+  private endPrepareBeam(): void {
+    this.prepareBeam?.dispose();
+    this.prepareBeam = undefined;
+  }
+}

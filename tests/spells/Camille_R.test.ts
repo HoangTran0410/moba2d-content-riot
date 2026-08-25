@@ -9,13 +9,11 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { CAMILLE_R_RADIUS, CAMILLE_R_SEAL_MS } from '../../spells/Camille_R';
-import { makeCamille_R_Object } from '../../spells/Camille_R';
+import { Camille_R_Object } from '../../spells/Camille_R';
 const __api = buildTestApi();
 const { Dash } = __api.buffs;
 type Dash = InstanceType<typeof __api.buffs.Dash>;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Camille_R_Object = makeCamille_R_Object(__api);
-type Camille_R_Object = InstanceType<typeof Camille_R_Object>;
 
 /**
  * Hextech Ultimatum is a cage, and the three things that make it one were all

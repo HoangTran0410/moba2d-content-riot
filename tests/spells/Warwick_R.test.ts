@@ -18,11 +18,10 @@ import {
   type TestGame,
 } from '@moba2d/core/testing';
 import { RANGE } from '../../spells/Warwick_R';
-import makeWarwick_R from '../../spells/Warwick_R';
+import Warwick_R from '../../spells/Warwick_R';
 const __api = buildTestApi();
 const { Champion } = __api.units;
 type Champion = InstanceType<typeof __api.units.Champion>;
-const Warwick_R = makeWarwick_R(__api);
 
 let game: TestGame;
 

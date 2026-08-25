@@ -1,8 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { buildTestApi } from '@moba2d/core/testing';
-import { makeVeigar_E_Object } from '../../spells/Veigar_E';
+import { Veigar_E_Object } from '../../spells/Veigar_E';
 const __api = buildTestApi();
-const Veigar_E_Object = makeVeigar_E_Object(__api);
 
 class Vector {
   constructor(

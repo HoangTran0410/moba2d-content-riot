@@ -75,7 +75,7 @@ const NO_PRESS_OVERRIDE = new Set(['Annie_Q.ts']);
 
 /**
  * `world-mouse-in-spell-code`: known offending lines, one per entry
- * (`"<file>:<1-indexed line number>"`). `Blitzcrank_E.ts:75` is
+ * (`"<file>:<1-indexed line number>"`). `Blitzcrank_E.ts:74` is
  * `tests/game/integration/SpellAimIntegration.test.ts`'s own pinned example
  * (`const angle = VectorUtils.getAngle(this.owner.position,
  * this.game.worldMouse);`). Fix round 1 of content-pack-extraction batch 5
@@ -96,7 +96,7 @@ const NO_PRESS_OVERRIDE = new Set(['Annie_Q.ts']);
  * pinning a line is copying the reported line rather than counting lines.
  */
 const PINNED = new Set([
-  'Blitzcrank_E.ts:75:const angle = VectorUtils.getAngle(this.owner.position, this.game.worldMouse);',
+  'Blitzcrank_E.ts:74:const angle = VectorUtils.getAngle(this.owner.position, this.game.worldMouse);',
 ]);
 
 /**

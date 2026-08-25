@@ -10,28 +10,17 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { ABLAZE_STACK_ID, DAMAGE as Q_DAMAGE, STUN_DURATION_MS, isAblaze } from '../../spells/Brand_Q';
-import makeBrand_Q, { makeBrand_Q_Missile, makeApplyAblaze } from '../../spells/Brand_Q';
+import Brand_Q, { Brand_Q_Missile, applyAblaze } from '../../spells/Brand_Q';
 import { ABLAZE_DAMAGE_BONUS, DAMAGE as W_DAMAGE, ERUPT_DELAY_MS } from '../../spells/Brand_W';
-import makeBrand_W, { makeBrand_W_Object } from '../../spells/Brand_W';
+import Brand_W, { Brand_W_Object } from '../../spells/Brand_W';
 import { ABLAZE_SPREAD_RADIUS, DAMAGE as E_DAMAGE, SPREAD_RADIUS } from '../../spells/Brand_E';
-import makeBrand_E from '../../spells/Brand_E';
+import Brand_E from '../../spells/Brand_E';
 import { BOUNCE_COUNT, DAMAGE_PER_BOUNCE } from '../../spells/Brand_R';
-import makeBrand_R, { makeBrand_R_Fireball } from '../../spells/Brand_R';
+import Brand_R, { Brand_R_Fireball } from '../../spells/Brand_R';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
 const { Slow, Stun } = __api.buffs;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Brand_Q = makeBrand_Q(__api);
-const Brand_Q_Missile = makeBrand_Q_Missile(__api);
-type Brand_Q_Missile = InstanceType<typeof Brand_Q_Missile>;
-const applyAblaze = makeApplyAblaze(__api);
-const Brand_W = makeBrand_W(__api);
-const Brand_W_Object = makeBrand_W_Object(__api);
-type Brand_W_Object = InstanceType<typeof Brand_W_Object>;
-const Brand_E = makeBrand_E(__api);
-const Brand_R = makeBrand_R(__api);
-const Brand_R_Fireball = makeBrand_R_Fireball(__api);
-type Brand_R_Fireball = InstanceType<typeof Brand_R_Fireball>;
 
 function unit(game: TestGame, x: number, teamId: string): AttackableUnit {
   const result = createUnit(game, x, teamId);

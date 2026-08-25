@@ -1,5 +1,16 @@
-import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import { api } from '../packApi';
+
+const Circle = api.utils.Quadtree.Circle;
+const effectiveRange = api.combat.Reach.effectiveRange;
+const BuffAddType = api.enums.BuffAddType;
+const PredefinedFilters = api.combat.PredefinedFilters;
+const Spell = api.Spell;
+const Airborne = api.buffs.Airborne;
+const Dash = api.buffs.Dash;
+const Speedup = api.buffs.Speedup;
+const Rectangle = api.utils.Quadtree.Rectangle;
+const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
+const SpellObject = api.SpellObject;
 
 export const R_FIND_RANGE = 600;
 
@@ -31,135 +42,122 @@ export const R_BURST_MS = 320;
 export const R_VORTEX_STREAKS = 14;
 
 
-export const makeYasuo_R = packClass((api: ContentApi) => {
-  const Circle = api.utils.Quadtree.Circle;
-  const effectiveRange = api.combat.Reach.effectiveRange;
-  const BuffAddType = api.enums.BuffAddType;
-  const PredefinedFilters = api.combat.PredefinedFilters;
-  const Spell = api.Spell;
-  const Airborne = api.buffs.Airborne;
-  const Dash = api.buffs.Dash;
-  const Speedup = api.buffs.Speedup;
-  const Yasuo_R_Object = makeYasuo_R_Object(api);
-  class Yasuo_R extends Spell {
-    // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
-    targetingMode = 'SELF' as const;
-    image = api.asset('spell_yasuo_r');
-    name = 'Trăng Trối (Yasuo_R)';
-    description =
-      'Lao tới các mục tiêu gần nhất đang bị <span>Hất tung</span>. <span class="buff">Giữ chúng trên không</span> trong <span class="time">1 giây</span> và gây <span class="damage">30 sát thương</span>. Bạn được <span class="buff">Tăng tốc 40%</span> trong <span class="time">2 giây</span> sau đó.';
-    coolDown = 10000;
-    manaCost = 50;
+export default class Yasuo_R extends Spell {
+  // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
+  targetingMode = 'SELF' as const;
+  image = api.asset('spell_yasuo_r');
+  name = 'Trăng Trối (Yasuo_R)';
+  description =
+    'Lao tới các mục tiêu gần nhất đang bị <span>Hất tung</span>. <span class="buff">Giữ chúng trên không</span> trong <span class="time">1 giây</span> và gây <span class="damage">30 sát thương</span>. Bạn được <span class="buff">Tăng tốc 40%</span> trong <span class="time">2 giây</span> sau đó.';
+  coolDown = 10000;
+  manaCost = 50;
 
-    rangeToFindEnemies = R_FIND_RANGE;
-    rangeToApplyAirborne = R_AIRBORNE_RADIUS;
-    timeToApplyAirborne = R_AIRBORNE_MS;
+  rangeToFindEnemies = R_FIND_RANGE;
+  rangeToApplyAirborne = R_AIRBORNE_RADIUS;
+  timeToApplyAirborne = R_AIRBORNE_MS;
 
-    checkCastCondition() {
-      return Dash.CanDash(this.owner);
-    }
-
-    onSpellCast() {
-      const mouse = this.aimPoint;
-
-      // query all enemies that have Airborne buff
-      const enemies = this.game.objectManager.queryObjects({
-        area: new Circle({
-          x: this.owner.position.x,
-          y: this.owner.position.y,
-          r: effectiveRange(this.rangeToFindEnemies, this.owner),
-        }),
-        filters: [
-          PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId),
-          PredefinedFilters.visibleTo(this.owner),
-          (p: any) =>
-            p.buffs.filter((buff: any) => buff.sourceUnit != p && buff instanceof Airborne)?.length >
-            0,
-        ],
-      });
-
-      // if no enemy found, reset spell cast
-      if (enemies.length == 0) {
-        this.resetCoolDown();
-        return;
-      }
-
-      // find enemy that is nearest to mouse
-      let nearestEnemy = enemies[0];
-      let nearestDistance = Infinity;
-      for (const enemy of enemies) {
-        const distance = enemy.position.dist(mouse);
-        if (distance < nearestDistance) {
-          nearestDistance = distance;
-          nearestEnemy = enemy;
-        }
-      }
-
-      // find all enemies that are in range 300px to nearest enemy
-      const enemiesInRange = this.game.objectManager.queryObjects({
-        area: new Circle({
-          x: nearestEnemy.position.x,
-          y: nearestEnemy.position.y,
-          r: this.rangeToApplyAirborne,
-        }),
-        filters: [
-          PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId),
-          (p: any) => p.hasBuff(Airborne),
-        ],
-      });
-
-      // The wind starts gathering the moment the key is pressed and the blade
-      // lands at the end of the flight, so the two halves of the ultimate are a
-      // wind-up and a payoff rather than one simultaneous flash.
-      const obj = new Yasuo_R_Object(this.owner);
-      obj.position = nearestEnemy.position.copy();
-      obj.radius = this.rangeToApplyAirborne;
-      obj.holdTime = this.timeToApplyAirborne;
-      obj.victims = enemiesInRange;
-      this.game.objectManager.addObject(obj);
-
-      // dash owner to behind (10px) nearest enemy
-      const nearEnemyPos = mouse
-        .copy()
-        .sub(nearestEnemy.position)
-        .setMag(nearestEnemy.stats.size.value + this.owner.stats.size.value / 2 + 10)
-        .add(nearestEnemy.position);
-
-      const dashBuff = new Dash(1000, this.owner, this.owner);
-      dashBuff.dashDestination = nearEnemyPos;
-      dashBuff.dashSpeed = R_DASH_SPEED;
-      dashBuff.cancelable = false;
-      dashBuff.onReachedDestination = () => {
-        // the landing: flash, shock rings, and the vortex that holds them up
-        obj.burst();
-
-        // add airborne buff to owner
-        this.owner.addBuff(new Airborne(this.timeToApplyAirborne, this.owner, this.owner));
-
-        // add airborne buff to all enemies in range
-        for (const enemy of enemiesInRange) {
-          const buff = new Airborne(this.timeToApplyAirborne, this.owner, enemy);
-          buff.buffAddType = BuffAddType.STACKS_AND_CONTINUE;
-          buff.image = this.image;
-          buff.draw = () => drawSuspension(enemy);
-          enemy.addBuff(buff);
-          enemy.takeDamage(R_DAMAGE, this.owner);
-        }
-
-        const speedup = new Speedup(R_SPEEDUP_MS, this.owner, this.owner);
-        speedup.percent = R_SPEEDUP_PERCENT;
-        this.owner.addBuff(speedup);
-      };
-      this.owner.addBuff(dashBuff);
-    }
-
-    drawPreview() {
-      super.drawPreview(effectiveRange(this.rangeToFindEnemies, this.owner));
-    }
+  checkCastCondition() {
+    return Dash.CanDash(this.owner);
   }
-  return Yasuo_R;
-});
-export default makeYasuo_R;
+
+  onSpellCast() {
+    const mouse = this.aimPoint;
+
+    // query all enemies that have Airborne buff
+    const enemies = this.game.objectManager.queryObjects({
+      area: new Circle({
+        x: this.owner.position.x,
+        y: this.owner.position.y,
+        r: effectiveRange(this.rangeToFindEnemies, this.owner),
+      }),
+      filters: [
+        PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId),
+        PredefinedFilters.visibleTo(this.owner),
+        (p: any) =>
+          p.buffs.filter((buff: any) => buff.sourceUnit != p && buff instanceof Airborne)?.length >
+          0,
+      ],
+    });
+
+    // if no enemy found, reset spell cast
+    if (enemies.length == 0) {
+      this.resetCoolDown();
+      return;
+    }
+
+    // find enemy that is nearest to mouse
+    let nearestEnemy = enemies[0];
+    let nearestDistance = Infinity;
+    for (const enemy of enemies) {
+      const distance = enemy.position.dist(mouse);
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearestEnemy = enemy;
+      }
+    }
+
+    // find all enemies that are in range 300px to nearest enemy
+    const enemiesInRange = this.game.objectManager.queryObjects({
+      area: new Circle({
+        x: nearestEnemy.position.x,
+        y: nearestEnemy.position.y,
+        r: this.rangeToApplyAirborne,
+      }),
+      filters: [
+        PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId),
+        (p: any) => p.hasBuff(Airborne),
+      ],
+    });
+
+    // The wind starts gathering the moment the key is pressed and the blade
+    // lands at the end of the flight, so the two halves of the ultimate are a
+    // wind-up and a payoff rather than one simultaneous flash.
+    const obj = new Yasuo_R_Object(this.owner);
+    obj.position = nearestEnemy.position.copy();
+    obj.radius = this.rangeToApplyAirborne;
+    obj.holdTime = this.timeToApplyAirborne;
+    obj.victims = enemiesInRange;
+    this.game.objectManager.addObject(obj);
+
+    // dash owner to behind (10px) nearest enemy
+    const nearEnemyPos = mouse
+      .copy()
+      .sub(nearestEnemy.position)
+      .setMag(nearestEnemy.stats.size.value + this.owner.stats.size.value / 2 + 10)
+      .add(nearestEnemy.position);
+
+    const dashBuff = new Dash(1000, this.owner, this.owner);
+    dashBuff.dashDestination = nearEnemyPos;
+    dashBuff.dashSpeed = R_DASH_SPEED;
+    dashBuff.cancelable = false;
+    dashBuff.onReachedDestination = () => {
+      // the landing: flash, shock rings, and the vortex that holds them up
+      obj.burst();
+
+      // add airborne buff to owner
+      this.owner.addBuff(new Airborne(this.timeToApplyAirborne, this.owner, this.owner));
+
+      // add airborne buff to all enemies in range
+      for (const enemy of enemiesInRange) {
+        const buff = new Airborne(this.timeToApplyAirborne, this.owner, enemy);
+        buff.buffAddType = BuffAddType.STACKS_AND_CONTINUE;
+        buff.image = this.image;
+        buff.draw = () => drawSuspension(enemy);
+        enemy.addBuff(buff);
+        enemy.takeDamage(R_DAMAGE, this.owner);
+      }
+
+      const speedup = new Speedup(R_SPEEDUP_MS, this.owner, this.owner);
+      speedup.percent = R_SPEEDUP_PERCENT;
+      this.owner.addBuff(speedup);
+    };
+    this.owner.addBuff(dashBuff);
+  }
+
+  drawPreview() {
+    super.drawPreview(effectiveRange(this.rangeToFindEnemies, this.owner));
+  }
+}
 
 
 /**
@@ -219,244 +217,238 @@ function drawSuspension(unit: any) {
  * BURST is the landing — a white core, shock rings leaving it, and a standing
  * vortex with a tether to each body still in the air.
  */
-export const makeYasuo_R_Object = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
-  const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
-  const SpellObject = api.SpellObject;
-  class Yasuo_R_Object extends SpellObject {
-    position = this.owner.position.copy();
-    radius = R_AIRBORNE_RADIUS;
-    holdTime = R_AIRBORNE_MS;
-    victims: any[] = [];
+export class Yasuo_R_Object extends SpellObject {
+  position = this.owner.position.copy();
+  radius = R_AIRBORNE_RADIUS;
+  holdTime = R_AIRBORNE_MS;
+  victims: any[] = [];
 
-    gatherAge = 0;
-    burstAge = 0;
-    hasBurst = false;
-    /** Fixed per cast so the vortex does not re-scatter between frames. */
-    seed = random(TWO_PI);
+  gatherAge = 0;
+  burstAge = 0;
+  hasBurst = false;
+  /** Fixed per cast so the vortex does not re-scatter between frames. */
+  seed = random(TWO_PI);
 
-    particleSystem = PredefinedParticleSystems.randomMovingParticlesDecreaseSize('#dff9', 0.25);
+  particleSystem = PredefinedParticleSystems.randomMovingParticlesDecreaseSize('#dff9', 0.25);
 
-    onAdded() {
-      super.onAdded();
-      // Nothing is emitted until the blade lands, which is most of a second away.
-      // On the default an empty system would remove itself before then.
-      this.particleSystem.autoRemoveIfEmpty = false;
-      this.game.objectManager.addObject(this.particleSystem);
+  onAdded() {
+    super.onAdded();
+    // Nothing is emitted until the blade lands, which is most of a second away.
+    // On the default an empty system would remove itself before then.
+    this.particleSystem.autoRemoveIfEmpty = false;
+    this.game.objectManager.addObject(this.particleSystem);
+  }
+
+  onRemoved() {
+    this.particleSystem.autoRemoveIfEmpty = true;
+    super.onRemoved();
+  }
+
+  /** The blade has arrived. Called from the dash's `onReachedDestination`. */
+  burst() {
+    if (this.hasBurst) return;
+    this.hasBurst = true;
+    this.burstAge = 0;
+
+    for (let i = 0; i < 26; i++) {
+      const a = this.seed + (TWO_PI * i) / 26;
+      const d = this.radius * random(0.15, 0.55);
+      this.particleSystem.addParticle({
+        x: this.position.x + cos(a) * d,
+        y: this.position.y + sin(a) * d,
+        r: random(4, 11),
+      });
+    }
+  }
+
+  update() {
+    if (!this.hasBurst) {
+      this.gatherAge += deltaTime;
+      // The dash can be ended by something other than arrival; without this the
+      // telegraph would sit on the ground for the rest of the match.
+      if (this.gatherAge >= R_GATHER_TIMEOUT_MS) this.toRemove = true;
+      return;
     }
 
-    onRemoved() {
-      this.particleSystem.autoRemoveIfEmpty = true;
-      super.onRemoved();
-    }
+    this.burstAge += deltaTime;
+    if (this.burstAge >= this.holdTime + R_BURST_MS) this.toRemove = true;
+  }
 
-    /** The blade has arrived. Called from the dash's `onReachedDestination`. */
-    burst() {
-      if (this.hasBurst) return;
-      this.hasBurst = true;
-      this.burstAge = 0;
+  draw() {
+    if (!this.hasBurst) this._drawGather();
+    else this._drawBurst();
+  }
 
-      for (let i = 0; i < 26; i++) {
-        const a = this.seed + (TWO_PI * i) / 26;
-        const d = this.radius * random(0.15, 0.55);
-        this.particleSystem.addParticle({
-          x: this.position.x + cos(a) * d,
-          y: this.position.y + sin(a) * d,
-          r: random(4, 11),
-        });
-      }
-    }
+  /** The wind pulling in around the spot Yasuo is about to land on. */
+  _drawGather() {
+    const t = constrain(this.gatherAge / R_GATHER_TIMEOUT_MS, 0, 1);
+    const pulse = 0.6 + 0.4 * sin(this.gatherAge / 80);
 
-    update() {
-      if (!this.hasBurst) {
-        this.gatherAge += deltaTime;
-        // The dash can be ended by something other than arrival; without this the
-        // telegraph would sit on the ground for the rest of the match.
-        if (this.gatherAge >= R_GATHER_TIMEOUT_MS) this.toRemove = true;
-        return;
-      }
+    push();
+    translate(this.position.x, this.position.y);
+    blendMode(ADD);
+    noFill();
+    strokeCap(ROUND);
 
-      this.burstAge += deltaTime;
-      if (this.burstAge >= this.holdTime + R_BURST_MS) this.toRemove = true;
-    }
+    // the exact area that is about to be lifted — drawn from the first frame,
+    // because the flight is now long enough for that to be worth knowing
+    stroke(150, 220, 255, 110 + 60 * pulse);
+    strokeWeight(3);
+    circle(0, 0, this.radius * 2);
 
-    draw() {
-      if (!this.hasBurst) this._drawGather();
-      else this._drawBurst();
-    }
-
-    /** The wind pulling in around the spot Yasuo is about to land on. */
-    _drawGather() {
-      const t = constrain(this.gatherAge / R_GATHER_TIMEOUT_MS, 0, 1);
-      const pulse = 0.6 + 0.4 * sin(this.gatherAge / 80);
-
-      push();
-      translate(this.position.x, this.position.y);
-      blendMode(ADD);
-      noFill();
-      strokeCap(ROUND);
-
-      // the exact area that is about to be lifted — drawn from the first frame,
-      // because the flight is now long enough for that to be worth knowing
-      stroke(150, 220, 255, 110 + 60 * pulse);
-      strokeWeight(3);
-      circle(0, 0, this.radius * 2);
-
-      // air being drawn inward: each streak starts outside the ring and is pulled
-      // to the centre, so the gathering has a direction
-      for (let i = 0; i < R_VORTEX_STREAKS; i++) {
-        const a = this.seed + (TWO_PI * i) / R_VORTEX_STREAKS + this.gatherAge / 300;
-        const outer =
-          this.radius * (1.15 - 0.35 * ((this.gatherAge / 420 + i / R_VORTEX_STREAKS) % 1));
-        const inner = outer * 0.55;
-        stroke(185, 240, 255, 130 * (0.4 + 0.6 * t));
-        strokeWeight(2);
-        beginShape();
-        for (let s = 0; s <= 4; s++) {
-          const p = s / 4;
-          const bend = a + p * 0.5;
-          const rr = lerp(outer, inner, p);
-          vertex(cos(bend) * rr, sin(bend) * rr);
-        }
-        endShape();
-      }
-
-      blendMode(BLEND);
-      pop();
-    }
-
-    /** The landing, and the second the victims spend hanging over it. */
-    _drawBurst() {
-      const flash = 1 - constrain(this.burstAge / R_BURST_MS, 0, 1);
-      const held = constrain(this.burstAge / (this.holdTime + R_BURST_MS), 0, 1);
-      const fade = 1 - held;
-
-      push();
-      blendMode(ADD);
-
-      // Tethers: the wind Yasuo is holding each body up with. Curved, so they
-      // read as air rather than as a targeting line, and drawn here rather than
-      // in the buff because they span the distance between two units.
-      noFill();
-      strokeCap(ROUND);
-      for (const victim of this.victims) {
-        if (!victim || victim.isDead || victim.toRemove) continue;
-        const ax = this.owner.position.x;
-        const ay = this.owner.position.y;
-        const bx = victim.position.x;
-        const by = victim.position.y;
-        // bow the tether perpendicular to itself, alternating with time
-        const dx = bx - ax;
-        const dy = by - ay;
-        const length = Math.hypot(dx, dy) || 1;
-        const bow = 0.16 * length * sin(this.burstAge / 160 + victim.position.x * 0.01);
-        const mx = (ax + bx) / 2 - (dy / length) * bow;
-        const my = (ay + by) / 2 + (dx / length) * bow;
-
-        stroke(150, 225, 255, 120 * fade);
-        strokeWeight(5 * fade + 1);
-        this._curve(ax, ay, mx, my, bx, by);
-        stroke(240, 255, 255, 200 * fade);
-        strokeWeight(2 * fade + 0.8);
-        this._curve(ax, ay, mx, my, bx, by);
-      }
-
-      translate(this.position.x, this.position.y);
-
-      // The standing vortex, turning where the blade landed.
-      for (let i = 0; i < R_VORTEX_STREAKS; i++) {
-        const a = this.seed + (TWO_PI * i) / R_VORTEX_STREAKS - this.burstAge / 220;
-        const rr = this.radius * (0.35 + 0.6 * ((i / R_VORTEX_STREAKS + this.burstAge / 900) % 1));
-        stroke(175, 238, 255, 150 * fade);
-        strokeWeight(2.5);
-        beginShape();
-        for (let s = 0; s <= 4; s++) {
-          const p = s / 4;
-          const bend = a - p * 0.7;
-          vertex(cos(bend) * rr * (1 - 0.25 * p), sin(bend) * rr * (1 - 0.25 * p));
-        }
-        endShape();
-      }
-
-      // the boundary of what was actually lifted, still legible while it holds
-      stroke(160, 230, 255, 130 * fade);
-      strokeWeight(3 * fade + 1);
-      circle(0, 0, this.radius * 2);
-
-      // Shock rings leaving the point of impact — these are the landing itself,
-      // and they exist only in the first fraction of a second of it.
-      if (flash > 0) {
-        const out = 1 - flash;
-        stroke(230, 250, 255, 235 * flash);
-        strokeWeight(11 * flash + 2);
-        circle(0, 0, this.radius * 2 * (0.15 + 0.95 * out));
-        stroke(255, 255, 255, 200 * flash);
-        strokeWeight(4 * flash + 1);
-        circle(0, 0, this.radius * 2 * (0.05 + 0.65 * out));
-
-        // steel debris thrown out of the strike, tumbling as it goes
-        noStroke();
-        for (let i = 0; i < 12; i++) {
-          const a = this.seed + (TWO_PI * i) / 12;
-          const d = this.radius * (0.2 + 0.85 * out) * (0.7 + 0.3 * sin(this.seed + i * 2.3));
-          push();
-          translate(cos(a) * d, sin(a) * d);
-          rotate(a + out * 4);
-          fill(235, 253, 255, 235 * flash);
-          triangle(-10 * flash - 2, -3, 12 * flash + 3, 0, -10 * flash - 2, 3);
-          pop();
-        }
-
-        // the white core, gone almost before it is seen
-        noStroke();
-        fill(255, 255, 255, 230 * flash * flash);
-        circle(0, 0, this.radius * 0.9 * flash + 18);
-      }
-
-      blendMode(BLEND);
-      pop();
-    }
-
-    /** A three-point curve as a polyline — p5's `curve` needs guide points. */
-    _curve(ax: number, ay: number, mx: number, my: number, bx: number, by: number) {
+    // air being drawn inward: each streak starts outside the ring and is pulled
+    // to the centre, so the gathering has a direction
+    for (let i = 0; i < R_VORTEX_STREAKS; i++) {
+      const a = this.seed + (TWO_PI * i) / R_VORTEX_STREAKS + this.gatherAge / 300;
+      const outer =
+        this.radius * (1.15 - 0.35 * ((this.gatherAge / 420 + i / R_VORTEX_STREAKS) % 1));
+      const inner = outer * 0.55;
+      stroke(185, 240, 255, 130 * (0.4 + 0.6 * t));
+      strokeWeight(2);
       beginShape();
-      for (let s = 0; s <= 8; s++) {
-        const p = s / 8;
-        const inv = 1 - p;
-        vertex(
-          inv * inv * ax + 2 * inv * p * mx + p * p * bx,
-          inv * inv * ay + 2 * inv * p * my + p * p * by
-        );
+      for (let s = 0; s <= 4; s++) {
+        const p = s / 4;
+        const bend = a + p * 0.5;
+        const rr = lerp(outer, inner, p);
+        vertex(cos(bend) * rr, sin(bend) * rr);
       }
       endShape();
     }
 
-    getDisplayBoundingBox() {
-      // The vortex sits on `position`, but the tethers run all the way back to
-      // Yasuo — the box has to contain both ends or the whole effect is culled
-      // the moment the camera drifts off the landing spot.
-      let minX = Math.min(this.position.x, this.owner.position.x);
-      let minY = Math.min(this.position.y, this.owner.position.y);
-      let maxX = Math.max(this.position.x, this.owner.position.x);
-      let maxY = Math.max(this.position.y, this.owner.position.y);
+    blendMode(BLEND);
+    pop();
+  }
 
-      for (const victim of this.victims) {
-        if (!victim?.position) continue;
-        minX = Math.min(minX, victim.position.x);
-        minY = Math.min(minY, victim.position.y);
-        maxX = Math.max(maxX, victim.position.x);
-        maxY = Math.max(maxY, victim.position.y);
+  /** The landing, and the second the victims spend hanging over it. */
+  _drawBurst() {
+    const flash = 1 - constrain(this.burstAge / R_BURST_MS, 0, 1);
+    const held = constrain(this.burstAge / (this.holdTime + R_BURST_MS), 0, 1);
+    const fade = 1 - held;
+
+    push();
+    blendMode(ADD);
+
+    // Tethers: the wind Yasuo is holding each body up with. Curved, so they
+    // read as air rather than as a targeting line, and drawn here rather than
+    // in the buff because they span the distance between two units.
+    noFill();
+    strokeCap(ROUND);
+    for (const victim of this.victims) {
+      if (!victim || victim.isDead || victim.toRemove) continue;
+      const ax = this.owner.position.x;
+      const ay = this.owner.position.y;
+      const bx = victim.position.x;
+      const by = victim.position.y;
+      // bow the tether perpendicular to itself, alternating with time
+      const dx = bx - ax;
+      const dy = by - ay;
+      const length = Math.hypot(dx, dy) || 1;
+      const bow = 0.16 * length * sin(this.burstAge / 160 + victim.position.x * 0.01);
+      const mx = (ax + bx) / 2 - (dy / length) * bow;
+      const my = (ay + by) / 2 + (dx / length) * bow;
+
+      stroke(150, 225, 255, 120 * fade);
+      strokeWeight(5 * fade + 1);
+      this._curve(ax, ay, mx, my, bx, by);
+      stroke(240, 255, 255, 200 * fade);
+      strokeWeight(2 * fade + 0.8);
+      this._curve(ax, ay, mx, my, bx, by);
+    }
+
+    translate(this.position.x, this.position.y);
+
+    // The standing vortex, turning where the blade landed.
+    for (let i = 0; i < R_VORTEX_STREAKS; i++) {
+      const a = this.seed + (TWO_PI * i) / R_VORTEX_STREAKS - this.burstAge / 220;
+      const rr = this.radius * (0.35 + 0.6 * ((i / R_VORTEX_STREAKS + this.burstAge / 900) % 1));
+      stroke(175, 238, 255, 150 * fade);
+      strokeWeight(2.5);
+      beginShape();
+      for (let s = 0; s <= 4; s++) {
+        const p = s / 4;
+        const bend = a - p * 0.7;
+        vertex(cos(bend) * rr * (1 - 0.25 * p), sin(bend) * rr * (1 - 0.25 * p));
+      }
+      endShape();
+    }
+
+    // the boundary of what was actually lifted, still legible while it holds
+    stroke(160, 230, 255, 130 * fade);
+    strokeWeight(3 * fade + 1);
+    circle(0, 0, this.radius * 2);
+
+    // Shock rings leaving the point of impact — these are the landing itself,
+    // and they exist only in the first fraction of a second of it.
+    if (flash > 0) {
+      const out = 1 - flash;
+      stroke(230, 250, 255, 235 * flash);
+      strokeWeight(11 * flash + 2);
+      circle(0, 0, this.radius * 2 * (0.15 + 0.95 * out));
+      stroke(255, 255, 255, 200 * flash);
+      strokeWeight(4 * flash + 1);
+      circle(0, 0, this.radius * 2 * (0.05 + 0.65 * out));
+
+      // steel debris thrown out of the strike, tumbling as it goes
+      noStroke();
+      for (let i = 0; i < 12; i++) {
+        const a = this.seed + (TWO_PI * i) / 12;
+        const d = this.radius * (0.2 + 0.85 * out) * (0.7 + 0.3 * sin(this.seed + i * 2.3));
+        push();
+        translate(cos(a) * d, sin(a) * d);
+        rotate(a + out * 4);
+        fill(235, 253, 255, 235 * flash);
+        triangle(-10 * flash - 2, -3, 12 * flash + 3, 0, -10 * flash - 2, 3);
+        pop();
       }
 
-      const pad = this.radius * 1.25;
-      return new Rectangle({
-        x: minX - pad,
-        y: minY - pad,
-        w: maxX - minX + pad * 2,
-        h: maxY - minY + pad * 2,
-        data: this,
-      });
+      // the white core, gone almost before it is seen
+      noStroke();
+      fill(255, 255, 255, 230 * flash * flash);
+      circle(0, 0, this.radius * 0.9 * flash + 18);
     }
+
+    blendMode(BLEND);
+    pop();
   }
-  return Yasuo_R_Object;
-});
+
+  /** A three-point curve as a polyline — p5's `curve` needs guide points. */
+  _curve(ax: number, ay: number, mx: number, my: number, bx: number, by: number) {
+    beginShape();
+    for (let s = 0; s <= 8; s++) {
+      const p = s / 8;
+      const inv = 1 - p;
+      vertex(
+        inv * inv * ax + 2 * inv * p * mx + p * p * bx,
+        inv * inv * ay + 2 * inv * p * my + p * p * by
+      );
+    }
+    endShape();
+  }
+
+  getDisplayBoundingBox() {
+    // The vortex sits on `position`, but the tethers run all the way back to
+    // Yasuo — the box has to contain both ends or the whole effect is culled
+    // the moment the camera drifts off the landing spot.
+    let minX = Math.min(this.position.x, this.owner.position.x);
+    let minY = Math.min(this.position.y, this.owner.position.y);
+    let maxX = Math.max(this.position.x, this.owner.position.x);
+    let maxY = Math.max(this.position.y, this.owner.position.y);
+
+    for (const victim of this.victims) {
+      if (!victim?.position) continue;
+      minX = Math.min(minX, victim.position.x);
+      minY = Math.min(minY, victim.position.y);
+      maxX = Math.max(maxX, victim.position.x);
+      maxY = Math.max(maxY, victim.position.y);
+    }
+
+    const pad = this.radius * 1.25;
+    return new Rectangle({
+      x: minX - pad,
+      y: minY - pad,
+      w: maxX - minX + pad * 2,
+      h: maxY - minY + pad * 2,
+      data: this,
+    });
+  }
+}

@@ -1,8 +1,14 @@
-import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content/types';
-import { packClass, type Instance } from '../packClass';
+import { api } from '../packApi';
 
-type Moonlight = Instance<typeof makeMoonlight>;
+const Buff = api.buffs.Buff;
+const effectiveRange = api.combat.Reach.effectiveRange;
+const Spell = api.Spell;
+const Circle = api.utils.Quadtree.Circle;
+const Rectangle = api.utils.Quadtree.Rectangle;
+const PredefinedFilters = api.combat.PredefinedFilters;
+const SpellObject = api.SpellObject;
+
 
 
 
@@ -74,386 +80,358 @@ export function drawCrescent(
  * because Diana_E's cooldown reset reads exactly this buff and the player has to be able
  * to pick the marked target out of a fight without opening the HUD.
  */
-export const makeMoonlight = packClass((api: ContentApi) => {
-  const Buff = api.buffs.Buff;
-  class Moonlight extends Buff {
-    name = 'Ánh Trăng';
-    description = 'Bị đánh dấu bởi ánh trăng của Diana.';
-    image = api.asset('spell_diana_q');
+export class Moonlight extends Buff {
+  name = 'Ánh Trăng';
+  description = 'Bị đánh dấu bởi ánh trăng của Diana.';
+  image = api.asset('spell_diana_q');
 
-    draw(): void {
-      const victim = this.targetUnit;
-      if (!victim) return;
-      const spent = constrain(this.timeElapsed / Math.max(this.duration, 1), 0, 1);
-      const spin = (this.timeElapsed / 1100) * TWO_PI;
-      const bob = sin(this.timeElapsed / 260) * 3;
-      const lift = 24 + (victim.animatedValues?.displaySize ?? 40) * 0.5;
-      const shade = 235 * (1 - spent * 0.4);
+  draw(): void {
+    const victim = this.targetUnit;
+    if (!victim) return;
+    const spent = constrain(this.timeElapsed / Math.max(this.duration, 1), 0, 1);
+    const spin = (this.timeElapsed / 1100) * TWO_PI;
+    const bob = sin(this.timeElapsed / 260) * 3;
+    const lift = 24 + (victim.animatedValues?.displaySize ?? 40) * 0.5;
+    const shade = 235 * (1 - spent * 0.4);
 
-      push();
-      translate(victim.position.x, victim.position.y - lift + bob);
-      rotate(spin);
-      noFill();
-      drawCrescent(0, 0, 12, 0, Math.PI * 1.1, 5, MOON_PALE, shade);
-      drawCrescent(0, 0, 8, 0, Math.PI * 0.8, 2.5, MOON_CORE, shade * 0.8);
-      pop();
-    }
+    push();
+    translate(victim.position.x, victim.position.y - lift + bob);
+    rotate(spin);
+    noFill();
+    drawCrescent(0, 0, 12, 0, Math.PI * 1.1, 5, MOON_PALE, shade);
+    drawCrescent(0, 0, 8, 0, Math.PI * 0.8, 2.5, MOON_CORE, shade * 0.8);
+    pop();
   }
-  return Moonlight;
-});
+}
 
 
 /** The live mark on a unit, or null. A plain loop: filter cannot narrow here. */
-export const makeMoonlightOn = packClass((api: ContentApi) => {
-  const Moonlight = makeMoonlight(api);
-  function moonlightOn(unit: AttackableUnit): Moonlight | null {
-    const carried = unit.buffs;
-    for (let i = 0; i < carried.length; i++) {
-      const buff = carried[i];
-      if (buff instanceof Moonlight && !buff.toRemove) return buff;
-    }
-    return null;
+export function moonlightOn(unit: AttackableUnit): Moonlight | null {
+  const carried = unit.buffs;
+  for (let i = 0; i < carried.length; i++) {
+    const buff = carried[i];
+    if (buff instanceof Moonlight && !buff.toRemove) return buff;
   }
-  return moonlightOn;
-});
+  return null;
+}
 
 
-export const makeDiana_Q = packClass((api: ContentApi) => {
-  const effectiveRange = api.combat.Reach.effectiveRange;
-  const Spell = api.Spell;
-  const Diana_Q_Sweep = makeDiana_Q_Sweep(api);
-  class Diana_Q extends Spell {
-    image = api.asset('spell_diana_q');
-    name = 'Trăng Lưỡi Liềm (Diana_Q)';
-    description = `Bắn ra một vệt ánh trăng hình lưỡi liềm uốn lượn tới điểm chỉ định, gây
-      <span class="damage">${Q_DAMAGE} sát thương</span> cho kẻ địch trên đường bay và tại điểm đích,
-      đồng thời đánh dấu Ánh Trăng trong ${MOONLIGHT_MS / 1000} giây.`;
-    coolDown = 8_000;
-    manaCost = 30;
-    range = Q_RADIUS;
+export default class Diana_Q extends Spell {
+  image = api.asset('spell_diana_q');
+  name = 'Trăng Lưỡi Liềm (Diana_Q)';
+  description = `Bắn ra một vệt ánh trăng hình lưỡi liềm uốn lượn tới điểm chỉ định, gây
+    <span class="damage">${Q_DAMAGE} sát thương</span> cho kẻ địch trên đường bay và tại điểm đích,
+    đồng thời đánh dấu Ánh Trăng trong ${MOONLIGHT_MS / 1000} giây.`;
+  coolDown = 8_000;
+  manaCost = 30;
+  range = Q_RADIUS;
 
-    get castSpec(): Readonly<CastSpec> {
-      return {
-        activation: 'PRESS',
-        targeting: 'DIRECTION',
-        castTimeMs: Q_WINDUP_MS,
-        resource: { commitAt: 'start', refundOn: [] },
-        cooldown: { startAt: 'release', durationMs: this.coolDown },
-      };
-    }
+  get castSpec(): Readonly<CastSpec> {
+    return {
+      activation: 'PRESS',
+      targeting: 'DIRECTION',
+      castTimeMs: Q_WINDUP_MS,
+      resource: { commitAt: 'start', refundOn: [] },
+      cooldown: { startAt: 'release', durationMs: this.coolDown },
+    };
+  }
 
-    onSpellCast(context?: CastContext): void {
-      const origin = { x: this.owner.position.x, y: this.owner.position.y };
-      let aimX = 1;
-      let aimY = 0;
-      let dist = this.range;
+  onSpellCast(context?: CastContext): void {
+    const origin = { x: this.owner.position.x, y: this.owner.position.y };
+    let aimX = 1;
+    let aimY = 0;
+    let dist = this.range;
 
-      if (context) {
-        const aim = this.firingDirection(context);
-        aimX = aim.x;
-        aimY = aim.y;
-        const cursorX = context.cursorWorld?.x ?? origin.x + aimX * this.range;
-        const cursorY = context.cursorWorld?.y ?? origin.y + aimY * this.range;
-        const span = Math.hypot(cursorX - origin.x, cursorY - origin.y);
-        dist = Math.min(Math.max(span, 100), effectiveRange(this.range, this.owner));
-      } else {
-        const heading = this.owner.direction;
-        if (heading && (heading.x !== 0 || heading.y !== 0)) {
-          aimX = heading.x;
-          aimY = heading.y;
-        }
+    if (context) {
+      const aim = this.firingDirection(context);
+      aimX = aim.x;
+      aimY = aim.y;
+      const cursorX = context.cursorWorld?.x ?? origin.x + aimX * this.range;
+      const cursorY = context.cursorWorld?.y ?? origin.y + aimY * this.range;
+      const span = Math.hypot(cursorX - origin.x, cursorY - origin.y);
+      dist = Math.min(Math.max(span, 100), effectiveRange(this.range, this.owner));
+    } else {
+      const heading = this.owner.direction;
+      if (heading && (heading.x !== 0 || heading.y !== 0)) {
+        aimX = heading.x;
+        aimY = heading.y;
       }
-
-      const headingAngle = Math.atan2(aimY, aimX);
-      const target = {
-        x: origin.x + Math.cos(headingAngle) * dist,
-        y: origin.y + Math.sin(headingAngle) * dist,
-      };
-
-      const sweep = new Diana_Q_Sweep(this.owner, origin, target);
-      this.game.objectManager.addObject(sweep);
     }
 
-    drawPreview(): void {
-      super.drawPreview(effectiveRange(this.range, this.owner));
-    }
+    const headingAngle = Math.atan2(aimY, aimX);
+    const target = {
+      x: origin.x + Math.cos(headingAngle) * dist,
+      y: origin.y + Math.sin(headingAngle) * dist,
+    };
+
+    const sweep = new Diana_Q_Sweep(this.owner, origin, target);
+    this.game.objectManager.addObject(sweep);
   }
-  return Diana_Q;
-});
-export default makeDiana_Q;
+
+  drawPreview(): void {
+    super.drawPreview(effectiveRange(this.range, this.owner));
+  }
+}
 
 
 /**
  * The crescent projectile. Curves from Diana's launch position to the target destination
  * along a quadratic Bézier path, leaving a luminous moonlight trail and detonating at the tip.
  */
-export const makeDiana_Q_Sweep = packClass((api: ContentApi) => {
-  const Circle = api.utils.Quadtree.Circle;
-  const Rectangle = api.utils.Quadtree.Rectangle;
-  const PredefinedFilters = api.combat.PredefinedFilters;
-  const SpellObject = api.SpellObject;
-  const Moonlight = makeMoonlight(api);
-  const Diana_Q_Cut = makeDiana_Q_Cut(api);
-  class Diana_Q_Sweep extends SpellObject {
-    age = 0;
-    readonly p0: { x: number; y: number };
-    readonly p1: { x: number; y: number };
-    readonly p2: { x: number; y: number };
-    private readonly cut = new Set<AttackableUnit>();
-    private motes: { t: number; radial: number; phase: number }[] = [];
-    private detonated = false;
+export class Diana_Q_Sweep extends SpellObject {
+  age = 0;
+  readonly p0: { x: number; y: number };
+  readonly p1: { x: number; y: number };
+  readonly p2: { x: number; y: number };
+  private readonly cut = new Set<AttackableUnit>();
+  private motes: { t: number; radial: number; phase: number }[] = [];
+  private detonated = false;
 
-    constructor(owner: AttackableUnit, p0: { x: number; y: number }, p2: { x: number; y: number }) {
-      super(owner);
-      this.p0 = p0;
-      this.p2 = p2;
-      this.position = createVector(p0.x, p0.y);
+  constructor(owner: AttackableUnit, p0: { x: number; y: number }, p2: { x: number; y: number }) {
+    super(owner);
+    this.p0 = p0;
+    this.p2 = p2;
+    this.position = createVector(p0.x, p0.y);
 
-      const dx = p2.x - p0.x;
-      const dy = p2.y - p0.y;
-      const dist = Math.hypot(dx, dy) || 1;
-      // Perpendicular normal pointing outward to the right
-      const nx = -dy / dist;
-      const ny = dx / dist;
-      const midX = (p0.x + p2.x) / 2;
-      const midY = (p0.y + p2.y) / 2;
-      // Deep semicircular crescent curve
-      const bow = dist * 1.0;
-      this.p1 = { x: midX + nx * bow, y: midY + ny * bow };
-    }
+    const dx = p2.x - p0.x;
+    const dy = p2.y - p0.y;
+    const dist = Math.hypot(dx, dy) || 1;
+    // Perpendicular normal pointing outward to the right
+    const nx = -dy / dist;
+    const ny = dx / dist;
+    const midX = (p0.x + p2.x) / 2;
+    const midY = (p0.y + p2.y) / 2;
+    // Deep semicircular crescent curve
+    const bow = dist * 1.0;
+    this.p1 = { x: midX + nx * bow, y: midY + ny * bow };
+  }
 
-    pointAt(t: number): { x: number; y: number } {
-      const k = constrain(t, 0, 1);
-      const u = 1 - k;
-      return {
-        x: u * u * this.p0.x + 2 * u * k * this.p1.x + k * k * this.p2.x,
-        y: u * u * this.p0.y + 2 * u * k * this.p1.y + k * k * this.p2.y,
-      };
-    }
+  pointAt(t: number): { x: number; y: number } {
+    const k = constrain(t, 0, 1);
+    const u = 1 - k;
+    return {
+      x: u * u * this.p0.x + 2 * u * k * this.p1.x + k * k * this.p2.x,
+      y: u * u * this.p0.y + 2 * u * k * this.p1.y + k * k * this.p2.y,
+    };
+  }
 
-    tangentAt(t: number): number {
-      const k = constrain(t, 0, 1);
-      const u = 1 - k;
-      const dx = 2 * u * (this.p1.x - this.p0.x) + 2 * k * (this.p2.x - this.p1.x);
-      const dy = 2 * u * (this.p1.y - this.p0.y) + 2 * k * (this.p2.y - this.p1.y);
-      return Math.atan2(dy, dx);
-    }
+  tangentAt(t: number): number {
+    const k = constrain(t, 0, 1);
+    const u = 1 - k;
+    const dx = 2 * u * (this.p1.x - this.p0.x) + 2 * k * (this.p2.x - this.p1.x);
+    const dy = 2 * u * (this.p1.y - this.p0.y) + 2 * k * (this.p2.y - this.p1.y);
+    return Math.atan2(dy, dx);
+  }
 
-    onAdded(): void {
-      for (let i = 0; i < 18; i++) {
-        this.motes.push({
-          t: random(0.05, 0.95),
-          radial: random(-Q_BAND * 0.4, Q_BAND * 0.4),
-          phase: random(0, TWO_PI),
-        });
-      }
-    }
-
-    update(): void {
-      this.age += deltaTime;
-      const progress = Math.min(this.age / Q_SWEEP_MS, 1);
-      this.applyCuts(progress);
-
-      if (progress >= 1 && !this.detonated) {
-        this.detonated = true;
-        this.detonate();
-      }
-
-      if (this.age >= Q_SWEEP_MS + Q_FADE_MS) this.toRemove = true;
-    }
-
-    private applyCuts(progress: number): void {
-      if (progress <= 0) return;
-
-      const sampleCount = Math.max(4, Math.floor(progress * 24));
-      const sampledPoints: { x: number; y: number }[] = [];
-      for (let i = 0; i <= sampleCount; i++) {
-        sampledPoints.push(this.pointAt((i / sampleCount) * progress));
-      }
-
-      const currentHead = sampledPoints[sampledPoints.length - 1];
-      this.position.set(currentHead.x, currentHead.y);
-
-      const candidates = this.game.objectManager.queryObjects({
-        area: new Circle({
-          x: currentHead.x,
-          y: currentHead.y,
-          r: Q_BAND + 80,
-        }),
-        filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
-      }) as AttackableUnit[];
-
-      for (const victim of candidates) {
-        if (this.cut.has(victim) || victim.isDead || victim.toRemove) continue;
-
-        let minDistance = Number.POSITIVE_INFINITY;
-        for (const pt of sampledPoints) {
-          const d = Math.hypot(victim.position.x - pt.x, victim.position.y - pt.y);
-          if (d < minDistance) minDistance = d;
-        }
-
-        if (minDistance <= Q_BAND + (victim.collisionRadius || 20)) {
-          this.cut.add(victim);
-          victim.takeDamage(Q_DAMAGE, this.owner);
-          victim.addBuff(new Moonlight(MOONLIGHT_MS, this.owner, victim));
-          this.game.objectManager.addObject(new Diana_Q_Cut(this.owner, victim.position.copy()));
-        }
-      }
-    }
-
-    private detonate(): void {
-      this.game.objectManager.addObject(
-        new Diana_Q_Cut(this.owner, createVector(this.p2.x, this.p2.y))
-      );
-
-      const victims = this.game.objectManager.queryObjects({
-        area: new Circle({
-          x: this.p2.x,
-          y: this.p2.y,
-          r: Q_CUT_RADIUS + 20,
-        }),
-        filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
-      }) as AttackableUnit[];
-
-      for (const victim of victims) {
-        if (this.cut.has(victim) || victim.isDead || victim.toRemove) continue;
-        this.cut.add(victim);
-        victim.takeDamage(Q_DAMAGE, this.owner);
-        victim.addBuff(new Moonlight(MOONLIGHT_MS, this.owner, victim));
-      }
-    }
-
-    draw(): void {
-      const progress = Math.min(this.age / Q_SWEEP_MS, 1);
-      const tail =
-        this.age <= Q_SWEEP_MS ? 1 : constrain(1 - (this.age - Q_SWEEP_MS) / Q_FADE_MS, 0, 1);
-      if (tail <= 0) return;
-
-      push();
-      noFill();
-
-      // 1. Draw glowing crescent moonlight corridor along the Bézier curve
-      const samples = 28;
-      const stepCount = Math.max(2, Math.floor(progress * samples));
-
-      // Outer soft lunar aura
-      stroke(MOON_CORE[0], MOON_CORE[1], MOON_CORE[2], 90 * tail);
-      strokeWeight(14);
-      beginShape();
-      for (let i = 0; i <= stepCount; i++) {
-        const pt = this.pointAt((i / samples) * progress);
-        vertex(pt.x, pt.y);
-      }
-      endShape();
-
-      // Inner bright beam
-      stroke(MOON_PALE[0], MOON_PALE[1], MOON_PALE[2], 220 * tail);
-      strokeWeight(4.5);
-      beginShape();
-      for (let i = 0; i <= stepCount; i++) {
-        const pt = this.pointAt((i / samples) * progress);
-        vertex(pt.x, pt.y);
-      }
-      endShape();
-
-      // 2. Sparkling motes along the path
-      for (const mote of this.motes) {
-        if (mote.t > progress) continue;
-        const pt = this.pointAt(mote.t);
-        const angle = this.tangentAt(mote.t) + HALF_PI;
-        const mx = pt.x + Math.cos(angle) * mote.radial;
-        const my = pt.y + Math.sin(angle) * mote.radial;
-        const twinkle = 0.4 + 0.6 * Math.abs(sin(mote.phase + this.age / 110));
-        stroke(MOON_PALE[0], MOON_PALE[1], MOON_PALE[2], 200 * tail * twinkle);
-        strokeWeight(2.5);
-        point(mx, my);
-      }
-
-      // 3. Leading crescent blade at head
-      const headPt = this.pointAt(progress);
-      const headAngle = this.tangentAt(progress);
-      const bow = 28;
-
-      push();
-      translate(headPt.x, headPt.y);
-      rotate(headAngle);
-      // Outer crescent
-      drawCrescent(0, 0, bow, 0, 1.6, 9, MOON_PALE, 250 * tail);
-      drawCrescent(0, 0, bow - 6, 0, 1.2, 5, MOON_CORE, 230 * tail);
-      // Glowing lunar star core
-      fill(255, 255, 255, 240 * tail);
-      noStroke();
-      circle(0, 0, 8);
-      pop();
-
-      pop();
-    }
-
-    getDisplayBoundingBox() {
-      const minX = Math.min(this.p0.x, this.p1.x, this.p2.x) - Q_BAND - 50;
-      const maxX = Math.max(this.p0.x, this.p1.x, this.p2.x) + Q_BAND + 50;
-      const minY = Math.min(this.p0.y, this.p1.y, this.p2.y) - Q_BAND - 50;
-      const maxY = Math.max(this.p0.y, this.p1.y, this.p2.y) + Q_BAND + 50;
-      return new Rectangle({
-        x: minX,
-        y: minY,
-        w: maxX - minX,
-        h: maxY - minY,
-        data: this,
+  onAdded(): void {
+    for (let i = 0; i < 18; i++) {
+      this.motes.push({
+        t: random(0.05, 0.95),
+        radial: random(-Q_BAND * 0.4, Q_BAND * 0.4),
+        phase: random(0, TWO_PI),
       });
     }
   }
-  return Diana_Q_Sweep;
-});
+
+  update(): void {
+    this.age += deltaTime;
+    const progress = Math.min(this.age / Q_SWEEP_MS, 1);
+    this.applyCuts(progress);
+
+    if (progress >= 1 && !this.detonated) {
+      this.detonated = true;
+      this.detonate();
+    }
+
+    if (this.age >= Q_SWEEP_MS + Q_FADE_MS) this.toRemove = true;
+  }
+
+  private applyCuts(progress: number): void {
+    if (progress <= 0) return;
+
+    const sampleCount = Math.max(4, Math.floor(progress * 24));
+    const sampledPoints: { x: number; y: number }[] = [];
+    for (let i = 0; i <= sampleCount; i++) {
+      sampledPoints.push(this.pointAt((i / sampleCount) * progress));
+    }
+
+    const currentHead = sampledPoints[sampledPoints.length - 1];
+    this.position.set(currentHead.x, currentHead.y);
+
+    const candidates = this.game.objectManager.queryObjects({
+      area: new Circle({
+        x: currentHead.x,
+        y: currentHead.y,
+        r: Q_BAND + 80,
+      }),
+      filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
+    }) as AttackableUnit[];
+
+    for (const victim of candidates) {
+      if (this.cut.has(victim) || victim.isDead || victim.toRemove) continue;
+
+      let minDistance = Number.POSITIVE_INFINITY;
+      for (const pt of sampledPoints) {
+        const d = Math.hypot(victim.position.x - pt.x, victim.position.y - pt.y);
+        if (d < minDistance) minDistance = d;
+      }
+
+      if (minDistance <= Q_BAND + (victim.collisionRadius || 20)) {
+        this.cut.add(victim);
+        victim.takeDamage(Q_DAMAGE, this.owner);
+        victim.addBuff(new Moonlight(MOONLIGHT_MS, this.owner, victim));
+        this.game.objectManager.addObject(new Diana_Q_Cut(this.owner, victim.position.copy()));
+      }
+    }
+  }
+
+  private detonate(): void {
+    this.game.objectManager.addObject(
+      new Diana_Q_Cut(this.owner, createVector(this.p2.x, this.p2.y))
+    );
+
+    const victims = this.game.objectManager.queryObjects({
+      area: new Circle({
+        x: this.p2.x,
+        y: this.p2.y,
+        r: Q_CUT_RADIUS + 20,
+      }),
+      filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
+    }) as AttackableUnit[];
+
+    for (const victim of victims) {
+      if (this.cut.has(victim) || victim.isDead || victim.toRemove) continue;
+      this.cut.add(victim);
+      victim.takeDamage(Q_DAMAGE, this.owner);
+      victim.addBuff(new Moonlight(MOONLIGHT_MS, this.owner, victim));
+    }
+  }
+
+  draw(): void {
+    const progress = Math.min(this.age / Q_SWEEP_MS, 1);
+    const tail =
+      this.age <= Q_SWEEP_MS ? 1 : constrain(1 - (this.age - Q_SWEEP_MS) / Q_FADE_MS, 0, 1);
+    if (tail <= 0) return;
+
+    push();
+    noFill();
+
+    // 1. Draw glowing crescent moonlight corridor along the Bézier curve
+    const samples = 28;
+    const stepCount = Math.max(2, Math.floor(progress * samples));
+
+    // Outer soft lunar aura
+    stroke(MOON_CORE[0], MOON_CORE[1], MOON_CORE[2], 90 * tail);
+    strokeWeight(14);
+    beginShape();
+    for (let i = 0; i <= stepCount; i++) {
+      const pt = this.pointAt((i / samples) * progress);
+      vertex(pt.x, pt.y);
+    }
+    endShape();
+
+    // Inner bright beam
+    stroke(MOON_PALE[0], MOON_PALE[1], MOON_PALE[2], 220 * tail);
+    strokeWeight(4.5);
+    beginShape();
+    for (let i = 0; i <= stepCount; i++) {
+      const pt = this.pointAt((i / samples) * progress);
+      vertex(pt.x, pt.y);
+    }
+    endShape();
+
+    // 2. Sparkling motes along the path
+    for (const mote of this.motes) {
+      if (mote.t > progress) continue;
+      const pt = this.pointAt(mote.t);
+      const angle = this.tangentAt(mote.t) + HALF_PI;
+      const mx = pt.x + Math.cos(angle) * mote.radial;
+      const my = pt.y + Math.sin(angle) * mote.radial;
+      const twinkle = 0.4 + 0.6 * Math.abs(sin(mote.phase + this.age / 110));
+      stroke(MOON_PALE[0], MOON_PALE[1], MOON_PALE[2], 200 * tail * twinkle);
+      strokeWeight(2.5);
+      point(mx, my);
+    }
+
+    // 3. Leading crescent blade at head
+    const headPt = this.pointAt(progress);
+    const headAngle = this.tangentAt(progress);
+    const bow = 28;
+
+    push();
+    translate(headPt.x, headPt.y);
+    rotate(headAngle);
+    // Outer crescent
+    drawCrescent(0, 0, bow, 0, 1.6, 9, MOON_PALE, 250 * tail);
+    drawCrescent(0, 0, bow - 6, 0, 1.2, 5, MOON_CORE, 230 * tail);
+    // Glowing lunar star core
+    fill(255, 255, 255, 240 * tail);
+    noStroke();
+    circle(0, 0, 8);
+    pop();
+
+    pop();
+  }
+
+  getDisplayBoundingBox() {
+    const minX = Math.min(this.p0.x, this.p1.x, this.p2.x) - Q_BAND - 50;
+    const maxX = Math.max(this.p0.x, this.p1.x, this.p2.x) + Q_BAND + 50;
+    const minY = Math.min(this.p0.y, this.p1.y, this.p2.y) - Q_BAND - 50;
+    const maxY = Math.max(this.p0.y, this.p1.y, this.p2.y) + Q_BAND + 50;
+    return new Rectangle({
+      x: minX,
+      y: minY,
+      w: maxX - minX,
+      h: maxY - minY,
+      data: this,
+    });
+  }
+}
 
 
 /** The cut, on the body that took it. */
-export const makeDiana_Q_Cut = packClass((api: ContentApi) => {
-  const SpellObject = api.SpellObject;
-  class Diana_Q_Cut extends SpellObject {
-    lifeTime = 300;
-    age = 0;
-    private lean = 0;
+export class Diana_Q_Cut extends SpellObject {
+  lifeTime = 300;
+  age = 0;
+  private lean = 0;
 
-    constructor(owner: AttackableUnit, at: p5.Vector) {
-      super(owner);
-      this.position = at;
-    }
-
-    onAdded(): void {
-      this.lean = random(0, TWO_PI);
-    }
-
-    update(): void {
-      this.age += deltaTime;
-      if (this.age >= this.lifeTime) this.toRemove = true;
-    }
-
-    draw(): void {
-      const t = constrain(this.age / this.lifeTime, 0, 1);
-      const opened = 1 - (1 - t) * (1 - t);
-      push();
-      noFill();
-      // The hard rim sits on the radius the cut really reached.
-      stroke(MOON_PALE[0], MOON_PALE[1], MOON_PALE[2], 220 * (1 - t));
-      strokeWeight(3.5 * (1 - t) + 1);
-      circle(this.position.x, this.position.y, 16 + (Q_CUT_RADIUS * 2 - 16) * opened);
-      drawCrescent(
-        this.position.x,
-        this.position.y,
-        Q_CUT_RADIUS * 0.62 * opened + 6,
-        this.lean,
-        2.1,
-        7 * (1 - t) + 1,
-        MOON_CORE,
-        230 * (1 - t)
-      );
-      pop();
-    }
-
-    getDisplayBoundingBox() {
-      return this.squareDisplayBoundingBox((Q_CUT_RADIUS + 30) * 2);
-    }
+  constructor(owner: AttackableUnit, at: p5.Vector) {
+    super(owner);
+    this.position = at;
   }
-  return Diana_Q_Cut;
-});
+
+  onAdded(): void {
+    this.lean = random(0, TWO_PI);
+  }
+
+  update(): void {
+    this.age += deltaTime;
+    if (this.age >= this.lifeTime) this.toRemove = true;
+  }
+
+  draw(): void {
+    const t = constrain(this.age / this.lifeTime, 0, 1);
+    const opened = 1 - (1 - t) * (1 - t);
+    push();
+    noFill();
+    // The hard rim sits on the radius the cut really reached.
+    stroke(MOON_PALE[0], MOON_PALE[1], MOON_PALE[2], 220 * (1 - t));
+    strokeWeight(3.5 * (1 - t) + 1);
+    circle(this.position.x, this.position.y, 16 + (Q_CUT_RADIUS * 2 - 16) * opened);
+    drawCrescent(
+      this.position.x,
+      this.position.y,
+      Q_CUT_RADIUS * 0.62 * opened + 6,
+      this.lean,
+      2.1,
+      7 * (1 - t) + 1,
+      MOON_CORE,
+      230 * (1 - t)
+    );
+    pop();
+  }
+
+  getDisplayBoundingBox() {
+    return this.squareDisplayBoundingBox((Q_CUT_RADIUS + 30) * 2);
+  }
+}

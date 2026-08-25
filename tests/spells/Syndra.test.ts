@@ -9,24 +9,16 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import { SYNDRA_E_DAMAGE } from '../../spells/Syndra_E';
-import makeSyndra_E, { makeSyndra_E_Sphere } from '../../spells/Syndra_E';
+import Syndra_E, { Syndra_E_Sphere } from '../../spells/Syndra_E';
 import { MAX_SPHERES, SPHERE_GRAB_RADIUS, SPHERE_LIFETIME_MS, SYNDRA_Q_DAMAGE, SYNDRA_Q_FALL_MS } from '../../spells/Syndra_Q';
-import makeSyndra_Q, { makeSyndra_Sphere, makeGroundedSpheres } from '../../spells/Syndra_Q';
+import Syndra_Q, { Syndra_Sphere, groundedSpheres } from '../../spells/Syndra_Q';
 import { SYNDRA_R_BASE, SYNDRA_R_CONVERGE_MS, SYNDRA_R_MAX, SYNDRA_R_PER_SPHERE } from '../../spells/Syndra_R';
-import makeSyndra_R from '../../spells/Syndra_R';
+import Syndra_R from '../../spells/Syndra_R';
 import { SYNDRA_W_DAMAGE } from '../../spells/Syndra_W';
-import makeSyndra_W from '../../spells/Syndra_W';
+import Syndra_W from '../../spells/Syndra_W';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
 type AttackableUnit = InstanceType<typeof __api.units.AttackableUnit>;
-const Syndra_E = makeSyndra_E(__api);
-const Syndra_E_Sphere = makeSyndra_E_Sphere(__api);
-const Syndra_Q = makeSyndra_Q(__api);
-const Syndra_Sphere = makeSyndra_Sphere(__api);
-type Syndra_Sphere = InstanceType<typeof Syndra_Sphere>;
-const groundedSpheres = makeGroundedSpheres(__api);
-const Syndra_R = makeSyndra_R(__api);
-const Syndra_W = makeSyndra_W(__api);
 
 function unit(game: TestGame, x: number, teamId: string): AttackableUnit {
   const result = createUnit(game, x, teamId);
