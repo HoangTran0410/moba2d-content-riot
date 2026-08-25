@@ -1,5 +1,7 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
+// @ts-expect-error — a plain .mjs build helper with no types of its own.
+import { webpAssets } from './scripts/webp-assets.mjs';
 
 /**
  * Not `build.lib` — deliberately. Vite's own asset plugin special-cases lib
@@ -41,6 +43,10 @@ import { resolve } from 'node:path';
  * violation, not a config problem.
  */
 export default defineConfig({
+  // Raster art is re-encoded to WebP on the way into `dist/`, never in
+  // `assets/` — see `scripts/webp-assets.mjs` for why the sources have to stay
+  // byte-identical to what the wiki served.
+  plugins: [webpAssets()],
   // Relative asset URLs, not root-absolute ones. Vite's default `base: '/'`
   // prepends a literal `/` to every `?url` asset path (`/assets/foo.png`),
   // which resolves against the *host page's* origin — exactly the failure
