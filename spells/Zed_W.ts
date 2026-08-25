@@ -1,10 +1,11 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import { packClass } from '../packClass';
 import type { CastContext, KillCredit, Spell } from '@moba2d/core/content/types';
 
 
 // Zed_W / Zed_W_Clone reference each other as real values both ways —
 // see this file's own header comment on the codemod's cycle handling.
-function __group0_Zed_WBuild(api: ContentApi) {
+const group0_Zed_W = packClass((api: ContentApi) => {
   const EventType = api.enums.EventType;
   const StatusFlags = api.enums.StatusFlags;
   const VectorUtils = api.utils.VectorUtils;
@@ -264,21 +265,10 @@ function __group0_Zed_WBuild(api: ContentApi) {
     override move = (): boolean => true; // no movement
   }
   return { Zed_W, Zed_W_Clone };
-}
-const __group0_Zed_WCache = new WeakMap<ContentApi, ReturnType<typeof __group0_Zed_WBuild>>();
-function __group0_Zed_WBuilder(api: ContentApi) {
-  const cached = __group0_Zed_WCache.get(api);
-  if (cached) return cached;
-  const built = __group0_Zed_WBuild(api);
-  __group0_Zed_WCache.set(api, built);
-  return built;
-}
-export default function makeZed_W(api: ContentApi) {
-  return __group0_Zed_WBuilder(api).Zed_W;
-}
-export function makeZed_W_Clone(api: ContentApi) {
-  return __group0_Zed_WBuilder(api).Zed_W_Clone;
-}
+});
+export const makeZed_W = (api: ContentApi) => group0_Zed_W(api).Zed_W;
+export default makeZed_W;
+export const makeZed_W_Clone = (api: ContentApi) => group0_Zed_W(api).Zed_W_Clone;
 
 
 /** One player spell the shadow mimics, plus the state needed to mirror a charge. */

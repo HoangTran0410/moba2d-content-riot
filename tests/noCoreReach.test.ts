@@ -205,7 +205,13 @@ describe("the pack's tests speak only published core surfaces", () => {
     // directory alone — `node:fs`, `node:path`, `vitest` — and reaches core
     // not at all, so the population count moves and the offender count
     // below does not.
-    expect(files.length).toBe(77);
+    //
+    // 78, not 77: `tests/packClassSeam.test.ts`, which scans this repository
+    // for `new WeakMap<ContentApi` — a hand-rolled per-api memo, which
+    // `packClass` replaced 650 times and which four `__group0_*` files kept
+    // because the migration's leftover check matched a name rather than the
+    // thing. It reads `node:fs`/`node:path` and reaches core not at all.
+    expect(files.length).toBe(78);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

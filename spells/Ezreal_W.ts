@@ -19,7 +19,7 @@ export const EZREAL_W_DETONATE_DAMAGE = 26;
 export const EZREAL_W_MANA_REFUND = 30;
 // Ezreal_W / essenceFluxSpell / detonateEssenceFlux / Ezreal_W_Orb / Ezreal_W_Mark reference each other as real values both ways —
 // see this file's own header comment on the codemod's cycle handling.
-function __group0_Ezreal_WBuild(api: ContentApi) {
+const group0_Ezreal_W = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const EventType = api.enums.EventType;
   const MissileSpellObject = api.MissileSpellObject;
@@ -363,30 +363,13 @@ function __group0_Ezreal_WBuild(api: ContentApi) {
     }
   }
   return { Ezreal_W, essenceFluxSpell, detonateEssenceFlux, Ezreal_W_Orb, Ezreal_W_Mark };
-}
-const __group0_Ezreal_WCache = new WeakMap<ContentApi, ReturnType<typeof __group0_Ezreal_WBuild>>();
-function __group0_Ezreal_WBuilder(api: ContentApi) {
-  const cached = __group0_Ezreal_WCache.get(api);
-  if (cached) return cached;
-  const built = __group0_Ezreal_WBuild(api);
-  __group0_Ezreal_WCache.set(api, built);
-  return built;
-}
-export default function makeEzreal_W(api: ContentApi) {
-  return __group0_Ezreal_WBuilder(api).Ezreal_W;
-}
-export function makeEssenceFluxSpell(api: ContentApi) {
-  return __group0_Ezreal_WBuilder(api).essenceFluxSpell;
-}
-export function makeDetonateEssenceFlux(api: ContentApi) {
-  return __group0_Ezreal_WBuilder(api).detonateEssenceFlux;
-}
-export function makeEzreal_W_Orb(api: ContentApi) {
-  return __group0_Ezreal_WBuilder(api).Ezreal_W_Orb;
-}
-export function makeEzreal_W_Mark(api: ContentApi) {
-  return __group0_Ezreal_WBuilder(api).Ezreal_W_Mark;
-}
+});
+export const makeEzreal_W = (api: ContentApi) => group0_Ezreal_W(api).Ezreal_W;
+export default makeEzreal_W;
+export const makeEssenceFluxSpell = (api: ContentApi) => group0_Ezreal_W(api).essenceFluxSpell;
+export const makeDetonateEssenceFlux = (api: ContentApi) => group0_Ezreal_W(api).detonateEssenceFlux;
+export const makeEzreal_W_Orb = (api: ContentApi) => group0_Ezreal_W(api).Ezreal_W_Orb;
+export const makeEzreal_W_Mark = (api: ContentApi) => group0_Ezreal_W(api).Ezreal_W_Mark;
 
 
 /** The detonation — the sigil collapsing inward and then blowing out. */

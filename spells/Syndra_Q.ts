@@ -69,7 +69,7 @@ function distanceBetween(a: { x: number; y: number }, b: { x: number; y: number 
 }
 // SPHERE_REGISTRY / registryFor / Syndra_Sphere reference each other as real values both ways —
 // see this file's own header comment on the codemod's cycle handling.
-function __group0_SPHERE_REGISTRYBuild(api: ContentApi) {
+const group0_SPHERE_REGISTRY = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   /** A sphere in her hand or in flight is over the bodies, not under them. */
@@ -307,24 +307,10 @@ function __group0_SPHERE_REGISTRYBuild(api: ContentApi) {
     }
   }
   return { SPHERE_REGISTRY, registryFor, Syndra_Sphere };
-}
-const __group0_SPHERE_REGISTRYCache = new WeakMap<ContentApi, ReturnType<typeof __group0_SPHERE_REGISTRYBuild>>();
-function __group0_SPHERE_REGISTRYBuilder(api: ContentApi) {
-  const cached = __group0_SPHERE_REGISTRYCache.get(api);
-  if (cached) return cached;
-  const built = __group0_SPHERE_REGISTRYBuild(api);
-  __group0_SPHERE_REGISTRYCache.set(api, built);
-  return built;
-}
-export function makeSPHERE_REGISTRY(api: ContentApi) {
-  return __group0_SPHERE_REGISTRYBuilder(api).SPHERE_REGISTRY;
-}
-export function makeRegistryFor(api: ContentApi) {
-  return __group0_SPHERE_REGISTRYBuilder(api).registryFor;
-}
-export function makeSyndra_Sphere(api: ContentApi) {
-  return __group0_SPHERE_REGISTRYBuilder(api).Syndra_Sphere;
-}
+});
+export const makeSPHERE_REGISTRY = (api: ContentApi) => group0_SPHERE_REGISTRY(api).SPHERE_REGISTRY;
+export const makeRegistryFor = (api: ContentApi) => group0_SPHERE_REGISTRY(api).registryFor;
+export const makeSyndra_Sphere = (api: ContentApi) => group0_SPHERE_REGISTRY(api).Syndra_Sphere;
 
 
 function prune(list: Syndra_Sphere[]): void {

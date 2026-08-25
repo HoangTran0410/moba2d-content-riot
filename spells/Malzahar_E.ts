@@ -147,7 +147,7 @@ export const makeMalzahar_E = packClass((api: ContentApi) => {
 export default makeMalzahar_E;
 // infectWithVisions / Malzahar_E_Object reference each other as real values both ways —
 // see this file's own header comment on the codemod's cycle handling.
-function __group0_Malzahar_E_ObjectBuild(api: ContentApi) {
+const group0_Malzahar_E_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
@@ -308,18 +308,6 @@ function __group0_Malzahar_E_ObjectBuild(api: ContentApi) {
     }
   }
   return { infectWithVisions, Malzahar_E_Object };
-}
-const __group0_Malzahar_E_ObjectCache = new WeakMap<ContentApi, ReturnType<typeof __group0_Malzahar_E_ObjectBuild>>();
-function __group0_Malzahar_E_ObjectBuilder(api: ContentApi) {
-  const cached = __group0_Malzahar_E_ObjectCache.get(api);
-  if (cached) return cached;
-  const built = __group0_Malzahar_E_ObjectBuild(api);
-  __group0_Malzahar_E_ObjectCache.set(api, built);
-  return built;
-}
-export function makeInfectWithVisions(api: ContentApi) {
-  return __group0_Malzahar_E_ObjectBuilder(api).infectWithVisions;
-}
-export function makeMalzahar_E_Object(api: ContentApi) {
-  return __group0_Malzahar_E_ObjectBuilder(api).Malzahar_E_Object;
-}
+});
+export const makeInfectWithVisions = (api: ContentApi) => group0_Malzahar_E_Object(api).infectWithVisions;
+export const makeMalzahar_E_Object = (api: ContentApi) => group0_Malzahar_E_Object(api).Malzahar_E_Object;
