@@ -1,17 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Ashe_W = InstanceType<ReturnType<typeof makeAshe_W>>;
-type Ashe_W_Frost = InstanceType<ReturnType<typeof makeAshe_W_Frost>>;
-type Ashe_W_Object = InstanceType<ReturnType<typeof makeAshe_W_Object>>;
-
-
-
 /** Windup: each needle draws itself out of the bow rather than blinking in. */
 export const NEEDLE_SPAWN_MS = 90;
 

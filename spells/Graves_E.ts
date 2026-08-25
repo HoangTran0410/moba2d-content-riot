@@ -1,13 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Graves_E = InstanceType<ReturnType<typeof makeGraves_E>>;
-
-
-
 export const DASH_DISTANCE = 250;
 
 export const DASH_SPEED = 20;

@@ -1,14 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Teemo_W = InstanceType<ReturnType<typeof makeTeemo_W>>;
-type Teemo_W_Burst = InstanceType<ReturnType<typeof makeTeemo_W_Burst>>;
-
-
-
 // Exported so the suite asserts the wiring, not a copy of the numbers —
 // retuning a value should not mean editing the test.
 export const SPEED_PERCENT = 0.3;

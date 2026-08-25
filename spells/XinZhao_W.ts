@@ -2,15 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type XinZhao_W = InstanceType<ReturnType<typeof makeXinZhao_W>>;
-type XinZhao_W_Object = InstanceType<ReturnType<typeof makeXinZhao_W_Object>>;
-
-
 
 /** Four quick arcs around him, then the spear goes out in a line. */
 export const XINZHAO_W_SLASH_COUNT = 4;
@@ -81,7 +73,6 @@ export const makeXinZhao_W_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const Slow = api.buffs.Slow;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
-  const AttackableUnit = api.units.AttackableUnit;
   class XinZhao_W_Object extends SpellObject {
     angle: number;
     origin: p5.Vector;

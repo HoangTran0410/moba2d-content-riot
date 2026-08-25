@@ -1,13 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Flash = InstanceType<ReturnType<typeof makeFlash>>;
-type Flash_Object = InstanceType<ReturnType<typeof makeFlash_Object>>;
-
-
-
 export const makeFlash = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
@@ -30,7 +23,7 @@ export const makeFlash = packClass((api: ContentApi) => {
       let maxDistance = 180;
 
       let oldPos = this.owner.position.copy();
-      let { from, to } = VectorUtils.getVectorWithMaxRange(
+      let { to } = VectorUtils.getVectorWithMaxRange(
         this.owner.position,
         this.aimPoint,
         maxDistance

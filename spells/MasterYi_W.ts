@@ -2,12 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type CastBar = InstanceType<ContentApi['vfx']['CastBar']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Shield = InstanceType<ContentApi['buffs']['Shield']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type MasterYi_W = InstanceType<ReturnType<typeof makeMasterYi_W>>;
 type MasterYi_W_Object = InstanceType<ReturnType<typeof makeMasterYi_W_Object>>;
 
 
@@ -140,7 +135,6 @@ export default makeMasterYi_W;
  * standing on it, the slot `Singed_W_Object` already established.
  */
 export const makeMasterYi_W_Object = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class MasterYi_W_Object extends SpellObject {

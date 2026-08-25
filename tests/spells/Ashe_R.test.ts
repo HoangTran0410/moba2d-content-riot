@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { buildTestApi } from '@moba2d/core/testing';
 import type { CastContext } from '@moba2d/core/content/types';
-import { DAMAGE, EXPLODE_RADIUS, FULL_POWER_DISTANCE, MAX_SPEED, MAX_STUN_MS, MAX_TRAVEL, MIN_STUN_MS, SIZE, SPEED } from '../../spells/Ashe_R';
+import { DAMAGE, EXPLODE_RADIUS, FULL_POWER_DISTANCE, MAX_SPEED, MAX_STUN_MS, MAX_TRAVEL, MIN_STUN_MS, SPEED } from '../../spells/Ashe_R';
 import makeAshe_R, { makeAshe_R_Object } from '../../spells/Ashe_R';
 const __api = buildTestApi();
 const Ashe_R = makeAshe_R(__api);

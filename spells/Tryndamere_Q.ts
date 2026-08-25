@@ -3,13 +3,6 @@ import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Tryndamere_Q = InstanceType<ReturnType<typeof makeTryndamere_Q>>;
-type Tryndamere_Q_Object = InstanceType<ReturnType<typeof makeTryndamere_Q_Object>>;
-
-
 
 /** The floor of the heal, paid even at full health. */
 export const TRYNDAMERE_Q_BASE_HEAL = 14;
@@ -93,10 +86,8 @@ export default makeTryndamere_Q;
  * and the player reads its size off how much red comes back.
  */
 export const makeTryndamere_Q_Object = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
-  const AttackableUnit = api.units.AttackableUnit;
   class Tryndamere_Q_Object extends SpellObject {
     age = 0;
     lifeTime = 700;

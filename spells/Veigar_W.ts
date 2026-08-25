@@ -2,13 +2,6 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Veigar_W = InstanceType<ReturnType<typeof makeVeigar_W>>;
-type Veigar_W_Object = InstanceType<ReturnType<typeof makeVeigar_W_Object>>;
-
-
 
 // Exported so the suite asserts the wiring, not a copy of the numbers —
 // retuning a value should not mean editing the test.
@@ -89,7 +82,6 @@ export const makeVeigar_W_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   class Veigar_W_Object extends SpellObject {
     position: p5.Vector = this.owner.position.copy();
     radius = RADIUS;

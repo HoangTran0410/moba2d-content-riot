@@ -5,13 +5,6 @@ import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Shield = InstanceType<ContentApi['buffs']['Shield']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type Renekton_W = InstanceType<ReturnType<typeof makeRenekton_W>>;
-type Renekton_W_Buff = InstanceType<ReturnType<typeof makeRenekton_W_Buff>>;
 type Renekton_W_Object = InstanceType<ReturnType<typeof makeRenekton_W_Object>>;
 
 
@@ -73,7 +66,6 @@ export default makeRenekton_W;
 export const makeRenekton_W_Buff = packClass((api: ContentApi) => {
   const EventType = api.enums.EventType;
   const Buff = api.buffs.Buff;
-  const AttackableUnit = api.units.AttackableUnit;
   const Shield = api.buffs.Shield;
   const Stun = api.buffs.Stun;
   const Renekton_W_Object = makeRenekton_W_Object(api);

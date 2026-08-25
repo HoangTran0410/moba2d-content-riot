@@ -3,14 +3,6 @@ import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Vayne_R = InstanceType<ReturnType<typeof makeVayne_R>>;
-type Vayne_R_Aura = InstanceType<ReturnType<typeof makeVayne_R_Aura>>;
-type Vayne_R_Buff = InstanceType<ReturnType<typeof makeVayne_R_Buff>>;
-
-
 
 /** How long the night stays closed in. */
 export const VAYNE_R_DURATION_MS = 10_000;
@@ -107,8 +99,6 @@ export const makeVayne_R_Buff = packClass((api: ContentApi) => {
  * 600px disc over the feet of everyone standing in it.
  */
 export const makeVayne_R_Aura = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
-  const Buff = api.buffs.Buff;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Vayne_R_Aura extends SpellObject {

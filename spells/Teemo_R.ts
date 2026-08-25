@@ -1,16 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Teemo_R = InstanceType<ReturnType<typeof makeTeemo_R>>;
-type Teemo_R_Buff = InstanceType<ReturnType<typeof makeTeemo_R_Buff>>;
-type Teemo_R_Object = InstanceType<ReturnType<typeof makeTeemo_R_Object>>;
-
-
-
 export const THROW_RANGE = 100;
 
 export const INVISIBLE_AFTER_MS = 1000;

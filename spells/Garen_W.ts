@@ -1,15 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Shield = InstanceType<ContentApi['buffs']['Shield']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Garen_W = InstanceType<ReturnType<typeof makeGaren_W>>;
-type Garen_W_Aegis = InstanceType<ReturnType<typeof makeGaren_W_Aegis>>;
-
-
-
 export const DURATION = 3000;
 
 export const SHIELD_AMOUNT = 70;

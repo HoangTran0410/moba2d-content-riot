@@ -4,14 +4,6 @@ import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Shield = InstanceType<ContentApi['buffs']['Shield']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Riven_E = InstanceType<ReturnType<typeof makeRiven_E>>;
-type Riven_E_Shell = InstanceType<ReturnType<typeof makeRiven_E_Shell>>;
-
-
 
 export const E_DISTANCE = 280;
 
@@ -98,8 +90,6 @@ export default makeRiven_E;
  * Attached to the shield buff, so it drops exactly when the shield does.
  */
 export const makeRiven_E_Shell = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
-  const Buff = api.buffs.Buff;
   const SpellObject = api.SpellObject;
   class Riven_E_Shell extends SpellObject {
     static readonly FACETS = 6;

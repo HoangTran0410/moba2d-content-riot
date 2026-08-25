@@ -3,15 +3,7 @@ import { makeDetonateEssenceFlux } from './Ezreal_W';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
 type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Ezreal_Q = InstanceType<ReturnType<typeof makeEzreal_Q>>;
-type Ezreal_Q_Impact = InstanceType<ReturnType<typeof makeEzreal_Q_Impact>>;
-type Ezreal_Q_Object = InstanceType<ReturnType<typeof makeEzreal_Q_Object>>;
-
-
 
 export const EZREAL_Q_DAMAGE = 24;
 
@@ -97,7 +89,6 @@ export function refundEzrealCooldowns(caster: AttackableUnit): void {
  */
 export const makeEzreal_Q_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const TrailSystem = api.helpers.TrailSystem;
   const detonateEssenceFlux = makeDetonateEssenceFlux(api);
   const Ezreal_Q_Impact = makeEzreal_Q_Impact(api);

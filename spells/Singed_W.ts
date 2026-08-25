@@ -1,16 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Ground = InstanceType<ContentApi['buffs']['Ground']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Singed_W = InstanceType<ReturnType<typeof makeSinged_W>>;
-type Singed_W_Object = InstanceType<ReturnType<typeof makeSinged_W_Object>>;
-
-
-
 /**
  * Mega Adhesive. Pure crowd control: it deals NO damage whatsoever — the
  * poison trail people associate with Singed is his Q, a different ability.

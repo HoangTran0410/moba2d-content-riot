@@ -2,15 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Silence = InstanceType<ContentApi['buffs']['Silence']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Malzahar_Q = InstanceType<ReturnType<typeof makeMalzahar_Q>>;
-type Malzahar_Q_Object = InstanceType<ReturnType<typeof makeMalzahar_Q_Object>>;
-
-
 
 // Exported so the suite asserts the rift's wiring rather than a copy of the
 // numbers — retuning a value must not mean editing a test.
@@ -105,7 +97,6 @@ export const makeMalzahar_Q_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const Silence = api.buffs.Silence;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
-  const AttackableUnit = api.units.AttackableUnit;
   class Malzahar_Q_Object extends SpellObject {
     center: p5.Vector = createVector();
     /** Heading of the line joining the two portals. */

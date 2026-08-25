@@ -1,15 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type AoePulse = InstanceType<ContentApi['AoePulse']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Nasus_W = InstanceType<ReturnType<typeof makeNasus_W>>;
-
-
-
 export const RANGE = 260;
 
 export const SLOW_PERCENT = 0.6;

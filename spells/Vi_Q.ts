@@ -2,17 +2,8 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, Vec2 } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
 type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Vi_Q = InstanceType<ReturnType<typeof makeVi_Q>>;
-type Vi_Q_Impact = InstanceType<ReturnType<typeof makeVi_Q_Impact>>;
-
-
 
 export const Q_MAX_CHARGE_MS = 1_200;
 
@@ -74,7 +65,6 @@ export const makeVi_Q = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellForm = api.enums.SpellForm;
-  const AttackableUnit = api.units.AttackableUnit;
   const Airborne = api.buffs.Airborne;
   const Dash = api.buffs.Dash;
   const Slow = api.buffs.Slow;
@@ -261,7 +251,6 @@ export default makeVi_Q;
  * lines. Painted well past its own centre, so it carries its own box.
  */
 export const makeVi_Q_Impact = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Vi_Q_Impact extends SpellObject {
     lifeTime = 340;

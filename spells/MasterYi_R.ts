@@ -1,14 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Chilled = InstanceType<ContentApi['buffs']['Chilled']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type MasterYi_R = InstanceType<ReturnType<typeof makeMasterYi_R>>;
 type MasterYi_R_Object = InstanceType<ReturnType<typeof makeMasterYi_R_Object>>;
 
 
@@ -98,7 +91,6 @@ export default makeMasterYi_R;
  * player can see and the rule they are relying on end on the same frame.
  */
 export const makeMasterYi_R_Object = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const Chilled = api.buffs.Chilled;
   const Slow = api.buffs.Slow;

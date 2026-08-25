@@ -3,13 +3,6 @@ import type { BasicAttackHit } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Vi_E = InstanceType<ReturnType<typeof makeVi_E>>;
-type Vi_E_Cone = InstanceType<ReturnType<typeof makeVi_E_Cone>>;
-
-
 
 export const E_CHARGES = 2;
 
@@ -50,7 +43,6 @@ export const makeVi_E = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const EventType = api.enums.EventType;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const Spell = api.Spell;
   const Vi_E_Cone = makeVi_E_Cone(api);
   class Vi_E extends Spell {
@@ -268,7 +260,6 @@ export default makeVi_E;
  * out, so this is a SpellObject with a real box rather than caster VFX.
  */
 export const makeVi_E_Cone = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Vi_E_Cone extends SpellObject {

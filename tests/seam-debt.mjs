@@ -124,7 +124,7 @@ const PINNED_MANA_LINES = new Set([
   "spells/Irelia.test.ts:144:expect(owner.stats.mana.baseValue).toBe(manaBefore);",
   "spells/Irelia.test.ts:154:expect(owner.stats.mana.baseValue).toBe(100 - q.manaCost);",
   "spells/Irelia.test.ts:48:result.stats.mana.baseValue = 100;",
-  "spells/Janna_E.test.ts:29:result.stats.mana.baseValue = 10_000;",
+  "spells/Janna_E.test.ts:28:result.stats.mana.baseValue = 10_000;",
   "spells/Janna_Q.test.ts:164:expect(owner.stats.mana.value).toBe(100 - spell.manaCost);",
   "spells/Janna_R.test.ts:223:expect(owner.stats.mana.value).toBe(200 - MANA_COST);",
   "spells/Janna_W.test.ts:177:target.stats.mana.baseValue = 100;",

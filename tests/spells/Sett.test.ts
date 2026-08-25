@@ -14,7 +14,7 @@ import { SETT_Q_BONUS, SETT_Q_HITS } from '../../spells/Sett_Q';
 import makeSett_Q from '../../spells/Sett_Q';
 import { SETT_R_BLAST, SETT_R_SLAM } from '../../spells/Sett_R';
 import makeSett_R, { makeSett_R_Carry } from '../../spells/Sett_R';
-import { SETT_W_BASE, SETT_W_GRIT_DECAY_MS, SETT_W_GRIT_MAX, SETT_W_GRIT_RATIO, SETT_W_GRIT_SCALE } from '../../spells/Sett_W';
+import { SETT_W_BASE, SETT_W_GRIT_RATIO, SETT_W_GRIT_SCALE } from '../../spells/Sett_W';
 import makeSett_W from '../../spells/Sett_W';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;

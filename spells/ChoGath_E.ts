@@ -1,17 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type ChoGath_E = InstanceType<ReturnType<typeof makeChoGath_E>>;
-type ChoGath_E_Gore = InstanceType<ReturnType<typeof makeChoGath_E_Gore>>;
-type ChoGath_E_Object = InstanceType<ReturnType<typeof makeChoGath_E_Object>>;
-
-
-
 export const makeChoGath_E = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;

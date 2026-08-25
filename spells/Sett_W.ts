@@ -3,18 +3,8 @@ import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Shield = InstanceType<ContentApi['buffs']['Shield']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
 type Sett_W = InstanceType<ReturnType<typeof makeSett_W>>;
 type Sett_W_Grit_Bar = InstanceType<ReturnType<typeof makeSett_W_Grit_Bar>>;
-type Sett_W_Grit_Listener = InstanceType<ReturnType<typeof makeSett_W_Grit_Listener>>;
-type Sett_W_Punch = InstanceType<ReturnType<typeof makeSett_W_Punch>>;
-type Sett_W_Telegraph = InstanceType<ReturnType<typeof makeSett_W_Telegraph>>;
-
-
 
 export const SETT_W_GRIT_RATIO = 1.0;
 
@@ -63,7 +53,6 @@ export const makeSett_W = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const Shield = api.buffs.Shield;
   const Spell = api.Spell;
   const Sett_W_Grit_Listener = makeSett_W_Grit_Listener(api);
@@ -266,7 +255,6 @@ export const makeSett_W_Grit_Listener = packClass((api: ContentApi) => {
 
 /** The chunky bar under his feet. Without it the player cannot play W. */
 export const makeSett_W_Grit_Bar = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Sett_W_Grit_Bar extends SpellObject {
     shown = 0;
@@ -323,7 +311,6 @@ export const makeSett_W_Grit_Bar = packClass((api: ContentApi) => {
 
 /** The windup: the cone sector grows to full reach while he pulls the fist back. */
 export const makeSett_W_Telegraph = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Sett_W_Telegraph extends SpellObject {
@@ -390,7 +377,6 @@ export const makeSett_W_Telegraph = packClass((api: ContentApi) => {
  * true-damage laser strip along the center.
  */
 export const makeSett_W_Punch = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Sett_W_Punch extends SpellObject {

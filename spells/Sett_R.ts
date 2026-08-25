@@ -4,18 +4,7 @@ import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TargetResolver = InstanceType<ContentApi['combat']['TargetResolver']>;
 type Untargetable = InstanceType<ContentApi['buffs']['Untargetable']>;
-type Sett_R = InstanceType<ReturnType<typeof makeSett_R>>;
-type Sett_R_Carry = InstanceType<ReturnType<typeof makeSett_R_Carry>>;
-type Sett_R_Crater = InstanceType<ReturnType<typeof makeSett_R_Crater>>;
-
-
 
 export const SETT_R_RANGE = 250;
 
@@ -182,10 +171,7 @@ export const makeSett_R_Carry = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
-  const Airborne = api.buffs.Airborne;
   const Slow = api.buffs.Slow;
-  const Untargetable = api.buffs.Untargetable;
   const SpellObject = api.SpellObject;
   const Sett_R_Crater = makeSett_R_Crater(api);
   class Sett_R_Carry extends SpellObject {
@@ -332,7 +318,6 @@ export const makeSett_R_Carry = packClass((api: ContentApi) => {
  * resolves to SPELL_EFFECT_Z_INDEX instead, over everyone's feet.
  */
 export const makeSett_R_Crater = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Sett_R_Crater extends SpellObject {

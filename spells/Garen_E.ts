@@ -1,17 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Disarm = InstanceType<ContentApi['buffs']['Disarm']>;
-type Phasing = InstanceType<ContentApi['buffs']['Phasing']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Garen_E = InstanceType<ReturnType<typeof makeGaren_E>>;
-type Garen_E_Object = InstanceType<ReturnType<typeof makeGaren_E_Object>>;
-
-
-
 export const RADIUS = 180;
 
 export const DURATION = 3000;

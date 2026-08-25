@@ -4,18 +4,7 @@ import { makeNotifyJannaControlLanded } from './Janna_E';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type HomingMissileSpellObject = InstanceType<ContentApi['HomingMissileSpellObject']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type TargetResolver = InstanceType<ContentApi['combat']['TargetResolver']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Janna_W = InstanceType<ReturnType<typeof makeJanna_W>>;
-type Janna_W_Bolt = InstanceType<ReturnType<typeof makeJanna_W_Bolt>>;
-type Janna_W_Passive = InstanceType<ReturnType<typeof makeJanna_W_Passive>>;
-
-
 
 type ZephyrTarget = AttackableUnit;
 
@@ -189,7 +178,6 @@ export default makeJanna_W;
 
 
 export const makeJanna_W_Bolt = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const Slow = api.buffs.Slow;
   const TrailSystem = api.helpers.TrailSystem;
   const HomingMissileSpellObject = api.HomingMissileSpellObject;

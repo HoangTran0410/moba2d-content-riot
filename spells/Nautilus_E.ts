@@ -2,15 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Nautilus_E = InstanceType<ReturnType<typeof makeNautilus_E>>;
-type Nautilus_E_Object = InstanceType<ReturnType<typeof makeNautilus_E_Object>>;
-
-
 
 export const E_RADII = [130, 220, 310];
 
@@ -88,12 +80,10 @@ export interface NautilusTide {
  */
 export const makeNautilus_E_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const BuffAddType = api.enums.BuffAddType;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const Slow = api.buffs.Slow;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Nautilus_E_Object extends SpellObject {

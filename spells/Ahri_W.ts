@@ -1,16 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
 type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Ahri_W = InstanceType<ReturnType<typeof makeAhri_W>>;
-type Ahri_W_Impact = InstanceType<ReturnType<typeof makeAhri_W_Impact>>;
-type Ahri_W_Object = InstanceType<ReturnType<typeof makeAhri_W_Object>>;
-
-
 
 /** Embers riding each wisp. Three fires × three embers is the nine-tail count. */
 export const EMBERS_PER_FIRE = 3;

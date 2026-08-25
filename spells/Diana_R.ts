@@ -1,16 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { MOON_CORE, MOON_NIGHT, MOON_PALE, drawCrescent } from './Diana_Q';
+import { MOON_CORE, MOON_PALE, drawCrescent } from './Diana_Q';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Diana_R = InstanceType<ReturnType<typeof makeDiana_R>>;
-type Diana_R_Crash = InstanceType<ReturnType<typeof makeDiana_R_Crash>>;
-type Diana_R_Gather = InstanceType<ReturnType<typeof makeDiana_R_Gather>>;
-
-
 
 export const R_RADIUS = 330;
 
@@ -42,7 +34,6 @@ export const makeDiana_R = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const Spell = api.Spell;
   const Diana_R_Gather = makeDiana_R_Gather(api);
   class Diana_R extends Spell {
@@ -88,7 +79,6 @@ export default makeDiana_R;
  * damage is charged at the end of the pull, on the crowd that has already arrived.
  */
 export const makeDiana_R_Gather = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const Diana_R_Crash = makeDiana_R_Crash(api);
   class Diana_R_Gather extends SpellObject {
@@ -261,7 +251,6 @@ export const makeDiana_R_Gather = packClass((api: ContentApi) => {
 
 /** The blow, on each gathered body. */
 export const makeDiana_R_Crash = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Diana_R_Crash extends SpellObject {
     lifeTime = 380;

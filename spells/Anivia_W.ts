@@ -2,15 +2,6 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, DynamicWall } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Anivia_W = InstanceType<ReturnType<typeof makeAnivia_W>>;
-type Anivia_W_Object = InstanceType<ReturnType<typeof makeAnivia_W_Object>>;
-
-
-
 /**
  * Crystallize. A genuinely solid wall: it deals no damage and applies no
  * debuff, it just physically blocks everyone — Anivia included.

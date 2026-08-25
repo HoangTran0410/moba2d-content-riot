@@ -1,16 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Warwick_W = InstanceType<ReturnType<typeof makeWarwick_W>>;
-type Warwick_W_Object = InstanceType<ReturnType<typeof makeWarwick_W_Object>>;
-
-
-
 export const DURATION = 6000;
 
 export const SPEED_PERCENT = 0.4;

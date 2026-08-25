@@ -3,15 +3,8 @@ import type { CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
 type Root = InstanceType<ContentApi['buffs']['Root']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
 type Jhin_R = InstanceType<ReturnType<typeof makeJhin_R>>;
-type Jhin_R_Bloom = InstanceType<ReturnType<typeof makeJhin_R_Bloom>>;
-type Jhin_R_Bullet = InstanceType<ReturnType<typeof makeJhin_R_Bullet>>;
 type Jhin_R_Petals = InstanceType<ReturnType<typeof makeJhin_R_Petals>>;
 type Jhin_R_Stage = InstanceType<ReturnType<typeof makeJhin_R_Stage>>;
 
@@ -358,7 +351,6 @@ export const makeJhin_R_Bullet = packClass((api: ContentApi) => {
  * The massive fan-shaped stage (Sân Khấu Tử Thần) drawn on the ground.
  */
 export const makeJhin_R_Stage = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Jhin_R_Stage extends SpellObject {
     zIndex = 1;
@@ -448,7 +440,6 @@ export const makeJhin_R_Stage = packClass((api: ContentApi) => {
  * The 4 ammo petals revolving around Jhin.
  */
 export const makeJhin_R_Petals = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Jhin_R_Petals extends SpellObject {
     radius = PETAL_ORBIT;
@@ -517,7 +508,6 @@ export const makeJhin_R_Petals = packClass((api: ContentApi) => {
 
 /** The landing explosion on the victim. The finale gets a huge golden/magenta lotus. */
 export const makeJhin_R_Bloom = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Jhin_R_Bloom extends SpellObject {
     lifeTime: number;

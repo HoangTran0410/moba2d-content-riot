@@ -3,14 +3,6 @@ import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type Sett_E = InstanceType<ReturnType<typeof makeSett_E>>;
-type Sett_E_Object = InstanceType<ReturnType<typeof makeSett_E_Object>>;
-
-
 
 export const SETT_E_DAMAGE = 18;
 
@@ -50,7 +42,6 @@ export const makeSett_E = packClass((api: ContentApi) => {
   const bodyRadiusOf = api.combat.Reach.bodyRadiusOf;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const Stun = api.buffs.Stun;
   const Spell = api.Spell;
   const Sett_E_Object = makeSett_E_Object(api);
@@ -157,7 +148,6 @@ export default makeSett_E;
  * motion travels inward, because the pull does.
  */
 export const makeSett_E_Object = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Sett_E_Object extends SpellObject {

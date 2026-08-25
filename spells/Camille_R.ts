@@ -2,16 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Invulnerable = InstanceType<ContentApi['buffs']['Invulnerable']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Untargetable = InstanceType<ContentApi['buffs']['Untargetable']>;
-type Camille_R = InstanceType<ReturnType<typeof makeCamille_R>>;
-type Camille_R_Object = InstanceType<ReturnType<typeof makeCamille_R_Object>>;
-
-
 
 export const CAMILLE_R_RADIUS = 220;
 
@@ -98,7 +89,6 @@ export const makeCamille_R_Object = packClass((api: ContentApi) => {
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
-  const AttackableUnit = api.units.AttackableUnit;
   class Camille_R_Object extends SpellObject {
     radius = CAMILLE_R_RADIUS;
     lifeTime = CAMILLE_R_DURATION_MS;

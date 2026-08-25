@@ -1,18 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type RootBuff = InstanceType<ContentApi['buffs']['Root']>;
-type Spell = InstanceType<ContentApi['Spell']>;
 type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Yasuo_Q = InstanceType<ReturnType<typeof makeYasuo_Q>>;
-type Yasuo_Q3_Object = InstanceType<ReturnType<typeof makeYasuo_Q3_Object>>;
-type Yasuo_Q_Object = InstanceType<ReturnType<typeof makeYasuo_Q_Object>>;
-
-
 
 // Tuning lives here so the tests and the HUD read the same numbers the spell
 // does — retuning a value must never mean editing something else to match.

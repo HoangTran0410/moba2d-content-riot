@@ -3,14 +3,7 @@ import type { CancelReason, CastContext, CastSpec } from '@moba2d/core/content/t
 import { makeNotifyJannaControlLanded } from './Janna_E';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Janna_Q = InstanceType<ReturnType<typeof makeJanna_Q>>;
-type Janna_Q_Gust = InstanceType<ReturnType<typeof makeJanna_Q_Gust>>;
 type Janna_Q_Object = InstanceType<ReturnType<typeof makeJanna_Q_Object>>;
 
 

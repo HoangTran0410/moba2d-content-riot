@@ -5,13 +5,6 @@ import { KATARINA_BLOOD, KATARINA_STEEL, KATARINA_DAGGER_SLASH_DAMAGE } from './
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Katarina_E = InstanceType<ReturnType<typeof makeKatarina_E>>;
-type Katarina_E_Afterimage = InstanceType<ReturnType<typeof makeKatarina_E_Afterimage>>;
-type Katarina_E_Arrival = InstanceType<ReturnType<typeof makeKatarina_E_Arrival>>;
-type Katarina_Blade_Impact = InstanceType<ReturnType<typeof makeKatarina_Blade_Impact>>;
 type Katarina_Dagger = InstanceType<ReturnType<typeof makeKatarina_Dagger>>;
 
 
@@ -188,7 +181,6 @@ export default makeKatarina_E;
 
 /** The red silhouette left behind, stretched along the teleport trajectory. */
 export const makeKatarina_E_Afterimage = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Katarina_E_Afterimage extends SpellObject {
     lifeTime = 320;
@@ -244,7 +236,6 @@ export const makeKatarina_E_Afterimage = packClass((api: ContentApi) => {
  * Arrival flash. Steel blades collapse inward onto Katarina.
  */
 export const makeKatarina_E_Arrival = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Katarina_E_Arrival extends SpellObject {
     lifeTime = 320;

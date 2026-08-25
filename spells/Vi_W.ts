@@ -3,17 +3,8 @@ import type { BasicAttackHit } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Vi_W = InstanceType<ReturnType<typeof makeVi_W>>;
 type Vi_W_Buff = InstanceType<ReturnType<typeof makeVi_W_Buff>>;
 type Vi_W_Fracture = InstanceType<ReturnType<typeof makeVi_W_Fracture>>;
-type Vi_W_Shatter = InstanceType<ReturnType<typeof makeVi_W_Shatter>>;
-
-
 
 export const W_DURATION_MS = 8_000;
 
@@ -46,7 +37,6 @@ const HEXTECH: [number, number, number] = [0, 168, 255];
  */
 export const makeVi_W = packClass((api: ContentApi) => {
   const EventType = api.enums.EventType;
-  const AttackableUnit = api.units.AttackableUnit;
   const Slow = api.buffs.Slow;
   const StatAmp = api.buffs.StatAmp;
   const Spell = api.Spell;
@@ -180,7 +170,6 @@ export const makeVi_W_Buff = packClass((api: ContentApi) => {
  * body it is drawn on is gone.
  */
 export const makeVi_W_Fracture = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Vi_W_Fracture extends SpellObject {
     /** How many hairlines to draw — 1 or 2; the third is a Vi_W_Shatter instead. */
@@ -253,7 +242,6 @@ export const makeVi_W_Fracture = packClass((api: ContentApi) => {
 
 /** The third hit: the plating gives, and the shards leave the body outward. */
 export const makeVi_W_Shatter = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Vi_W_Shatter extends SpellObject {
     lifeTime = 380;

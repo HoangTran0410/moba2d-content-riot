@@ -1,19 +1,10 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
 type StatsModifier = InstanceType<ContentApi['units']['StatsModifier']>;
 type Untargetable = InstanceType<ContentApi['buffs']['Untargetable']>;
-type Fizz_E = InstanceType<ReturnType<typeof makeFizz_E>>;
 type Fizz_E_Hover = InstanceType<ReturnType<typeof makeFizz_E_Hover>>;
-type Fizz_E_Object = InstanceType<ReturnType<typeof makeFizz_E_Object>>;
-
-
 
 /**
  * Playful / Trickster.

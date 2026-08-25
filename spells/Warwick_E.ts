@@ -1,15 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type AoePulse = InstanceType<ContentApi['AoePulse']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Fear = InstanceType<ContentApi['buffs']['Fear']>;
-type Shield = InstanceType<ContentApi['buffs']['Shield']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type Warwick_E = InstanceType<ReturnType<typeof makeWarwick_E>>;
-
-
-
 export const RADIUS = 300;
 
 export const SHIELD_AMOUNT = 60;

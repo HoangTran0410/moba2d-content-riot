@@ -2,14 +2,10 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BasicAttackHit } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
 type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type XinZhao_Q = InstanceType<ReturnType<typeof makeXinZhao_Q>>;
 type XinZhao_Q_Buff = InstanceType<ReturnType<typeof makeXinZhao_Q_Buff>>;
 type XinZhao_Q_Object = InstanceType<ReturnType<typeof makeXinZhao_Q_Object>>;
 
@@ -79,10 +75,8 @@ export default makeXinZhao_Q;
 export const makeXinZhao_Q_Buff = packClass((api: ContentApi) => {
   const EventType = api.enums.EventType;
   const Buff = api.buffs.Buff;
-  const Spell = api.Spell;
   const Airborne = api.buffs.Airborne;
   const Stun = api.buffs.Stun;
-  const AttackableUnit = api.units.AttackableUnit;
   const XinZhao_Q_Object = makeXinZhao_Q_Object(api);
   class XinZhao_Q_Buff extends Buff {
     image: Buff['image'] = api.asset('spell_xinzhao_q');
@@ -165,7 +159,6 @@ const TALON_ORBIT = 40;
 export const makeXinZhao_Q_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   class XinZhao_Q_Object extends SpellObject {
     buffRef: XinZhao_Q_Buff;
     age = 0;

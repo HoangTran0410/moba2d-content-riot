@@ -1,14 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type JarvanIV_E = InstanceType<ReturnType<typeof makeJarvanIV_E>>;
-type JarvanIV_E_Object = InstanceType<ReturnType<typeof makeJarvanIV_E_Object>>;
-
-
-
 export const JARVAN_E_LIFETIME_MS = 8000;
 
 /** How high above the planting point the standard starts its fall. */

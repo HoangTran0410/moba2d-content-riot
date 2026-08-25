@@ -3,14 +3,6 @@ import type { ExecuteFallback, ExecuteSpell } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Nasus_Q = InstanceType<ReturnType<typeof makeNasus_Q>>;
-type Nasus_Q_Object = InstanceType<ReturnType<typeof makeNasus_Q_Object>>;
-
-
 
 export const RANGE = 150;
 
@@ -34,7 +26,6 @@ export const makeNasus_Q = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
-  const AttackableUnit = api.units.AttackableUnit;
   const Nasus_Q_Object = makeNasus_Q_Object(api);
   class Nasus_Q extends Spell implements ExecuteSpell {
     // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.

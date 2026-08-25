@@ -8,12 +8,7 @@ import { makeApplyHemorrhage } from './Darius_Q';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
 type Darius_W = InstanceType<ReturnType<typeof makeDarius_W>>;
-type Darius_W_Buff = InstanceType<ReturnType<typeof makeDarius_W_Buff>>;
 type Darius_W_Object = InstanceType<ReturnType<typeof makeDarius_W_Object>>;
 
 
@@ -73,7 +68,6 @@ export default makeDarius_W;
 export const makeDarius_W_Buff = packClass((api: ContentApi) => {
   const EventType = api.enums.EventType;
   const Buff = api.buffs.Buff;
-  const AttackableUnit = api.units.AttackableUnit;
   const Slow = api.buffs.Slow;
   const applyHemorrhage = makeApplyHemorrhage(api);
   const Darius_W_Object = makeDarius_W_Object(api);

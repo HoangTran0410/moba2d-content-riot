@@ -3,14 +3,6 @@ import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Ziggs_Q = InstanceType<ReturnType<typeof makeZiggs_Q>>;
-type Ziggs_Q_Blast = InstanceType<ReturnType<typeof makeZiggs_Q_Blast>>;
-type Ziggs_Q_Object = InstanceType<ReturnType<typeof makeZiggs_Q_Object>>;
-
-
 
 export const Q_RANGE = 450;
 
@@ -115,7 +107,6 @@ export const makeZiggs_Q_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const Ziggs_Q_Blast = makeZiggs_Q_Blast(api);
   class Ziggs_Q_Object extends SpellObject {
     readonly landings: p5.Vector[];
@@ -214,7 +205,6 @@ export const makeZiggs_Q_Object = packClass((api: ContentApi) => {
 /** One of the three blasts. The hard rim sits on the real 120 hit radius from frame one. */
 export const makeZiggs_Q_Blast = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   class Ziggs_Q_Blast extends SpellObject {
     radius = Q_BLAST_RADIUS;
     lifeTime = 300;

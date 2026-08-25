@@ -4,7 +4,6 @@ import { buildTestApi } from '@moba2d/core/testing';
 import type { CastContext } from '@moba2d/core/content/types';
 import {
   createGame,
-  createUnit,
   installSpellObjectGlobals,
   type TestGame,
 } from '@moba2d/core/testing/spell';

@@ -3,17 +3,8 @@ import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/conte
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Champion = InstanceType<ContentApi['units']['Champion']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Shield = InstanceType<ContentApi['buffs']['Shield']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type TargetResolver = InstanceType<ContentApi['combat']['TargetResolver']>;
 type Janna_E = InstanceType<ReturnType<typeof makeJanna_E>>;
-type Janna_E_Shell = InstanceType<ReturnType<typeof makeJanna_E_Shell>>;
-
-
 
 type EyeTarget = AttackableUnit;
 
@@ -196,7 +187,6 @@ export default makeJanna_E;
 
 /** Feeds Eye of the Storm's passive from any of Janna's other abilities. */
 export const makeNotifyJannaControlLanded = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const Champion = api.units.Champion;
   const Janna_E = makeJanna_E(api);
   const notifyJannaControlLanded = (owner: AttackableUnit, target: AttackableUnit): void => {
@@ -211,9 +201,7 @@ export const makeNotifyJannaControlLanded = packClass((api: ContentApi) => {
 
 /** The shield shell: it rides the shielded ally, not the caster. */
 export const makeJanna_E_Shell = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   class Janna_E_Shell extends SpellObject {
     target: AttackableUnit;
     age = 0;

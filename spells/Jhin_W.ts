@@ -4,12 +4,6 @@ import { makeConsumeJhinMark } from './Jhin_Q';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Root = InstanceType<ContentApi['buffs']['Root']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Jhin_W = InstanceType<ReturnType<typeof makeJhin_W>>;
-type Jhin_W_Impact = InstanceType<ReturnType<typeof makeJhin_W_Impact>>;
-type Jhin_W_Shot = InstanceType<ReturnType<typeof makeJhin_W_Shot>>;
 type Jhin_W_Telegraph = InstanceType<ReturnType<typeof makeJhin_W_Telegraph>>;
 
 
@@ -38,7 +32,6 @@ export const makeJhin_W = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const Root = api.buffs.Root;
   const Spell = api.Spell;
   const beamBoundingBox = api.beamBoundingBox;
@@ -141,7 +134,6 @@ export default makeJhin_W;
  * exactly the range the shot will cover — that number is the entire threat.
  */
 export const makeJhin_W_Telegraph = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const jhinBeamDisplayBox = makeJhinBeamDisplayBox(api);
   class Jhin_W_Telegraph extends SpellObject {
@@ -204,7 +196,6 @@ export const makeJhin_W_Telegraph = packClass((api: ContentApi) => {
 
 /** The shot itself: a bone-white line inside a magenta wash, spanning the whole range. */
 export const makeJhin_W_Shot = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const jhinBeamDisplayBox = makeJhinBeamDisplayBox(api);
   class Jhin_W_Shot extends SpellObject {
@@ -271,7 +262,6 @@ export const makeJhin_W_Shot = packClass((api: ContentApi) => {
  * unmarked one only takes a thin cut across the firing line.
  */
 export const makeJhin_W_Impact = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Jhin_W_Impact extends SpellObject {
     lifeTime = 420;

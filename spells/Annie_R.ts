@@ -1,12 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type AoePulse = InstanceType<ContentApi['AoePulse']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
-type Pet = InstanceType<ContentApi['units']['Pet']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type Annie_R = InstanceType<ReturnType<typeof makeAnnie_R>>;
 type Tibbers = InstanceType<ReturnType<typeof makeTibbers>>;
 
 

@@ -1,16 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Nearsight = InstanceType<ContentApi['buffs']['Nearsight']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Graves_W = InstanceType<ReturnType<typeof makeGraves_W>>;
-type Graves_W_Object = InstanceType<ReturnType<typeof makeGraves_W_Object>>;
-
-
-
 /** Lobes of smoke making up the cloud. Enough to churn, few enough to stay cheap. */
 export const SMOKE_LOBES = 14;
 
@@ -207,7 +197,6 @@ export const makeGraves_W_Object = packClass((api: ContentApi) => {
       // height rather than being painted flat on the floor
       for (const lobe of this._lobes) {
         if (lobe.shade < 0.6) continue;
-        const wobble = cos(churn * lobe.speed + lobe.phase);
         const d = this.curRange * lobe.radius * 0.7;
         const a = lobe.angle - churn * 0.05;
         fill(206, 204, 198, 46 * density);

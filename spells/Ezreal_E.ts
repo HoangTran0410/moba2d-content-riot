@@ -3,17 +3,6 @@ import { makeDetonateEssenceFlux, makeEssenceFluxSpell } from './Ezreal_W';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type HomingMissileSpellObject = InstanceType<ContentApi['HomingMissileSpellObject']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Ezreal_E = InstanceType<ReturnType<typeof makeEzreal_E>>;
-type Ezreal_E_Bolt = InstanceType<ReturnType<typeof makeEzreal_E_Bolt>>;
-type Ezreal_E_Rift = InstanceType<ReturnType<typeof makeEzreal_E_Rift>>;
-
-
 
 export const EZREAL_E_BLINK_RANGE = 300;
 
@@ -46,7 +35,6 @@ export const makeEzreal_E = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
-  const AttackableUnit = api.units.AttackableUnit;
   const Dash = api.buffs.Dash;
   const essenceFluxSpell = makeEssenceFluxSpell(api);
   const Ezreal_E_Bolt = makeEzreal_E_Bolt(api);
@@ -150,7 +138,6 @@ export default makeEzreal_E;
 
 /** The homing bolt — a thin lance of light, visibly *pulled* toward its target. */
 export const makeEzreal_E_Bolt = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const createReveal = api.buffs.createReveal;
   const HomingMissileSpellObject = api.HomingMissileSpellObject;
   const TrailSystem = api.helpers.TrailSystem;

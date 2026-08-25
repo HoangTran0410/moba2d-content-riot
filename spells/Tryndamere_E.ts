@@ -2,16 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Champion = InstanceType<ContentApi['units']['Champion']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Tryndamere_E = InstanceType<ReturnType<typeof makeTryndamere_E>>;
-type Tryndamere_E_Object = InstanceType<ReturnType<typeof makeTryndamere_E_Object>>;
-
-
 
 export const TRYNDAMERE_E_RANGE = 300;
 
@@ -33,7 +24,6 @@ export const makeTryndamere_E = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Dash = api.buffs.Dash;
   const Champion = api.units.Champion;
-  const AttackableUnit = api.units.AttackableUnit;
   const Tryndamere_E_Object = makeTryndamere_E_Object(api);
   class Tryndamere_E extends Spell {
     targetingMode = 'POINT' as const;

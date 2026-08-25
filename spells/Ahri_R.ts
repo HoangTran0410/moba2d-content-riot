@@ -1,18 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
 type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Ahri_R = InstanceType<ReturnType<typeof makeAhri_R>>;
-type Ahri_R_Burst = InstanceType<ReturnType<typeof makeAhri_R_Burst>>;
-type Ahri_R_Object = InstanceType<ReturnType<typeof makeAhri_R_Object>>;
-
-
 
 /** Nine tails again — the ultimate's orbs and its burst both carry the count. */
 export const ESSENCE_POINTS = 9;
@@ -128,7 +117,6 @@ export default makeAhri_R;
 
 
 export const makeAhri_R_Object = packClass((api: ContentApi) => {
-  const SpellObject = api.SpellObject;
   const MissileSpellObject = api.MissileSpellObject;
   const TrailSystem = api.helpers.TrailSystem;
   const Ahri_R_Burst = makeAhri_R_Burst(api);

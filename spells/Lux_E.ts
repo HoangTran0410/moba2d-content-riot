@@ -1,11 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Lux_E = InstanceType<ReturnType<typeof makeLux_E>>;
 type Lux_E_Object = InstanceType<ReturnType<typeof makeLux_E_Object>>;
 
 
@@ -30,7 +25,7 @@ export const makeLux_E = packClass((api: ContentApi) => {
         const range = 400;
         const size = 200;
 
-        const { from, to: destination } = VectorUtils.getVectorWithMaxRange(
+        const { to: destination } = VectorUtils.getVectorWithMaxRange(
           this.owner.position,
           this.aimPoint,
           range

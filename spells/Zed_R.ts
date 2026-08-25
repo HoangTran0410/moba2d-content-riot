@@ -2,17 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { makeZed_W_Clone } from './Zed_W';
 import { packClass } from '../packClass';
 
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Untargetable = InstanceType<ContentApi['buffs']['Untargetable']>;
-type Zed_R = InstanceType<ReturnType<typeof makeZed_R>>;
-type Zed_R_Detonation = InstanceType<ReturnType<typeof makeZed_R_Detonation>>;
 type Zed_R_Mark = InstanceType<ReturnType<typeof makeZed_R_Mark>>;
-type Zed_R_Object = InstanceType<ReturnType<typeof makeZed_R_Object>>;
 type Zed_W_Clone = InstanceType<ReturnType<typeof makeZed_W_Clone>>;
 
 

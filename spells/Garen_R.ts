@@ -2,18 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { ExecuteFallback, ExecuteSpell } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Champion = InstanceType<ContentApi['units']['Champion']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Pet = InstanceType<ContentApi['units']['Pet']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Garen_R = InstanceType<ReturnType<typeof makeGaren_R>>;
-type Garen_R_Strike = InstanceType<ReturnType<typeof makeGaren_R_Strike>>;
-
-
 
 export const RANGE = 200;
 
@@ -82,7 +71,6 @@ export const makeGaren_R = packClass((api: ContentApi) => {
   const Champion = api.units.Champion;
   const Pet = api.units.Pet;
   const Spell = api.Spell;
-  const AttackableUnit = api.units.AttackableUnit;
   const Garen_R_Strike = makeGaren_R_Strike(api);
   class Garen_R extends Spell implements ExecuteSpell {
     // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
@@ -192,7 +180,6 @@ export const makeGaren_R_Strike = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const AoePulse = api.AoePulse;
   const createReveal = api.buffs.createReveal;
-  const AttackableUnit = api.units.AttackableUnit;
   class Garen_R_Strike extends SpellObject {
     position: p5.Vector = this.owner.position.copy();
     victim: AttackableUnit | null = null;

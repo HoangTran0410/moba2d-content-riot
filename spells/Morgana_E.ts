@@ -1,27 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Charm = InstanceType<ContentApi['buffs']['Charm']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Fear = InstanceType<ContentApi['buffs']['Fear']>;
-type Ground = InstanceType<ContentApi['buffs']['Ground']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Root = InstanceType<ContentApi['buffs']['Root']>;
-type Shield = InstanceType<ContentApi['buffs']['Shield']>;
-type Silence = InstanceType<ContentApi['buffs']['Silence']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type Morgana_E = InstanceType<ReturnType<typeof makeMorgana_E>>;
-type Morgana_E_BlackShield = InstanceType<ReturnType<typeof makeMorgana_E_BlackShield>>;
-type Morgana_E_Object = InstanceType<ReturnType<typeof makeMorgana_E_Object>>;
-
-
-
 // Exported so the suite asserts the wiring, not a copy of the numbers —
 // retuning a value should not mean editing the test.
 // A LOL2D champion pool is ~100 health, so a shield is sized as a share of that:

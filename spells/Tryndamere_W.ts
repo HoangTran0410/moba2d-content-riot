@@ -2,16 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Tryndamere_W = InstanceType<ReturnType<typeof makeTryndamere_W>>;
-type Tryndamere_W_Object = InstanceType<ReturnType<typeof makeTryndamere_W_Object>>;
-
-
 
 export const TRYNDAMERE_W_RADIUS = 380;
 
@@ -33,7 +24,6 @@ export const makeTryndamere_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Slow = api.buffs.Slow;
   const StatAmp = api.buffs.StatAmp;
-  const AttackableUnit = api.units.AttackableUnit;
   const Tryndamere_W_Object = makeTryndamere_W_Object(api);
   class Tryndamere_W extends Spell {
     targetingMode = 'SELF' as const;
@@ -86,7 +76,6 @@ export default makeTryndamere_W;
 export const makeTryndamere_W_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Tryndamere_W_Object extends SpellObject {
     // The rings travel along the ground, so they pass under the champions they

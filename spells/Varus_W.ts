@@ -3,14 +3,6 @@ import type { BasicAttackHit } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Varus_W = InstanceType<ReturnType<typeof makeVarus_W>>;
-type Varus_W_Object = InstanceType<ReturnType<typeof makeVarus_W_Object>>;
-
-
 
 export const DURATION = 8000;
 
@@ -56,7 +48,6 @@ export const makeVarus_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const DamageOverTime = api.buffs.DamageOverTime;
   const StatAmp = api.buffs.StatAmp;
-  const Buff = api.buffs.Buff;
   const Varus_W_Object = makeVarus_W_Object(api);
   class Varus_W extends Spell {
     targetingMode = 'SELF' as const;

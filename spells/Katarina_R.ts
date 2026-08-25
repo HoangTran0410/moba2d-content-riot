@@ -5,14 +5,7 @@ import { KATARINA_BLOOD, KATARINA_DAGGER_LENGTH, KATARINA_STEEL, drawKatarinaDag
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Katarina_R = InstanceType<ReturnType<typeof makeKatarina_R>>;
 type Katarina_R_Lotus = InstanceType<ReturnType<typeof makeKatarina_R_Lotus>>;
-type Katarina_Blade_Impact = InstanceType<ReturnType<typeof makeKatarina_Blade_Impact>>;
-
-
 
 export const KATARINA_R_DURATION_MS = 2_500;
 
@@ -96,7 +89,6 @@ interface LotusVolley {
 export const makeKatarina_R_Lotus = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const Katarina_Blade_Impact = makeKatarina_Blade_Impact(api);
   class Katarina_R_Lotus extends SpellObject {

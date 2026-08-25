@@ -3,16 +3,7 @@ import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/conte
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TargetResolver = InstanceType<ContentApi['combat']['TargetResolver']>;
-type Malzahar_E = InstanceType<ReturnType<typeof makeMalzahar_E>>;
-type Malzahar_E_Object = InstanceType<ReturnType<typeof makeMalzahar_E_Object>>;
-
-
 
 // Exported so the suite asserts the infection's wiring rather than a copy of
 // the numbers — retuning a value must not mean editing a test.
@@ -69,7 +60,6 @@ export const makeMalzahar_E = packClass((api: ContentApi) => {
   const withinRange = api.combat.Reach.withinRange;
   const TargetResolver = api.combat.TargetResolver;
   const Spell = api.Spell;
-  const AttackableUnit = api.units.AttackableUnit;
   const canSee = api.combat.Vision.canSee;
   const isVisionsTarget = makeIsVisionsTarget(api);
   const infectWithVisions = makeInfectWithVisions(api);
@@ -164,7 +154,6 @@ function __group0_Malzahar_E_ObjectBuild(api: ContentApi) {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const DamageOverTime = api.buffs.DamageOverTime;
 
 

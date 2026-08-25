@@ -2,13 +2,6 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { DynamicWall } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type JarvanIV_R = InstanceType<ReturnType<typeof makeJarvanIV_R>>;
-type JarvanIV_R_ImpactObject = InstanceType<ReturnType<typeof makeJarvanIV_R_ImpactObject>>;
 type JarvanIV_R_WallObject = InstanceType<ReturnType<typeof makeJarvanIV_R_WallObject>>;
 
 

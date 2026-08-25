@@ -3,15 +3,7 @@ import type { ExecuteFallback, ExecuteSpell } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type ChoGath_R = InstanceType<ReturnType<typeof makeChoGath_R>>;
 type ChoGath_R_Growth = InstanceType<ReturnType<typeof makeChoGath_R_Growth>>;
-type ChoGath_R_Object = InstanceType<ReturnType<typeof makeChoGath_R_Object>>;
-
-
 
 /** One Feast stack. Kept as constants so the heal matches the max health gained. */
 export const SIZE_PER_STACK = 6;
@@ -27,7 +19,6 @@ export const makeChoGath_R = packClass((api: ContentApi) => {
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
   const MAX_UNIT_SIZE = api.units.MAX_UNIT_SIZE;
-  const AttackableUnit = api.units.AttackableUnit;
   const liveStacks = makeLiveStacks(api);
   const createGrowthStack = makeCreateGrowthStack(api);
   const ChoGath_R_Object = makeChoGath_R_Object(api);

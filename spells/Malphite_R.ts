@@ -1,17 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Malphite_R = InstanceType<ReturnType<typeof makeMalphite_R>>;
-type Malphite_R_Charge = InstanceType<ReturnType<typeof makeMalphite_R_Charge>>;
-type Malphite_R_Object = InstanceType<ReturnType<typeof makeMalphite_R_Object>>;
-
-
 
 export const MAX_RANGE = 350;
 
@@ -136,7 +126,6 @@ export default makeMalphite_R;
 export const makeMalphite_R_Charge = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
-  const Dash = api.buffs.Dash;
   const SpellObject = api.SpellObject;
   class Malphite_R_Charge extends SpellObject {
     landing: p5.Vector = this.owner.position.copy();

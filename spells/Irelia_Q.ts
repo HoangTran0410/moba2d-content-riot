@@ -8,21 +8,10 @@ import type {
 } from '@moba2d/core/content/types';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TargetResolver = InstanceType<ContentApi['combat']['TargetResolver']>;
 type IreliaMarkBuff = InstanceType<ReturnType<typeof makeIreliaMarkBuff>>;
-type Irelia_Mark_Sigil = InstanceType<ReturnType<typeof makeIrelia_Mark_Sigil>>;
 type Irelia_Q = InstanceType<ReturnType<typeof makeIrelia_Q>>;
 type Irelia_Q_Blades = InstanceType<ReturnType<typeof makeIrelia_Q_Blades>>;
-type Irelia_Q_Strike = InstanceType<ReturnType<typeof makeIrelia_Q_Strike>>;
-type Irelia_Q_Surge = InstanceType<ReturnType<typeof makeIrelia_Q_Surge>>;
-
-
 
 /**
  * Irelia's palette, declared once here and imported by the rest of the kit.
@@ -138,7 +127,6 @@ export const makeIreliaMarkBuff = packClass((api: ContentApi) => {
 
 
 export const makeFindIreliaMark = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const IreliaMarkBuff = makeIreliaMarkBuff(api);
   function findIreliaMark(unit: AttackableUnit): IreliaMarkBuff | null {
     for (const buff of unit.buffs) {
@@ -152,7 +140,6 @@ export const makeFindIreliaMark = packClass((api: ContentApi) => {
 
 /** Returns whether there was a mark to take — Q's reset hangs off this boolean. */
 export const makeConsumeIreliaMark = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const findIreliaMark = makeFindIreliaMark(api);
   function consumeIreliaMark(unit: AttackableUnit): boolean {
     const mark = findIreliaMark(unit);
@@ -166,7 +153,6 @@ export const makeConsumeIreliaMark = packClass((api: ContentApi) => {
 
 /** Renews rather than stacks: a second blade re-arms the mark, it does not bank one. */
 export const makeApplyIreliaMark = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const IreliaMarkBuff = makeIreliaMarkBuff(api);
   const findIreliaMark = makeFindIreliaMark(api);
   const Irelia_Mark_Sigil = makeIrelia_Mark_Sigil(api);
@@ -206,7 +192,6 @@ const MARK_FLOAT = 44;
  * most needs to see who is worth surging onto.
  */
 export const makeIrelia_Mark_Sigil = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Irelia_Mark_Sigil extends SpellObject {
     markTarget: AttackableUnit;
@@ -602,8 +587,6 @@ const GHOST_LIFE_MS = 240;
  */
 export const makeIrelia_Q_Surge = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
-  const AttackableUnit = api.units.AttackableUnit;
-  const Dash = api.buffs.Dash;
   const SpellObject = api.SpellObject;
   class Irelia_Q_Surge extends SpellObject {
     age = 0;
@@ -724,7 +707,6 @@ export const makeIrelia_Q_Surge = packClass((api: ContentApi) => {
  * because the key is already back.
  */
 export const makeIrelia_Q_Strike = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Irelia_Q_Strike extends SpellObject {
     lifeTime = 340;
@@ -812,7 +794,6 @@ export const makeIrelia_Q_Blades = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const findIreliaMark = makeFindIreliaMark(api);
   class Irelia_Q_Blades extends SpellObject {

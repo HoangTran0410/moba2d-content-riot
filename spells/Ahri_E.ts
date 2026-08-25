@@ -1,18 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Charm = InstanceType<ContentApi['buffs']['Charm']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Ahri_E = InstanceType<ReturnType<typeof makeAhri_E>>;
-type Ahri_E_Charm = InstanceType<ReturnType<typeof makeAhri_E_Charm>>;
-type Ahri_E_Object = InstanceType<ReturnType<typeof makeAhri_E_Object>>;
-
-
-
 /** Windup: the kiss forms on her lips instead of appearing at full size. */
 export const KISS_SPAWN_MS = 120;
 

@@ -5,15 +5,6 @@ import { SPHERE_CORE_RADIUS, SPHERE_DARK, SPHERE_EDGE, SPHERE_VIOLET } from './S
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TargetResolver = InstanceType<ContentApi['combat']['TargetResolver']>;
-type Syndra_R = InstanceType<ReturnType<typeof makeSyndra_R>>;
-type Syndra_R_Strike = InstanceType<ReturnType<typeof makeSyndra_R_Strike>>;
-type Syndra_Burst = InstanceType<ReturnType<typeof makeSyndra_Burst>>;
-
-
 
 /**
  * Syndra R — every sphere she owns collapses onto one champion and is spent.
@@ -209,7 +200,6 @@ const FLIGHT_MS = 250;
  * dealing sequential damage impacts and culminating in an explosion.
  */
 export const makeSyndra_R_Strike = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const Syndra_Burst = makeSyndra_Burst(api);
   class Syndra_R_Strike extends SpellObject {
@@ -311,7 +301,6 @@ export const makeSyndra_R_Strike = packClass((api: ContentApi) => {
         if (this.hitFlags[i]) continue;
         const origin = this.origins[i];
         const startTime = i * STAGGER_MS;
-        const arriveTime = startTime + FLIGHT_MS;
 
         let px = origin.x;
         let py = origin.y;

@@ -5,14 +5,6 @@ import { KATARINA_BLOOD, KATARINA_STEEL } from './Katarina_Q';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Katarina_W = InstanceType<ReturnType<typeof makeKatarina_W>>;
-type Katarina_W_Toss = InstanceType<ReturnType<typeof makeKatarina_W_Toss>>;
-type Katarina_Dagger = InstanceType<ReturnType<typeof makeKatarina_Dagger>>;
-
-
 
 export const KATARINA_W_SPEEDUP_PERCENT = 0.45;
 
@@ -71,7 +63,6 @@ export default makeKatarina_W;
  * Visual swirl when Katarina throws a dagger into the air.
  */
 export const makeKatarina_W_Toss = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Katarina_W_Toss extends SpellObject {
     lifeTime = 380;

@@ -1,16 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type CombatText = InstanceType<ContentApi['helpers']['CombatText']>;
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatModifier = InstanceType<ContentApi['units']['StatModifier']>;
-type Heal = InstanceType<ReturnType<typeof makeHeal>>;
-type Heal_Object = InstanceType<ReturnType<typeof makeHeal_Object>>;
-
-
-
 const SPEEDUP_TIME = 3000;
 
 

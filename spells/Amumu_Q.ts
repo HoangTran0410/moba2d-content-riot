@@ -2,17 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
 type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Amumu_Q = InstanceType<ReturnType<typeof makeAmumu_Q>>;
-type Amumu_Q_Impact = InstanceType<ReturnType<typeof makeAmumu_Q_Impact>>;
-type Amumu_Q_Object = InstanceType<ReturnType<typeof makeAmumu_Q_Object>>;
-
-
 
 /** Dirty linen, with a darker weave underneath for contrast on pale ground. */
 const LINEN: [number, number, number] = [235, 222, 172];

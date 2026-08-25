@@ -1,16 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
-type AoePulse = InstanceType<ContentApi['AoePulse']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Alistar_Q = InstanceType<ReturnType<typeof makeAlistar_Q>>;
-type Alistar_Q_Ground = InstanceType<ReturnType<typeof makeAlistar_Q_Ground>>;
-
-
-
 export const RADIUS = 190;
 
 export const DAMAGE = 22;

@@ -5,16 +5,6 @@ import { isAblaze } from './Brand_Q';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Champion = InstanceType<ContentApi['units']['Champion']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TargetResolver = InstanceType<ContentApi['combat']['TargetResolver']>;
-type Brand_R = InstanceType<ReturnType<typeof makeBrand_R>>;
-type Brand_R_Fireball = InstanceType<ReturnType<typeof makeBrand_R_Fireball>>;
-
-
 
 /**
  * Pyroclasm. A fireball thrown at one enemy that then keeps jumping to whoever
@@ -54,7 +44,6 @@ export const makeBrand_R = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
   const Spell = api.Spell;
-  const AttackableUnit = api.units.AttackableUnit;
   const TargetResolver = api.combat.TargetResolver;
   const canSee = api.combat.Vision.canSee;
   const isBounceTarget = makeIsBounceTarget(api);
@@ -156,7 +145,6 @@ export const makeBrand_R_Fireball = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const Champion = api.units.Champion;
   const Slow = api.buffs.Slow;
   const applyAblaze = makeApplyAblaze(api);

@@ -2,15 +2,8 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CancelReason, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type AreaSpellObject = InstanceType<ContentApi['AreaSpellObject']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Chilled = InstanceType<ContentApi['buffs']['Chilled']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
 type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Stasis = InstanceType<ContentApi['buffs']['Stasis']>;
-type Anivia_R = InstanceType<ReturnType<typeof makeAnivia_R>>;
 type Anivia_R_Object = InstanceType<ReturnType<typeof makeAnivia_R_Object>>;
 
 
@@ -187,7 +180,6 @@ export default makeAnivia_R;
 export const makeAnivia_R_Object = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const SpellObject = api.SpellObject;
   const AreaSpellObject = api.AreaSpellObject;
   const Chilled = api.buffs.Chilled;
   const CHILL_DURATION_MS = api.CHILL_DURATION_MS;

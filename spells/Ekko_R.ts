@@ -1,17 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Invulnerable = InstanceType<ContentApi['buffs']['Invulnerable']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Untargetable = InstanceType<ContentApi['buffs']['Untargetable']>;
-type Ekko_R = InstanceType<ReturnType<typeof makeEkko_R>>;
-type Ekko_R_Object = InstanceType<ReturnType<typeof makeEkko_R_Object>>;
-
-
-
 export const EKKO_R_DAMAGE = 60;
 
 export const EKKO_R_RADIUS = 180;

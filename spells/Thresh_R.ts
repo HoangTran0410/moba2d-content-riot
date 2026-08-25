@@ -1,16 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Thresh_R = InstanceType<ReturnType<typeof makeThresh_R>>;
-type Thresh_R_Object = InstanceType<ReturnType<typeof makeThresh_R_Object>>;
-
-
-
 export const RADIUS = 220;
 
 export const DURATION = 8000;

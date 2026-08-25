@@ -2,17 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type XinZhao_E = InstanceType<ReturnType<typeof makeXinZhao_E>>;
-type XinZhao_E_Object = InstanceType<ReturnType<typeof makeXinZhao_E_Object>>;
-
-
 
 export const XINZHAO_E_RANGE = 420;
 
@@ -59,7 +49,6 @@ export const makeXinZhao_E = packClass((api: ContentApi) => {
   const Slow = api.buffs.Slow;
   const StatAmp = api.buffs.StatAmp;
   const createReveal = api.buffs.createReveal;
-  const AttackableUnit = api.units.AttackableUnit;
   const XinZhao_E_Object = makeXinZhao_E_Object(api);
   class XinZhao_E extends Spell {
     // Picks its own victim rather than taking `context.target`; see the
@@ -200,10 +189,8 @@ export default makeXinZhao_E;
  * and `Champion.draw` is skipped the moment he is culled or fogged.
  */
 export const makeXinZhao_E_Object = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
-  const AttackableUnit = api.units.AttackableUnit;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class XinZhao_E_Object extends SpellObject {
     // Ground art: the ring is scoured into the floor, so it paints *under* the

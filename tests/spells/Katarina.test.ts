@@ -9,7 +9,7 @@ import {
   pressSpell,
   type TestGame,
 } from '@moba2d/core/testing/spell';
-import { KATARINA_DAGGER_E_REFUND_MS, KATARINA_DAGGER_SLASH_DAMAGE, KATARINA_MAX_DAGGERS, KATARINA_PICKUP_RADIUS, KATARINA_Q_BOUNCE_DAMAGE, KATARINA_Q_FIRST_DAMAGE, KATARINA_Q_MAX_TARGETS, KATARINA_Q_WINDUP_MS } from '../../spells/Katarina_Q';
+import { KATARINA_DAGGER_E_REFUND_MS, KATARINA_DAGGER_SLASH_DAMAGE, KATARINA_MAX_DAGGERS, KATARINA_Q_BOUNCE_DAMAGE, KATARINA_Q_FIRST_DAMAGE, KATARINA_Q_MAX_TARGETS, KATARINA_Q_WINDUP_MS } from '../../spells/Katarina_Q';
 import makeKatarina_Q, { makeKatarina_Dagger, makeKatarina_Q_Object } from '../../spells/Katarina_Q';
 import { KATARINA_W_DROP_DELAY_MS, KATARINA_W_SPEEDUP_MS } from '../../spells/Katarina_W';
 import makeKatarina_W from '../../spells/Katarina_W';

@@ -3,18 +3,6 @@ import type { CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Vayne_E = InstanceType<ReturnType<typeof makeVayne_E>>;
-type Vayne_E_Object = InstanceType<ReturnType<typeof makeVayne_E_Object>>;
-type Vayne_E_Pin = InstanceType<ReturnType<typeof makeVayne_E_Pin>>;
-type Vayne_E_Slide = InstanceType<ReturnType<typeof makeVayne_E_Slide>>;
-
-
 
 /** How far the heavy bolt flies. */
 export const VAYNE_E_RANGE = 400;
@@ -117,7 +105,6 @@ export default makeVayne_E;
  */
 export const makeVayne_E_Object = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
-  const AttackableUnit = api.units.AttackableUnit;
   const Dash = api.buffs.Dash;
   const Stun = api.buffs.Stun;
   const TrailSystem = api.helpers.TrailSystem;
@@ -239,7 +226,6 @@ export const makeVayne_E_Object = packClass((api: ContentApi) => {
  * resolves to `SPELL_EFFECT_Z_INDEX`, over the feet of everyone nearby.
  */
 export const makeVayne_E_Slide = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Vayne_E_Slide extends SpellObject {
@@ -299,7 +285,6 @@ export const makeVayne_E_Slide = packClass((api: ContentApi) => {
  * one ability must not look like the same event.
  */
 export const makeVayne_E_Pin = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Vayne_E_Pin extends SpellObject {
     lifeTime = VAYNE_E_STUN_MS;

@@ -1,18 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Ekko_Q = InstanceType<ReturnType<typeof makeEkko_Q>>;
-type Ekko_Q_HitFlash = InstanceType<ReturnType<typeof makeEkko_Q_HitFlash>>;
-type Ekko_Q_Object = InstanceType<ReturnType<typeof makeEkko_Q_Object>>;
-
-
-
 export const EKKO_Q_OUT_DAMAGE = 20;
 
 export const EKKO_Q_RETURN_DAMAGE = 30;

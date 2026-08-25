@@ -2,15 +2,8 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
 type SpellObject = InstanceType<ContentApi['SpellObject']>;
 type StatsModifier = InstanceType<ContentApi['units']['StatsModifier']>;
-type Nocturne_Dusk = InstanceType<ReturnType<typeof makeNocturne_Dusk>>;
-type Nocturne_Q = InstanceType<ReturnType<typeof makeNocturne_Q>>;
-type Nocturne_Q_Object = InstanceType<ReturnType<typeof makeNocturne_Q_Object>>;
 type Nocturne_Q_Trail = InstanceType<ReturnType<typeof makeNocturne_Q_Trail>>;
 
 
@@ -97,7 +90,6 @@ export default makeNocturne_Q;
 
 export const makeNocturne_Q_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const Nocturne_Q_Trail = makeNocturne_Q_Trail(api);
   class Nocturne_Q_Object extends MissileSpellObject {
     speed = 15;
@@ -155,7 +147,6 @@ interface DuskPatch {
 export const makeNocturne_Q_Trail = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const Nocturne_Dusk = makeNocturne_Dusk(api);
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Nocturne_Q_Trail extends SpellObject {

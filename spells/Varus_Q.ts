@@ -2,17 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CancelReason, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type CastBar = InstanceType<ContentApi['vfx']['CastBar']>;
-type ChargeRangeTelegraph = InstanceType<ContentApi['vfx']['ChargeRangeTelegraph']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
 type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type VfxGroup = InstanceType<ContentApi['vfx']['VfxGroup']>;
-type Varus_Q = InstanceType<ReturnType<typeof makeVarus_Q>>;
-type Varus_Q_Arrow = InstanceType<ReturnType<typeof makeVarus_Q_Arrow>>;
-
-
 
 export const MAX_CHARGE_MS = 4_000;
 

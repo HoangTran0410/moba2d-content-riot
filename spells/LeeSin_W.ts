@@ -1,20 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Champion = InstanceType<ContentApi['units']['Champion']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Shield = InstanceType<ContentApi['buffs']['Shield']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type LeeSin_W = InstanceType<ReturnType<typeof makeLeeSin_W>>;
-type LeeSin_W_Burst = InstanceType<ReturnType<typeof makeLeeSin_W_Burst>>;
-type LeeSin_W_IronWill = InstanceType<ReturnType<typeof makeLeeSin_W_IronWill>>;
-
-
-
 /**
  * Safeguard / Iron Will.
  *

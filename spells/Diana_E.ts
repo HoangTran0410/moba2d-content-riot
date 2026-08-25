@@ -5,17 +5,6 @@ import { MOON_CORE, MOON_PALE, drawCrescent } from './Diana_Q';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TargetResolver = InstanceType<ContentApi['combat']['TargetResolver']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Diana_E = InstanceType<ReturnType<typeof makeDiana_E>>;
-type Diana_E_Collapse = InstanceType<ReturnType<typeof makeDiana_E_Collapse>>;
-type Diana_E_Footfall = InstanceType<ReturnType<typeof makeDiana_E_Footfall>>;
-type Diana_E_Shatter = InstanceType<ReturnType<typeof makeDiana_E_Shatter>>;
-
-
 
 export const E_RANGE = 380;
 
@@ -198,7 +187,6 @@ export default makeDiana_E;
 
 /** Moonlight left in the dust behind her. */
 export const makeDiana_E_Footfall = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Diana_E_Footfall extends SpellObject {
     lifeTime = 320;
@@ -246,7 +234,6 @@ export const makeDiana_E_Footfall = packClass((api: ContentApi) => {
 
 /** The landing: crescents collapsing inward onto the body she chose. */
 export const makeDiana_E_Collapse = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Diana_E_Collapse extends SpellObject {
     lifeTime = 320;
@@ -305,7 +292,6 @@ export const makeDiana_E_Collapse = packClass((api: ContentApi) => {
  * from a wasted dive without watching the cooldown.
  */
 export const makeDiana_E_Shatter = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Diana_E_Shatter extends SpellObject {
     lifeTime = 420;

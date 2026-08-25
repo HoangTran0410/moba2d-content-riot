@@ -4,17 +4,6 @@ import { HEMORRHAGE_MAX_STACKS, hemorrhageStacks } from './Darius_Q';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Champion = InstanceType<ContentApi['units']['Champion']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Fear = InstanceType<ContentApi['buffs']['Fear']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Darius_R = InstanceType<ReturnType<typeof makeDarius_R>>;
-type Darius_R_Object = InstanceType<ReturnType<typeof makeDarius_R_Object>>;
-
-
 
 export const RANGE = 200;
 
@@ -53,7 +42,6 @@ export const makeDarius_R = packClass((api: ContentApi) => {
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
   const Champion = api.units.Champion;
-  const AttackableUnit = api.units.AttackableUnit;
   const Dash = api.buffs.Dash;
   const Fear = api.buffs.Fear;
   const Darius_R_Object = makeDarius_R_Object(api);

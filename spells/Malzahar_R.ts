@@ -3,18 +3,8 @@ import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/conte
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type CastBar = InstanceType<ContentApi['vfx']['CastBar']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type TargetResolver = InstanceType<ContentApi['combat']['TargetResolver']>;
-type Malzahar_R = InstanceType<ReturnType<typeof makeMalzahar_R>>;
 type Malzahar_R_Grasp = InstanceType<ReturnType<typeof makeMalzahar_R_Grasp>>;
-type Malzahar_R_Zone = InstanceType<ReturnType<typeof makeMalzahar_R_Zone>>;
-
-
 
 // Exported so the suite asserts the grasp's wiring rather than a copy of the
 // numbers — retuning a value must not mean editing a test.
@@ -74,7 +64,6 @@ export const makeMalzahar_R = packClass((api: ContentApi) => {
   const CastBar = api.vfx.CastBar;
   const unitCastBarAnchor = api.vfx.unitCastBarAnchor;
   const Spell = api.Spell;
-  const AttackableUnit = api.units.AttackableUnit;
   const Stun = api.buffs.Stun;
   const canSee = api.combat.Vision.canSee;
   const isGraspTarget = makeIsGraspTarget(api);
@@ -239,7 +228,6 @@ export default makeMalzahar_R;
 export const makeMalzahar_R_Grasp = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   class Malzahar_R_Grasp extends SpellObject {
     victim: AttackableUnit | null = null;
     age = 0;
@@ -374,7 +362,6 @@ export const makeMalzahar_R_Zone = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Malzahar_R_Zone extends SpellObject {
     zIndex = GROUND_Z_INDEX;

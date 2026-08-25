@@ -2,16 +2,6 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type Warwick_R = InstanceType<ReturnType<typeof makeWarwick_R>>;
-type Warwick_R_Object = InstanceType<ReturnType<typeof makeWarwick_R_Object>>;
-
-
 
 export const RANGE = 550;
 
@@ -161,7 +151,6 @@ export const makeWarwick_R_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
-  const AttackableUnit = api.units.AttackableUnit;
   class Warwick_R_Object extends SpellObject {
     victim: AttackableUnit | null = null;
     age = 0;

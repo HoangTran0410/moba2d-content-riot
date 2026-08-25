@@ -1,16 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Silence = InstanceType<ContentApi['buffs']['Silence']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Blitzcrank_R = InstanceType<ReturnType<typeof makeBlitzcrank_R>>;
-type Blitzcrank_R_Object = InstanceType<ReturnType<typeof makeBlitzcrank_R_Object>>;
-
-
-
 export const makeBlitzcrank_R = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Blitzcrank_R_Object = makeBlitzcrank_R_Object(api);

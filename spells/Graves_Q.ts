@@ -1,16 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Spell = InstanceType<ContentApi['Spell']>;
 type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Graves_Q = InstanceType<ReturnType<typeof makeGraves_Q>>;
-type Graves_Q_Object = InstanceType<ReturnType<typeof makeGraves_Q_Object>>;
-
-
 
 export const RANGE = 420;
 
@@ -69,7 +61,6 @@ export const makeGraves_Q_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const AoePulse = api.AoePulse;
   const TrailSystem = api.helpers.TrailSystem;
-  const AttackableUnit = api.units.AttackableUnit;
   class Graves_Q_Object extends MissileSpellObject {
     speed = 13;
     size = 18;

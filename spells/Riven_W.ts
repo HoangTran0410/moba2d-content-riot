@@ -3,15 +3,6 @@ import type { CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type Riven_W = InstanceType<ReturnType<typeof makeRiven_W>>;
-type Riven_W_Burst = InstanceType<ReturnType<typeof makeRiven_W_Burst>>;
-type Riven_W_Fracture = InstanceType<ReturnType<typeof makeRiven_W_Fracture>>;
-
-
 
 export const W_RADIUS = 170;
 
@@ -34,7 +25,6 @@ export const makeRiven_W = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const Stun = api.buffs.Stun;
   const Spell = api.Spell;
   const Riven_W_Fracture = makeRiven_W_Fracture(api);
@@ -107,7 +97,6 @@ export default makeRiven_W;
  * resolves to `SPELL_EFFECT_Z_INDEX` instead, above the feet standing on it.
  */
 export const makeRiven_W_Fracture = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Riven_W_Fracture extends SpellObject {
@@ -183,7 +172,6 @@ export const makeRiven_W_Fracture = packClass((api: ContentApi) => {
 
 /** The one hard rim, on exactly the radius the damage used, plus a cut on each victim. */
 export const makeRiven_W_Burst = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Riven_W_Burst extends SpellObject {
     lifeTime = 300;

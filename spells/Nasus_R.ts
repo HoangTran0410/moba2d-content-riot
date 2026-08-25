@@ -1,16 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Nasus_R = InstanceType<ReturnType<typeof makeNasus_R>>;
-type Nasus_R_Object = InstanceType<ReturnType<typeof makeNasus_R_Object>>;
-
-
-
 export const DURATION = 8000;
 
 export const AURA_RADIUS = 200;

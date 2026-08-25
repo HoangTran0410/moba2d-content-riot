@@ -3,12 +3,6 @@ import type { BasicAttackHit } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Fizz_W = InstanceType<ReturnType<typeof makeFizz_W>>;
-
-
 
 export const DURATION = 8000;
 
@@ -25,7 +19,6 @@ export const makeFizz_W = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const DamageOverTime = api.buffs.DamageOverTime;
   const StatAmp = api.buffs.StatAmp;
-  const Buff = api.buffs.Buff;
   class Fizz_W extends Spell {
     targetingMode = 'SELF' as const;
     image = api.asset('spell_fizz_w');

@@ -2,19 +2,8 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TargetResolver = InstanceType<ContentApi['combat']['TargetResolver']>;
-type Vi_R = InstanceType<ReturnType<typeof makeVi_R>>;
-type Vi_R_Impact = InstanceType<ReturnType<typeof makeVi_R_Impact>>;
-type Vi_R_Streak = InstanceType<ReturnType<typeof makeVi_R_Streak>>;
-
-
 
 export const R_RANGE = 450;
 
@@ -275,7 +264,7 @@ export const makeVi_R = packClass((api: ContentApi) => {
 
       const aim = { x: target.position.x - this.launchPoint(at).x, y: target.position.y - this.launchPoint(at).y };
       const heading = Math.atan2(aim.y, aim.x);
-      this.game.objectManager.addObject(new Vi_R_Impact(this.owner, at, heading, target));
+      this.game.objectManager.addObject(new Vi_R_Impact(this.owner, at, heading));
     }
 
     private launchPoint(fallback: p5.Vector): p5.Vector {
@@ -297,8 +286,6 @@ export default makeVi_R;
  */
 export const makeVi_R_Streak = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
-  const AttackableUnit = api.units.AttackableUnit;
-  const Dash = api.buffs.Dash;
   const SpellObject = api.SpellObject;
   class Vi_R_Streak extends SpellObject {
     age = 0;
@@ -413,21 +400,18 @@ export const makeVi_R_Streak = packClass((api: ContentApi) => {
 
 /** The wedge and slam that lands on the target: uppercut lift, brass crater, hextech shockwave. */
 export const makeVi_R_Impact = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Vi_R_Impact extends SpellObject {
     lifeTime = 650;
     age = 0;
     radius = R_IMPACT_REACH;
     heading: number;
-    private target?: AttackableUnit;
     private fractures: { spread: number; length: number; kink: number }[] = [];
 
-    constructor(owner: AttackableUnit, at: p5.Vector, heading: number, target?: AttackableUnit) {
+    constructor(owner: AttackableUnit, at: p5.Vector, heading: number) {
       super(owner);
       this.position = at;
       this.heading = heading;
-      this.target = target;
     }
 
     onAdded(): void {

@@ -1,19 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Twitch_W = InstanceType<ReturnType<typeof makeTwitch_W>>;
-type Twitch_W_Cask = InstanceType<ReturnType<typeof makeTwitch_W_Cask>>;
-type Twitch_W_Object = InstanceType<ReturnType<typeof makeTwitch_W_Object>>;
-
-
-
 export const MAX_RANGE = 450;
 
 export const RADIUS = 160;

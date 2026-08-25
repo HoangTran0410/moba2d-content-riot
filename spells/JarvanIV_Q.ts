@@ -1,18 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
 type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type JarvanIV_Q = InstanceType<ReturnType<typeof makeJarvanIV_Q>>;
-type JarvanIV_Q_ChargeObject = InstanceType<ReturnType<typeof makeJarvanIV_Q_ChargeObject>>;
-type JarvanIV_Q_Object = InstanceType<ReturnType<typeof makeJarvanIV_Q_Object>>;
-
-
 
 export const JARVAN_Q_DAMAGE = 25;
 

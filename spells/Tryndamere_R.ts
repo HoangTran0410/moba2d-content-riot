@@ -2,15 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Invulnerable = InstanceType<ContentApi['buffs']['Invulnerable']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Tryndamere_R = InstanceType<ReturnType<typeof makeTryndamere_R>>;
-type Tryndamere_R_Object = InstanceType<ReturnType<typeof makeTryndamere_R_Object>>;
-
-
 
 /**
  * Much shorter than the PC ultimate's 5 seconds. Two reasons: LOL2D has no
@@ -82,10 +74,8 @@ export default makeTryndamere_R;
  * of looking the same on the first frame and the last.
  */
 export const makeTryndamere_R_Object = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
-  const AttackableUnit = api.units.AttackableUnit;
   class Tryndamere_R_Object extends SpellObject {
     age = 0;
     lifeTime = TRYNDAMERE_R_DURATION_MS;

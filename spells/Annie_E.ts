@@ -1,14 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type DamageReflect = InstanceType<ContentApi['buffs']['DamageReflect']>;
-type Shield = InstanceType<ContentApi['buffs']['Shield']>;
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type Annie_E = InstanceType<ReturnType<typeof makeAnnie_E>>;
-
-
-
 export const DURATION = 3000;
 
 export const SHIELD_AMOUNT = 55;

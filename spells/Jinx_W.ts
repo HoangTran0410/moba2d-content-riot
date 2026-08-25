@@ -1,16 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
 type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Jinx_W = InstanceType<ReturnType<typeof makeJinx_W>>;
-type Jinx_W_Object = InstanceType<ReturnType<typeof makeJinx_W_Object>>;
-
-
 
 /**
  * Reach of the bolt.
@@ -73,7 +65,6 @@ export const makeJinx_W_Object = packClass((api: ContentApi) => {
   const Slow = api.buffs.Slow;
   const AoePulse = api.AoePulse;
   const TrailSystem = api.helpers.TrailSystem;
-  const AttackableUnit = api.units.AttackableUnit;
   class Jinx_W_Object extends MissileSpellObject {
     speed = 26;
     size = 18;

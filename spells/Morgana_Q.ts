@@ -1,17 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Root = InstanceType<ContentApi['buffs']['Root']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Morgana_Q = InstanceType<ReturnType<typeof makeMorgana_Q>>;
-type Morgana_Q_Object = InstanceType<ReturnType<typeof makeMorgana_Q_Object>>;
-type Morgana_Q_Snap = InstanceType<ReturnType<typeof makeMorgana_Q_Snap>>;
-
-
-
 /** Bruised violet, the colour of the whole Dark Binding kit. */
 const BINDING_COLOR: [number, number, number] = [186, 96, 240];
 

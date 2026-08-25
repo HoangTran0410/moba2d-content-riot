@@ -3,14 +3,6 @@ import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Diana_Q = InstanceType<ReturnType<typeof makeDiana_Q>>;
-type Diana_Q_Cut = InstanceType<ReturnType<typeof makeDiana_Q_Cut>>;
-type Diana_Q_Sweep = InstanceType<ReturnType<typeof makeDiana_Q_Sweep>>;
 type Moonlight = InstanceType<ReturnType<typeof makeMoonlight>>;
 
 
@@ -114,7 +106,6 @@ export const makeMoonlight = packClass((api: ContentApi) => {
 
 /** The live mark on a unit, or null. A plain loop: filter cannot narrow here. */
 export const makeMoonlightOn = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const Moonlight = makeMoonlight(api);
   function moonlightOn(unit: AttackableUnit): Moonlight | null {
     const carried = unit.buffs;
@@ -201,7 +192,6 @@ export const makeDiana_Q_Sweep = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const Moonlight = makeMoonlight(api);
   const Diana_Q_Cut = makeDiana_Q_Cut(api);
@@ -420,7 +410,6 @@ export const makeDiana_Q_Sweep = packClass((api: ContentApi) => {
 
 /** The cut, on the body that took it. */
 export const makeDiana_Q_Cut = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Diana_Q_Cut extends SpellObject {
     lifeTime = 300;

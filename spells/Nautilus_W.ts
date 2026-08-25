@@ -3,17 +3,8 @@ import type { BasicAttackHit } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
 type Shield = InstanceType<ContentApi['buffs']['Shield']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Nautilus_W = InstanceType<ReturnType<typeof makeNautilus_W>>;
-type Nautilus_W_Shell = InstanceType<ReturnType<typeof makeNautilus_W_Shell>>;
-type Nautilus_W_Splash = InstanceType<ReturnType<typeof makeNautilus_W_Splash>>;
-
-
 
 export const W_SHIELD = 35;
 
@@ -59,7 +50,6 @@ export const makeNautilus_W = packClass((api: ContentApi) => {
   const EventType = api.enums.EventType;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
-  const AttackableUnit = api.units.AttackableUnit;
   const DamageOverTime = api.buffs.DamageOverTime;
   const Shield = api.buffs.Shield;
   const Nautilus_W_Shell = makeNautilus_W_Shell(api);
@@ -163,10 +153,7 @@ export default makeNautilus_W;
  * frames on which the caster is culled.
  */
 export const makeNautilus_W_Shell = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
-  const Shield = api.buffs.Shield;
   class Nautilus_W_Shell extends SpellObject {
     age = 0;
     lifeTime = W_DURATION_MS;
@@ -243,9 +230,7 @@ export const makeNautilus_W_Shell = packClass((api: ContentApi) => {
 
 /** The low sheet of water, on the ground, at exactly the radius that hit. */
 export const makeNautilus_W_Splash = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Nautilus_W_Splash extends SpellObject {
     zIndex = GROUND_Z_INDEX;

@@ -2,20 +2,8 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { WallContact } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
-type Champion = InstanceType<ContentApi['units']['Champion']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
 type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
 type Camille_E = InstanceType<ReturnType<typeof makeCamille_E>>;
-type Camille_E_DiveStreak = InstanceType<ReturnType<typeof makeCamille_E_DiveStreak>>;
-type Camille_E_GrappleObject = InstanceType<ReturnType<typeof makeCamille_E_GrappleObject>>;
 type Camille_E_TetherObject = InstanceType<ReturnType<typeof makeCamille_E_TetherObject>>;
 
 

@@ -2,15 +2,8 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type ParticleSystem = InstanceType<ContentApi['helpers']['ParticleSystem']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
 type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type LeeSin_E = InstanceType<ReturnType<typeof makeLeeSin_E>>;
-type LeeSin_E_Object = InstanceType<ReturnType<typeof makeLeeSin_E_Object>>;
-
-
 
 export const RANGE = 150;
 
@@ -91,11 +84,8 @@ export const makeLeeSin_E_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const BuffAddType = api.enums.BuffAddType;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const Spell = api.Spell;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const Slow = api.buffs.Slow;
-  const ParticleSystem = api.helpers.ParticleSystem;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   class LeeSin_E_Object extends SpellObject {
     position = this.owner.position.copy();

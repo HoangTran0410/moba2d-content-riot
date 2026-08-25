@@ -5,14 +5,6 @@ import { hasRejuvenation } from './Soraka_Q';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TargetResolver = InstanceType<ContentApi['combat']['TargetResolver']>;
-type Soraka_W = InstanceType<ReturnType<typeof makeSoraka_W>>;
-type Soraka_W_Beam = InstanceType<ReturnType<typeof makeSoraka_W_Beam>>;
-
-
 
 /**
  * Astral Infusion. Soraka pays her own health to heal an ally — the one spell
@@ -45,7 +37,6 @@ export const makeSoraka_W = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
   const Spell = api.Spell;
-  const AttackableUnit = api.units.AttackableUnit;
   const TargetResolver = api.combat.TargetResolver;
   const canSee = api.combat.Vision.canSee;
   const grantRejuvenation = makeGrantRejuvenation(api);
@@ -171,7 +162,6 @@ export const makeIsInfusionTarget = packClass((api: ContentApi) => {
 export const makeSoraka_W_Beam = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   class Soraka_W_Beam extends SpellObject {
     target: AttackableUnit;
     age = 0;

@@ -1,17 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Ashe_R = InstanceType<ReturnType<typeof makeAshe_R>>;
-type Ashe_R_Object = InstanceType<ReturnType<typeof makeAshe_R_Object>>;
-
-
-
 export const SIZE = 35;
 
 export const DAMAGE = 30;

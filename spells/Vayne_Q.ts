@@ -6,18 +6,6 @@ import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Invisible = InstanceType<ContentApi['buffs']['Invisible']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Vayne_Q = InstanceType<ReturnType<typeof makeVayne_Q>>;
-type Vayne_Q_Bolt_Flash = InstanceType<ReturnType<typeof makeVayne_Q_Bolt_Flash>>;
-type Vayne_Q_Empower = InstanceType<ReturnType<typeof makeVayne_Q_Empower>>;
-type Vayne_Q_Loaded = InstanceType<ReturnType<typeof makeVayne_Q_Loaded>>;
-type Vayne_R_Buff = InstanceType<ReturnType<typeof makeVayne_R_Buff>>;
-
-
 
 /** How far the roll carries her. Repositioning, not travel. */
 export const VAYNE_Q_DISTANCE = 200;
@@ -193,8 +181,6 @@ export const makeVayne_Q_Empower = packClass((api: ContentApi) => {
  * layer that says "loaded", riding the buff so it cannot outlive it.
  */
 export const makeVayne_Q_Loaded = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
-  const Buff = api.buffs.Buff;
   const SpellObject = api.SpellObject;
   class Vayne_Q_Loaded extends SpellObject {
     age = 0;
@@ -246,7 +232,6 @@ export const makeVayne_Q_Loaded = packClass((api: ContentApi) => {
  * the victim rather than grit at the missile's centre.
  */
 export const makeVayne_Q_Bolt_Flash = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Vayne_Q_Bolt_Flash extends SpellObject {
     lifeTime = 260;

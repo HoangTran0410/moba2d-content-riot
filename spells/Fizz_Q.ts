@@ -1,16 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type AoePulse = InstanceType<ContentApi['AoePulse']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Fizz_Q = InstanceType<ReturnType<typeof makeFizz_Q>>;
-type Fizz_Q_Slash = InstanceType<ReturnType<typeof makeFizz_Q_Slash>>;
-
-
-
 export const RANGE = 380;
 
 export const DAMAGE = 22;

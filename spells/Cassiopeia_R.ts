@@ -1,16 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type Cassiopeia_R = InstanceType<ReturnType<typeof makeCassiopeia_R>>;
-type Cassiopeia_R_Cone = InstanceType<ReturnType<typeof makeCassiopeia_R_Cone>>;
-
-
 
 export const REACH = 420;
 
@@ -103,7 +94,6 @@ export const makeCassiopeia_R_Cone = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const AoePulse = api.AoePulse;
-  const AttackableUnit = api.units.AttackableUnit;
   const Slow = api.buffs.Slow;
   const Stun = api.buffs.Stun;
   class Cassiopeia_R_Cone extends AoePulse {

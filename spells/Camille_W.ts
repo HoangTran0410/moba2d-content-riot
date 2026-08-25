@@ -1,15 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Camille_W = InstanceType<ReturnType<typeof makeCamille_W>>;
-type Camille_W_Object = InstanceType<ReturnType<typeof makeCamille_W_Object>>;
-
-
-
 export const CAMILLE_W_OUTER_DAMAGE = 40;
 
 export const CAMILLE_W_INNER_DAMAGE = 20;

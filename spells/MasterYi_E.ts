@@ -4,10 +4,6 @@ import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type MasterYi_E = InstanceType<ReturnType<typeof makeMasterYi_E>>;
 type MasterYi_E_Object = InstanceType<ReturnType<typeof makeMasterYi_E_Object>>;
 
 
@@ -146,7 +142,6 @@ interface WujuCut {
 export const makeMasterYi_E_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   class MasterYi_E_Object extends SpellObject {
     age = 0;
     _cuts: WujuCut[] = [];

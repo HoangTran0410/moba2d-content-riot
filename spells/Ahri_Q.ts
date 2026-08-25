@@ -1,17 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Ahri_Q = InstanceType<ReturnType<typeof makeAhri_Q>>;
-type Ahri_Q_Impact = InstanceType<ReturnType<typeof makeAhri_Q_Impact>>;
-type Ahri_Q_Object = InstanceType<ReturnType<typeof makeAhri_Q_Object>>;
-
-
-
 /**
  * Nine tails. Every Ahri effect repeats the count, which is what makes her
  * spells recognisably *hers* at a glance rather than "a purple circle".

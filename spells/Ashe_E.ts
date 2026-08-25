@@ -1,18 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Ashe_E = InstanceType<ReturnType<typeof makeAshe_E>>;
-type Ashe_E_Object = InstanceType<ReturnType<typeof makeAshe_E_Object>>;
-type Ashe_E_Ping = InstanceType<ReturnType<typeof makeAshe_E_Ping>>;
-
-
-
 /** Ashe's own reveal slot, so hers neither evicts nor is evicted by another spell's. */
 export const REVEAL_STACK_ID = 'ashe_e_reveal';
 

@@ -1,18 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Yasuo_R = InstanceType<ReturnType<typeof makeYasuo_R>>;
-type Yasuo_R_Object = InstanceType<ReturnType<typeof makeYasuo_R_Object>>;
-
-
-
 export const R_FIND_RANGE = 600;
 
 export const R_AIRBORNE_RADIUS = 200;

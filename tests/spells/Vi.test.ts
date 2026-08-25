@@ -10,7 +10,7 @@ import {
 } from '@moba2d/core/testing/spell';
 import { Q_MAX_CHARGE_MS, Q_MAX_DAMAGE, Q_MAX_DISTANCE, Q_MIN_DAMAGE, Q_MIN_DISTANCE, viQDamage, viQDashDistance } from '../../spells/Vi_Q';
 import makeVi_Q from '../../spells/Vi_Q';
-import { W_ATTACK_SPEED, W_PROC, W_STACKS } from '../../spells/Vi_W';
+import { W_PROC, W_STACKS } from '../../spells/Vi_W';
 import makeVi_W from '../../spells/Vi_W';
 import { E_CHARGES, E_DAMAGE } from '../../spells/Vi_E';
 import makeVi_E from '../../spells/Vi_E';

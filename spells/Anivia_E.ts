@@ -3,18 +3,7 @@ import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/conte
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Chilled = InstanceType<ContentApi['buffs']['Chilled']>;
-type HomingMissileSpellObject = InstanceType<ContentApi['HomingMissileSpellObject']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TargetResolver = InstanceType<ContentApi['combat']['TargetResolver']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Anivia_E = InstanceType<ReturnType<typeof makeAnivia_E>>;
-type Anivia_E_Bolt = InstanceType<ReturnType<typeof makeAnivia_E_Bolt>>;
-type Anivia_E_Impact = InstanceType<ReturnType<typeof makeAnivia_E_Impact>>;
-
-
 
 type FrostbiteTarget = AttackableUnit;
 
@@ -159,7 +148,6 @@ export default makeAnivia_E;
 
 
 export const makeAnivia_E_Bolt = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const Chilled = api.buffs.Chilled;
   const TrailSystem = api.helpers.TrailSystem;
   const HomingMissileSpellObject = api.HomingMissileSpellObject;
@@ -238,7 +226,6 @@ export const makeAnivia_E_Bolt = packClass((api: ContentApi) => {
 
 /** The strike landing: a small frost burst, brighter and wider on a doubled hit. */
 export const makeAnivia_E_Impact = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Anivia_E_Impact extends SpellObject {
     position = this.owner.position.copy();

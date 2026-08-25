@@ -3,17 +3,7 @@ import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type Nautilus_Q = InstanceType<ReturnType<typeof makeNautilus_Q>>;
-type Nautilus_Q_Impact = InstanceType<ReturnType<typeof makeNautilus_Q_Impact>>;
-type Nautilus_Q_Object = InstanceType<ReturnType<typeof makeNautilus_Q_Object>>;
-
-
 
 export const Q_DAMAGE = 20;
 
@@ -61,7 +51,6 @@ const FOAM: [number, number, number] = [168, 230, 207];
  * own crowd control would drop half its victims on the spot.
  */
 export const makeHaul = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const Dash = api.buffs.Dash;
   function haul(
     source: AttackableUnit,
@@ -137,7 +126,6 @@ type ChainPhase = 'flight' | 'return';
 export const makeNautilus_Q_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const MissileSpellObject = api.MissileSpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const Stun = api.buffs.Stun;
   const sweepToWall = api.terrain.sweepToWall;
   const haul = makeHaul(api);
@@ -326,9 +314,7 @@ export const makeNautilus_Q_Object = packClass((api: ContentApi) => {
 
 /** The bite, on the body (or the rock) that took it. */
 export const makeNautilus_Q_Impact = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   class Nautilus_Q_Impact extends SpellObject {
     lifeTime = 300;
     age = 0;

@@ -1,12 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type LeeSin_Q = InstanceType<ReturnType<typeof makeLeeSin_Q>>;
 type LeeSin_Q_Object = InstanceType<ReturnType<typeof makeLeeSin_Q_Object>>;
 
 

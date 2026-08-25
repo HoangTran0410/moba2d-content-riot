@@ -1,19 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Ashe_Q = InstanceType<ReturnType<typeof makeAshe_Q>>;
-type Ashe_Q_Muzzle = InstanceType<ReturnType<typeof makeAshe_Q_Muzzle>>;
-type Ashe_Q_Object = InstanceType<ReturnType<typeof makeAshe_Q_Object>>;
-type Ashe_Q_Shatter = InstanceType<ReturnType<typeof makeAshe_Q_Shatter>>;
-
-
-
 export const makeAshe_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;

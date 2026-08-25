@@ -6,17 +6,7 @@ import { packClass } from '../packClass';
 import { drawAxeArc, drawDariusAxe } from '../vfx/DariusAxe';
 import { makeApplyHemorrhage } from './Darius_Q';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Darius_E = InstanceType<ReturnType<typeof makeDarius_E>>;
-type Darius_E_Object = InstanceType<ReturnType<typeof makeDarius_E_Object>>;
-
-
 
 export const CAST_TIME_MS = 250;
 
@@ -53,7 +43,6 @@ export const makeDarius_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
-  const AttackableUnit = api.units.AttackableUnit;
   const Airborne = api.buffs.Airborne;
   const Dash = api.buffs.Dash;
   const Slow = api.buffs.Slow;
@@ -207,7 +196,6 @@ const BARB_COUNT = 9;
  */
 export const makeDarius_E_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Darius_E_Object extends SpellObject {
     zIndex = GROUND_Z_INDEX;

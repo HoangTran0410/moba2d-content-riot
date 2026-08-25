@@ -5,13 +5,6 @@ import { JHIN_MARK_MS } from './Jhin_Q';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Jhin_E = InstanceType<ReturnType<typeof makeJhin_E>>;
-type Jhin_E_Bloom = InstanceType<ReturnType<typeof makeJhin_E_Bloom>>;
-type Jhin_E_Grenade = InstanceType<ReturnType<typeof makeJhin_E_Grenade>>;
 type Jhin_E_Trap = InstanceType<ReturnType<typeof makeJhin_E_Trap>>;
 
 
@@ -132,7 +125,6 @@ export default makeJhin_E;
  * The thrown lotus trap grenade. Arcs through the air from Jhin to the target location.
  */
 export const makeJhin_E_Grenade = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const Jhin_E_Trap = makeJhin_E_Trap(api);
   class Jhin_E_Grenade extends SpellObject {
@@ -210,7 +202,6 @@ export const makeJhin_E_Grenade = packClass((api: ContentApi) => {
 export const makeJhin_E_Trap = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const Slow = api.buffs.Slow;
   const SpellObject = api.SpellObject;
   const applyJhinMark = makeApplyJhinMark(api);
@@ -433,7 +424,6 @@ export const makeJhin_E_Trap = packClass((api: ContentApi) => {
 
 /** The trap going off, on the body that stepped in it. */
 export const makeJhin_E_Bloom = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Jhin_E_Bloom extends SpellObject {
     lifeTime = 460;

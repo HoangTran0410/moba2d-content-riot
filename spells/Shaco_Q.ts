@@ -1,15 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Invisible = InstanceType<ContentApi['buffs']['Invisible']>;
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Shaco_Q = InstanceType<ReturnType<typeof makeShaco_Q>>;
-type Shaco_Q_Object = InstanceType<ReturnType<typeof makeShaco_Q_Object>>;
-
-
-
 export const BLINK_RANGE = 200;
 
 export const STEALTH_MS = 2000;

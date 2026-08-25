@@ -2,15 +2,6 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Soraka_Q = InstanceType<ReturnType<typeof makeSoraka_Q>>;
-type Soraka_Q_Object = InstanceType<ReturnType<typeof makeSoraka_Q_Object>>;
-
-
 
 /**
  * Starcall. A star is called down onto a patch of ground; it takes a beat to
@@ -60,7 +51,6 @@ export const hasRejuvenation = (unit: AttackableUnit): boolean =>
  */
 export const makeGrantRejuvenation = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
-  const AttackableUnit = api.units.AttackableUnit;
   const Speedup = api.buffs.Speedup;
   const grantRejuvenation = (source: AttackableUnit, target: AttackableUnit): void => {
     target.takeHeal(REJUVENATION_HEAL, source);

@@ -3,13 +3,6 @@ import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Syndra_Burst = InstanceType<ReturnType<typeof makeSyndra_Burst>>;
-type Syndra_Q = InstanceType<ReturnType<typeof makeSyndra_Q>>;
-type Syndra_Q_Fall = InstanceType<ReturnType<typeof makeSyndra_Q_Fall>>;
-type Syndra_Q_Telegraph = InstanceType<ReturnType<typeof makeSyndra_Q_Telegraph>>;
 type Syndra_Sphere = InstanceType<ReturnType<typeof makeSyndra_Sphere>>;
 
 
@@ -78,7 +71,6 @@ function distanceBetween(a: { x: number; y: number }, b: { x: number; y: number 
 // SPHERE_REGISTRY / registryFor / Syndra_Sphere reference each other as real values both ways —
 // see this file's own header comment on the codemod's cycle handling.
 function __group0_SPHERE_REGISTRYBuild(api: ContentApi) {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   /** A sphere in her hand or in flight is over the bodies, not under them. */
@@ -354,7 +346,6 @@ function enforceSphereCap(list: Syndra_Sphere[]): void {
 
 /** Her live grounded spheres, closest to her first. Held and flying ones are not grounded. */
 export const makeGroundedSpheres = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SPHERE_REGISTRY = makeSPHERE_REGISTRY(api);
   function groundedSpheres(owner: AttackableUnit): Syndra_Sphere[] {
     const list = SPHERE_REGISTRY.get(owner);
@@ -433,7 +424,6 @@ export default makeSyndra_Q;
  * lands. The enemy knows the size before it arrives.
  */
 export const makeSyndra_Q_Telegraph = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Syndra_Q_Telegraph extends SpellObject {
@@ -486,7 +476,6 @@ export const makeSyndra_Q_Telegraph = packClass((api: ContentApi) => {
 export const makeSyndra_Q_Fall = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const Syndra_Sphere = makeSyndra_Sphere(api);
   const Syndra_Burst = makeSyndra_Burst(api);
@@ -595,7 +584,6 @@ export const makeSyndra_Q_Fall = packClass((api: ContentApi) => {
  * the fracture spikes of the motif, planted on the body that took the hit.
  */
 export const makeSyndra_Burst = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Syndra_Burst extends SpellObject {

@@ -3,15 +3,6 @@ import type { ExecuteSpell } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Veigar_Q = InstanceType<ReturnType<typeof makeVeigar_Q>>;
-type Veigar_Q_Implode = InstanceType<ReturnType<typeof makeVeigar_Q_Implode>>;
-type Veigar_Q_Object = InstanceType<ReturnType<typeof makeVeigar_Q_Object>>;
 type Veigar_Q_Power = InstanceType<ReturnType<typeof makeVeigar_Q_Power>>;
 
 
@@ -26,7 +17,6 @@ export const makeVeigar_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
-  const AttackableUnit = api.units.AttackableUnit;
   const liveStacks = makeLiveStacks(api);
   const createPowerStack = makeCreatePowerStack(api);
   const Veigar_Q_Object = makeVeigar_Q_Object(api);

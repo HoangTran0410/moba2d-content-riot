@@ -2,12 +2,6 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Champion = InstanceType<ContentApi['units']['Champion']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Root = InstanceType<ContentApi['buffs']['Root']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Caitlyn_W = InstanceType<ReturnType<typeof makeCaitlyn_W>>;
 type Caitlyn_W_Trap = InstanceType<ReturnType<typeof makeCaitlyn_W_Trap>>;
 
 
@@ -118,7 +112,6 @@ export const makeCaitlyn_W_Trap = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const Champion = api.units.Champion;
   const Root = api.buffs.Root;
   const createReveal = api.buffs.createReveal;

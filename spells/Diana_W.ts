@@ -4,15 +4,6 @@ import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Shield = InstanceType<ContentApi['buffs']['Shield']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Diana_W = InstanceType<ReturnType<typeof makeDiana_W>>;
-type Diana_W_Bloom = InstanceType<ReturnType<typeof makeDiana_W_Bloom>>;
-type Diana_W_Orbit = InstanceType<ReturnType<typeof makeDiana_W_Orbit>>;
-
-
 
 export const W_SPHERES = 3;
 
@@ -95,8 +86,6 @@ export default makeDiana_W;
 export const makeDiana_W_Orbit = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
-  const Buff = api.buffs.Buff;
   const Shield = api.buffs.Shield;
   const SpellObject = api.SpellObject;
   const Diana_W_Bloom = makeDiana_W_Bloom(api);
@@ -257,7 +246,6 @@ export const makeDiana_W_Orbit = packClass((api: ContentApi) => {
 
 /** A crescent bloom where a sphere met a body. */
 export const makeDiana_W_Bloom = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Diana_W_Bloom extends SpellObject {
     lifeTime = W_BLOOM_MS;

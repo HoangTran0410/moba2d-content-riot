@@ -2,15 +2,6 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Renekton_R = InstanceType<ReturnType<typeof makeRenekton_R>>;
-type Renekton_R_Object = InstanceType<ReturnType<typeof makeRenekton_R_Object>>;
-
-
 
 export const DURATION_MS = 8_000;
 
@@ -123,7 +114,6 @@ export const makeRenekton_R_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   class Renekton_R_Object extends SpellObject {
     radius = AURA_RADIUS;
     visionRadius = AURA_RADIUS;

@@ -6,12 +6,7 @@ import { packClass } from '../packClass';
 import { drawAxeArc, drawDariusAxe } from '../vfx/DariusAxe';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Champion = InstanceType<ContentApi['units']['Champion']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Darius_Q = InstanceType<ReturnType<typeof makeDarius_Q>>;
 type Darius_Q_Object = InstanceType<ReturnType<typeof makeDarius_Q_Object>>;
 
 
@@ -90,7 +85,6 @@ export function hemorrhageStacks(unit: AttackableUnit): number {
 
 /** Cuts `victim`: one more stack, and the clock back to full. */
 export const makeApplyHemorrhage = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const DamageOverTime = api.buffs.DamageOverTime;
   function applyHemorrhage(source: AttackableUnit, victim: AttackableUnit): void {
     if (victim.isDead) return;
@@ -133,7 +127,6 @@ export const makeDarius_Q = packClass((api: ContentApi) => {
   const SpellForm = api.enums.SpellForm;
   const Spell = api.Spell;
   const Champion = api.units.Champion;
-  const AttackableUnit = api.units.AttackableUnit;
   const applyHemorrhage = makeApplyHemorrhage(api);
   const Darius_Q_Object = makeDarius_Q_Object(api);
   class Darius_Q extends Spell {

@@ -3,20 +3,6 @@ import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/conte
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type HomingMissileSpellObject = InstanceType<ContentApi['HomingMissileSpellObject']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TargetResolver = InstanceType<ContentApi['combat']['TargetResolver']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Malphite_Q = InstanceType<ReturnType<typeof makeMalphite_Q>>;
-type Malphite_Q_Object = InstanceType<ReturnType<typeof makeMalphite_Q_Object>>;
-type Malphite_Q_Rush = InstanceType<ReturnType<typeof makeMalphite_Q_Rush>>;
-type Malphite_Q_Shatter = InstanceType<ReturnType<typeof makeMalphite_Q_Shatter>>;
-type Malphite_Q_Speedup = InstanceType<ReturnType<typeof makeMalphite_Q_Speedup>>;
-
-
 
 type MalphiteTarget = AttackableUnit;
 

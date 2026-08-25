@@ -1,18 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Champion = InstanceType<ContentApi['units']['Champion']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Nearsight = InstanceType<ContentApi['buffs']['Nearsight']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
 type Nocturne_R = InstanceType<ReturnType<typeof makeNocturne_R>>;
-type Nocturne_R_Landing = InstanceType<ReturnType<typeof makeNocturne_R_Landing>>;
-type Nocturne_R_Object = InstanceType<ReturnType<typeof makeNocturne_R_Object>>;
-type Nocturne_R_Window = InstanceType<ReturnType<typeof makeNocturne_R_Window>>;
-
-
 
 // Exported so the suite asserts the wiring, not a copy of the number —
 // retuning a value should not mean editing the test.

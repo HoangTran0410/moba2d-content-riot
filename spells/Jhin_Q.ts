@@ -3,20 +3,7 @@ import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/conte
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TargetResolver = InstanceType<ContentApi['combat']['TargetResolver']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
 type JhinMarkBuff = InstanceType<ReturnType<typeof makeJhinMarkBuff>>;
-type Jhin_Mark_Object = InstanceType<ReturnType<typeof makeJhin_Mark_Object>>;
-type Jhin_Q = InstanceType<ReturnType<typeof makeJhin_Q>>;
-type Jhin_Q_Blast = InstanceType<ReturnType<typeof makeJhin_Q_Blast>>;
-type Jhin_Q_Object = InstanceType<ReturnType<typeof makeJhin_Q_Object>>;
-
-
 
 /** How long a lotus mark rides a body. Shared by Q, W and E — defined here, imported there. */
 export const JHIN_MARK_MS = 4_000;
@@ -68,7 +55,6 @@ export const makeJhinMarkBuff = packClass((api: ContentApi) => {
 
 
 export const makeFindJhinMark = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const JhinMarkBuff = makeJhinMarkBuff(api);
   function findJhinMark(unit: AttackableUnit): JhinMarkBuff | null {
     for (const buff of unit.buffs) {
@@ -81,7 +67,6 @@ export const makeFindJhinMark = packClass((api: ContentApi) => {
 
 
 export const makeHasJhinMark = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const findJhinMark = makeFindJhinMark(api);
   function hasJhinMark(unit: AttackableUnit): boolean {
     return findJhinMark(unit) !== null;
@@ -92,7 +77,6 @@ export const makeHasJhinMark = packClass((api: ContentApi) => {
 
 /** Returns whether there was a mark to take. W's two outcomes hang off this boolean. */
 export const makeConsumeJhinMark = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const findJhinMark = makeFindJhinMark(api);
   function consumeJhinMark(unit: AttackableUnit): boolean {
     const mark = findJhinMark(unit);
@@ -105,7 +89,6 @@ export const makeConsumeJhinMark = packClass((api: ContentApi) => {
 
 
 export const makeApplyJhinMark = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const JhinMarkBuff = makeJhinMarkBuff(api);
   const findJhinMark = makeFindJhinMark(api);
   const Jhin_Mark_Object = makeJhin_Mark_Object(api);
@@ -130,7 +113,6 @@ export const makeJhin_Q = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const withinRange = api.combat.Reach.withinRange;
   const TargetResolver = api.combat.TargetResolver;
-  const AttackableUnit = api.units.AttackableUnit;
   const Spell = api.Spell;
   const isGrenadeTarget = makeIsGrenadeTarget(api);
   const Jhin_Q_Object = makeJhin_Q_Object(api);
@@ -244,7 +226,6 @@ export const makeIsGrenadeTarget = packClass((api: ContentApi) => {
 export const makeJhin_Q_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const TrailSystem = api.helpers.TrailSystem;
   const MissileSpellObject = api.MissileSpellObject;
   const applyJhinMark = makeApplyJhinMark(api);
@@ -372,7 +353,6 @@ export const makeJhin_Q_Object = packClass((api: ContentApi) => {
 
 /** The blast on the body that took the hit. Bigger and brighter every bounce. */
 export const makeJhin_Q_Blast = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Jhin_Q_Blast extends SpellObject {
     lifeTime = 340;
@@ -445,7 +425,6 @@ export const makeJhin_Q_Blast = packClass((api: ContentApi) => {
  * dies with the buff, so W's condition is readable from across the screen.
  */
 export const makeJhin_Mark_Object = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Jhin_Mark_Object extends SpellObject {
     markTarget: AttackableUnit;

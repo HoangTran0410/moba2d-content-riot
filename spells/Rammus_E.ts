@@ -1,14 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type Taunt = InstanceType<ContentApi['buffs']['Taunt']>;
-type Rammus_E = InstanceType<ReturnType<typeof makeRammus_E>>;
-
-
 
 export const RANGE = 200;
 
@@ -41,7 +34,6 @@ export const makeRammus_E = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const AoePulse = api.AoePulse;
   const Taunt = api.buffs.Taunt;
-  const AttackableUnit = api.units.AttackableUnit;
   class Rammus_E extends Spell {
     // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
     targetingMode = 'SELF' as const;

@@ -2,13 +2,6 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { drawAegis } from './Pantheon_W';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Untargetable = InstanceType<ContentApi['buffs']['Untargetable']>;
-type Pantheon_R = InstanceType<ReturnType<typeof makePantheon_R>>;
 type Pantheon_R_Meteor = InstanceType<ReturnType<typeof makePantheon_R_Meteor>>;
 type Pantheon_R_Object = InstanceType<ReturnType<typeof makePantheon_R_Object>>;
 type Pantheon_R_Skyward = InstanceType<ReturnType<typeof makePantheon_R_Skyward>>;

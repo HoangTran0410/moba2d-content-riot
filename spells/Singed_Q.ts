@@ -1,17 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Singed_Q = InstanceType<ReturnType<typeof makeSinged_Q>>;
-type Singed_Q_Cloud = InstanceType<ReturnType<typeof makeSinged_Q_Cloud>>;
-type Singed_Q_Trail = InstanceType<ReturnType<typeof makeSinged_Q_Trail>>;
-
-
-
 export const DURATION = 6000;
 
 export const CLOUD_RADIUS = 90;

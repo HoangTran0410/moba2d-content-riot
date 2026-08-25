@@ -1,16 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Cassiopeia_Q = InstanceType<ReturnType<typeof makeCassiopeia_Q>>;
-type Cassiopeia_Q_Object = InstanceType<ReturnType<typeof makeCassiopeia_Q_Object>>;
-
-
-
 export const MAX_RANGE = 550;
 
 export const RADIUS = 110;

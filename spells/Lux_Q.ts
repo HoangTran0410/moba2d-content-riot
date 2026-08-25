@@ -1,17 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type RootBuff = InstanceType<ContentApi['buffs']['Root']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Lux_Q = InstanceType<ReturnType<typeof makeLux_Q>>;
-type Lux_Q_Bind = InstanceType<ReturnType<typeof makeLux_Q_Bind>>;
-type Lux_Q_Object = InstanceType<ReturnType<typeof makeLux_Q_Object>>;
-
-
-
 /** Faces on the prism, and spokes in the burst it leaves. */
 export const PRISM_FACES = 6;
 

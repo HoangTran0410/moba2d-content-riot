@@ -1,11 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, KillCredit } from '@moba2d/core/content/types';
 
-type Champion = InstanceType<ContentApi['units']['Champion']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
 type Spell = InstanceType<ContentApi['Spell']>;
-type Zed_W = InstanceType<ReturnType<typeof makeZed_W>>;
-type Zed_W_Clone = InstanceType<ReturnType<typeof makeZed_W_Clone>>;
 
 // Zed_W / Zed_W_Clone reference each other as real values both ways —
 // see this file's own header comment on the codemod's cycle handling.

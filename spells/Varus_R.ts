@@ -1,16 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Root = InstanceType<ContentApi['buffs']['Root']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type Varus_R = InstanceType<ReturnType<typeof makeVarus_R>>;
-type Varus_R_Object = InstanceType<ReturnType<typeof makeVarus_R_Object>>;
-
-
 
 export const RANGE = 600;
 
@@ -64,7 +55,6 @@ export const makeVarus_R_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const AoePulse = api.AoePulse;
   const Root = api.buffs.Root;
-  const AttackableUnit = api.units.AttackableUnit;
   class Varus_R_Object extends MissileSpellObject {
     speed = 12;
     size = 26;

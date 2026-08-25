@@ -3,11 +3,7 @@ import { packClass } from '../packClass';
 
 type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
 type RootBuff = InstanceType<ContentApi['buffs']['Root']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type Blitzcrank_Q = InstanceType<ReturnType<typeof makeBlitzcrank_Q>>;
 type Blitzcrank_Q_Object = InstanceType<ReturnType<typeof makeBlitzcrank_Q_Object>>;
 
 

@@ -3,14 +3,9 @@ import type { CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
 type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
 type Sett_Q = InstanceType<ReturnType<typeof makeSett_Q>>;
 type Sett_Q_Glow = InstanceType<ReturnType<typeof makeSett_Q_Glow>>;
-type Sett_Q_Knuckle = InstanceType<ReturnType<typeof makeSett_Q_Knuckle>>;
-
-
 
 export const SETT_Q_HITS = 2;
 
@@ -38,7 +33,6 @@ const BLOOD: [number, number, number] = [183, 21, 64];
  */
 export const makeSett_Q = packClass((api: ContentApi) => {
   const EventType = api.enums.EventType;
-  const AttackableUnit = api.units.AttackableUnit;
   const StatAmp = api.buffs.StatAmp;
   const Spell = api.Spell;
   const Sett_Q_Glow = makeSett_Q_Glow(api);
@@ -150,7 +144,6 @@ export default makeSett_Q;
  * vfx so it keeps its own draw slot while the spell that owns it is idle.
  */
 export const makeSett_Q_Glow = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Sett_Q_Glow extends SpellObject {
     age = 0;
@@ -218,7 +211,6 @@ export const makeSett_Q_Glow = packClass((api: ContentApi) => {
 
 /** The count-down the player reads: one ring on each body an armed punch lands on. */
 export const makeSett_Q_Knuckle = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Sett_Q_Knuckle extends SpellObject {
     lifeTime = KNUCKLE_LIFE_MS;

@@ -3,16 +3,6 @@ import type { BasicAttackHit } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Teemo_E = InstanceType<ReturnType<typeof makeTeemo_E>>;
-type Teemo_E_Object = InstanceType<ReturnType<typeof makeTeemo_E_Object>>;
-type Teemo_E_Splash = InstanceType<ReturnType<typeof makeTeemo_E_Splash>>;
-
-
 
 // Exported so the suite asserts the wiring, not a copy of the numbers —
 // retuning a value should not mean editing the test.
@@ -34,7 +24,6 @@ export const MANA_COST = 25;
 /** Poisons `victim`, from whichever of the two deliveries applied it. */
 export const makeApplyToxicShot = packClass((api: ContentApi) => {
   const DamageOverTime = api.buffs.DamageOverTime;
-  const AttackableUnit = api.units.AttackableUnit;
   function applyToxicShot(source: AttackableUnit, victim: AttackableUnit): void {
     const poison = new DamageOverTime(POISON_DURATION_MS, source, victim);
     poison.stackId = 'teemo_e_toxicshot';
@@ -131,7 +120,6 @@ export default makeTeemo_E;
 export const makeTeemo_E_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const TrailSystem = api.helpers.TrailSystem;
-  const AttackableUnit = api.units.AttackableUnit;
   const applyToxicShot = makeApplyToxicShot(api);
   const Teemo_E_Splash = makeTeemo_E_Splash(api);
   class Teemo_E_Object extends MissileSpellObject {

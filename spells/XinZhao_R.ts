@@ -4,19 +4,7 @@ import { isChallengedBy } from './XinZhao_E';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type CastTelegraph = InstanceType<ContentApi['vfx']['CastTelegraph']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Shield = InstanceType<ContentApi['buffs']['Shield']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type XinZhao_R = InstanceType<ReturnType<typeof makeXinZhao_R>>;
-type XinZhao_R_Knockback = InstanceType<ReturnType<typeof makeXinZhao_R_Knockback>>;
-type XinZhao_R_Object = InstanceType<ReturnType<typeof makeXinZhao_R_Object>>;
-
-
 
 export const XINZHAO_R_RADIUS = 300;
 
@@ -73,7 +61,6 @@ export const makeXinZhao_R = packClass((api: ContentApi) => {
   const Shield = api.buffs.Shield;
   const Stun = api.buffs.Stun;
   const sweepToWall = api.terrain.sweepToWall;
-  const AttackableUnit = api.units.AttackableUnit;
   const XinZhao_R_Knockback = makeXinZhao_R_Knockback(api);
   const XinZhao_R_Object = makeXinZhao_R_Object(api);
   class XinZhao_R extends Spell {
@@ -193,7 +180,6 @@ export const makeXinZhao_R_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
-  const AttackableUnit = api.units.AttackableUnit;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class XinZhao_R_Object extends SpellObject {
     // Ground art — the scoured disc covers 300px of floor, so it goes under the

@@ -1,13 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type AoePulse = InstanceType<ContentApi['AoePulse']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type Twitch_E = InstanceType<ReturnType<typeof makeTwitch_E>>;
-
-
 
 export const RANGE = 500;
 
@@ -19,7 +13,6 @@ export const makeTwitch_E = packClass((api: ContentApi) => {
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
   const AoePulse = api.AoePulse;
-  const DamageOverTime = api.buffs.DamageOverTime;
   class Twitch_E extends Spell {
     targetingMode = 'SELF' as const;
     image = api.asset('spell_twitch_e');

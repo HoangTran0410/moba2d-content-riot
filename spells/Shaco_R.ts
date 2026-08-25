@@ -3,16 +3,7 @@ import { makeShaco_W_Box } from './Shaco_W';
 import { ATTACK_DAMAGE, ATTACK_RANGE } from './Shaco_W';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Fear = InstanceType<ContentApi['buffs']['Fear']>;
-type ParticleSystem = InstanceType<ContentApi['helpers']['ParticleSystem']>;
-type Pet = InstanceType<ContentApi['units']['Pet']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type Shaco_R = InstanceType<ReturnType<typeof makeShaco_R>>;
 type Shaco_R_Clone = InstanceType<ReturnType<typeof makeShaco_R_Clone>>;
-type Shaco_W_Box = InstanceType<ReturnType<typeof makeShaco_W_Box>>;
-
-
 
 export const makeShaco_R = packClass((api: ContentApi) => {
   const Spell = api.Spell;

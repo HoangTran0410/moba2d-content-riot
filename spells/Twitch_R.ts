@@ -4,15 +4,6 @@ import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Twitch_R = InstanceType<ReturnType<typeof makeTwitch_R>>;
-type Twitch_R_Bolt = InstanceType<ReturnType<typeof makeTwitch_R_Bolt>>;
-type Twitch_R_Pierce = InstanceType<ReturnType<typeof makeTwitch_R_Pierce>>;
-
-
 
 export const DURATION = 7000;
 
@@ -58,8 +49,6 @@ export const makeTwitch_R = packClass((api: ContentApi) => {
   const EventType = api.enums.EventType;
   const Spell = api.Spell;
   const StatAmp = api.buffs.StatAmp;
-  const AttackableUnit = api.units.AttackableUnit;
-  const Buff = api.buffs.Buff;
   const Twitch_R_Bolt = makeTwitch_R_Bolt(api);
   class Twitch_R extends Spell {
     targetingMode = 'SELF' as const;
@@ -153,7 +142,6 @@ export default makeTwitch_R;
 
 export const makeTwitch_R_Bolt = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const Twitch_R_Pierce = makeTwitch_R_Pierce(api);
   class Twitch_R_Bolt extends MissileSpellObject {
     speed = 26;
@@ -220,7 +208,6 @@ export const makeTwitch_R_Bolt = packClass((api: ContentApi) => {
 /** One body punched through: a hard ring and a spray out the far side. */
 export const makeTwitch_R_Pierce = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   class Twitch_R_Pierce extends SpellObject {
     age = 0;
     lifeTime = 260;

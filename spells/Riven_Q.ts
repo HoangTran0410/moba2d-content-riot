@@ -3,18 +3,7 @@ import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { makeRiven_R_Reforge } from './Riven_R';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Riven_Q = InstanceType<ReturnType<typeof makeRiven_Q>>;
-type Riven_Q_GroundCrack = InstanceType<ReturnType<typeof makeRiven_Q_GroundCrack>>;
-type Riven_Q_Slash = InstanceType<ReturnType<typeof makeRiven_Q_Slash>>;
-type Riven_R_Reforge = InstanceType<ReturnType<typeof makeRiven_R_Reforge>>;
-
-
 
 export const Q_CHARGES = 3;
 
@@ -56,7 +45,6 @@ export const makeRiven_Q = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const Airborne = api.buffs.Airborne;
   const Dash = api.buffs.Dash;
   const Spell = api.Spell;
@@ -214,7 +202,6 @@ export default makeRiven_Q;
  * the one that knocks up, and R adds a long green energy edge past the blade.
  */
 export const makeRiven_Q_Slash = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Riven_Q_Slash extends SpellObject {
     lifeTime = 300;
@@ -341,7 +328,6 @@ export const makeRiven_Q_Slash = packClass((api: ContentApi) => {
  * of everyone standing on it.
  */
 export const makeRiven_Q_GroundCrack = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Riven_Q_GroundCrack extends SpellObject {

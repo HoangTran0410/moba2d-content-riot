@@ -3,17 +3,7 @@ import type { BasicAttackHit } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Champion = InstanceType<ContentApi['units']['Champion']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
 type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Ezreal_W = InstanceType<ReturnType<typeof makeEzreal_W>>;
-type Ezreal_W_Burst = InstanceType<ReturnType<typeof makeEzreal_W_Burst>>;
-type Ezreal_W_Mark = InstanceType<ReturnType<typeof makeEzreal_W_Mark>>;
-type Ezreal_W_Orb = InstanceType<ReturnType<typeof makeEzreal_W_Orb>>;
-
-
 
 export const EZREAL_W_RANGE = 640;
 
@@ -37,7 +27,6 @@ function __group0_Ezreal_WBuild(api: ContentApi) {
   const MissileSpellObject = api.MissileSpellObject;
   const Spell = api.Spell;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const Champion = api.units.Champion;
   const TrailSystem = api.helpers.TrailSystem;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;

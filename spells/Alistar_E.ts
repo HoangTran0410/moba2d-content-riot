@@ -1,16 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Alistar_E = InstanceType<ReturnType<typeof makeAlistar_E>>;
-type Alistar_E_Object = InstanceType<ReturnType<typeof makeAlistar_E_Object>>;
-
-
-
 export const RADIUS = 150;
 
 export const DURATION = 4000;

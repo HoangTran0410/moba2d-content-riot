@@ -2,16 +2,7 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Phasing = InstanceType<ContentApi['buffs']['Phasing']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
 type Rammus_Q = InstanceType<ReturnType<typeof makeRammus_Q>>;
-type Rammus_Q_Crash = InstanceType<ReturnType<typeof makeRammus_Q_Crash>>;
 type Rammus_Q_Object = InstanceType<ReturnType<typeof makeRammus_Q_Object>>;
 type Rammus_Q_Powerball = InstanceType<ReturnType<typeof makeRammus_Q_Powerball>>;
 

@@ -2,15 +2,6 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Fear = InstanceType<ContentApi['buffs']['Fear']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Nocturne_E = InstanceType<ReturnType<typeof makeNocturne_E>>;
-type Nocturne_E_Object = InstanceType<ReturnType<typeof makeNocturne_E_Object>>;
-
-
 
 export const RANGE = 150;
 
@@ -101,7 +92,6 @@ export const makeNocturne_E_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const Fear = api.buffs.Fear;
-  const AttackableUnit = api.units.AttackableUnit;
   class Nocturne_E_Object extends SpellObject {
     victim: AttackableUnit | null = null;
     age = 0;

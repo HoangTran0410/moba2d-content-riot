@@ -3,15 +3,7 @@ import type { BasicAttackHit } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Vayne_W = InstanceType<ReturnType<typeof makeVayne_W>>;
-type Vayne_W_Buff = InstanceType<ReturnType<typeof makeVayne_W_Buff>>;
 type Vayne_W_Mark = InstanceType<ReturnType<typeof makeVayne_W_Mark>>;
-type Vayne_W_Proc = InstanceType<ReturnType<typeof makeVayne_W_Proc>>;
-
-
 
 /** How long Silver Bolts stays armed. */
 export const VAYNE_W_DURATION_MS = 8_000;
@@ -81,7 +73,6 @@ interface BoltTally {
 export const makeVayne_W_Buff = packClass((api: ContentApi) => {
   const BuffAddType = api.enums.BuffAddType;
   const EventType = api.enums.EventType;
-  const AttackableUnit = api.units.AttackableUnit;
   const Buff = api.buffs.Buff;
   const Vayne_W_Mark = makeVayne_W_Mark(api);
   const Vayne_W_Proc = makeVayne_W_Proc(api);
@@ -149,7 +140,6 @@ export const makeVayne_W_Buff = packClass((api: ContentApi) => {
  * marker's lifetime against the window is the buff's own `onDeactivate`.
  */
 export const makeVayne_W_Mark = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Vayne_W_Mark extends SpellObject {
     stacks = 0;
@@ -213,7 +203,6 @@ export const makeVayne_W_Mark = packClass((api: ContentApi) => {
  * guess which of the two things just happened.
  */
 export const makeVayne_W_Proc = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Vayne_W_Proc extends SpellObject {
     lifeTime = PROC_MS;

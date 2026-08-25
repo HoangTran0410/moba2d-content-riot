@@ -1,17 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type ParticleSystem = InstanceType<ContentApi['helpers']['ParticleSystem']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type Veigar_E = InstanceType<ReturnType<typeof makeVeigar_E>>;
-type Veigar_E_Object = InstanceType<ReturnType<typeof makeVeigar_E_Object>>;
-
-
-
 export const CAST_RANGE = 300;
 
 export const PREPARE_MS = 1000;

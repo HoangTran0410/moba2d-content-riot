@@ -1,15 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Pet = InstanceType<ContentApi['units']['Pet']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Malzahar_W = InstanceType<ReturnType<typeof makeMalzahar_W>>;
-type Malzahar_W_Rift = InstanceType<ReturnType<typeof makeMalzahar_W_Rift>>;
-type Malzahar_W_Voidling = InstanceType<ReturnType<typeof makeMalzahar_W_Voidling>>;
-
-
 
 // Exported so the suite asserts the swarm's wiring rather than a copy of the
 // numbers — retuning a value must not mean editing a test.
@@ -102,7 +94,6 @@ export default makeMalzahar_W;
  * standing on it.
  */
 export const makeMalzahar_W_Rift = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   const Malzahar_W_Voidling = makeMalzahar_W_Voidling(api);

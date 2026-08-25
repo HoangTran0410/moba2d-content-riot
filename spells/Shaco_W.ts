@@ -2,17 +2,6 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Fear = InstanceType<ContentApi['buffs']['Fear']>;
-type Pet = InstanceType<ContentApi['units']['Pet']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Shaco_W = InstanceType<ReturnType<typeof makeShaco_W>>;
-type Shaco_W_Box = InstanceType<ReturnType<typeof makeShaco_W_Box>>;
-type Shaco_W_Bullet_Object = InstanceType<ReturnType<typeof makeShaco_W_Bullet_Object>>;
-
-
 
 export const ARM_TIME_MS = 1000;
 
@@ -99,7 +88,6 @@ export const makeShaco_W_Box = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Pet = api.units.Pet;
-  const AttackableUnit = api.units.AttackableUnit;
   const Fear = api.buffs.Fear;
   const Shaco_W_Bullet_Object = makeShaco_W_Bullet_Object(api);
   class Shaco_W_Box extends Pet {

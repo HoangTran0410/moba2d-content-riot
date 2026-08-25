@@ -3,16 +3,6 @@ import type { CancelReason, CastContext, CastSpec } from '@moba2d/core/content/t
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Riven_R = InstanceType<ReturnType<typeof makeRiven_R>>;
-type Riven_R_Reforge = InstanceType<ReturnType<typeof makeRiven_R_Reforge>>;
-type Riven_R_Reforge_Vfx = InstanceType<ReturnType<typeof makeRiven_R_Reforge_Vfx>>;
-type Riven_R_WindSlash = InstanceType<ReturnType<typeof makeRiven_R_WindSlash>>;
-
-
 
 export const R_DURATION_MS = 9_000;
 
@@ -169,7 +159,6 @@ export const makeRiven_R_WindSlash = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Riven_R_WindSlash extends SpellObject {
     readonly origin: p5.Vector;
@@ -382,7 +371,6 @@ export const makeRiven_R_WindSlash = packClass((api: ContentApi) => {
  * exactly as long as the ultimate does and drops the moment the window closes.
  */
 export const makeRiven_R_Reforge_Vfx = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const Riven_R_Reforge = makeRiven_R_Reforge(api);
   class Riven_R_Reforge_Vfx extends SpellObject {

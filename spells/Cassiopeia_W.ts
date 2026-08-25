@@ -1,17 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
-type Ground = InstanceType<ContentApi['buffs']['Ground']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Cassiopeia_W = InstanceType<ReturnType<typeof makeCassiopeia_W>>;
-type Cassiopeia_W_Object = InstanceType<ReturnType<typeof makeCassiopeia_W_Object>>;
-
-
-
 /**
  * Miasma. The real ability never silences — it lays down a lingering venom
  * field that POISONS, slows, and GROUNDS everything inside, so the victim can

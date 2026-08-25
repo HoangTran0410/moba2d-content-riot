@@ -2,16 +2,6 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type Pantheon_W = InstanceType<ReturnType<typeof makePantheon_W>>;
-type Pantheon_W_Impact = InstanceType<ReturnType<typeof makePantheon_W_Impact>>;
-type Pantheon_W_Vault = InstanceType<ReturnType<typeof makePantheon_W_Vault>>;
-
-
 
 export const RANGE = 400;
 
@@ -48,7 +38,6 @@ export const makePantheon_W = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
-  const AttackableUnit = api.units.AttackableUnit;
   const Dash = api.buffs.Dash;
   const Stun = api.buffs.Stun;
   const Pantheon_W_Vault = makePantheon_W_Vault(api);

@@ -5,14 +5,6 @@ import { isAblaze } from './Brand_Q';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TargetResolver = InstanceType<ContentApi['combat']['TargetResolver']>;
-type Brand_E = InstanceType<ReturnType<typeof makeBrand_E>>;
-type Brand_E_Object = InstanceType<ReturnType<typeof makeBrand_E_Object>>;
-
-
 
 /**
  * Conflagration. A blast on one enemy that jumps to everyone standing near
@@ -43,7 +35,6 @@ export const makeBrand_E = packClass((api: ContentApi) => {
   const withinRange = api.combat.Reach.withinRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
-  const AttackableUnit = api.units.AttackableUnit;
   const TargetResolver = api.combat.TargetResolver;
   const canSee = api.combat.Vision.canSee;
   const applyAblaze = makeApplyAblaze(api);
@@ -162,7 +153,6 @@ export const makeIsBurnTarget = packClass((api: ContentApi) => {
 /** The blast, and the arcs of fire leaping off it. */
 export const makeBrand_E_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   class Brand_E_Object extends SpellObject {
     target: AttackableUnit;
     spreadTo: AttackableUnit[] = [];

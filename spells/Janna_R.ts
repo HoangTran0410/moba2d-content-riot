@@ -6,22 +6,9 @@ import makeIgnite from './Ignite';
 import { makeNotifyJannaControlLanded } from './Janna_E';
 import { packClass } from '../packClass';
 
-type AreaSpellObject = InstanceType<ContentApi['AreaSpellObject']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type CastBar = InstanceType<ContentApi['vfx']['CastBar']>;
-type CastTelegraph = InstanceType<ContentApi['vfx']['CastTelegraph']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
 type Spell = InstanceType<ContentApi['Spell']>;
-type VfxGroup = InstanceType<ContentApi['vfx']['VfxGroup']>;
-type Janna_R = InstanceType<ReturnType<typeof makeJanna_R>>;
-type Janna_R_Knockback = InstanceType<ReturnType<typeof makeJanna_R_Knockback>>;
 type Janna_R_Object = InstanceType<ReturnType<typeof makeJanna_R_Object>>;
-type Ghost = InstanceType<ReturnType<typeof makeGhost>>;
-type Heal = InstanceType<ReturnType<typeof makeHeal>>;
-type Ignite = InstanceType<ReturnType<typeof makeIgnite>>;
-
-
 
 // Exported so the suite asserts the knockback and channel-tick wiring, not a
 // copy of the numbers — retuning a value should not mean editing the test.

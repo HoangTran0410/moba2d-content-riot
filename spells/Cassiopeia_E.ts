@@ -1,17 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Cassiopeia_E = InstanceType<ReturnType<typeof makeCassiopeia_E>>;
-type Cassiopeia_E_Venom = InstanceType<ReturnType<typeof makeCassiopeia_E_Venom>>;
-
-
 
 export const RANGE = 450;
 
@@ -39,7 +29,6 @@ export const MAX_FLIGHT_TIME = 1200;
  * one, and Twin Fang is not supposed to care which of them landed it.
  */
 export const makeIsPoisoned = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const DamageOverTime = api.buffs.DamageOverTime;
   const isPoisoned = (unit: AttackableUnit): boolean =>
     unit.buffs.some(buff => !buff.toRemove && buff instanceof DamageOverTime);
@@ -62,7 +51,6 @@ export const makeCassiopeia_E = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
-  const AttackableUnit = api.units.AttackableUnit;
   const isPoisoned = makeIsPoisoned(api);
   const Cassiopeia_E_Venom = makeCassiopeia_E_Venom(api);
   class Cassiopeia_E extends Spell {
@@ -134,7 +122,6 @@ export default makeCassiopeia_E;
 export const makeCassiopeia_E_Venom = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const AoePulse = api.AoePulse;
-  const AttackableUnit = api.units.AttackableUnit;
   const TrailSystem = api.helpers.TrailSystem;
   const isPoisoned = makeIsPoisoned(api);
   class Cassiopeia_E_Venom extends MissileSpellObject {

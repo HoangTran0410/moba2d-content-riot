@@ -4,16 +4,8 @@ import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type HomingMissileSpellObject = InstanceType<ContentApi['HomingMissileSpellObject']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type TargetResolver = InstanceType<ContentApi['combat']['TargetResolver']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Leblanc_Q = InstanceType<ReturnType<typeof makeLeblanc_Q>>;
 type Leblanc_Q_Mark = InstanceType<ReturnType<typeof makeLeblanc_Q_Mark>>;
-type Leblanc_Q_Object = InstanceType<ReturnType<typeof makeLeblanc_Q_Object>>;
-
-
 
 type SigilTarget = AttackableUnit;
 
@@ -191,7 +183,6 @@ export const makeLeblanc_Q_Mark = packClass((api: ContentApi) => {
 
 
 export const makeLeblanc_Q_Object = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const HomingMissileSpellObject = api.HomingMissileSpellObject;
   const TrailSystem = api.helpers.TrailSystem;
   const Leblanc_Q_Mark = makeLeblanc_Q_Mark(api);

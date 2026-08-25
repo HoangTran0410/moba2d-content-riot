@@ -5,11 +5,6 @@ import { SPHERE_GRAB_RADIUS } from './Syndra_Q';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type Syndra_W = InstanceType<ReturnType<typeof makeSyndra_W>>;
-type Syndra_Burst = InstanceType<ReturnType<typeof makeSyndra_Burst>>;
 type Syndra_Sphere = InstanceType<ReturnType<typeof makeSyndra_Sphere>>;
 
 
@@ -43,7 +38,6 @@ export const makeSyndra_W = packClass((api: ContentApi) => {
   const withinRange = api.combat.Reach.withinRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellForm = api.enums.SpellForm;
-  const AttackableUnit = api.units.AttackableUnit;
   const Slow = api.buffs.Slow;
   const Spell = api.Spell;
   const groundedSpheres = makeGroundedSpheres(api);

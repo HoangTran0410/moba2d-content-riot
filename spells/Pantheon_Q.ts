@@ -3,22 +3,8 @@ import type { CancelReason, CastContext, CastSpec, Vec2 } from '@moba2d/core/con
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type BeamSpellObject = InstanceType<ContentApi['BeamSpellObject']>;
-type CastBar = InstanceType<ContentApi['vfx']['CastBar']>;
-type ChargeRangeTelegraph = InstanceType<ContentApi['vfx']['ChargeRangeTelegraph']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Monster = InstanceType<ContentApi['units']['Monster']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
 type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type VfxGroup = InstanceType<ContentApi['vfx']['VfxGroup']>;
-type Pantheon_Q = InstanceType<ReturnType<typeof makePantheon_Q>>;
-type Pantheon_Q_Spear = InstanceType<ReturnType<typeof makePantheon_Q_Spear>>;
-type Pantheon_Q_Thrust = InstanceType<ReturnType<typeof makePantheon_Q_Thrust>>;
-
-
 
 const HOLD_THRESHOLD_MS = 350;
 
@@ -301,7 +287,6 @@ export default makePantheon_Q;
 export const makePantheon_Q_Spear = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const TrailSystem = api.helpers.TrailSystem;
-  const AttackableUnit = api.units.AttackableUnit;
   const spearDamage = makeSpearDamage(api);
   class Pantheon_Q_Spear extends MissileSpellObject {
     speed = 1_400 / 60;
@@ -370,7 +355,6 @@ export const makePantheon_Q_Spear = packClass((api: ContentApi) => {
 
 /** The melee tap-cast: a spear lunge down the lane BeamSpellObject just hit. */
 export const makePantheon_Q_Thrust = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Pantheon_Q_Thrust extends SpellObject {
     position = this.owner.position.copy();

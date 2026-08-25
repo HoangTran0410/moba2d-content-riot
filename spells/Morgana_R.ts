@@ -4,20 +4,7 @@ import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type Morgana_R = InstanceType<ReturnType<typeof makeMorgana_R>>;
-type Morgana_R_Shatter = InstanceType<ReturnType<typeof makeMorgana_R_Shatter>>;
-type Morgana_R_Tether = InstanceType<ReturnType<typeof makeMorgana_R_Tether>>;
-type Morgana_R_Tether_Object = InstanceType<ReturnType<typeof makeMorgana_R_Tether_Object>>;
-type Morgana_R_Windup = InstanceType<ReturnType<typeof makeMorgana_R_Windup>>;
-
-
 
 // Exported so the suite asserts the tether's wiring, not a copy of the
 // numbers — retuning a value should not mean editing the test.
@@ -224,7 +211,6 @@ export const makeMorgana_R_Tether = packClass((api: ContentApi) => {
 export const makeMorgana_R_Tether_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
-  const Buff = api.buffs.Buff;
   const Stun = api.buffs.Stun;
   const Morgana_R_Shatter = makeMorgana_R_Shatter(api);
   class Morgana_R_Tether_Object extends SpellObject {
@@ -414,7 +400,6 @@ export const makeMorgana_R_Tether_Object = packClass((api: ContentApi) => {
  * at all — the ability went from nothing to four tethers in one frame.
  */
 export const makeMorgana_R_Windup = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Morgana_R_Windup extends SpellObject {
@@ -502,7 +487,6 @@ interface Shard {
  * snapping and falling for someone who did.
  */
 export const makeMorgana_R_Shatter = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
   class Morgana_R_Shatter extends SpellObject {
     resolved = true;

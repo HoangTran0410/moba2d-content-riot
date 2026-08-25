@@ -5,16 +5,7 @@ import { drawIreliaBlade, IRELIA_CREST, IRELIA_EDGE, IRELIA_RIM, IRELIA_STEEL } 
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Irelia_R = InstanceType<ReturnType<typeof makeIrelia_R>>;
-type Irelia_R_Volley = InstanceType<ReturnType<typeof makeIrelia_R_Volley>>;
-type Irelia_R_Wall = InstanceType<ReturnType<typeof makeIrelia_R_Wall>>;
-
-
 
 export const R_RANGE = 520;
 
@@ -200,7 +191,6 @@ export default makeIrelia_R;
  * stopping is what opens it.
  */
 export const makeIrelia_R_Volley = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const MissileSpellObject = api.MissileSpellObject;
   class Irelia_R_Volley extends MissileSpellObject {
     speed = R_VOLLEY_SPEED;
@@ -341,7 +331,6 @@ interface WallPart {
 export const makeIrelia_R_Wall = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const Slow = api.buffs.Slow;
   const SpellObject = api.SpellObject;
   const beamBoundingBox = api.beamBoundingBox;

@@ -2,13 +2,8 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, CastSpec, Vec2 } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type AreaSpellObject = InstanceType<ContentApi['AreaSpellObject']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Monster = InstanceType<ContentApi['units']['Monster']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type Morgana_W = InstanceType<ReturnType<typeof makeMorgana_W>>;
 type Morgana_W_Object = InstanceType<ReturnType<typeof makeMorgana_W_Object>>;
 
 
@@ -158,7 +153,6 @@ export const makeMorgana_W_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const Monster = api.units.Monster;
   const AreaSpellObject = api.AreaSpellObject;
   class Morgana_W_Object extends AreaSpellObject {

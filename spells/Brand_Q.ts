@@ -3,15 +3,7 @@ import type { AssetHandle, CastContext } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
 type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Brand_Q = InstanceType<ReturnType<typeof makeBrand_Q>>;
-type Brand_Q_Missile = InstanceType<ReturnType<typeof makeBrand_Q_Missile>>;
-
-
 
 /**
  * Sear, and the Blaze mechanic the whole kit is built on.
@@ -48,7 +40,6 @@ export const isAblaze = (unit: AttackableUnit): boolean =>
  * stuns — not a crowd-control indicator.
  */
 export const makeApplyAblaze = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const DamageOverTime = api.buffs.DamageOverTime;
   const applyAblaze = (
     source: AttackableUnit,
@@ -116,7 +107,6 @@ export default makeBrand_Q;
 
 export const makeBrand_Q_Missile = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const Stun = api.buffs.Stun;
   const TrailSystem = api.helpers.TrailSystem;
   const applyAblaze = makeApplyAblaze(api);

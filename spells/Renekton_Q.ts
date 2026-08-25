@@ -4,15 +4,6 @@ import { isEnraged } from './Renekton_R';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Champion = InstanceType<ContentApi['units']['Champion']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Renekton_Q = InstanceType<ReturnType<typeof makeRenekton_Q>>;
-type Renekton_Q_Object = InstanceType<ReturnType<typeof makeRenekton_Q_Object>>;
-
-
 
 /** The rear-swing before the blade comes round. Short — Q is his rhythm key. */
 export const CAST_TIME_MS = 180;
@@ -50,7 +41,6 @@ export const makeRenekton_Q = packClass((api: ContentApi) => {
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
   const Champion = api.units.Champion;
-  const AttackableUnit = api.units.AttackableUnit;
   const Renekton_Q_Object = makeRenekton_Q_Object(api);
   class Renekton_Q extends Spell {
     targetingMode = 'SELF' as const;

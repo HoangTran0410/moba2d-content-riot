@@ -2,16 +2,6 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { makeShaco_W_Bullet_Object } from './Shaco_W';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Shaco_E = InstanceType<ReturnType<typeof makeShaco_E>>;
-type Shaco_E_Object = InstanceType<ReturnType<typeof makeShaco_E_Object>>;
-type Shaco_W_Bullet_Object = InstanceType<ReturnType<typeof makeShaco_W_Bullet_Object>>;
-
-
-
 export const RANGE = 250;
 
 export const DAMAGE = 15;

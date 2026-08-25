@@ -1,14 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Singed_R = InstanceType<ReturnType<typeof makeSinged_R>>;
-type Singed_R_Object = InstanceType<ReturnType<typeof makeSinged_R_Object>>;
-
-
-
 export const DURATION = 9000;
 
 export const BONUS_HEALTH = 50;

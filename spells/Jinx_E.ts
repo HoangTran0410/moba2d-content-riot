@@ -1,18 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
-type AoePulse = InstanceType<ContentApi['AoePulse']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Champion = InstanceType<ContentApi['units']['Champion']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Pet = InstanceType<ContentApi['units']['Pet']>;
-type Root = InstanceType<ContentApi['buffs']['Root']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type Jinx_E = InstanceType<ReturnType<typeof makeJinx_E>>;
-type Jinx_E_Chomper = InstanceType<ReturnType<typeof makeJinx_E_Chomper>>;
-
-
 
 export const MAX_RANGE = 500;
 
@@ -125,7 +114,6 @@ export const makeJinx_E_Chomper = packClass((api: ContentApi) => {
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Champion = api.units.Champion;
   const Pet = api.units.Pet;
-  const AttackableUnit = api.units.AttackableUnit;
   const Airborne = api.buffs.Airborne;
   const Root = api.buffs.Root;
   const AoePulse = api.AoePulse;

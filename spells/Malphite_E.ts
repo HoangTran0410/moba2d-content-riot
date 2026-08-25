@@ -3,16 +3,7 @@ import type { CancelReason, CastContext, CastSpec } from '@moba2d/core/content/t
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Malphite_E = InstanceType<ReturnType<typeof makeMalphite_E>>;
-type Malphite_E_Object = InstanceType<ReturnType<typeof makeMalphite_E_Object>>;
-
-
 
 /**
  * Ground Slam. Malphite slams the ground beneath him: an instant, self-centred
@@ -102,7 +93,6 @@ export default makeMalphite_E;
 /** The slam itself: one instant burst of damage and slow, then a fading shockwave. */
 export const makeMalphite_E_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
   const Slow = api.buffs.Slow;

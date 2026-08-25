@@ -1,15 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Blitzcrank_W = InstanceType<ReturnType<typeof makeBlitzcrank_W>>;
-type Blitzcrank_W_Object = InstanceType<ReturnType<typeof makeBlitzcrank_W_Object>>;
-
-
-
 export const HASTE_DURATION = 4000;
 
 export const HASTE_PERCENT = 0.5;

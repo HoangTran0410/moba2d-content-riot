@@ -1,17 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Invisible = InstanceType<ContentApi['buffs']['Invisible']>;
-type Phasing = InstanceType<ContentApi['buffs']['Phasing']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Twitch_Q = InstanceType<ReturnType<typeof makeTwitch_Q>>;
-type Twitch_Q_Object = InstanceType<ReturnType<typeof makeTwitch_Q_Object>>;
-
-
-
 export const makeTwitch_Q = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Invisible = api.buffs.Invisible;

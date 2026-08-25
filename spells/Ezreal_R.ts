@@ -4,16 +4,7 @@ import { makeDetonateEssenceFlux } from './Ezreal_W';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Champion = InstanceType<ContentApi['units']['Champion']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Ezreal_R = InstanceType<ReturnType<typeof makeEzreal_R>>;
 type Ezreal_R_Charge = InstanceType<ReturnType<typeof makeEzreal_R_Charge>>;
-type Ezreal_R_Object = InstanceType<ReturnType<typeof makeEzreal_R_Object>>;
-
-
 
 /** Not literally global, but far enough to cross most of a fight from outside it. */
 export const EZREAL_R_RANGE = 2400;
@@ -130,7 +121,6 @@ export default makeEzreal_R;
  */
 export const makeEzreal_R_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const Champion = api.units.Champion;
   const TrailSystem = api.helpers.TrailSystem;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;

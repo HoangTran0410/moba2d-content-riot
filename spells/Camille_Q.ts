@@ -1,11 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Camille_Q = InstanceType<ReturnType<typeof makeCamille_Q>>;
 type Camille_Q_AuraObject = InstanceType<ReturnType<typeof makeCamille_Q_AuraObject>>;
 type Camille_Q_Buff = InstanceType<ReturnType<typeof makeCamille_Q_Buff>>;
 

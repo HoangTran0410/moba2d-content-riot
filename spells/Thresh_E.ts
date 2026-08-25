@@ -3,15 +3,6 @@ import type { GameObjectRuntimeContext } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Thresh_E = InstanceType<ReturnType<typeof makeThresh_E>>;
-type Thresh_E_Object = InstanceType<ReturnType<typeof makeThresh_E_Object>>;
-
-
 
 /** Half the length of the sweep box, measured from Thresh outwards — it reaches behind him too. */
 export const HALF_LENGTH = 220;
@@ -54,7 +45,6 @@ const MARK_LIFETIME = 300;
 export const makeEnemiesInSweptBox = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   function enemiesInSweptBox(
     game: GameObjectRuntimeContext,
     origin: p5.Vector,
@@ -118,7 +108,6 @@ export const makeEnemiesInSweptBox = packClass((api: ContentApi) => {
 export const makeThresh_E = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const Spell = api.Spell;
-  const AttackableUnit = api.units.AttackableUnit;
   const enemiesInSweptBox = makeEnemiesInSweptBox(api);
   const Thresh_E_Object = makeThresh_E_Object(api);
   class Thresh_E extends Spell {
@@ -175,7 +164,6 @@ export const makeThresh_E_Object = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const Dash = api.buffs.Dash;
   const Slow = api.buffs.Slow;
-  const AttackableUnit = api.units.AttackableUnit;
   const enemiesInSweptBox = makeEnemiesInSweptBox(api);
   class Thresh_E_Object extends SpellObject {
     // Frozen where he stood. A chain already in the air does not follow its owner

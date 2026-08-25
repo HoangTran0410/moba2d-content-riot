@@ -1,18 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Shield = InstanceType<ContentApi['buffs']['Shield']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Thresh_W = InstanceType<ReturnType<typeof makeThresh_W>>;
-type Thresh_W_Lantern_Throw = InstanceType<ReturnType<typeof makeThresh_W_Lantern_Throw>>;
-type Thresh_W_Object = InstanceType<ReturnType<typeof makeThresh_W_Object>>;
-
-
-
 export const MAX_RANGE = 500;
 
 export const RADIUS = 200;

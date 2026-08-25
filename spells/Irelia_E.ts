@@ -5,14 +5,8 @@ import { drawIreliaBlade, IRELIA_CREST, IRELIA_EDGE, IRELIA_RIM, IRELIA_STEEL } 
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type Irelia_E = InstanceType<ReturnType<typeof makeIrelia_E>>;
 type Irelia_E_Blade = InstanceType<ReturnType<typeof makeIrelia_E_Blade>>;
-type Irelia_E_Duet = InstanceType<ReturnType<typeof makeIrelia_E_Duet>>;
 type Irelia_E_Throw = InstanceType<ReturnType<typeof makeIrelia_E_Throw>>;
 
 
@@ -84,7 +78,6 @@ export const makeIrelia_E = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellForm = api.enums.SpellForm;
-  const AttackableUnit = api.units.AttackableUnit;
   const Spell = api.Spell;
   const Stun = api.buffs.Stun;
   const beamBoundingBox = api.beamBoundingBox;
@@ -247,7 +240,6 @@ export default makeIrelia_E;
  * can watch rather than a stun that has already happened.
  */
 export const makeIrelia_E_Throw = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const MissileSpellObject = api.MissileSpellObject;
   class Irelia_E_Throw extends MissileSpellObject {
     speed = E_THROW_SPEED;
@@ -327,7 +319,6 @@ export const makeIrelia_E_Throw = packClass((api: ContentApi) => {
  * else in the kit at rest — marking it as hers.
  */
 export const makeIrelia_E_Blade = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Irelia_E_Blade extends SpellObject {
     age = 0;
@@ -415,7 +406,6 @@ export const makeIrelia_E_Blade = packClass((api: ContentApi) => {
  */
 export const makeIrelia_E_Duet = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const beamBoundingBox = api.beamBoundingBox;
   class Irelia_E_Duet extends SpellObject {

@@ -1,14 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type AoePulse = InstanceType<ContentApi['AoePulse']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type Annie_W = InstanceType<ReturnType<typeof makeAnnie_W>>;
-type Annie_W_Cone = InstanceType<ReturnType<typeof makeAnnie_W_Cone>>;
-
-
-
 export const REACH = 290;
 
 export const HALF_ANGLE = 0.55;

@@ -2,19 +2,8 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastContext, TargetingRequest } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Nautilus_R = InstanceType<ReturnType<typeof makeNautilus_R>>;
-type Nautilus_R_Eruption = InstanceType<ReturnType<typeof makeNautilus_R_Eruption>>;
-type Nautilus_R_Object = InstanceType<ReturnType<typeof makeNautilus_R_Object>>;
-type Nautilus_R_Rim = InstanceType<ReturnType<typeof makeNautilus_R_Rim>>;
-
-
 
 export const R_RANGE = 450;
 
@@ -53,7 +42,6 @@ const ABYSS: [number, number, number] = [30, 44, 66];
 
 export const makeNautilus_R = packClass((api: ContentApi) => {
   const Spell = api.Spell;
-  const AttackableUnit = api.units.AttackableUnit;
   const Nautilus_R_Object = makeNautilus_R_Object(api);
   class Nautilus_R extends Spell {
     targetingMode = 'UNIT' as const;
@@ -97,10 +85,8 @@ export default makeNautilus_R;
  */
 export const makeNautilus_R_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const MissileSpellObject = api.MissileSpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const Airborne = api.buffs.Airborne;
   const Nautilus_R_Rim = makeNautilus_R_Rim(api);
   const Nautilus_R_Eruption = makeNautilus_R_Eruption(api);
@@ -240,9 +226,7 @@ export const makeNautilus_R_Object = packClass((api: ContentApi) => {
 
 /** The blast radius, drawn on the ground where it actually landed. */
 export const makeNautilus_R_Rim = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Nautilus_R_Rim extends SpellObject {
     zIndex = GROUND_Z_INDEX;
@@ -285,9 +269,7 @@ export const makeNautilus_R_Rim = packClass((api: ContentApi) => {
 
 /** The column, standing on the victim. Above the ground, unlike the mound. */
 export const makeNautilus_R_Eruption = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   class Nautilus_R_Eruption extends SpellObject {
     lifeTime = R_COLUMN_MS;
     age = 0;

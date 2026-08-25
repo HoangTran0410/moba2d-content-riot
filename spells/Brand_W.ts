@@ -3,14 +3,6 @@ import { makeApplyAblaze } from './Brand_Q';
 import { isAblaze } from './Brand_Q';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Brand_W = InstanceType<ReturnType<typeof makeBrand_W>>;
-type Brand_W_Object = InstanceType<ReturnType<typeof makeBrand_W_Object>>;
-
-
-
 /**
  * Pillar of Flame. The delay is the ability: a ring cracks open on the ground,
  * everyone standing in it has just over half a second to leave, and then the

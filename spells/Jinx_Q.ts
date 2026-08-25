@@ -2,14 +2,6 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { BasicAttackController } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Jinx_Q = InstanceType<ReturnType<typeof makeJinx_Q>>;
-type Jinx_Q_Launcher = InstanceType<ReturnType<typeof makeJinx_Q_Launcher>>;
-
-
-
 export const DURATION = 6000;
 
 export const BONUS_RANGE = 200;

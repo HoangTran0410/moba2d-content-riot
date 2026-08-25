@@ -2,14 +2,6 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Olaf_E = InstanceType<ReturnType<typeof makeOlaf_E>>;
-type Olaf_E_Swing = InstanceType<ReturnType<typeof makeOlaf_E_Swing>>;
-
-
 
 export const RANGE = 170;
 
@@ -125,7 +117,6 @@ export const RECOVER_MS = 240;
 export const makeOlaf_E_Swing = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   class Olaf_E_Swing extends SpellObject {
     target: AttackableUnit;

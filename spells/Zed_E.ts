@@ -1,16 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type ParticleSystem = InstanceType<ContentApi['helpers']['ParticleSystem']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Zed_E = InstanceType<ReturnType<typeof makeZed_E>>;
-type Zed_E_Object = InstanceType<ReturnType<typeof makeZed_E_Object>>;
-
-
-
 export const makeZed_E = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const Zed_E_Object = makeZed_E_Object(api);

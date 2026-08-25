@@ -1,16 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Root = InstanceType<ContentApi['buffs']['Root']>;
-type Silence = InstanceType<ContentApi['buffs']['Silence']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Soraka_E = InstanceType<ReturnType<typeof makeSoraka_E>>;
-type Soraka_E_Object = InstanceType<ReturnType<typeof makeSoraka_E_Object>>;
-
-
-
 /**
  * Equinox. Two halves of one field: while it stands, nobody inside may cast;
  * when it collapses, everybody inside is rooted. The silence is reapplied on a

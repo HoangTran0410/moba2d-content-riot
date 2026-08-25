@@ -2,13 +2,6 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type Shield = InstanceType<ContentApi['buffs']['Shield']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Nocturne_W = InstanceType<ReturnType<typeof makeNocturne_W>>;
-type Nocturne_W_Shroud = InstanceType<ReturnType<typeof makeNocturne_W_Shroud>>;
-
-
 
 export const DURATION = 3000;
 
@@ -121,7 +114,6 @@ interface Tendril {
 
 export const makeNocturne_W_Shroud = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
-  const Shield = api.buffs.Shield;
   class Nocturne_W_Shroud extends SpellObject {
     age = 0;
 

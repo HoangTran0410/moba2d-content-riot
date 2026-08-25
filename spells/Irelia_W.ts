@@ -10,17 +10,9 @@ import type {
 import { drawIreliaBlade, IRELIA_CREST, IRELIA_EDGE, IRELIA_RIM, IRELIA_STEEL } from './Irelia_Q';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Irelia_W = InstanceType<ReturnType<typeof makeIrelia_W>>;
 type Irelia_W_Charge = InstanceType<ReturnType<typeof makeIrelia_W_Charge>>;
 type Irelia_W_Guard = InstanceType<ReturnType<typeof makeIrelia_W_Guard>>;
-type Irelia_W_Slash = InstanceType<ReturnType<typeof makeIrelia_W_Slash>>;
-
-
 
 export const W_CHARGE_MS = 1_200;
 
@@ -71,7 +63,6 @@ export const W_HEAL_PER_HIT = 6;
 export const makeIrelia_W = packClass((api: ContentApi) => {
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellForm = api.enums.SpellForm;
-  const AttackableUnit = api.units.AttackableUnit;
   const Slow = api.buffs.Slow;
   const Spell = api.Spell;
   const beamBoundingBox = api.beamBoundingBox;
@@ -320,7 +311,6 @@ export const makeIrelia_W_Guard = packClass((api: ContentApi) => {
  * is.
  */
 export const makeIrelia_W_Charge = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Irelia_W_Charge extends SpellObject {
     ratio = 0;
@@ -416,8 +406,6 @@ export const makeIrelia_W_Charge = packClass((api: ContentApi) => {
  * ending on a hard edge at the same reach the damage used.
  */
 export const makeIrelia_W_Slash = packClass((api: ContentApi) => {
-  const Rectangle = api.utils.Quadtree.Rectangle;
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const beamBoundingBox = api.beamBoundingBox;
   class Irelia_W_Slash extends SpellObject {

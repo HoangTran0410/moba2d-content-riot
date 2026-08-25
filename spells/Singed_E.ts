@@ -1,18 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
 type ParticleSystem = InstanceType<ContentApi['helpers']['ParticleSystem']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Singed_E = InstanceType<ReturnType<typeof makeSinged_E>>;
-type Singed_E_Impact = InstanceType<ReturnType<typeof makeSinged_E_Impact>>;
-
-
 
 export const RANGE = 160;
 
@@ -43,7 +33,6 @@ export const makeSinged_E = packClass((api: ContentApi) => {
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
-  const AttackableUnit = api.units.AttackableUnit;
   const Airborne = api.buffs.Airborne;
   const Dash = api.buffs.Dash;
   const Slow = api.buffs.Slow;
@@ -173,7 +162,6 @@ interface Gout {
  */
 export const makeSinged_E_Impact = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
-  const ParticleSystem = api.helpers.ParticleSystem;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   class Singed_E_Impact extends SpellObject {
     position = this.owner.position.copy();

@@ -14,24 +14,12 @@ import makeIgnite from './Ignite';
 import makeLux_E, { makeLux_E_Object } from './Lux_E';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type BeamSpellObject = InstanceType<ContentApi['BeamSpellObject']>;
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type CastBar = InstanceType<ContentApi['vfx']['CastBar']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
 type Spell = InstanceType<ContentApi['Spell']>;
 type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Lux_R = InstanceType<ReturnType<typeof makeLux_R>>;
 type Lux_R_Beam = InstanceType<ReturnType<typeof makeLux_R_Beam>>;
 type Lux_R_CastLock = InstanceType<ReturnType<typeof makeLux_R_CastLock>>;
 type Lux_R_Vision = InstanceType<ReturnType<typeof makeLux_R_Vision>>;
-type Flash = InstanceType<ReturnType<typeof makeFlash>>;
-type Ghost = InstanceType<ReturnType<typeof makeGhost>>;
-type Heal = InstanceType<ReturnType<typeof makeHeal>>;
-type Ignite = InstanceType<ReturnType<typeof makeIgnite>>;
-type Lux_E = InstanceType<ReturnType<typeof makeLux_E>>;
-type Lux_E_Object = InstanceType<ReturnType<typeof makeLux_E_Object>>;
-
-
 
 function hasSpells(unit: AttackableUnit): unit is AttackableUnit & { spells: Spell[] } {
   return 'spells' in unit && Array.isArray(unit.spells);
@@ -41,7 +29,6 @@ function hasSpells(unit: AttackableUnit): unit is AttackableUnit & { spells: Spe
 export const makeLux_R_CastLock = packClass((api: ContentApi) => {
   const StatusFlags = api.enums.StatusFlags;
   const Buff = api.buffs.Buff;
-  const Spell = api.Spell;
   const Flash = makeFlash(api);
   const Ghost = makeGhost(api);
   const Heal = makeHeal(api);
@@ -128,7 +115,6 @@ export const MANA_COST = 100;
 export const makeLux_R_Beam = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const beamBoundingBox = api.beamBoundingBox;
-  const Rectangle = api.utils.Quadtree.Rectangle;
   class Lux_R_Beam extends SpellObject {
     private readonly effect: LuxBeamEffect;
 

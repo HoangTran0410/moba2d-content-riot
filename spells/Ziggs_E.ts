@@ -3,15 +3,6 @@ import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Ziggs_E = InstanceType<ReturnType<typeof makeZiggs_E>>;
-type Ziggs_E_Object = InstanceType<ReturnType<typeof makeZiggs_E_Object>>;
-type Ziggs_E_Pop = InstanceType<ReturnType<typeof makeZiggs_E_Pop>>;
-
-
 
 export const E_RANGE = 420;
 
@@ -104,7 +95,6 @@ export const makeZiggs_E_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const Slow = api.buffs.Slow;
   const Ziggs_E_Pop = makeZiggs_E_Pop(api);
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
@@ -243,7 +233,6 @@ export const makeZiggs_E_Object = packClass((api: ContentApi) => {
 /** One plate going off, on the body that stepped on it. */
 export const makeZiggs_E_Pop = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   class Ziggs_E_Pop extends SpellObject {
     radius = E_TRIGGER_RADIUS;
     lifeTime = 260;

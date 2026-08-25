@@ -1,18 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Fizz_R = InstanceType<ReturnType<typeof makeFizz_R>>;
-type Fizz_R_Lure = InstanceType<ReturnType<typeof makeFizz_R_Lure>>;
-type Fizz_R_Shark = InstanceType<ReturnType<typeof makeFizz_R_Shark>>;
-
-
 
 export const RANGE = 700;
 
@@ -67,7 +56,6 @@ export default makeFizz_R;
 
 export const makeFizz_R_Lure = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const Fizz_R_Shark = makeFizz_R_Shark(api);
   class Fizz_R_Lure extends MissileSpellObject {
     speed = 12;
@@ -112,7 +100,6 @@ export const makeFizz_R_Shark = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const Airborne = api.buffs.Airborne;
   const Slow = api.buffs.Slow;
-  const AttackableUnit = api.units.AttackableUnit;
   class Fizz_R_Shark extends SpellObject {
     position: p5.Vector = this.owner.position.copy();
     stuckTo: AttackableUnit | null = null;

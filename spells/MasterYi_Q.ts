@@ -2,12 +2,8 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
 type Untargetable = InstanceType<ContentApi['buffs']['Untargetable']>;
-type MasterYi_Q = InstanceType<ReturnType<typeof makeMasterYi_Q>>;
 type MasterYi_Q_Object = InstanceType<ReturnType<typeof makeMasterYi_Q_Object>>;
 
 
@@ -64,7 +60,6 @@ export const makeMasterYi_Q = packClass((api: ContentApi) => {
   const PredefinedFilters = api.combat.PredefinedFilters;
   const Spell = api.Spell;
   const Untargetable = api.buffs.Untargetable;
-  const AttackableUnit = api.units.AttackableUnit;
   const MasterYi_Q_Object = makeMasterYi_Q_Object(api);
   class MasterYi_Q extends Spell {
     // Auto-locks its own targets; see "auto-locking spells" in docs/ADDING_SPELLS.md.
@@ -188,8 +183,6 @@ interface BladeMark {
 export const makeMasterYi_Q_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
-  const Untargetable = api.buffs.Untargetable;
-  const AttackableUnit = api.units.AttackableUnit;
   class MasterYi_Q_Object extends SpellObject {
     victims: AttackableUnit[] = [];
     vanish: Untargetable | null = null;

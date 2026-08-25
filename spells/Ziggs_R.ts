@@ -3,14 +3,6 @@ import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Ziggs_R = InstanceType<ReturnType<typeof makeZiggs_R>>;
-type Ziggs_R_Blast = InstanceType<ReturnType<typeof makeZiggs_R_Blast>>;
-type Ziggs_R_Object = InstanceType<ReturnType<typeof makeZiggs_R_Object>>;
-
-
 
 export const R_RANGE = 900;
 
@@ -87,7 +79,6 @@ export const makeZiggs_R_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const Ziggs_R_Blast = makeZiggs_R_Blast(api);
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Ziggs_R_Object extends SpellObject {
@@ -206,7 +197,6 @@ export const makeZiggs_R_Object = packClass((api: ContentApi) => {
  */
 export const makeZiggs_R_Blast = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   class Ziggs_R_Blast extends SpellObject {
     radius = R_OUTER_RADIUS;
     lifeTime = 520;

@@ -1,15 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Phasing = InstanceType<ContentApi['buffs']['Phasing']>;
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Ghost = InstanceType<ReturnType<typeof makeGhost>>;
-type Ghost_Object = InstanceType<ReturnType<typeof makeGhost_Object>>;
-
-
-
 export const DURATION = 5000;
 
 export const SPEED_PERCENT = 0.4;

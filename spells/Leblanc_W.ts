@@ -1,15 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Leblanc_W = InstanceType<ReturnType<typeof makeLeblanc_W>>;
 type Leblanc_W_Object = InstanceType<ReturnType<typeof makeLeblanc_W_Object>>;
-type Leblanc_W_Object2 = InstanceType<ReturnType<typeof makeLeblanc_W_Object2>>;
-
-
 
 /** The illusion resolves into focus over this long, rather than appearing. */
 export const MIRROR_ASSEMBLE_MS = 300;

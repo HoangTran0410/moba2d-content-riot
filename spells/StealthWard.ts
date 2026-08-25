@@ -1,14 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StealthWard = InstanceType<ReturnType<typeof makeStealthWard>>;
-type StealthWard_Object = InstanceType<ReturnType<typeof makeStealthWard_Object>>;
-
-
-
 /** The totem's drawn proportions. `size` stays the ward's own tiny footprint. */
 export const WARD_HEIGHT = 26;
 

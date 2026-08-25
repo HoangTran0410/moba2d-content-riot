@@ -9,6 +9,7 @@
     "catalog:generate": "moba2d-generate-spell-catalog --tree=riot --root=.",
     "catalog:check": "moba2d-generate-spell-catalog --check --tree=riot --root=.",
     "typecheck": "tsc -p tsconfig.json",
+    "check-unused": "node scripts/check-unused.mjs",
     "test": "vitest run",
     "build": "vite build && node scripts/write-manifest.mjs",
     "manifest:write": "node scripts/write-manifest.mjs",
@@ -20,7 +21,7 @@
     "ability:check": "node scripts/wiki/check-abilities.mjs",
     "names:sync": "node scripts/wiki/sync-spell-names.mjs",
     "names:apply": "node scripts/wiki/sync-spell-names.mjs --apply",
-    "verify": "npm run assets:check && npm run catalog:check && npm run ability:check && npm run typecheck && npm run check-seams && npm run check-seams:monsters && npm run build && npm test"
+    "verify": "npm run assets:check && npm run catalog:check && npm run ability:check && npm run typecheck && npm run check-unused && npm run check-seams && npm run check-seams:monsters && npm run build && npm test"
   },
   "devDependencies": {
     "@moba2d/core": "github:HoangTran0410/moba2d-core#main",

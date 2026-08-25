@@ -3,18 +3,7 @@ import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
 type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Katarina_Blade_Impact = InstanceType<ReturnType<typeof makeKatarina_Blade_Impact>>;
-type Katarina_Dagger = InstanceType<ReturnType<typeof makeKatarina_Dagger>>;
-type Katarina_Dagger_Slash = InstanceType<ReturnType<typeof makeKatarina_Dagger_Slash>>;
-type Katarina_Q = InstanceType<ReturnType<typeof makeKatarina_Q>>;
-type Katarina_Q_Object = InstanceType<ReturnType<typeof makeKatarina_Q_Object>>;
-
-
 
 /** Cold steel and blood — the only two colours Katarina is allowed. */
 export const KATARINA_STEEL: [number, number, number] = [223, 230, 233];
@@ -118,7 +107,6 @@ export const makeKatarina_Q = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const Spell = api.Spell;
   const Katarina_Q_Object = makeKatarina_Q_Object(api);
   class Katarina_Q extends Spell {
@@ -208,7 +196,6 @@ export default makeKatarina_Q;
 export const makeKatarina_Q_Object = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const TrailSystem = api.helpers.TrailSystem;
   const MissileSpellObject = api.MissileSpellObject;
   const Katarina_Blade_Impact = makeKatarina_Blade_Impact(api);
@@ -376,7 +363,6 @@ export const makeKatarina_Q_Object = packClass((api: ContentApi) => {
 export const makeKatarina_Dagger_Slash = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   const Katarina_Blade_Impact = makeKatarina_Blade_Impact(api);
   class Katarina_Dagger_Slash extends SpellObject {
@@ -466,7 +452,6 @@ export const makeKatarina_Dagger_Slash = packClass((api: ContentApi) => {
  * The mark left on the body that took a blade.
  */
 export const makeKatarina_Blade_Impact = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Katarina_Blade_Impact extends SpellObject {
     lifeTime = 260;
@@ -524,8 +509,6 @@ export const makeKatarina_Blade_Impact = packClass((api: ContentApi) => {
  * and triggers a 360-degree Dagger Slash!
  */
 export const makeKatarina_Dagger = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
-  const Spell = api.Spell;
   const SpellObject = api.SpellObject;
   const Katarina_Dagger_Slash = makeKatarina_Dagger_Slash(api);
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;

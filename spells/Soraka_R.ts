@@ -2,13 +2,6 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Soraka_R = InstanceType<ReturnType<typeof makeSoraka_R>>;
-type Soraka_R_Blessing = InstanceType<ReturnType<typeof makeSoraka_R_Blessing>>;
-
-
 
 /**
  * Wish. The only map-crossing effect in Soraka's kit: everybody on her side is
@@ -86,7 +79,6 @@ export default makeSoraka_R;
 /** A shaft of starlight settling onto one healed ally. */
 export const makeSoraka_R_Blessing = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
   class Soraka_R_Blessing extends SpellObject {
     /** Light pooling on the ground around the ally's feet. */

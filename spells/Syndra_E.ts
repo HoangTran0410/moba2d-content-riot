@@ -5,17 +5,6 @@ import { SPHERE_CORE_RADIUS, SPHERE_DARK, SPHERE_EDGE, SPHERE_VIOLET } from './S
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Syndra_E = InstanceType<ReturnType<typeof makeSyndra_E>>;
-type Syndra_E_Cone = InstanceType<ReturnType<typeof makeSyndra_E_Cone>>;
-type Syndra_E_Sphere = InstanceType<ReturnType<typeof makeSyndra_E_Sphere>>;
-type Syndra_Burst = InstanceType<ReturnType<typeof makeSyndra_Burst>>;
 type Syndra_Sphere = InstanceType<ReturnType<typeof makeSyndra_Sphere>>;
 
 
@@ -81,7 +70,6 @@ export const makeSyndra_E = packClass((api: ContentApi) => {
   const Circle = api.utils.Quadtree.Circle;
   const effectiveRange = api.combat.Reach.effectiveRange;
   const PredefinedFilters = api.combat.PredefinedFilters;
-  const AttackableUnit = api.units.AttackableUnit;
   const Dash = api.buffs.Dash;
   const Stun = api.buffs.Stun;
   const Spell = api.Spell;
@@ -224,7 +212,6 @@ export default makeSyndra_E;
 
 /** The sweep itself: exactly the authored length and exactly the authored arc. */
 export const makeSyndra_E_Cone = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const SpellObject = api.SpellObject;
   class Syndra_E_Cone extends SpellObject {
     zIndex: number | null = 2;
@@ -289,7 +276,6 @@ export const makeSyndra_E_Cone = packClass((api: ContentApi) => {
 
 /** A sphere she kicked out of the cone: one enemy, then back on the floor. */
 export const makeSyndra_E_Sphere = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const TrailSystem = api.helpers.TrailSystem;
   const MissileSpellObject = api.MissileSpellObject;
   const Syndra_Burst = makeSyndra_Burst(api);

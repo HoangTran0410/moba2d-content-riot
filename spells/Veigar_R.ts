@@ -3,16 +3,6 @@ import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/conte
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type HomingMissileSpellObject = InstanceType<ContentApi['HomingMissileSpellObject']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TargetResolver = InstanceType<ContentApi['combat']['TargetResolver']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Veigar_R = InstanceType<ReturnType<typeof makeVeigar_R>>;
-type Veigar_R_Burst = InstanceType<ReturnType<typeof makeVeigar_R_Burst>>;
-type Veigar_R_Object = InstanceType<ReturnType<typeof makeVeigar_R_Object>>;
-
-
 
 type VeigarRTarget = AttackableUnit;
 
@@ -148,7 +138,6 @@ export default makeVeigar_R;
 
 
 export const makeVeigar_R_Object = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const HomingMissileSpellObject = api.HomingMissileSpellObject;
   const TrailSystem = api.helpers.TrailSystem;
   const Veigar_R_Burst = makeVeigar_R_Burst(api);

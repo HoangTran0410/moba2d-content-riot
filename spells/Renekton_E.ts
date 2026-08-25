@@ -4,16 +4,6 @@ import { isEnraged } from './Renekton_R';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Renekton_E = InstanceType<ReturnType<typeof makeRenekton_E>>;
-type Renekton_E_Object = InstanceType<ReturnType<typeof makeRenekton_E_Object>>;
-
-
 
 export const DASH_DISTANCE = 250;
 
@@ -55,7 +45,6 @@ export const makeRenekton_E = packClass((api: ContentApi) => {
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellForm = api.enums.SpellForm;
   const Spell = api.Spell;
-  const AttackableUnit = api.units.AttackableUnit;
   const Dash = api.buffs.Dash;
   const StatAmp = api.buffs.StatAmp;
   const Renekton_E_Object = makeRenekton_E_Object(api);

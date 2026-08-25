@@ -1,20 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
-type AoePulse = InstanceType<ContentApi['AoePulse']>;
-type Charm = InstanceType<ContentApi['buffs']['Charm']>;
-type Fear = InstanceType<ContentApi['buffs']['Fear']>;
-type Root = InstanceType<ContentApi['buffs']['Root']>;
-type Silence = InstanceType<ContentApi['buffs']['Silence']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type Olaf_R = InstanceType<ReturnType<typeof makeOlaf_R>>;
-
-
-
 export const DURATION = 7000;
 
 export const BONUS_DAMAGE = 10;

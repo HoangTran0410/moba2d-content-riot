@@ -2,18 +2,6 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Caitlyn_E = InstanceType<ReturnType<typeof makeCaitlyn_E>>;
-type Caitlyn_E_MuzzleBlast = InstanceType<ReturnType<typeof makeCaitlyn_E_MuzzleBlast>>;
-type Caitlyn_E_Net = InstanceType<ReturnType<typeof makeCaitlyn_E_Net>>;
-type Caitlyn_E_Tangle = InstanceType<ReturnType<typeof makeCaitlyn_E_Tangle>>;
-
-
 
 export const CAITLYN_E_RANGE = 430;
 
@@ -117,7 +105,6 @@ export default makeCaitlyn_E;
  */
 export const makeCaitlyn_E_Net = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const Slow = api.buffs.Slow;
   const BuffAddType = api.enums.BuffAddType;
   const TrailSystem = api.helpers.TrailSystem;
@@ -223,7 +210,6 @@ export const makeCaitlyn_E_Net = packClass((api: ContentApi) => {
 /** Cords clinging to whoever got caught, for as long as the slow runs. */
 export const makeCaitlyn_E_Tangle = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   class Caitlyn_E_Tangle extends SpellObject {
     age = 0;
     lifeTime = CAITLYN_E_SLOW_MS;

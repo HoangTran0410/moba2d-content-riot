@@ -2,18 +2,8 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Ekko_E = InstanceType<ReturnType<typeof makeEkko_E>>;
-type Ekko_E_Afterimage = InstanceType<ReturnType<typeof makeEkko_E_Afterimage>>;
 type Ekko_E_AuraObject = InstanceType<ReturnType<typeof makeEkko_E_AuraObject>>;
 type Ekko_E_Buff = InstanceType<ReturnType<typeof makeEkko_E_Buff>>;
-type Ekko_E_Rift = InstanceType<ReturnType<typeof makeEkko_E_Rift>>;
-
-
 
 export const EKKO_E_BLINK_DAMAGE = 25;
 
@@ -337,7 +327,6 @@ const EKKO_E_AURA_RADIUS = 40;
  * half the champions already have a spinning ring on the floor.
  */
 export const makeEkko_E_AuraObject = packClass((api: ContentApi) => {
-  const Buff = api.buffs.Buff;
   const SpellObject = api.SpellObject;
   class Ekko_E_AuraObject extends SpellObject {
     buffRef: Buff;

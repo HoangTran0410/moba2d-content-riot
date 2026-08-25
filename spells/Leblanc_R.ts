@@ -3,9 +3,6 @@ import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type Spell = InstanceType<ContentApi['Spell']>;
-type Leblanc_R = InstanceType<ReturnType<typeof makeLeblanc_R>>;
-
-
 
 // Exported so the suite asserts Mimic's wiring, not a copy of the numbers —
 // retuning a value should not mean editing the test.

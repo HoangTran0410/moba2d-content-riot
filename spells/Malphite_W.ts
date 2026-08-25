@@ -1,15 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Shield = InstanceType<ContentApi['buffs']['Shield']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Malphite_W = InstanceType<ReturnType<typeof makeMalphite_W>>;
-type Malphite_W_Armor = InstanceType<ReturnType<typeof makeMalphite_W_Armor>>;
-
-
-
 // Exported so the suite asserts the armor's wiring against the spell's real
 // tuning instead of a copied set of numbers — retuning a value should not
 // mean editing a test.

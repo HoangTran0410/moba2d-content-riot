@@ -3,15 +3,6 @@ import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/conte
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type HomingMissileSpellObject = InstanceType<ContentApi['HomingMissileSpellObject']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TargetResolver = InstanceType<ContentApi['combat']['TargetResolver']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Caitlyn_R = InstanceType<ReturnType<typeof makeCaitlyn_R>>;
-type Caitlyn_R_Bullet = InstanceType<ReturnType<typeof makeCaitlyn_R_Bullet>>;
-type Caitlyn_R_Hit = InstanceType<ReturnType<typeof makeCaitlyn_R_Hit>>;
 type Caitlyn_R_Sight = InstanceType<ReturnType<typeof makeCaitlyn_R_Sight>>;
 
 
@@ -209,7 +200,6 @@ export default makeCaitlyn_R;
  * came out of a barrel.
  */
 export const makeCaitlyn_R_Bullet = packClass((api: ContentApi) => {
-  const AttackableUnit = api.units.AttackableUnit;
   const HomingMissileSpellObject = api.HomingMissileSpellObject;
   const TrailSystem = api.helpers.TrailSystem;
   const Caitlyn_R_Hit = makeCaitlyn_R_Hit(api);
@@ -274,7 +264,6 @@ export const makeCaitlyn_R_Bullet = packClass((api: ContentApi) => {
 export const makeCaitlyn_R_Sight = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   class Caitlyn_R_Sight extends SpellObject {
     target: AttackableUnit;
     age = 0;

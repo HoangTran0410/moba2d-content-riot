@@ -1,16 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Chilled = InstanceType<ContentApi['buffs']['Chilled']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Anivia_Q = InstanceType<ReturnType<typeof makeAnivia_Q>>;
-type Anivia_Q_Blast = InstanceType<ReturnType<typeof makeAnivia_Q_Blast>>;
 type Anivia_Q_Object = InstanceType<ReturnType<typeof makeAnivia_Q_Object>>;
 
 

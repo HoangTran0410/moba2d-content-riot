@@ -3,15 +3,7 @@ import type { CastSpec, ExecuteSpell, TargetingRequest } from '@moba2d/core/cont
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type HomingMissileSpellObject = InstanceType<ContentApi['HomingMissileSpellObject']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
 type Annie_Q = InstanceType<ReturnType<typeof makeAnnie_Q>>;
-type Annie_Q_Burst = InstanceType<ReturnType<typeof makeAnnie_Q_Burst>>;
-type Annie_Q_Object = InstanceType<ReturnType<typeof makeAnnie_Q_Object>>;
-
-
 
 export const RANGE = 500;
 
@@ -58,7 +50,6 @@ export const makeAnnie_Q = packClass((api: ContentApi) => {
   const Spell = api.Spell;
   const effectiveHealth = api.combat.ExecuteTargeting.effectiveHealth;
   const isLethal = api.combat.ExecuteTargeting.isLethal;
-  const AttackableUnit = api.units.AttackableUnit;
   const Annie_Q_Object = makeAnnie_Q_Object(api);
   class Annie_Q extends Spell implements ExecuteSpell {
     image = api.asset('spell_annie_q');
@@ -195,7 +186,6 @@ export default makeAnnie_Q;
 export const makeAnnie_Q_Object = packClass((api: ContentApi) => {
   const HomingMissileSpellObject = api.HomingMissileSpellObject;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
-  const AttackableUnit = api.units.AttackableUnit;
   const Annie_Q_Burst = makeAnnie_Q_Burst(api);
   class Annie_Q_Object extends HomingMissileSpellObject {
     speed = 16;

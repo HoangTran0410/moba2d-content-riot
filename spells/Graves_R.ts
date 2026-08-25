@@ -2,17 +2,6 @@ import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Graves_R = InstanceType<ReturnType<typeof makeGraves_R>>;
-type Graves_R_Impact = InstanceType<ReturnType<typeof makeGraves_R_Impact>>;
-type Graves_R_Muzzle = InstanceType<ReturnType<typeof makeGraves_R_Muzzle>>;
-type Graves_R_Object = InstanceType<ReturnType<typeof makeGraves_R_Object>>;
-
-
 
 export const RANGE = 700;
 
@@ -85,7 +74,6 @@ export const makeGraves_R_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
   const Slow = api.buffs.Slow;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
-  const AttackableUnit = api.units.AttackableUnit;
   const Graves_R_Impact = makeGraves_R_Impact(api);
   class Graves_R_Object extends MissileSpellObject {
     speed = 22;

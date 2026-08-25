@@ -1,15 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Yasuo_E = InstanceType<ReturnType<typeof makeYasuo_E>>;
-type Yasuo_E_Object = InstanceType<ReturnType<typeof makeYasuo_E_Object>>;
-
-
 
 export const E_RANGE = 130;
 
@@ -169,7 +161,6 @@ export const makeYasuo_E_Object = packClass((api: ContentApi) => {
   const Rectangle = api.utils.Quadtree.Rectangle;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   const SpellObject = api.SpellObject;
-  const Dash = api.buffs.Dash;
   class Yasuo_E_Object extends SpellObject {
     position = this.owner.position.copy();
     dashBuff: Dash | null = null;

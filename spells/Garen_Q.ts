@@ -3,14 +3,6 @@ import type { BasicAttackHit } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Silence = InstanceType<ContentApi['buffs']['Silence']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Speedup = InstanceType<ContentApi['buffs']['Speedup']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Garen_Q = InstanceType<ReturnType<typeof makeGaren_Q>>;
-
-
 
 export const SPEED_DURATION = 3000;
 
@@ -37,7 +29,6 @@ export const STACK_ID = 'garen_q';
 export const makeGaren_Q = packClass((api: ContentApi) => {
   const EventType = api.enums.EventType;
   const Spell = api.Spell;
-  const Buff = api.buffs.Buff;
   const Silence = api.buffs.Silence;
   const Slow = api.buffs.Slow;
   const Speedup = api.buffs.Speedup;

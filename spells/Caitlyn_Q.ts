@@ -4,16 +4,7 @@ import { CAITLYN_W_REVEAL_STACK_ID } from './Caitlyn_W';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type MissileSpellObject = InstanceType<ContentApi['MissileSpellObject']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Caitlyn_Q = InstanceType<ReturnType<typeof makeCaitlyn_Q>>;
 type Caitlyn_Q_Brace = InstanceType<ReturnType<typeof makeCaitlyn_Q_Brace>>;
-type Caitlyn_Q_Impact = InstanceType<ReturnType<typeof makeCaitlyn_Q_Impact>>;
-type Caitlyn_Q_Object = InstanceType<ReturnType<typeof makeCaitlyn_Q_Object>>;
-
-
 
 export const CAITLYN_Q_RANGE = 720;
 
@@ -134,7 +125,6 @@ export function isTrapRevealed(unit: AttackableUnit): boolean {
  */
 export const makeCaitlyn_Q_Object = packClass((api: ContentApi) => {
   const MissileSpellObject = api.MissileSpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const TrailSystem = api.helpers.TrailSystem;
   const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
   const Caitlyn_Q_Impact = makeCaitlyn_Q_Impact(api);

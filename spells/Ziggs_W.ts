@@ -3,12 +3,6 @@ import type { CastContext, CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
 type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Ziggs_W = InstanceType<ReturnType<typeof makeZiggs_W>>;
-type Ziggs_W_Blast = InstanceType<ReturnType<typeof makeZiggs_W_Blast>>;
 type Ziggs_W_Object = InstanceType<ReturnType<typeof makeZiggs_W_Object>>;
 
 
@@ -117,7 +111,6 @@ export const makeZiggs_W_Object = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;
   const PredefinedFilters = api.combat.PredefinedFilters;
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   const Dash = api.buffs.Dash;
   const Ziggs_W_Blast = makeZiggs_W_Blast(api);
   class Ziggs_W_Object extends SpellObject {
@@ -255,7 +248,6 @@ export const makeZiggs_W_Object = packClass((api: ContentApi) => {
 /** The blast. It draws outward, the way the shove it applies moves. */
 export const makeZiggs_W_Blast = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
-  const AttackableUnit = api.units.AttackableUnit;
   class Ziggs_W_Blast extends SpellObject {
     radius = W_RADIUS;
     lifeTime = 380;

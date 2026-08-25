@@ -1,15 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type DamageReflect = InstanceType<ContentApi['buffs']['DamageReflect']>;
 type Shield = InstanceType<ContentApi['buffs']['Shield']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Rammus_W = InstanceType<ReturnType<typeof makeRammus_W>>;
-type Rammus_W_Shell = InstanceType<ReturnType<typeof makeRammus_W_Shell>>;
-
-
 
 export const DURATION = 5000;
 
@@ -118,7 +110,6 @@ interface Crack {
 /** The curled carapace: spiked plates clamped over Rammus for the duration. */
 export const makeRammus_W_Shell = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
-  const Shield = api.buffs.Shield;
   class Rammus_W_Shell extends SpellObject {
     age = 0;
 

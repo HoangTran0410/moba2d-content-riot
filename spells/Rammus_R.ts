@@ -1,19 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
-type AoePulse = InstanceType<ContentApi['AoePulse']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
 type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
 type Untargetable = InstanceType<ContentApi['buffs']['Untargetable']>;
-type Rammus_R = InstanceType<ReturnType<typeof makeRammus_R>>;
-type Rammus_R_Leap = InstanceType<ReturnType<typeof makeRammus_R_Leap>>;
-
-
 
 export const MAX_RANGE = 500;
 
@@ -115,9 +104,7 @@ export const makeRammus_R_Leap = packClass((api: ContentApi) => {
   const SpellObject = api.SpellObject;
   const AoePulse = api.AoePulse;
   const Airborne = api.buffs.Airborne;
-  const Dash = api.buffs.Dash;
   const Slow = api.buffs.Slow;
-  const Untargetable = api.buffs.Untargetable;
   class Rammus_R_Leap extends SpellObject {
     landing: p5.Vector = this.owner.position.copy();
     dashBuff: Dash | null = null;

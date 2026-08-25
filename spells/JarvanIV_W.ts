@@ -1,18 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { packClass } from '../packClass';
 
-type Champion = InstanceType<ContentApi['units']['Champion']>;
-type Circle = InstanceType<ContentApi['utils']['Quadtree']['Circle']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Shield = InstanceType<ContentApi['buffs']['Shield']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type JarvanIV_W = InstanceType<ReturnType<typeof makeJarvanIV_W>>;
-type JarvanIV_W_WaveObject = InstanceType<ReturnType<typeof makeJarvanIV_W_WaveObject>>;
-
-
-
 export const JARVAN_W_BASE_SHIELD = 50;
 
 export const JARVAN_W_SHIELD_PER_CHAMPION = 15;
