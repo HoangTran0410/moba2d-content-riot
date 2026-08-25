@@ -4,7 +4,14 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { packRoot } from './support/packRoot';
-// Plain .mjs build script, no declaration file of its own and not part of
+// Core's asset-manifest generator, shipped for packs as
+// `@moba2d/core/pack-assets` and driven by the `moba2d-generate-assets`
+// bin that `npm run assets:generate` calls. This pack used to carry its own
+// full copy — a survey had measured the walk as having zero core dependency,
+// so duplicating it was meant to let the pack stand alone. It cannot: this
+// pack's `catalog:generate`, `check-seams` and test setup are all core bins
+// and core imports, so the standalone case the copy bought does not exist.
+// Plain .mjs, no declaration file of its own and not part of
 // any TypeScript program; this is the first program that has ever
 // typechecked this test at all (no tsconfig reached
 // tests/packs/riot/**/*.ts before content-pack-extraction batch 6 task 6
@@ -15,10 +22,11 @@ import {
   assetKeyForPath,
   buildManifestEntries,
   generate,
+  PACK_ASSET_TREE,
   renderAssetManifestSource,
   renderManifest,
   // @ts-expect-error — see above
-} from '../scripts/generate-assets.mjs';
+} from '@moba2d/core/pack-assets';
 
 // This pack's own root — `packs/riot/` inside this monorepo, this pack's
 // own checkout root once separated — not a repo-root constant, and not a
@@ -48,7 +56,7 @@ describe("packs/riot's own asset manifest generator", () => {
    * manifest, reading only `packs/riot/assets/` — never core's own `assets/`.
    */
   it('generates the real manifest for this pack, never reading core/assets', async () => {
-    const source = await renderAssetManifestSource(PACK_ROOT);
+    const source = await renderAssetManifestSource(PACK_ROOT, { tree: PACK_ASSET_TREE });
 
     expect(source).toContain('export const assetManifest = {');
     expect(source).toContain('champ_janna');
@@ -64,7 +72,7 @@ describe("packs/riot's own asset manifest generator", () => {
    * checked in at `packs/riot/generated/assetManifest.ts`.
    */
   it("leaves the pack's own checked-in manifest byte-identical", async () => {
-    const generated = await renderAssetManifestSource(PACK_ROOT);
+    const generated = await renderAssetManifestSource(PACK_ROOT, { tree: PACK_ASSET_TREE });
     const committed = await readFile(join(PACK_ROOT, 'generated/assetManifest.ts'), 'utf8');
 
     expect(generated).toBe(committed);
@@ -72,7 +80,7 @@ describe("packs/riot's own asset manifest generator", () => {
 
   it("imports relative to this pack's own root, not a repo-root round-trip", () => {
     const entries = buildManifestEntries(['assets/images/champions/janna.png']);
-    const source = renderManifest(entries);
+    const source = renderManifest(entries, { importPrefix: '../' });
 
     expect(source).toContain("from '../assets/images/champions/janna.png?url'");
   });
@@ -81,7 +89,7 @@ describe("packs/riot's own asset manifest generator", () => {
     const tmpRoot = await mkdtemp(join(tmpdir(), 'lol2d-riot-assets-stale-'));
     try {
       await mkdir(join(tmpRoot, 'assets'), { recursive: true });
-      await expect(generate(tmpRoot, true)).rejects.toThrow(/Run npm run assets:generate\./);
+      await expect(generate(tmpRoot, true, PACK_ASSET_TREE)).rejects.toThrow(/Run npm run assets:generate\./);
     } finally {
       await rm(tmpRoot, { recursive: true, force: true });
     }

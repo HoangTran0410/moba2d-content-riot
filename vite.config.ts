@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
 // @ts-expect-error — a plain .mjs build helper with no types of its own.
-import { webpAssets } from './scripts/webp-assets.mjs';
+import { webpAssets } from '@moba2d/core/pack-webp';
 
 /**
  * Not `build.lib` — deliberately. Vite's own asset plugin special-cases lib

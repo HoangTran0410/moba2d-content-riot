@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { mkdir, mkdtemp, readFile, rename, rm, stat, writeFile } from 'node:fs/promises';
 import { dirname, extname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { renderAssetManifestSource } from '../generate-assets.mjs';
+import { renderAssetManifestSource, PACK_ASSET_TREE } from '@moba2d/core/pack-assets';
 import { createMediaWikiClient } from './mediawiki.mjs';
 import { assertPcSource, championSkillForms, parseLuaData } from './lua-data.mjs';
 import { normalizeAbilityFields } from './normalize.mjs';
@@ -336,6 +336,7 @@ export async function importAbilities({
   outputs.push([
     'generated/assetManifest.ts',
     await renderAssetManifestSource(root, {
+      tree: PACK_ASSET_TREE,
       add: outputs.map(([path]) => path),
       remove: [...removals],
     }),

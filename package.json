@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "assets:generate": "node scripts/generate-assets.mjs",
-    "assets:check": "node scripts/generate-assets.mjs --check",
+    "assets:generate": "moba2d-generate-assets",
+    "assets:check": "moba2d-generate-assets --check",
     "catalog:generate": "moba2d-generate-spell-catalog --tree=riot --root=.",
     "catalog:check": "moba2d-generate-spell-catalog --check --tree=riot --root=.",
     "typecheck": "tsc -p tsconfig.json",

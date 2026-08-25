@@ -1,7 +1,7 @@
 import { readFile, readdir } from 'node:fs/promises';
 import { extname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { assetKeyForPath, generate } from '../generate-assets.mjs';
+import { assetKeyForPath, generate, PACK_ASSET_TREE } from '@moba2d/core/pack-assets';
 import { contentHash } from './import-abilities.mjs';
 import { existsSync } from 'node:fs';
 
@@ -134,7 +134,11 @@ export async function checkAbilities(root) {
   for (const key of sources.keys()) {
     if (!referencedAssets.has(key)) throw new Error(`assets/source-manifest.json: unreferenced asset key ${key}`);
   }
-  await generate(root, true);
+  // `PACK_ASSET_TREE` explicitly: `generate`'s own default is core's layout
+  // (`src/generated/assetManifest.ts`), and a pack that forgets it checks a
+  // path it does not have — which succeeds, because a missing file compares
+  // equal to nothing rather than throwing.
+  await generate(root, true, PACK_ASSET_TREE);
   return { records: files.length, forms: identities.size, skippedByPack };
 }
 

@@ -78,6 +78,13 @@ const ALLOWED_CORE_SUBPATHS = new Set([
   '@moba2d/core/testing',
   '@moba2d/core/testing/spell',
   '@moba2d/core/testing/spells',
+  // The two build helpers core ships for packs: the asset-manifest generator
+  // (this pack used to carry its own copy) and the WebP re-encode plugin.
+  // Neither is ever part of `pack.js` — one is a bin plus the module behind
+  // it, the other a Vite plugin — so neither can become the bare unresolvable
+  // specifier this scan exists to catch.
+  '@moba2d/core/pack-assets',
+  '@moba2d/core/pack-webp',
 ]);
 
 /** This file's own, and only this file's, licence to import the scan machinery itself. */
