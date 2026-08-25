@@ -1,8 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { BasicAttackHit } from '@moba2d/core/content/types';
+import type { BasicAttackHit, Buff } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
 
 export const DURATION = 8000;
 

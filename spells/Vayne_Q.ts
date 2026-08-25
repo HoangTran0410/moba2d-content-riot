@@ -1,11 +1,9 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { BasicAttackHit, CastSpec } from '@moba2d/core/content/types';
+import type { AttackableUnit, BasicAttackHit, Buff, CastSpec } from '@moba2d/core/content/types';
 import { makeVayne_R_Buff } from './Vayne_R';
 import { VAYNE_R_Q_CDR, VAYNE_R_STEALTH_MS } from './Vayne_R';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
 
 /** How far the roll carries her. Repositioning, not travel. */
 export const VAYNE_Q_DISTANCE = 200;

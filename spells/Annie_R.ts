@@ -1,7 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type Tibbers = InstanceType<ReturnType<typeof makeTibbers>>;
+type Tibbers = Instance<typeof makeTibbers>;
 
 
 

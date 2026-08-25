@@ -1,9 +1,9 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import type { Buff } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Ekko_E_AuraObject = InstanceType<ReturnType<typeof makeEkko_E_AuraObject>>;
-type Ekko_E_Buff = InstanceType<ReturnType<typeof makeEkko_E_Buff>>;
+type Ekko_E_AuraObject = Instance<typeof makeEkko_E_AuraObject>;
+type Ekko_E_Buff = Instance<typeof makeEkko_E_Buff>;
 
 export const EKKO_E_BLINK_DAMAGE = 25;
 

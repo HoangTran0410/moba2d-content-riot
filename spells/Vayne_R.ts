@@ -1,8 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import type { AttackableUnit, Buff } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
 
 /** How long the night stays closed in. */
 export const VAYNE_R_DURATION_MS = 10_000;

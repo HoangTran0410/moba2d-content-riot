@@ -1,10 +1,9 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
+import type { AttackableUnit, CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
 import { makeGrantRejuvenation } from './Soraka_Q';
 import { hasRejuvenation } from './Soraka_Q';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 
 /**
  * Astral Infusion. Soraka pays her own health to heal an ally — the one spell

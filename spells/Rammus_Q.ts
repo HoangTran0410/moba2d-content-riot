@@ -1,10 +1,10 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { CastSpec } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type Rammus_Q = InstanceType<ReturnType<typeof makeRammus_Q>>;
-type Rammus_Q_Object = InstanceType<ReturnType<typeof makeRammus_Q_Object>>;
-type Rammus_Q_Powerball = InstanceType<ReturnType<typeof makeRammus_Q_Powerball>>;
+type Rammus_Q = Instance<typeof makeRammus_Q>;
+type Rammus_Q_Object = Instance<typeof makeRammus_Q_Object>;
+type Rammus_Q_Powerball = Instance<typeof makeRammus_Q_Powerball>;
 
 
 

@@ -1,9 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import type { AttackableUnit, Spell } from '@moba2d/core/content/types';
 import { makeDetonateEssenceFlux } from './Ezreal_W';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Spell = InstanceType<ContentApi['Spell']>;
 
 export const EZREAL_Q_DAMAGE = 24;
 

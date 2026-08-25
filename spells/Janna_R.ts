@@ -1,14 +1,12 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import type { AttackableUnit, CastContext, CastSpec, Spell } from '@moba2d/core/content/types';
 import makeGhost from './Ghost';
 import makeHeal from './Heal';
 import makeIgnite from './Ignite';
 import { makeNotifyJannaControlLanded } from './Janna_E';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type Janna_R_Object = InstanceType<ReturnType<typeof makeJanna_R_Object>>;
+type Janna_R_Object = Instance<typeof makeJanna_R_Object>;
 
 // Exported so the suite asserts the knockback and channel-tick wiring, not a
 // copy of the numbers — retuning a value should not mean editing the test.

@@ -1,7 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type Anivia_Q_Object = InstanceType<ReturnType<typeof makeAnivia_Q_Object>>;
+type Anivia_Q_Object = Instance<typeof makeAnivia_Q_Object>;
 
 
 

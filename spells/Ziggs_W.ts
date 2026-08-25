@@ -1,9 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Ziggs_W_Object = InstanceType<ReturnType<typeof makeZiggs_W_Object>>;
+type Ziggs_W_Object = Instance<typeof makeZiggs_W_Object>;
 
 
 

@@ -1,9 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import type { AttackableUnit, ParticleSystem, Spell } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type ParticleSystem = InstanceType<ContentApi['helpers']['ParticleSystem']>;
-type Spell = InstanceType<ContentApi['Spell']>;
 
 export const RANGE = 150;
 

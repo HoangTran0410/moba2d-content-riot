@@ -1,7 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type Leblanc_W_Object = InstanceType<ReturnType<typeof makeLeblanc_W_Object>>;
+type Leblanc_W_Object = Instance<typeof makeLeblanc_W_Object>;
 
 /** The illusion resolves into focus over this long, rather than appearing. */
 export const MIRROR_ASSEMBLE_MS = 300;

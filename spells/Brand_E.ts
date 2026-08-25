@@ -1,10 +1,9 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
+import type { AttackableUnit, CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
 import { makeApplyAblaze } from './Brand_Q';
 import { isAblaze } from './Brand_Q';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 
 /**
  * Conflagration. A blast on one enemy that jumps to everyone standing near

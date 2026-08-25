@@ -1,8 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import type { AttackableUnit, Rectangle } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
 
 /**
  * Much shorter than the PC ultimate's 5 seconds. Two reasons: LOL2D has no

@@ -1,9 +1,9 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { makeZed_W_Clone } from './Zed_W';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type Zed_R_Mark = InstanceType<ReturnType<typeof makeZed_R_Mark>>;
-type Zed_W_Clone = InstanceType<ReturnType<typeof makeZed_W_Clone>>;
+type Zed_R_Mark = Instance<typeof makeZed_R_Mark>;
+type Zed_W_Clone = Instance<typeof makeZed_W_Clone>;
 
 
 

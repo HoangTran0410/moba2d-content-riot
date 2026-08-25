@@ -1,10 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastSpec } from '@moba2d/core/content/types';
+import type { AttackableUnit, CastSpec, Rectangle } from '@moba2d/core/content/types';
 import { isChallengedBy } from './XinZhao_E';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
 
 export const XINZHAO_R_RADIUS = 300;
 

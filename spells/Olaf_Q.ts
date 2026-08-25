@@ -1,7 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type Olaf_Q = InstanceType<ReturnType<typeof makeOlaf_Q>>;
+type Olaf_Q = Instance<typeof makeOlaf_Q>;
 
 export const makeOlaf_Q = packClass((api: ContentApi) => {
   const VectorUtils = api.utils.VectorUtils;

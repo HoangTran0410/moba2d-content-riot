@@ -1,11 +1,9 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { BasicAttackHit } from '@moba2d/core/content/types';
+import type { AttackableUnit, BasicAttackHit, Buff } from '@moba2d/core/content/types';
 import { isEnraged } from './Renekton_R';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Renekton_W_Object = InstanceType<ReturnType<typeof makeRenekton_W_Object>>;
+type Renekton_W_Object = Instance<typeof makeRenekton_W_Object>;
 
 
 

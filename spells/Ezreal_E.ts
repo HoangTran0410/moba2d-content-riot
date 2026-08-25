@@ -1,8 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import type { AttackableUnit } from '@moba2d/core/content/types';
 import { makeDetonateEssenceFlux, makeEssenceFluxSpell } from './Ezreal_W';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 
 export const EZREAL_E_BLINK_RANGE = 300;
 

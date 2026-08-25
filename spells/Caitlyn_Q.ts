@@ -1,10 +1,9 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { CAITLYN_W_REVEAL_STACK_ID } from './Caitlyn_W';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Caitlyn_Q_Brace = InstanceType<ReturnType<typeof makeCaitlyn_Q_Brace>>;
+type Caitlyn_Q_Brace = Instance<typeof makeCaitlyn_Q_Brace>;
 
 export const CAITLYN_Q_RANGE = 720;
 

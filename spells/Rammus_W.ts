@@ -1,7 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import type { Shield } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type Shield = InstanceType<ContentApi['buffs']['Shield']>;
 
 export const DURATION = 5000;
 

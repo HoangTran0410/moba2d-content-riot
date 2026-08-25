@@ -1,9 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastSpec } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { CastSpec, Rectangle } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type MasterYi_W_Object = InstanceType<ReturnType<typeof makeMasterYi_W_Object>>;
+type MasterYi_W_Object = Instance<typeof makeMasterYi_W_Object>;
 
 
 

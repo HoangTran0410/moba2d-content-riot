@@ -1,10 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
+import type { Airborne, AttackableUnit, CastContext, CastSpec, TargetingRequest, Untargetable } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Untargetable = InstanceType<ContentApi['buffs']['Untargetable']>;
 
 export const SETT_R_RANGE = 250;
 

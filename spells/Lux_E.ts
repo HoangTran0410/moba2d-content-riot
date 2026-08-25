@@ -1,7 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type Lux_E_Object = InstanceType<ReturnType<typeof makeLux_E_Object>>;
+type Lux_E_Object = Instance<typeof makeLux_E_Object>;
 
 
 

@@ -1,10 +1,9 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CancelReason, CastContext, CastSpec } from '@moba2d/core/content/types';
+import type { AttackableUnit, CancelReason, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { makeNotifyJannaControlLanded } from './Janna_E';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Janna_Q_Object = InstanceType<ReturnType<typeof makeJanna_Q_Object>>;
+type Janna_Q_Object = Instance<typeof makeJanna_Q_Object>;
 
 
 

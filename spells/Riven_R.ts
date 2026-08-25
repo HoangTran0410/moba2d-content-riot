@@ -1,8 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CancelReason, CastContext, CastSpec } from '@moba2d/core/content/types';
+import type { AttackableUnit, CancelReason, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 
 export const R_DURATION_MS = 9_000;
 

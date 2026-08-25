@@ -1,12 +1,10 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastSpec } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { AttackableUnit, CastSpec, Root } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Root = InstanceType<ContentApi['buffs']['Root']>;
-type Jhin_R = InstanceType<ReturnType<typeof makeJhin_R>>;
-type Jhin_R_Petals = InstanceType<ReturnType<typeof makeJhin_R_Petals>>;
-type Jhin_R_Stage = InstanceType<ReturnType<typeof makeJhin_R_Stage>>;
+type Jhin_R = Instance<typeof makeJhin_R>;
+type Jhin_R_Petals = Instance<typeof makeJhin_R_Petals>;
+type Jhin_R_Stage = Instance<typeof makeJhin_R_Stage>;
 
 
 

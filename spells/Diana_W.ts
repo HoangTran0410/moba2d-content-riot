@@ -1,9 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import type { AttackableUnit, Buff } from '@moba2d/core/content/types';
 import { MOON_CORE, MOON_PALE, drawCrescent } from './Diana_Q';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
 
 export const W_SPHERES = 3;
 

@@ -1,7 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import type { Rectangle } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
 
 // Exported so the suite asserts the swarm's wiring rather than a copy of the
 // numbers — retuning a value must not mean editing a test.

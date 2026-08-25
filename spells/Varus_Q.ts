@@ -1,8 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CancelReason, CastContext, CastSpec } from '@moba2d/core/content/types';
+import type { CancelReason, CastContext, CastSpec, Slow } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
 
 export const MAX_CHARGE_MS = 4_000;
 

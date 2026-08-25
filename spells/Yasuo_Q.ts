@@ -1,7 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import type { SpellObject } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
 
 // Tuning lives here so the tests and the HUD read the same numbers the spell
 // does — retuning a value must never mean editing something else to match.

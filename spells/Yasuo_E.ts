@@ -1,7 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import type { Dash } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
 
 export const E_RANGE = 130;
 

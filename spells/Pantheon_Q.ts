@@ -1,10 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CancelReason, CastContext, CastSpec, Vec2 } from '@moba2d/core/content/types';
+import type { AttackableUnit, CancelReason, CastContext, CastSpec, Rectangle, Slow, Vec2 } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
 
 const HOLD_THRESHOLD_MS = 350;
 

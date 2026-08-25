@@ -1,7 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type Leblanc_E_Object = InstanceType<ReturnType<typeof makeLeblanc_E_Object>>;
+type Leblanc_E_Object = Instance<typeof makeLeblanc_E_Object>;
 
 
 

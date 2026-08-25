@@ -1,8 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import type { AttackableUnit, TrailSystem } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
 
 /**
  * Reach of the bolt.

@@ -1,8 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import type { AttackableUnit } from '@moba2d/core/content/types';
 import { MOON_CORE, MOON_PALE, drawCrescent } from './Diana_Q';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 
 export const R_RADIUS = 330;
 

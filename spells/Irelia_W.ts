@@ -1,18 +1,10 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
-import type {
-  BeamGeometry,
-  CancelReason,
-  CastContext,
-  CastSpec,
-  Vec2,
-} from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
+import type { AttackableUnit, BeamGeometry, CancelReason, CastContext, CastSpec, Rectangle, Vec2 } from '@moba2d/core/content/types';
 import { drawIreliaBlade, IRELIA_CREST, IRELIA_EDGE, IRELIA_RIM, IRELIA_STEEL } from './Irelia_Q';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Irelia_W_Charge = InstanceType<ReturnType<typeof makeIrelia_W_Charge>>;
-type Irelia_W_Guard = InstanceType<ReturnType<typeof makeIrelia_W_Guard>>;
+type Irelia_W_Charge = Instance<typeof makeIrelia_W_Charge>;
+type Irelia_W_Guard = Instance<typeof makeIrelia_W_Guard>;
 
 export const W_CHARGE_MS = 1_200;
 

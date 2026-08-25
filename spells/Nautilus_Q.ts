@@ -1,9 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import type { AttackableUnit, CastContext, CastSpec, Rectangle } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
 
 export const Q_DAMAGE = 20;
 

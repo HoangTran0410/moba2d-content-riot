@@ -1,9 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, TargetingRequest } from '@moba2d/core/content/types';
+import type { AttackableUnit, CastContext, Rectangle, TargetingRequest } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
 
 export const R_RANGE = 450;
 

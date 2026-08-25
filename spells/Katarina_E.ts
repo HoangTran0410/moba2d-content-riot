@@ -1,11 +1,10 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { makeKatarina_Blade_Impact, makeKatarina_Dagger } from './Katarina_Q';
 import { KATARINA_BLOOD, KATARINA_STEEL, KATARINA_DAGGER_SLASH_DAMAGE } from './Katarina_Q';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Katarina_Dagger = InstanceType<ReturnType<typeof makeKatarina_Dagger>>;
+type Katarina_Dagger = Instance<typeof makeKatarina_Dagger>;
 
 
 

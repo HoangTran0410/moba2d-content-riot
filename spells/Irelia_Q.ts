@@ -1,17 +1,10 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
-import type {
-  CastContext,
-  CastSpec,
-  ExecuteSpell,
-  TargetingRequest,
-} from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
+import type { AttackableUnit, CastContext, CastSpec, Dash, ExecuteSpell, TargetingRequest } from '@moba2d/core/content/types';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type IreliaMarkBuff = InstanceType<ReturnType<typeof makeIreliaMarkBuff>>;
-type Irelia_Q = InstanceType<ReturnType<typeof makeIrelia_Q>>;
-type Irelia_Q_Blades = InstanceType<ReturnType<typeof makeIrelia_Q_Blades>>;
+type IreliaMarkBuff = Instance<typeof makeIreliaMarkBuff>;
+type Irelia_Q = Instance<typeof makeIrelia_Q>;
+type Irelia_Q_Blades = Instance<typeof makeIrelia_Q_Blades>;
 
 /**
  * Irelia's palette, declared once here and imported by the rest of the kit.

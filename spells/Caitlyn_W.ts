@@ -1,8 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import type { AttackableUnit } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Caitlyn_W_Trap = InstanceType<ReturnType<typeof makeCaitlyn_W_Trap>>;
+type Caitlyn_W_Trap = Instance<typeof makeCaitlyn_W_Trap>;
 
 
 

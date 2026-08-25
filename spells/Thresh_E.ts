@@ -1,8 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { GameObjectRuntimeContext } from '@moba2d/core/content/types';
+import type { AttackableUnit, GameObjectRuntimeContext } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 
 /** Half the length of the sweep box, measured from Thresh outwards — it reaches behind him too. */
 export const HALF_LENGTH = 220;

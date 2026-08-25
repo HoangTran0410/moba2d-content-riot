@@ -1,10 +1,9 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Sett_W = InstanceType<ReturnType<typeof makeSett_W>>;
-type Sett_W_Grit_Bar = InstanceType<ReturnType<typeof makeSett_W_Grit_Bar>>;
+type Sett_W = Instance<typeof makeSett_W>;
+type Sett_W_Grit_Bar = Instance<typeof makeSett_W_Grit_Bar>;
 
 export const SETT_W_GRIT_RATIO = 1.0;
 

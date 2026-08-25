@@ -1,10 +1,10 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { drawAegis } from './Pantheon_W';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type Pantheon_R_Meteor = InstanceType<ReturnType<typeof makePantheon_R_Meteor>>;
-type Pantheon_R_Object = InstanceType<ReturnType<typeof makePantheon_R_Object>>;
-type Pantheon_R_Skyward = InstanceType<ReturnType<typeof makePantheon_R_Skyward>>;
+type Pantheon_R_Meteor = Instance<typeof makePantheon_R_Meteor>;
+type Pantheon_R_Object = Instance<typeof makePantheon_R_Object>;
+type Pantheon_R_Skyward = Instance<typeof makePantheon_R_Skyward>;
 
 
 

@@ -1,11 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { AttackableUnit, Buff, CastContext, CastSpec, Rectangle, TargetingRequest } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Leblanc_Q_Mark = InstanceType<ReturnType<typeof makeLeblanc_Q_Mark>>;
+type Leblanc_Q_Mark = Instance<typeof makeLeblanc_Q_Mark>;
 
 type SigilTarget = AttackableUnit;
 

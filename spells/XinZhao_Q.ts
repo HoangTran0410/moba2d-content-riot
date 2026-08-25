@@ -1,13 +1,9 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { BasicAttackHit } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { AttackableUnit, BasicAttackHit, Buff, Rectangle, Spell } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Buff = InstanceType<ContentApi['buffs']['Buff']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type XinZhao_Q_Buff = InstanceType<ReturnType<typeof makeXinZhao_Q_Buff>>;
-type XinZhao_Q_Object = InstanceType<ReturnType<typeof makeXinZhao_Q_Object>>;
+type XinZhao_Q_Buff = Instance<typeof makeXinZhao_Q_Buff>;
+type XinZhao_Q_Object = Instance<typeof makeXinZhao_Q_Object>;
 
 
 

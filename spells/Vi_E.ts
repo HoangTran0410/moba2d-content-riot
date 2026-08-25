@@ -1,8 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { BasicAttackHit } from '@moba2d/core/content/types';
+import type { AttackableUnit, BasicAttackHit } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 
 export const E_CHARGES = 2;
 

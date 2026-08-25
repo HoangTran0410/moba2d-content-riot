@@ -1,8 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import type { CastContext, CastSpec, Spell } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type Spell = InstanceType<ContentApi['Spell']>;
 
 // Exported so the suite asserts Mimic's wiring, not a copy of the numbers —
 // retuning a value should not mean editing the test.

@@ -1,7 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import type { DamageOverTime } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
 
 export const RANGE = 500;
 

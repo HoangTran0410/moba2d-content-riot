@@ -1,10 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import type { Airborne, Dash, Root as RootBuff } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type Airborne = InstanceType<ContentApi['buffs']['Airborne']>;
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type RootBuff = InstanceType<ContentApi['buffs']['Root']>;
-type Blitzcrank_Q_Object = InstanceType<ReturnType<typeof makeBlitzcrank_Q_Object>>;
+type Blitzcrank_Q_Object = Instance<typeof makeBlitzcrank_Q_Object>;
 
 
 

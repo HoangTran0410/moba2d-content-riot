@@ -1,9 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { ExecuteFallback, ExecuteSpell } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { AttackableUnit, ExecuteFallback, ExecuteSpell } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type ChoGath_R_Growth = InstanceType<ReturnType<typeof makeChoGath_R_Growth>>;
+type ChoGath_R_Growth = Instance<typeof makeChoGath_R_Growth>;
 
 /** One Feast stack. Kept as constants so the heal matches the max health gained. */
 export const SIZE_PER_STACK = 6;

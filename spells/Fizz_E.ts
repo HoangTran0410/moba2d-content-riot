@@ -1,10 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import type { Dash, StatsModifier, Untargetable } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type StatsModifier = InstanceType<ContentApi['units']['StatsModifier']>;
-type Untargetable = InstanceType<ContentApi['buffs']['Untargetable']>;
-type Fizz_E_Hover = InstanceType<ReturnType<typeof makeFizz_E_Hover>>;
+type Fizz_E_Hover = Instance<typeof makeFizz_E_Hover>;
 
 /**
  * Playful / Trickster.

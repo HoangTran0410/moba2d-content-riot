@@ -1,10 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
+import type { AttackableUnit, CastContext, CastSpec, Rectangle, TargetingRequest } from '@moba2d/core/content/types';
 import { makeNotifyJannaControlLanded } from './Janna_E';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
 
 type ZephyrTarget = AttackableUnit;
 

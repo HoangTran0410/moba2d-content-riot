@@ -1,9 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { ExecuteSpell } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { AttackableUnit, ExecuteSpell } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Veigar_Q_Power = InstanceType<ReturnType<typeof makeVeigar_Q_Power>>;
+type Veigar_Q_Power = Instance<typeof makeVeigar_Q_Power>;
 
 
 

@@ -1,13 +1,11 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CancelReason, CastContext, CastSpec } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { AttackableUnit, CancelReason, CastContext, CastSpec, DamageOverTime } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 // Relative, not `@/`: `DariusAxe` moved into `packs/riot/vfx/` (Task 2 of the
 // content-pack extraction) — see `Lux_R.ts`'s identical note on `LuxBeamEffect`.
 import { drawAxeArc, drawDariusAxe } from '../vfx/DariusAxe';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type DamageOverTime = InstanceType<ContentApi['buffs']['DamageOverTime']>;
-type Darius_Q_Object = InstanceType<ReturnType<typeof makeDarius_Q_Object>>;
+type Darius_Q_Object = Instance<typeof makeDarius_Q_Object>;
 
 
 

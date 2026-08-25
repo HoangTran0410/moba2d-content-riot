@@ -1,11 +1,10 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastSpec } from '@moba2d/core/content/types';
+import type { AttackableUnit, CastSpec } from '@moba2d/core/content/types';
 import { makeApplyJhinMark } from './Jhin_Q';
 import { JHIN_MARK_MS } from './Jhin_Q';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Jhin_E_Trap = InstanceType<ReturnType<typeof makeJhin_E_Trap>>;
+type Jhin_E_Trap = Instance<typeof makeJhin_E_Trap>;
 
 
 

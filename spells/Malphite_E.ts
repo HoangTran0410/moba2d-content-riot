@@ -1,9 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CancelReason, CastContext, CastSpec } from '@moba2d/core/content/types';
+import type { AttackableUnit, CancelReason, CastContext, CastSpec, Rectangle } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
 
 /**
  * Ground Slam. Malphite slams the ground beneath him: an instant, self-centred

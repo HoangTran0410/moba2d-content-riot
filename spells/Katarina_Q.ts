@@ -1,9 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import type { AttackableUnit, CastContext, CastSpec, Spell } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Spell = InstanceType<ContentApi['Spell']>;
 
 /** Cold steel and blood — the only two colours Katarina is allowed. */
 export const KATARINA_STEEL: [number, number, number] = [223, 230, 233];

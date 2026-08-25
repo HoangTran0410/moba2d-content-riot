@@ -1,10 +1,9 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { BeamGeometry, CastSpec } from '@moba2d/core/content/types';
+import type { AttackableUnit, BeamGeometry, CastSpec } from '@moba2d/core/content/types';
 import { makeConsumeJhinMark } from './Jhin_Q';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Jhin_W_Telegraph = InstanceType<ReturnType<typeof makeJhin_W_Telegraph>>;
+type Jhin_W_Telegraph = Instance<typeof makeJhin_W_Telegraph>;
 
 
 

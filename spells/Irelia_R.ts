@@ -1,11 +1,9 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { BeamGeometry, CastContext, CastSpec, Vec2 } from '@moba2d/core/content/types';
+import type { AttackableUnit, BeamGeometry, CastContext, CastSpec, Rectangle, Vec2 } from '@moba2d/core/content/types';
 import { makeApplyIreliaMark } from './Irelia_Q';
 import { drawIreliaBlade, IRELIA_CREST, IRELIA_EDGE, IRELIA_RIM, IRELIA_STEEL } from './Irelia_Q';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
 
 export const R_RANGE = 520;
 

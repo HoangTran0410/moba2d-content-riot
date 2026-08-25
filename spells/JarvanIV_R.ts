@@ -1,8 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { DynamicWall } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type JarvanIV_R_WallObject = InstanceType<ReturnType<typeof makeJarvanIV_R_WallObject>>;
+type JarvanIV_R_WallObject = Instance<typeof makeJarvanIV_R_WallObject>;
 
 
 

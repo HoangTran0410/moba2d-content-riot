@@ -1,9 +1,9 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { makeShaco_W_Box } from './Shaco_W';
 import { ATTACK_DAMAGE, ATTACK_RANGE } from './Shaco_W';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type Shaco_R_Clone = InstanceType<ReturnType<typeof makeShaco_R_Clone>>;
+type Shaco_R_Clone = Instance<typeof makeShaco_R_Clone>;
 
 export const makeShaco_R = packClass((api: ContentApi) => {
   const Spell = api.Spell;

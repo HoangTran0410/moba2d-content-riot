@@ -1,9 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { AssetHandle, CastContext } from '@moba2d/core/content/types';
+import type { AssetHandle, AttackableUnit, CastContext, TrailSystem } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
 
 /**
  * Sear, and the Blaze mechanic the whole kit is built on.

@@ -1,10 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import type { AttackableUnit, SpellObject, StatsModifier } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type StatsModifier = InstanceType<ContentApi['units']['StatsModifier']>;
-type Nocturne_Q_Trail = InstanceType<ReturnType<typeof makeNocturne_Q_Trail>>;
+type Nocturne_Q_Trail = Instance<typeof makeNocturne_Q_Trail>;
 
 
 

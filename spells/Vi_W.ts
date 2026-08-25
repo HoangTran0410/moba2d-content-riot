@@ -1,10 +1,9 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { BasicAttackHit } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { AttackableUnit, BasicAttackHit } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Vi_W_Buff = InstanceType<ReturnType<typeof makeVi_W_Buff>>;
-type Vi_W_Fracture = InstanceType<ReturnType<typeof makeVi_W_Fracture>>;
+type Vi_W_Buff = Instance<typeof makeVi_W_Buff>;
+type Vi_W_Fracture = Instance<typeof makeVi_W_Fracture>;
 
 export const W_DURATION_MS = 8_000;
 

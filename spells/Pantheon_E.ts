@@ -1,9 +1,9 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import { drawAegis } from './Pantheon_W';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type Pantheon_E_Aegis = InstanceType<ReturnType<typeof makePantheon_E_Aegis>>;
-type Pantheon_E_Object = InstanceType<ReturnType<typeof makePantheon_E_Object>>;
+type Pantheon_E_Aegis = Instance<typeof makePantheon_E_Aegis>;
+type Pantheon_E_Object = Instance<typeof makePantheon_E_Object>;
 
 
 

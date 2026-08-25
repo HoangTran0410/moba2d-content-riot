@@ -1,10 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CancelReason, CastContext, CastSpec } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { AttackableUnit, CancelReason, CastContext, CastSpec, SpellObject } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Anivia_R_Object = InstanceType<ReturnType<typeof makeAnivia_R_Object>>;
+type Anivia_R_Object = Instance<typeof makeAnivia_R_Object>;
 
 
 

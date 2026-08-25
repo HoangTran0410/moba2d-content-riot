@@ -1,7 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type LeeSin_Q_Object = InstanceType<ReturnType<typeof makeLeeSin_Q_Object>>;
+type LeeSin_Q_Object = Instance<typeof makeLeeSin_Q_Object>;
 
 
 

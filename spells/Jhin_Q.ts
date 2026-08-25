@@ -1,9 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { AttackableUnit, CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type JhinMarkBuff = InstanceType<ReturnType<typeof makeJhinMarkBuff>>;
+type JhinMarkBuff = Instance<typeof makeJhinMarkBuff>;
 
 /** How long a lotus mark rides a body. Shared by Q, W and E — defined here, imported there. */
 export const JHIN_MARK_MS = 4_000;

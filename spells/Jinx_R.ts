@@ -1,8 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type Jinx_R_Object = InstanceType<ReturnType<typeof makeJinx_R_Object>>;
-type Jinx_R_Smoke = InstanceType<ReturnType<typeof makeJinx_R_Smoke>>;
+type Jinx_R_Object = Instance<typeof makeJinx_R_Object>;
+type Jinx_R_Smoke = Instance<typeof makeJinx_R_Smoke>;
 
 
 

@@ -1,9 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { isEnraged } from './Renekton_R';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 
 /** The rear-swing before the blade comes round. Short — Q is his rhythm key. */
 export const CAST_TIME_MS = 180;

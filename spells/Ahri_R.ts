@@ -1,7 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import type { SpellObject } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
 
 /** Nine tails again — the ultimate's orbs and its burst both carry the count. */
 export const ESSENCE_POINTS = 9;

@@ -1,8 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import type { Dash, Stun } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
 
 /** Dirty linen, with a darker weave underneath for contrast on pale ground. */
 const LINEN: [number, number, number] = [235, 222, 172];

@@ -1,11 +1,10 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { makeGroundedSpheres, makeSyndra_Burst, makeSyndra_Sphere } from './Syndra_Q';
 import { SPHERE_CORE_RADIUS, SPHERE_DARK, SPHERE_EDGE, SPHERE_VIOLET } from './Syndra_Q';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Syndra_Sphere = InstanceType<ReturnType<typeof makeSyndra_Sphere>>;
+type Syndra_Sphere = Instance<typeof makeSyndra_Sphere>;
 
 
 

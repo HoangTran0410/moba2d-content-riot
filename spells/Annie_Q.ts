@@ -1,9 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastSpec, ExecuteSpell, TargetingRequest } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { AttackableUnit, CastSpec, ExecuteSpell, TargetingRequest } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Annie_Q = InstanceType<ReturnType<typeof makeAnnie_Q>>;
+type Annie_Q = Instance<typeof makeAnnie_Q>;
 
 export const RANGE = 500;
 

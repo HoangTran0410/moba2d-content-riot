@@ -1,7 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import type { TrailSystem } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
 
 export const JARVAN_Q_DAMAGE = 25;
 

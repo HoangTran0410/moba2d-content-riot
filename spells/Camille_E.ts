@@ -1,10 +1,9 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { WallContact } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { TrailSystem, WallContact } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type TrailSystem = InstanceType<ContentApi['helpers']['TrailSystem']>;
-type Camille_E = InstanceType<ReturnType<typeof makeCamille_E>>;
-type Camille_E_TetherObject = InstanceType<ReturnType<typeof makeCamille_E_TetherObject>>;
+type Camille_E = Instance<typeof makeCamille_E>;
+type Camille_E_TetherObject = Instance<typeof makeCamille_E_TetherObject>;
 
 
 

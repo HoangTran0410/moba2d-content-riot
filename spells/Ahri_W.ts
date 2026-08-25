@@ -1,7 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
+import type { SpellObject } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
 
 /** Embers riding each wisp. Three fires × three embers is the nine-tail count. */
 export const EMBERS_PER_FIRE = 3;

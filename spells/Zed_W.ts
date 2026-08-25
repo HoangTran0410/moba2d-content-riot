@@ -1,7 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, KillCredit } from '@moba2d/core/content/types';
+import type { CastContext, KillCredit, Spell } from '@moba2d/core/content/types';
 
-type Spell = InstanceType<ContentApi['Spell']>;
 
 // Zed_W / Zed_W_Clone reference each other as real values both ways —
 // see this file's own header comment on the codemod's cycle handling.

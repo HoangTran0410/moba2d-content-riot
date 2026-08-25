@@ -1,9 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { BasicAttackHit } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { AttackableUnit, BasicAttackHit } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Vayne_W_Mark = InstanceType<ReturnType<typeof makeVayne_W_Mark>>;
+type Vayne_W_Mark = Instance<typeof makeVayne_W_Mark>;
 
 /** How long Silver Bolts stays armed. */
 export const VAYNE_W_DURATION_MS = 8_000;

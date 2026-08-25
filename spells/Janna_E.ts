@@ -1,10 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { AttackableUnit, CastContext, CastSpec, Rectangle, TargetingRequest } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Janna_E = InstanceType<ReturnType<typeof makeJanna_E>>;
+type Janna_E = Instance<typeof makeJanna_E>;
 
 type EyeTarget = AttackableUnit;
 

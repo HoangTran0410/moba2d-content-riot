@@ -1,10 +1,9 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { makeKatarina_Dagger } from './Katarina_Q';
 import { KATARINA_BLOOD, KATARINA_STEEL } from './Katarina_Q';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
 
 export const KATARINA_W_SPEEDUP_PERCENT = 0.45;
 

@@ -1,10 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { BasicAttackHit } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { AttackableUnit, BasicAttackHit, Rectangle } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type MasterYi_E_Object = InstanceType<ReturnType<typeof makeMasterYi_E_Object>>;
+type MasterYi_E_Object = Instance<typeof makeMasterYi_E_Object>;
 
 
 

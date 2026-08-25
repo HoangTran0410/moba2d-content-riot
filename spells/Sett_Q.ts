@@ -1,11 +1,9 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastSpec } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { AttackableUnit, CastSpec, StatAmp } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type StatAmp = InstanceType<ContentApi['buffs']['StatAmp']>;
-type Sett_Q = InstanceType<ReturnType<typeof makeSett_Q>>;
-type Sett_Q_Glow = InstanceType<ReturnType<typeof makeSett_Q_Glow>>;
+type Sett_Q = Instance<typeof makeSett_Q>;
+type Sett_Q_Glow = Instance<typeof makeSett_Q_Glow>;
 
 export const SETT_Q_HITS = 2;
 

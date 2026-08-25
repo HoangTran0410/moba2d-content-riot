@@ -1,8 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type Camille_Q_AuraObject = InstanceType<ReturnType<typeof makeCamille_Q_AuraObject>>;
-type Camille_Q_Buff = InstanceType<ReturnType<typeof makeCamille_Q_Buff>>;
+type Camille_Q_AuraObject = Instance<typeof makeCamille_Q_AuraObject>;
+type Camille_Q_Buff = Instance<typeof makeCamille_Q_Buff>;
 
 
 

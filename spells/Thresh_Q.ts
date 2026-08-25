@@ -1,10 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import type { Dash, Root as RootBuff, Stun } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type Dash = InstanceType<ContentApi['buffs']['Dash']>;
-type RootBuff = InstanceType<ContentApi['buffs']['Root']>;
-type Stun = InstanceType<ContentApi['buffs']['Stun']>;
-type Thresh_Q_Object = InstanceType<ReturnType<typeof makeThresh_Q_Object>>;
+type Thresh_Q_Object = Instance<typeof makeThresh_Q_Object>;
 
 
 

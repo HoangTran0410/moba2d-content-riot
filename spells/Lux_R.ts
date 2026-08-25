@@ -1,6 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { BeamGeometry, CastContext, CastSpec } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { AttackableUnit, BeamGeometry, CastContext, CastSpec, Rectangle, Spell, SpellObject } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 // Relative, not `@/`: `LuxBeamEffect` moved into `packs/riot/vfx/` (Task 2 of
 // the content-pack extraction) and this file has not moved yet, so this is a
 // core file reaching into the Riot pack rather than the reverse. Temporary —
@@ -13,13 +13,9 @@ import makeHeal from './Heal';
 import makeIgnite from './Ignite';
 import makeLux_E, { makeLux_E_Object } from './Lux_E';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Rectangle = InstanceType<ContentApi['utils']['Quadtree']['Rectangle']>;
-type Spell = InstanceType<ContentApi['Spell']>;
-type SpellObject = InstanceType<ContentApi['SpellObject']>;
-type Lux_R_Beam = InstanceType<ReturnType<typeof makeLux_R_Beam>>;
-type Lux_R_CastLock = InstanceType<ReturnType<typeof makeLux_R_CastLock>>;
-type Lux_R_Vision = InstanceType<ReturnType<typeof makeLux_R_Vision>>;
+type Lux_R_Beam = Instance<typeof makeLux_R_Beam>;
+type Lux_R_CastLock = Instance<typeof makeLux_R_CastLock>;
+type Lux_R_Vision = Instance<typeof makeLux_R_Vision>;
 
 function hasSpells(unit: AttackableUnit): unit is AttackableUnit & { spells: Spell[] } {
   return 'spells' in unit && Array.isArray(unit.spells);

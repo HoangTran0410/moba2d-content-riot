@@ -1,9 +1,8 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
-import { packClass } from '../packClass';
+import type { AttackableUnit, CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Caitlyn_R_Sight = InstanceType<ReturnType<typeof makeCaitlyn_R_Sight>>;
+type Caitlyn_R_Sight = Instance<typeof makeCaitlyn_R_Sight>;
 
 
 

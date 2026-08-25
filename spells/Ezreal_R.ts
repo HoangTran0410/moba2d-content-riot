@@ -1,10 +1,9 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec } from '@moba2d/core/content/types';
+import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { makeDetonateEssenceFlux } from './Ezreal_W';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Ezreal_R_Charge = InstanceType<ReturnType<typeof makeEzreal_R_Charge>>;
+type Ezreal_R_Charge = Instance<typeof makeEzreal_R_Charge>;
 
 /** Not literally global, but far enough to cross most of a fight from outside it. */
 export const EZREAL_R_RANGE = 2400;

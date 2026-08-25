@@ -1,7 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import { packClass } from '../packClass';
+import { packClass, type Instance } from '../packClass';
 
-type Nocturne_R = InstanceType<ReturnType<typeof makeNocturne_R>>;
+type Nocturne_R = Instance<typeof makeNocturne_R>;
 
 // Exported so the suite asserts the wiring, not a copy of the number —
 // retuning a value should not mean editing the test.

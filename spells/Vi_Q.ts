@@ -1,9 +1,7 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { CastContext, CastSpec, Vec2 } from '@moba2d/core/content/types';
+import type { AttackableUnit, CastContext, CastSpec, Slow, Vec2 } from '@moba2d/core/content/types';
 import { packClass } from '../packClass';
 
-type AttackableUnit = InstanceType<ContentApi['units']['AttackableUnit']>;
-type Slow = InstanceType<ContentApi['buffs']['Slow']>;
 
 export const Q_MAX_CHARGE_MS = 1_200;
 
