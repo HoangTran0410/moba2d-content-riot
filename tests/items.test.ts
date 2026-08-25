@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
 import { buildTestApi, PackRegistry } from '@moba2d/core/testing';
 import type { ContentPack, SpellSource } from '@moba2d/core/content/types';
 import riotCode, { data } from '../pack';
@@ -42,7 +43,15 @@ const ITEM_SPELL_IDS = [
  */
 const SPEC: Record<
   string,
-  { name: string; cost: number; stats: Record<string, number>; passive?: string; active?: string }
+  {
+    name: string;
+    cost: number;
+    stats: Record<string, number>;
+    passive?: string;
+    active?: string;
+    /** The recipe, in the order the shop draws it. Absent for a component. */
+    buildsFrom?: string[];
+  }
 > = {
   long_sword: { name: 'Kiếm Dài', cost: 350, stats: { attackDamage: 6 } },
   cloth_armor: { name: 'Giáp Lụa', cost: 300, stats: { armor: 18 } },
@@ -54,40 +63,47 @@ const SPEC: Record<
     name: 'Giày Cuồng Nộ',
     cost: 900,
     stats: { speed: 0.45, attackSpeed: 0.3 },
+    buildsFrom: ['boots', 'recurve_bow'],
   },
   warmogs_armor: {
     name: 'Giáp Máu Warmog',
     cost: 1200,
     stats: { maxHealth: 70, healthRegen: 0.05 },
+    buildsFrom: ['ruby_crystal', 'ruby_crystal'],
   },
-  thornmail: { name: 'Giáp Gai', cost: 1100, stats: { armor: 45 }, passive: 'Item_Thornmail' },
+  thornmail: { name: 'Giáp Gai', cost: 1100, stats: { armor: 45 }, passive: 'Item_Thornmail', buildsFrom: ['cloth_armor', 'cloth_armor'] },
   infinity_edge: {
     name: 'Vô Cực Kiếm',
     cost: 1300,
     stats: { attackDamage: 18, critChance: 0.25, critDamage: 0.2 },
+    buildsFrom: ['long_sword', 'long_sword', 'long_sword'],
   },
   quicksilver_sash: {
     name: 'Khăn Giải Thuật',
     cost: 1100,
     stats: { magicResist: 25, attackDamage: 6 },
     active: 'Item_Quicksilver',
+    buildsFrom: ['null_magic_mantle', 'long_sword'],
   },
   blade_of_the_ruined_king: {
     name: 'Gươm Suy Vong',
     cost: 1200,
     stats: { attackDamage: 10, attackSpeed: 0.25, omnivamp: 0.12 },
+    buildsFrom: ['recurve_bow', 'long_sword'],
   },
   zhonyas_hourglass: {
     name: 'Đồng Hồ Cát Zhonya',
     cost: 1400,
     stats: { armor: 30 },
     active: 'Item_Zhonyas',
+    buildsFrom: ['cloth_armor'],
   },
   youmuus_ghostblade: {
     name: 'Kiếm Ma Youmuu',
     cost: 1200,
     stats: { attackDamage: 12 },
     active: 'Item_Ghostblade',
+    buildsFrom: ['long_sword', 'long_sword'],
   },
 };
 
@@ -138,6 +154,7 @@ describe('the item set', () => {
       expect(def.stats ?? {}, key).toEqual(expected.stats);
       expect(def.passive, `${key} passive`).toBe(expected.passive);
       expect(def.active, `${key} active`).toBe(expected.active);
+      expect(def.buildsFrom, `${key} buildsFrom`).toEqual(expected.buildsFrom);
     }
   });
 
@@ -171,7 +188,7 @@ describe('the item set', () => {
     // pack declaring a shop against an older core installs cleanly and has
     // every item silently ignored. `satisfiesCoreRange` parses `*` and
     // `>=X.Y.Z` and nothing else.
-    expect(data.manifest.coreRange).toBe('>=1.3.0');
+    expect(data.manifest.coreRange).toBe('>=1.4.0');
   });
 
   it("survives core's own validation, stat allow-list included", () => {
@@ -198,5 +215,122 @@ describe('the item set', () => {
     const thornmail = registry.item('lol:thornmail');
     expect(thornmail?.passive).toBe('lol:Item_Thornmail');
     expect(thornmail?.icon).toBe('lol:item_thornmail');
+  });
+});
+
+/**
+ * Ghép đồ — the build paths, and the three rules core cannot check for us.
+ *
+ * Core's `validate.ts` refuses a recipe naming an item that does not exist, a
+ * cycle, and a total under the sum of its parts. Everything below is a rule
+ * about *this shop* rather than about recipes in general, and every one of
+ * them is silent if broken:
+ *
+ *   - **A finished item must not be a downgrade.** Combining swaps the parts'
+ *     stats for the finished item's, so an item granting less of something its
+ *     own parts granted makes the upgrade a punishment. Caught while designing
+ *     these: Zhonya's grants 30 armour and two Giáp Lụa grant 36, so the
+ *     obvious two-component recipe would have charged 800 gold to lose six
+ *     armour. It builds from one instead.
+ *   - **Every component must be reachable.** A component nothing builds from
+ *     is a cheap stat stick a player buys once and then cannot upgrade, and
+ *     the shop gives them no way to find that out.
+ *   - **A recipe must fit in the bag.** Six slots, and the parts have to be
+ *     held at once for the combine to be worth anything.
+ */
+describe('the build paths', () => {
+  const items = data.items ?? {};
+
+  /** The six the shop sells as parts rather than as an end in themselves. */
+  const COMPONENTS = [
+    'long_sword',
+    'cloth_armor',
+    'null_magic_mantle',
+    'ruby_crystal',
+    'boots',
+    'recurve_bow',
+  ];
+
+  const finished = Object.values(items).filter(def => !COMPONENTS.includes(def.id));
+
+  /** Everything the parts of `def` grant, added up. */
+  const partStats = (def: (typeof items)[string]): Record<string, number> => {
+    const total: Record<string, number> = {};
+    for (const partId of def.buildsFrom ?? []) {
+      for (const [key, amount] of Object.entries(items[partId]?.stats ?? {})) {
+        total[key] = (total[key] ?? 0) + amount;
+      }
+    }
+    return total;
+  };
+
+  it('gives every finished item a recipe and every component none', () => {
+    for (const id of COMPONENTS) {
+      expect(items[id]?.buildsFrom, `${id} is a component`).toBeUndefined();
+    }
+    for (const def of finished) {
+      expect(def.buildsFrom?.length, `${def.id} builds from nothing`).toBeGreaterThan(0);
+    }
+  });
+
+  it('names only parts this pack actually sells', () => {
+    for (const def of finished) {
+      for (const partId of def.buildsFrom ?? []) {
+        expect(items[partId], `${def.id} builds from ${partId}`).toBeDefined();
+      }
+    }
+  });
+
+  it('prices every total at or above the sum of its parts', () => {
+    // Core refuses the pack over this, but its message arrives at install and
+    // names one item. Here it names all eight and prints the combine cost,
+    // which is the number a designer is actually retuning.
+    for (const def of finished) {
+      const parts = (def.buildsFrom ?? []).reduce((sum, id) => sum + (items[id]?.cost ?? 0), 0);
+      expect(def.cost, `${def.id}: parts cost ${parts}, item costs ${def.cost}`).toBeGreaterThanOrEqual(parts);
+    }
+  });
+
+  it('never makes the upgrade worse than the things it is made of', () => {
+    for (const def of finished) {
+      const own = def.stats ?? {};
+      for (const [key, fromParts] of Object.entries(partStats(def))) {
+        expect(
+          own[key] ?? 0,
+          `${def.id} grants ${own[key] ?? 0} ${key}, its parts grant ${fromParts}`
+        ).toBeGreaterThanOrEqual(fromParts);
+      }
+    }
+  });
+
+  it('gives every component somewhere to go', () => {
+    const used = new Set(finished.flatMap(def => def.buildsFrom ?? []));
+    for (const id of COMPONENTS) {
+      expect(used.has(id), `${id} builds into nothing`).toBe(true);
+    }
+  });
+
+  it('keeps every recipe inside the six slots a bag has', () => {
+    for (const def of finished) {
+      expect((def.buildsFrom ?? []).length, def.id).toBeLessThanOrEqual(6);
+    }
+  });
+});
+
+/**
+ * The floor is declared **twice** — `data.ts`'s `manifest.coreRange`, which is
+ * the copy `PackRegistry` holds after this pack's code has already run, and
+ * `scripts/write-manifest.mjs`'s, which is the copy a *runtime* install checks
+ * before a line of it runs. Only the second one can refuse an install, so the
+ * two drifting means the bundled build and the published build disagree about
+ * which cores they support — and the published one wins. This has already been
+ * missed once.
+ */
+describe('the core floor', () => {
+  it('is the same number in the manifest writer as in the data half', () => {
+    const script = readFileSync(new URL('../scripts/write-manifest.mjs', import.meta.url), 'utf8');
+    const declared = script.match(/^const coreRange = '([^']+)';$/m)?.[1];
+    expect(declared, 'scripts/write-manifest.mjs no longer declares one').toBeTruthy();
+    expect(declared).toBe(data.manifest.coreRange);
   });
 });

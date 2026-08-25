@@ -596,6 +596,32 @@ const displayData = (): Record<string, SpellDisplayData> => {
  * `ItemDef`'s own doc comment says so: a pack that could not express an inert
  * component could not express a build path, and a build path is what makes the
  * cheap rows above worth selling at all.
+ *
+ * ## The recipes
+ *
+ * `buildsFrom` names components by local id, and `cost` stays the **total** —
+ * what the item is worth from an empty bag. What a player pays when the parts
+ * are already held is `cost` minus what those parts cost, worked out by core's
+ * `ItemShop.priceFor`, so no combine cost is written down anywhere and none
+ * can drift from the price beside it.
+ *
+ * Two rules core cannot check, both enforced by `tests/items.test.ts`:
+ *
+ *   - **A finished item is never a downgrade on anything its parts grant.**
+ *     Combining swaps the parts' stats for the finished item's, so granting
+ *     less of something the parts granted charges gold to get worse. Zhonya's
+ *     is why the rule is written down: it grants 30 armour and two Giáp Lụa
+ *     grant 36, so the obvious two-component recipe would have cost 800 gold
+ *     to lose six armour. It builds from one instead, and its combine cost
+ *     carries the rest — the item is bought for the active, not the stats.
+ *   - **Every component builds into something.** A component nothing uses is a
+ *     stat stick a player buys once and can never upgrade, and the shop gives
+ *     them no way to find that out before they spend.
+ *
+ * The shapes are deliberately varied — one part, two, two of the same, three
+ * of the same — because the shop panel draws recipes and the engine matches
+ * duplicate parts against separate held copies, and neither is exercised by a
+ * catalogue where every recipe looks the same.
  */
 const itemEntries = (): Record<string, ItemDef> => ({
   // ---- Components ------------------------------------------------------
@@ -654,6 +680,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     name: 'Giày Cuồng Nộ',
     icon: 'item_berserkers_greaves',
     cost: 900,
+    buildsFrom: ['boots', 'recurve_bow'],
     description: 'Tăng 0.45 tốc chạy và 0.3 đòn đánh mỗi giây.',
     stats: { speed: 0.45, attackSpeed: 0.3 },
   },
@@ -662,6 +689,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     name: 'Giáp Máu Warmog',
     icon: 'item_warmogs_armor',
     cost: 1200,
+    buildsFrom: ['ruby_crystal', 'ruby_crystal'],
     // `healthRegen` is applied per *frame* by `Stats.update`, not per second —
     // base is 0.06, which is 3.6 health a second at 60fps. 0.25 was ~15/s on a
     // 100-health pool, which outheals most of the abilities in this pack.
@@ -673,6 +701,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     name: 'Giáp Gai',
     icon: 'item_thornmail',
     cost: 1100,
+    buildsFrom: ['cloth_armor', 'cloth_armor'],
     description: 'Tăng 45 giáp, và phản 25% sát thương nhận vào về kẻ đã gây ra nó.',
     stats: { armor: 45 },
     passive: 'Item_Thornmail',
@@ -682,6 +711,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     name: 'Vô Cực Kiếm',
     icon: 'item_infinity_edge',
     cost: 1300,
+    buildsFrom: ['long_sword', 'long_sword', 'long_sword'],
     description: 'Tăng 18 sát thương công, 25% tỉ lệ chí mạng và 20% sát thương chí mạng.',
     stats: { attackDamage: 18, critChance: 0.25, critDamage: 0.2 },
   },
@@ -695,6 +725,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     name: 'Khăn Giải Thuật',
     icon: 'item_quicksilver_sash',
     cost: 1100,
+    buildsFrom: ['null_magic_mantle', 'long_sword'],
     description:
       'Tăng 25 kháng phép và 6 sát thương công. Kích hoạt: gỡ bỏ mọi hiệu ứng khống chế đang chịu.',
     stats: { magicResist: 25, attackDamage: 6 },
@@ -705,6 +736,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     name: 'Gươm Suy Vong',
     icon: 'item_blade_of_the_ruined_king',
     cost: 1200,
+    buildsFrom: ['recurve_bow', 'long_sword'],
     description: 'Tăng 10 sát thương công, 0.25 đòn đánh mỗi giây và hút 12% sát thương gây ra.',
     stats: { attackDamage: 10, attackSpeed: 0.25, omnivamp: 0.12 },
   },
@@ -713,6 +745,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     name: 'Đồng Hồ Cát Zhonya',
     icon: 'item_zhonyas_hourglass',
     cost: 1400,
+    buildsFrom: ['cloth_armor'],
     description:
       'Tăng 30 giáp. Kích hoạt: đóng băng bản thân 2.5 giây, không thể bị nhắm và không nhận sát thương.',
     stats: { armor: 30 },
@@ -723,6 +756,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     name: 'Kiếm Ma Youmuu',
     icon: 'item_youmuus_ghostblade',
     cost: 1200,
+    buildsFrom: ['long_sword', 'long_sword'],
     description: 'Tăng 12 sát thương công. Kích hoạt: tăng 40% tốc chạy trong 5 giây.',
     stats: { attackDamage: 12 },
     active: 'Item_Ghostblade',
@@ -944,18 +978,26 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
  */
 export const data: ContentPackData = {
   /**
-   * `coreRange` is `>=1.3.0` because of `items` below, and the floor is
-   * load-bearing rather than documentation. `ContentPackData.items` existed as
-   * a *field* before core read it, so a pack declaring a shop against an older
-   * core validates cleanly, installs cleanly, and has every one of its
-   * fourteen items silently ignored — no error, no shop, nothing to look at.
+   * `coreRange` is load-bearing rather than documentation, and it has now been
+   * raised for the same reason twice.
+   *
+   * `>=1.3.0` was for `items`: `ContentPackData.items` existed as a *field*
+   * before core read it, so a pack declaring a shop against an older core
+   * validates cleanly, installs cleanly, and has every one of its fourteen
+   * items silently ignored — no error, no shop, nothing to look at.
+   *
+   * `>=1.4.0` is for `ItemDef.buildsFrom`. Same shape, one level down: an
+   * older core drops the field, so every recipe below simply does not exist,
+   * every finished item costs full price for ever, and the shop looks like it
+   * is working. The floor is what turns that into a refused install.
+   *
    * `satisfiesCoreRange` parses `*` and `>=X.Y.Z` and nothing else, which is
    * also why this is no longer the unparseable `'^1'` it used to be.
    */
   manifest: {
     id: BUNDLED_PACK_ID,
     version: '1.0.0',
-    coreRange: '>=1.3.0',
+    coreRange: '>=1.4.0',
     assets: BUNDLED_PACK_ID,
   },
   spellDisplay: displayData(),
