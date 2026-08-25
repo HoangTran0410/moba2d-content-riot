@@ -224,7 +224,7 @@ describe('Janna R', () => {
     // showed. A pack knows its own champions — asking core's registry was
     // asking the wrong object. `group.image` here is `data.ts`'s own
     // pack-relative asset key (`ChampionEntry.image`'s own doc comment:
-    // `'champ_janna'`, never `'riot:champ_janna'`); the `riot:` qualifier is
+    // `'champ_janna'`, never `'lol:champ_janna'`); the `lol:` qualifier is
     // `PackRegistry.writeData`'s own rewrite, core's install-time behaviour
     // to test, not this pack's declaration to repeat.
     const group = data.champions?.find(candidate => candidate.name === 'Janna');

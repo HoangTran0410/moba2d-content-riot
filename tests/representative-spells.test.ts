@@ -137,7 +137,7 @@ const makeOwner = (mana = 200) => {
  * alone used to prove.
  *
  * Dropped in the move: the one test that read a champion's *qualified*
- * portrait key (`groups.Anivia.image === 'riot:champ_anivia'`) through
+ * portrait key (`groups.Anivia.image === 'lol:champ_anivia'`) through
  * `spellGroups()`, core's runtime roster reader. Redundant twice over, not
  * merely relocated: `PackRegistry`'s own qualification rule
  * (`<packId>:<localId>`) is core's generic mechanism, covered by its own

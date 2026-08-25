@@ -11,7 +11,7 @@ import { defineConfig } from 'vitest/config';
 import { moba2dPackTestConfig } from '@moba2d/core/testing/vitest';
 
 /**
- * This pack's own test runner — `npm test --workspace=@moba2d/content-riot`
+ * This pack's own test runner — `npm test --workspace=@moba2d/content-lol`
  * (`package.json`'s own `test` script) is the pack's own gate, wired into
  * root `verify:all` the same way `check-seams` already is. Spreads the
  * shared preset (`@moba2d/core/testing/vitest`, Task 3) rather than a

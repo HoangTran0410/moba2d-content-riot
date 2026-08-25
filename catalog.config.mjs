@@ -8,7 +8,7 @@
  * config.mjs` and imports this file's default export as the tree, so this
  * is the one place this pack's own shape is stated — not a table inside
  * core naming this pack by id. `package.json`'s `catalog:generate` /
- * `catalog:check` pass `--tree=riot --root=.`; the tree *name* on that CLI
+ * `catalog:check` pass `--tree=lol --root=.`; the tree *name* on that CLI
  * is only ever used for error messages now — the tree *definition* is this
  * file.
  *
@@ -45,6 +45,6 @@ export default {
   // below are what let `renderSpellCatalogSource` register this tree's own
   // manifest with `AssetManager` before any factory runs — the SSR-process
   // equivalent of what `bundledPack.ts` does for the real game.
-  packId: 'riot',
+  packId: 'lol',
   assetManifestOutputPath: 'generated/assetManifest.ts',
 };

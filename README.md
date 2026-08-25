@@ -1,10 +1,11 @@
-# @moba2d/content-riot
+# @moba2d/content-lol
 
-The Riot-champion content pack for [`@moba2d/core`](https://github.com/HoangTran0410/moba2d-core):
+The League of Legends content pack for [`@moba2d/core`](https://github.com/HoangTran0410/moba2d-core):
 58 playable champions' worth of spells, monsters and the Summoner's Rift map,
 built entirely against core's public `ContentApi`. Until content-pack-and-
 repo-split batch 6 task 10, this pack lived inside the core monorepo, at
-`packs/riot/`; this repository is that same content, moved out — same files,
+`packs/riot/` (the pack id was `riot` then too, and is `lol` now — named
+for the game it draws from rather than for the company that makes it); this repository is that same content, moved out — same files,
 same tests, same history from this point forward, now versioned on its own.
 
 (Checked, not rounded: `data.ts`'s own `ROSTER`/`championEntries()` produces
@@ -75,3 +76,27 @@ this pack's ability data and art were pulled from the public wiki in the
 first place, and how a future refresh (`npm run ability:update`,
 `npm run names:sync`) would pull an update. They touch the network only when
 explicitly invoked; nothing in `verify` does.
+
+## Trademarks and third-party assets
+
+This is a **non-commercial, unofficial fan project**. It is **not affiliated
+with, authorised by, or endorsed by [Riot Games](https://www.riotgames.com/)**,
+and it generates no revenue.
+
+Everything this pack is _for_ is Riot's: the champions, their ability names,
+their artwork. `assets/` holds champion portraits and ability icons imported
+from the League of Legends Wiki — `assets/source-manifest.json` records, for
+every one of them, the URL it came from, the revision it was, and a SHA-256 of
+the bytes, and `npm run ability:check` re-hashes each file against that record
+so the provenance stays true. The Vietnamese ability names come from Riot's own
+`vi_VN` locale via Data Dragon (`npm run names:sync`); only the descriptions are
+written here, because the official ones carry no numbers and these are scaled to
+a 100-health champion.
+
+League of Legends and all related trademarks, characters, artwork and other
+assets are the property of Riot Games. This project claims no ownership over
+that intellectual property, and asks that no one treat the files in `assets/`
+as licensed for reuse.
+
+The pack is named `lol` for the game, not `riot` for the company. The two are
+easy to conflate and only one of them describes what is in here.

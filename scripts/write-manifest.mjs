@@ -136,11 +136,24 @@ const files = emittedFiles(dist)
  */
 const buildId = createHash('sha256').update(files.join('\n')).digest('hex').slice(0, 12);
 
+/**
+ * This pack's id, stated once here.
+ *
+ * It was a literal in the manifest object and a second literal in the console
+ * line at the bottom, and the second drifted the instant the pack was renamed
+ * from `riot` to `lol`: the manifest said `lol`, the build log said
+ * `riot@1.0.0`, and nothing failed. `data.ts` states it too, as
+ * `BUNDLED_PACK_ID`, and core refuses an install where the two disagree —
+ * that check is what makes *those* two copies survivable. A third copy with
+ * no check behind it was not.
+ */
+const packId = 'lol';
+
 writeFileSync(
   join(dist, 'manifest.json'),
   JSON.stringify(
     {
-      id: 'riot',
+      id: packId,
       version: pkg.version,
       coreRange,
       buildId,
@@ -172,5 +185,5 @@ writeFileSync(
 
 const chunks = readdirSync(join(dist, 'chunks')).filter(f => f.endsWith('.js')).length;
 console.log(
-  `manifest written: riot@${pkg.version}, ${championCount} champions, ${chunks} chunks, ${files.length} files`
+  `manifest written: ${packId}@${pkg.version}, ${championCount} champions, ${chunks} chunks, ${files.length} files`
 );

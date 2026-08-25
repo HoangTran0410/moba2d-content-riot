@@ -1,13 +1,13 @@
 {
-  "name": "@moba2d/content-riot",
+  "name": "@moba2d/content-lol",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "assets:generate": "moba2d-generate-assets",
     "assets:check": "moba2d-generate-assets --check",
-    "catalog:generate": "moba2d-generate-spell-catalog --tree=riot --root=.",
-    "catalog:check": "moba2d-generate-spell-catalog --check --tree=riot --root=.",
+    "catalog:generate": "moba2d-generate-spell-catalog --tree=lol --root=.",
+    "catalog:check": "moba2d-generate-spell-catalog --check --tree=lol --root=.",
     "typecheck": "tsc -p tsconfig.json",
     "check-unused": "node scripts/check-unused.mjs",
     "test": "vitest run",

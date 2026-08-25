@@ -62,7 +62,7 @@ const otherErrors = output
   .filter(line => !line.includes('node_modules') && !line.trim().startsWith('..'));
 
 if (ours.length === 0 && otherErrors.length === 0) {
-  console.log('check-unused: no unused declarations in @moba2d/content-riot');
+  console.log('check-unused: no unused declarations in @moba2d/content-lol');
   process.exit(0);
 }
 

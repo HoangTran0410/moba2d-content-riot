@@ -15,7 +15,7 @@ import { assetManifest } from './generated/assetManifest';
  * core's `tests/setup.ts`, which carries the same rule for the same
  * measured reason.
  *
- * `BUNDLED_PACK_ID` rather than the literal `'riot'`: this pack states its
+ * `BUNDLED_PACK_ID` rather than the literal `'lol'`: this pack states its
  * own id once, in its own data, and its test setup reads it from there.
  */
 /**

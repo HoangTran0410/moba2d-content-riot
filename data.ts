@@ -19,7 +19,7 @@ import { summonersRift } from './maps/summonersRift';
  * bare, unqualified spell id (a loadout saved before content became packs)
  * has always meant "the bundled pack's own", and still does.
  */
-export const BUNDLED_PACK_ID = 'riot';
+export const BUNDLED_PACK_ID = 'lol';
 
 /** `'BasicAttack'` is core's id, not this pack's own — slot 0 of every kit below names it. */
 type RosterSpellId = PackSpellCatalogId | 'BasicAttack';

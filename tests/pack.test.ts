@@ -84,7 +84,7 @@ describe('the riot pack', () => {
 
   it('declares Recall on every champion by name, but supplies neither the class nor display data', () => {
     // The class half moved to core (batch 5 task 1 — `tests/content/install.test.ts`
-    // covers the folded, actually-loadable `'riot:Recall'`); this pack keeps
+    // covers the folded, actually-loadable `'lol:Recall'`); this pack keeps
     // only the data-half promise, `recall: 'Recall'`, and — like `BasicAttack`
     // — no display entry, so a random loadout roll can never draw it.
     const code = riotCode(api);
@@ -113,6 +113,6 @@ describe('the riot pack', () => {
 
   it('is the pack `BUNDLED_PACK_ID` names — the composed, installable shape lives in tests/content/install.test.ts', () => {
     expect(data.manifest.id).toBe(BUNDLED_PACK_ID);
-    expect(BUNDLED_PACK_ID).toBe('riot');
+    expect(BUNDLED_PACK_ID).toBe('lol');
   });
 });

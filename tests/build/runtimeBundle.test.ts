@@ -75,7 +75,7 @@ describe("the pack's runtime bundle", () => {
 
   it('writes a manifest core can read before running anything', () => {
     const manifest = JSON.parse(readFileSync(join(dist, 'manifest.json'), 'utf8'));
-    expect(manifest.id).toBe('riot');
+    expect(manifest.id).toBe('lol');
     expect(manifest.entry).toBe('pack.js');
     expect(manifest.assets).toBe('assets/');
     expect(manifest.coreRange).toMatch(/^>=\d+\.\d+\.\d+$/);
