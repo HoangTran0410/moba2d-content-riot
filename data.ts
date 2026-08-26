@@ -43,10 +43,21 @@ type RosterSpellId = PackSpellCatalogId | 'BasicAttack';
  * champion with no profile at all, is core's, and stays there; it is a
  * mechanism, not content.
  */
+/**
+ * `boltUnitsPerSecond` is the basic-attack missile speed, ranged roles only —
+ * melee swings carry none. The per-champion overrides on the roster below are
+ * **the live wiki's own missile speeds at half scale, rounded to 25** (this
+ * canvas halves the source game's distances and walk speeds the same way):
+ * Graves' 3800 becomes 1900, Caitlyn's 2500 becomes 1250, Varus' 2000 becomes
+ * 1000, Soraka's 1000 becomes 500. The role numbers here are only the
+ * fallback for a champion the wiki lists no missile for (a form-swapping gun,
+ * an attack the source game applies instantly) and for future rows nobody has
+ * looked up yet. `tests/attackProfiles.test.ts` pins the mapping.
+ */
 export const ATTACK = {
-  MARKSMAN: { damage: 10, attacksPerSecond: 1.65, range: 410 },
-  MAGE: { damage: 12, attacksPerSecond: 1.05, range: 385 },
-  SUPPORT: { damage: 10, attacksPerSecond: 1.0, range: 385 },
+  MARKSMAN: { damage: 10, attacksPerSecond: 1.65, range: 410, boltUnitsPerSecond: 1200 },
+  MAGE: { damage: 12, attacksPerSecond: 1.05, range: 385, boltUnitsPerSecond: 800 },
+  SUPPORT: { damage: 10, attacksPerSecond: 1.0, range: 385, boltUnitsPerSecond: 800 },
   ASSASSIN: { damage: 15, attacksPerSecond: 1.25, range: 130 },
   BRUISER: { damage: 17, attacksPerSecond: 1.1, range: 130 },
   TANK: { damage: 15, attacksPerSecond: 0.95, range: 125 },
@@ -104,7 +115,7 @@ const ROSTER: {
   },
   {
     name: 'Ahri',
-    attack: ATTACK.MAGE,
+    attack: { ...ATTACK.MAGE, boltUnitsPerSecond: 875 },
     image: 'champ_ahri',
 
     spells: ['Ahri_Q', 'Ahri_W', 'Ahri_E', 'Ahri_R'],
@@ -125,14 +136,14 @@ const ROSTER: {
   },
   {
     name: 'Lux',
-    attack: ATTACK.MAGE,
+    attack: { ...ATTACK.MAGE, boltUnitsPerSecond: 800 },
     image: 'champ_lux',
 
     spells: ['Lux_Q', 'Lux_W', 'Lux_E', 'Lux_R'],
   },
   {
     name: 'Ashe',
-    attack: ATTACK.MARKSMAN,
+    attack: { ...ATTACK.MARKSMAN, boltUnitsPerSecond: 1250 },
     image: 'champ_ashe',
 
     spells: ['Ashe_Q', 'Ashe_W', 'Ashe_E', 'Ashe_R'],
@@ -146,7 +157,7 @@ const ROSTER: {
   },
   {
     name: 'Leblanc',
-    attack: ATTACK.MAGE,
+    attack: { ...ATTACK.MAGE, boltUnitsPerSecond: 850 },
     image: 'champ_leblanc',
 
     spells: ['Leblanc_Q', 'Leblanc_W', 'Leblanc_E', 'Leblanc_R'],
@@ -167,14 +178,14 @@ const ROSTER: {
   },
   {
     name: 'Teemo',
-    attack: ATTACK.MARKSMAN,
+    attack: { ...ATTACK.MARKSMAN, boltUnitsPerSecond: 750 },
     image: 'champ_teemo',
 
     spells: ['Teemo_Q', 'Teemo_W', 'Teemo_E', 'Teemo_R'],
   },
   {
     name: 'Veigar',
-    attack: ATTACK.MAGE,
+    attack: { ...ATTACK.MAGE, boltUnitsPerSecond: 750 },
     image: 'champ_veigar',
 
     spells: ['Veigar_Q', 'Veigar_W', 'Veigar_E', 'Veigar_R'],
@@ -188,21 +199,21 @@ const ROSTER: {
   },
   {
     name: 'Graves',
-    attack: ATTACK.MARKSMAN,
+    attack: { ...ATTACK.MARKSMAN, boltUnitsPerSecond: 1900 },
     image: 'champ_graves',
 
     spells: ['Graves_Q', 'Graves_W', 'Graves_E', 'Graves_R'],
   },
   {
     name: 'Anivia',
-    attack: ATTACK.MAGE,
+    attack: { ...ATTACK.MAGE, boltUnitsPerSecond: 800 },
     image: 'champ_anivia',
 
     spells: ['Anivia_Q', 'Anivia_W', 'Anivia_E', 'Anivia_R'],
   },
   {
     name: 'Varus',
-    attack: ATTACK.MARKSMAN,
+    attack: { ...ATTACK.MARKSMAN, boltUnitsPerSecond: 1000 },
     image: 'champ_varus',
 
     spells: ['Varus_Q', 'Varus_W', 'Varus_E', 'Varus_R'],
@@ -216,6 +227,9 @@ const ROSTER: {
   },
   {
     name: 'Thresh',
+    // Role default: the wiki lists 0 — the source game applies his swing
+    // instantly, which this engine's bolt cannot be, so the role's own lob
+    // stands in.
     attack: ATTACK.SUPPORT,
     image: 'champ_thresh',
 
@@ -230,14 +244,14 @@ const ROSTER: {
   },
   {
     name: 'Morgana',
-    attack: ATTACK.SUPPORT,
+    attack: { ...ATTACK.SUPPORT, boltUnitsPerSecond: 800 },
     image: 'champ_morgana',
 
     spells: ['Morgana_Q', 'Morgana_W', 'Morgana_E', 'Morgana_R'],
   },
   {
     name: 'Janna',
-    attack: ATTACK.SUPPORT,
+    attack: { ...ATTACK.SUPPORT, boltUnitsPerSecond: 900 },
     image: 'champ_janna',
 
     spells: ['Janna_Q', 'Janna_W', 'Janna_E', 'Janna_R'],
@@ -258,7 +272,7 @@ const ROSTER: {
   },
   {
     name: 'Twitch',
-    attack: ATTACK.MARKSMAN,
+    attack: { ...ATTACK.MARKSMAN, boltUnitsPerSecond: 1250 },
     image: 'champ_twitch',
 
     spells: ['Twitch_Q', 'Twitch_W', 'Twitch_E', 'Twitch_R'],
@@ -286,7 +300,7 @@ const ROSTER: {
   },
   {
     name: 'Cassiopeia',
-    attack: ATTACK.MAGE,
+    attack: { ...ATTACK.MAGE, boltUnitsPerSecond: 750 },
     image: 'champ_cassiopeia',
 
     spells: ['Cassiopeia_Q', 'Cassiopeia_W', 'Cassiopeia_E', 'Cassiopeia_R'],
@@ -300,7 +314,7 @@ const ROSTER: {
   },
   {
     name: 'Annie',
-    attack: ATTACK.MAGE,
+    attack: { ...ATTACK.MAGE, boltUnitsPerSecond: 750 },
     image: 'champ_annie',
 
     spells: ['Annie_Q', 'Annie_W', 'Annie_E', 'Annie_R'],
@@ -314,6 +328,8 @@ const ROSTER: {
   },
   {
     name: 'Jinx',
+    // Role default: the wiki lists no missile speed for a gun that swaps
+    // forms mid-fight (N/A) — see the ATTACK table's own comment.
     attack: ATTACK.MARKSMAN,
     image: 'champ_jinx',
 
@@ -384,35 +400,35 @@ const ROSTER: {
   },
   {
     name: 'Malzahar',
-    attack: ATTACK.MAGE,
+    attack: { ...ATTACK.MAGE, boltUnitsPerSecond: 1000 },
     image: 'champ_malzahar',
 
     spells: ['Malzahar_Q', 'Malzahar_W', 'Malzahar_E', 'Malzahar_R'],
   },
   {
     name: 'Ezreal',
-    attack: ATTACK.MARKSMAN,
+    attack: { ...ATTACK.MARKSMAN, boltUnitsPerSecond: 1000 },
     image: 'champ_ezreal',
 
     spells: ['Ezreal_Q', 'Ezreal_W', 'Ezreal_E', 'Ezreal_R'],
   },
   {
     name: 'Caitlyn',
-    attack: ATTACK.MARKSMAN,
+    attack: { ...ATTACK.MARKSMAN, boltUnitsPerSecond: 1250 },
     image: 'champ_caitlyn',
 
     spells: ['Caitlyn_Q', 'Caitlyn_W', 'Caitlyn_E', 'Caitlyn_R'],
   },
   {
     name: 'Soraka',
-    attack: ATTACK.SUPPORT,
+    attack: { ...ATTACK.SUPPORT, boltUnitsPerSecond: 500 },
     image: 'champ_soraka',
 
     spells: ['Soraka_Q', 'Soraka_W', 'Soraka_E', 'Soraka_R'],
   },
   {
     name: 'Brand',
-    attack: ATTACK.MAGE,
+    attack: { ...ATTACK.MAGE, boltUnitsPerSecond: 1000 },
     image: 'champ_brand',
 
     spells: ['Brand_Q', 'Brand_W', 'Brand_E', 'Brand_R'],
@@ -426,7 +442,7 @@ const ROSTER: {
   },
   {
     name: 'Vayne',
-    attack: ATTACK.MARKSMAN,
+    attack: { ...ATTACK.MARKSMAN, boltUnitsPerSecond: 1000 },
     image: 'champ_vayne',
 
     spells: ['Vayne_Q', 'Vayne_W', 'Vayne_E', 'Vayne_R'],
@@ -447,7 +463,7 @@ const ROSTER: {
   },
   {
     name: 'Jhin',
-    attack: ATTACK.MARKSMAN,
+    attack: { ...ATTACK.MARKSMAN, boltUnitsPerSecond: 1300 },
     image: 'champ_jhin',
 
     spells: ['Jhin_Q', 'Jhin_W', 'Jhin_E', 'Jhin_R'],
@@ -475,14 +491,14 @@ const ROSTER: {
   },
   {
     name: 'Syndra',
-    attack: ATTACK.MAGE,
+    attack: { ...ATTACK.MAGE, boltUnitsPerSecond: 900 },
     image: 'champ_syndra',
 
     spells: ['Syndra_Q', 'Syndra_W', 'Syndra_E', 'Syndra_R'],
   },
   {
     name: 'Ziggs',
-    attack: ATTACK.MAGE,
+    attack: { ...ATTACK.MAGE, boltUnitsPerSecond: 750 },
     image: 'champ_ziggs',
 
     spells: ['Ziggs_Q', 'Ziggs_W', 'Ziggs_E', 'Ziggs_R'],

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { ATTACK } from '../data';
+import { ATTACK, data } from '../data';
 import { buildTestApi, MAX_ATTACK_SPEED, MELEE_RANGE_THRESHOLD } from '@moba2d/core/testing';
 const __api = buildTestApi();
 const { DEFAULT_CHAMPION_ATTACK } = __api.units;
@@ -84,5 +84,89 @@ describe("the riot pack's basic-attack profiles", () => {
       expect(dps(profile), role).toBeGreaterThan(8);
       expect(dps(profile), role).toBeLessThan(25);
     }
+  });
+});
+
+
+/**
+ * Missile speed — the delivery half of a ranged auto, and the half every
+ * champion in the source game tunes individually (a 3800 buckshot and a 1000
+ * healer's lob are different weapons). The mapping this pack ships is **the
+ * live wiki's own missile speeds at half scale, rounded to 25**, pinned here
+ * exactly the way the item SPEC pins the shop: a table that asks the data
+ * what the data says would agree with any typo.
+ */
+describe("the riot pack's basic-attack missile speeds", () => {
+  /** wiki missile speed / 2, rounded to 25 — see ATTACK's own doc comment. */
+  const WIKI_HALVED: Record<string, number> = {
+    Ahri: 875,
+    Lux: 800,
+    Ashe: 1250,
+    Leblanc: 850,
+    Teemo: 750,
+    Veigar: 750,
+    Graves: 1900,
+    Anivia: 800,
+    Varus: 1000,
+    Morgana: 800,
+    Janna: 900,
+    Twitch: 1250,
+    Cassiopeia: 750,
+    Annie: 750,
+    Malzahar: 1000,
+    Ezreal: 1000,
+    Caitlyn: 1250,
+    Soraka: 500,
+    Brand: 1000,
+    Vayne: 1000,
+    Jhin: 1300,
+    Syndra: 900,
+    Ziggs: 750,
+  };
+
+  const champions = data.champions ?? [];
+  const byName = new Map(champions.map(entry => [entry.name, entry]));
+
+  it('carries the halved wiki speed on every champion the wiki lists one for', () => {
+    for (const [name, speed] of Object.entries(WIKI_HALVED)) {
+      const entry = byName.get(name);
+      expect(entry, name).toBeDefined();
+      expect(entry?.attack?.boltUnitsPerSecond, name).toBe(speed);
+    }
+  });
+
+  it('gives every ranged champion a speed and no melee champion one', () => {
+    for (const entry of champions) {
+      if (!entry.attack) continue;
+      if (entry.attack.range > MELEE_RANGE_THRESHOLD) {
+        expect(entry.attack.boltUnitsPerSecond, entry.name).toBeGreaterThan(0);
+      } else {
+        expect(entry.attack.boltUnitsPerSecond, entry.name).toBeUndefined();
+      }
+    }
+  });
+
+  it('keeps every speed inside the half-scale band the source game spans', () => {
+    // wiki ranged autos run ~1000-3800, so halved they run 500-1900; a value
+    // outside that is a fat finger, not a tuning opinion
+    for (const entry of champions) {
+      const speed = entry.attack?.boltUnitsPerSecond;
+      if (speed === undefined) continue;
+      expect(speed, entry.name).toBeGreaterThanOrEqual(500);
+      expect(speed, entry.name).toBeLessThanOrEqual(1900);
+    }
+  });
+
+  it('orders the role fallbacks the way the classes actually shoot', () => {
+    // a marksman's auto is their weapon, a mage's is filler between spells
+    expect(ATTACK.MARKSMAN.boltUnitsPerSecond).toBeGreaterThan(ATTACK.MAGE.boltUnitsPerSecond);
+  });
+
+  it('the two named identities the mapping exists for actually differ', () => {
+    // the report that produced this table: every ranged auto flew at one
+    // speed, and a buckshot read exactly like an arrow
+    const graves = byName.get('Graves')?.attack?.boltUnitsPerSecond ?? 0;
+    const varus = byName.get('Varus')?.attack?.boltUnitsPerSecond ?? 0;
+    expect(graves).toBeGreaterThan(varus * 1.5);
   });
 });
