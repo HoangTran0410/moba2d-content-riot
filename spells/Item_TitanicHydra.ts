@@ -20,11 +20,15 @@ export const TITANIC_FLAT_DAMAGE = 3;
 /** …plus this share of the WEARER's maximum health, physical. */
 export const TITANIC_MAX_HEALTH_RATIO = 0.03;
 
-const TITANIC_MOSS: [number, number, number] = [150, 210, 140];
+// Bronze earth, not the moss green it first wore: green is the heal colour in
+// this engine's combat text, and a green sweep under physical damage numbers
+// borrows the one hue that means the opposite of taking damage. Warm and
+// heavy, which is also what a max-health bruiser's carve should feel like.
+const TITANIC_BRONZE: [number, number, number] = [205, 175, 95];
 
 export class Item_TitanicHydra_Cleave extends CleaveBuff {
   name = 'Rìu Đại Mãng Xà';
-  sweepColor: [number, number, number] = TITANIC_MOSS;
+  sweepColor: [number, number, number] = TITANIC_BRONZE;
 
   protected splashDamage(): number {
     return TITANIC_FLAT_DAMAGE + this.targetUnit.stats.maxHealth.value * TITANIC_MAX_HEALTH_RATIO;

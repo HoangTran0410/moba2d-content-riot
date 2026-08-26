@@ -89,6 +89,46 @@ export class Item_Guinsoo_Rage extends Buff {
     return count;
   }
 
+  /**
+   * The full-rage state, worn on the body: a flame arc over the wearer's rim
+   * once the blade is fully spun up, with `fullRageHits` tick marks counting
+   * toward the phantom — two ticks showing means the next swing is doubled,
+   * which is exactly the moment a player holds the swing for the right
+   * target. Below full rage nothing is drawn at all: the spin-up already
+   * shows as faster swings and a buff icon, and an always-on glow would spend
+   * the item noise budget saying nothing (Riot's rule — an effect's presence
+   * matches its gameplay importance, and the only state that changes a
+   * decision here is "how far is the phantom").
+   */
+  draw(): void {
+    if (this.liveRageStacks() < RAGE_MAX_STACKS) return;
+    const pos = this.targetUnit.position;
+    const radius = this.targetUnit.animatedValues.displaySize / 2 + 8;
+    const [r, g, b] = GUINSOO_FLAME;
+
+    push();
+    noFill();
+    // the base arc: full rage, phantom cycle armed
+    stroke(r, g, b, 170 + 40 * Math.sin(frameCount / 7));
+    strokeWeight(2.5);
+    arc(pos.x, pos.y, radius * 2, radius * 2, -PI * 0.8, -PI * 0.2);
+
+    // the count: one tick per swing already banked toward the phantom
+    strokeWeight(3.5);
+    for (let i = 0; i < this.fullRageHits; i++) {
+      const angle = -PI * 0.65 + i * (PI * 0.3);
+      const inner = radius + 3;
+      const outer = radius + 10;
+      line(
+        pos.x + Math.cos(angle) * inner,
+        pos.y + Math.sin(angle) * inner,
+        pos.x + Math.cos(angle) * outer,
+        pos.y + Math.sin(angle) * outer
+      );
+    }
+    pop();
+  }
+
   /** The doubled swing has to be tellable from a single one: one flame ring. */
   private showPhantomFlash(hit: OnHitEvent): void {
     const flash = new AoePulse(this.targetUnit);

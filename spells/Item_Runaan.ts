@@ -33,7 +33,11 @@ export const SIDE_BOLT_AD_RATIO = 0.45;
 /** How far past the wearer's own attack range a side target may stand. */
 export const SIDE_BOLT_RANGE_MARGIN = 40;
 
-const RUNAAN_WIND: [number, number, number] = [180, 235, 210];
+// Pale silver with only a breath of teal: airy enough to read as wind (the
+// item's identity), neutral enough not to sit in the heal green's corner —
+// the streak marks delivery, and the amber number on the side victim is what
+// states the damage type.
+const RUNAAN_WIND: [number, number, number] = [205, 228, 222];
 
 /** Structural: what a side bolt needs of its target. */
 type SideTarget = InstanceType<typeof AttackableUnit>;

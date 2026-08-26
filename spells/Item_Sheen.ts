@@ -40,6 +40,9 @@ export const SHEEN_BASE_AD_RATIO = 0.5;
 export const PROC_FLASH_RADIUS = 42;
 export const PROC_FLASH_MS = 220;
 
+// A cool blue on a physical proc — the VFX standard's named identity
+// exception: the blue-white flash IS this item across the whole genre, and
+// the amber damage number beside it is what states the type.
 const SHEEN_GLOW: [number, number, number] = [140, 190, 255];
 
 /**
@@ -97,6 +100,45 @@ export class SpellbladeBuff extends Buff {
     this.lastProcAtMs = this.nowMs;
     this.payload(hit);
     this.showProcFlash(hit);
+  }
+
+  /** Whether the very next swing would spend the charge — what `draw` shows. */
+  protected chargeReady(): boolean {
+    return (
+      this.chargedAtMs !== null &&
+      this.nowMs - this.chargedAtMs <= SPELLBLADE_WINDOW_MS &&
+      this.nowMs - this.lastProcAtMs >= SPELLBLADE_ICD_MS
+    );
+  }
+
+  /**
+   * The loaded state, worn on the body: two short arcs of the item's own
+   * colour orbiting the wearer's rim while — and only while — the next swing
+   * would actually proc. Riot's guide calls this the tooltip half of a proc
+   * item: the *flash* says it happened, but the player decides whether to
+   * weave a spell first, and a decision needs the state visible before the
+   * swing, not after. Honest by construction: `chargeReady()` is the same
+   * predicate `onHit` spends against, so the shimmer can never promise a proc
+   * the internal cooldown is still holding. One thin layer, inside the item
+   * noise budget — an orbit reads as "armed" without covering the champion or
+   * competing with any ability's own art.
+   */
+  draw(): void {
+    if (!this.chargeReady()) return;
+    const pos = this.targetUnit.position;
+    const radius = this.targetUnit.animatedValues.displaySize / 2 + 5;
+    const [r, g, b] = this.flashColor;
+    const spin = frameCount / 14;
+
+    push();
+    noFill();
+    stroke(r, g, b, 205 + 35 * Math.sin(frameCount / 6));
+    strokeWeight(3);
+    for (let i = 0; i < 2; i++) {
+      const start = spin + i * PI;
+      arc(pos.x, pos.y, radius * 2, radius * 2, start, start + 0.9);
+    }
+    pop();
   }
 
   /** What the empowered hit does. Thủy Kiếm's own: a share of base AD, physical. */

@@ -20,11 +20,15 @@ export const REAVER_BASE_AD_RATIO = 0.7;
 /** Share of the wearer's MAXIMUM mana refunded per proc. */
 export const REAVER_MANA_REFUND_RATIO = 0.15;
 
-const REAVER_VIOLET: [number, number, number] = [210, 160, 255];
+// Warm rose, not the arcane violet it first wore: the proc is PHYSICAL, and
+// the VFX standard's colour rule says a physical proc does not dress in the
+// magic family — violet is what the combat text uses for magic damage, and a
+// violet ring under an amber number is the effect lying about its own type.
+const REAVER_ROSE: [number, number, number] = [255, 150, 185];
 
 export class Item_EssenceReaver_Blade extends SpellbladeBuff {
   name = 'Lưỡi Hái Linh Hồn';
-  flashColor: [number, number, number] = REAVER_VIOLET;
+  flashColor: [number, number, number] = REAVER_ROSE;
 
   protected payload(hit: OnHitEvent): void {
     const wearer = this.targetUnit;

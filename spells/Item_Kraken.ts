@@ -28,6 +28,9 @@ export const KRAKEN_HIT_INTERVAL = 3;
 /** The harpoon: flat physical damage. */
 export const KRAKEN_PROC_DAMAGE = 12;
 
+// A cool blue on a physical proc — an identity exception like Thủy Kiếm's
+// (the harpoon is deep-sea lightning in the source game); the shards style
+// and the amber number carry what the hue does not.
 const KRAKEN_DEEP_BLUE: [number, number, number] = [110, 170, 255];
 
 export class Item_Kraken_Harpoon extends Buff {
