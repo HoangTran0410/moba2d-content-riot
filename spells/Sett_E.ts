@@ -104,7 +104,7 @@ export default class Sett_E extends Spell {
       else behind += 1;
       grabs.push({ unit: victim, fromX: victim.position.x, fromY: victim.position.y, side });
 
-      victim.takeDamage(SETT_E_DAMAGE, this.owner);
+      victim.takeDamage(SETT_E_DAMAGE, this.owner, 'MAGIC', 'Song Thú Chưởng');
       if (victim.isDead || victim.toRemove) continue;
 
       // Haul him in. The pull never pushes anyone out: a body already closer

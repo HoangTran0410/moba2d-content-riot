@@ -99,7 +99,7 @@ export class Amumu_Q_Object extends MissileSpellObject {
     impact.position = enemy.position.copy();
     this.game.objectManager.addObject(impact);
 
-    enemy.takeDamage(this.damage, this.owner);
+    enemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Quăng Dải Băng');
 
     this.stunBuff = new Stun(this.stunDuration, this.owner, enemy);
     enemy.addBuff(this.stunBuff);

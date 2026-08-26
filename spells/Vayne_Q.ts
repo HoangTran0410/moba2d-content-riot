@@ -156,7 +156,7 @@ export class Vayne_Q_Empower extends Buff {
     if (!victim || victim.isDead) return;
 
     this.spent = true;
-    victim.takeDamage(VAYNE_Q_BONUS, this.sourceUnit);
+    victim.takeDamage(VAYNE_Q_BONUS, this.sourceUnit, 'MAGIC', 'Nhào Lộn');
     this.game.objectManager.addObject(
       new Vayne_Q_Bolt_Flash(this.sourceUnit, victim.position.copy())
     );

@@ -155,7 +155,7 @@ export class Anivia_E_Bolt extends HomingMissileSpellObject {
   onTargetArrive(target: FrostbiteTarget): void {
     const chilled = target.hasBuff(Chilled);
     const damage = chilled ? this.chilledDamage : this.baseDamage;
-    target.takeDamage(damage, this.owner);
+    target.takeDamage(damage, this.owner, 'MAGIC', 'Tê Cóng');
 
     const impact = new Anivia_E_Impact(this.owner);
     impact.position = target.position.copy();

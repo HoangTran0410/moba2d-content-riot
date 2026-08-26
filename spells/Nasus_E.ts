@@ -70,7 +70,7 @@ export class Nasus_E_Object extends SpellObject {
       area: new Circle({ x: this.position.x, y: this.position.y, r: this.radius }),
       filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
     });
-    enemies.forEach((enemy: any) => enemy.takeDamage(DAMAGE_PER_TICK, this.owner));
+    enemies.forEach((enemy: any) => enemy.takeDamage(DAMAGE_PER_TICK, this.owner, 'MAGIC', 'Lửa Tâm Linh'));
   }
 
   draw() {

@@ -30,7 +30,7 @@ export class Item_WitsEnd_Sting extends Buff {
   hudVisible = false;
 
   onHit(hit: OnHitEvent): void {
-    hit.victim.takeDamage(WITS_END_MAGIC_DAMAGE, this.targetUnit, 'MAGIC');
+    hit.victim.takeDamage(WITS_END_MAGIC_DAMAGE, this.targetUnit, 'MAGIC', 'Đao Tím');
 
     // Refreshed, not stacked: REPLACE_EXISTING on a fixed stackId means each
     // hit restarts the same 1.5 seconds — swinging keeps it up, stopping

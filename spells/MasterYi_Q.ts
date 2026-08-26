@@ -225,7 +225,7 @@ export class MasterYi_Q_Object extends SpellObject {
       victim.position.y + Math.sin(angle) * REAPPEAR_OFFSET
     );
 
-    victim.takeDamage(this.struck === 0 ? FIRST_STRIKE_DAMAGE : EXTRA_STRIKE_DAMAGE, this.owner);
+    victim.takeDamage(this.struck === 0 ? FIRST_STRIKE_DAMAGE : EXTRA_STRIKE_DAMAGE, this.owner, 'MAGIC', 'Tuyệt Kỹ Alpha');
 
     this._marks.push({
       x: victim.position.x,

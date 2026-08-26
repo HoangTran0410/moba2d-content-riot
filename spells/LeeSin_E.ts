@@ -159,7 +159,7 @@ export class LeeSin_E_Object extends SpellObject {
       slow.percent = SLOW_PERCENT;
       slow.buffAddType = BuffAddType.RENEW_EXISTING;
       enemy.addBuff(slow);
-      enemy.takeDamage(DAMAGE, this.owner);
+      enemy.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Địa Chấn / Dư Chấn');
 
       this._marks.push({ x: enemy.position.x, y: enemy.position.y, age: 0 });
     }

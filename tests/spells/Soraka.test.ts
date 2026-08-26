@@ -80,7 +80,7 @@ describe('Soraka', () => {
 
     star.update(); // 500ms in, past FALL_TIME_MS
     expect(FALL_TIME_MS).toBeGreaterThan(250);
-    expect(damage).toHaveBeenCalledWith(Q_DAMAGE, owner);
+    expect(damage).toHaveBeenCalledWith(Q_DAMAGE, owner, 'MAGIC', expect.any(String));
     expect(enemy.buffs.some(buff => buff instanceof Slow)).toBe(true);
     expect(hasRejuvenation(owner)).toBe(true);
   });

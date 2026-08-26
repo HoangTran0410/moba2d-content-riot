@@ -145,7 +145,7 @@ export class Ashe_R_Object extends SpellObject {
           let stunBuff = new Stun(stunMs, this.owner, p);
           stunBuff.buffAddType = BuffAddType.RENEW_EXISTING;
           p.addBuff(stunBuff);
-          p.takeDamage(DAMAGE, this.owner);
+          p.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Đại Băng Tiễn');
         });
 
         this.visionRadius = this.explodeSize;

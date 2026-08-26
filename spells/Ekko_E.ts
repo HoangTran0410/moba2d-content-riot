@@ -57,7 +57,7 @@ export default class Ekko_E extends Spell {
             nearest = enemy;
           }
         }
-        nearest.takeDamage(EKKO_E_BLINK_DAMAGE, this.owner);
+        nearest.takeDamage(EKKO_E_BLINK_DAMAGE, this.owner, 'MAGIC', 'Biến Chuyển Pha');
         const blinkPos = VectorUtils.getVectorWithRange(
           nearest.position,
           this.owner.position,
@@ -260,7 +260,7 @@ export class Ekko_E_Buff extends Buff {
       EventType.ON_ATTACK_HIT,
       ({ attacker, victim }: any) => {
         if (attacker === this.targetUnit && victim) {
-          victim.takeDamage(EKKO_E_BLINK_DAMAGE, this.targetUnit);
+          victim.takeDamage(EKKO_E_BLINK_DAMAGE, this.targetUnit, 'MAGIC', 'Biến Chuyển Pha');
           const dir = VectorUtils.getVectorWithRange(
             victim.position,
             this.targetUnit.position,

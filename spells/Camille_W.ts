@@ -91,7 +91,7 @@ export class Camille_W_Object extends SpellObject {
 
         if (angleDiff <= this.arcSpan / 2) {
           if (d >= this.outerMinRange) {
-            enemy.takeDamage(CAMILLE_W_OUTER_DAMAGE, this.owner);
+            enemy.takeDamage(CAMILLE_W_OUTER_DAMAGE, this.owner, 'MAGIC', 'Đá Quét Chiến Thuật');
             const slow = new Slow(CAMILLE_W_SLOW_MS, this.owner, enemy);
             slow.percent = CAMILLE_W_SLOW_PERCENT;
             enemy.addBuff(slow);
@@ -110,7 +110,7 @@ export class Camille_W_Object extends SpellObject {
               });
             }
           } else {
-            enemy.takeDamage(CAMILLE_W_INNER_DAMAGE, this.owner);
+            enemy.takeDamage(CAMILLE_W_INNER_DAMAGE, this.owner, 'MAGIC', 'Đá Quét Chiến Thuật');
             for (let i = 0; i < 3; i++) {
               this.particleSystem.addParticle({
                 x: enemy.position.x + random(-10, 10),

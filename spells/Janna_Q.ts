@@ -226,7 +226,7 @@ export class Janna_Q_Object extends MissileSpellObject {
   }
 
   onHit(enemy: JannaTarget) {
-    enemy.takeDamage(this.getCurrentDamage(), this.owner);
+    enemy.takeDamage(this.getCurrentDamage(), this.owner, 'MAGIC', 'Gió Lốc');
 
     const airborneBuff = new Airborne(this.getCurrentAirborneTime(), this.owner, enemy);
     airborneBuff.height = 25;

@@ -45,7 +45,7 @@ export default class Annie_W extends Spell {
       let delta = Math.abs(toEnemy - heading) % (Math.PI * 2);
       if (delta > Math.PI) delta = Math.PI * 2 - delta;
       if (delta > HALF_ANGLE) return;
-      enemy.takeDamage(DAMAGE, this.owner);
+      enemy.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Thiêu Cháy');
     });
 
     const cone = new Annie_W_Cone(this.owner);

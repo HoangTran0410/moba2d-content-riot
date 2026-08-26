@@ -114,7 +114,7 @@ export default class Nocturne_R extends Spell {
     dashBuff.dashSpeed = this.leapSpeed;
     dashBuff.cancelable = false; // displacement immunity: nothing stops the flight
     dashBuff.onReachedDestination = () => {
-      if (!target.isDead) target.takeDamage(this.damage, this.owner);
+      if (!target.isDead) target.takeDamage(this.damage, this.owner, 'MAGIC', 'Hoang Tưởng');
 
       // the landing: something has to happen where 35 damage arrived
       const land = new Nocturne_R_Landing(this.owner);

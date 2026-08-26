@@ -26,7 +26,7 @@ export class Item_Nashor_Fang extends Buff {
   hudVisible = false;
 
   onHit(hit: OnHitEvent): void {
-    hit.victim.takeDamage(NASHOR_MAGIC_DAMAGE, this.targetUnit, 'MAGIC');
+    hit.victim.takeDamage(NASHOR_MAGIC_DAMAGE, this.targetUnit, 'MAGIC', 'Nanh Nashor');
   }
 }
 

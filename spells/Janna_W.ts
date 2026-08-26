@@ -185,7 +185,7 @@ export class Janna_W_Bolt extends HomingMissileSpellObject {
   }
 
   onTargetArrive(target: ZephyrTarget): void {
-    target.takeDamage(this.damage, this.owner);
+    target.takeDamage(this.damage, this.owner, 'MAGIC', 'Gió Tây');
 
     const slow = new Slow(this.slowDuration, this.owner, target);
     slow.percent = this.slowPercent;

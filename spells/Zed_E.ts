@@ -95,7 +95,7 @@ export class Zed_E_Object extends SpellObject {
       // wide enough that a bearing can never slip between two frames' angles
       if (delta > this.angleSpeed) continue;
 
-      enemy.takeDamage(this.damage, this.owner);
+      enemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Đường Kiếm Bóng Tối');
 
       const slowBuff = new Slow(this.slowDuration, this.owner, enemy);
       slowBuff.percent = this.slowPercent;

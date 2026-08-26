@@ -278,7 +278,7 @@ export class Diana_Q_Sweep extends SpellObject {
 
       if (minDistance <= Q_BAND + (victim.collisionRadius || 20)) {
         this.cut.add(victim);
-        victim.takeDamage(Q_DAMAGE, this.owner);
+        victim.takeDamage(Q_DAMAGE, this.owner, 'MAGIC', 'Trăng Lưỡi Liềm');
         victim.addBuff(new Moonlight(MOONLIGHT_MS, this.owner, victim));
         this.game.objectManager.addObject(new Diana_Q_Cut(this.owner, victim.position.copy()));
       }
@@ -302,7 +302,7 @@ export class Diana_Q_Sweep extends SpellObject {
     for (const victim of victims) {
       if (this.cut.has(victim) || victim.isDead || victim.toRemove) continue;
       this.cut.add(victim);
-      victim.takeDamage(Q_DAMAGE, this.owner);
+      victim.takeDamage(Q_DAMAGE, this.owner, 'MAGIC', 'Trăng Lưỡi Liềm');
       victim.addBuff(new Moonlight(MOONLIGHT_MS, this.owner, victim));
     }
   }

@@ -131,7 +131,7 @@ describe('Leblanc Q (Sigil of Malice)', () => {
     arrive(orb);
 
     expect(takeDamage).toHaveBeenCalledTimes(1);
-    expect(takeDamage).toHaveBeenCalledWith(DAMAGE, owner);
+    expect(takeDamage).toHaveBeenCalledWith(DAMAGE, owner, 'MAGIC', expect.any(String));
     const mark = target.buffs.find(
       (buff): buff is Leblanc_Q_Mark => buff instanceof Leblanc_Q_Mark
     );
@@ -152,8 +152,8 @@ describe('Leblanc Q (Sigil of Malice)', () => {
 
     // base hit + consumed mark = two damage instances on the second cast
     expect(takeDamage).toHaveBeenCalledTimes(3);
-    expect(takeDamage.mock.calls[1]).toEqual([DAMAGE, owner]);
-    expect(takeDamage.mock.calls[2]).toEqual([DAMAGE, owner]);
+    expect(takeDamage.mock.calls[1].slice(0, 2)).toEqual([DAMAGE, owner]);
+    expect(takeDamage.mock.calls[2].slice(0, 2)).toEqual([DAMAGE, owner]);
     // RENEW_EXISTING: the mark that was consumed is the same one still on the
     // target afterwards (refreshed), never a second stacked instance
     expect(firstMark?.toRemove).toBe(false);

@@ -97,7 +97,7 @@ export class XinZhao_Q_Buff extends Buff {
     this.strikesLeft = Math.max(0, this.strikesLeft - 1);
     // Each landed strike refreshes the window: the combo is a rhythm, not a race.
     this.timeElapsed = 0;
-    victim.takeDamage(XINZHAO_Q_BONUS_DAMAGE, this.targetUnit);
+    victim.takeDamage(XINZHAO_Q_BONUS_DAMAGE, this.targetUnit, 'MAGIC', 'Liên Hoàn Tam Kích');
     this.refundOtherCooldowns();
 
     const finisher = this.strikesLeft === 0;

@@ -147,7 +147,7 @@ export class Ezreal_E_Bolt extends HomingMissileSpellObject {
   });
 
   onTargetArrive(target: AttackableUnit): void {
-    target.takeDamage(EZREAL_E_BOLT_DAMAGE, this.owner);
+    target.takeDamage(EZREAL_E_BOLT_DAMAGE, this.owner, 'MAGIC', 'Dịch Chuyển Cổ Học');
     target.addBuff(
       createReveal({
         stackId: EZREAL_E_REVEAL_STACK_ID,

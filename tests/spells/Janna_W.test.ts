@@ -154,7 +154,7 @@ describe('Janna W', () => {
 
     arrive(bolt);
 
-    expect(targetDamage).toHaveBeenCalledWith(DAMAGE, owner);
+    expect(targetDamage).toHaveBeenCalledWith(DAMAGE, owner, 'MAGIC', expect.any(String));
     expect(bystanderDamage).not.toHaveBeenCalled();
     const slow = target.buffs.find((buff): buff is Slow => buff instanceof Slow);
     expect(slow).toMatchObject({ percent: SLOW_PERCENT, duration: SLOW_DURATION_MS });

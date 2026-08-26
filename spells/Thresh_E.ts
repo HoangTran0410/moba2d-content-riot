@@ -213,7 +213,7 @@ export class Thresh_E_Object extends SpellObject {
 
     for (const enemy of caught) {
       this._hit.push(enemy);
-      enemy.takeDamage(DAMAGE, this.owner);
+      enemy.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Lưỡi Hái Xoáy');
       const slow = new Slow(SLOW_DURATION, this.owner, enemy);
       slow.percent = SLOW_PERCENT;
       enemy.addBuff(slow);

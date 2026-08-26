@@ -99,7 +99,7 @@ export default class Jhin_W extends Spell {
       if (!intersectsBeam(victim, geometry)) continue;
       swept.add(victim);
 
-      victim.takeDamage(JHIN_W_DAMAGE, this.owner);
+      victim.takeDamage(JHIN_W_DAMAGE, this.owner, 'MAGIC', 'Nét Vẽ Chết Chóc');
       const wasMarked = consumeJhinMark(victim);
       if (wasMarked) victim.addBuff(new Root(JHIN_W_ROOT_MS, this.owner, victim));
       this.game.objectManager.addObject(

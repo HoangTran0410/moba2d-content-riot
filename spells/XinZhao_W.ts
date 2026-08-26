@@ -121,7 +121,7 @@ export class XinZhao_W_Object extends SpellObject {
       while (delta > Math.PI) delta -= TWO_PI;
       while (delta < -Math.PI) delta += TWO_PI;
       if (Math.abs(delta) > half) continue;
-      enemy.takeDamage(XINZHAO_W_SLASH_DAMAGE, this.owner);
+      enemy.takeDamage(XINZHAO_W_SLASH_DAMAGE, this.owner, 'MAGIC', 'Phong Lôi Thương');
     }
   }
 
@@ -161,7 +161,7 @@ export class XinZhao_W_Object extends SpellObject {
         endY
       );
       if (distance > halfWidth + (enemy.collisionRadius ?? 0)) continue;
-      enemy.takeDamage(XINZHAO_W_THRUST_DAMAGE, this.owner);
+      enemy.takeDamage(XINZHAO_W_THRUST_DAMAGE, this.owner, 'MAGIC', 'Phong Lôi Thương');
       const slow = new Slow(XINZHAO_W_SLOW_MS, this.owner, enemy);
       slow.percent = XINZHAO_W_SLOW_PERCENT;
       enemy.addBuff(slow);

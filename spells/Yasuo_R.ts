@@ -144,7 +144,7 @@ export default class Yasuo_R extends Spell {
         buff.image = this.image;
         buff.draw = () => drawSuspension(enemy);
         enemy.addBuff(buff);
-        enemy.takeDamage(R_DAMAGE, this.owner);
+        enemy.takeDamage(R_DAMAGE, this.owner, 'MAGIC', 'Trăng Trối');
       }
 
       const speedup = new Speedup(R_SPEEDUP_MS, this.owner, this.owner);

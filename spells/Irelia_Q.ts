@@ -496,7 +496,7 @@ export default class Irelia_Q extends Spell implements ExecuteSpell {
     if (target.toRemove) return;
 
     const wasAlive = !target.isDead;
-    if (wasAlive) target.takeDamage(Q_DAMAGE, this.owner);
+    if (wasAlive) target.takeDamage(Q_DAMAGE, this.owner, 'MAGIC', 'Đâm Kiếm');
     const killed = wasAlive && target.isDead;
     // Taken, not merely read: a mark buys exactly one surge back, so a target
     // that survives cannot hand the key over twice.

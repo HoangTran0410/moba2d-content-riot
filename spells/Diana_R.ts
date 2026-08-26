@@ -134,7 +134,7 @@ export class Diana_R_Gather extends SpellObject {
         const victim = body.unit;
         if (this.struck.has(victim) || victim.toRemove || victim.isDead) continue;
         this.struck.add(victim);
-        victim.takeDamage(R_DAMAGE, this.owner);
+        victim.takeDamage(R_DAMAGE, this.owner, 'MAGIC', 'Trăng Mờ');
         this.game.objectManager.addObject(new Diana_R_Crash(this.owner, victim.position.copy()));
       }
     }

@@ -199,7 +199,7 @@ export default class Irelia_E extends Spell {
       if (victim === this.owner || victim.isDead || victim.toRemove) continue;
       if (!intersectsBeam(victim, geometry)) continue;
       caught.push({ x: victim.position.x, y: victim.position.y });
-      victim.takeDamage(E_DAMAGE, this.owner);
+      victim.takeDamage(E_DAMAGE, this.owner, 'MAGIC', 'Bước Nhảy Hoàn Vũ');
       victim.addBuff(new Stun(E_STUN_MS, this.owner, victim));
       applyIreliaMark(this.owner, victim);
     }

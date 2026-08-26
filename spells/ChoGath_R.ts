@@ -110,7 +110,7 @@ export default class ChoGath_R extends Spell implements ExecuteSpell {
     // R next to anything at all bought permanent max health and size — the one
     // uncapped stat in the game, farmed off targets that never died.
     const wasAlive = !target.isDead;
-    target.takeDamage(this.damage, this.owner);
+    target.takeDamage(this.damage, this.owner, 'MAGIC', 'Xơi Tái');
     const devoured = wasAlive && target.isDead;
 
     if (devoured) {

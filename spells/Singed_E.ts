@@ -105,7 +105,7 @@ export default class Singed_E extends Spell {
 
     if (target.isDead || target.toRemove) return;
 
-    target.takeDamage(DAMAGE, this.owner);
+    target.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Hất');
     const slow = new Slow(SLOW_DURATION, this.owner, target);
     slow.percent = SLOW_PERCENT;
     target.addBuff(slow);

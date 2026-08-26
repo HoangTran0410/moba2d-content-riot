@@ -144,7 +144,7 @@ export class Ziggs_W_Object extends SpellObject {
     for (const victim of victims) {
       if (hit.has(victim)) continue;
       hit.add(victim);
-      victim.takeDamage(W_DAMAGE, this.owner);
+      victim.takeDamage(W_DAMAGE, this.owner, 'MAGIC', 'Gói Chất Nổ');
       this.shove(victim);
     }
     const own = Math.hypot(

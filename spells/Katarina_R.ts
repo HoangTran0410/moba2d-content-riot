@@ -157,7 +157,7 @@ export class Katarina_R_Lotus extends SpellObject {
     const blades: { angle: number; reach: number; landed: boolean }[] = [];
 
     for (const victim of targets) {
-      victim.takeDamage(KATARINA_R_TICK_DAMAGE, this.owner);
+      victim.takeDamage(KATARINA_R_TICK_DAMAGE, this.owner, 'MAGIC', 'Bông Sen Tử Thần');
       this.game.objectManager.addObject(
         new Katarina_Blade_Impact(this.owner, victim.position.x, victim.position.y, 35)
       );

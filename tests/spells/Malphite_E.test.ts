@@ -120,7 +120,7 @@ describe('Malphite E', () => {
     const slam = press(owner);
     slam.update();
 
-    expect(nearDamage).toHaveBeenCalledWith(DAMAGE, owner);
+    expect(nearDamage).toHaveBeenCalledWith(DAMAGE, owner, 'MAGIC', expect.any(String));
     expect(farDamage).not.toHaveBeenCalled();
     expect(allyDamage).not.toHaveBeenCalled();
 

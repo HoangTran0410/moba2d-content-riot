@@ -89,7 +89,7 @@ export default class Darius_E extends Spell {
 
     for (const victim of candidates) {
       if (!this.insideCone(victim, heading)) continue;
-      victim.takeDamage(DAMAGE, this.owner);
+      victim.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Bắt Giữ');
       applyHemorrhage(this.owner, victim);
       this.hook(victim);
       sweep.caught.push(victim);

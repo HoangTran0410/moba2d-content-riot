@@ -237,7 +237,7 @@ export class Warwick_R_Object extends SpellObject {
 
     if (this.sinceTick < TICK_INTERVAL) return;
     this.sinceTick -= TICK_INTERVAL;
-    victim.takeDamage(DAMAGE_PER_TICK, this.owner);
+    victim.takeDamage(DAMAGE_PER_TICK, this.owner, 'MAGIC', 'Khóa Chết');
     // every bite draws blood, so the drain is visible and not just a number
     this._tickFlash = BITE_FLASH_MS;
     this._spray(6, 5);

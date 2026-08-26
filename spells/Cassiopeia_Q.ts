@@ -77,7 +77,7 @@ export class Cassiopeia_Q_Object extends SpellObject {
     });
 
     enemies.forEach((enemy: any) => {
-      enemy.takeDamage(IMPACT_DAMAGE, this.owner);
+      enemy.takeDamage(IMPACT_DAMAGE, this.owner, 'MAGIC', 'Vụ Nổ Độc Hại');
       const poison = new DamageOverTime(POISON_DURATION, this.owner, enemy);
       poison.stackId = 'cassiopeia_poison';
       poison.name = 'Nọc Độc';

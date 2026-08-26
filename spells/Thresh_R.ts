@@ -156,7 +156,7 @@ export class Thresh_R_Object extends SpellObject {
       const escapee = unit as any;
       if (!escapee?.takeDamage || escapee.isDead) continue;
       this.broken.add(unit);
-      escapee.takeDamage(DAMAGE, this.owner);
+      escapee.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Đóng Hộp');
       const slow = new Slow(2000, this.owner, escapee);
       slow.percent = SLOW_PERCENT;
       escapee.addBuff(slow);

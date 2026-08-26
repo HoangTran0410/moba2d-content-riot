@@ -181,7 +181,7 @@ export class Twitch_R_Bolt extends MissileSpellObject {
   }
 
   onHit(enemy: AttackableUnit) {
-    enemy.takeDamage(BOLT_DAMAGE, this.owner);
+    enemy.takeDamage(BOLT_DAMAGE, this.owner, 'MAGIC', 'Nhắm Mắt Bắn Bừa');
     // the burst is drawn per body, so a pierce through four is four separate
     // punches rather than one smear
     const splash = new Twitch_R_Pierce(this.owner, this.position.x, this.position.y);

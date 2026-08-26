@@ -33,7 +33,7 @@ export class Item_EssenceReaver_Blade extends SpellbladeBuff {
   protected payload(hit: OnHitEvent): void {
     const wearer = this.targetUnit;
     const base = wearer.stats.attackDamage.baseValue;
-    hit.victim.takeDamage(base * REAVER_BASE_AD_RATIO, wearer, 'PHYSICAL');
+    hit.victim.takeDamage(base * REAVER_BASE_AD_RATIO, wearer, 'PHYSICAL', 'Lưỡi Hái Linh Hồn');
     wearer.restoreMana(wearer.stats.maxMana.value * REAVER_MANA_REFUND_RATIO);
   }
 }

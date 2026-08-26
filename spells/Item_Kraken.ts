@@ -52,7 +52,7 @@ export class Item_Kraken_Harpoon extends Buff {
     if (this.hitCount < KRAKEN_HIT_INTERVAL) return;
     this.hitCount = 0;
 
-    hit.victim.takeDamage(KRAKEN_PROC_DAMAGE, this.targetUnit, 'PHYSICAL');
+    hit.victim.takeDamage(KRAKEN_PROC_DAMAGE, this.targetUnit, 'PHYSICAL', 'Móc Diệt Thủy Quái');
 
     // The proc has to be tellable from an ordinary swing at a glance — a
     // sharp little burst of spokes, the harpoon's own blue.

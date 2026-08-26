@@ -208,7 +208,7 @@ export default class Vi_E extends Spell {
       if (forward < -body || forward > E_LENGTH + body) continue;
       if (lateral > viECleaveHalfWidth(forward) + body) continue;
       struck.add(candidate);
-      candidate.takeDamage(E_DAMAGE, this.owner);
+      candidate.takeDamage(E_DAMAGE, this.owner, 'MAGIC', 'Cú Đấm Xuyên Thấu');
     }
 
     this.game.objectManager.addObject(

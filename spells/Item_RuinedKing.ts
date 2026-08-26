@@ -29,7 +29,7 @@ export class Item_RuinedKing_Bite extends Buff {
   onHit(hit: OnHitEvent): void {
     const current = hit.victim.stats.health.value;
     const damage = Math.max(RUINED_KING_MIN_DAMAGE, current * RUINED_KING_CURRENT_HEALTH_RATIO);
-    hit.victim.takeDamage(damage, this.targetUnit, 'PHYSICAL');
+    hit.victim.takeDamage(damage, this.targetUnit, 'PHYSICAL', 'Gươm Suy Vong');
   }
 }
 

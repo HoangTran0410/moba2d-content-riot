@@ -56,7 +56,7 @@ export class Teemo_Q_Object extends MissileSpellObject {
   }
 
   onHit(enemy: any) {
-    enemy.takeDamage(this.damage, this.owner);
+    enemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Phi Tiêu Mù');
 
     const blindBuff = new Nearsight(this.blindTime, this.owner, enemy);
     blindBuff.newVisionRadius = this.newVisionRadius;

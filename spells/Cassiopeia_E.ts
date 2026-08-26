@@ -166,7 +166,7 @@ export class Cassiopeia_E_Venom extends MissileSpellObject {
   onArrive(): void {
     const target = this.target;
     if (target && !target.isDead && !target.toRemove) {
-      target.takeDamage(this.poisoned ? POISONED_DAMAGE : BASE_DAMAGE, this.owner);
+      target.takeDamage(this.poisoned ? POISONED_DAMAGE : BASE_DAMAGE, this.owner, 'MAGIC', 'Nanh Độc');
     }
 
     // The splash is the hit, not a report of it: same frame, same point.

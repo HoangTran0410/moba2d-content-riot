@@ -138,7 +138,7 @@ export default class Darius_R extends Spell implements ExecuteSpell {
 
     // Alive one line above, so `isDead` below is this hit and nothing else.
     // `takeDamage` is synchronous, which is what makes that readable at all.
-    target.takeDamage(damage, this.owner);
+    target.takeDamage(damage, this.owner, 'MAGIC', 'Máy Chém Noxus');
     if (!target.isDead) return;
 
     blade.executed = true;

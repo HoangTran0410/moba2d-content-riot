@@ -177,7 +177,7 @@ export default class Fizz_E extends Spell {
     });
 
     enemies.forEach((enemy: any) => {
-      enemy.takeDamage(this.damage, this.owner);
+      enemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Tung Tăng / Nhảy Múa');
 
       if (withSlow) {
         const slowBuff = new Slow(this.slowDuration, this.owner, enemy);

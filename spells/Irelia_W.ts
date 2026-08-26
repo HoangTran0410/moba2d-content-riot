@@ -144,7 +144,7 @@ export default class Irelia_W extends Spell {
       if (victim === this.owner || victim.isDead || victim.toRemove) continue;
       if (!intersectsBeam(victim, geometry)) continue;
       struck += 1;
-      victim.takeDamage(damage, this.owner);
+      victim.takeDamage(damage, this.owner, 'MAGIC', 'Vũ Điệu Thách Thức');
 
       // No `slow.image = this.image`: a crowd-control buff keeps its own CC
       // icon, so a slowed unit shows "slowed" rather than a spinning W.

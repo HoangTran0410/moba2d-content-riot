@@ -116,7 +116,7 @@ export class Ziggs_R_Object extends SpellObject {
       );
       if (gap > R_OUTER_RADIUS) continue;
       hit.add(victim);
-      victim.takeDamage(gap <= R_INNER_RADIUS ? R_INNER_DAMAGE : R_OUTER_DAMAGE, this.owner);
+      victim.takeDamage(gap <= R_INNER_RADIUS ? R_INNER_DAMAGE : R_OUTER_DAMAGE, this.owner, 'MAGIC', 'Siêu Bom Địa Ngục');
     }
     this.game.objectManager.addObject(new Ziggs_R_Blast(this.owner, this.position.copy()));
     this.toRemove = true;

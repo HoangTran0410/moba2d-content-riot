@@ -142,7 +142,7 @@ export class Olaf_E_Swing extends SpellObject {
       // it stands — the ability auto-locks, it is not a skillshot
       if (!this.target.isDead && !this.target.toRemove) {
         this.aim = this.target.position.copy();
-        this.target.takeDamage(DAMAGE, this.owner);
+        this.target.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Bổ Củi');
       }
       for (let i = 0; i < 14; i++) {
         this.particleSystem.addParticle({

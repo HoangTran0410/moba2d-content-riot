@@ -130,7 +130,7 @@ export default class XinZhao_E extends Spell {
     if (!victim.isDead) hit.add(victim);
 
     for (const enemy of hit) {
-      enemy.takeDamage(XINZHAO_E_DAMAGE, this.owner);
+      enemy.takeDamage(XINZHAO_E_DAMAGE, this.owner, 'MAGIC', 'Can Trường');
       const slow = new Slow(XINZHAO_E_SLOW_MS, this.owner, enemy);
       slow.percent = XINZHAO_E_SLOW_PERCENT;
       enemy.addBuff(slow);

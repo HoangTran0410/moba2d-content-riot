@@ -71,7 +71,7 @@ export default class LeeSin_Q extends Spell {
       obj.lifeTimeAfterHit = lifeTimeAfterHit;
       obj.onHitCallback = (enemy: any) => {
         this.enemyHit = enemy;
-        enemy.takeDamage(hitDamage, this.owner);
+        enemy.takeDamage(hitDamage, this.owner, 'MAGIC', 'Sóng Âm / Vô Ảnh Cước');
 
         enemy.addBuff(
           createReveal({
@@ -101,7 +101,7 @@ export default class LeeSin_Q extends Spell {
         if (this.spellObject) this.spellObject.toRemove = true;
       };
       dashBuff.onReachedDestination = () => {
-        if (this.enemyHit) this.enemyHit.takeDamage(q2HitDamage, this.owner);
+        if (this.enemyHit) this.enemyHit.takeDamage(q2HitDamage, this.owner, 'MAGIC', 'Sóng Âm / Vô Ảnh Cước');
         if (this.spellObject) this.spellObject.toRemove = true;
       };
       this.owner.addBuff(dashBuff);

@@ -71,7 +71,7 @@ export default class Riven_W extends Spell {
     for (const victim of candidates) {
       if (hit.has(victim)) continue;
       hit.add(victim);
-      victim.takeDamage(W_DAMAGE, this.owner);
+      victim.takeDamage(W_DAMAGE, this.owner, 'MAGIC', 'Kình Lực');
       victim.addBuff(new Stun(W_STUN_MS, this.owner, victim));
       cuts.push({ x: victim.position.x, y: victim.position.y });
     }

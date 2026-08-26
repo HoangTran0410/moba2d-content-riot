@@ -88,7 +88,7 @@ export default class Vi_W extends Spell {
   }
 
   private breakArmour(victim: AttackableUnit): void {
-    victim.takeDamage(W_PROC, this.owner);
+    victim.takeDamage(W_PROC, this.owner, 'MAGIC', 'Cú Đấm Phá Giáp');
 
     const held = new Slow(W_SLOW_MS, this.owner, victim);
     held.percent = W_SLOW;

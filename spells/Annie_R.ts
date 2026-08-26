@@ -90,7 +90,7 @@ export default class Annie_R extends Spell {
       area: new Circle({ x: spot.x, y: spot.y, r: SUMMON_RADIUS }),
       filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
     });
-    enemies.forEach((enemy: any) => enemy.takeDamage(SUMMON_DAMAGE, this.owner));
+    enemies.forEach((enemy: any) => enemy.takeDamage(SUMMON_DAMAGE, this.owner), 'MAGIC', 'Triệu Hồi: Tibbers');
 
     // Tibbers arrives in a pillar of fire, so the impact has to be fire-shaped:
     // tongues that lick outward and taper, not slabs of rock heaved out of the
@@ -165,7 +165,7 @@ export class Tibbers extends Pet {
       filters: [PredefinedFilters.canTakeDamageFromTeam(this.teamId)],
     });
     enemies.forEach((enemy: any) => {
-      enemy.takeDamage(AURA_DAMAGE_PER_TICK, this.ownerUnit);
+      enemy.takeDamage(AURA_DAMAGE_PER_TICK, this.ownerUnit, 'MAGIC', 'Triệu Hồi: Tibbers');
       const burn = new DamageOverTime(600, this.ownerUnit, enemy);
       burn.stackId = 'tibbers_burn';
       burn.name = 'Cháy';

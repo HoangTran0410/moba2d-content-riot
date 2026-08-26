@@ -165,7 +165,7 @@ export class Ziggs_E_Object extends SpellObject {
   private trip(mine: ZiggsMine, walker: AttackableUnit): void {
     mine.consumed = true;
     this.trips.set(walker, (this.trips.get(walker) ?? 0) + 1);
-    walker.takeDamage(E_DAMAGE, this.owner);
+    walker.takeDamage(E_DAMAGE, this.owner, 'MAGIC', 'Bãi Mìn');
     const slow = new Slow(E_SLOW_MS, this.owner, walker);
     slow.percent = E_SLOW;
     slow.stackId = 'ziggs_minefield_slow';

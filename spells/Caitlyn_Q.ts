@@ -160,7 +160,7 @@ export class Caitlyn_Q_Object extends MissileSpellObject {
     const first = this.pierced === 0;
     this.pierced++;
     const damage = first || isTrapRevealed(enemy) ? CAITLYN_Q_DAMAGE : CAITLYN_Q_REDUCED_DAMAGE;
-    enemy.takeDamage(damage, this.owner);
+    enemy.takeDamage(damage, this.owner, 'MAGIC', 'Bắn Xuyên Táo');
 
     for (let i = 0; i < 8; i++) {
       this.particleSystem.addParticle({

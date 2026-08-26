@@ -74,7 +74,7 @@ export class Item_Runaan_Wind extends Buff {
 
     const damage = wearer.stats.attackDamage.value * SIDE_BOLT_AD_RATIO;
     for (const target of candidates.slice(0, SIDE_BOLT_COUNT)) {
-      target.takeDamage(damage, wearer, 'PHYSICAL');
+      target.takeDamage(damage, wearer, 'PHYSICAL', 'Cuồng Cung Runaan');
       // The side bolt applies the bag's on-hit effects at ITS victim — the
       // echoed application, with the bolt's own damage as the reference hit.
       api.combat.applyOnHitEffects({

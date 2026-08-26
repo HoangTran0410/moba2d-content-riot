@@ -310,7 +310,7 @@ export class Anivia_R_Object extends AreaSpellObject {
     const empowered = atMs >= GROWTH_MS;
     const damage = empowered ? EMPOWERED_DAMAGE : NORMAL_DAMAGE / 2;
     for (const target of targets) {
-      target.takeDamage(damage, this.owner);
+      target.takeDamage(damage, this.owner, 'MAGIC', 'Bão Tuyết');
       if (empowered) target.addBuff(new Chilled(CHILL_DURATION_MS, this.owner, target));
     }
   }

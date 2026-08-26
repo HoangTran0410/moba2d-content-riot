@@ -262,7 +262,7 @@ export class Yasuo_E_Object extends SpellObject {
 
   _strike(target: any) {
     this.hitTargets.push(target);
-    target.takeDamage(this.damage, this.owner);
+    target.takeDamage(this.damage, this.owner, 'MAGIC', 'Quét Kiếm');
     const strikeAt = target.position.copy();
     this.strikeAt = strikeAt;
     this.strikeAge = 0;

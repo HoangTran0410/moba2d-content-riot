@@ -144,7 +144,7 @@ export class SpellbladeBuff extends Buff {
   /** What the empowered hit does. Thủy Kiếm's own: a share of base AD, physical. */
   protected payload(hit: OnHitEvent): void {
     const base = this.targetUnit.stats.attackDamage.baseValue;
-    hit.victim.takeDamage(base * SHEEN_BASE_AD_RATIO, this.targetUnit, 'PHYSICAL');
+    hit.victim.takeDamage(base * SHEEN_BASE_AD_RATIO, this.targetUnit, 'PHYSICAL', 'Thủy Kiếm');
   }
 
   /**

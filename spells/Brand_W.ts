@@ -129,7 +129,7 @@ export class Brand_W_Object extends SpellObject {
     for (const enemy of enemies) {
       // read before igniting, or the pillar amplifies off its own burn
       const damage = isAblaze(enemy) ? DAMAGE * (1 + ABLAZE_DAMAGE_BONUS) : DAMAGE;
-      enemy.takeDamage(damage, this.owner);
+      enemy.takeDamage(damage, this.owner, 'MAGIC', 'Cột Lửa');
       applyAblaze(this.owner, enemy, this.image);
     }
 

@@ -60,7 +60,7 @@ export default class Warwick_Q extends Spell {
     dashBuff.dashDestination = target.position; // live ref: the pounce tracks its prey
     dashBuff.dashSpeed = 13;
     dashBuff.onReachedDestination = () => {
-      if (!target.isDead) target.takeDamage(this.damage, this.owner);
+      if (!target.isDead) target.takeDamage(this.damage, this.owner, 'MAGIC', 'Cắn Xé');
       this.owner.takeHeal(this.healAmount, this.owner);
 
       const obj = new Warwick_Q_Object(this.owner);

@@ -30,7 +30,7 @@ export default class Twitch_E extends Spell {
 
   onSpellCast() {
     for (const enemy of this._poisonedEnemies()) {
-      enemy.takeDamage(DAMAGE, this.owner);
+      enemy.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Nhiễm Khuẩn');
       // Consumed, not merely expired: the poison is what paid for the burst.
       for (const buff of enemy.buffs) {
         if (buff.stackId === 'twitch_poison') buff.deactivateBuff();

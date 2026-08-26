@@ -198,7 +198,7 @@ export class Jinx_E_Chomper extends Pet {
       area: new Circle({ x: this.position.x, y: this.position.y, r: BLAST_RADIUS }),
       filters: [PredefinedFilters.canTakeDamageFromTeam(this.teamId)],
     });
-    enemies.forEach((enemy: any) => enemy.takeDamage(DAMAGE, this.ownerUnit));
+    enemies.forEach((enemy: any) => enemy.takeDamage(DAMAGE, this.ownerUnit, 'MAGIC', 'Lựu Đạn Ma Hỏa!'));
 
     // Frag, the shape shared by Jinx's whole kit: hard chunks of casing thrown
     // out through rolling smoke. `shards` was rock splinters and was doing duty

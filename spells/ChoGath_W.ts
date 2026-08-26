@@ -89,7 +89,7 @@ export class ChoGath_W_Object extends SpellObject {
       const stunBuff = new Stun(this.stunTime, this.owner, enemy);
       enemy.addBuff(stunBuff);
 
-      enemy.takeDamage(20, this.owner);
+      enemy.takeDamage(20, this.owner, 'MAGIC', 'Tiếng Gầm Hoang Dã');
       this.playersEffected.push(enemy);
     });
   }

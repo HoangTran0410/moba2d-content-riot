@@ -139,7 +139,7 @@ export class Nautilus_E_Object extends SpellObject {
     for (const victim of drowned) {
       if (wave.hit.has(victim)) continue;
       wave.hit.add(victim);
-      victim.takeDamage(E_WAVE_DAMAGE, this.owner);
+      victim.takeDamage(E_WAVE_DAMAGE, this.owner, 'MAGIC', 'Thủy Triều Dữ Dội');
       const undertow = new Slow(E_SLOW_MS, this.owner, victim);
       undertow.percent = E_SLOW;
       undertow.stackId = 'nautilus_e_undertow';

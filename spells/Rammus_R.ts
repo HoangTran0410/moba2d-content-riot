@@ -134,7 +134,7 @@ export class Rammus_R_Leap extends SpellObject {
     });
 
     enemies.forEach((enemy: any) => {
-      enemy.takeDamage(DAMAGE, this.owner);
+      enemy.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Cú Nhảy Chấn Động');
       enemy.addBuff(new Airborne(600, this.owner, enemy));
       const slow = new Slow(2000, this.owner, enemy);
       slow.percent = 0.5;

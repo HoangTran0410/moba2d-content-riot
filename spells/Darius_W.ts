@@ -95,7 +95,7 @@ export class Darius_W_Buff extends Buff {
     // Latched before the hit, read after: `takeDamage` is synchronous, so this
     // is the only honest way to ask "did my swing kill it".
     const wasAlive = !victim.isDead;
-    victim.takeDamage(BONUS_DAMAGE, this.targetUnit);
+    victim.takeDamage(BONUS_DAMAGE, this.targetUnit, 'MAGIC', 'Đánh Thọt');
 
     if (!victim.isDead) {
       const cripple = new Slow(SLOW_MS, this.targetUnit, victim);

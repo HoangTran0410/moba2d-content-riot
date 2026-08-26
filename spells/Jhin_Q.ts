@@ -239,7 +239,7 @@ export class Jhin_Q_Object extends MissileSpellObject {
     this.hits += 1;
     this.struck.add(enemy);
 
-    enemy.takeDamage(jhinBounceDamage(index), this.owner);
+    enemy.takeDamage(jhinBounceDamage(index), this.owner, 'MAGIC', 'Lựu Đạn Nhảy Múa');
     applyJhinMark(this.owner, enemy);
     this.game.objectManager.addObject(new Jhin_Q_Blast(this.owner, enemy.position.copy(), index));
 

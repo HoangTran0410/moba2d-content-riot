@@ -57,7 +57,7 @@ export default class Rammus_E extends Spell {
     if (targets.length === 0) return;
 
     for (const target of targets) {
-      target.takeDamage(DAMAGE, this.owner);
+      target.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Khiêu Khích Điên Cuồng');
       // After the damage, so a target the taunt would have killed is already
       // dead and `addBuff` refuses it rather than leaving a buff on a corpse.
       target.addBuff(new Taunt(DURATION, this.owner, target));

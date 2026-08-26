@@ -77,7 +77,7 @@ export default class Nasus_Q extends Spell implements ExecuteSpell {
     // false through some future filter change — but a stack is permanent, and
     // "was it alive before I hit it" is the whole condition for earning one.
     const wasAlive = !target.isDead;
-    target.takeDamage(damage, this.owner);
+    target.takeDamage(damage, this.owner, 'MAGIC', 'Quyền Trượng Linh Hồn');
 
     const slain = wasAlive && target.isDead;
     if (slain) {

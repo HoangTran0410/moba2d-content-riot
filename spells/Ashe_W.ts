@@ -90,7 +90,7 @@ export class Ashe_W_Object extends MissileSpellObject {
     slowBuff.percent = 0.75;
     slowBuff.buffAddType = BuffAddType.RENEW_EXISTING;
     enemy.addBuff(slowBuff);
-    enemy.takeDamage(5, this.owner);
+    enemy.takeDamage(5, this.owner, 'MAGIC', 'Tán Xạ Tiễn');
 
     // a 75% slow is the harshest thing in this spell and the needle vanishes on
     // contact, so the freeze needs its own object or the player never sees what

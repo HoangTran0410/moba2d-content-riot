@@ -32,7 +32,7 @@ export class Item_DivineSunderer_Blade extends SpellbladeBuff {
   protected payload(hit: OnHitEvent): void {
     const maxHealth = hit.victim.stats.maxHealth.value;
     const damage = Math.max(SUNDERER_MIN_DAMAGE, maxHealth * SUNDERER_MAX_HEALTH_RATIO);
-    hit.victim.takeDamage(damage, this.targetUnit, 'PHYSICAL');
+    hit.victim.takeDamage(damage, this.targetUnit, 'PHYSICAL', 'Búa Rìu Sát Thần');
     this.targetUnit.takeHeal(damage * SUNDERER_HEAL_RATIO, this.targetUnit);
   }
 }

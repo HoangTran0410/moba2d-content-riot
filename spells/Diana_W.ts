@@ -153,7 +153,7 @@ export class Diana_W_Orbit extends SpellObject {
       filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
     }) as AttackableUnit[];
     for (const victim of caught) {
-      victim.takeDamage(W_SPHERE_DAMAGE, this.owner);
+      victim.takeDamage(W_SPHERE_DAMAGE, this.owner, 'MAGIC', 'Thác Bạc');
     }
 
     this.game.objectManager.addObject(new Diana_W_Bloom(this.owner, at.copy()));

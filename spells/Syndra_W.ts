@@ -127,7 +127,7 @@ export default class Syndra_W extends Spell {
     for (const victim of victims) {
       if (struck.has(victim)) continue;
       struck.add(victim);
-      victim.takeDamage(SYNDRA_W_DAMAGE, this.owner);
+      victim.takeDamage(SYNDRA_W_DAMAGE, this.owner, 'MAGIC', 'Ý Lực');
 
       const slow = new Slow(SYNDRA_W_SLOW_MS, this.owner, victim);
       slow.percent = SYNDRA_W_SLOW;

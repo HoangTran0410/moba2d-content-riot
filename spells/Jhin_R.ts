@@ -281,7 +281,7 @@ export class Jhin_R_Bullet extends MissileSpellObject {
     ) {
       return;
     }
-    victim.takeDamage(this.damage, this.owner);
+    victim.takeDamage(this.damage, this.owner, 'MAGIC', 'Sân Khấu Tử Thần');
     const slow = new Slow(JHIN_R_SLOW_MS, this.owner, victim);
     slow.percent = JHIN_R_SLOW;
     slow.stackId = 'jhin_curtain_call_slow';

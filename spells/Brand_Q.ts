@@ -135,7 +135,7 @@ export class Brand_Q_Missile extends MissileSpellObject {
     // asked before igniting, or the bolt would stun off its own burn
     const wasAblaze = isAblaze(enemy);
 
-    enemy.takeDamage(DAMAGE, this.owner);
+    enemy.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Vệt Lửa');
     applyAblaze(this.owner, enemy, this.image);
 
     if (wasAblaze) enemy.addBuff(new Stun(STUN_DURATION_MS, this.owner, enemy));

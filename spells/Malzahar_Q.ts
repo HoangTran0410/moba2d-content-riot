@@ -148,7 +148,7 @@ export class Malzahar_Q_Object extends SpellObject {
       if (this.distanceToBand(target, a, b) > BAND_HALF_WIDTH + target.collisionRadius) continue;
 
       this._hitTargets.push(target);
-      target.takeDamage(DAMAGE, this.owner);
+      target.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Tiếng Gọi Hư Không');
       target.addBuff(new Silence(SILENCE_MS, this.owner, target));
     }
 

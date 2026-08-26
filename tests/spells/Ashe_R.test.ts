@@ -191,7 +191,7 @@ describe('Ashe R', () => {
 
     expect(arrow.exploding).toBe(true);
     expect(arrow.visionRadius).toBe(EXPLODE_RADIUS);
-    expect(enemy.takeDamage).toHaveBeenCalledWith(DAMAGE, caster);
+    expect(enemy.takeDamage).toHaveBeenCalledWith(DAMAGE, caster, 'MAGIC', expect.any(String));
     expect(enemyBuffs).toHaveLength(1);
     // Base Stun already defaults to the CC icon; Ashe R must not overwrite it
     // with its own ability art (spell_ashe_r).

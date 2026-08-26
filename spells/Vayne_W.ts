@@ -108,7 +108,7 @@ export class Vayne_W_Buff extends Buff {
         row.mark.toRemove = true;
         row.mark = null;
       }
-      victim.takeDamage(VAYNE_W_PROC, this.sourceUnit);
+      victim.takeDamage(VAYNE_W_PROC, this.sourceUnit, 'MAGIC', 'Mũi Tên Bạc');
       this.game.objectManager.addObject(new Vayne_W_Proc(this.sourceUnit, victim));
       return;
     }

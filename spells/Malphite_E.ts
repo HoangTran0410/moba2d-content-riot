@@ -129,7 +129,7 @@ export class Malphite_E_Object extends SpellObject {
           continue;
         }
 
-        enemy.takeDamage(this.damage, this.owner);
+        enemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Dậm Đất');
 
         const slow = new Slow(this.slowDuration, this.owner, enemy);
         slow.percent = this.slowPercent;

@@ -200,7 +200,7 @@ export class Brand_R_Fireball extends SpellObject {
     // read before igniting, or the first hit slows off its own burn
     const wasAblaze = isAblaze(victim);
 
-    victim.takeDamage(DAMAGE_PER_BOUNCE, this.owner);
+    victim.takeDamage(DAMAGE_PER_BOUNCE, this.owner, 'MAGIC', 'Bão Lửa');
     applyAblaze(this.owner, victim, this.image);
 
     if (wasAblaze) {

@@ -59,7 +59,7 @@ export class ChoGath_E_Object extends MissileSpellObject {
   }
 
   onHit(enemy: any) {
-    enemy.takeDamage(this.damage, this.owner);
+    enemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Phóng Gai');
 
     const bleed = new DamageOverTime(this.bleedDuration, this.owner, enemy);
     bleed.stackId = 'chogath_e_bleed';

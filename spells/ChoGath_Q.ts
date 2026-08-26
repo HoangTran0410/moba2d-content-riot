@@ -74,7 +74,7 @@ export class ChoGath_Q_Object extends SpellObject {
           const slowBuff = new Slow(1500, this.owner, enemy);
           slowBuff.percent = 0.6;
           enemy.addBuff(slowBuff);
-          enemy.takeDamage(this.damage, this.owner);
+          enemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Rạn Nứt');
         });
 
         this.affected = true;

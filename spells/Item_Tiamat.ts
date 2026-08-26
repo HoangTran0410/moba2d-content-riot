@@ -71,7 +71,7 @@ export class CleaveBuff extends Buff {
 
     let carved = false;
     for (const unit of near) {
-      unit.takeDamage(damage, wearer, 'PHYSICAL');
+      unit.takeDamage(damage, wearer, 'PHYSICAL', 'Rìu Tiamat');
       carved = true;
     }
     // The ring says "this weapon carves an area" — but only when it carved

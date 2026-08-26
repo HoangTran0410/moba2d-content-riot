@@ -252,7 +252,7 @@ describe('Teemo E', () => {
 
     vial.onHit(enemy);
 
-    expect(enemy.takeDamage).toHaveBeenCalledWith(ON_HIT_DAMAGE, caster);
+    expect(enemy.takeDamage).toHaveBeenCalledWith(ON_HIT_DAMAGE, caster, 'MAGIC', expect.any(String));
     expect(enemy.addBuff).toHaveBeenCalledTimes(1);
     const poison = (enemy.addBuff as ReturnType<typeof vi.fn>).mock.calls[0][0] as DamageOverTime;
     expect(poison).toBeInstanceOf(DamageOverTime);

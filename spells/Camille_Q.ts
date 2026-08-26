@@ -60,10 +60,10 @@ export class Camille_Q_Buff extends Buff {
         if (attacker === this.targetUnit && victim) {
           if (this.timer >= CAMILLE_Q_CHARGE_MS) {
             // True damage Q2
-            victim.takeDamage(CAMILLE_Q_TRUE_DAMAGE, this.targetUnit);
+            victim.takeDamage(CAMILLE_Q_TRUE_DAMAGE, this.targetUnit, 'MAGIC', 'Giao Thức Chuẩn Xác');
           } else {
             // Normal Q1 bonus damage
-            victim.takeDamage(CAMILLE_Q_DAMAGE, this.targetUnit);
+            victim.takeDamage(CAMILLE_Q_DAMAGE, this.targetUnit, 'MAGIC', 'Giao Thức Chuẩn Xác');
           }
           this.auraObj?.discharge(victim.position.x, victim.position.y, this.isQ2Ready);
           this.deactivateBuff();

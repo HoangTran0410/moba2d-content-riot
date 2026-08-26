@@ -162,7 +162,7 @@ export class Soraka_Q_Object extends SpellObject {
     });
 
     for (const enemy of enemies) {
-      enemy.takeDamage(this.damage, this.owner);
+      enemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Vẫn Tinh');
 
       const slow = new Slow(SLOW_DURATION_MS, this.owner, enemy);
       slow.buffAddType = BuffAddType.RENEW_EXISTING;

@@ -27,7 +27,7 @@ export class Item_LichBane_Blade extends SpellbladeBuff {
   flashColor: [number, number, number] = LICH_TEAL;
 
   protected payload(hit: OnHitEvent): void {
-    hit.victim.takeDamage(LICH_BANE_MAGIC_DAMAGE, this.targetUnit, 'MAGIC');
+    hit.victim.takeDamage(LICH_BANE_MAGIC_DAMAGE, this.targetUnit, 'MAGIC', 'Kiếm Tai Ương');
   }
 }
 

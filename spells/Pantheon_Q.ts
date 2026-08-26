@@ -328,7 +328,7 @@ export class Pantheon_Q_Spear extends MissileSpellObject {
   }
 
   onHit(enemy: AttackableUnit): void {
-    enemy.takeDamage(spearDamage(enemy, this.hitTargets.length > 1), this.owner);
+    enemy.takeDamage(spearDamage(enemy, this.hitTargets.length > 1), this.owner, 'MAGIC', 'Ngọn Giáo Sao Băng');
   }
 }
 

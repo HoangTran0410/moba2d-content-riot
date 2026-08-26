@@ -100,7 +100,7 @@ export class Renekton_W_Buff extends Buff {
 
     for (let i = 0; i < strikes; i++) {
       if (victim.isDead) break;
-      victim.takeDamage(DAMAGE_PER_STRIKE, this.targetUnit);
+      victim.takeDamage(DAMAGE_PER_STRIKE, this.targetUnit, 'MAGIC', 'Kẻ Săn Mồi Tàn Nhẫn');
     }
 
     if (!victim.isDead) {

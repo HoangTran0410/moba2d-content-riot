@@ -160,7 +160,7 @@ export class Pantheon_E_Object extends SpellObject {
       let delta = Math.abs(toEnemy - heading) % (Math.PI * 2);
       if (delta > Math.PI) delta = Math.PI * 2 - delta;
       if (delta > HALF_ANGLE) return;
-      enemy.takeDamage(DAMAGE_PER_TICK, this.owner);
+      enemy.takeDamage(DAMAGE_PER_TICK, this.owner, 'MAGIC', 'Tiến Công Vũ Bão');
     });
   }
 

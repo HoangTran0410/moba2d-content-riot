@@ -343,7 +343,7 @@ export class Shaco_W_Bullet_Object extends SpellObject {
         this.trailSystem.addTrail(this.position);
       } else {
         // hit target
-        this.targetEnemy.takeDamage(this.damage, this.owner);
+        this.targetEnemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Hộp Hề Ma Quái');
         this.phase = Shaco_W_Bullet_Object.PHASES.HIT_EFFECT;
       }
     }

@@ -167,7 +167,7 @@ export class Morgana_W_Object extends AreaSpellObject {
     const base =
       MIN_TICK_DAMAGE + (MAX_TICK_DAMAGE - MIN_TICK_DAMAGE) * constrain(missingRatio, 0, 1);
     const multiplier = target instanceof Monster ? MONSTER_DAMAGE_MULTIPLIER : 1;
-    target.takeDamage(base * multiplier, this.owner);
+    target.takeDamage(base * multiplier, this.owner, 'MAGIC', 'Vùng Đất Chết');
   }
 
   draw(): void {

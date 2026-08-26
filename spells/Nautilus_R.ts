@@ -143,7 +143,7 @@ export class Nautilus_R_Object extends MissileSpellObject {
     if (enemy === this.target) return;
     if (this.passed.has(enemy)) return;
     this.passed.add(enemy);
-    enemy.takeDamage(R_PASS_DAMAGE, this.owner);
+    enemy.takeDamage(R_PASS_DAMAGE, this.owner, 'MAGIC', 'Thủy Lôi Tầm Nhiệt');
     enemy.addBuff(new Airborne(R_PASS_KNOCKUP_MS, this.owner, enemy));
   }
 
@@ -158,7 +158,7 @@ export class Nautilus_R_Object extends MissileSpellObject {
     const caught = new Set<AttackableUnit>();
     if (victim && !victim.isDead) {
       caught.add(victim);
-      victim.takeDamage(R_DAMAGE, this.owner);
+      victim.takeDamage(R_DAMAGE, this.owner, 'MAGIC', 'Thủy Lôi Tầm Nhiệt');
       victim.addBuff(new Airborne(R_KNOCKUP_MS, this.owner, victim));
     }
 
@@ -170,7 +170,7 @@ export class Nautilus_R_Object extends MissileSpellObject {
     for (const soaked of nearby) {
       if (caught.has(soaked)) continue;
       caught.add(soaked);
-      soaked.takeDamage(R_DAMAGE, this.owner);
+      soaked.takeDamage(R_DAMAGE, this.owner, 'MAGIC', 'Thủy Lôi Tầm Nhiệt');
       soaked.addBuff(new Airborne(R_KNOCKUP_MS, this.owner, soaked));
     }
   }

@@ -203,7 +203,7 @@ export class Caitlyn_R_Bullet extends HomingMissileSpellObject {
   });
 
   onTargetArrive(target: AttackableUnit): void {
-    target.takeDamage(CAITLYN_R_DAMAGE, this.owner);
+    target.takeDamage(CAITLYN_R_DAMAGE, this.owner, 'MAGIC', 'Bách Phát Bách Trúng');
 
     const hit = new Caitlyn_R_Hit(this.owner);
     hit.position = target.position.copy();

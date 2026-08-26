@@ -105,7 +105,7 @@ export class Blitzcrank_Q_Object extends MissileSpellObject {
     this.dashBuff.dashSpeed = this.grabSpeed;
     enemy.addBuff(this.dashBuff);
 
-    enemy.takeDamage(20, this.owner);
+    enemy.takeDamage(20, this.owner, 'MAGIC', 'Bàn Tay Hỏa Tiễn');
   }
 
   update() {

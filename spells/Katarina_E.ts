@@ -157,7 +157,7 @@ export default class Katarina_E extends Spell {
       typeof chosen.takeDamage === 'function' &&
       chosen.teamId !== this.owner.teamId
     ) {
-      chosen.takeDamage(KATARINA_E_STRIKE_DAMAGE, this.owner);
+      chosen.takeDamage(KATARINA_E_STRIKE_DAMAGE, this.owner, 'MAGIC', 'Ám Sát');
       this.game.objectManager.addObject(
         new Katarina_Blade_Impact(this.owner, chosen.position.x, chosen.position.y, 42)
       );

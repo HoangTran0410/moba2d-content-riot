@@ -157,7 +157,7 @@ export class Ezreal_R_Object extends MissileSpellObject {
 
   onHit(enemy: AttackableUnit) {
     const damage = enemy instanceof Champion ? EZREAL_R_DAMAGE : EZREAL_R_MINION_DAMAGE;
-    enemy.takeDamage(damage, this.owner);
+    enemy.takeDamage(damage, this.owner, 'MAGIC', 'Cung Ánh Sáng');
     detonateEssenceFlux(this.owner, enemy);
   }
 

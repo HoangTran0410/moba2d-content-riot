@@ -116,7 +116,7 @@ export default class JarvanIV_Q extends Spell {
           this.owner.position.dist(enemy.position) < JARVAN_Q_DASH_HIT_RADIUS
         ) {
           hitTargets.add(enemy);
-          enemy.takeDamage(JARVAN_Q_DAMAGE, this.owner);
+          enemy.takeDamage(JARVAN_Q_DAMAGE, this.owner, 'MAGIC', 'Giáng Long Kích');
           enemy.addBuff(new Airborne(JARVAN_Q_KNOCKUP_MS, this.owner, enemy));
           charge.impactAt(enemy.position.x, enemy.position.y);
         }
@@ -204,7 +204,7 @@ export class JarvanIV_Q_Object extends SpellObject {
             40
           )
         ) {
-          enemy.takeDamage(JARVAN_Q_DAMAGE, this.owner);
+          enemy.takeDamage(JARVAN_Q_DAMAGE, this.owner, 'MAGIC', 'Giáng Long Kích');
           for (let i = 0; i < 6; i++) {
             this.particleSystem.addParticle({
               x: enemy.position.x + random(-14, 14),

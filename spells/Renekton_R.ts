@@ -137,7 +137,7 @@ export class Renekton_R_Object extends SpellObject {
       area: new Circle({ x: this.position.x, y: this.position.y, r: this.radius }),
       filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
     }) as AttackableUnit[];
-    for (const victim of scorched) victim.takeDamage(DAMAGE_PER_TICK, this.owner);
+    for (const victim of scorched) victim.takeDamage(DAMAGE_PER_TICK, this.owner, 'MAGIC', 'Thần Cá Sấu');
   }
 
   draw(): void {

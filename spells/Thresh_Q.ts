@@ -191,7 +191,7 @@ export class Thresh_Q_Object extends MissileSpellObject {
     // corpse hauling the victim in with the remaining tugs
     this.attachTo(this.owner);
 
-    enemy.takeDamage(this.damage, this.owner);
+    enemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Án Tử');
 
     this.stunBuff = new Stun(this.shackleDuration, this.owner, enemy);
     enemy.addBuff(this.stunBuff);

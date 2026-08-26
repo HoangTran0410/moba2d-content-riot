@@ -182,10 +182,10 @@ export class Leblanc_Q_Object extends HomingMissileSpellObject {
       (buff): buff is Leblanc_Q_Mark => buff instanceof Leblanc_Q_Mark && !buff.toRemove
     );
 
-    target.takeDamage(this.damage, this.owner);
+    target.takeDamage(this.damage, this.owner, 'MAGIC', 'Ấn Ác Ý');
     if (existingMark) {
       // the mark detonates for the same amount again
-      target.takeDamage(existingMark.bonusDamage || this.damage, this.owner);
+      target.takeDamage(existingMark.bonusDamage || this.damage, this.owner, 'MAGIC', 'Ấn Ác Ý');
     }
 
     // Leblanc_Q_Mark is RENEW_EXISTING, so this either refreshes the mark
