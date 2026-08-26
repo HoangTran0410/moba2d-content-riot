@@ -22,9 +22,25 @@ const TrailSystem = api.helpers.TrailSystem;
 
 export const CAMILLE_E_DIVE_DAMAGE = 35;
 
-export const CAMILLE_E_DIVE_RANGE = 450;
+/**
+ * How far the wall dive carries her. 450 read as a second full dash — she
+ * crossed half a screen off a hook whose *first* half already moved her — so
+ * the launch is now a pounce off the wall, not a flight.
+ */
+export const CAMILLE_E_DIVE_RANGE = 350;
 
 export const CAMILLE_E_CC_MS = 750;
+
+/**
+ * How long the perch holds before the hook lets go on its own. Without a
+ * clock the perch was a state with no exit but the recast: never press E
+ * again and the hook stayed bitten into the wall forever — through her
+ * death, through the respawn after it.
+ */
+export const CAMILLE_E_PERCH_MS = 2500;
+
+/** How far a move order must point from the perch to read as "she tried to move". */
+const MOVE_INTENT_PX = 8;
 
 
 export default class Camille_E extends Spell {
@@ -39,6 +55,8 @@ export default class Camille_E extends Spell {
 
   attachedToWall = false;
   wallAttachPoint: p5.Vector | null = null;
+  /** ms left before the perch lets go on its own. Armed when the hook bites. */
+  perchMsLeft = 0;
   /** The cable drawn while she is perched, so the recast is not invisible. */
   tetherObj: Camille_E_TetherObject | null = null;
 
@@ -59,13 +77,37 @@ export default class Camille_E extends Spell {
 
   onSpellCast() {
     if (this.attachedToWall && this.wallAttachPoint) {
-      // Wall Dive (E2)
+      this.wallDive(this.aimPoint);
+      return;
+    }
+
+    // Hookshot (E1): Fire grapple projectile
+    const { from, to: hookEnd } = VectorUtils.getVectorWithRange(
+      this.owner.position,
+      this.aimPoint,
+      this.range
+    );
+
+    const grapple = new Camille_E_GrappleObject(this.owner, this);
+    grapple.position = from.copy();
+    grapple.destination = hookEnd;
+    this.game.objectManager.addObject(grapple);
+  }
+
+  /**
+   * Wall Dive (E2). `target` is where she launches toward — the recast's own
+   * aim point, or the spot the player tried to walk to: while perched, moving
+   * *is* diving (see `onUpdate`).
+   */
+  wallDive(target: { x: number; y: number }) {
+    if (!this.wallAttachPoint) return;
+    {
       const wallPoint = this.wallAttachPoint.copy();
       this.releaseWall();
 
       const { to: diveDest } = VectorUtils.getVectorWithRange(
         wallPoint,
-        this.aimPoint,
+        createVector(target.x, target.y),
         CAMILLE_E_DIVE_RANGE
       );
 
@@ -116,20 +158,52 @@ export default class Camille_E extends Spell {
       };
       diveBuff.onDeactivate = () => streak.endDive();
       this.owner.addBuff(diveBuff);
+    }
+  }
+
+  /** Dropping the perch without a dive still spends the ability. */
+  private dropPerch() {
+    this.releaseWall();
+    this.currentCooldown = this.coolDown;
+  }
+
+  onUpdate() {
+    if (!this.attachedToWall) return;
+
+    // The hook must never outlive her. It used to: die on the wall and the
+    // tether stayed bitten into it forever, through the respawn and all.
+    if (this.owner.isDead) {
+      this.dropPerch();
       return;
     }
 
-    // Hookshot (E1): Fire grapple projectile
-    const { from, to: hookEnd } = VectorUtils.getVectorWithRange(
-      this.owner.position,
-      this.aimPoint,
-      this.range
-    );
+    // She is hanging on a cable, so walking is simply not on offer up here. A
+    // move order while perched *is* the dive: she launches toward wherever
+    // the player tried to go. (This is also what used to let the perch
+    // outlive everything else — she could stroll away with `attachedToWall`
+    // still true and the cable stretched across the map.)
+    const mover = this.owner as { destination?: { x: number; y: number }; stopMovement(): void };
+    const destination = mover.destination;
+    if (destination && Dash.CanDash(this.owner)) {
+      const dx = destination.x - this.owner.position.x;
+      const dy = destination.y - this.owner.position.y;
+      if (Math.hypot(dx, dy) > MOVE_INTENT_PX) {
+        const target = createVector(destination.x, destination.y);
+        mover.stopMovement();
+        this.wallDive(target);
+        this.currentCooldown = this.coolDown;
+        return;
+      }
+    }
 
-    const grapple = new Camille_E_GrappleObject(this.owner, this);
-    grapple.position = from.copy();
-    grapple.destination = hookEnd;
-    this.game.objectManager.addObject(grapple);
+    this.perchMsLeft -= deltaTime;
+    if (this.perchMsLeft <= 0) this.dropPerch();
+  }
+
+  /** A roster swap removes the spell mid-perch; the hook must not outlive it. */
+  onRemoved() {
+    super.onRemoved();
+    this.releaseWall();
   }
 }
 
@@ -207,6 +281,11 @@ export class Camille_E_GrappleObject extends MissileSpellObject {
     pullBuff.dashDestination = perch;
     pullBuff.dashSpeed = 13;
     pullBuff.onReachedDestination = () => {
+      if (this.owner.isDead) return;
+      // The perch starts from a standstill: a stale walk order must not read
+      // as "she tried to move" on the frame she lands.
+      (this.owner as { stopMovement(): void }).stopMovement();
+      this.spellRef.perchMsLeft = CAMILLE_E_PERCH_MS;
       this.spellRef.attachedToWall = true;
       this.spellRef.wallAttachPoint = anchor.copy();
       this.spellRef.image = api.asset('spell_camille_e2');
@@ -303,7 +382,7 @@ export class Camille_E_TetherObject extends SpellObject {
 
   update() {
     if (this.dropIfAttachmentLost()) return;
-    if (!this.owner || this.owner.toRemove || !this.spellRef.attachedToWall) {
+    if (!this.owner || this.owner.toRemove || this.owner.isDead || !this.spellRef.attachedToWall) {
       this.toRemove = true;
     }
   }
