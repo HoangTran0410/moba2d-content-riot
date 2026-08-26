@@ -64,7 +64,7 @@ if (!coreSpec) {
  * bundled build and the published build disagree about which cores they
  * support. `tests/items.test.ts` pins both.
  */
-const coreRange = '>=1.5.0';
+const coreRange = '>=1.6.0';
 
 /**
  * A floor no core can satisfy is a pack nobody can install, and this build is

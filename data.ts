@@ -1311,13 +1311,18 @@ export const data: ContentPackData = {
    * `applyOnHitEffects` and would crash the swing that procs them — the
    * loudest possible version of "silently ignored", mid-fight.
    *
+   * `>=1.6.0` is for `MonsterAbility.onKilled`, which the jungle blessings
+   * (bùa xanh/đỏ/Baron, `monsters/JungleBuffs.ts`) hang everything on. An
+   * older core never calls the hook, so the camps go back to paying nothing
+   * but gold — the buff row just never appears, and nothing says why.
+   *
    * `satisfiesCoreRange` parses `*` and `>=X.Y.Z` and nothing else, which is
    * also why this is no longer the unparseable `'^1'` it used to be.
    */
   manifest: {
     id: BUNDLED_PACK_ID,
     version: '1.0.0',
-    coreRange: '>=1.5.0',
+    coreRange: '>=1.6.0',
     assets: BUNDLED_PACK_ID,
   },
   spellDisplay: displayData(),

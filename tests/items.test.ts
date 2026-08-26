@@ -330,7 +330,7 @@ describe('the item set', () => {
     // pack declaring a shop against an older core installs cleanly and has
     // every item silently ignored. `satisfiesCoreRange` parses `*` and
     // `>=X.Y.Z` and nothing else.
-    expect(data.manifest.coreRange).toBe('>=1.5.0');
+    expect(data.manifest.coreRange).toBe('>=1.6.0');
   });
 
   it("survives core's own validation, stat allow-list included", () => {
