@@ -71,7 +71,7 @@ describe('catalogue completeness', () => {
     // dead code no shop row can ever press.
     const orphaned = [...codeIds].filter(id => id.startsWith('Item_') && !fromItems.has(id));
     expect(orphaned).toEqual([]);
-    expect(fromItems.size).toBe(4);
+    expect(fromItems.size).toBe(19);
   });
 
   it('has exactly one generated catalogue entry per spell code.ts exports (nothing silently missing from the free-form picker)', () => {

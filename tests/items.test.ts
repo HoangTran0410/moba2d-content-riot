@@ -9,7 +9,7 @@ import { assetManifest } from '../generated/assetManifest';
 const api = buildTestApi();
 
 /**
- * The shop this pack ships: fourteen items, four spells behind them, and the
+ * The shop this pack ships: twenty-eight items, nineteen spells behind them, and the
  * one thing about them that is easy to get wrong in a way nothing complains
  * about.
  *
@@ -27,12 +27,27 @@ const api = buildTestApi();
  * rather than four spells that do not exist.
  */
 
-/** The four, by name. Not derived from a prefix the code under test also uses. */
+/** The nineteen, by name. Not derived from a prefix the code under test also uses. */
 const ITEM_SPELL_IDS = [
   'Item_Thornmail',
   'Item_Zhonyas',
   'Item_Ghostblade',
   'Item_Quicksilver',
+  'Item_Sheen',
+  'Item_TrinityForce',
+  'Item_DivineSunderer',
+  'Item_EssenceReaver',
+  'Item_LichBane',
+  'Item_Tiamat',
+  'Item_RavenousHydra',
+  'Item_TitanicHydra',
+  'Item_RuinedKing',
+  'Item_WitsEnd',
+  'Item_Kraken',
+  'Item_Guinsoo',
+  'Item_Runaan',
+  'Item_Nashor',
+  'Item_DuskAndDawn',
 ] as const;
 
 /**
@@ -89,7 +104,94 @@ const SPEC: Record<
     name: 'Gươm Suy Vong',
     cost: 1200,
     stats: { attackDamage: 10, attackSpeed: 0.25, omnivamp: 0.12 },
+    passive: 'Item_RuinedKing',
     buildsFrom: ['recurve_bow', 'long_sword'],
+  },
+  sheen: { name: 'Thủy Kiếm', cost: 450, stats: { maxMana: 15 }, passive: 'Item_Sheen' },
+  tiamat: { name: 'Rìu Tiamat', cost: 550, stats: { attackDamage: 6 }, passive: 'Item_Tiamat' },
+  guinsoos_rageblade: {
+    name: 'Cuồng Đao Guinsoo',
+    cost: 1400,
+    stats: { attackDamage: 8, attackSpeed: 0.35 },
+    passive: 'Item_Guinsoo',
+    buildsFrom: ['recurve_bow', 'long_sword'],
+  },
+  wits_end: {
+    name: 'Đao Tím',
+    cost: 1300,
+    stats: { attackSpeed: 0.3, magicResist: 20 },
+    passive: 'Item_WitsEnd',
+    buildsFrom: ['recurve_bow', 'null_magic_mantle'],
+  },
+  kraken_slayer: {
+    name: 'Móc Diệt Thủy Quái',
+    cost: 1500,
+    stats: { attackDamage: 14, attackSpeed: 0.3 },
+    passive: 'Item_Kraken',
+    buildsFrom: ['recurve_bow', 'long_sword', 'long_sword'],
+  },
+  nashors_tooth: {
+    name: 'Nanh Nashor',
+    cost: 1300,
+    stats: { attackSpeed: 0.4 },
+    passive: 'Item_Nashor',
+    buildsFrom: ['recurve_bow'],
+  },
+  trinity_force: {
+    name: 'Tam Hợp Kiếm',
+    cost: 1700,
+    stats: { attackDamage: 10, attackSpeed: 0.3, maxMana: 20, speed: 0.15 },
+    passive: 'Item_TrinityForce',
+    buildsFrom: ['sheen', 'long_sword', 'recurve_bow'],
+  },
+  divine_sunderer: {
+    name: 'Búa Rìu Sát Thần',
+    cost: 1500,
+    stats: { maxHealth: 35, maxMana: 15, attackDamage: 8 },
+    passive: 'Item_DivineSunderer',
+    buildsFrom: ['sheen', 'ruby_crystal'],
+  },
+  essence_reaver: {
+    name: 'Lưỡi Hái Linh Hồn',
+    cost: 1400,
+    stats: { attackDamage: 12, maxMana: 25, critChance: 0.15 },
+    passive: 'Item_EssenceReaver',
+    buildsFrom: ['sheen', 'long_sword'],
+  },
+  lich_bane: {
+    name: 'Kiếm Tai Ương',
+    cost: 1400,
+    stats: { speed: 0.4, maxMana: 20, attackSpeed: 0.15 },
+    passive: 'Item_LichBane',
+    buildsFrom: ['sheen', 'boots'],
+  },
+  ravenous_hydra: {
+    name: 'Rìu Mãng Xà',
+    cost: 1400,
+    stats: { attackDamage: 14, omnivamp: 0.1 },
+    passive: 'Item_RavenousHydra',
+    buildsFrom: ['tiamat', 'long_sword'],
+  },
+  titanic_hydra: {
+    name: 'Rìu Đại Mãng Xà',
+    cost: 1500,
+    stats: { attackDamage: 8, maxHealth: 40 },
+    passive: 'Item_TitanicHydra',
+    buildsFrom: ['tiamat', 'ruby_crystal'],
+  },
+  runaans_hurricane: {
+    name: 'Cuồng Cung Runaan',
+    cost: 1400,
+    stats: { attackSpeed: 0.55 },
+    passive: 'Item_Runaan',
+    buildsFrom: ['recurve_bow', 'recurve_bow'],
+  },
+  dusk_and_dawn: {
+    name: 'Bình Minh & Hoàng Hôn',
+    cost: 1700,
+    stats: { maxHealth: 60, attackDamage: 6 },
+    passive: 'Item_DuskAndDawn',
+    buildsFrom: ['ruby_crystal', 'ruby_crystal'],
   },
   zhonyas_hourglass: {
     name: 'Đồng Hồ Cát Zhonya',
@@ -108,7 +210,7 @@ const SPEC: Record<
 };
 
 describe('no Item_ spell leaks into spellDisplay', () => {
-  it('has all four in the generated catalogue, or the scan below proves nothing', () => {
+  it('has every one in the generated catalogue, or the scan below proves nothing', () => {
     for (const id of ITEM_SPELL_IDS) {
       expect(Object.keys(spellCatalog), id).toContain(id);
     }
@@ -125,7 +227,7 @@ describe('no Item_ spell leaks into spellDisplay', () => {
     expect(display.filter(id => id.startsWith('Item_'))).toEqual([]);
   });
 
-  it('still hands all four over in the code half, or the items that name them are inert', () => {
+  it('still hands every one over in the code half, or the items that name them are inert', () => {
     const code = riotCode(api);
     for (const id of ITEM_SPELL_IDS) {
       expect(code.spells?.[id], id).toBeTypeOf('function');
@@ -136,7 +238,7 @@ describe('no Item_ spell leaks into spellDisplay', () => {
 describe('the item set', () => {
   const items = data.items ?? {};
 
-  it('ships exactly the fourteen specified, keyed by their own id', () => {
+  it('ships exactly the twenty-eight specified, keyed by their own id', () => {
     expect(Object.keys(items).sort()).toEqual(Object.keys(SPEC).sort());
     for (const [key, def] of Object.entries(items)) {
       // `validate.ts` refuses the pack over this, but the message names a key
@@ -174,7 +276,7 @@ describe('the item set', () => {
     }
   });
 
-  it('reaches its spells only through passive/active, and only the four', () => {
+  it('reaches its spells only through passive/active, and only the nineteen', () => {
     const named = new Set<string>();
     for (const def of Object.values(items)) {
       if (def.passive) named.add(def.passive);
@@ -188,7 +290,7 @@ describe('the item set', () => {
     // pack declaring a shop against an older core installs cleanly and has
     // every item silently ignored. `satisfiesCoreRange` parses `*` and
     // `>=X.Y.Z` and nothing else.
-    expect(data.manifest.coreRange).toBe('>=1.4.0');
+    expect(data.manifest.coreRange).toBe('>=1.5.0');
   });
 
   it("survives core's own validation, stat allow-list included", () => {
@@ -211,7 +313,7 @@ describe('the item set', () => {
     const registry = new PackRegistry();
     registry.install(pack);
 
-    expect(registry.items()).toHaveLength(14);
+    expect(registry.items()).toHaveLength(28);
     const thornmail = registry.item('lol:thornmail');
     expect(thornmail?.passive).toBe('lol:Item_Thornmail');
     expect(thornmail?.icon).toBe('lol:item_thornmail');
@@ -249,6 +351,8 @@ describe('the build paths', () => {
     'ruby_crystal',
     'boots',
     'recurve_bow',
+    'sheen',
+    'tiamat',
   ];
 
   const finished = Object.values(items).filter(def => !COMPONENTS.includes(def.id));

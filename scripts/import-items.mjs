@@ -93,6 +93,23 @@ export const ITEMS = [
   { local: 'blade_of_the_ruined_king', riot: 3153 },
   { local: 'zhonyas_hourglass', riot: 3157 },
   { local: 'youmuus_ghostblade', riot: 3142 },
+  // The on-hit shelf. 2510 is Bình Minh & Hoàng Hôn — a real Data Dragon
+  // 16.16.1 row, checked against that patch's own item.json before being
+  // written down here, fictional though the name reads.
+  { local: 'sheen', riot: 3057 },
+  { local: 'tiamat', riot: 3077 },
+  { local: 'guinsoos_rageblade', riot: 3124 },
+  { local: 'wits_end', riot: 3091 },
+  { local: 'kraken_slayer', riot: 6672 },
+  { local: 'nashors_tooth', riot: 3115 },
+  { local: 'trinity_force', riot: 3078 },
+  { local: 'divine_sunderer', riot: 6632 },
+  { local: 'essence_reaver', riot: 3508 },
+  { local: 'lich_bane', riot: 3100 },
+  { local: 'ravenous_hydra', riot: 3074 },
+  { local: 'titanic_hydra', riot: 3748 },
+  { local: 'runaans_hurricane', riot: 3085 },
+  { local: 'dusk_and_dawn', riot: 2510 },
 ];
 
 const sha256 = buffer => createHash('sha256').update(buffer).digest('hex');

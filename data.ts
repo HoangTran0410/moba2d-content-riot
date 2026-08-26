@@ -673,6 +673,26 @@ const itemEntries = (): Record<string, ItemDef> => ({
     description: 'Tăng 0.25 đòn đánh mỗi giây.',
     stats: { attackSpeed: 0.25 },
   },
+  sheen: {
+    id: 'sheen',
+    name: 'Thủy Kiếm',
+    icon: 'item_sheen',
+    cost: 450,
+    description:
+      'Tăng 15 năng lượng tối đa. Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm 50% công cơ bản.',
+    stats: { maxMana: 15 },
+    passive: 'Item_Sheen',
+  },
+  tiamat: {
+    id: 'tiamat',
+    name: 'Rìu Tiamat',
+    icon: 'item_tiamat',
+    cost: 550,
+    description:
+      'Tăng 6 sát thương công. Nội tại: đòn đánh gây thêm 40% công lên các kẻ địch khác quanh mục tiêu.',
+    stats: { attackDamage: 6 },
+    passive: 'Item_Tiamat',
+  },
 
   // ---- Finished items --------------------------------------------------
   berserkers_greaves: {
@@ -737,8 +757,11 @@ const itemEntries = (): Record<string, ItemDef> => ({
     icon: 'item_blade_of_the_ruined_king',
     cost: 1200,
     buildsFrom: ['recurve_bow', 'long_sword'],
-    description: 'Tăng 10 sát thương công, 0.25 đòn đánh mỗi giây và hút 12% sát thương gây ra.',
+    description:
+      'Tăng 10 sát thương công, 0.25 đòn đánh mỗi giây và hút 12% sát thương gây ra. ' +
+      'Nội tại: đòn đánh gây thêm 5% máu hiện tại của mục tiêu.',
     stats: { attackDamage: 10, attackSpeed: 0.25, omnivamp: 0.12 },
+    passive: 'Item_RuinedKing',
   },
   zhonyas_hourglass: {
     id: 'zhonyas_hourglass',
@@ -760,6 +783,154 @@ const itemEntries = (): Record<string, ItemDef> => ({
     description: 'Tăng 12 sát thương công. Kích hoạt: tăng 40% tốc chạy trong 5 giây.',
     stats: { attackDamage: 12 },
     active: 'Item_Ghostblade',
+  },
+
+  // ---- The on-hit shelf ------------------------------------------------
+  // Every passive below rides core 1.5's `Buff.onHit` pipeline (see
+  // `manifest.coreRange`); each spell file carries its own numbers as
+  // exported constants, and the description here repeats them because the
+  // shop prints this line, not the spell's.
+  guinsoos_rageblade: {
+    id: 'guinsoos_rageblade',
+    name: 'Cuồng Đao Guinsoo',
+    icon: 'item_guinsoos_rageblade',
+    cost: 1400,
+    buildsFrom: ['recurve_bow', 'long_sword'],
+    description:
+      'Tăng 8 sát thương công và 0.35 đòn đánh mỗi giây. Nội tại: mỗi đòn đánh tăng thêm tốc đánh, ' +
+      'cộng dồn 6 lần; khi tích đủ, mỗi đòn thứ 3 kích hoạt các hiệu ứng đòn đánh 2 lần.',
+    stats: { attackDamage: 8, attackSpeed: 0.35 },
+    passive: 'Item_Guinsoo',
+  },
+  wits_end: {
+    id: 'wits_end',
+    name: 'Đao Tím',
+    icon: 'item_wits_end',
+    cost: 1300,
+    buildsFrom: ['recurve_bow', 'null_magic_mantle'],
+    description:
+      'Tăng 0.3 đòn đánh mỗi giây và 20 kháng phép. Nội tại: đòn đánh gây thêm 4 sát thương phép ' +
+      'và tăng tốc chạy trong chốc lát.',
+    stats: { attackSpeed: 0.3, magicResist: 20 },
+    passive: 'Item_WitsEnd',
+  },
+  kraken_slayer: {
+    id: 'kraken_slayer',
+    name: 'Móc Diệt Thủy Quái',
+    icon: 'item_kraken_slayer',
+    cost: 1500,
+    buildsFrom: ['recurve_bow', 'long_sword', 'long_sword'],
+    description:
+      'Tăng 14 sát thương công và 0.3 đòn đánh mỗi giây. Nội tại: mỗi đòn thứ 3 liên tiếp lên ' +
+      'cùng một mục tiêu gây thêm 12 sát thương vật lý.',
+    stats: { attackDamage: 14, attackSpeed: 0.3 },
+    passive: 'Item_Kraken',
+  },
+  nashors_tooth: {
+    id: 'nashors_tooth',
+    name: 'Nanh Nashor',
+    icon: 'item_nashors_tooth',
+    cost: 1300,
+    buildsFrom: ['recurve_bow'],
+    description: 'Tăng 0.4 đòn đánh mỗi giây. Nội tại: đòn đánh gây thêm 7 sát thương phép.',
+    stats: { attackSpeed: 0.4 },
+    passive: 'Item_Nashor',
+  },
+  trinity_force: {
+    id: 'trinity_force',
+    name: 'Tam Hợp Kiếm',
+    icon: 'item_trinity_force',
+    cost: 1700,
+    buildsFrom: ['sheen', 'long_sword', 'recurve_bow'],
+    description:
+      'Tăng 10 sát thương công, 0.3 đòn đánh mỗi giây, 20 năng lượng và 0.15 tốc chạy. ' +
+      'Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm 100% công cơ bản.',
+    stats: { attackDamage: 10, attackSpeed: 0.3, maxMana: 20, speed: 0.15 },
+    passive: 'Item_TrinityForce',
+  },
+  divine_sunderer: {
+    id: 'divine_sunderer',
+    name: 'Búa Rìu Sát Thần',
+    icon: 'item_divine_sunderer',
+    cost: 1500,
+    buildsFrom: ['sheen', 'ruby_crystal'],
+    description:
+      'Tăng 35 máu, 15 năng lượng và 8 sát thương công. Nội tại: sau khi dùng chiêu, đòn đánh ' +
+      'kế tiếp gây thêm 6% máu tối đa của mục tiêu và hồi lại 65% lượng đó.',
+    stats: { maxHealth: 35, maxMana: 15, attackDamage: 8 },
+    passive: 'Item_DivineSunderer',
+  },
+  essence_reaver: {
+    id: 'essence_reaver',
+    name: 'Lưỡi Hái Linh Hồn',
+    icon: 'item_essence_reaver',
+    cost: 1400,
+    buildsFrom: ['sheen', 'long_sword'],
+    description:
+      'Tăng 12 sát thương công, 25 năng lượng và 15% tỉ lệ chí mạng. Nội tại: sau khi dùng chiêu, ' +
+      'đòn đánh kế tiếp gây thêm 70% công cơ bản và hồi 15% năng lượng tối đa.',
+    stats: { attackDamage: 12, maxMana: 25, critChance: 0.15 },
+    passive: 'Item_EssenceReaver',
+  },
+  lich_bane: {
+    id: 'lich_bane',
+    name: 'Kiếm Tai Ương',
+    icon: 'item_lich_bane',
+    cost: 1400,
+    buildsFrom: ['sheen', 'boots'],
+    description:
+      'Tăng 0.4 tốc chạy, 20 năng lượng và 0.15 đòn đánh mỗi giây. Nội tại: sau khi dùng chiêu, ' +
+      'đòn đánh kế tiếp gây thêm 18 sát thương phép.',
+    stats: { speed: 0.4, maxMana: 20, attackSpeed: 0.15 },
+    passive: 'Item_LichBane',
+  },
+  ravenous_hydra: {
+    id: 'ravenous_hydra',
+    name: 'Rìu Mãng Xà',
+    icon: 'item_ravenous_hydra',
+    cost: 1400,
+    buildsFrom: ['tiamat', 'long_sword'],
+    description:
+      'Tăng 14 sát thương công và hút 10% sát thương gây ra. Nội tại: đòn đánh gây thêm 60% công ' +
+      'lên các kẻ địch khác quanh mục tiêu.',
+    stats: { attackDamage: 14, omnivamp: 0.1 },
+    passive: 'Item_RavenousHydra',
+  },
+  titanic_hydra: {
+    id: 'titanic_hydra',
+    name: 'Rìu Đại Mãng Xà',
+    icon: 'item_titanic_hydra',
+    cost: 1500,
+    buildsFrom: ['tiamat', 'ruby_crystal'],
+    description:
+      'Tăng 8 sát thương công và 40 máu tối đa. Nội tại: đòn đánh gây thêm 3 cộng 3% máu tối đa ' +
+      'của bạn lên các kẻ địch khác quanh mục tiêu.',
+    stats: { attackDamage: 8, maxHealth: 40 },
+    passive: 'Item_TitanicHydra',
+  },
+  runaans_hurricane: {
+    id: 'runaans_hurricane',
+    name: 'Cuồng Cung Runaan',
+    icon: 'item_runaans_hurricane',
+    cost: 1400,
+    buildsFrom: ['recurve_bow', 'recurve_bow'],
+    description:
+      'Tăng 0.55 đòn đánh mỗi giây. Nội tại (đánh xa): mỗi đòn đánh bắn thêm 2 tia phụ vào các ' +
+      'kẻ địch khác gần nhất, gây 45% công và áp dụng hiệu ứng đòn đánh của bạn.',
+    stats: { attackSpeed: 0.55 },
+    passive: 'Item_Runaan',
+  },
+  dusk_and_dawn: {
+    id: 'dusk_and_dawn',
+    name: 'Bình Minh & Hoàng Hôn',
+    icon: 'item_dusk_and_dawn',
+    cost: 1700,
+    buildsFrom: ['ruby_crystal', 'ruby_crystal'],
+    description:
+      'Tăng 60 máu tối đa và 6 sát thương công. Nội tại: các hiệu ứng đòn đánh của bạn kích hoạt ' +
+      '2 lần mỗi đòn đánh.',
+    stats: { maxHealth: 60, attackDamage: 6 },
+    passive: 'Item_DuskAndDawn',
   },
 });
 
@@ -991,13 +1162,20 @@ export const data: ContentPackData = {
    * every finished item costs full price for ever, and the shop looks like it
    * is working. The floor is what turns that into a refused install.
    *
+   * `>=1.5.0` is for the on-hit shelf (API contract 5): `Buff.onHit`,
+   * `Buff.sourceSpell`, `Spell.countsAsAbilityCast` and
+   * `api.combat.applyOnHitEffects`. On an older core the plain payloads would
+   * merely be inert, but Cuồng Đao Guinsoo and Cuồng Cung Runaan *call*
+   * `applyOnHitEffects` and would crash the swing that procs them — the
+   * loudest possible version of "silently ignored", mid-fight.
+   *
    * `satisfiesCoreRange` parses `*` and `>=X.Y.Z` and nothing else, which is
    * also why this is no longer the unparseable `'^1'` it used to be.
    */
   manifest: {
     id: BUNDLED_PACK_ID,
     version: '1.0.0',
-    coreRange: '>=1.4.0',
+    coreRange: '>=1.5.0',
     assets: BUNDLED_PACK_ID,
   },
   spellDisplay: displayData(),
