@@ -23,8 +23,10 @@
     "items:check": "node scripts/import-items.mjs --check",
     "names:sync": "node scripts/wiki/sync-spell-names.mjs",
     "names:apply": "node scripts/wiki/sync-spell-names.mjs --apply",
+    "core:check": "node scripts/check-core-link.mjs",
+    "postinstall": "node scripts/check-core-link.mjs --warn-only",
     "hooks:install": "git config core.hooksPath scripts/git-hooks",
-    "verify": "npm run assets:check && npm run catalog:check && npm run ability:check && npm run items:check && npm run typecheck && npm run check-unused && npm run check-seams && npm run check-seams:monsters && npm run build && npm test"
+    "verify": "npm run core:check && npm run assets:check && npm run catalog:check && npm run ability:check && npm run items:check && npm run typecheck && npm run check-unused && npm run check-seams && npm run check-seams:monsters && npm run build && npm test"
   },
   "devDependencies": {
     "@moba2d/core": "github:HoangTran0410/moba2d-core#main",
