@@ -61,7 +61,9 @@ export default class Ezreal_R extends Spell {
       // is interrupted should cost the interruption, not the ult.
       resource: {
         commitAt: 'start',
-        refundOn: ['STUN', 'SILENCE', 'DISPLACEMENT', 'MOVE'],
+        // Control only: the caster's own movement no longer interrupts a
+        // held charge (SpellForm.HELD), so there is nothing to refund there.
+        refundOn: ['STUN', 'SILENCE'],
       },
       cooldown: { startAt: 'release', durationMs: this.coolDown },
     };

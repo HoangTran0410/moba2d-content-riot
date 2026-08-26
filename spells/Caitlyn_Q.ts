@@ -55,7 +55,9 @@ export default class Caitlyn_Q extends Spell {
       castTimeMs: CAITLYN_Q_CAST_TIME_MS,
       resource: {
         commitAt: 'start',
-        refundOn: ['STUN', 'SILENCE', 'DISPLACEMENT', 'MOVE'],
+        // Control only: the caster's own movement no longer interrupts a
+        // held charge (SpellForm.HELD), so there is nothing to refund there.
+        refundOn: ['STUN', 'SILENCE'],
       },
       cooldown: { startAt: 'release', durationMs: this.coolDown },
     };

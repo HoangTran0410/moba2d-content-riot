@@ -43,7 +43,7 @@ export default class Riven_W extends Spell {
       activation: 'PRESS',
       targeting: 'SELF',
       castTimeMs: W_WINDUP_MS,
-      resource: { commitAt: 'start', refundOn: ['STUN', 'SILENCE', 'MOVE'] },
+      resource: { commitAt: 'start', refundOn: ['STUN', 'SILENCE'] },
       cooldown: { startAt: 'release', durationMs: this.coolDown },
     };
   }

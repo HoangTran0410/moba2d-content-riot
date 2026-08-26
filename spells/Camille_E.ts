@@ -161,10 +161,11 @@ export default class Camille_E extends Spell {
     }
   }
 
-  /** Dropping the perch without a dive still spends the ability. */
+  /** Dropping the perch without a dive still spends the ability — at the
+   *  match's reduced cooldown, never the raw tuning number. */
   private dropPerch() {
     this.releaseWall();
-    this.currentCooldown = this.coolDown;
+    this.currentCooldown = this.reducedCooldown(this.coolDown);
   }
 
   onUpdate() {
@@ -191,7 +192,9 @@ export default class Camille_E extends Spell {
         const target = createVector(destination.x, destination.y);
         mover.stopMovement();
         this.wallDive(target);
-        this.currentCooldown = this.coolDown;
+        // the dive is the cast, however it was asked for — charged through
+        // the CDR seam exactly as a pressed E2 is
+        this.currentCooldown = this.reducedCooldown(this.coolDown);
         return;
       }
     }

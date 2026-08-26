@@ -1,6 +1,8 @@
 import type { CastSpec, Rectangle } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 
+const SpellForm = api.enums.SpellForm;
+
 const CastBar = api.vfx.CastBar;
 const unitCastBarAnchor = api.vfx.unitCastBarAnchor;
 const Spell = api.Spell;
@@ -42,9 +44,10 @@ export const MANA_COST = 40;
  * Thiền. A stand-still channel that heals and hardens him, and which any
  * crowd control — or his own first step — ends.
  *
- * `SpellForm.HELD` (the default `interrupts`) is exactly right: the effect is
- * the champion sitting there doing it, so moving must end it. That is the
- * whole tension of the ability.
+ * `SpellForm.CHANNELED` is exactly right: the effect is the champion sitting
+ * there doing it, so moving must end it. That is the whole tension of the
+ * ability. (The default `HELD` no longer breaks on the caster's own movement
+ * — a channel is the one form that still does.)
  */
 export default class MasterYi_W extends Spell {
   image = api.asset('spell_masteryi_w');
@@ -64,6 +67,7 @@ export default class MasterYi_W extends Spell {
       activation: 'PRESS',
       targeting: 'SELF',
       channel: { durationMs: CHANNEL_DURATION_MS, tickEveryMs: TICK_EVERY_MS },
+      interrupts: SpellForm.CHANNELED,
       resource: { commitAt: 'start', refundOn: [] },
       cooldown: { startAt: 'end', durationMs: this.coolDown },
       vfx: {

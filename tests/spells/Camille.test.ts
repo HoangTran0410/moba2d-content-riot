@@ -134,6 +134,19 @@ describe('Camille Spells', () => {
       expect(e.currentCooldown).toBeGreaterThan(0);
     });
 
+    it('spends the ability through the CDR seam, not at the raw number', () => {
+      // 90% cooldown reduction on the match: the auto-dive (and the timeout)
+      // must charge the reduced cooldown, exactly as a pressed E2 would.
+      const { game, owner, e } = perchWorld();
+      (game as { matchRules?: { cooldownMultiplier: number } }).matchRules = {
+        cooldownMultiplier: 0.1,
+      };
+      owner.moveTo(0, 500);
+      e.onUpdate();
+
+      expect(e.currentCooldown).toBeCloseTo(e.coolDown * 0.1, 5);
+    });
+
     it('releases when the spell itself is removed — a roster swap', () => {
       const { e, tether } = perchWorld();
       e.onRemoved();

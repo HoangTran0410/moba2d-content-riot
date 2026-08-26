@@ -5,6 +5,8 @@ import Ignite from './Ignite';
 import { notifyJannaControlLanded } from './Janna_E';
 import { api } from '../packApi';
 
+const SpellForm = api.enums.SpellForm;
+
 const StatusFlags = api.enums.StatusFlags;
 const Dash = api.buffs.Dash;
 const Circle = api.utils.Quadtree.Circle;
@@ -84,6 +86,7 @@ export default class Janna_R extends Spell {
       activation: 'PRESS',
       targeting: 'SELF',
       channel: { durationMs: this.channelDurationMs, tickEveryMs: this.tickEveryMs },
+      interrupts: SpellForm.CHANNELED,
       resource: { commitAt: 'start', refundOn: [] },
       cooldown: { startAt: 'end', durationMs: this.coolDown },
       vfx: {

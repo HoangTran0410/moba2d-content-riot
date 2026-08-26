@@ -3,6 +3,8 @@ import { Katarina_Blade_Impact } from './Katarina_Q';
 import { KATARINA_BLOOD, KATARINA_DAGGER_LENGTH, KATARINA_STEEL, drawKatarinaDagger } from './Katarina_Q';
 import { api } from '../packApi';
 
+const SpellForm = api.enums.SpellForm;
+
 const effectiveRange = api.combat.Reach.effectiveRange;
 const Spell = api.Spell;
 const Circle = api.utils.Quadtree.Circle;
@@ -42,6 +44,7 @@ export default class Katarina_R extends Spell {
       activation: 'PRESS',
       targeting: 'SELF',
       channel: { durationMs: KATARINA_R_DURATION_MS, tickEveryMs: KATARINA_R_TICK_MS },
+      interrupts: SpellForm.CHANNELED,
       resource: { commitAt: 'start', refundOn: [] },
       cooldown: { startAt: 'start', durationMs: this.coolDown },
     };

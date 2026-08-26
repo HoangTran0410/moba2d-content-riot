@@ -1,6 +1,8 @@
 import type { AttackableUnit, CastContext, CastSpec, Rectangle, TargetingRequest } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 
+const SpellForm = api.enums.SpellForm;
+
 const AttackableUnit = api.units.AttackableUnit;
 const effectiveRange = api.combat.Reach.effectiveRange;
 const withinRange = api.combat.Reach.withinRange;
@@ -59,7 +61,7 @@ export const isGraspTarget = (target: unknown): target is AttackableUnit =>
  * catalogue has no separate suppress, and a stun is what a suppress *is* here —
  * held, unable to act, unable to walk out of the zone opening underneath.
  *
- * The channel is `SpellForm.HELD` (the default), so killing Malzahar or landing
+ * The channel is `SpellForm.CHANNELED`, so killing Malzahar or landing
  * any crowd control on him cuts the pin short — which is what makes the
  * ultimate a team fight rather than a button. The Null Zone deliberately
  * outlives the channel; it is already on the ground by then.
@@ -89,6 +91,7 @@ export default class Malzahar_R extends Spell {
       activation: 'PRESS',
       targeting: 'UNIT',
       channel: { durationMs: CHANNEL_DURATION_MS, tickEveryMs: TICK_EVERY_MS },
+      interrupts: SpellForm.CHANNELED,
       resource: { commitAt: 'start', refundOn: [] },
       cooldown: { startAt: 'end', durationMs: this.coolDown },
       vfx: {
