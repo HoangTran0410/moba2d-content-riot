@@ -233,7 +233,13 @@ describe("the pack's tests speak only published core surfaces", () => {
     // `@moba2d/core/testing/spell` and `@moba2d/core/content/types` — all
     // three already on `ALLOWED_CORE_SUBPATHS` — so the population count
     // moves and the offender count below does not.
-    expect(files.length).toBe(81);
+    //
+    // 82, not 81, Yasuo's combo: `tests/spells/Yasuo_Q.test.ts` pins the Q
+    // stack machine after a tornado spent it. It reaches core only through
+    // `@moba2d/core/testing` and `@moba2d/core/testing/spell`, both already
+    // on `ALLOWED_CORE_SUBPATHS`, so the population count moves and the
+    // offender count below does not.
+    expect(files.length).toBe(82);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

@@ -90,8 +90,15 @@ export default class Yasuo_Q extends Spell {
       // The loaded cast is drawn hotter, so the stack state is legible from the
       // world and not only from the icon in the HUD.
       obj.stacks = this.hitStackCount;
+      // One thrust is one stack, however many bodies the lane caught. Counting
+      // per victim meant a single Q swept through a minion wave handed out two
+      // at once, landing the counter on a value no transition was waiting for.
+      let stacked = false;
       obj.onHit = (_champ: any) => {
-        this.hitStackCount++;
+        if (!stacked) {
+          stacked = true;
+          this.hitStackCount++;
+        }
         this.lastHitTime = Date.now();
         this.currentCooldown = this.reducedCooldown(this.coolDownIfHit);
       };
@@ -116,31 +123,33 @@ export default class Yasuo_Q extends Spell {
       tornado.speed = Q3_SPEED;
       this.game.objectManager.addObject(tornado);
 
+      // The tornado *spends* the combo. Leaving the counter full parked the
+      // spell on Q1-holding-two-stacks, and because every further landed Q
+      // refreshed `lastHitTime`, the decay below never got to clear it either:
+      // one tornado per game, then Q1 forever.
+      this.hitStackCount = 0;
+      this.lastHitTime = 0;
       this.changeState(this.PHASES.Q1);
     }
   }
 
   onUpdate() {
-    // reset hit stack if not hit for a while
-    if (this.lastHitTime + this.timeToResetHitStack < Date.now()) {
-      this.hitStackCount = 0;
-      if (this.phase != this.PHASES.Q1) this.changeState(this.PHASES.Q1);
-    }
+    // the combo lapses if nothing has been hit for a while
+    if (this.lastHitTime + this.timeToResetHitStack < Date.now()) this.hitStackCount = 0;
     this.hitStackCount = constrain(this.hitStackCount, 0, 2);
 
-    // if hit once, change state to Q2
-    if (this.phase == this.PHASES.Q1) {
-      if (this.hitStackCount == 1) {
-        this.changeState(this.PHASES.Q2);
-      }
-    }
-
-    // if hit twice, change state to Q3
-    else if (this.phase == this.PHASES.Q2) {
-      if (this.hitStackCount == 2) {
-        this.changeState(this.PHASES.Q3);
-      }
-    }
+    // The phase is a *reading* of the counter, never a second state that has to
+    // be stepped in lockstep with it. The old machine advanced on `== 1` from
+    // Q1 and `== 2` from Q2, so a counter sitting at 2 while the phase said Q1
+    // matched no transition at all and stayed there for the rest of the game.
+    // Derived, every counter value names a phase and no value is a dead end.
+    const next =
+      this.hitStackCount >= 2
+        ? this.PHASES.Q3
+        : this.hitStackCount >= 1
+          ? this.PHASES.Q2
+          : this.PHASES.Q1;
+    if (this.phase !== next) this.changeState(next);
   }
 }
 
