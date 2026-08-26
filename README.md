@@ -1,7 +1,7 @@
 # @moba2d/content-lol
 
 The League of Legends content pack for [`@moba2d/core`](https://github.com/HoangTran0410/moba2d-core):
-58 playable champions' worth of spells, monsters and the Summoner's Rift map,
+63 playable champions' worth of spells, monsters and the Summoner's Rift map,
 built entirely against core's public `ContentApi`. Until content-pack-and-
 repo-split batch 6 task 10, this pack lived inside the core monorepo, at
 `packs/riot/` (the pack id was `riot` then too, and is `lol` now — named
@@ -9,7 +9,7 @@ for the game it draws from rather than for the company that makes it); this repo
 same tests, same history from this point forward, now versioned on its own.
 
 (Checked, not rounded: `data.ts`'s own `ROSTER`/`championEntries()` produces
-exactly 58 entries with `playable: true`, one per file-name prefix under
+exactly 63 entries with `playable: true`, one per file-name prefix under
 `spells/` that carries a `_Q`/`_W`/`_E`/`_R` suffix — the same count
 `vite.config.ts` (in core) uses for its per-champion chunking. The pack's
 spell files total more than that: a handful — `Flash`, `Ghost`, `Heal`,
@@ -99,7 +99,7 @@ their artwork. `assets/` holds champion portraits and ability icons imported
 from the League of Legends Wiki — `assets/source-manifest.json` records, for
 every one of them, the URL it came from, the revision it was, and a SHA-256 of
 the bytes, and `npm run ability:check` re-hashes each file against that record
-so the provenance stays true. The shop's fourteen item icons are the same
+so the provenance stays true. The shop's thirty-three item icons are the same
 deal one ledger over: taken byte-for-byte off Data Dragon, recorded in
 `docs/items-source-manifest.json`, re-hashed by `npm run items:check`. The
 items' own stats, costs and build paths are *not* Riot's — they are written

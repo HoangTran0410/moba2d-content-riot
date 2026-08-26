@@ -260,6 +260,31 @@ export { default as Irelia_W } from './Irelia_W';
 export { default as Irelia_E } from './Irelia_E';
 export { default as Irelia_R } from './Irelia_R';
 
+export { default as Shen_Q } from './Shen_Q';
+export { default as Shen_W } from './Shen_W';
+export { default as Shen_E } from './Shen_E';
+export { default as Shen_R } from './Shen_R';
+
+export { default as Lissandra_Q } from './Lissandra_Q';
+export { default as Lissandra_W } from './Lissandra_W';
+export { default as Lissandra_E } from './Lissandra_E';
+export { default as Lissandra_R } from './Lissandra_R';
+
+export { default as Pyke_Q } from './Pyke_Q';
+export { default as Pyke_W } from './Pyke_W';
+export { default as Pyke_E } from './Pyke_E';
+export { default as Pyke_R } from './Pyke_R';
+
+export { default as Orianna_Q } from './Orianna_Q';
+export { default as Orianna_W } from './Orianna_W';
+export { default as Orianna_E } from './Orianna_E';
+export { default as Orianna_R } from './Orianna_R';
+
+export { default as TwistedFate_Q } from './TwistedFate_Q';
+export { default as TwistedFate_W } from './TwistedFate_W';
+export { default as TwistedFate_E } from './TwistedFate_E';
+export { default as TwistedFate_R } from './TwistedFate_R';
+
 // The shop's four item spells. Not a champion's kit and not the summoner
 // shelf — `data.ts`'s `items` record is what points at them, and `data.ts`'s
 // `displayData()` deliberately leaves them out of `spellDisplay` so a

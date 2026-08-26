@@ -253,7 +253,15 @@ describe("the pack's tests speak only published core surfaces", () => {
     // `@moba2d/core/testing/spell` and `@moba2d/core/content/types` — all
     // three already on `ALLOWED_CORE_SUBPATHS`, so the population count moves
     // and the offender count below does not.
-    expect(files.length).toBe(84);
+    //
+    // 90, not 84, the batch that added five champions and five items:
+    // `tests/spells/Item_charges.test.ts` drives the two new meter passives,
+    // and `Shen`/`Lissandra`/`Pyke`/`Orianna`/`TwistedFate` bring one suite
+    // each. All six reach core only through `@moba2d/core/testing`,
+    // `@moba2d/core/testing/spell` and `@moba2d/core/content/types` — all
+    // three already on `ALLOWED_CORE_SUBPATHS`, so the population count moves
+    // and the offender count below does not.
+    expect(files.length).toBe(90);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

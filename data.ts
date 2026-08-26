@@ -510,6 +510,51 @@ const ROSTER: {
 
     spells: ['Irelia_Q', 'Irelia_W', 'Irelia_E', 'Irelia_R'],
   },
+  {
+    name: 'Shen',
+    // Melee, `rangetype: 'Melee'` and `range: 125` in his own imported record
+    // (`docs/abilities/shen/champion.json`), `herotype: 'Tank'` — the archetype
+    // reads straight off the record rather than off anyone's impression.
+    attack: ATTACK.TANK,
+    image: 'champ_shen',
+
+    spells: ['Shen_Q', 'Shen_W', 'Shen_E', 'Shen_R'],
+  },
+  {
+    name: 'Lissandra',
+    // The wiki lists 2200; halved and rounded to 25 like every other override
+    // on this table — see the ATTACK block's own comment.
+    attack: { ...ATTACK.MAGE, boltUnitsPerSecond: 1100 },
+    image: 'champ_lissandra',
+
+    spells: ['Lissandra_Q', 'Lissandra_W', 'Lissandra_E', 'Lissandra_R'],
+  },
+  {
+    name: 'Pyke',
+    // `rangetype: 'Melee'`, `range: 150`, `alttype: 'Assassin'`.
+    attack: ATTACK.ASSASSIN,
+    image: 'champ_pyke',
+
+    spells: ['Pyke_Q', 'Pyke_W', 'Pyke_E', 'Pyke_R'],
+  },
+  {
+    name: 'Orianna',
+    // The wiki lists 1500, halved to 750.
+    attack: { ...ATTACK.MAGE, boltUnitsPerSecond: 750 },
+    image: 'champ_orianna',
+
+    spells: ['Orianna_Q', 'Orianna_W', 'Orianna_E', 'Orianna_R'],
+  },
+  {
+    name: 'Twisted Fate',
+    // `herotype: 'Mage'` with `alttype: 'Marksman'`, and MAGE is the honest
+    // read of the half this kit ships: his damage is the cards, not the swing.
+    // Missile speed 1500 on the wiki, halved to 750.
+    attack: { ...ATTACK.MAGE, boltUnitsPerSecond: 750 },
+    image: 'champ_twistedfate',
+
+    spells: ['TwistedFate_Q', 'TwistedFate_W', 'TwistedFate_E', 'TwistedFate_R'],
+  },
 ];
 
 /**
