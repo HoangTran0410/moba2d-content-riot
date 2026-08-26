@@ -5,6 +5,7 @@ const Spell = api.Spell;
 const MissileSpellObject = api.MissileSpellObject;
 const SpellObject = api.SpellObject;
 const Slow = api.buffs.Slow;
+const BuffAddType = api.enums.BuffAddType;
 const Stun = api.buffs.Stun;
 const Shield = api.buffs.Shield;
 const PredefinedFilters = api.combat.PredefinedFilters;
@@ -171,8 +172,11 @@ export class Ekko_W_Object extends SpellObject {
     });
 
     for (const enemy of enemies) {
+      // RENEW_EXISTING, the aura pattern — see Ekko_Q's field for the whole
+      // story; a per-frame STACKS_AND_CONTINUE slow is a standstill.
       const slow = new Slow(300, this.owner, enemy);
       slow.percent = EKKO_W_SLOW_PERCENT;
+      slow.buffAddType = BuffAddType.RENEW_EXISTING;
       enemy.addBuff(slow);
     }
   }

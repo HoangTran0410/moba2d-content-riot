@@ -7,8 +7,8 @@ import {
   installSpellObjectGlobals,
   type TestGame,
 } from '@moba2d/core/testing/spell';
-import Ekko_Q from '../../spells/Ekko_Q';
-import Ekko_W from '../../spells/Ekko_W';
+import Ekko_Q, { Ekko_Q_Object } from '../../spells/Ekko_Q';
+import Ekko_W, { Ekko_W_Object } from '../../spells/Ekko_W';
 import Ekko_E from '../../spells/Ekko_E';
 import Ekko_R from '../../spells/Ekko_R';
 const __api = buildTestApi();
@@ -43,6 +43,7 @@ describe('Ekko Spells', () => {
     const game = createGame();
     (game as any).worldMouse = createVector(200, 0);
     const owner = unit(game, 0, 'blue');
+    vi.stubGlobal('frameCount', 1);
     const q = new Ekko_Q(owner);
     q.onSpellCast();
     expect(game.objectManager._objectToBeAdd.length).toBeGreaterThan(0);
@@ -55,6 +56,49 @@ describe('Ekko Spells', () => {
     const w = new Ekko_W(owner);
     w.onSpellCast();
     expect(game.objectManager._objectToBeAdd.length).toBeGreaterThan(0);
+  });
+
+  /**
+   * Reported live: standing in Q's field (or W's sphere) pinned the victim in
+   * place outright. Both applied a fresh `Slow` every frame, and `Slow`'s
+   * default is STACKS_AND_CONTINUE with maxStacks 10 — ten 40% slows is a
+   * standstill. The aura pattern is Anivia R's / Singed W's: RENEW_EXISTING,
+   * one slow whose clock keeps being wound.
+   */
+  it('Q’s field renews one slow instead of stacking a fresh one every frame', () => {
+    const game = createGame();
+    (game as any).worldMouse = createVector(200, 0);
+    const owner = unit(game, 0, 'blue');
+    const victim = unit(game, 40, 'red');
+    game.objectManager.queryObjects = vi.fn(() => [victim]) as never;
+
+    vi.stubGlobal('frameCount', 1);
+    const q = new Ekko_Q(owner);
+    q.onSpellCast();
+    const field = game.objectManager._objectToBeAdd.find(
+      (o: unknown) => o instanceof Ekko_Q_Object
+    ) as InstanceType<typeof Ekko_Q_Object>;
+    field.expanded = true;
+    field.expandedDuration = 10_000;
+    for (let frame = 0; frame < 5; frame++) field.update();
+
+    const slows = victim.buffs.filter(b => b instanceof __api.buffs.Slow);
+    expect(slows).toHaveLength(1);
+  });
+
+  it('W’s sphere renews one slow the same way', () => {
+    const game = createGame();
+    const owner = unit(game, 0, 'blue');
+    const victim = unit(game, 500, 'red');
+    game.objectManager.queryObjects = vi.fn(() => [victim]) as never;
+
+    const sphere = new Ekko_W_Object(owner);
+    sphere.position = createVector(500, 0);
+    sphere.isArmed = true;
+    for (let frame = 0; frame < 5; frame++) sphere.update();
+
+    const slows = victim.buffs.filter(b => b instanceof __api.buffs.Slow);
+    expect(slows).toHaveLength(1);
   });
 
   it('casts Ekko E dash and buff', () => {

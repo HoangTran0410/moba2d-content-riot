@@ -4,6 +4,7 @@ const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
 const MissileSpellObject = api.MissileSpellObject;
 const Slow = api.buffs.Slow;
+const BuffAddType = api.enums.BuffAddType;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const Circle = api.utils.Quadtree.Circle;
 const effectiveRange = api.combat.Reach.effectiveRange;
@@ -117,8 +118,12 @@ export class Ekko_Q_Object extends MissileSpellObject {
         filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
       });
       for (const enemy of enemies) {
+        // RENEW_EXISTING, the aura pattern (Anivia R, Singed W): one slow
+        // whose clock is rewound each frame. The default STACKS_AND_CONTINUE
+        // piled a fresh 40% slow per frame, ten deep — a standstill.
         const slow = new Slow(400, this.owner, enemy);
         slow.percent = EKKO_Q_SLOW_PERCENT;
+        slow.buffAddType = BuffAddType.RENEW_EXISTING;
         enemy.addBuff(slow);
       }
 
