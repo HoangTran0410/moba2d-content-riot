@@ -9,7 +9,7 @@ import { assetManifest } from '../generated/assetManifest';
 const api = buildTestApi();
 
 /**
- * The shop this pack ships: twenty-eight items, nineteen spells behind them, and the
+ * The shop this pack ships: thirty-three items, twenty-four spells behind them, and the
  * one thing about them that is easy to get wrong in a way nothing complains
  * about.
  *
@@ -27,7 +27,7 @@ const api = buildTestApi();
  * rather than four spells that do not exist.
  */
 
-/** The nineteen, by name. Not derived from a prefix the code under test also uses. */
+/** The twenty-four, by name. Not derived from a prefix the code under test also uses. */
 const ITEM_SPELL_IDS = [
   'Item_Thornmail',
   'Item_Zhonyas',
@@ -48,6 +48,11 @@ const ITEM_SPELL_IDS = [
   'Item_Runaan',
   'Item_Nashor',
   'Item_DuskAndDawn',
+  'Item_StatikkShiv',
+  'Item_DeadMansPlate',
+  'Item_Locket',
+  'Item_Shurelya',
+  'Item_Everfrost',
 ] as const;
 
 /**
@@ -207,6 +212,41 @@ const SPEC: Record<
     active: 'Item_Ghostblade',
     buildsFrom: ['long_sword', 'long_sword'],
   },
+  statikk_shiv: {
+    name: 'Móc Sét Statikk',
+    cost: 1300,
+    stats: { attackDamage: 10, attackSpeed: 0.35 },
+    passive: 'Item_StatikkShiv',
+    buildsFrom: ['recurve_bow', 'long_sword'],
+  },
+  dead_mans_plate: {
+    name: 'Giáp Người Chết',
+    cost: 1200,
+    stats: { armor: 30, maxHealth: 50, speed: 0.2 },
+    passive: 'Item_DeadMansPlate',
+    buildsFrom: ['cloth_armor', 'ruby_crystal'],
+  },
+  locket_of_the_iron_solari: {
+    name: 'Vòng Sắt Mặt Trời',
+    cost: 1200,
+    stats: { armor: 25, magicResist: 25, maxHealth: 40 },
+    active: 'Item_Locket',
+    buildsFrom: ['cloth_armor', 'null_magic_mantle'],
+  },
+  shurelyas_battlesong: {
+    name: 'Khúc Ca Shurelya',
+    cost: 1250,
+    stats: { speed: 0.45, maxHealth: 40, maxMana: 30 },
+    active: 'Item_Shurelya',
+    buildsFrom: ['boots', 'ruby_crystal'],
+  },
+  everfrost: {
+    name: 'Vĩnh Sương',
+    cost: 1350,
+    stats: { maxHealth: 45, magicResist: 22, maxMana: 40 },
+    active: 'Item_Everfrost',
+    buildsFrom: ['ruby_crystal', 'null_magic_mantle'],
+  },
 };
 
 describe('no Item_ spell leaks into spellDisplay', () => {
@@ -238,7 +278,7 @@ describe('no Item_ spell leaks into spellDisplay', () => {
 describe('the item set', () => {
   const items = data.items ?? {};
 
-  it('ships exactly the twenty-eight specified, keyed by their own id', () => {
+  it('ships exactly the thirty-three specified, keyed by their own id', () => {
     expect(Object.keys(items).sort()).toEqual(Object.keys(SPEC).sort());
     for (const [key, def] of Object.entries(items)) {
       // `validate.ts` refuses the pack over this, but the message names a key
@@ -276,7 +316,7 @@ describe('the item set', () => {
     }
   });
 
-  it('reaches its spells only through passive/active, and only the nineteen', () => {
+  it('reaches its spells only through passive/active, and only the twenty-four', () => {
     const named = new Set<string>();
     for (const def of Object.values(items)) {
       if (def.passive) named.add(def.passive);
@@ -313,7 +353,7 @@ describe('the item set', () => {
     const registry = new PackRegistry();
     registry.install(pack);
 
-    expect(registry.items()).toHaveLength(28);
+    expect(registry.items()).toHaveLength(33);
     const thornmail = registry.item('lol:thornmail');
     expect(thornmail?.passive).toBe('lol:Item_Thornmail');
     expect(thornmail?.icon).toBe('lol:item_thornmail');

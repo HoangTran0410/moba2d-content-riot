@@ -948,6 +948,77 @@ const itemEntries = (): Record<string, ItemDef> => ({
     stats: { maxHealth: 60, attackDamage: 6 },
     passive: 'Item_DuskAndDawn',
   },
+
+  // ---- Meters and team buttons -----------------------------------------
+  // Two shapes this shop did not have. A **meter** charges off something the
+  // player is doing anyway (swinging, walking) and spends the whole of it on
+  // one swing — different from the spellblade family's window and from Móc
+  // Diệt Thủy Quái's count of three, because the player can watch it fill and
+  // decide when to cash it. A **team button** is an active that does something
+  // for somebody else: every active shipped before these three fires at
+  // whoever pressed it and cannot miss.
+  statikk_shiv: {
+    id: 'statikk_shiv',
+    name: 'Móc Sét Statikk',
+    icon: 'item_statikk_shiv',
+    cost: 1300,
+    buildsFrom: ['recurve_bow', 'long_sword'],
+    description:
+      'Tăng 10 sát thương công và 0.35 đòn đánh mỗi giây. Nội tại: mỗi đòn đánh tích điện; ' +
+      'khi tích đầy, đòn kế tiếp phóng tia sét gây 16 sát thương phép lên mục tiêu và lan ' +
+      'sang 3 kẻ địch gần đó.',
+    stats: { attackDamage: 10, attackSpeed: 0.35 },
+    passive: 'Item_StatikkShiv',
+  },
+  dead_mans_plate: {
+    id: 'dead_mans_plate',
+    name: 'Giáp Người Chết',
+    icon: 'item_dead_mans_plate',
+    cost: 1200,
+    buildsFrom: ['cloth_armor', 'ruby_crystal'],
+    description:
+      'Tăng 30 giáp, 50 máu tối đa và 0.2 tốc chạy. Nội tại: di chuyển tích lực, tối đa tăng ' +
+      'thêm 30% tốc chạy; đòn đánh kế tiếp xả toàn bộ lực, gây tới 20 sát thương vật lý và ' +
+      'làm chậm 50% khi tích đầy.',
+    stats: { armor: 30, maxHealth: 50, speed: 0.2 },
+    passive: 'Item_DeadMansPlate',
+  },
+  locket_of_the_iron_solari: {
+    id: 'locket_of_the_iron_solari',
+    name: 'Vòng Sắt Mặt Trời',
+    icon: 'item_locket_of_the_iron_solari',
+    cost: 1200,
+    buildsFrom: ['cloth_armor', 'null_magic_mantle'],
+    description:
+      'Tăng 25 giáp, 25 kháng phép và 40 máu tối đa. Kích hoạt: tạo khiên 30 cho bản thân và ' +
+      'các đồng minh xung quanh trong 2.5 giây.',
+    stats: { armor: 25, magicResist: 25, maxHealth: 40 },
+    active: 'Item_Locket',
+  },
+  shurelyas_battlesong: {
+    id: 'shurelyas_battlesong',
+    name: 'Khúc Ca Shurelya',
+    icon: 'item_shurelyas_battlesong',
+    cost: 1250,
+    buildsFrom: ['boots', 'ruby_crystal'],
+    description:
+      'Tăng 0.45 tốc chạy, 40 máu tối đa và 30 năng lượng. Kích hoạt: tăng 35% tốc chạy cho ' +
+      'bản thân và các đồng minh xung quanh trong 3 giây.',
+    stats: { speed: 0.45, maxHealth: 40, maxMana: 30 },
+    active: 'Item_Shurelya',
+  },
+  everfrost: {
+    id: 'everfrost',
+    name: 'Vĩnh Sương',
+    icon: 'item_everfrost',
+    cost: 1350,
+    buildsFrom: ['ruby_crystal', 'null_magic_mantle'],
+    description:
+      'Tăng 45 máu tối đa, 22 kháng phép và 40 năng lượng. Kích hoạt: bắn ra một luồng băng ' +
+      'gây 30 sát thương phép và trói 1.2 giây mọi kẻ địch trúng đòn.',
+    stats: { maxHealth: 45, magicResist: 22, maxMana: 40 },
+    active: 'Item_Everfrost',
+  },
 });
 
 /**

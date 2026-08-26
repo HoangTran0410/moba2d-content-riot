@@ -283,3 +283,8 @@ export { default as Item_Guinsoo } from './Item_Guinsoo';
 export { default as Item_Runaan } from './Item_Runaan';
 export { default as Item_Nashor } from './Item_Nashor';
 export { default as Item_DuskAndDawn } from './Item_DuskAndDawn';
+export { default as Item_StatikkShiv } from './Item_StatikkShiv';
+export { default as Item_DeadMansPlate } from './Item_DeadMansPlate';
+export { default as Item_Locket } from './Item_Locket';
+export { default as Item_Shurelya } from './Item_Shurelya';
+export { default as Item_Everfrost } from './Item_Everfrost';

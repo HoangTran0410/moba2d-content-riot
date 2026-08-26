@@ -1,19 +1,38 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { buildTestApi } from '@moba2d/core/testing';
+import { indexObjects } from '@moba2d/core/testing';
 import {
   createGame,
   createUnit,
+  installSketchMathGlobals,
   installSpellObjectGlobals,
   pressSpell,
   type TestGame,
 } from '@moba2d/core/testing/spell';
+import Item_Everfrost, {
+  EVERFROST_DAMAGE,
+  EVERFROST_HALF_ANGLE,
+  EVERFROST_RANGE,
+  EVERFROST_ROOT_MS,
+} from '../../spells/Item_Everfrost';
+import Item_Locket, {
+  LOCKET_RADIUS,
+  LOCKET_SHIELD,
+  LOCKET_SHIELD_MS,
+} from '../../spells/Item_Locket';
+import Item_Shurelya, {
+  SHURELYA_DURATION_MS,
+  SHURELYA_RADIUS,
+  SHURELYA_SPEED_PERCENT,
+} from '../../spells/Item_Shurelya';
 import Item_Ghostblade, { SPEED_PERCENT } from '../../spells/Item_Ghostblade';
 import Item_Quicksilver from '../../spells/Item_Quicksilver';
 import Item_Thornmail, { REFLECT_PERCENT, REFLECT_STACK_ID } from '../../spells/Item_Thornmail';
 import Item_Zhonyas, { DURATION_MS as ZHONYAS_DURATION_MS } from '../../spells/Item_Zhonyas';
 
 const api = buildTestApi();
-const { DamageReflect, Root, Speedup, Stasis, Stun } = api.buffs;
+const { Champion } = api.units;
+const { DamageReflect, Root, Shield, Speedup, Stasis, Stun } = api.buffs;
 
 /**
  * The four spells the shop's items bring, driven the way a key press drives
@@ -53,6 +72,7 @@ describe('the shop item spells', () => {
 
   beforeEach(() => {
     installSpellObjectGlobals();
+    installSketchMathGlobals();
     game = createGame();
   });
 
@@ -236,6 +256,147 @@ describe('the shop item spells', () => {
       const item = live(holder)[0] as InstanceType<typeof DamageReflect>;
       expect(item.stackId).toBe(REFLECT_STACK_ID);
       expect(item.percent).toBe(REFLECT_PERCENT);
+    });
+  });
+
+  /**
+   * The three team actives. Each one's whole question is *who it reaches* —
+   * a button that shields the enemy team, or only its own holder, is the same
+   * bug twice — so every case below plants an ally, an enemy and a corpse in
+   * the quadtree and reads all three.
+   */
+  const planted = (game: TestGame, x: number, teamId: string) =>
+    new Champion({ game, position: createVector(x, 0), teamId } as never);
+
+  describe('Item_Locket', () => {
+    it('shields the holder and every allied champion in reach, and nobody else', () => {
+      const holder = createUnit(game, 0);
+      const ally = planted(game, LOCKET_RADIUS - 40, 'blue');
+      const distant = planted(game, LOCKET_RADIUS + 200, 'blue');
+      const enemy = planted(game, 60, 'red');
+      game.setPlayer(holder);
+      indexObjects(game, [holder, ally, distant, enemy]);
+
+      expect(pressSpell(new Item_Locket(holder))).toBe(true);
+
+      expect(hasBuff(holder, Shield), 'the holder went unshielded').toBe(true);
+      expect(hasBuff(ally, Shield), 'the ally went unshielded').toBe(true);
+      expect(hasBuff(distant, Shield), 'an ally out of reach was shielded').toBe(false);
+      expect(hasBuff(enemy, Shield), 'the enemy was shielded').toBe(false);
+    });
+
+    it('grants the tuned amount, and it really absorbs', () => {
+      const holder = createUnit(game, 0);
+      const attacker = createUnit(game, 200, 'red');
+      game.setPlayer(holder);
+      indexObjects(game, [holder]);
+      pressSpell(new Item_Locket(holder));
+
+      const shield = live(holder)[0] as InstanceType<typeof Shield>;
+      expect(shield.amount).toBe(LOCKET_SHIELD);
+      expect(shield.duration).toBe(LOCKET_SHIELD_MS);
+
+      // A 20-point hit into a 30-point shield: health is untouched, and 10
+      // points of cushion are left. Written longhand — a probe derived from
+      // LOCKET_SHIELD would agree with it however wrong it became.
+      holder.takeDamage(20, attacker);
+      expect(holder.stats.health.baseValue).toBe(100);
+    });
+  });
+
+  describe('Item_Shurelya', () => {
+    it('hastes the holder and every allied champion in reach, and nobody else', () => {
+      const holder = createUnit(game, 0);
+      const ally = planted(game, SHURELYA_RADIUS - 40, 'blue');
+      const distant = planted(game, SHURELYA_RADIUS + 200, 'blue');
+      const enemy = planted(game, 60, 'red');
+      game.setPlayer(holder);
+      indexObjects(game, [holder, ally, distant, enemy]);
+
+      expect(pressSpell(new Item_Shurelya(holder))).toBe(true);
+
+      expect(hasBuff(holder, Speedup), 'the holder was not hasted').toBe(true);
+      expect(hasBuff(ally, Speedup), 'the ally was not hasted').toBe(true);
+      expect(hasBuff(distant, Speedup), 'an ally out of reach was hasted').toBe(false);
+      expect(hasBuff(enemy, Speedup), 'the enemy was hasted').toBe(false);
+    });
+
+    it('grants the tuned share of movement speed for the tuned time', () => {
+      const holder = createUnit(game, 0);
+      game.setPlayer(holder);
+      indexObjects(game, [holder]);
+      pressSpell(new Item_Shurelya(holder));
+
+      const haste = live(holder)[0] as InstanceType<typeof Speedup>;
+      expect(haste.percent).toBe(SHURELYA_SPEED_PERCENT);
+      expect(haste.duration).toBe(SHURELYA_DURATION_MS);
+    });
+
+    it('carries its own stack id, so Youmuu cannot evict it', () => {
+      const holder = createUnit(game, 0);
+      game.setPlayer(holder);
+      indexObjects(game, [holder]);
+
+      pressSpell(new Item_Shurelya(holder));
+      pressSpell(new Item_Ghostblade(holder));
+
+      const hastes = live(holder).filter(buff => buff instanceof Speedup);
+      expect(hastes).toHaveLength(2);
+      expect(new Set(hastes.map(buff => buff.stackId)).size).toBe(2);
+    });
+  });
+
+  describe('Item_Everfrost', () => {
+    it('roots and damages the enemies inside the cone it points at', () => {
+      const holder = createUnit(game, 0);
+      const infront = planted(game, EVERFROST_RANGE - 80, 'red');
+      const behind = planted(game, -(EVERFROST_RANGE - 80), 'red');
+      const distant = planted(game, EVERFROST_RANGE + 200, 'red');
+      const ally = planted(game, 120, 'blue');
+      game.setPlayer(holder);
+      indexObjects(game, [holder, infront, behind, distant, ally]);
+
+      const hurt = vi.spyOn(infront, 'takeDamage');
+      const spared = vi.spyOn(behind, 'takeDamage');
+
+      expect(pressSpell(new Item_Everfrost(holder), { at: infront.position })).toBe(true);
+
+      expect(hurt).toHaveBeenCalledTimes(1);
+      expect(hurt.mock.calls[0][0]).toBe(EVERFROST_DAMAGE);
+      expect(hasBuff(infront, Root), 'the enemy in the cone was not rooted').toBe(true);
+      expect(spared, 'the nova hit behind the caster').not.toHaveBeenCalled();
+      expect(hasBuff(distant, Root), 'an enemy out of reach was rooted').toBe(false);
+      expect(hasBuff(ally, Root), 'the ally was rooted').toBe(false);
+    });
+
+    it('roots for the tuned time and points where it was aimed', () => {
+      const holder = createUnit(game, 0);
+      const enemy = planted(game, 200, 'red');
+      game.setPlayer(holder);
+      indexObjects(game, [holder, enemy]);
+
+      pressSpell(new Item_Everfrost(holder), { at: enemy.position });
+
+      const root = live(enemy).find(buff => buff instanceof Root) as InstanceType<typeof Root>;
+      expect(root.duration).toBe(EVERFROST_ROOT_MS);
+      // A cone, not a circle: half its opening is well under a right angle, or
+      // "behind the caster is safe" above would be true for the wrong reason.
+      expect(EVERFROST_HALF_ANGLE).toBeLessThan(Math.PI / 2);
+    });
+
+    it('hits each enemy once, however many frames the nova lives', () => {
+      const holder = createUnit(game, 0);
+      const enemy = planted(game, 200, 'red');
+      game.setPlayer(holder);
+      indexObjects(game, [holder, enemy]);
+      const hurt = vi.spyOn(enemy, 'takeDamage');
+
+      pressSpell(new Item_Everfrost(holder), { at: enemy.position });
+      const nova = game.objectManager._objectToBeAdd[0] as { update(): void };
+      vi.stubGlobal('deltaTime', 16);
+      for (let i = 0; i < 40; i++) nova.update();
+
+      expect(hurt).toHaveBeenCalledTimes(1);
     });
   });
 });
