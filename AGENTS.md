@@ -106,6 +106,14 @@ bare specifier nothing resolves in the browser. The engine *arrives* through
 `packApi.ts`: `export default class X extends api.Spell {}`. `import type`
 is fine; the compiler erases it.
 
+**A gitignored lockfile still pins.** `package-lock.json` is untracked here
+but real on disk: `npm install` resolves `@moba2d/core`'s git dependency to
+whatever commit the *local* lockfile recorded, however old — one checkout sat
+on a core four minors stale this way while its spec said `#main`. To actually
+pick up core's current `#main`, run `npm update @moba2d/core`. CI never has
+the lockfile, so it resolves fresh every run — which is exactly why the drift
+only ever shows up locally.
+
 **`npm install` (and any `bun install`) stomps the dev link.** While this
 pack is linked to a local core checkout (`npm run pack:link` from core), an
 install here silently replaces the symlink with the npm copy and every
