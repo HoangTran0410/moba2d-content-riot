@@ -21,6 +21,9 @@ export const NASHOR_MAGIC_DAMAGE = 7;
 export class Item_Nashor_Fang extends Buff {
   name = 'Nanh Nashor';
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
+  // A permanent armed state: the inventory slot already shows the item, so
+  // this stays off the HUD buff row and the overhead strip (Buff.hudVisible).
+  hudVisible = false;
 
   onHit(hit: OnHitEvent): void {
     hit.victim.takeDamage(NASHOR_MAGIC_DAMAGE, this.targetUnit, 'MAGIC');

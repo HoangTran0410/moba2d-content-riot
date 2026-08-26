@@ -76,6 +76,8 @@ export default class Item_Thornmail extends Spell {
     reflect.stackId = REFLECT_STACK_ID;
     reflect.percent = REFLECT_PERCENT;
     reflect.image = this.image;
+    // armed for as long as the item is held — not a bar's worth of news
+    reflect.hudVisible = false;
     // Tied to the item, not the life: before core 1.5's `sourceSpell` sweep a
     // sold Giáp Gai kept reflecting for the rest of the match.
     reflect.sourceSpell = this;

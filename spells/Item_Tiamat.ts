@@ -41,6 +41,9 @@ type SplashVictim = InstanceType<typeof AttackableUnit>;
 export class CleaveBuff extends Buff {
   name = 'Rìu Tiamat';
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
+  // A permanent armed state: the inventory slot already shows the item, so
+  // this stays off the HUD buff row and the overhead strip (Buff.hudVisible).
+  hudVisible = false;
 
   sweepColor: [number, number, number] = TIAMAT_STEEL;
 

@@ -22,6 +22,9 @@ export const RUINED_KING_MIN_DAMAGE = 1;
 export class Item_RuinedKing_Bite extends Buff {
   name = 'Gươm Suy Vong';
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
+  // A permanent armed state: the inventory slot already shows the item, so
+  // this stays off the HUD buff row and the overhead strip (Buff.hudVisible).
+  hudVisible = false;
 
   onHit(hit: OnHitEvent): void {
     const current = hit.victim.stats.health.value;

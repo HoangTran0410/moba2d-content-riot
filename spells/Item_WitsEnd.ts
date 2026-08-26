@@ -25,6 +25,9 @@ export const WITS_END_MOVE_SPEED_MS = 1_500;
 export class Item_WitsEnd_Sting extends Buff {
   name = 'Đao Tím';
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
+  // A permanent armed state: the inventory slot already shows the item, so
+  // this stays off the HUD buff row and the overhead strip (Buff.hudVisible).
+  hudVisible = false;
 
   onHit(hit: OnHitEvent): void {
     hit.victim.takeDamage(WITS_END_MAGIC_DAMAGE, this.targetUnit, 'MAGIC');

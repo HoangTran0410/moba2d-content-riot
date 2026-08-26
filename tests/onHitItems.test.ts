@@ -39,6 +39,7 @@ import {
   PHANTOM_HIT_INTERVAL,
 } from '../spells/Item_Guinsoo';
 import { Item_Runaan_Wind, SIDE_BOLT_AD_RATIO } from '../spells/Item_Runaan';
+import { CleaveBuff } from '../spells/Item_Tiamat';
 import { Item_DuskAndDawn_Twin } from '../spells/Item_DuskAndDawn';
 import { Item_Nashor_Fang, NASHOR_MAGIC_DAMAGE } from '../spells/Item_Nashor';
 
@@ -409,5 +410,35 @@ describe('selling the item takes the passive away', () => {
 
     spell.onRemoved();
     expect((hung as { toRemove: boolean }).toRemove).toBe(true);
+  });
+});
+
+/**
+ * Display, not mechanics: a permanent armed state wallpapered the HUD buff
+ * row and the overhead strip — six item icons, each counting negative seconds
+ * — so those opt out via `Buff.hudVisible`. A buff whose state is worth a
+ * glance (a spellblade charge, a rage count, a harpoon counter) stays on.
+ */
+describe('which item buffs the HUD shows', () => {
+  it('armed passives opt out; stateful ones stay visible', () => {
+    const w = world();
+    const hidden = [
+      Item_WitsEnd_Sting,
+      Item_Nashor_Fang,
+      Item_RuinedKing_Bite,
+      Item_Runaan_Wind,
+      Item_DuskAndDawn_Twin,
+      CleaveBuff,
+    ];
+    const visible = [SpellbladeBuff, Item_Guinsoo_Rage, Item_Kraken_Harpoon];
+
+    for (const Armed of hidden) {
+      const buff = new Armed(0, w.attacker, w.attacker);
+      expect(buff.hudVisible, Armed.name).toBe(false);
+    }
+    for (const Stateful of visible) {
+      const buff = new Stateful(0, w.attacker, w.attacker);
+      expect(buff.hudVisible, Stateful.name).toBe(true);
+    }
   });
 });

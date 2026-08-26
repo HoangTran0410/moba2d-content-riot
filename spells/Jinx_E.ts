@@ -117,6 +117,15 @@ export class Jinx_E_Chomper extends Pet {
   armed = false;
   bitten = false;
 
+  /**
+   * A trap, not a fighter: the pet scan never hands a chomper an attack
+   * order. Stated here rather than left to the leash — the bite below is its
+   * own trigger and the only aggression a chomper has.
+   */
+  findTarget(): null {
+    return null;
+  }
+
   constructor(options: ConstructorParameters<typeof Pet>[0]) {
     super(options);
     this.stats.maxHealth.baseValue = CHOMPER_HEALTH;

@@ -45,6 +45,9 @@ type SideTarget = InstanceType<typeof AttackableUnit>;
 export class Item_Runaan_Wind extends Buff {
   name = 'Cuồng Cung Runaan';
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
+  // A permanent armed state: the inventory slot already shows the item, so
+  // this stays off the HUD buff row and the overhead strip (Buff.hudVisible).
+  hudVisible = false;
 
   onHit(hit: OnHitEvent): void {
     if (hit.echo) return;

@@ -24,6 +24,9 @@ const DUSK_VIOLET: [number, number, number] = [150, 110, 220];
 export class Item_DuskAndDawn_Twin extends Buff {
   name = 'Bình Minh & Hoàng Hôn';
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
+  // A permanent armed state: the inventory slot already shows the item, so
+  // this stays off the HUD buff row and the overhead strip (Buff.hudVisible).
+  hudVisible = false;
 
   onHit(hit: OnHitEvent): void {
     if (hit.echo) return;
