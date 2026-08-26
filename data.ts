@@ -997,7 +997,12 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         speed: 0,
         size: 100,
         attackRange: 400,
-        reviveTime: 3000,
+        // Three minutes. Baron pays a two-minute team-wide blessing
+        // (`monsters/JungleBuffs.ts`'s `BARON_BUFF`), so a three-second
+        // respawn meant the pit was simply a permanent aura for whichever
+        // team could stand in it — the objective has to be *gone* for long
+        // enough that holding the buff is worth playing around.
+        reviveTime: 180_000,
         health: 1000,
         // Rooted with a long reach. The bite is small because it is the one
         // part of the fight nobody can dodge — the rest of Baron's kit lives
@@ -1023,7 +1028,11 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         speed: 2,
         size: 80,
         attackRange: 50,
-        reviveTime: 3000,
+        // Matched to the blessing's own ninety seconds
+        // (`monsters/JungleBuffs.ts`), so the camp comes back at about the
+        // moment the buff runs out: holding it is a route you keep walking,
+        // not a wall you refarm three seconds after clearing it.
+        reviveTime: 90_000,
         health: 300,
         offset: { x: 0, y: 0 },
       },
@@ -1040,7 +1049,8 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         speed: 2,
         size: 80,
         attackRange: 50,
-        reviveTime: 3000,
+        /** Same ninety seconds as Blue, for the same reason. */
+        reviveTime: 90_000,
         health: 300,
         offset: { x: 0, y: 0 },
       },

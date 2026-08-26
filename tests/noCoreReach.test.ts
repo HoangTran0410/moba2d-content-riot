@@ -246,7 +246,14 @@ describe("the pack's tests speak only published core surfaces", () => {
     // `@moba2d/core/testing/spell` and `@moba2d/core/content/types` — all
     // three already on `ALLOWED_CORE_SUBPATHS`, so the population count
     // moves and the offender count below does not.
-    expect(files.length).toBe(83);
+    //
+    // 84, not 83, the jungle blessings: `tests/monsters/JungleBuffs.test.ts`
+    // drives `MonsterAbility.onKilled` for the two buff camps and Baron. It
+    // reaches core only through `@moba2d/core/testing`,
+    // `@moba2d/core/testing/spell` and `@moba2d/core/content/types` — all
+    // three already on `ALLOWED_CORE_SUBPATHS`, so the population count moves
+    // and the offender count below does not.
+    expect(files.length).toBe(84);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

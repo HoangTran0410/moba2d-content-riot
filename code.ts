@@ -3,6 +3,11 @@ import type { ContentPackCode, SpellSource } from '@moba2d/core/content/ContentP
 import { setPackApi } from './packApi';
 import { spellModules } from './generated/spellModules';
 import makeBaronAbilities from './monsters/Baron';
+import {
+  makeBaronBlessing,
+  makeBlueSentinelAbilities,
+  makeRedBramblebackAbilities,
+} from './monsters/JungleBuffs';
 
 /**
  * This pack's code half: real engine classes, built from the injected
@@ -34,9 +39,12 @@ const spellSources = (): Record<string, SpellSource> => {
 
 /**
  * `api` is used here and nowhere else in this pack: `./data.ts` is pure data
- * and never touches it. Baron is the only monster with a code half today —
- * see `./monsters/Baron.ts`'s own header for why abilities live in the code
- * half rather than on `MonsterBody`/`MonsterDef`.
+ * and never touches it. Three monsters carry a code half — Baron, which both
+ * fights and pays, and the two buff camps, whose whole meaning is what
+ * killing them grants. See `./monsters/Baron.ts`'s own header for why
+ * abilities live in the code half rather than on `MonsterBody`/`MonsterDef`,
+ * and `./monsters/JungleBuffs.ts`'s for how a reward-only camp states itself
+ * through the same `MonsterAbility` channel.
  */
 const code = (api: ContentApi): ContentPackCode => {
   // **First, and before anything reaches a spell module.** Every class in
@@ -48,7 +56,14 @@ const code = (api: ContentApi): ContentPackCode => {
   return {
     spells: spellSources(),
     monsterAbilities: {
-      baron: makeBaronAbilities(api),
+      // Baron's kit **plus** its reward, appended rather than replacing:
+      // `makeBaronAbilities` is what it does while alive, `makeBaronBlessing`
+      // is what killing it is worth. `Monster.castAbility` walks the list in
+      // order and the blessing declares a negative range, so it can never be
+      // picked as something to cast — see `monsters/JungleBuffs.ts`'s header.
+      baron: [...makeBaronAbilities(api), makeBaronBlessing(api)],
+      blue: makeBlueSentinelAbilities(api),
+      red: makeRedBramblebackAbilities(api),
     },
   };
 };
