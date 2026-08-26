@@ -130,6 +130,12 @@ export class Ekko_Q_Object extends MissileSpellObject {
       if (this.expandedTimer >= this.expandedDuration) {
         this.expanded = false;
         this.returning = true;
+        // The base missile never touches anything in `hitTargets` twice —
+        // right for a one-way skillshot, wrong for a boomerang: the return IS
+        // a second pass over the same bodies, and with the list carried over
+        // the snap-back dealt nothing to anyone the out-flight had already
+        // clipped. The spell's own per-phase lists keep each pass single-hit.
+        this.hitTargets.length = 0;
         // the snap back: the trail flips to the return colour so the second,
         // harder hit is a different object to the eye
         this.trailSystem.trailColor = '#ff6ad5aa';

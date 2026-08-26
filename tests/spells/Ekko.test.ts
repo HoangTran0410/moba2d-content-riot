@@ -86,6 +86,38 @@ describe('Ekko Spells', () => {
     expect(slows).toHaveLength(1);
   });
 
+  it('Q hits the same body once going out and once again on the return', () => {
+    const game = createGame();
+    (game as any).worldMouse = createVector(200, 0);
+    const owner = unit(game, 0, 'blue');
+    const victim = unit(game, 40, 'red');
+    game.objectManager.queryObjects = vi.fn(() => []) as never;
+    vi.stubGlobal('frameCount', 1);
+
+    const q = new Ekko_Q(owner);
+    q.onSpellCast();
+    const disc = game.objectManager._objectToBeAdd.find(
+      (o: unknown) => o instanceof Ekko_Q_Object
+    ) as InstanceType<typeof Ekko_Q_Object>;
+
+    const before = victim.stats.health.value;
+    disc.hitTargets.push(victim);
+    disc.onHit(victim);
+    const afterOut = victim.stats.health.value;
+    expect(afterOut).toBeLessThan(before);
+
+    // the bloom runs out; the snap-back must be allowed a second pass
+    disc.expanded = true;
+    disc.expandedTimer = disc.expandedDuration;
+    disc.update();
+    expect(disc.returning).toBe(true);
+    expect(disc.hitTargets).toHaveLength(0);
+
+    disc.hitTargets.push(victim);
+    disc.onHit(victim);
+    expect(victim.stats.health.value).toBeLessThan(afterOut);
+  });
+
   it('W’s sphere renews one slow the same way', () => {
     const game = createGame();
     const owner = unit(game, 0, 'blue');
