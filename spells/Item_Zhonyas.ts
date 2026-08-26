@@ -8,9 +8,14 @@ const SpellObject = api.SpellObject;
 /**
  * Đồng Hồ Cát Zhonya's active: two and a half seconds of being nowhere.
  *
- * `Stasis` is core's, and it already does the whole mechanic — untargetable,
- * unable to move or cast, and `modifyIncomingDamage` returning 0. This spell
- * is the button, the clock and the picture.
+ * `Stasis` is core's, and it already does the whole mechanic — untargetable
+ * (so nothing can pick the statue and skillshots pass through), unable to
+ * move, cast or attack, whatever it was casting or channelling cancelled
+ * (`Stunned` is read by `Spell.observeInterrupts` every frame), immovable
+ * against hostile displacements, non-colliding (`PhasesUnits`, so bodies walk
+ * through the hourglass instead of piling against it), and
+ * `modifyIncomingDamage` returning 0. This spell is the button, the clock and
+ * the picture.
  *
  * **The picture is the point.** Core's `Stasis` paints a gold ring and a slow
  * sparkle, which says "something is on this champion" but not *what* and not
