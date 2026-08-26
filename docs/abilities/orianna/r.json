@@ -1,0 +1,52 @@
+{
+  "asset": {
+    "key": "spell_orianna_r",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Orianna_Command-_Shockwave.png?da4dc",
+    "sha1": "4c0abd729e1b807636bae1614dc65a183951a564"
+  },
+  "champion": "Orianna",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_orianna_r",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Orianna_Command-_Shockwave.png?da4dc",
+        "sha1": "4c0abd729e1b807636bae1614dc65a183951a564"
+      },
+      "fields": {
+        "casttime": "0.5",
+        "cooldown": "110 / 102.5 / 95 / 87.5 / 80",
+        "cost": "100",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Orianna''' commands ''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Orianna\" data-ability=\"Clockwork Windup\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Orianna Clockwork Windup.png|20xpx|border|link=Orianna#Clockwork Windup|An icon for Orianna's ability Clockwork Windup]]</span> <span style=\"white-space:normal;\">[[Orianna#Clockwork Windup|The Ball]]</span></span>'' to unleash a shockwave that deals <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to nearby enemies, <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Stun\">[[File:Stun icon.png|20px|link=Stun|An icon representing the keyword Stun]] [[:Stun|stuns]]</span> them for 0.<small>75</small> seconds, and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Airborne\">[[File:Airborne icon.png|20px|link=Airborne|An icon representing the keyword Airborne]] [[:Airborne|pulls]]</span> them over 325 units, though not through terrain.",
+          "text": "Active: Orianna commands The Ball to unleash a shockwave that deals magic damage to nearby enemies, stuns them for 0.75 seconds, and pulls them over 325 units, though not through terrain."
+        },
+        "effectradius": "415",
+        "icon": "Command Shockwave.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>225 / 287.<small>5</small> / 350 / 412.<small>5</small> / 475 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 110% AP)</span></dd></dl>",
+          "text": "Magic Damage:225 / 287.5 / 350 / 412.5 / 475 (+ 110% AP)"
+        },
+        "name": "Command: Shockwave",
+        "notes": {
+          "raw": "* ''Command: Shockwave'' tosses enemies a set distance (those on the edge of the flinging area will be tossed to the center while those close to the middle will go over ''The Ball'' towards the edge) and can send them through walls.\n* This ability will cast from wherever the caster is at the end of the cast time.\n** ''Command: Shockwave'' will cast from wherever the unit the ''The Ball'' is attached to is at the end of the cast time, even if the unit exceeds max tether range.\n* <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Displacement immunity\">[[File:Unstoppable icon.png|20px|link=Crowd control#Displacement_Immunity|An icon representing the keyword Displacement immune]] [[:Crowd control#Displacement_Immunity|Displacement immunity]]</span> will not resist the application of the <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Stun\">[[File:Stun icon.png|20px|link=Stun|An icon representing the keyword Stun]] [[:Stun|stun]]</span>.",
+          "text": "Command: Shockwave tosses enemies a set distance (those on the edge of the flinging area will be tossed to the center while those close to the middle will go over The Ball towards the edge) and can send them through walls.\nThis ability will cast from wherever the caster is at the end of the cast time.\n* Command: Shockwave will cast from wherever the unit the The Ball is attached to is at the end of the cast time, even if the unit exceeds max tether range.\nDisplacement immunity will not resist the application of the stun."
+        },
+        "spellshield": true,
+        "targeting": "Auto"
+      },
+      "name": "Command: Shockwave"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "R",
+  "source": {
+    "contentHash": "c97c703aa11d09f75f59c4e4daf831250870ba5cbc61edcd3d03e66072b92f9a",
+    "fetchedAt": "2026-08-26T19:29:34.663Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Orianna/Command:_Shockwave",
+    "revisionId": 4026444,
+    "sourceTimestamp": "2026-06-09T21:56:44Z"
+  }
+}

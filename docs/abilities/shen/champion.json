@@ -1,0 +1,116 @@
+{
+  "asset": {
+    "key": "champ_shen",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Shen_OriginalSquare.png?7795f",
+    "sha1": "bd3a2b86ad5d66fa6597c50fabc53e5f4b447e58"
+  },
+  "champion": "Shen",
+  "data": {
+    "adaptivetype": "Physical",
+    "apiname": "Shen",
+    "be": 1575,
+    "changes": "V26.06",
+    "client_positions": [
+      "Top"
+    ],
+    "client_tags": [
+      "Ally Protection",
+      "Duelist",
+      "Mixed"
+    ],
+    "control": 2,
+    "damage": 2,
+    "date": "2010-03-24",
+    "difficulty": 1,
+    "external_positions": [
+      "Top",
+      "Support"
+    ],
+    "herotype": "Tank",
+    "id": 98,
+    "mobility": 2,
+    "patch": "V1.0.0.81",
+    "rangetype": "Melee",
+    "resource": "Energy",
+    "role": [
+      "Warden"
+    ],
+    "rp": 790,
+    "skill_e": {
+      "1": "Shadow Dash"
+    },
+    "skill_i": {
+      "1": "Ki Barrier"
+    },
+    "skill_q": {
+      "1": "Twilight Assault",
+      "2": "Twilight Assault 2",
+      "3": "Twilight Assault 3"
+    },
+    "skill_r": {
+      "1": "Stand United",
+      "2": "Stand United 2"
+    },
+    "skill_w": {
+      "1": "Spirit's Refuge"
+    },
+    "skills": {
+      "1": "Ki Barrier",
+      "2": "Twilight Assault",
+      "3": "Spirit's Refuge",
+      "4": "Shadow Dash",
+      "5": "Stand United"
+    },
+    "stats": {
+      "acquisition_radius": 400,
+      "aram": {
+        "dmg_dealt": 0.95,
+        "dmg_taken": 1.05
+      },
+      "arm_base": 34,
+      "arm_lvl": 4.2,
+      "as_base": 0.751,
+      "as_lvl": 3,
+      "as_ratio": 0.651000022888183,
+      "attack_cast_time": 0.266660004854202,
+      "attack_total_time": 1.53600001335144,
+      "dam_base": 64,
+      "dam_lvl": 3,
+      "hp5_base": 8.5,
+      "hp5_lvl": 0.75,
+      "hp_base": 610,
+      "hp_lvl": 99,
+      "mp5_base": 50,
+      "mp5_lvl": 0,
+      "mp_base": 400,
+      "mp_lvl": 0,
+      "mr_base": 32,
+      "mr_lvl": 2.05,
+      "ms": 340,
+      "ofa": {
+        "dmg_dealt": 0.95
+      },
+      "pathing_radius": 35,
+      "range": 125,
+      "selection_height": 175,
+      "selection_radius": 100,
+      "urf": {
+        "dmg_dealt": 1,
+        "dmg_taken": 1.05
+      }
+    },
+    "style": 45,
+    "title": "The Eye of Twilight",
+    "toughness": 3,
+    "utility": 3
+  },
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "b663f812e2514e36020aad4d9495d572560f6c18e63b51420514de2c81f45091",
+    "fetchedAt": "2026-08-26T19:29:02.718Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Module:ChampionData/data",
+    "revisionId": 4052622,
+    "sourceTimestamp": "2026-08-19T14:42:50Z"
+  }
+}

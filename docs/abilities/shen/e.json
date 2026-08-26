@@ -1,0 +1,61 @@
+{
+  "asset": {
+    "key": "spell_shen_e",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Shen_Shadow_Dash.png?5eafc",
+    "sha1": "d0c7a4804f3b7cd5a61e86a577b84a88322b9283"
+  },
+  "champion": "Shen",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_shen_e",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Shen_Shadow_Dash.png?5eafc",
+        "sha1": "d0c7a4804f3b7cd5a61e86a577b84a88322b9283"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "18 / 16 / 14 / 12 / 10",
+        "cost": "150",
+        "damagetype": "Physical",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Passive:'''</span> Dealing damage with ''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Shen\" data-ability=\"Twilight Assault\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Shen Twilight Assault.png|20xpx|border|link=Shen#Twilight Assault|An icon for Shen's ability Twilight Assault]]</span> <span style=\"white-space:normal;\">[[Shen#Twilight Assault|Twilight Assault]]</span></span>'' or ''Shadow Dash'' restores <span style=\"white-space:nowrap\">[[File:Energy icon.svg|15px|link=Energy]]&nbsp;<span style=\"color:yellow; white-space:normal\"><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-bot-values=\"30;40;50\" data-top-values=\"1;4;12\">30 / 40 / 50 (based on level)</span> energy</span></span>.",
+          "text": "Passive: Dealing damage with Twilight Assault or Shadow Dash restores &nbsp;30 / 40 / 50 (based on level) energy."
+        },
+        "description2": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Shen''' <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Dashes\">[[File:Dash.png|20px|link=Dash|An icon representing the keyword Dash]] [[:Dash|dashes]]</span> to the target location, dealing <span style=\"color:\n#FF8C34; white-space:normal\">physical damage</span> to enemy <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Champions\">[[File:Champion icon.png|20px|link=Champion|An icon representing the keyword Champion]] [[:Champion|champions]]</span> and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Monsters\">[[File:Monster icon.png|20px|link=Monster|An icon representing the keyword Monster]] [[:Monster|monsters]]</span> he passes through and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Taunt\">[[File:Taunt icon.png|20px|link=Taunt|An icon representing the keyword Taunt]] [[:Taunt|taunting]]</span> them for 1.<small>5</small> seconds.",
+          "text": "Active: Shen dashes to the target location, dealing physical damage to enemy champions and monsters he passes through and taunting them for 1.5 seconds."
+        },
+        "description3": {
+          "raw": "''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Shen\" data-ability=\"Twilight Assault\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Shen Twilight Assault.png|20xpx|border|link=Shen#Twilight Assault|An icon for Shen's ability Twilight Assault]]</span> <span style=\"white-space:normal;\">[[Shen#Twilight Assault|Twilight Assault]]</span></span> and <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Shen\" data-ability=\"Spirit&#39;s Refuge\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Shen Spirit's Refuge.png|20xpx|border|link=Shen#Spirit's Refuge|An icon for Shen's ability Spirit's Refuge]]</span> <span style=\"white-space:normal;\">[[Shen#Spirit's Refuge|Spirit's Refuge]]</span></span> can be cast during the dash.''",
+          "text": "Twilight Assault and Spirit's Refuge can be cast during the dash."
+        },
+        "icon": "false",
+        "icon2": "Shadow Dash.png",
+        "leveling2": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Physical Damage:'''</span></dt><dd>60 / 85 / 110 / 135 / 160 <span style=\"color:\n#21B053; white-space:normal\">(+ 11% '''bonus''' health)</span></dd></dl>",
+          "text": "Physical Damage:60 / 85 / 110 / 135 / 160 (+ 11% bonus health)"
+        },
+        "name": "Shadow Dash",
+        "notes": {
+          "raw": "* Casting <span class=\"inline-image label-after spell-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-spell=\"Flash\" data-game=\"lol\"><span class=\"border icon-20\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Flash.png|20xpx|border|link=Flash|An icon representing Flash]]</span> <span style=\"white-space:normal;\">[[Flash]]</span></span> during ''Shadow Dash'' will end the dash prematurely, but the end-of-dash collision check will hit enemies at the [[blink|blink's]] location still.\n** This still cannot affect the same enemy more than once.\n* The energy restore from ''Shadow Dash'' may only occur once.",
+          "text": "Casting Flash during Shadow Dash will end the dash prematurely, but the end-of-dash collision check will hit enemies at the blink's location still.\n* This still cannot affect the same enemy more than once.\nThe energy restore from Shadow Dash may only occur once."
+        },
+        "speed": "800 + 100% movement speed",
+        "spellshield": true,
+        "targeting": "Location"
+      },
+      "name": "Shadow Dash"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "E",
+  "source": {
+    "contentHash": "a5bbc4aa9edf8861aed9c1582e2f98339dd279412980df327a09ca3e18e6bc9f",
+    "fetchedAt": "2026-08-26T19:29:02.718Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Shadow_Dash",
+    "revisionId": 4007754,
+    "sourceTimestamp": "2026-04-12T14:09:29Z"
+  }
+}

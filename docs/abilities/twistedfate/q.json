@@ -1,0 +1,58 @@
+{
+  "asset": {
+    "key": "spell_twistedfate_q",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Twisted_Fate_Wild_Cards.png?c7566",
+    "sha1": "e8ab4db5d35594b542036a1fdb1b5949d3896e47"
+  },
+  "champion": "Twisted Fate",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_twistedfate_q",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Twisted_Fate_Wild_Cards.png?c7566",
+        "sha1": "e8ab4db5d35594b542036a1fdb1b5949d3896e47"
+      },
+      "fields": {
+        "casttime": "0.25",
+        "cooldown": "6 / 5.75 / 5.5 / 5.25 / 5",
+        "cost": "60 / 70 / 80 / 90 / 100",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Twisted Fate''' throws a fan of three cards in a cone in the target direction that each deal <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to enemies hit.",
+          "text": "Active: Twisted Fate throws a fan of three cards in a cone in the target direction that each deal magic damage to enemies hit."
+        },
+        "description2": {
+          "raw": "''Enemies can be damaged only once per pass.''",
+          "text": "Enemies can be damaged only once per pass."
+        },
+        "icon": "Wild Cards.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>60 / 105 / 150 / 195 / 240 <span style=\"color:orange; white-space:normal\">(+ 50% '''bonus''' AD)</span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 85% AP)</span></dd></dl>",
+          "text": "Magic Damage:60 / 105 / 150 / 195 / 240 (+ 50% bonus AD) (+ 85% AP)"
+        },
+        "name": "Wild Cards",
+        "notes": {
+          "raw": "* This ability will cast from wherever the caster is at the end of the cast time.",
+          "text": "This ability will cast from wherever the caster is at the end of the cast time."
+        },
+        "projectile": true,
+        "speed": "1000",
+        "spellshield": true,
+        "targeting": "Direction",
+        "width": "80"
+      },
+      "name": "Wild Cards"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "Q",
+  "source": {
+    "contentHash": "b001368fc52a35c6f70666dad898504efc7e241d72f6d6c93a466e907982b870",
+    "fetchedAt": "2026-08-26T19:29:42.360Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Wild_Cards",
+    "revisionId": 3950864,
+    "sourceTimestamp": "2025-08-31T01:31:17Z"
+  }
+}

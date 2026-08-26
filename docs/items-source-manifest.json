@@ -5,7 +5,7 @@
   "sources": [
     {
       "contentHash": "81089b0f6e9514f812189ee9b664e44045933c812ef3a62c0732cc2655397264",
-      "fetchedAt": "2026-08-26T14:38:16.171Z",
+      "fetchedAt": "2026-08-26T19:49:36.822Z",
       "localAssetKey": "item_berserkers_greaves",
       "localPath": "assets/images/items/berserkers_greaves.png",
       "riotItemId": 3006,
@@ -14,7 +14,7 @@
     },
     {
       "contentHash": "626dbfdca488a6e42602dd6e8a28e9b65b26992a6cdc805f0d6c1ab0de3b7627",
-      "fetchedAt": "2026-08-26T14:38:18.265Z",
+      "fetchedAt": "2026-08-26T19:49:37.786Z",
       "localAssetKey": "item_blade_of_the_ruined_king",
       "localPath": "assets/images/items/blade_of_the_ruined_king.png",
       "riotItemId": 3153,
@@ -23,7 +23,7 @@
     },
     {
       "contentHash": "f2b2a8ba7ae715c8906d3037d38778aa545f3d0740091640484aa3d126396ad0",
-      "fetchedAt": "2026-08-26T14:38:15.251Z",
+      "fetchedAt": "2026-08-26T19:49:36.121Z",
       "localAssetKey": "item_boots",
       "localPath": "assets/images/items/boots.png",
       "riotItemId": 1001,
@@ -32,7 +32,7 @@
     },
     {
       "contentHash": "3b89234b2be140f17b06a92297abdc54ce23e6034b6b80335d612fac3d20720d",
-      "fetchedAt": "2026-08-26T14:38:14.992Z",
+      "fetchedAt": "2026-08-26T19:49:35.282Z",
       "localAssetKey": "item_cloth_armor",
       "localPath": "assets/images/items/cloth_armor.png",
       "riotItemId": 1029,
@@ -40,8 +40,17 @@
       "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/1029.png"
     },
     {
+      "contentHash": "928a40c105d5d985c5cf542d254502b8018d59d2921d3126e0b4a3de708e98d2",
+      "fetchedAt": "2026-08-26T19:49:42.879Z",
+      "localAssetKey": "item_dead_mans_plate",
+      "localPath": "assets/images/items/dead_mans_plate.png",
+      "riotItemId": 3742,
+      "sourceHash": "928a40c105d5d985c5cf542d254502b8018d59d2921d3126e0b4a3de708e98d2",
+      "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/3742.png"
+    },
+    {
       "contentHash": "7d1e40c297b66b1a95b879d09948047cc1ff8ecf71f563ae251230c9d2c595f5",
-      "fetchedAt": "2026-08-26T14:38:20.379Z",
+      "fetchedAt": "2026-08-26T19:49:40.359Z",
       "localAssetKey": "item_divine_sunderer",
       "localPath": "assets/images/items/divine_sunderer.png",
       "riotItemId": 6632,
@@ -50,7 +59,7 @@
     },
     {
       "contentHash": "b3d2c76a2ccc7c8c10c823edc0a05b63f24f921d8ed5aeea1bc32da48b495648",
-      "fetchedAt": "2026-08-26T14:38:21.579Z",
+      "fetchedAt": "2026-08-26T19:49:41.477Z",
       "localAssetKey": "item_dusk_and_dawn",
       "localPath": "assets/images/items/dusk_and_dawn.png",
       "riotItemId": 2510,
@@ -59,7 +68,7 @@
     },
     {
       "contentHash": "6648a9367e07b71c37395817c76ad81f738fc6529b1179c3e68bbbebef62ca39",
-      "fetchedAt": "2026-08-26T14:38:20.469Z",
+      "fetchedAt": "2026-08-26T19:49:40.984Z",
       "localAssetKey": "item_essence_reaver",
       "localPath": "assets/images/items/essence_reaver.png",
       "riotItemId": 3508,
@@ -67,8 +76,17 @@
       "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/3508.png"
     },
     {
+      "contentHash": "89cef206ee3198b14e24b76ff6127ff17e679ffcdb49928912712e98b5b25f12",
+      "fetchedAt": "2026-08-26T19:49:42.846Z",
+      "localAssetKey": "item_everfrost",
+      "localPath": "assets/images/items/everfrost.png",
+      "riotItemId": 6656,
+      "sourceHash": "89cef206ee3198b14e24b76ff6127ff17e679ffcdb49928912712e98b5b25f12",
+      "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/6656.png"
+    },
+    {
       "contentHash": "992b513c8d19a32f31ce53b133dfcbe6b97d0a75490b20974ad8ad384200e8c1",
-      "fetchedAt": "2026-08-26T14:38:18.691Z",
+      "fetchedAt": "2026-08-26T19:49:38.758Z",
       "localAssetKey": "item_guinsoos_rageblade",
       "localPath": "assets/images/items/guinsoos_rageblade.png",
       "riotItemId": 3124,
@@ -77,7 +95,7 @@
     },
     {
       "contentHash": "39382e1bef39a48d14e6d37e52e9d02068df9153ca60c2bcca033dd276fae5df",
-      "fetchedAt": "2026-08-26T14:38:17.414Z",
+      "fetchedAt": "2026-08-26T19:49:37.570Z",
       "localAssetKey": "item_infinity_edge",
       "localPath": "assets/images/items/infinity_edge.png",
       "riotItemId": 3031,
@@ -86,7 +104,7 @@
     },
     {
       "contentHash": "a0a6990103df12899a7113e6c532f06b7ce6112233992ea5c7e8999d204ee8f8",
-      "fetchedAt": "2026-08-26T14:38:19.002Z",
+      "fetchedAt": "2026-08-26T19:49:38.861Z",
       "localAssetKey": "item_kraken_slayer",
       "localPath": "assets/images/items/kraken_slayer.png",
       "riotItemId": 6672,
@@ -95,7 +113,7 @@
     },
     {
       "contentHash": "740f8fa8fb9c8dafad517f13e5a70816335f461e06ba2c140d0811b433ee95ec",
-      "fetchedAt": "2026-08-26T14:38:20.632Z",
+      "fetchedAt": "2026-08-26T19:49:41.054Z",
       "localAssetKey": "item_lich_bane",
       "localPath": "assets/images/items/lich_bane.png",
       "riotItemId": 3100,
@@ -103,8 +121,17 @@
       "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/3100.png"
     },
     {
+      "contentHash": "c4db34bc5eac5723f688b2830c45fe0a1c23249bb865a6782634639ae3fd9401",
+      "fetchedAt": "2026-08-26T19:49:41.616Z",
+      "localAssetKey": "item_locket_of_the_iron_solari",
+      "localPath": "assets/images/items/locket_of_the_iron_solari.png",
+      "riotItemId": 3190,
+      "sourceHash": "c4db34bc5eac5723f688b2830c45fe0a1c23249bb865a6782634639ae3fd9401",
+      "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/3190.png"
+    },
+    {
       "contentHash": "c57b71ae65b3b38241f8ed97fe6fb5ae78db5a82002be392d91ebb6f5ffde8af",
-      "fetchedAt": "2026-08-26T14:38:13.352Z",
+      "fetchedAt": "2026-08-26T19:49:35.147Z",
       "localAssetKey": "item_long_sword",
       "localPath": "assets/images/items/long_sword.png",
       "riotItemId": 1036,
@@ -113,7 +140,7 @@
     },
     {
       "contentHash": "65e508502ed720f39416fbf2dd71aaddda9bf1fd2252da7bf99ea94503582385",
-      "fetchedAt": "2026-08-26T14:38:19.462Z",
+      "fetchedAt": "2026-08-26T19:49:39.592Z",
       "localAssetKey": "item_nashors_tooth",
       "localPath": "assets/images/items/nashors_tooth.png",
       "riotItemId": 3115,
@@ -122,7 +149,7 @@
     },
     {
       "contentHash": "07e375e152ba901b1f7acc2ba4c05e9c7f2f21544aba928dfec42d3e36236b03",
-      "fetchedAt": "2026-08-26T14:38:15.077Z",
+      "fetchedAt": "2026-08-26T19:49:35.906Z",
       "localAssetKey": "item_null_magic_mantle",
       "localPath": "assets/images/items/null_magic_mantle.png",
       "riotItemId": 1033,
@@ -131,7 +158,7 @@
     },
     {
       "contentHash": "16cedabad67792f551e8893a34338f7981b3b52c444a23035846fcab954a299f",
-      "fetchedAt": "2026-08-26T14:38:17.501Z",
+      "fetchedAt": "2026-08-26T19:49:37.645Z",
       "localAssetKey": "item_quicksilver_sash",
       "localPath": "assets/images/items/quicksilver_sash.png",
       "riotItemId": 3140,
@@ -140,7 +167,7 @@
     },
     {
       "contentHash": "f0ef39de611e6183590bdc39821f084906883924f769d44e54e850f9ecf969e7",
-      "fetchedAt": "2026-08-26T14:38:20.719Z",
+      "fetchedAt": "2026-08-26T19:49:41.126Z",
       "localAssetKey": "item_ravenous_hydra",
       "localPath": "assets/images/items/ravenous_hydra.png",
       "riotItemId": 3074,
@@ -149,7 +176,7 @@
     },
     {
       "contentHash": "14b0096f1ecda8179ad0b067afee0fa4a39d80e70df4798c3eb3943f62b17a5c",
-      "fetchedAt": "2026-08-26T14:38:15.992Z",
+      "fetchedAt": "2026-08-26T19:49:36.749Z",
       "localAssetKey": "item_recurve_bow",
       "localPath": "assets/images/items/recurve_bow.png",
       "riotItemId": 1043,
@@ -158,7 +185,7 @@
     },
     {
       "contentHash": "90f702e7d757914c96e546ae4076b624800dafc140edffac70733f104684b412",
-      "fetchedAt": "2026-08-26T14:38:15.171Z",
+      "fetchedAt": "2026-08-26T19:49:36.050Z",
       "localAssetKey": "item_ruby_crystal",
       "localPath": "assets/images/items/ruby_crystal.png",
       "riotItemId": 1028,
@@ -167,7 +194,7 @@
     },
     {
       "contentHash": "4e0b97a24c3937d2ca4d6bbb9757ea8a39e8b38af9ed3abeab23506cf4b71e6f",
-      "fetchedAt": "2026-08-26T14:38:20.891Z",
+      "fetchedAt": "2026-08-26T19:49:41.337Z",
       "localAssetKey": "item_runaans_hurricane",
       "localPath": "assets/images/items/runaans_hurricane.png",
       "riotItemId": 3085,
@@ -176,7 +203,7 @@
     },
     {
       "contentHash": "8e4f9dcf809b9e093c6883ae0c232c66abfa527a92899180dc9a4d6c44499c6a",
-      "fetchedAt": "2026-08-26T14:38:18.521Z",
+      "fetchedAt": "2026-08-26T19:49:37.994Z",
       "localAssetKey": "item_sheen",
       "localPath": "assets/images/items/sheen.png",
       "riotItemId": 3057,
@@ -184,8 +211,26 @@
       "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/3057.png"
     },
     {
+      "contentHash": "071c2de0d632f1aef35c4891a71c9d1968acb4aa0dd91567bb7760bbfbf1467a",
+      "fetchedAt": "2026-08-26T19:49:42.222Z",
+      "localAssetKey": "item_shurelyas_battlesong",
+      "localPath": "assets/images/items/shurelyas_battlesong.png",
+      "riotItemId": 2065,
+      "sourceHash": "071c2de0d632f1aef35c4891a71c9d1968acb4aa0dd91567bb7760bbfbf1467a",
+      "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/2065.png"
+    },
+    {
+      "contentHash": "e8c9687a8ab8c29c8cbc7fc593334cc0df3f92aad85138a5ac821345e88d45e0",
+      "fetchedAt": "2026-08-26T19:49:41.546Z",
+      "localAssetKey": "item_statikk_shiv",
+      "localPath": "assets/images/items/statikk_shiv.png",
+      "riotItemId": 3087,
+      "sourceHash": "e8c9687a8ab8c29c8cbc7fc593334cc0df3f92aad85138a5ac821345e88d45e0",
+      "sourceUrl": "https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/3087.png"
+    },
+    {
       "contentHash": "a94887d0c8711631ef0257eff8afea080c92c0d3360e816282d7c4975df49e41",
-      "fetchedAt": "2026-08-26T14:38:16.950Z",
+      "fetchedAt": "2026-08-26T19:49:37.503Z",
       "localAssetKey": "item_thornmail",
       "localPath": "assets/images/items/thornmail.png",
       "riotItemId": 3075,
@@ -194,7 +239,7 @@
     },
     {
       "contentHash": "70f3d871814a43b48b62c1e02579effe1a2481cc23ac61498cd2cfa1dff4fff4",
-      "fetchedAt": "2026-08-26T14:38:18.608Z",
+      "fetchedAt": "2026-08-26T19:49:38.065Z",
       "localAssetKey": "item_tiamat",
       "localPath": "assets/images/items/tiamat.png",
       "riotItemId": 3077,
@@ -203,7 +248,7 @@
     },
     {
       "contentHash": "588f9f08142f169b3707317ab2ecae8816fff1cc91bc21322a27363b00327fe8",
-      "fetchedAt": "2026-08-26T14:38:20.802Z",
+      "fetchedAt": "2026-08-26T19:49:41.268Z",
       "localAssetKey": "item_titanic_hydra",
       "localPath": "assets/images/items/titanic_hydra.png",
       "riotItemId": 3748,
@@ -212,7 +257,7 @@
     },
     {
       "contentHash": "532961a6899aad1d50f5a4b4432d208c9cc6cfff4a18a606cdb60db218f24ff0",
-      "fetchedAt": "2026-08-26T14:38:19.716Z",
+      "fetchedAt": "2026-08-26T19:49:39.661Z",
       "localAssetKey": "item_trinity_force",
       "localPath": "assets/images/items/trinity_force.png",
       "riotItemId": 3078,
@@ -221,7 +266,7 @@
     },
     {
       "contentHash": "642f3290afef9f937ab0cab22e290661250e277f1f1491945ed54d58dabf5f19",
-      "fetchedAt": "2026-08-26T14:38:16.259Z",
+      "fetchedAt": "2026-08-26T19:49:36.893Z",
       "localAssetKey": "item_warmogs_armor",
       "localPath": "assets/images/items/warmogs_armor.png",
       "riotItemId": 3083,
@@ -230,7 +275,7 @@
     },
     {
       "contentHash": "11fcb66bbf80316ccd5fdd96239d84e9ad5144ff0575bbb2fe8c9db1d2dd5bfe",
-      "fetchedAt": "2026-08-26T14:38:18.926Z",
+      "fetchedAt": "2026-08-26T19:49:38.825Z",
       "localAssetKey": "item_wits_end",
       "localPath": "assets/images/items/wits_end.png",
       "riotItemId": 3091,
@@ -239,7 +284,7 @@
     },
     {
       "contentHash": "7367b7078ad4a0096f7068c9c4a6b5e37ba748f8367ef33e6abdde1b74776bbd",
-      "fetchedAt": "2026-08-26T14:38:18.434Z",
+      "fetchedAt": "2026-08-26T19:49:37.928Z",
       "localAssetKey": "item_youmuus_ghostblade",
       "localPath": "assets/images/items/youmuus_ghostblade.png",
       "riotItemId": 3142,
@@ -248,7 +293,7 @@
     },
     {
       "contentHash": "fc0908ad8621e96ad635b5bac67e09f663ec80735efd732b10f07d8c498443aa",
-      "fetchedAt": "2026-08-26T14:38:18.341Z",
+      "fetchedAt": "2026-08-26T19:49:37.856Z",
       "localAssetKey": "item_zhonyas_hourglass",
       "localPath": "assets/images/items/zhonyas_hourglass.png",
       "riotItemId": 3157,

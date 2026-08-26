@@ -194,6 +194,14 @@
       "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Lee_Sin_OriginalSquare.png?f1618"
     },
     {
+      "contentHash": "d5804c89d4231946aed49247f98e8e34aaa7dda6b70b6a82cb281406e4e7ffae",
+      "fetchedAt": "2026-08-26T19:29:18.645Z",
+      "localAssetKey": "champ_lissandra",
+      "localPath": "assets/images/champions/lissandra.png",
+      "revisionId": 4052622,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Lissandra_OriginalSquare.png?fe62c"
+    },
+    {
       "contentHash": "453f1abd861dbdbf4878012ebe0cebee85be071748f1f6ec4497b2d479853b8c",
       "fetchedAt": "2026-08-12T18:53:49.922Z",
       "localAssetKey": "champ_lux",
@@ -266,12 +274,28 @@
       "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Olaf_OriginalSquare.png?4841d"
     },
     {
+      "contentHash": "754fd400ec177b747565444ca6771d50ec8b71f1e38a1b818984866decc0e173",
+      "fetchedAt": "2026-08-26T19:29:34.663Z",
+      "localAssetKey": "champ_orianna",
+      "localPath": "assets/images/champions/orianna.png",
+      "revisionId": 4052622,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Orianna_OriginalSquare.png?ea994"
+    },
+    {
       "contentHash": "44b6574407e2b359d75d599a6b87a9da5237d10125cb76d0f4bc93df166c028e",
       "fetchedAt": "2026-08-12T18:56:19.423Z",
       "localAssetKey": "champ_pantheon",
       "localPath": "assets/images/champions/pantheon.png",
       "revisionId": 4051472,
       "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Pantheon_OriginalSquare.png?81183"
+    },
+    {
+      "contentHash": "d14930384093b4786ec25d208411bb480764dde64bce3f5df68ebe70bbd1c711",
+      "fetchedAt": "2026-08-26T19:29:26.049Z",
+      "localAssetKey": "champ_pyke",
+      "localPath": "assets/images/champions/pyke.png",
+      "revisionId": 4052622,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Pyke_OriginalSquare.png?071c0"
     },
     {
       "contentHash": "068ef88e44c8cdea006d457bd0a48ebb9923221bbc451151e5d8a9495f5c6c09",
@@ -304,6 +328,14 @@
       "localPath": "assets/images/champions/sett.png",
       "revisionId": 4052219,
       "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Sett_OriginalSquare.png?a9ec3"
+    },
+    {
+      "contentHash": "b5be82ee2975a76771cc0dfcba0449a60e35c9f573bb6113995710f2f1ee707b",
+      "fetchedAt": "2026-08-26T19:29:02.718Z",
+      "localAssetKey": "champ_shen",
+      "localPath": "assets/images/champions/shen.png",
+      "revisionId": 4052622,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Shen_OriginalSquare.png?7795f"
     },
     {
       "contentHash": "ef3d676a150f200b07cd3b575254918e6cbceefb8d951485dc86e138fed96ecb",
@@ -352,6 +384,14 @@
       "localPath": "assets/images/champions/tryndamere.png",
       "revisionId": 4052219,
       "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Tryndamere_OriginalSquare.png?3eb36"
+    },
+    {
+      "contentHash": "2f65f195a24da020a9caa941b233b6e1d66888f88f1df61551797b01f3a42f6e",
+      "fetchedAt": "2026-08-26T19:29:42.360Z",
+      "localAssetKey": "champ_twistedfate",
+      "localPath": "assets/images/champions/twistedfate.png",
+      "revisionId": 4052622,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Twisted_Fate_OriginalSquare.png?72748"
     },
     {
       "contentHash": "5ecae2df824f6b044d9d3ce6639d81201a0dd6aa4089d4d3cff8d26c4ec4ccf5",
@@ -1322,6 +1362,46 @@
       "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Lee_Sin_Safeguard.png?877d3"
     },
     {
+      "contentHash": "8f3df6c864cb00188ccd087393a162a907bf475cd6008e1c4b7f9a98c7fedf7b",
+      "fetchedAt": "2026-08-26T19:29:18.645Z",
+      "localAssetKey": "spell_lissandra_e",
+      "localPath": "assets/images/spells/lissandra_e.png",
+      "revisionId": 4050877,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Lissandra_Glacial_Path.png?7e207"
+    },
+    {
+      "contentHash": "f135657925b79bddea591d30c9f5daa197d998bbaf5507762f67c91bc205dc23",
+      "fetchedAt": "2026-08-26T19:29:18.645Z",
+      "localAssetKey": "spell_lissandra_i",
+      "localPath": "assets/images/spells/lissandra_i.png",
+      "revisionId": 4038403,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Lissandra_Iceborn_Subjugation.png?b9fe9"
+    },
+    {
+      "contentHash": "26a0101de927d9f3e11c6c94fd732c08575ee53a881789cc837b0efa0390b4df",
+      "fetchedAt": "2026-08-26T19:29:18.645Z",
+      "localAssetKey": "spell_lissandra_q",
+      "localPath": "assets/images/spells/lissandra_q.png",
+      "revisionId": 4007664,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Lissandra_Ice_Shard.png?5a8d8"
+    },
+    {
+      "contentHash": "472d230c644516f63828c3a7e0b9dfbbafbb37caedcab4ce140429060c796a4d",
+      "fetchedAt": "2026-08-26T19:29:18.645Z",
+      "localAssetKey": "spell_lissandra_r",
+      "localPath": "assets/images/spells/lissandra_r.png",
+      "revisionId": 4017996,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Lissandra_Frozen_Tomb.png?34e61"
+    },
+    {
+      "contentHash": "82dd8c17b81a2b89d94075258ec1c157961693b2c045cf2c4ae0c0aa075e018e",
+      "fetchedAt": "2026-08-26T19:29:18.645Z",
+      "localAssetKey": "spell_lissandra_w",
+      "localPath": "assets/images/spells/lissandra_w.png",
+      "revisionId": 3936419,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Lissandra_Ring_of_Frost.png?4aca2"
+    },
+    {
       "contentHash": "0b517a57410b08c33fbc349db1f3b520f90f15d7140d50e090c908699bf7e4b5",
       "fetchedAt": "2026-08-12T18:59:01.216Z",
       "localAssetKey": "spell_lux_r",
@@ -1602,6 +1682,54 @@
       "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Olaf_Tough_It_Out.png?ee498"
     },
     {
+      "contentHash": "b3a0eaf4267bb8f95e540b6da7903e0a8d192b0693449a75bda1405862ac30eb",
+      "fetchedAt": "2026-08-26T19:29:34.663Z",
+      "localAssetKey": "spell_orianna_e",
+      "localPath": "assets/images/spells/orianna_e.png",
+      "revisionId": 3804030,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Orianna_Command-_Protect.png?da4dc"
+    },
+    {
+      "contentHash": "25184cf38d698a3285bd33e4efd32447e6106e72e8362ae594282b85b7f6c2ed",
+      "fetchedAt": "2026-08-26T19:29:34.663Z",
+      "localAssetKey": "spell_orianna_i",
+      "localPath": "assets/images/spells/orianna_i.png",
+      "revisionId": 4026443,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Orianna_Clockwork_Windup.png?b6f79"
+    },
+    {
+      "contentHash": "25184cf38d698a3285bd33e4efd32447e6106e72e8362ae594282b85b7f6c2ed",
+      "fetchedAt": "2026-08-26T19:29:34.663Z",
+      "localAssetKey": "spell_orianna_i2",
+      "localPath": "assets/images/spells/orianna_i2.png",
+      "revisionId": 4026443,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Orianna_Clockwork_Windup.png?b6f79"
+    },
+    {
+      "contentHash": "7a1a6c5c06b612f37902cfa8c6dc00631128f3a8b069826a7d7938a2cff68c53",
+      "fetchedAt": "2026-08-26T19:29:34.663Z",
+      "localAssetKey": "spell_orianna_q",
+      "localPath": "assets/images/spells/orianna_q.png",
+      "revisionId": 3995779,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Orianna_Command-_Attack.png?b6f79"
+    },
+    {
+      "contentHash": "c4f23d8adb8277b029bbd574e44969eef1c10448a56507e588edd117284eeb28",
+      "fetchedAt": "2026-08-26T19:29:34.663Z",
+      "localAssetKey": "spell_orianna_r",
+      "localPath": "assets/images/spells/orianna_r.png",
+      "revisionId": 4026444,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Orianna_Command-_Shockwave.png?da4dc"
+    },
+    {
+      "contentHash": "9110e16072bb43f7cf574a6bdef71abd3f7610c001531bea0bbaa59f1e1f6dae",
+      "fetchedAt": "2026-08-26T19:29:34.663Z",
+      "localAssetKey": "spell_orianna_w",
+      "localPath": "assets/images/spells/orianna_w.png",
+      "revisionId": 3958109,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Orianna_Command-_Dissonance.png?f7673"
+    },
+    {
       "contentHash": "12ba94c9e57238ae1a6ad2f40b6360690117a8b3e1893c641831ff912e75fbff",
       "fetchedAt": "2026-08-16T06:56:23.330Z",
       "localAssetKey": "spell_pantheon_e",
@@ -1632,6 +1760,54 @@
       "localPath": "assets/images/spells/pantheon_w.png",
       "revisionId": 4026707,
       "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Pantheon_Shield_Vault.png?a04ef"
+    },
+    {
+      "contentHash": "8555cd736414889935c4602e46e4a4dbdd19c46494a3266f312d47f60ead1da9",
+      "fetchedAt": "2026-08-26T19:29:26.049Z",
+      "localAssetKey": "spell_pyke_e",
+      "localPath": "assets/images/spells/pyke_e.png",
+      "revisionId": 4044071,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Pyke_Phantom_Undertow.png?2eef2"
+    },
+    {
+      "contentHash": "d59ee9844ba2b2574312058297156aec8dd731f41b240d0ba565d0f9178a2082",
+      "fetchedAt": "2026-08-26T19:29:26.049Z",
+      "localAssetKey": "spell_pyke_i",
+      "localPath": "assets/images/spells/pyke_i.png",
+      "revisionId": 4007005,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Pyke_Gift_of_the_Drowned_Ones.png?ab86c"
+    },
+    {
+      "contentHash": "b659ae85c1c46c7374c4a9a4de46ea62883dddeabadb5888679809aa30e63be8",
+      "fetchedAt": "2026-08-26T19:29:26.049Z",
+      "localAssetKey": "spell_pyke_q",
+      "localPath": "assets/images/spells/pyke_q.png",
+      "revisionId": 4007993,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Pyke_Bone_Skewer.png?49be0"
+    },
+    {
+      "contentHash": "c7f1eaea78533f49edae5bc142cfa5a1caa51987512738ed58aa5ed262e939f8",
+      "fetchedAt": "2026-08-26T19:29:26.049Z",
+      "localAssetKey": "spell_pyke_r",
+      "localPath": "assets/images/spells/pyke_r.png",
+      "revisionId": 4007995,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Pyke_Death_from_Below.png?1cebd"
+    },
+    {
+      "contentHash": "c7f1eaea78533f49edae5bc142cfa5a1caa51987512738ed58aa5ed262e939f8",
+      "fetchedAt": "2026-08-26T19:29:26.049Z",
+      "localAssetKey": "spell_pyke_r2",
+      "localPath": "assets/images/spells/pyke_r2.png",
+      "revisionId": 4007995,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Pyke_Death_from_Below.png?1cebd"
+    },
+    {
+      "contentHash": "89771826656ba72aa7e264b0b8522bdc616869ed2fb67865c0b10c2f3eaefcaa",
+      "fetchedAt": "2026-08-26T19:29:26.049Z",
+      "localAssetKey": "spell_pyke_w",
+      "localPath": "assets/images/spells/pyke_w.png",
+      "revisionId": 4050339,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Pyke_Ghostwater_Dive.png?859bc"
     },
     {
       "contentHash": "efcf1105459f7fb76803a9a87bedfe457e569b7c467712a89531885075fb98e9",
@@ -1800,6 +1976,70 @@
       "localPath": "assets/images/spells/sett_w.png",
       "revisionId": 4008036,
       "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Sett_Haymaker.png?0bca2"
+    },
+    {
+      "contentHash": "d8c6f47ef41c2f6b53e77ea401ed9e0719012b57104297efe0f437c5c04b8eb4",
+      "fetchedAt": "2026-08-26T19:29:02.718Z",
+      "localAssetKey": "spell_shen_e",
+      "localPath": "assets/images/spells/shen_e.png",
+      "revisionId": 4007754,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Shen_Shadow_Dash.png?5eafc"
+    },
+    {
+      "contentHash": "cadf57a6569a4017c6435621a4e7c659e35344c891e508722098e2d45501b8cb",
+      "fetchedAt": "2026-08-26T19:29:02.718Z",
+      "localAssetKey": "spell_shen_i",
+      "localPath": "assets/images/spells/shen_i.png",
+      "revisionId": 3985839,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Shen_Ki_Barrier.png?8cb8c"
+    },
+    {
+      "contentHash": "238b090a7341cc359cc580bce3603e8d06a25e644a223b880b7c24ec8fab4d5e",
+      "fetchedAt": "2026-08-26T19:29:02.718Z",
+      "localAssetKey": "spell_shen_q",
+      "localPath": "assets/images/spells/shen_q.png",
+      "revisionId": 4008038,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Shen_Twilight_Assault.png?ae337"
+    },
+    {
+      "contentHash": "238b090a7341cc359cc580bce3603e8d06a25e644a223b880b7c24ec8fab4d5e",
+      "fetchedAt": "2026-08-26T19:29:02.718Z",
+      "localAssetKey": "spell_shen_q2",
+      "localPath": "assets/images/spells/shen_q2.png",
+      "revisionId": 4008038,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Shen_Twilight_Assault.png?ae337"
+    },
+    {
+      "contentHash": "238b090a7341cc359cc580bce3603e8d06a25e644a223b880b7c24ec8fab4d5e",
+      "fetchedAt": "2026-08-26T19:29:02.718Z",
+      "localAssetKey": "spell_shen_q3",
+      "localPath": "assets/images/spells/shen_q3.png",
+      "revisionId": 4008038,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Shen_Twilight_Assault.png?ae337"
+    },
+    {
+      "contentHash": "bc2a92a31427d0940989836ccb11e771cda9cf1d089c77cff93572e68f24da54",
+      "fetchedAt": "2026-08-26T19:29:02.718Z",
+      "localAssetKey": "spell_shen_r",
+      "localPath": "assets/images/spells/shen_r.png",
+      "revisionId": 4004939,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Shen_Stand_United.png?b107c"
+    },
+    {
+      "contentHash": "bc2a92a31427d0940989836ccb11e771cda9cf1d089c77cff93572e68f24da54",
+      "fetchedAt": "2026-08-26T19:29:02.718Z",
+      "localAssetKey": "spell_shen_r2",
+      "localPath": "assets/images/spells/shen_r2.png",
+      "revisionId": 4004939,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Shen_Stand_United.png?b107c"
+    },
+    {
+      "contentHash": "29403a0397f99304b57d083c1998a84081d784b4097fb503fcce13204556a34d",
+      "fetchedAt": "2026-08-26T19:29:02.718Z",
+      "localAssetKey": "spell_shen_w",
+      "localPath": "assets/images/spells/shen_w.png",
+      "revisionId": 3977238,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Shen_Spirit%27s_Refuge.png?319df"
     },
     {
       "contentHash": "a0efcc7a62762d512facbaa07a9e8ee7b69b41cf07b6028342e75ad3b12bbb2e",
@@ -2056,6 +2296,78 @@
       "localPath": "assets/images/spells/tryndamere_w.png",
       "revisionId": 3983173,
       "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Tryndamere_Mocking_Shout.png?e3366"
+    },
+    {
+      "contentHash": "cb54457d05d362e860aa4008ccffe2ebde9c1ede91274669e3f521d597ff9376",
+      "fetchedAt": "2026-08-26T19:29:42.360Z",
+      "localAssetKey": "spell_twistedfate_e",
+      "localPath": "assets/images/spells/twistedfate_e.png",
+      "revisionId": 3963571,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Twisted_Fate_Stacked_Deck.png?6e05c"
+    },
+    {
+      "contentHash": "62c5ad709fa556d460083603f5767ff1ec60ee88290833b1a12ed7070b9f816e",
+      "fetchedAt": "2026-08-26T19:29:42.360Z",
+      "localAssetKey": "spell_twistedfate_i",
+      "localPath": "assets/images/spells/twistedfate_i.png",
+      "revisionId": 4005221,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Twisted_Fate_Loaded_Dice.png?65562"
+    },
+    {
+      "contentHash": "6679ecf7a295cfc21a5dd129fc9b314b7b992264e647ced0c492d6bbe6042849",
+      "fetchedAt": "2026-08-26T19:29:42.360Z",
+      "localAssetKey": "spell_twistedfate_q",
+      "localPath": "assets/images/spells/twistedfate_q.png",
+      "revisionId": 3950864,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Twisted_Fate_Wild_Cards.png?c7566"
+    },
+    {
+      "contentHash": "20d2aa7f948848b72f55ebdfbd2e50077a666a4afb371936b73027cc1debfd3c",
+      "fetchedAt": "2026-08-26T19:29:42.360Z",
+      "localAssetKey": "spell_twistedfate_r",
+      "localPath": "assets/images/spells/twistedfate_r.png",
+      "revisionId": 4017975,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Twisted_Fate_Destiny.png?658f0"
+    },
+    {
+      "contentHash": "20d2aa7f948848b72f55ebdfbd2e50077a666a4afb371936b73027cc1debfd3c",
+      "fetchedAt": "2026-08-26T19:29:42.360Z",
+      "localAssetKey": "spell_twistedfate_r2",
+      "localPath": "assets/images/spells/twistedfate_r2.png",
+      "revisionId": 4017975,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Twisted_Fate_Destiny.png?658f0"
+    },
+    {
+      "contentHash": "dde68d26de86825315b568ee956809a5f885e78d3f8dd880a4c423c99d84cd33",
+      "fetchedAt": "2026-08-26T19:29:42.360Z",
+      "localAssetKey": "spell_twistedfate_w",
+      "localPath": "assets/images/spells/twistedfate_w.png",
+      "revisionId": 4004668,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Twisted_Fate_Pick_a_Card.png?021d4"
+    },
+    {
+      "contentHash": "dde68d26de86825315b568ee956809a5f885e78d3f8dd880a4c423c99d84cd33",
+      "fetchedAt": "2026-08-26T19:29:42.360Z",
+      "localAssetKey": "spell_twistedfate_w2",
+      "localPath": "assets/images/spells/twistedfate_w2.png",
+      "revisionId": 4004668,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Twisted_Fate_Pick_a_Card.png?021d4"
+    },
+    {
+      "contentHash": "dde68d26de86825315b568ee956809a5f885e78d3f8dd880a4c423c99d84cd33",
+      "fetchedAt": "2026-08-26T19:29:42.360Z",
+      "localAssetKey": "spell_twistedfate_w3",
+      "localPath": "assets/images/spells/twistedfate_w3.png",
+      "revisionId": 4004668,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Twisted_Fate_Pick_a_Card.png?021d4"
+    },
+    {
+      "contentHash": "dde68d26de86825315b568ee956809a5f885e78d3f8dd880a4c423c99d84cd33",
+      "fetchedAt": "2026-08-26T19:29:42.360Z",
+      "localAssetKey": "spell_twistedfate_w4",
+      "localPath": "assets/images/spells/twistedfate_w4.png",
+      "revisionId": 4004668,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Twisted_Fate_Pick_a_Card.png?021d4"
     },
     {
       "contentHash": "b06c549ae84d17bc25a7ca4663f954122aabe9f55094a1f255e488a99969190d",

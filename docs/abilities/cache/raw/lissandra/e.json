@@ -1,0 +1,43 @@
+{
+  "payload": [
+    {
+      "page": "Template:Data Lissandra/Glacial Path",
+      "response": {
+        "expanded": {
+          "expandtemplates": {
+            "wikitext": "@@name@@Glacial Path@@icon@@Glacial Path.png@@icon2@@{{{icon2}}}@@icon3@@{{{icon3}}}@@icon4@@{{{icon4}}}@@description@@<span class=\"template_sbc\">'''Active:'''</span> '''Lissandra''' sends a claw of ice in the target direction that deals <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to enemies it passes through, decelerating over 1.<small>25</small> seconds. ''Glacial Path'' can be recast after 0.<small>5</small> seconds while the claw is active.@@description2@@<span class=\"template_sbc\">'''Recast:'''</span> '''Lissandra''' <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Blinks\">[[File:Flash.png|20px|link=Blink|An icon representing the keyword Blink]] [[:Blink|blinks]]</span> to the claw's current location, ending its trajectory.@@description3@@{{{description3}}}@@description4@@{{{description4}}}@@description5@@{{{description5}}}@@description6@@{{{description6}}}@@leveling@@<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>70 / 105 / 140 / 175 / 210 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 60% AP)</span></dd></dl>@@leveling2@@{{{leveling2}}}@@leveling3@@{{{leveling3}}}@@leveling4@@{{{leveling4}}}@@leveling5@@{{{leveling5}}}@@leveling6@@{{{leveling6}}}@@range@@1025@@radius@@{{{radius}}}@@effectradius@@{{{effect radius}}}@@width@@<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Er\">[[File:Range model.png|20px|link=Range|An icon representing the keyword Edge range]]</span> 250@@speed@@<span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Claw missile speed, decelerates over time\">1200 - 640</span>@@casttime@@0.<small>25</small>@@cost@@80 / 85 / 90 / 95 / 100@@cooldown@@24 / 21 / 18 / 15 / 12@@targeting@@[[Direction-targeted|Direction]] • [[Auto-targeted|Auto]]@@damagetype@@magic@@spellshield@@True@@projectile@@true@@notes@@\n*Both casts count as ability activations for the purposes of on-cast effects such as <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spellblade\">[[File:Sheen item.png|20px|link=Named item effect#Spellblade|An icon representing the keyword Spellblade]] [[:Named item effect#Spellblade|Spellblade]]</span> and triggering <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Kassadin\" data-ability=\"Force Pulse\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Kassadin Force Pulse.png|20xpx|border|link=Kassadin#Force Pulse|An icon for Kassadin's ability Force Pulse]]</span> <span style=\"white-space:normal;\">[[Kassadin#Force Pulse|Force Pulse's]]</span></span> passive.\n* '''Lissandra''' can reactivate ''Glacial Path'' for the duration (plus another 0.<small>2</small>-0.<small>3</small> seconds after the claw 'sinks' into the ground).\n** The Claw can also hit enemies near the end point at this time, shortly after the missile has reached its maximum range.\n* ''Glacial Path'' allows '''Lissandra''' to surpass through every single wall in all maps, so long as the claw is at least halfway through them.\n* ''Glacial Path'' cannot be recast while <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Ground\">[[File:Grounded icon.png|20px|link=Ground|An icon representing the keyword Ground]] [[:Ground|grounded]]</span> or <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Root\">[[File:Root icon.png|20px|link=Root|An icon representing the keyword Root]] [[:Root|rooted]]</span>.\n* ''Glacial Path's'' endpoint shows through terrain, [[sight|fog of war]] and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Brush\">[[File:Brushmaker.png|20px|link=Brush|An icon representing the keyword Brush]] [[:Brush|brush]]</span> to enemies within 600 range of it.@@"
+          }
+        },
+        "revision": {
+          "batchcomplete": true,
+          "query": {
+            "pages": [
+              {
+                "ns": 10,
+                "pageid": 1307884,
+                "revisions": [
+                  {
+                    "parentid": 4048097,
+                    "revid": 4050877,
+                    "timestamp": "2026-08-09T21:20:36Z"
+                  }
+                ],
+                "title": "Template:Data Lissandra/Glacial Path"
+              }
+            ]
+          }
+        }
+      },
+      "revisionId": 4050877,
+      "timestamp": "2026-08-09T21:20:36Z"
+    }
+  ],
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "bd96afe5b2f6ff599f10156bcd66812ce593b94f05c5eb0bdf3f189855869050",
+    "fetchedAt": "2026-08-26T19:29:18.645Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Glacial_Path",
+    "revisionId": 4050877,
+    "sourceTimestamp": "2026-08-09T21:20:36Z"
+  }
+}

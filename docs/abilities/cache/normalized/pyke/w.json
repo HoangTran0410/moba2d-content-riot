@@ -1,0 +1,49 @@
+{
+  "asset": {
+    "key": "spell_pyke_w",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Pyke_Ghostwater_Dive.png?859bc",
+    "sha1": "d824a2ed0bacd6c6ce01553043bf307288107f77"
+  },
+  "champion": "Pyke",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_pyke_w",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Pyke_Ghostwater_Dive.png?859bc",
+        "sha1": "d824a2ed0bacd6c6ce01553043bf307288107f77"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "14 / 13 / 12 / 11 / 10",
+        "cost": "65",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Pyke''' submerges into water for 5 seconds, entering <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Camouflage\">[[File:Ambush_3.png|20px|link=Stealth#Camouflage|An icon representing the keyword Camouflage]] [[:Stealth#Camouflage|camouflage]]</span> and gaining <span style=\"white-space:nowrap\">[[File:Movement speed icon.png|15px|link=Movement speed]]&nbsp;<span style=\"color:\n#9FFF4D; white-space:normal\">45%</span> <span style=\"color:tomato; white-space:normal\">(+ 2% per 1 Lethality)</span> <span style=\"color:\n#9FFF4D; white-space:normal\">'''bonus''' movement speed</span></span> that decays over the duration. Attacking or casting abilities ends ''Ghostwater Dive'' immediately.",
+          "text": "Active: Pyke submerges into water for 5 seconds, entering camouflage and gaining &nbsp;45% (+ 2% per 1 Lethality) bonus movement speed that decays over the duration. Attacking or casting abilities ends Ghostwater Dive immediately."
+        },
+        "description2": {
+          "raw": "''Enemy champions within 1500 units of '''Pyke''' are alerted of his presence and whether he can execute them with <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Pyke\" data-ability=\"Death from Below\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Pyke Death from Below.png|20xpx|border|link=Pyke#Death from Below|An icon for Pyke's ability Death from Below]]</span> <span style=\"white-space:normal;\">[[Pyke#Death from Below|Death from Below]]</span></span>.''",
+          "text": "Enemy champions within 1500 units of Pyke are alerted of his presence and whether he can execute them with Death from Below."
+        },
+        "icon": "Ghostwater Dive.png",
+        "name": "Ghostwater Dive",
+        "notes": {
+          "raw": "* When an enemy is alerted, sharks will circle underneath their feet while a sound will be played to them that changes based on health threshold.\n* Using a basic attack breaks the stealth at the end of the attack windup.\n* <span style=\"color:red; font-family:math; font-weight:bold; font-size:1em;\" title=\"Pending for test\"><span class=\"fas fa-vial\"></span>PENDING FOR TEST:</span> While submerged, a unique visual indicator will appear above '''Pyke''' if there are enemy champions closer than 700 units but farther than 600 units.",
+          "text": "When an enemy is alerted, sharks will circle underneath their feet while a sound will be played to them that changes based on health threshold.\nUsing a basic attack breaks the stealth at the end of the attack windup.\nPENDING FOR TEST: While submerged, a unique visual indicator will appear above Pyke if there are enemy champions closer than 700 units but farther than 600 units."
+        },
+        "targeting": "Auto"
+      },
+      "name": "Ghostwater Dive"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "W",
+  "source": {
+    "contentHash": "d064be394ef0c044125c0d6191b3cf97f2e7fcf914513710901db744095a0664",
+    "fetchedAt": "2026-08-26T19:29:26.049Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Ghostwater_Dive",
+    "revisionId": 4050339,
+    "sourceTimestamp": "2026-08-06T22:37:50Z"
+  }
+}

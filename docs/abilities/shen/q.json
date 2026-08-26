@@ -1,0 +1,203 @@
+{
+  "asset": {
+    "key": "spell_shen_q",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Shen_Twilight_Assault.png?ae337",
+    "sha1": "6adb65b4daa3fa599b6da942f4de036451a4424b"
+  },
+  "champion": "Shen",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_shen_q",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Shen_Twilight_Assault.png?ae337",
+        "sha1": "6adb65b4daa3fa599b6da942f4de036451a4424b"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "8 / 7.25 / 6.5 / 5.75 / 5",
+        "cost": "140 / 130 / 120 / 110 / 100",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Shen''' recalls his <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> to him. Enemy champions hit by the <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> along its path are <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slowed]]</span> for the next 2 seconds while moving away from '''Shen'''.",
+          "text": "Active: Shen recalls his Spirit Blade to him. Enemy champions hit by the Spirit Blade along its path are slowed for the next 2 seconds while moving away from Shen."
+        },
+        "description2": {
+          "raw": "Once it arrives, '''Shen''' empowers his next 3 <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic attacks\">[[File:Basic attack cursor icon.png|20px|link=Basic attack|An icon representing the keyword Basic attack]] [[:Basic attack|basic attacks]]</span> within 8 seconds to gain <span style=\"white-space:nowrap\">[[File:Range icon.png|15px|link=Range]]&nbsp;75 '''bonus''' range</span> and deal <span style=\"color:\n#00B0F0; white-space:normal\">'''bonus''' magic damage</span> <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"On-hit\">[[File:On-hit icon.png|20px|link=Attack_effects#On_Hitting|An icon representing the keyword On-hit]] [[:Attack_effects#On_Hitting|on-hit]]</span>. Against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Structures\">[[File:Structure icon.png|20px|link=Category:Structure|An icon representing the keyword Structure]] [[:Category:Structure|structures]]</span>, only the flat damage portion is applied.",
+          "text": "Once it arrives, Shen empowers his next 3 basic attacks within 8 seconds to gain &nbsp;75 bonus range and deal bonus magic damage on-hit. Against structures, only the flat damage portion is applied."
+        },
+        "description3": {
+          "raw": "If the <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> hits at least one enemy <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Champion\">[[File:Champion icon.png|20px|link=Champion|An icon representing the keyword Champion]] [[:Champion|champion]]</span> during the travel, the attacks are further enhanced to deal [[File:Successfully enhanced damage magic icon.png|20px|link=Damage#Successful_ability_casts]] <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Cosmetic critical strike\"><span style=\"color:\n#00B0F0; white-space:normal\">'''increased bonus''' magic damage</span></span> and additionally grant '''Shen''' <span style=\"white-space:nowrap\">[[File:Attack speed icon.png|15px|link=Attack speed]]&nbsp;<span style=\"color:\n#F5EE99; white-space:normal\">50% '''bonus''' attack speed</span></span>.",
+          "text": "If the Spirit Blade hits at least one enemy champion during the travel, the attacks are further enhanced to deal increased bonus magic damage and additionally grant Shen &nbsp;50% bonus attack speed."
+        },
+        "description4": {
+          "raw": "Empowered attacks against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Monsters\">[[File:Monster icon.png|20px|link=Monster|An icon representing the keyword Monster]] [[:Monster|monsters]]</span> deal 100% '''bonus''' damage, but their '''total''' damage is capped.",
+          "text": "Empowered attacks against monsters deal 100% bonus damage, but their total damage is capped."
+        },
+        "effectradius": "Global",
+        "icon": "Twilight Assault.png",
+        "icon2": "Twilight Assault 2.png",
+        "icon3": "Twilight Assault 3.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Slow:'''</span></dt><dd>25 / 30 / 35 / 40 / 45%</dd></dl>",
+          "text": "Slow:25 / 30 / 35 / 40 / 45%"
+        },
+        "leveling2": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Magic Damage:'''</span></dt><dd><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-start=\"10;1\" data-finish=\"40;16\" data-top-fill=\"6\" data-bot-values=\"10;16;22;28;34;40\" data-top-values=\"1;4;7;10;13;16\">10 – 40 (based on level)</span> <span style=\"color:\n#21B053; white-space:normal\">(+ 2 / 2.<small>5</small> / 3 / 3.<small>5</small> / 4% <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 1.<small>5</small>% per 100 AP)</span> of target's '''maximum''' health)</span></dd><dt><span class=\"template_lc\">'''Total Magic Damage:'''</span></dt><dd><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-start=\"30;1\" data-finish=\"120;16\" data-top-fill=\"6\" data-bot-values=\"30;48;66;84;102;120\" data-top-values=\"1;4;7;10;13;16\">30 – 120 (based on level)</span> <span style=\"color:\n#21B053; white-space:normal\">(+ 6 / 7.<small>5</small> / 9 / 10.<small>5</small> / 12% <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 4.<small>5</small>% per 100 AP)</span> of target's '''maximum''' health)</span></dd></dl>",
+          "text": "Bonus Magic Damage:10 – 40 (based on level) (+ 2 / 2.5 / 3 / 3.5 / 4% (+ 1.5% per 100 AP) of target's maximum health)Total Magic Damage:30 – 120 (based on level) (+ 6 / 7.5 / 9 / 10.5 / 12% (+ 4.5% per 100 AP) of target's maximum health)"
+        },
+        "leveling3": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Increased Bonus Damage:'''</span></dt><dd><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-start=\"10;1\" data-finish=\"40;16\" data-top-fill=\"6\" data-bot-values=\"10;16;22;28;34;40\" data-top-values=\"1;4;7;10;13;16\">10 – 40 (based on level)</span> <span style=\"color:\n#21B053; white-space:normal\">(+ 5 / 5.<small>5</small> / 6 / 6.<small>5</small> / 7% <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 2% per 100 AP)</span> of target's '''maximum''' health)</span></dd><dt><span class=\"template_lc\">'''Total Increased Damage:'''</span></dt><dd><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-start=\"30;1\" data-finish=\"120;16\" data-top-fill=\"6\" data-bot-values=\"30;48;66;84;102;120\" data-top-values=\"1;4;7;10;13;16\">30 – 120 (based on level)</span> <span style=\"color:\n#21B053; white-space:normal\">(+ 15 / 16.<small>5</small> / 18 / 19.<small>5</small> / 21% <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 6% per 100 AP)</span> of target's '''maximum''' health)</span></dd></dl>",
+          "text": "Increased Bonus Damage:10 – 40 (based on level) (+ 5 / 5.5 / 6 / 6.5 / 7% (+ 2% per 100 AP) of target's maximum health)Total Increased Damage:30 – 120 (based on level) (+ 15 / 16.5 / 18 / 19.5 / 21% (+ 6% per 100 AP) of target's maximum health)"
+        },
+        "leveling4": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Maximum Monster Damage:'''</span></dt><dd>100 / 125 / 150 / 175 / 200</dd></dl>",
+          "text": "Maximum Monster Damage:100 / 125 / 150 / 175 / 200"
+        },
+        "name": "Twilight Assault",
+        "notes": {
+          "raw": "* The <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> will track '''Shen''' as it is traveling to him, following his movements if he changes locations while the blade is in-flight.\n* The <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> will stop in place upon colliding with <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Projectile\">[[File:Projectile.png|20px|link=Projectile|An icon representing the keyword Projectile]] [[:Projectile|projectile-intercepting]]</span> effects. If this occurs, '''Shen''' will not gain the empowered attacks as the <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> failed to complete its travel to him.\n* When it is recalled, the <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> also checks for units whose <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Gameplay radius\">[[File:Gameplay radius.png|20px|link=Unit size|An icon representing the keyword Gameplay radius]] [[:Unit size|gameplay radius]]</span> it overlaps with (equal to a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Er\">[[File:Range model.png|20px|link=Range|An icon representing the keyword Edge range]]</span> 0 radius check) before flying off, allowing it to hit enemies whose center is behind the missile origin.\n* The empowered attack will not trigger against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Wards\">[[File:Ward_icon.png|20px|link=Ward|An icon representing the keyword Ward]] [[:Ward|wards]]</span>.",
+          "text": "The Spirit Blade will track Shen as it is traveling to him, following his movements if he changes locations while the blade is in-flight.\nThe Spirit Blade will stop in place upon colliding with projectile-intercepting effects. If this occurs, Shen will not gain the empowered attacks as the Spirit Blade failed to complete its travel to him.\nWhen it is recalled, the Spirit Blade also checks for units whose gameplay radius it overlaps with (equal to a 0 radius check) before flying off, allowing it to hit enemies whose center is behind the missile origin.\nThe empowered attack will not trigger against wards."
+        },
+        "projectile": false,
+        "speed": "2000 - 5000",
+        "spellshield": true,
+        "targeting": "Auto",
+        "width": "160"
+      },
+      "name": "Twilight Assault"
+    },
+    {
+      "asset": {
+        "key": "spell_shen_q2",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Shen_Twilight_Assault.png?ae337",
+        "sha1": "6adb65b4daa3fa599b6da942f4de036451a4424b"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "8 / 7.25 / 6.5 / 5.75 / 5",
+        "cost": "140 / 130 / 120 / 110 / 100",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Shen''' recalls his <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> to him. Enemy champions hit by the <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> along its path are <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slowed]]</span> for the next 2 seconds while moving away from '''Shen'''.",
+          "text": "Active: Shen recalls his Spirit Blade to him. Enemy champions hit by the Spirit Blade along its path are slowed for the next 2 seconds while moving away from Shen."
+        },
+        "description2": {
+          "raw": "Once it arrives, '''Shen''' empowers his next 3 <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic attacks\">[[File:Basic attack cursor icon.png|20px|link=Basic attack|An icon representing the keyword Basic attack]] [[:Basic attack|basic attacks]]</span> within 8 seconds to gain <span style=\"white-space:nowrap\">[[File:Range icon.png|15px|link=Range]]&nbsp;75 '''bonus''' range</span> and deal <span style=\"color:\n#00B0F0; white-space:normal\">'''bonus''' magic damage</span> <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"On-hit\">[[File:On-hit icon.png|20px|link=Attack_effects#On_Hitting|An icon representing the keyword On-hit]] [[:Attack_effects#On_Hitting|on-hit]]</span>. Against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Structures\">[[File:Structure icon.png|20px|link=Category:Structure|An icon representing the keyword Structure]] [[:Category:Structure|structures]]</span>, only the flat damage portion is applied.",
+          "text": "Once it arrives, Shen empowers his next 3 basic attacks within 8 seconds to gain &nbsp;75 bonus range and deal bonus magic damage on-hit. Against structures, only the flat damage portion is applied."
+        },
+        "description3": {
+          "raw": "If the <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> hits at least one enemy <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Champion\">[[File:Champion icon.png|20px|link=Champion|An icon representing the keyword Champion]] [[:Champion|champion]]</span> during the travel, the attacks are further enhanced to deal [[File:Successfully enhanced damage magic icon.png|20px|link=Damage#Successful_ability_casts]] <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Cosmetic critical strike\"><span style=\"color:\n#00B0F0; white-space:normal\">'''increased bonus''' magic damage</span></span> and additionally grant '''Shen''' <span style=\"white-space:nowrap\">[[File:Attack speed icon.png|15px|link=Attack speed]]&nbsp;<span style=\"color:\n#F5EE99; white-space:normal\">50% '''bonus''' attack speed</span></span>.",
+          "text": "If the Spirit Blade hits at least one enemy champion during the travel, the attacks are further enhanced to deal increased bonus magic damage and additionally grant Shen &nbsp;50% bonus attack speed."
+        },
+        "description4": {
+          "raw": "Empowered attacks against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Monsters\">[[File:Monster icon.png|20px|link=Monster|An icon representing the keyword Monster]] [[:Monster|monsters]]</span> deal 100% '''bonus''' damage, but their '''total''' damage is capped.",
+          "text": "Empowered attacks against monsters deal 100% bonus damage, but their total damage is capped."
+        },
+        "effectradius": "Global",
+        "icon": "Twilight Assault.png",
+        "icon2": "Twilight Assault 2.png",
+        "icon3": "Twilight Assault 3.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Slow:'''</span></dt><dd>25 / 30 / 35 / 40 / 45%</dd></dl>",
+          "text": "Slow:25 / 30 / 35 / 40 / 45%"
+        },
+        "leveling2": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Magic Damage:'''</span></dt><dd><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-start=\"10;1\" data-finish=\"40;16\" data-top-fill=\"6\" data-bot-values=\"10;16;22;28;34;40\" data-top-values=\"1;4;7;10;13;16\">10 – 40 (based on level)</span> <span style=\"color:\n#21B053; white-space:normal\">(+ 2 / 2.<small>5</small> / 3 / 3.<small>5</small> / 4% <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 1.<small>5</small>% per 100 AP)</span> of target's '''maximum''' health)</span></dd><dt><span class=\"template_lc\">'''Total Magic Damage:'''</span></dt><dd><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-start=\"30;1\" data-finish=\"120;16\" data-top-fill=\"6\" data-bot-values=\"30;48;66;84;102;120\" data-top-values=\"1;4;7;10;13;16\">30 – 120 (based on level)</span> <span style=\"color:\n#21B053; white-space:normal\">(+ 6 / 7.<small>5</small> / 9 / 10.<small>5</small> / 12% <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 4.<small>5</small>% per 100 AP)</span> of target's '''maximum''' health)</span></dd></dl>",
+          "text": "Bonus Magic Damage:10 – 40 (based on level) (+ 2 / 2.5 / 3 / 3.5 / 4% (+ 1.5% per 100 AP) of target's maximum health)Total Magic Damage:30 – 120 (based on level) (+ 6 / 7.5 / 9 / 10.5 / 12% (+ 4.5% per 100 AP) of target's maximum health)"
+        },
+        "leveling3": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Increased Bonus Damage:'''</span></dt><dd><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-start=\"10;1\" data-finish=\"40;16\" data-top-fill=\"6\" data-bot-values=\"10;16;22;28;34;40\" data-top-values=\"1;4;7;10;13;16\">10 – 40 (based on level)</span> <span style=\"color:\n#21B053; white-space:normal\">(+ 5 / 5.<small>5</small> / 6 / 6.<small>5</small> / 7% <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 2% per 100 AP)</span> of target's '''maximum''' health)</span></dd><dt><span class=\"template_lc\">'''Total Increased Damage:'''</span></dt><dd><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-start=\"30;1\" data-finish=\"120;16\" data-top-fill=\"6\" data-bot-values=\"30;48;66;84;102;120\" data-top-values=\"1;4;7;10;13;16\">30 – 120 (based on level)</span> <span style=\"color:\n#21B053; white-space:normal\">(+ 15 / 16.<small>5</small> / 18 / 19.<small>5</small> / 21% <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 6% per 100 AP)</span> of target's '''maximum''' health)</span></dd></dl>",
+          "text": "Increased Bonus Damage:10 – 40 (based on level) (+ 5 / 5.5 / 6 / 6.5 / 7% (+ 2% per 100 AP) of target's maximum health)Total Increased Damage:30 – 120 (based on level) (+ 15 / 16.5 / 18 / 19.5 / 21% (+ 6% per 100 AP) of target's maximum health)"
+        },
+        "leveling4": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Maximum Monster Damage:'''</span></dt><dd>100 / 125 / 150 / 175 / 200</dd></dl>",
+          "text": "Maximum Monster Damage:100 / 125 / 150 / 175 / 200"
+        },
+        "name": "Twilight Assault",
+        "notes": {
+          "raw": "* The <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> will track '''Shen''' as it is traveling to him, following his movements if he changes locations while the blade is in-flight.\n* The <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> will stop in place upon colliding with <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Projectile\">[[File:Projectile.png|20px|link=Projectile|An icon representing the keyword Projectile]] [[:Projectile|projectile-intercepting]]</span> effects. If this occurs, '''Shen''' will not gain the empowered attacks as the <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> failed to complete its travel to him.\n* When it is recalled, the <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> also checks for units whose <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Gameplay radius\">[[File:Gameplay radius.png|20px|link=Unit size|An icon representing the keyword Gameplay radius]] [[:Unit size|gameplay radius]]</span> it overlaps with (equal to a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Er\">[[File:Range model.png|20px|link=Range|An icon representing the keyword Edge range]]</span> 0 radius check) before flying off, allowing it to hit enemies whose center is behind the missile origin.\n* The empowered attack will not trigger against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Wards\">[[File:Ward_icon.png|20px|link=Ward|An icon representing the keyword Ward]] [[:Ward|wards]]</span>.",
+          "text": "The Spirit Blade will track Shen as it is traveling to him, following his movements if he changes locations while the blade is in-flight.\nThe Spirit Blade will stop in place upon colliding with projectile-intercepting effects. If this occurs, Shen will not gain the empowered attacks as the Spirit Blade failed to complete its travel to him.\nWhen it is recalled, the Spirit Blade also checks for units whose gameplay radius it overlaps with (equal to a 0 radius check) before flying off, allowing it to hit enemies whose center is behind the missile origin.\nThe empowered attack will not trigger against wards."
+        },
+        "projectile": false,
+        "speed": "2000 - 5000",
+        "spellshield": true,
+        "targeting": "Auto",
+        "width": "160"
+      },
+      "name": "Twilight Assault 2"
+    },
+    {
+      "asset": {
+        "key": "spell_shen_q3",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Shen_Twilight_Assault.png?ae337",
+        "sha1": "6adb65b4daa3fa599b6da942f4de036451a4424b"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "8 / 7.25 / 6.5 / 5.75 / 5",
+        "cost": "140 / 130 / 120 / 110 / 100",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Shen''' recalls his <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> to him. Enemy champions hit by the <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> along its path are <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slowed]]</span> for the next 2 seconds while moving away from '''Shen'''.",
+          "text": "Active: Shen recalls his Spirit Blade to him. Enemy champions hit by the Spirit Blade along its path are slowed for the next 2 seconds while moving away from Shen."
+        },
+        "description2": {
+          "raw": "Once it arrives, '''Shen''' empowers his next 3 <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic attacks\">[[File:Basic attack cursor icon.png|20px|link=Basic attack|An icon representing the keyword Basic attack]] [[:Basic attack|basic attacks]]</span> within 8 seconds to gain <span style=\"white-space:nowrap\">[[File:Range icon.png|15px|link=Range]]&nbsp;75 '''bonus''' range</span> and deal <span style=\"color:\n#00B0F0; white-space:normal\">'''bonus''' magic damage</span> <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"On-hit\">[[File:On-hit icon.png|20px|link=Attack_effects#On_Hitting|An icon representing the keyword On-hit]] [[:Attack_effects#On_Hitting|on-hit]]</span>. Against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Structures\">[[File:Structure icon.png|20px|link=Category:Structure|An icon representing the keyword Structure]] [[:Category:Structure|structures]]</span>, only the flat damage portion is applied.",
+          "text": "Once it arrives, Shen empowers his next 3 basic attacks within 8 seconds to gain &nbsp;75 bonus range and deal bonus magic damage on-hit. Against structures, only the flat damage portion is applied."
+        },
+        "description3": {
+          "raw": "If the <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> hits at least one enemy <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Champion\">[[File:Champion icon.png|20px|link=Champion|An icon representing the keyword Champion]] [[:Champion|champion]]</span> during the travel, the attacks are further enhanced to deal [[File:Successfully enhanced damage magic icon.png|20px|link=Damage#Successful_ability_casts]] <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Cosmetic critical strike\"><span style=\"color:\n#00B0F0; white-space:normal\">'''increased bonus''' magic damage</span></span> and additionally grant '''Shen''' <span style=\"white-space:nowrap\">[[File:Attack speed icon.png|15px|link=Attack speed]]&nbsp;<span style=\"color:\n#F5EE99; white-space:normal\">50% '''bonus''' attack speed</span></span>.",
+          "text": "If the Spirit Blade hits at least one enemy champion during the travel, the attacks are further enhanced to deal increased bonus magic damage and additionally grant Shen &nbsp;50% bonus attack speed."
+        },
+        "description4": {
+          "raw": "Empowered attacks against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Monsters\">[[File:Monster icon.png|20px|link=Monster|An icon representing the keyword Monster]] [[:Monster|monsters]]</span> deal 100% '''bonus''' damage, but their '''total''' damage is capped.",
+          "text": "Empowered attacks against monsters deal 100% bonus damage, but their total damage is capped."
+        },
+        "effectradius": "Global",
+        "icon": "Twilight Assault.png",
+        "icon2": "Twilight Assault 2.png",
+        "icon3": "Twilight Assault 3.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Slow:'''</span></dt><dd>25 / 30 / 35 / 40 / 45%</dd></dl>",
+          "text": "Slow:25 / 30 / 35 / 40 / 45%"
+        },
+        "leveling2": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Magic Damage:'''</span></dt><dd><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-start=\"10;1\" data-finish=\"40;16\" data-top-fill=\"6\" data-bot-values=\"10;16;22;28;34;40\" data-top-values=\"1;4;7;10;13;16\">10 – 40 (based on level)</span> <span style=\"color:\n#21B053; white-space:normal\">(+ 2 / 2.<small>5</small> / 3 / 3.<small>5</small> / 4% <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 1.<small>5</small>% per 100 AP)</span> of target's '''maximum''' health)</span></dd><dt><span class=\"template_lc\">'''Total Magic Damage:'''</span></dt><dd><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-start=\"30;1\" data-finish=\"120;16\" data-top-fill=\"6\" data-bot-values=\"30;48;66;84;102;120\" data-top-values=\"1;4;7;10;13;16\">30 – 120 (based on level)</span> <span style=\"color:\n#21B053; white-space:normal\">(+ 6 / 7.<small>5</small> / 9 / 10.<small>5</small> / 12% <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 4.<small>5</small>% per 100 AP)</span> of target's '''maximum''' health)</span></dd></dl>",
+          "text": "Bonus Magic Damage:10 – 40 (based on level) (+ 2 / 2.5 / 3 / 3.5 / 4% (+ 1.5% per 100 AP) of target's maximum health)Total Magic Damage:30 – 120 (based on level) (+ 6 / 7.5 / 9 / 10.5 / 12% (+ 4.5% per 100 AP) of target's maximum health)"
+        },
+        "leveling3": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Increased Bonus Damage:'''</span></dt><dd><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-start=\"10;1\" data-finish=\"40;16\" data-top-fill=\"6\" data-bot-values=\"10;16;22;28;34;40\" data-top-values=\"1;4;7;10;13;16\">10 – 40 (based on level)</span> <span style=\"color:\n#21B053; white-space:normal\">(+ 5 / 5.<small>5</small> / 6 / 6.<small>5</small> / 7% <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 2% per 100 AP)</span> of target's '''maximum''' health)</span></dd><dt><span class=\"template_lc\">'''Total Increased Damage:'''</span></dt><dd><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-start=\"30;1\" data-finish=\"120;16\" data-top-fill=\"6\" data-bot-values=\"30;48;66;84;102;120\" data-top-values=\"1;4;7;10;13;16\">30 – 120 (based on level)</span> <span style=\"color:\n#21B053; white-space:normal\">(+ 15 / 16.<small>5</small> / 18 / 19.<small>5</small> / 21% <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 6% per 100 AP)</span> of target's '''maximum''' health)</span></dd></dl>",
+          "text": "Increased Bonus Damage:10 – 40 (based on level) (+ 5 / 5.5 / 6 / 6.5 / 7% (+ 2% per 100 AP) of target's maximum health)Total Increased Damage:30 – 120 (based on level) (+ 15 / 16.5 / 18 / 19.5 / 21% (+ 6% per 100 AP) of target's maximum health)"
+        },
+        "leveling4": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Maximum Monster Damage:'''</span></dt><dd>100 / 125 / 150 / 175 / 200</dd></dl>",
+          "text": "Maximum Monster Damage:100 / 125 / 150 / 175 / 200"
+        },
+        "name": "Twilight Assault",
+        "notes": {
+          "raw": "* The <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> will track '''Shen''' as it is traveling to him, following his movements if he changes locations while the blade is in-flight.\n* The <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> will stop in place upon colliding with <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Projectile\">[[File:Projectile.png|20px|link=Projectile|An icon representing the keyword Projectile]] [[:Projectile|projectile-intercepting]]</span> effects. If this occurs, '''Shen''' will not gain the empowered attacks as the <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> failed to complete its travel to him.\n* When it is recalled, the <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> also checks for units whose <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Gameplay radius\">[[File:Gameplay radius.png|20px|link=Unit size|An icon representing the keyword Gameplay radius]] [[:Unit size|gameplay radius]]</span> it overlaps with (equal to a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Er\">[[File:Range model.png|20px|link=Range|An icon representing the keyword Edge range]]</span> 0 radius check) before flying off, allowing it to hit enemies whose center is behind the missile origin.\n* The empowered attack will not trigger against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Wards\">[[File:Ward_icon.png|20px|link=Ward|An icon representing the keyword Ward]] [[:Ward|wards]]</span>.",
+          "text": "The Spirit Blade will track Shen as it is traveling to him, following his movements if he changes locations while the blade is in-flight.\nThe Spirit Blade will stop in place upon colliding with projectile-intercepting effects. If this occurs, Shen will not gain the empowered attacks as the Spirit Blade failed to complete its travel to him.\nWhen it is recalled, the Spirit Blade also checks for units whose gameplay radius it overlaps with (equal to a 0 radius check) before flying off, allowing it to hit enemies whose center is behind the missile origin.\nThe empowered attack will not trigger against wards."
+        },
+        "projectile": false,
+        "speed": "2000 - 5000",
+        "spellshield": true,
+        "targeting": "Auto",
+        "width": "160"
+      },
+      "name": "Twilight Assault 3"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "Q",
+  "source": {
+    "contentHash": "8fdf3ec78058356f1a6746d30aa361e308299c8aafd56aaae069c2ab0c6d11e9",
+    "fetchedAt": "2026-08-26T19:29:02.718Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Twilight_Assault",
+    "revisionId": 4008038,
+    "sourceTimestamp": "2026-04-13T04:23:20Z"
+  }
+}

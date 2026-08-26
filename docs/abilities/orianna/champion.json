@@ -1,0 +1,112 @@
+{
+  "asset": {
+    "key": "champ_orianna",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Orianna_OriginalSquare.png?ea994",
+    "sha1": "d22c7c7ec8e65f491bf525ac8df0f5065aa89a6e"
+  },
+  "champion": "Orianna",
+  "data": {
+    "adaptivetype": "Magic",
+    "alttype": "Support",
+    "apiname": "Orianna",
+    "be": 2400,
+    "changes": "V26.12",
+    "client_positions": [
+      "Middle"
+    ],
+    "client_tags": [
+      "AoE",
+      "Long Range",
+      "Magic"
+    ],
+    "control": 2,
+    "damage": 2,
+    "date": "2011-06-01",
+    "difficulty": 3,
+    "external_positions": [
+      "Middle"
+    ],
+    "fullname": "Orianna Reveck",
+    "herotype": "Mage",
+    "id": 61,
+    "mobility": 1,
+    "patch": "V1.0.0.119",
+    "rangetype": "Ranged",
+    "resource": "Mana",
+    "role": [
+      "Burst"
+    ],
+    "rp": 880,
+    "skill_e": {
+      "1": "Command: Protect"
+    },
+    "skill_i": {
+      "1": "Clockwork Windup",
+      "2": "Clockwork Winding"
+    },
+    "skill_q": {
+      "1": "Command: Attack"
+    },
+    "skill_r": {
+      "1": "Command: Shockwave"
+    },
+    "skill_w": {
+      "1": "Command: Dissonance"
+    },
+    "skills": {
+      "1": "Clockwork Windup",
+      "2": "Command: Attack",
+      "3": "Command: Dissonance",
+      "4": "Command: Protect",
+      "5": "Command: Shockwave"
+    },
+    "stats": {
+      "acquisition_radius": 525,
+      "ar": {
+        "hp_lvl": 15
+      },
+      "arm_base": 20,
+      "arm_lvl": 4.2,
+      "as_base": 0.658,
+      "as_lvl": 3.5,
+      "as_ratio": 0.657999992370605,
+      "attack_delay_offset": -0.124561406672,
+      "dam_base": 44,
+      "dam_lvl": 2.6,
+      "hp5_base": 7,
+      "hp5_lvl": 0.55,
+      "hp_base": 565,
+      "hp_lvl": 110,
+      "missile_speed": 1500,
+      "mp5_base": 8,
+      "mp5_lvl": 0.8,
+      "mp_base": 418,
+      "mp_lvl": 25,
+      "mr_base": 26,
+      "mr_lvl": 1.3,
+      "ms": 325,
+      "pathing_radius": 35,
+      "range": 525,
+      "selection_height": 140,
+      "selection_radius": 120,
+      "urf": {
+        "dmg_dealt": 0.9,
+        "dmg_taken": 1.1,
+        "shielding": 0.8
+      }
+    },
+    "style": 90,
+    "title": "The Lady of Clockwork",
+    "toughness": 1,
+    "utility": 2
+  },
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "22fe497d5397b72d9685d04bccb0549b22cf41c6e4554336e0b8c95d89366277",
+    "fetchedAt": "2026-08-26T19:29:34.663Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Module:ChampionData/data",
+    "revisionId": 4052622,
+    "sourceTimestamp": "2026-08-19T14:42:50Z"
+  }
+}

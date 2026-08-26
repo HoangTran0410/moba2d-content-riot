@@ -1,0 +1,113 @@
+{
+  "asset": {
+    "key": "champ_twistedfate",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Twisted_Fate_OriginalSquare.png?72748",
+    "sha1": "eba79669298068e661f41484c07ac05a11171c63"
+  },
+  "champion": "Twisted Fate",
+  "data": {
+    "adaptivetype": "Magic",
+    "alttype": "Marksman",
+    "apiname": "TwistedFate",
+    "be": 2400,
+    "changes": "V26.10",
+    "client_positions": [
+      "Middle",
+      "Bottom"
+    ],
+    "client_tags": [
+      "Burst",
+      "Auto-attack",
+      "Magic"
+    ],
+    "control": 2,
+    "damage": 3,
+    "date": "2009-02-21",
+    "difficulty": 2,
+    "external_positions": [
+      "Top",
+      "Middle",
+      "Bottom"
+    ],
+    "fullname": "Tobias Felix",
+    "herotype": "Mage",
+    "id": 4,
+    "mobility": 2,
+    "nickname": "TF",
+    "patch": "Alpha Week 2",
+    "rangetype": "Ranged",
+    "resource": "Mana",
+    "role": [
+      "Burst"
+    ],
+    "rp": 585,
+    "skill_e": {
+      "1": "Stacked Deck"
+    },
+    "skill_i": {
+      "1": "Loaded Dice"
+    },
+    "skill_q": {
+      "1": "Wild Cards"
+    },
+    "skill_r": {
+      "1": "Destiny",
+      "2": "Gate"
+    },
+    "skill_w": {
+      "1": "Pick a Card",
+      "2": "Blue Card",
+      "3": "Red Card",
+      "4": "Gold Card"
+    },
+    "skills": {
+      "1": "Loaded Dice",
+      "2": "Wild Cards",
+      "3": "Pick a Card",
+      "4": "Stacked Deck",
+      "5": "Destiny"
+    },
+    "stats": {
+      "arm_base": 24,
+      "arm_lvl": 4.35,
+      "as_base": 0.625,
+      "as_lvl": 2.5,
+      "as_ratio": 0.651000022888183,
+      "attack_delay_offset": -0.1,
+      "dam_base": 52,
+      "dam_lvl": 2.5,
+      "hp5_base": 5.5,
+      "hp5_lvl": 0.6,
+      "hp_base": 604,
+      "hp_lvl": 108,
+      "missile_speed": 1500,
+      "mp5_base": 8,
+      "mp5_lvl": 0.8,
+      "mp_base": 333,
+      "mp_lvl": 39,
+      "mr_base": 30,
+      "mr_lvl": 1.3,
+      "ms": 330,
+      "pathing_radius": 35,
+      "range": 525,
+      "selection_height": 140,
+      "selection_radius": 110,
+      "urf": {
+        "dmg_dealt": 0.95
+      }
+    },
+    "style": 65,
+    "title": "The Card Master",
+    "toughness": 1,
+    "utility": 2
+  },
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "23e48c7e01b120d71c398f036c3903cb150239753019899a358ba5f957ac5713",
+    "fetchedAt": "2026-08-26T19:29:42.360Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Module:ChampionData/data",
+    "revisionId": 4052622,
+    "sourceTimestamp": "2026-08-19T14:42:50Z"
+  }
+}

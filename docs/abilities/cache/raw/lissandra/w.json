@@ -1,0 +1,43 @@
+{
+  "payload": [
+    {
+      "page": "Template:Data Lissandra/Ring of Frost",
+      "response": {
+        "expanded": {
+          "expandtemplates": {
+            "wikitext": "@@name@@Ring of Frost@@icon@@Ring of Frost.png@@icon2@@{{{icon2}}}@@icon3@@{{{icon3}}}@@icon4@@{{{icon4}}}@@description@@<span class=\"template_sbc\">'''Active:'''</span> '''Lissandra''' freezes nearby enemies, dealing <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Root\">[[File:Root icon.png|20px|link=Root|An icon representing the keyword Root]] [[:Root|rooting]]</span> them for a duration.@@description2@@{{{description2}}}@@description3@@{{{description3}}}@@description4@@{{{description4}}}@@description5@@{{{description5}}}@@description6@@{{{description6}}}@@leveling@@<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>70 / 105 / 140 / 175 / 210 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 70% AP)</span></dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Root Duration:'''</span></dt><dd>1.<small>25</small> / 1.<small>35</small> / 1.<small>45</small> / 1.<small>55</small> / 1.<small>65</small> seconds</dd></dl>@@leveling2@@{{{leveling2}}}@@leveling3@@{{{leveling3}}}@@leveling4@@{{{leveling4}}}@@leveling5@@{{{leveling5}}}@@leveling6@@{{{leveling6}}}@@range@@{{{range}}}@@radius@@{{{radius}}}@@effectradius@@<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Cr\">[[File:Range center.png|20px|link=Range|An icon representing the keyword Centered range]]</span> 275@@width@@{{{width}}}@@speed@@{{{speed}}}@@casttime@@none@@cost@@40@@cooldown@@10 / 9.<small>5</small> / 9 / 8.<small>5</small> / 8@@targeting@@Auto@@damagetype@@magic@@spellshield@@True@@projectile@@{{{projectile}}}@@notes@@\n* No additional information.@@"
+          }
+        },
+        "revision": {
+          "batchcomplete": true,
+          "query": {
+            "pages": [
+              {
+                "ns": 10,
+                "pageid": 1307880,
+                "revisions": [
+                  {
+                    "parentid": 3907247,
+                    "revid": 3936419,
+                    "timestamp": "2025-07-24T17:33:52Z"
+                  }
+                ],
+                "title": "Template:Data Lissandra/Ring of Frost"
+              }
+            ]
+          }
+        }
+      },
+      "revisionId": 3936419,
+      "timestamp": "2025-07-24T17:33:52Z"
+    }
+  ],
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "feaa106c7a308e86f0ef7ca9fd7836dab381d31edd87b125a4f63d4488ffd5f4",
+    "fetchedAt": "2026-08-26T19:29:18.645Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ring_of_Frost",
+    "revisionId": 3936419,
+    "sourceTimestamp": "2025-07-24T17:33:52Z"
+  }
+}

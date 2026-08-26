@@ -1,0 +1,43 @@
+{
+  "payload": [
+    {
+      "page": "Template:Data Lissandra/Iceborn Subjugation",
+      "response": {
+        "expanded": {
+          "expandtemplates": {
+            "wikitext": "@@name@@Iceborn Subjugation@@icon@@Iceborn Subjugation.png@@icon2@@{{{icon2}}}@@icon3@@{{{icon3}}}@@icon4@@{{{icon4}}}@@description@@<span class=\"template_sbc\">'''Innate:'''</span> Whenever a nearby enemy champion dies, '''Lissandra''' spawns a ''Frozen Thrall'' from their corpse.<br><br/>''Frozen Thralls'' are ice spirits that have <span style=\"color:\n#9FFF4D; white-space:normal\"><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-top-label=\"seconds alive\" data-bot-values=\"33.48;78.65;117.33;149.82;177.78;201.18;221.33;238.23;252.85;263.9;275.6;284.7;292.18;298.68;303.88;308.75;325\" data-top-values=\"0;0.25;0.5;0.75;1;1.25;1.5;1.75;2;2.25;2.5;2.75;3;3.25;3.5;3.75;4\">33.<small>48</small> – 325 (based on seconds alive)</span> movement speed</span> and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slow]]</span> nearby enemies by 25%. They will chase nearby <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Sight\">[[File:Sight icon.png|20px|link=Sight|An icon representing the keyword Sight]] [[:Sight|visible]]</span> enemies for 4 seconds, prioritizing <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Champion\">[[File:Champion icon.png|20px|link=Champion|An icon representing the keyword Champion]] [[:Champion|champions]]</span>, after which they shatter to deal <span style=\"color:\n#00B0F0; white-space:normal\"><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-displayformula=\"100 + 20 per level until level 12, then +30 per level\" data-bot-values=\"120;140;160;180;200;220;240;260;280;300;320;340;370;400;430;460;490;520;550;580;610;640;670;700;730;760;790;820;850;880;910;940;970;1000;1030;1060;1090;1120;1150;1180;1210|displayMaxColumn=18\">120 – 520 (based on level)</span></span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 50% AP)</span> <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to nearby enemies.@@description2@@{{{description2}}}@@description3@@{{{description3}}}@@description4@@{{{description4}}}@@description5@@{{{description5}}}@@description6@@{{{description6}}}@@leveling@@{{{leveling}}}@@leveling2@@{{{leveling2}}}@@leveling3@@{{{leveling3}}}@@leveling4@@{{{leveling4}}}@@leveling5@@{{{leveling5}}}@@leveling6@@{{{leveling6}}}@@range@@{{{range}}}@@radius@@{{{radius}}}@@effectradius@@<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Er\">[[File:Range model.png|20px|link=Range|An icon representing the keyword Edge range]]</span> <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Aura radius around Lissandra for triggering the effect on enemy deaths, center-to-edge\">1350</span> • <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Cr\">[[File:Range center.png|20px|link=Range|An icon representing the keyword Centered range]]</span> <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Thrall slow field and explosion radius\">450</span>@@width@@{{{width}}}@@speed@@{{{speed}}}@@casttime@@{{{cast time}}}@@cost@@{{{cost}}}@@cooldown@@{{{cooldown}}}@@targeting@@Passive@@damagetype@@Magic@@spellshield@@true@@projectile@@{{{projectile}}}@@notes@@\n* ''Thralls'' are units that are considered champions (they are <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Clone\">[[File:Shaco Hallucinate 2.png|20px|link=Champion_summoned_units#decoys|An icon representing the keyword Clone]] [[:Champion_summoned_units#decoys|clones]]</span>) and they take the form of the champion they arise from.\n** Additionally, near the end of their life span, they will cue that champion's [[basic attack]] animation.\n** They cannot be teleported by an allied <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Ryze\" data-ability=\"Realm Warp\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Ryze Realm Warp.png|20xpx|border|link=Ryze#Realm Warp|An icon for Ryze's ability Realm Warp]]</span> <span style=\"white-space:normal;\">[[Ryze#Realm Warp|Realm Warp]]</span></span>.\n* ''Thralls'' are <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Untargetable\">[[File:Untargetable icon.png|20px|link=Untargetable|An icon representing the keyword Untargetable]] [[:Untargetable|untargetable]]</span> and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Invulnerable\">[[File:Cosmic Radiance.png|20px|link=Invulnerability|An icon representing the keyword Invulnerability]] [[:Invulnerability|invulnerable]]</span>.\n* ''Thralls'' are revealed to enemies through the fog of war.\n* ''Thralls'' will continue to chase their target even if they enter a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Brush\">[[File:Brushmaker.png|20px|link=Brush|An icon representing the keyword Brush]] [[:Brush|brush]]</span>.\n* ''Iceborn Subjugation'' will not summon a ''Thrall'' against enemy champions that enter a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Zombie state\">[[File:Zombie icon.png|20px|link=Death#Zombie_states|An icon representing the keyword Zombie state]] [[:Death#Zombie_states|zombie state]]</span>, and will instead summon one after they've left the state.@@"
+          }
+        },
+        "revision": {
+          "batchcomplete": true,
+          "query": {
+            "pages": [
+              {
+                "ns": 10,
+                "pageid": 1382431,
+                "revisions": [
+                  {
+                    "parentid": 4007663,
+                    "revid": 4038403,
+                    "timestamp": "2026-06-30T09:42:38Z"
+                  }
+                ],
+                "title": "Template:Data Lissandra/Iceborn Subjugation"
+              }
+            ]
+          }
+        }
+      },
+      "revisionId": 4038403,
+      "timestamp": "2026-06-30T09:42:38Z"
+    }
+  ],
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "03feecdcbaa3aed73b37f9568e87f0834867d7350b325e8a782e3517cdf72aab",
+    "fetchedAt": "2026-08-26T19:29:18.645Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Iceborn_Subjugation",
+    "revisionId": 4038403,
+    "sourceTimestamp": "2026-06-30T09:42:38Z"
+  }
+}

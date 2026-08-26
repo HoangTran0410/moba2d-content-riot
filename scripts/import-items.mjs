@@ -110,6 +110,11 @@ export const ITEMS = [
   { local: 'titanic_hydra', riot: 3748 },
   { local: 'runaans_hurricane', riot: 3085 },
   { local: 'dusk_and_dawn', riot: 2510 },
+  { local: 'statikk_shiv', riot: 3087 },
+  { local: 'locket_of_the_iron_solari', riot: 3190 },
+  { local: 'shurelyas_battlesong', riot: 2065 },
+  { local: 'everfrost', riot: 6656 },
+  { local: 'dead_mans_plate', riot: 3742 },
 ];
 
 const sha256 = buffer => createHash('sha256').update(buffer).digest('hex');

@@ -1,0 +1,59 @@
+{
+  "asset": {
+    "key": "spell_lissandra_q",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Lissandra_Ice_Shard.png?5a8d8",
+    "sha1": "86fecaeb48f63c83edf0732101c7d8445360e47b"
+  },
+  "champion": "Lissandra",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_lissandra_q",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Lissandra_Ice_Shard.png?5a8d8",
+        "sha1": "86fecaeb48f63c83edf0732101c7d8445360e47b"
+      },
+      "fields": {
+        "casttime": "0.25",
+        "cooldown": "7 / 6 / 5 / 4 / 3",
+        "cost": "55 / 60 / 65 / 70 / 75",
+        "damagetype": "magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Lissandra''' launches a shard of ice in the target direction that deals <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slows]]</span> enemies hit for 1.<small>5</small> seconds.",
+          "text": "Active: Lissandra launches a shard of ice in the target direction that deals magic damage and slows enemies hit for 1.5 seconds."
+        },
+        "description2": {
+          "raw": "If ''Ice Shard'' hits an enemy, it will shatter, increasing its width and maximum range.",
+          "text": "If Ice Shard hits an enemy, it will shatter, increasing its width and maximum range."
+        },
+        "icon": "Ice Shard.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>80 / 115 / 150 / 185 / 220 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 75% AP)</span></dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Slow:'''</span></dt><dd>20 / 24 / 28 / 32 / 36%</dd></dl>",
+          "text": "Magic Damage:80 / 115 / 150 / 185 / 220 (+ 75% AP)\nSlow:20 / 24 / 28 / 32 / 36%"
+        },
+        "name": "Ice Shard",
+        "notes": {
+          "raw": "* This ability will cast from wherever the caster is at the end of the cast time.\n* ''Ice Shard'' picks a location 950 units away in the direction of the cast for the shattered missile to end up at.\n* The initial ''Ice Shard'' missile has a range of 700 units which it arrives at after <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"0.31818181818182 seconds, but rounded up to the next game tick.\">0.<small>33</small> seconds</span>. If it hasn't collided with an enemy in this path when it does, it checks for enemies in a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Cr\">[[File:Range center.png|20px|link=Range|An icon representing the keyword Centered range]]</span> 100 radius around the point 25 units in front of it.\n** Colliding or hitting an enemy in either fashion creates a new \"shattered\" missile with the same speed but greater width that continues to travel along the same line to the designated point 950 units from the cast's original position, originating at the location at which the initial missile collided at.\n* <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spell shield\">[[File:Spell Shield.png|20px|link=Spell shield|An icon representing the keyword Spell shield]] [[:Spell shield|Spell shield]]</span> will block the damage and the slow but will not stop the projectile from shattering.",
+          "text": "This ability will cast from wherever the caster is at the end of the cast time.\nIce Shard picks a location 950 units away in the direction of the cast for the shattered missile to end up at.\nThe initial Ice Shard missile has a range of 700 units which it arrives at after 0.33 seconds. If it hasn't collided with an enemy in this path when it does, it checks for enemies in a 100 radius around the point 25 units in front of it.\n* Colliding or hitting an enemy in either fashion creates a new \"shattered\" missile with the same speed but greater width that continues to travel along the same line to the designated point 950 units from the cast's original position, originating at the location at which the initial missile collided at.\nSpell shield will block the damage and the slow but will not stop the projectile from shattering."
+        },
+        "projectile": true,
+        "range": "825 • 950",
+        "speed": "2200",
+        "spellshield": false,
+        "targeting": "Direction",
+        "width": "150 • 180"
+      },
+      "name": "Ice Shard"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "Q",
+  "source": {
+    "contentHash": "c06f749c7e04eb21183be4fb818e3711406f86d12e295b9fa7c779986159e50e",
+    "fetchedAt": "2026-08-26T19:29:18.645Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ice_Shard",
+    "revisionId": 4007664,
+    "sourceTimestamp": "2026-04-12T10:26:56Z"
+  }
+}

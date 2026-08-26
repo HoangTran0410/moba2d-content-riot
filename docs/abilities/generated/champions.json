@@ -307,7 +307,7 @@
       "alttype": "Assassin",
       "apiname": "Akshan",
       "be": 2400,
-      "changes": "V26.09",
+      "changes": "V26.16",
       "client_positions": [
         "Middle"
       ],
@@ -384,8 +384,8 @@
         "mp5_lvl": 0.7,
         "mp_base": 350,
         "mp_lvl": 40,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 330,
         "pathing_radius": 35,
         "range": 500,
@@ -507,7 +507,7 @@
       "alttype": "Assassin",
       "apiname": "Ambessa",
       "be": 3150,
-      "changes": "V26.10",
+      "changes": "V26.16",
       "client_positions": [
         "Top",
         "Jungle"
@@ -894,7 +894,7 @@
       "adaptivetype": "Physical",
       "apiname": "Aphelios",
       "be": 2400,
-      "changes": "V26.13",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -984,8 +984,8 @@
         "mp5_lvl": 0.4,
         "mp_base": 348,
         "mp_lvl": 42,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 325,
         "ofa": {
           "dmg_dealt": 1.08
@@ -1011,7 +1011,7 @@
       "alttype": "Support",
       "apiname": "Ashe",
       "be": 225,
-      "changes": "V26.10",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom",
         "Support"
@@ -1087,8 +1087,8 @@
         "mp5_lvl": 0.65,
         "mp_base": 280,
         "mp_lvl": 35,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 325,
         "pathing_radius": 35,
         "range": 600,
@@ -1300,7 +1300,7 @@
       "alttype": "Marksman",
       "apiname": "Azir",
       "be": 2400,
-      "changes": "V26.14",
+      "changes": "V26.16",
       "client_positions": [
         "Middle"
       ],
@@ -1513,7 +1513,7 @@
       "alttype": "",
       "apiname": "Belveth",
       "be": 1575,
-      "changes": "V26.15",
+      "changes": "V26.16",
       "client_positions": [
         "Jungle"
       ],
@@ -1583,7 +1583,7 @@
         "hp5_base": 6,
         "hp5_lvl": 0.6,
         "hp_base": 580,
-        "hp_lvl": 110,
+        "hp_lvl": 105,
         "mp5_base": 0,
         "mp5_lvl": 0,
         "mp_base": 0,
@@ -2009,7 +2009,7 @@
       "adaptivetype": "Physical",
       "apiname": "Caitlyn",
       "be": 225,
-      "changes": "V26.14",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -2081,8 +2081,8 @@
         "mp5_lvl": 0.7,
         "mp_base": 315,
         "mp_lvl": 40,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 325,
         "pathing_radius": 35,
         "range": 650,
@@ -2099,7 +2099,7 @@
       "alttype": "Assassin",
       "apiname": "Camille",
       "be": 2400,
-      "changes": "V26.04",
+      "changes": "V26.16",
       "client_positions": [
         "Top"
       ],
@@ -2177,7 +2177,7 @@
         "hp_lvl": 99,
         "mp5_base": 8.15,
         "mp5_lvl": 0.75,
-        "mp_base": 339,
+        "mp_base": 375,
         "mp_lvl": 52,
         "mr_base": 32,
         "mr_lvl": 2.05,
@@ -2387,7 +2387,7 @@
       "alttype": "Mage",
       "apiname": "Corki",
       "be": 1575,
-      "changes": "V26.14",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -2460,8 +2460,8 @@
         "mp5_lvl": 0.7,
         "mp_base": 350,
         "mp_lvl": 40,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 325,
         "nb": {
           "dmg_dealt": 1.05,
@@ -2770,7 +2770,7 @@
       "adaptivetype": "Physical",
       "apiname": "Draven",
       "be": 2400,
-      "changes": "V26.13",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -2844,8 +2844,8 @@
         "mp5_lvl": 0.65,
         "mp_base": 361,
         "mp_lvl": 39,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 330,
         "ofa": {
           "dmg_taken": 0.95
@@ -3181,7 +3181,7 @@
       "alttype": "Mage",
       "apiname": "Ezreal",
       "be": 675,
-      "changes": "V26.09",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -3252,8 +3252,8 @@
         "mp5_lvl": 1,
         "mp_base": 375,
         "mp_lvl": 70,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 325,
         "pathing_radius": 35,
         "range": 550,
@@ -4060,7 +4060,7 @@
       "adaptivetype": "Physical",
       "apiname": "Graves",
       "be": 2400,
-      "changes": "V26.07",
+      "changes": "V26.16",
       "client_positions": [
         "Jungle"
       ],
@@ -4127,8 +4127,8 @@
         "mp5_lvl": 0.7,
         "mp_base": 325,
         "mp_lvl": 40,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 340,
         "ofa": {
           "dmg_dealt": 0.98,
@@ -4153,7 +4153,7 @@
       "alttype": "Assassin",
       "apiname": "Gwen",
       "be": 2400,
-      "changes": "V26.12",
+      "changes": "V26.16",
       "client_positions": [
         "Top"
       ],
@@ -5258,7 +5258,7 @@
       "alttype": "Mage",
       "apiname": "Jhin",
       "be": 1234,
-      "changes": "V26.05",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -5337,8 +5337,8 @@
         "mp5_lvl": 0.8,
         "mp_base": 300,
         "mp_lvl": 50,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 330,
         "pathing_radius": 35,
         "range": 550,
@@ -5358,7 +5358,7 @@
       "adaptivetype": "Physical",
       "apiname": "Jinx",
       "be": 1575,
-      "changes": "V26.04",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -5438,8 +5438,8 @@
         "mp5_lvl": 1,
         "mp_base": 260,
         "mp_lvl": 50,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 325,
         "nb": {
           "dmg_dealt": 0.95,
@@ -5561,7 +5561,7 @@
       "alttype": "Mage",
       "apiname": "Kaisa",
       "be": 675,
-      "changes": "V26.15",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -5637,8 +5637,8 @@
         "mp5_lvl": 0.7,
         "mp_base": 345,
         "mp_lvl": 40,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 335,
         "ofa": {
           "dmg_dealt": 1.03
@@ -5661,7 +5661,7 @@
       "adaptivetype": "Physical",
       "apiname": "Kalista",
       "be": 2400,
-      "changes": "V26.07",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -5737,8 +5737,8 @@
         "mp5_lvl": 0.8,
         "mp_base": 300,
         "mp_lvl": 45,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 330,
         "pathing_radius": 35,
         "range": 525,
@@ -6348,7 +6348,7 @@
       "alttype": "Marksman",
       "apiname": "Kennen",
       "be": 2400,
-      "changes": "V26.09",
+      "changes": "V26.16",
       "client_positions": [
         "Top"
       ],
@@ -6543,7 +6543,7 @@
       "adaptivetype": "Physical",
       "apiname": "Kindred",
       "be": 2400,
-      "changes": "V26.11",
+      "changes": "V26.16",
       "client_positions": [
         "Jungle"
       ],
@@ -6620,8 +6620,8 @@
         "mp5_lvl": 0.4,
         "mp_base": 300,
         "mp_lvl": 35,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 325,
         "ofa": {
           "dmg_taken": 0.95
@@ -6820,7 +6820,7 @@
       "alttype": "Mage",
       "apiname": "KogMaw",
       "be": 2400,
-      "changes": "V26.10",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -6895,8 +6895,8 @@
         "mp5_lvl": 0.7,
         "mp_base": 325,
         "mp_lvl": 40,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 330,
         "nb": {
           "dmg_dealt": 0.9,
@@ -7411,7 +7411,7 @@
       "alttype": "Mage",
       "apiname": "Locke",
       "be": 2400,
-      "changes": "V26.15",
+      "changes": "V26.16",
       "client_positions": [
         "Middle"
       ],
@@ -7495,7 +7495,7 @@
       "alttype": "Assassin",
       "apiname": "Lucian",
       "be": 675,
-      "changes": "V26.11",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -7570,8 +7570,8 @@
         "mp5_lvl": 0.8,
         "mp_base": 320,
         "mp_lvl": 43,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 335,
         "pathing_radius": 40.6800003051757,
         "range": 500,
@@ -8439,7 +8439,7 @@
       "alttype": "Mage",
       "apiname": "MissFortune",
       "be": 225,
-      "changes": "V26.01",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -8518,8 +8518,8 @@
         "mp5_lvl": 0.8,
         "mp_base": 300,
         "mp_lvl": 40,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 325,
         "pathing_radius": 35,
         "range": 550,
@@ -8540,7 +8540,7 @@
       "alttype": "Mage",
       "apiname": "Mordekaiser",
       "be": 675,
-      "changes": "V26.15",
+      "changes": "V26.16",
       "client_positions": [
         "Top"
       ],
@@ -8928,7 +8928,7 @@
       "alttype": "Tank",
       "apiname": "Nasus",
       "be": 675,
-      "changes": "V25.24",
+      "changes": "V26.16",
       "client_positions": [
         "Top"
       ],
@@ -10000,7 +10000,7 @@
       "alttype": "Fighter",
       "apiname": "Poppy",
       "be": 225,
-      "changes": "V26.13",
+      "changes": "V26.16",
       "client_positions": [
         "Top",
         "Jungle"
@@ -10299,7 +10299,7 @@
       "alttype": "Assassin",
       "apiname": "Quinn",
       "be": 2400,
-      "changes": "V26.11",
+      "changes": "V26.16",
       "client_positions": [
         "Top"
       ],
@@ -10378,8 +10378,8 @@
         "mp5_lvl": 0.4,
         "mp_base": 269,
         "mp_lvl": 35,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 330,
         "pathing_radius": 35,
         "range": 525,
@@ -11384,7 +11384,7 @@
       "alttype": "Assassin",
       "apiname": "Samira",
       "be": 1575,
-      "changes": "V26.06",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -11461,8 +11461,8 @@
         "mp5_lvl": 0.7,
         "mp_base": 349,
         "mp_lvl": 38,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 335,
         "pathing_radius": 40.68,
         "range": 500,
@@ -11580,7 +11580,7 @@
       "alttype": "Marksman",
       "apiname": "Senna",
       "be": 1575,
-      "changes": "V26.14",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom",
         "Support"
@@ -11658,8 +11658,8 @@
         "mp5_lvl": 0.7,
         "mp_base": 350,
         "mp_lvl": 45,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 330,
         "ofa": {
           "dmg_dealt": 1.05,
@@ -12393,7 +12393,7 @@
       "adaptivetype": "Physical",
       "apiname": "Sivir",
       "be": 225,
-      "changes": "V26.02",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -12464,8 +12464,8 @@
         "mp5_lvl": 0.8,
         "mp_base": 340,
         "mp_lvl": 45,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 335,
         "nb": {
           "dmg_dealt": 0.95,
@@ -12594,7 +12594,7 @@
       "alttype": "Mage",
       "apiname": "Smolder",
       "be": 3150,
-      "changes": "V26.11",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -12668,8 +12668,8 @@
         "mp5_lvl": 0.7,
         "mp_base": 300,
         "mp_lvl": 40,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 330,
         "pathing_radius": 30,
         "range": 550,
@@ -13780,7 +13780,7 @@
       "alttype": "Assassin",
       "apiname": "Tristana",
       "be": 675,
-      "changes": "V26.12",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -13853,8 +13853,8 @@
         "mp5_lvl": 0.45,
         "mp_base": 300,
         "mp_lvl": 32,
-        "mr_base": 28,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 325,
         "pathing_radius": 30,
         "range": 550,
@@ -14167,7 +14167,7 @@
       "alttype": "Assassin",
       "apiname": "Twitch",
       "be": 1575,
-      "changes": "V26.09",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -14241,8 +14241,8 @@
         "mp5_lvl": 0.7,
         "mp_base": 300,
         "mp_lvl": 40,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 330,
         "ofa": {
           "dmg_dealt": 0.98
@@ -14459,7 +14459,7 @@
       "alttype": "Mage",
       "apiname": "Varus",
       "be": 2400,
-      "changes": "V26.12",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -14532,8 +14532,8 @@
         "mp5_lvl": 0.8,
         "mp_base": 320,
         "mp_lvl": 40,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 330,
         "pathing_radius": 35,
         "range": 575,
@@ -14550,7 +14550,7 @@
       "alttype": "Assassin",
       "apiname": "Vayne",
       "be": 1575,
-      "changes": "V25.17",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -14628,8 +14628,8 @@
         "mp5_lvl": 0.4,
         "mp_base": 232,
         "mp_lvl": 35,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 330,
         "ofa": {
           "dmg_dealt": 0.97
@@ -15044,7 +15044,7 @@
       "alttype": "Assassin",
       "apiname": "Viego",
       "be": 2400,
-      "changes": "V26.10",
+      "changes": "V26.16",
       "client_positions": [
         "Jungle"
       ],
@@ -15141,7 +15141,7 @@
       "adaptivetype": "Magic",
       "apiname": "Viktor",
       "be": 2400,
-      "changes": "V25.24",
+      "changes": "V26.16",
       "client_positions": [
         "Middle"
       ],
@@ -15630,7 +15630,7 @@
       "adaptivetype": "Physical",
       "apiname": "Xayah",
       "be": 2400,
-      "changes": "V26.04",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -15708,8 +15708,8 @@
         "mp5_lvl": 0.8,
         "mp_base": 340,
         "mp_lvl": 40,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 330,
         "pathing_radius": 35,
         "range": 525,
@@ -16225,7 +16225,7 @@
       "adaptivetype": "Physical",
       "apiname": "Yunara",
       "be": 3150,
-      "changes": "V26.14",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -16301,8 +16301,8 @@
         "mp5_lvl": 0.75,
         "mp_base": 275,
         "mp_lvl": 45,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 325,
         "ofa": {
           "dmg_dealt": 1,
@@ -16741,7 +16741,7 @@
       "alttype": "",
       "apiname": "Zeri",
       "be": 2400,
-      "changes": "V26.10",
+      "changes": "V26.16",
       "client_positions": [
         "Bottom"
       ],
@@ -16812,8 +16812,8 @@
         "mp5_lvl": 0.8,
         "mp_base": 250,
         "mp_lvl": 45,
-        "mr_base": 30,
-        "mr_lvl": 1.3,
+        "mr_base": 33,
+        "mr_lvl": 1.1,
         "ms": 330,
         "pathing_radius": 40,
         "range": 550,
@@ -17219,10 +17219,10 @@
   },
   "schemaVersion": 1,
   "source": {
-    "contentHash": "e15702734a2f81e57b87104d4ef01ba91b6407d6f7d4d17cc0225c6ebce21857",
-    "fetchedAt": "2026-08-17T14:38:03.922Z",
+    "contentHash": "eb98834d81e769143ce41d43d136afe73c282a1f27c062223d66ffd94d999319",
+    "fetchedAt": "2026-08-26T19:29:42.360Z",
     "pageUrl": "https://wiki.leagueoflegends.com/en-us/Module:ChampionData/data",
-    "revisionId": 4052219,
-    "sourceTimestamp": "2026-08-16T02:35:56Z"
+    "revisionId": 4052622,
+    "sourceTimestamp": "2026-08-19T14:42:50Z"
   }
 }

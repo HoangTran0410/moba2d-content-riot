@@ -1,0 +1,43 @@
+{
+  "payload": [
+    {
+      "page": "Template:Data Shen/Shadow Dash",
+      "response": {
+        "expanded": {
+          "expandtemplates": {
+            "wikitext": "@@name@@Shadow Dash@@icon@@false@@icon2@@Shadow Dash.png@@icon3@@{{{icon3}}}@@icon4@@{{{icon4}}}@@description@@<span class=\"template_sbc\">'''Passive:'''</span> Dealing damage with ''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Shen\" data-ability=\"Twilight Assault\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Shen Twilight Assault.png|20xpx|border|link=Shen#Twilight Assault|An icon for Shen's ability Twilight Assault]]</span> <span style=\"white-space:normal;\">[[Shen#Twilight Assault|Twilight Assault]]</span></span>'' or ''Shadow Dash'' restores <span style=\"white-space:nowrap\">[[File:Energy icon.svg|15px|link=Energy]]&nbsp;<span style=\"color:yellow; white-space:normal\"><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-bot-values=\"30;40;50\" data-top-values=\"1;4;12\">30 / 40 / 50 (based on level)</span> energy</span></span>.@@description2@@<span class=\"template_sbc\">'''Active:'''</span> '''Shen''' <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Dashes\">[[File:Dash.png|20px|link=Dash|An icon representing the keyword Dash]] [[:Dash|dashes]]</span> to the target location, dealing <span style=\"color:\n#FF8C34; white-space:normal\">physical damage</span> to enemy <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Champions\">[[File:Champion icon.png|20px|link=Champion|An icon representing the keyword Champion]] [[:Champion|champions]]</span> and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Monsters\">[[File:Monster icon.png|20px|link=Monster|An icon representing the keyword Monster]] [[:Monster|monsters]]</span> he passes through and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Taunt\">[[File:Taunt icon.png|20px|link=Taunt|An icon representing the keyword Taunt]] [[:Taunt|taunting]]</span> them for 1.<small>5</small> seconds.@@description3@@''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Shen\" data-ability=\"Twilight Assault\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Shen Twilight Assault.png|20xpx|border|link=Shen#Twilight Assault|An icon for Shen's ability Twilight Assault]]</span> <span style=\"white-space:normal;\">[[Shen#Twilight Assault|Twilight Assault]]</span></span> and <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Shen\" data-ability=\"Spirit&#39;s Refuge\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Shen Spirit's Refuge.png|20xpx|border|link=Shen#Spirit's Refuge|An icon for Shen's ability Spirit's Refuge]]</span> <span style=\"white-space:normal;\">[[Shen#Spirit's Refuge|Spirit's Refuge]]</span></span> can be cast during the dash.''@@description4@@{{{description4}}}@@description5@@{{{description5}}}@@description6@@{{{description6}}}@@leveling@@{{{leveling}}}@@leveling2@@<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Physical Damage:'''</span></dt><dd>60 / 85 / 110 / 135 / 160 <span style=\"color:\n#21B053; white-space:normal\">(+ 11% '''bonus''' health)</span></dd></dl>@@leveling3@@{{{leveling3}}}@@leveling4@@{{{leveling4}}}@@leveling5@@{{{leveling5}}}@@leveling6@@{{{leveling6}}}@@range@@{{{range}}}@@radius@@{{{radius}}}@@effectradius@@{{{effect radius}}}@@width@@{{{width}}}@@speed@@<span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Dash speed, slightly irregular\">800 + <span style=\"color:\n#9FFF4D; white-space:normal\">100% movement speed</span></span>@@casttime@@none@@cost@@150@@cooldown@@<span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Starts after the dash ends\">18 / 16 / 14 / 12 / 10</span>@@targeting@@Location@@damagetype@@Physical@@spellshield@@True@@projectile@@@@notes@@\n* Casting <span class=\"inline-image label-after spell-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-spell=\"Flash\" data-game=\"lol\"><span class=\"border icon-20\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Flash.png|20xpx|border|link=Flash|An icon representing Flash]]</span> <span style=\"white-space:normal;\">[[Flash]]</span></span> during ''Shadow Dash'' will end the dash prematurely, but the end-of-dash collision check will hit enemies at the [[blink|blink's]] location still.\n** This still cannot affect the same enemy more than once.\n* The energy restore from ''Shadow Dash'' may only occur once.@@"
+          }
+        },
+        "revision": {
+          "batchcomplete": true,
+          "query": {
+            "pages": [
+              {
+                "ns": 10,
+                "pageid": 1309221,
+                "revisions": [
+                  {
+                    "parentid": 3909397,
+                    "revid": 4007754,
+                    "timestamp": "2026-04-12T14:09:29Z"
+                  }
+                ],
+                "title": "Template:Data Shen/Shadow Dash"
+              }
+            ]
+          }
+        }
+      },
+      "revisionId": 4007754,
+      "timestamp": "2026-04-12T14:09:29Z"
+    }
+  ],
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "905f8c72fbd9ce922857eaba5dd9560a85c4075f4f277c552db508f8fac07939",
+    "fetchedAt": "2026-08-26T19:29:02.718Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Shadow_Dash",
+    "revisionId": 4007754,
+    "sourceTimestamp": "2026-04-12T14:09:29Z"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "asset": {
+    "key": "spell_lissandra_w",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Lissandra_Ring_of_Frost.png?4aca2",
+    "sha1": "5c6c98733875bdfdada3133e8783809e37c92414"
+  },
+  "champion": "Lissandra",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_lissandra_w",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Lissandra_Ring_of_Frost.png?4aca2",
+        "sha1": "5c6c98733875bdfdada3133e8783809e37c92414"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "10 / 9.5 / 9 / 8.5 / 8",
+        "cost": "40",
+        "damagetype": "magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Lissandra''' freezes nearby enemies, dealing <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Root\">[[File:Root icon.png|20px|link=Root|An icon representing the keyword Root]] [[:Root|rooting]]</span> them for a duration.",
+          "text": "Active: Lissandra freezes nearby enemies, dealing magic damage and rooting them for a duration."
+        },
+        "effectradius": "275",
+        "icon": "Ring of Frost.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>70 / 105 / 140 / 175 / 210 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 70% AP)</span></dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Root Duration:'''</span></dt><dd>1.<small>25</small> / 1.<small>35</small> / 1.<small>45</small> / 1.<small>55</small> / 1.<small>65</small> seconds</dd></dl>",
+          "text": "Magic Damage:70 / 105 / 140 / 175 / 210 (+ 70% AP)\nRoot Duration:1.25 / 1.35 / 1.45 / 1.55 / 1.65 seconds"
+        },
+        "name": "Ring of Frost",
+        "notes": {
+          "raw": "* No additional information.",
+          "text": "No additional information."
+        },
+        "spellshield": true,
+        "targeting": "Auto"
+      },
+      "name": "Ring of Frost"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "W",
+  "source": {
+    "contentHash": "0a059b2a6dfb39e03903c003563eb41bc4667627af22c31f6e2ff8c41317ab0a",
+    "fetchedAt": "2026-08-26T19:29:18.645Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ring_of_Frost",
+    "revisionId": 3936419,
+    "sourceTimestamp": "2025-07-24T17:33:52Z"
+  }
+}

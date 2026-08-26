@@ -1,0 +1,49 @@
+{
+  "asset": {
+    "key": "spell_twistedfate_e",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Twisted_Fate_Stacked_Deck.png?6e05c",
+    "sha1": "240868726537d1c4e2de4ab6c8d2e0b5dc489a06"
+  },
+  "champion": "Twisted Fate",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_twistedfate_e",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Twisted_Fate_Stacked_Deck.png?6e05c",
+        "sha1": "240868726537d1c4e2de4ab6c8d2e0b5dc489a06"
+      },
+      "fields": {
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Passive:'''</span> '''Twisted Fate''' gains <span style=\"white-space:nowrap\">[[File:Attack speed icon.png|15px|link=Attack speed]]&nbsp;<span style=\"color:\n#F5EE99; white-space:normal\">'''bonus''' attack speed</span></span>. His <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic attacks\">[[File:Basic attack cursor icon.png|20px|link=Basic attack|An icon representing the keyword Basic attack]] [[:Basic attack|basic attacks]]</span> <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"On-hit\">[[File:On-hit icon.png|20px|link=Attack_effects#On_Hitting|An icon representing the keyword On-hit]] [[:Attack_effects#On_Hitting|on-hit]]</span> generate a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Stack\">[[File:Stack icon.png|20px|link=Stack|An icon representing the keyword Stack]] [[:Stack|stack]]</span> of ''Stacked Deck'', stacking up to 3 times. At 3 stacks, his next basic attack is empowered to consume them all to deal <span style=\"color:\n#00B0F0; white-space:normal\">'''bonus''' magic damage</span>, reduced to 50% against structures.<br><br>'''Twisted Fate''' gains maximum stacks of ''Stacked Deck'' upon [[death|respawning]].",
+          "text": "Passive: Twisted Fate gains &nbsp;bonus attack speed. His basic attacks on-hit generate a stack of Stacked Deck, stacking up to 3 times. At 3 stacks, his next basic attack is empowered to consume them all to deal bonus magic damage, reduced to 50% against structures.\nTwisted Fate gains maximum stacks of Stacked Deck upon respawning."
+        },
+        "icon": "Stacked Deck.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Attack Speed:'''</span></dt><dd>15 / 25 / 35 / 45 / 55%</dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Magic Damage:'''</span></dt><dd>65 / 90 / 115 / 140 / 165 <span style=\"color:orange; white-space:normal\">(+ 20% '''bonus''' AD)</span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 40% AP)</span></dd></dl>",
+          "text": "Bonus Attack Speed:15 / 25 / 35 / 45 / 55%\nBonus Magic Damage:65 / 90 / 115 / 140 / 165 (+ 20% bonus AD) (+ 40% AP)"
+        },
+        "name": "Stacked Deck",
+        "notes": {
+          "raw": "* ''Stacked Deck'' can be <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Dodged\">[[File:Jax Counter Strike old.png|20px|link=Attack_effects#Parrying|An icon representing the keyword Dodge]] [[:Attack_effects#Parrying|dodged]]</span> and/or missed if '''Twisted Fate''' is <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Blind\">[[File:Blind icon.png|20px|link=Blind|An icon representing the keyword Blind]] [[:Blind|blinded]]</span> (the on-hit effect is not consumed in either case) but cannot be <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Blocked\">[[File:Spirit's Refuge.png|20px|link=Attack_effects#Parrying|An icon representing the keyword Block]] [[:Attack_effects#Parrying|blocked]]</span> (the enhanced attack is consumed and the bonus damage is still applied).\n* As of patch [[V14.2]], '''Twisted Fate''' is intended to gain maximum stacks of ''Stacked Deck'' upon learning the ability, but currently does not.<sup><span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"This is not intended. \">(bug)</span></sup>\n* The empowered attack will trigger against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Structures\">[[File:Structure icon.png|20px|link=Category:Structure|An icon representing the keyword Structure]] [[:Category:Structure|structures]]</span> but not <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Wards\">[[File:Ward_icon.png|20px|link=Ward|An icon representing the keyword Ward]] [[:Ward|wards]]</span>.",
+          "text": "Stacked Deck can be dodged and/or missed if Twisted Fate is blinded (the on-hit effect is not consumed in either case) but cannot be blocked (the enhanced attack is consumed and the bonus damage is still applied).\nAs of patch V14.2, Twisted Fate is intended to gain maximum stacks of Stacked Deck upon learning the ability, but currently does not.(bug)\nThe empowered attack will trigger against structures but not wards."
+        },
+        "projectile": true,
+        "spellshield": false,
+        "targeting": "Passive"
+      },
+      "name": "Stacked Deck"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "E",
+  "source": {
+    "contentHash": "94bacf5f46efa0b50f00a8f22b004ec85c1eac8cb86ee8b183b3ee68dc4834f1",
+    "fetchedAt": "2026-08-26T19:29:42.360Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Stacked_Deck",
+    "revisionId": 3963571,
+    "sourceTimestamp": "2025-11-05T11:54:01Z"
+  }
+}

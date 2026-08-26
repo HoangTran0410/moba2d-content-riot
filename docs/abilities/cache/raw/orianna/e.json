@@ -1,0 +1,43 @@
+{
+  "payload": [
+    {
+      "page": "Template:Data Orianna/Command: Protect",
+      "response": {
+        "expanded": {
+          "expandtemplates": {
+            "wikitext": "@@name@@Command: Protect@@icon@@false@@icon2@@Command Protect.png@@icon3@@{{{icon3}}}@@icon4@@{{{icon4}}}@@description@@<span class=\"template_sbc\">'''Passive:'''</span> ''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Orianna\" data-ability=\"Clockwork Windup\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Orianna Clockwork Windup.png|20xpx|border|link=Orianna#Clockwork Windup|An icon for Orianna's ability Clockwork Windup]]</span> <span style=\"white-space:normal;\">[[Orianna#Clockwork Windup|The Ball]]</span></span>'' grants <span style=\"white-space:nowrap\">[[File:Armor icon.svg|15px|link=Armor]]&nbsp;<span style=\"color:yellow; white-space:normal\"> '''bonus''' armor</span></span> and <span style=\"white-space:nowrap\">[[File:Magic resistance icon.svg|15px|link=Magic resistance]]&nbsp;<span style=\"color:\n#00FFFF; white-space:normal\">'''bonus''' magic resistance</span></span> to the unit it is attached to.@@description2@@<span class=\"template_sbc\">'''Active:'''</span> '''Orianna''' commands ''The Ball'' to fly to herself or the target allied <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Champion\">[[File:Champion icon.png|20px|link=Champion|An icon representing the keyword Champion]] [[:Champion|champion]]</span> and attach itself to the target, dealing <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to enemies it passes through and granting the target a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Shield\">[[File:Hybrid resistances icon.png|20px|link=Shield|An icon representing the keyword Shield]] [[:Shield|shield]]</span> for 2.<small>5</small> seconds upon arrival.@@description3@@{{{description3}}}@@description4@@{{{description4}}}@@description5@@{{{description5}}}@@description6@@{{{description6}}}@@leveling@@<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Resistances:'''</span></dt><dd>6 / 12 / 18 / 24 / 30</dd></dl>@@leveling2@@<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>60 / 90 / 120 / 150 / 180 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 30% AP)</span></dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Shield Strength:'''</span></dt><dd>55 / 90 / 125 / 160 / 195 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 45% AP)</span></dd></dl>@@leveling3@@{{{leveling3}}}@@leveling4@@{{{leveling4}}}@@leveling5@@{{{leveling5}}}@@leveling6@@{{{leveling6}}}@@range@@{{{range}}}@@radius@@{{{radius}}}@@effectradius@@{{{effect radius}}}@@width@@<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Er\">[[File:Range model.png|20px|link=Range|An icon representing the keyword Edge range]]</span> <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Flying ball missile width\">160</span>@@speed@@<span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Flying ball missile speed\">1850</span>@@casttime@@none@@cost@@60@@cooldown@@9@@targeting@@Unit@@damagetype@@Magic@@spellshield@@True@@projectile@@True@@notes@@\n* ''The Ball'' does not grant <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Sight\">[[File:Sight icon.png|20px|link=Sight|An icon representing the keyword Sight]] [[:Sight|sight]]</span> while in flight, but the sound effect of striking an enemy is audible through the Fog of War.\n* '''Orianna''' cannot cast her other abilities while the ''The Ball'' is moving to the target with ''Command: Protect''.\n* '''Orianna''' gains ''Command: Protect's'' bonus resistances whenever ''The Ball'' is attached to her (even if she didn't self-cast).\n* ''The Ball'' will remain where ''Command: Protect's'' target ally [[death|died]] or, if they died or became <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Untargetable\">[[File:Untargetable icon.png|20px|link=Untargetable|An icon representing the keyword Untargetable]] [[:Untargetable|untargetable]]</span> before The Ball reaches them, it will instead snap back to '''Orianna'''.\n** ''The Ball'' will return to '''Orianna''' if ''Command: Protect's'' target ally moves too far away from her (''The Ball'' will always respect its [[Pets#Leash range|leash range]], which is increased by 100 when attached to allied champions).\n* ''The Ball'' will join ''Command: Protect's'' target ally in <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Stealth\">[[File:Guerrilla Warfare.png|20px|link=Stealth|An icon representing the keyword Stealth]] [[:Stealth|stealth]]</span> if they are affected by it when '''Orianna''' targets them.\n* ''The Ball'' snaps back to '''Orianna''' upon being intercepted by <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Projectile\">[[File:Projectile.png|20px|link=Projectile|An icon representing the keyword Projectile]] [[:Projectile|projectile-blocking]]</span> effects.\n* ''Command: Protect'' has a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Forgiveness radius\">[[File:Targeting forgiveness.svg|20px|link=Targeting#Targeting_Forgiveness|An icon representing the keyword Targeting forgiveness]] [[:Targeting#Targeting_Forgiveness|forgiveness radius]]</span> of 175 units.@@"
+          }
+        },
+        "revision": {
+          "batchcomplete": true,
+          "query": {
+            "pages": [
+              {
+                "ns": 10,
+                "pageid": 1309184,
+                "revisions": [
+                  {
+                    "parentid": 3576623,
+                    "revid": 3804030,
+                    "timestamp": "2024-10-31T03:14:38Z"
+                  }
+                ],
+                "title": "Template:Data Orianna/Command: Protect"
+              }
+            ]
+          }
+        }
+      },
+      "revisionId": 3804030,
+      "timestamp": "2024-10-31T03:14:38Z"
+    }
+  ],
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "7e4806048d51bd19a682c1a6e460670e50f22e5bdd151f2709e9e38585c2f23f",
+    "fetchedAt": "2026-08-26T19:29:34.663Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Orianna/Command:_Protect",
+    "revisionId": 3804030,
+    "sourceTimestamp": "2024-10-31T03:14:38Z"
+  }
+}

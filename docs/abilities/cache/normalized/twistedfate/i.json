@@ -1,0 +1,42 @@
+{
+  "asset": {
+    "key": "spell_twistedfate_i",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Twisted_Fate_Loaded_Dice.png?65562",
+    "sha1": "ba688cec3785fc8c116306d214f35767a8768d24"
+  },
+  "champion": "Twisted Fate",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_twistedfate_i",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Twisted_Fate_Loaded_Dice.png?65562",
+        "sha1": "ba688cec3785fc8c116306d214f35767a8768d24"
+      },
+      "fields": {
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Innate:'''</span> Whenever '''Twisted Fate''' kills an enemy, he generates <span class=\"inline-image\" style=\"display:inline;color:#E2BA3D&#59;white-space:pre&#59;text-shadow:-1px 0 black,0 1px black,1px 0 black,0 -1px black;\" data-param=\"\"><span style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Gold colored icon.svg|20xpx|link=Gold|An icon representing Gold]]</span></span><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help; color:#E2BA3D;\" data-top-label=\"chance\" data-bot-values=\"1;2;3;4;5;6\" data-top-values=\"13.33;13.33;13.33;13.33;13.33;33.33\" data-top-key=\"%\">1 – 6 (based on chance)</span>[[Category:Debug]]. He also has a chance equal to his <span style=\"color:orangered; white-space:normal\">critical strike chance</span> to generate an additional <span class=\"inline-image label-after\" style=\"display:inline;color:#E2BA3D&#59;white-space:pre&#59;text-shadow:-1px 0 black,0 1px black,1px 0 black,0 -1px black;\" data-param=\"\"><span style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Gold colored icon.svg|20xpx|link=Gold|An icon representing Gold]]</span> <span style=\"white-space:normal;\"><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help; color:#E2BA3D;\" data-top-label=\"chance\" data-bot-values=\"1;2;3;4;5;6\" data-top-values=\"33.33;13.33;13.33;13.33;13.33;13.33\" data-top-key=\"%\">1 – 6 (based on chance)</span></span></span>.",
+          "text": "Innate: Whenever Twisted Fate kills an enemy, he generates 1 – 6 (based on chance)Category:Debug. He also has a chance equal to his critical strike chance to generate an additional 1 – 6 (based on chance)."
+        },
+        "icon": "Loaded Dice.png",
+        "name": "Loaded Dice",
+        "notes": {
+          "raw": "* The expected bonus gold gained per unit killed is <span class=\"inline-image label-after\" style=\"display:inline;color:#E2BA3D&#59;white-space:pre&#59;text-shadow:-1px 0 black,0 1px black,1px 0 black,0 -1px black;\" data-param=\"\"><span style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Gold colored icon.svg|20xpx|link=Gold|An icon representing Gold]]</span> <span style=\"white-space:normal;\">4</span></span>.\n** The expected additional gold due to critical strike chance is <span class=\"inline-image label-after\" style=\"display:inline;color:#E2BA3D&#59;white-space:pre&#59;text-shadow:-1px 0 black,0 1px black,1px 0 black,0 -1px black;\" data-param=\"\"><span style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Gold colored icon.svg|20xpx|link=Gold|An icon representing Gold]]</span> <span style=\"white-space:normal;\">3</span></span>.",
+          "text": "The expected bonus gold gained per unit killed is 4.\n* The expected additional gold due to critical strike chance is 3."
+        },
+        "targeting": "Passive"
+      },
+      "name": "Loaded Dice"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "I",
+  "source": {
+    "contentHash": "e69d4e050b38dd001789807ffc9cfbf0e213ae40a6e226fda970b3b4111608a5",
+    "fetchedAt": "2026-08-26T19:29:42.360Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Loaded_Dice",
+    "revisionId": 4005221,
+    "sourceTimestamp": "2026-04-04T06:08:39Z"
+  }
+}

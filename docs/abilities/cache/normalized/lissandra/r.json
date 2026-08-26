@@ -1,0 +1,68 @@
+{
+  "asset": {
+    "key": "spell_lissandra_r",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Lissandra_Frozen_Tomb.png?34e61",
+    "sha1": "bcb4436a59e5433a68c131b60c9c55a308399038"
+  },
+  "champion": "Lissandra",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_lissandra_r",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Lissandra_Frozen_Tomb.png?34e61",
+        "sha1": "bcb4436a59e5433a68c131b60c9c55a308399038"
+      },
+      "fields": {
+        "casttime": "0.375 • None",
+        "cooldown": "120 / 110 / 100 / 90 / 80",
+        "cost": "100",
+        "damagetype": "magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Lissandra''' can cast ''Frozen Tomb'' on herself or an enemy champion.",
+          "text": "Active: Lissandra can cast Frozen Tomb on herself or an enemy champion."
+        },
+        "description2": {
+          "raw": "<span class=\"template_sbc\">'''Enemy Cast:'''</span> '''Lissandra''' freezes the target enemy champion, <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Knockdown\">[[File:Knockdown icon.png|20px|link=Knockdown|An icon representing the keyword Knockdown]] [[:Knockdown|knocking them down]]</span> and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Stun\">[[File:Stun icon.png|20px|link=Stun|An icon representing the keyword Stun]] [[:Stun|stunning]]</span> them for 1.<small>5</small> seconds.",
+          "text": "Enemy Cast: Lissandra freezes the target enemy champion, knocking them down and stunning them for 1.5 seconds."
+        },
+        "description3": {
+          "raw": "<span class=\"template_sbc\">'''Self Cast:'''</span> '''Lissandra''' instantly entombs herself in ice, entering <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Stasis (buff)\">[[File:Stasis icon.png|20px|link=Invulnerability#Stasis|An icon representing the keyword Stasis (buff)]] [[:Invulnerability#Stasis|stasis]]</span> for 2.<small>5</small> seconds and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Healing\">[[File:Heal power icon.svg|20px|link=Healing|An icon representing the keyword Heal]] [[:Healing|healing]]</span> herself every 0.<small>25</small> seconds over the duration. The healing is increased by <span style=\"color:\n#21B053; white-space:normal\"><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-top-label=\"missing health at the time of cast\" data-displayformula=\"1% per 1% of '''missing''' health\" data-bot-values=\"0;10;20;30;40;50;60;70;80;90;100\" data-top-values=\"0;10;20;30;40;50;60;70;80;90;100\" data-bot-key=\"%\" data-top-key=\"%\">0% – 100% (based on '''missing''' health at the time of cast)</span>[[Category:Debug]]</span>.",
+          "text": "Self Cast: Lissandra instantly entombs herself in ice, entering stasis for 2.5 seconds and healing herself every 0.25 seconds over the duration. The healing is increased by 0% – 100% (based on missing health at the time of cast)Category:Debug."
+        },
+        "description4": {
+          "raw": "''Frozen Tomb'' creates a field of ice that spreads out from the target over 1.<small>5</small> seconds and covers the surrounding area for 3 seconds, dealing <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to enemies and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slowing]]</span> them for 0.<small>5</small> seconds, refreshing every 0.<small>25</small> seconds while they remain.",
+          "text": "Frozen Tomb creates a field of ice that spreads out from the target over 1.5 seconds and covers the surrounding area for 3 seconds, dealing magic damage to enemies and slowing them for 0.5 seconds, refreshing every 0.25 seconds while they remain."
+        },
+        "effectradius": "550",
+        "icon": "Frozen Tomb.png",
+        "leveling3": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Minimum Heal per Tick:'''</span></dt><dd>10 / 12.<small>5</small> / 15 / 17.<small>5</small> / 20 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 5.<small>5</small>% AP)</span></dd><dt><span class=\"template_lc\">'''Maximum Heal per Tick:'''</span></dt><dd>20 / 25 / 30 / 35 / 40 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 11% AP)</span></dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Minimum Total Heal:'''</span></dt><dd>100 / 125 / 150 / 175 / 200 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 55% AP)</span></dd><dt><span class=\"template_lc\">'''Maximum Total Heal:'''</span></dt><dd>200 / 250 / 300 / 350 / 400 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 110% AP)</span></dd></dl>",
+          "text": "Minimum Heal per Tick:10 / 12.5 / 15 / 17.5 / 20 (+ 5.5% AP)Maximum Heal per Tick:20 / 25 / 30 / 35 / 40 (+ 11% AP)\nMinimum Total Heal:100 / 125 / 150 / 175 / 200 (+ 55% AP)Maximum Total Heal:200 / 250 / 300 / 350 / 400 (+ 110% AP)"
+        },
+        "leveling4": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>150 / 200 / 250 / 300 / 350 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 75% AP)</span></dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Slow:'''</span></dt><dd>45 / 52.<small>5</small> / 60 / 67.<small>5</small> / 75%</dd></dl>",
+          "text": "Magic Damage:150 / 200 / 250 / 300 / 350 (+ 75% AP)\nSlow:45 / 52.5 / 60 / 67.5 / 75%"
+        },
+        "name": "Frozen Tomb",
+        "notes": {
+          "raw": "* Enemies can only be damaged by the field of ice once every 4 seconds.\n** Under normal circumstances, this means once per cast of ''Frozen Tomb''.\n* Enemies who come in contact with ''Frozen Tomb's'' slow field will be damaged and a small visual and sound effect will play.\n* <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spell shield\">[[File:Spell Shield.png|20px|link=Spell shield|An icon representing the keyword Spell shield]] [[:Spell shield|Spell shield]]</span> will block the single-targeted portion and the radiating ice damage, but will not stop it from spreading.\n* If the target becomes <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Untargetable\">[[File:Untargetable icon.png|20px|link=Untargetable|An icon representing the keyword Untargetable]] [[:Untargetable|untargetable]]</span>, <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Death\">[[File:Death icon.svg|20px|link=Death|An icon representing the keyword Death]] [[:Death|dies]]</span>, or is too far away during the cast time, this ability will cancel but does not go on <span style=\"white-space:nowrap\">[[File:Cooldown icon.png|15px|link=Cooldown]]&nbsp;cooldown</span> nor pay its cost.\n** The ability is not cancelled by loss of <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Sight\">[[File:Sight icon.png|20px|link=Sight|An icon representing the keyword Sight]] [[:Sight|sight]]</span> of the target.\n** This only applies to the enemy cast.\n* When becoming <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Untargetable\">[[File:Untargetable icon.png|20px|link=Untargetable|An icon representing the keyword Untargetable]] [[:Untargetable|untargetable]]</span>, '''Lissandra''' <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Homing projectile destruction\">[[File:Bullet strikethrough.png|20px|link=Projectile|An icon representing the keyword Homing projectile destruction]] [[:Projectile|destroys]]</span> enemy projectiles targeting her.",
+          "text": "Enemies can only be damaged by the field of ice once every 4 seconds.\n* Under normal circumstances, this means once per cast of Frozen Tomb.\nEnemies who come in contact with Frozen Tomb's slow field will be damaged and a small visual and sound effect will play.\nSpell shield will block the single-targeted portion and the radiating ice damage, but will not stop it from spreading.\nIf the target becomes untargetable, dies, or is too far away during the cast time, this ability will cancel but does not go on &nbsp;cooldown nor pay its cost.\n* The ability is not cancelled by loss of sight of the target.\n* This only applies to the enemy cast.\nWhen becoming untargetable, Lissandra destroys enemy projectiles targeting her."
+        },
+        "spellshield": false,
+        "targeting": "Unit"
+      },
+      "name": "Frozen Tomb"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "R",
+  "source": {
+    "contentHash": "47583eed43f6d3751081368a91f89df22b1fa9867706763ea2cac9336f08097a",
+    "fetchedAt": "2026-08-26T19:29:18.645Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb",
+    "revisionId": 4017996,
+    "sourceTimestamp": "2026-05-14T13:55:57Z"
+  }
+}

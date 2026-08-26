@@ -1,0 +1,46 @@
+{
+  "asset": {
+    "key": "spell_shen_w",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Shen_Spirit%27s_Refuge.png?319df",
+    "sha1": "da25a14b7e3261b5fe0ed1339e033d4777b25e12"
+  },
+  "champion": "Shen",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_shen_w",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Shen_Spirit%27s_Refuge.png?319df",
+        "sha1": "da25a14b7e3261b5fe0ed1339e033d4777b25e12"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "16 / 14.5 / 13 / 11.5 / 10",
+        "cost": "40",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Shen''' primes his <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span>, creating an area around it. After 2 seconds, or when '''Shen''' or an allied champion enters the area, the <span style=\"color:\n#D929D9; white-space:normal\">Spirit Blade</span> generates a protective zone for 1.<small>75</small> seconds, <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Block\">[[File:Spirit's Refuge.png|20px|link=Attack_effects#Parrying|An icon representing the keyword Block]] [[:Attack_effects#Parrying|blocking]]</span> all non-<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Turret\">[[File:Turret icon.png|20px|link=Turret|An icon representing the keyword Turret]] [[:Turret|turret]]</span> basic attacks that hit '''Shen''' or allied champions in the area.",
+          "text": "Active: Shen primes his Spirit Blade, creating an area around it. After 2 seconds, or when Shen or an allied champion enters the area, the Spirit Blade generates a protective zone for 1.75 seconds, blocking all non- turret basic attacks that hit Shen or allied champions in the area."
+        },
+        "effectradius": "350",
+        "icon": "Spirit's Refuge.png",
+        "name": "Spirit's Refuge",
+        "notes": {
+          "raw": "* ''Spirit's Refuge's'' protective zone can be moved while active if '''Shen''' uses <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Shen\" data-ability=\"Twilight Assault\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Shen Twilight Assault.png|20xpx|border|link=Shen#Twilight Assault|An icon for Shen's ability Twilight Assault]]</span> <span style=\"white-space:normal;\">[[Shen#Twilight Assault|Twilight Assault]]</span></span>.\n* ''Spirit's Refuge'' cannot be ranked up at [[Experience (champion)|Level]] 1.\n* ''Spirit's Refuge'' will also block damage from all abilities that use <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic damage\">[[File:Basic Attack.png|20px|link=Damage|An icon representing the keyword Basic damage]] [[:Damage|basic damage]]</span> (<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Fiora\" data-ability=\"Lunge\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Fiora Lunge.png|20xpx|border|link=Fiora#Lunge|An icon for Fiora's ability Lunge]]</span> <span style=\"white-space:normal;\">[[Fiora#Lunge|Lunge]]</span></span>, <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Ezreal\" data-ability=\"Mystic Shot\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Ezreal Mystic Shot.png|20xpx|border|link=Ezreal#Mystic Shot|An icon for Ezreal's ability Mystic Shot]]</span> <span style=\"white-space:normal;\">[[Ezreal#Mystic Shot|Mystic Shot]]</span></span>, <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Yasuo\" data-ability=\"Steel Tempest\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Yasuo Steel Tempest.png|20xpx|border|link=Yasuo#Steel Tempest|An icon for Yasuo's ability Steel Tempest]]</span> <span style=\"white-space:normal;\">[[Yasuo#Steel Tempest|Steel Tempest]]</span></span>).\n* Allied <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Clone\">[[File:Shaco Hallucinate 2.png|20px|link=Champion_summoned_units#decoys|An icon representing the keyword Clone]] [[:Champion_summoned_units#decoys|clones]]</span> are also considered champions for this ability.",
+          "text": "Spirit's Refuge's protective zone can be moved while active if Shen uses Twilight Assault.\nSpirit's Refuge cannot be ranked up at Level 1.\nSpirit's Refuge will also block damage from all abilities that use basic damage ( Lunge, Mystic Shot, Steel Tempest).\nAllied clones are also considered champions for this ability."
+        },
+        "targeting": "Auto"
+      },
+      "name": "Spirit's Refuge"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "W",
+  "source": {
+    "contentHash": "b67c24822ed1a09893366a9483a1656c717ac598a3460ff9d0ead1faeaccaf1e",
+    "fetchedAt": "2026-08-26T19:29:02.718Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Spirit's_Refuge",
+    "revisionId": 3977238,
+    "sourceTimestamp": "2025-12-18T16:34:14Z"
+  }
+}

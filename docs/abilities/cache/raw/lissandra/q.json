@@ -1,0 +1,43 @@
+{
+  "payload": [
+    {
+      "page": "Template:Data Lissandra/Ice Shard",
+      "response": {
+        "expanded": {
+          "expandtemplates": {
+            "wikitext": "@@name@@Ice Shard@@icon@@Ice Shard.png@@icon2@@{{{icon2}}}@@icon3@@{{{icon3}}}@@icon4@@{{{icon4}}}@@description@@<span class=\"template_sbc\">'''Active:'''</span> '''Lissandra''' launches a shard of ice in the target direction that deals <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slows]]</span> enemies hit for 1.<small>5</small> seconds.@@description2@@If ''Ice Shard'' hits an enemy, it will shatter, increasing its width and maximum range.@@description3@@{{{description3}}}@@description4@@{{{description4}}}@@description5@@{{{description5}}}@@description6@@{{{description6}}}@@leveling@@<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>80 / 115 / 150 / 185 / 220 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 75% AP)</span></dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Slow:'''</span></dt><dd>20 / 24 / 28 / 32 / 36%</dd></dl>@@leveling2@@{{{leveling2}}}@@leveling3@@{{{leveling3}}}@@leveling4@@{{{leveling4}}}@@leveling5@@{{{leveling5}}}@@leveling6@@{{{leveling6}}}@@range@@<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Cr\">[[File:Range center.png|20px|link=Range|An icon representing the keyword Centered range]]</span> <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Standard range including area check after missile end\">825</span> • <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Enhanced range from cast origin\">950</span>@@radius@@{{{radius}}}@@effectradius@@{{{effect radius}}}@@width@@<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Er\">[[File:Range model.png|20px|link=Range|An icon representing the keyword Edge range]]</span> <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Standard missile width\">150</span> • <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Missile width after shattering\">180</span>@@speed@@<span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Missile speed before and after shattering\">2200</span>@@casttime@@0.<small>25</small>@@cost@@55 / 60 / 65 / 70 / 75@@cooldown@@7 / 6 / 5 / 4 / 3@@targeting@@Direction@@damagetype@@magic@@spellshield@@Special@@projectile@@true@@notes@@\n* This ability will cast from wherever the caster is at the end of the cast time.\n* ''Ice Shard'' picks a location 950 units away in the direction of the cast for the shattered missile to end up at.\n* The initial ''Ice Shard'' missile has a range of 700 units which it arrives at after <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"0.31818181818182 seconds, but rounded up to the next game tick.\">0.<small>33</small> seconds</span>. If it hasn't collided with an enemy in this path when it does, it checks for enemies in a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Cr\">[[File:Range center.png|20px|link=Range|An icon representing the keyword Centered range]]</span> 100 radius around the point 25 units in front of it.\n** Colliding or hitting an enemy in either fashion creates a new \"shattered\" missile with the same speed but greater width that continues to travel along the same line to the designated point 950 units from the cast's original position, originating at the location at which the initial missile collided at.\n* <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spell shield\">[[File:Spell Shield.png|20px|link=Spell shield|An icon representing the keyword Spell shield]] [[:Spell shield|Spell shield]]</span> will block the damage and the slow but will not stop the projectile from shattering.@@"
+          }
+        },
+        "revision": {
+          "batchcomplete": true,
+          "query": {
+            "pages": [
+              {
+                "ns": 10,
+                "pageid": 1307878,
+                "revisions": [
+                  {
+                    "parentid": 4001140,
+                    "revid": 4007664,
+                    "timestamp": "2026-04-12T10:26:56Z"
+                  }
+                ],
+                "title": "Template:Data Lissandra/Ice Shard"
+              }
+            ]
+          }
+        }
+      },
+      "revisionId": 4007664,
+      "timestamp": "2026-04-12T10:26:56Z"
+    }
+  ],
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "d3de950b2968460182f544bd73c858e14557d40763a7cb37a6b4e102fd367aac",
+    "fetchedAt": "2026-08-26T19:29:18.645Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ice_Shard",
+    "revisionId": 4007664,
+    "sourceTimestamp": "2026-04-12T10:26:56Z"
+  }
+}

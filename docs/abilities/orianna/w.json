@@ -1,0 +1,60 @@
+{
+  "asset": {
+    "key": "spell_orianna_w",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Orianna_Command-_Dissonance.png?f7673",
+    "sha1": "97d44200f1580de36c01476c908210c35718643f"
+  },
+  "champion": "Orianna",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_orianna_w",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Orianna_Command-_Dissonance.png?f7673",
+        "sha1": "97d44200f1580de36c01476c908210c35718643f"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "7",
+        "cost": "60 / 65 / 70 / 75 / 80",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Orianna''' commands ''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Orianna\" data-ability=\"Clockwork Windup\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Orianna Clockwork Windup.png|20xpx|border|link=Orianna#Clockwork Windup|An icon for Orianna's ability Clockwork Windup]]</span> <span style=\"white-space:normal;\">[[Orianna#Clockwork Windup|The Ball]]</span></span>'' to emit an electric pulse that deals <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to nearby enemies.",
+          "text": "Active: Orianna commands The Ball to emit an electric pulse that deals magic damage to nearby enemies."
+        },
+        "description2": {
+          "raw": "The pulse leaves behind an electric field that last 3 seconds, granting <span style=\"white-space:nowrap\">[[File:Movement speed icon.png|15px|link=Movement speed]]&nbsp;<span style=\"color:\n#9FFF4D; white-space:normal\">'''bonus''' movement speed</span></span> to '''Orianna''' and her allies when they move within. Enemies that move within the field are <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slowed]]</span> by the same amount, decaying over 2 seconds after leaving.",
+          "text": "The pulse leaves behind an electric field that last 3 seconds, granting &nbsp;bonus movement speed to Orianna and her allies when they move within. Enemies that move within the field are slowed by the same amount, decaying over 2 seconds after leaving."
+        },
+        "effectradius": "225",
+        "icon": "Command Dissonance.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>70 / 110 / 150 / 190 / 230 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 80% AP)</span></dd></dl>",
+          "text": "Magic Damage:70 / 110 / 150 / 190 / 230 (+ 80% AP)"
+        },
+        "leveling2": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Movement Speed Modifier:'''</span></dt><dd>20 / 25 / 30 / 35 / 40%</dd></dl>",
+          "text": "Movement Speed Modifier:20 / 25 / 30 / 35 / 40%"
+        },
+        "name": "Command: Dissonance",
+        "notes": {
+          "raw": "* No additional notes.",
+          "text": "No additional notes."
+        },
+        "spellshield": true,
+        "targeting": "Auto"
+      },
+      "name": "Command: Dissonance"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "W",
+  "source": {
+    "contentHash": "f1b29fbec80d3aa20946f65c7d5544904fc2af503058e39fb26357ad9677550d",
+    "fetchedAt": "2026-08-26T19:29:34.663Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Orianna/Command:_Dissonance",
+    "revisionId": 3958109,
+    "sourceTimestamp": "2025-10-07T18:07:06Z"
+  }
+}

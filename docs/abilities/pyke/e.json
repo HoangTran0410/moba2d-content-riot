@@ -1,0 +1,59 @@
+{
+  "asset": {
+    "key": "spell_pyke_e",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Pyke_Phantom_Undertow.png?2eef2",
+    "sha1": "f9c7d6ba48f34d17dc03aa1f0f5e65e4b8eea690"
+  },
+  "champion": "Pyke",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_pyke_e",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Pyke_Phantom_Undertow.png?2eef2",
+        "sha1": "f9c7d6ba48f34d17dc03aa1f0f5e65e4b8eea690"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "15 / 14 / 13 / 12 / 11",
+        "cost": "40",
+        "damagetype": "Physical",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Pyke''' <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Dash\">[[File:Dash.png|20px|link=Dash|An icon representing the keyword Dash]] [[:Dash|dashes]]</span> in the target direction, leaving behind a ''Phantom''. '''Pyke''' is <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Ghosted\">[[File:Ghost.png|20px|link=Unit collision|An icon representing the keyword Ghosted]] [[:Unit collision|ghosted]]</span> while the ''Phantom'' is active.",
+          "text": "Active: Pyke dashes in the target direction, leaving behind a Phantom. Pyke is ghosted while the Phantom is active."
+        },
+        "description2": {
+          "raw": "After 1 second, the ''Phantom'' homes back to '''Pyke''' to <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Stun\">[[File:Stun icon.png|20px|link=Stun|An icon representing the keyword Stun]] [[:Stun|stun]]</span> enemies around it and those it passes through along the way for 1.<small>25</small> <span style=\"color:tomato; white-space:normal\">(+ 0.<small>1</small> per 10 Lethality)</span> seconds. Enemy champions hit also take <span style=\"color:\n#FF8C34; white-space:normal\">physical damage</span>.",
+          "text": "After 1 second, the Phantom homes back to Pyke to stun enemies around it and those it passes through along the way for 1.25 (+ 0.1 per 10 Lethality) seconds. Enemy champions hit also take physical damage."
+        },
+        "effectradius": "110",
+        "icon": "Phantom Undertow.png",
+        "leveling2": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Physical Damage:'''</span></dt><dd>100 / 150 / 200 / 250 / 300 <span style=\"color:orange; white-space:normal\">(+ 100% '''bonus''' AD)</span></dd></dl>",
+          "text": "Physical Damage:100 / 150 / 200 / 250 / 300 (+ 100% bonus AD)"
+        },
+        "name": "Phantom Undertow",
+        "notes": {
+          "raw": "* The <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Dash\">[[File:Dash.png|20px|link=Dash|An icon representing the keyword Dash]] [[:Dash|dash]]</span> distance can be extended to up to 900 units (estimated) when targeting across terrain.\n* Like most [[missiles|projectiles]], the flying ''Phantom'' cannot hit targets whose <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Center range\">[[File:Range center.png|20px|link=Range|An icon representing the keyword Centered range]] [[:Range|center]]</span> is behind the position it originates at or beyond the position it catches up to '''Pyke''' at, but the spell ''can'' hit targets behind its origin as long as their <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Edge range\">[[File:Range model.png|20px|link=Range|An icon representing the keyword Edge range]] [[:Range|hitbox radius]]</span> overlaps with the original unit ''Phantom's'' 110-radius check at the end of its lifespan.",
+          "text": "The dash distance can be extended to up to 900 units (estimated) when targeting across terrain.\nLike most projectiles, the flying Phantom cannot hit targets whose center is behind the position it originates at or beyond the position it catches up to Pyke at, but the spell can hit targets behind its origin as long as their hitbox radius overlaps with the original unit Phantom's 110-radius check at the end of its lifespan."
+        },
+        "projectile": true,
+        "speed": "3000",
+        "spellshield": true,
+        "targeting": "Direction",
+        "width": "220"
+      },
+      "name": "Phantom Undertow"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "E",
+  "source": {
+    "contentHash": "e7f43ae354006b2f2158db7a69c4b5aa58c261d170d741db66ef8cbb2665d367",
+    "fetchedAt": "2026-08-26T19:29:26.049Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Phantom_Undertow",
+    "revisionId": 4044071,
+    "sourceTimestamp": "2026-07-17T15:13:48Z"
+  }
+}
