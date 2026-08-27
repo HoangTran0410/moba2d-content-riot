@@ -11,8 +11,9 @@
     "typecheck": "tsc -p tsconfig.json",
     "check-unused": "node scripts/check-unused.mjs",
     "test": "vitest run",
-    "build": "vite build && node scripts/write-manifest.mjs",
+    "build": "npm run assets:generate && npm run catalog:generate && vite build && node scripts/write-manifest.mjs",
     "manifest:write": "node scripts/write-manifest.mjs",
+    "serve": "moba2d-pack-serve",
     "check-seams": "moba2d-check-seams ./spells && moba2d-check-seams ./tests",
     "check-seams:monsters": "moba2d-check-seams ./monsters",
     "wiki:sync-index": "node scripts/wiki/import-abilities.mjs --index",
@@ -25,6 +26,7 @@
     "names:apply": "node scripts/wiki/sync-spell-names.mjs --apply",
     "core:check": "node scripts/check-core-link.mjs",
     "postinstall": "node scripts/check-core-link.mjs --warn-only",
+    "prepare": "npm run assets:generate && npm run catalog:generate",
     "hooks:install": "git config core.hooksPath scripts/git-hooks",
     "verify": "npm run core:check && npm run assets:check && npm run catalog:check && npm run ability:check && npm run items:check && npm run typecheck && npm run check-unused && npm run check-seams && npm run check-seams:monsters && npm run build && npm test"
   },
