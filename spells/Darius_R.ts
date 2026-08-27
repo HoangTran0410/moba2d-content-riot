@@ -161,8 +161,9 @@ export default class Darius_R extends Spell implements ExecuteSpell {
     for (const witness of witnesses) {
       // Champions do not rout; this is a wave-clearing and jungle effect.
       if (witness instanceof Champion) continue;
+      // Keeps `Fear`'s own icon — like `Stun`, it is drawn on the victim rather
+      // than only in the HUD. See the note in `Renekton_W.ts`.
       const panic = new Fear(FEAR_MS, this.owner, witness);
-      panic.image = this.image;
       panic.sourcePosition = this.owner.position.copy();
       witness.addBuff(panic);
     }

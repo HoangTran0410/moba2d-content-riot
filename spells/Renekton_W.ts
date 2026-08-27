@@ -104,8 +104,11 @@ export class Renekton_W_Buff extends Buff {
     }
 
     if (!victim.isDead) {
+      // Keeps `Stun`'s own icon: it is drawn spinning on the victim
+      // (`buffs/Stun.ts`), not just listed in the HUD, so an ability icon there
+      // costs the universal read of "that one is stunned". The other 24 stuns
+      // in this pack already leave it alone; this one had drifted.
       const held = new Stun(enraged ? ENRAGED_STUN_MS : STUN_MS, this.targetUnit, victim);
-      held.image = this.image;
       victim.addBuff(held);
     }
 
