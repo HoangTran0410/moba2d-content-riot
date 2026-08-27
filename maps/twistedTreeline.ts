@@ -13,7 +13,11 @@ import type { MapDefinition } from '@moba2d/core/content/ContentPack';
 export const twistedTreeline: MapDefinition = {
   id: 'twisted-treeline',
   name: 'Twisted Treeline',
-  size: 4200,
+  // 8400 — regenerated from the trace at crop-to-fit scale after the first
+  // 4200 cut played cramped and the uniform scale left the playfield a third
+  // of the square world; the geometry module's own header carries the whole
+  // story.
+  size: 8400,
   factions: [{ id: 'blue' }, { id: 'red' }],
   geometry: () => import('./twistedTreelineGeometry').then(module => module.twistedTreelineGeometry),
 };
