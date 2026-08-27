@@ -96,7 +96,7 @@ const NO_PRESS_OVERRIDE = new Set(['Annie_Q.ts']);
  * pinning a line is copying the reported line rather than counting lines.
  */
 const PINNED = new Set([
-  'Blitzcrank_E.ts:74:const angle = VectorUtils.getAngle(this.owner.position, this.game.worldMouse);',
+  'Blitzcrank_E.ts:x1:const angle = VectorUtils.getAngle(this.owner.position, this.game.worldMouse);',
 ]);
 
 /**
