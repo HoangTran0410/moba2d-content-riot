@@ -9,6 +9,7 @@ import type {
 import type { SpellCatalogId as PackSpellCatalogId } from './generated/spellCatalog';
 import { spellCatalog } from './generated/spellCatalog';
 import { summonersRift } from './maps/summonersRift';
+import { twistedTreeline } from './maps/twistedTreeline';
 
 /** `'BasicAttack'` is core's id, not this pack's own — slot 0 of every kit below names it. */
 type RosterSpellId = PackSpellCatalogId | 'BasicAttack';
@@ -1464,5 +1465,5 @@ export const data: ContentPackData = {
   archetypes: archetypeEntries(),
   items: itemEntries(),
   monsters: monsterEntries(),
-  maps: [summonersRift],
+  maps: [summonersRift, twistedTreeline],
 };

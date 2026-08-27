@@ -113,10 +113,14 @@ describe("the Summoner's Rift map definition", () => {
     const registry = new PackRegistry();
     registry.installData(riotData);
     const maps = registry.maps();
-    expect(maps).toHaveLength(1);
-    expect(maps[0].id).toBe(`${riotData.manifest.id}:summoners-rift`);
-    expect(maps[0]).not.toHaveProperty('terrain');
-    expect(maps[0]).not.toHaveProperty('slots');
+    // Two since Twisted Treeline shipped — its own suite is
+    // `tests/maps/twistedTreeline.test.ts`; this file only cares that
+    // Summoner's Rift is among them, qualified and heavy-field-free.
+    expect(maps).toHaveLength(2);
+    const rift = maps.find(map => map.id === `${riotData.manifest.id}:summoners-rift`);
+    expect(rift).toBeDefined();
+    expect(rift).not.toHaveProperty('terrain');
+    expect(rift).not.toHaveProperty('slots');
   });
 
   it('lists a map without pulling its geometry into the listing', async () => {
