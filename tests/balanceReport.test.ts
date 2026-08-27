@@ -1,0 +1,155 @@
+import { describe, expect, it } from 'vitest';
+import { data } from '../pack';
+
+/**
+ * The question `items.test.ts`'s per-stat bands cannot answer: **gold for
+ * gold, does the ability path keep pace with the attack path?**
+ *
+ * The shop's two builds are measured the same way a player experiences them —
+ * the best six items the table can sell each archetype, brute-forced rather
+ * than hand-picked so a retuned item moves the answer by itself:
+ *
+ *   - the attack build's throughput is `(AD + on-hit) × E[crit] × attacks/s`,
+ *     the exact chain `landBasicAttack` and `BasicAttackController` apply:
+ *     swing = (attackDamage + onHitDamage), crits multiply the swing by the
+ *     `critDamage` stat (base 1.75 in core — `CRIT_MULTIPLIER` — plus item
+ *     points), `attacksPerSecond` *is* the `attackSpeed` stat;
+ *   - the ability build's throughput multiplier is `(1 + ΣAP) / (1 − ΣCDR)`:
+ *     `Amplification.ts` multiplies every ability hit by `1 + abilityPower`,
+ *     and a rotation's cadence is its cooldowns, which `Spell.reducedCooldown`
+ *     shortens by the `cooldownReduction` sum (capped at 0.6 in core; this
+ *     shop sells well under it, `items.test.ts` holds that).
+ *
+ * Both are stats-only floors: Sheen-line spellblades, Kraken/Guinsoo procs
+ * and the other coded passives all favour the attack path further, and item
+ * actives favour the ability path — neither side of that is a table read, so
+ * neither is in this measurement. What is asserted is the *shape*: each
+ * path's bonus-per-1000-gold, and the ratio between them, pinned to the band
+ * measured on 2026-08-27 so a retune that silently breaks the parity this
+ * shop was built for (`items.test.ts`'s own header: items must not buy the
+ * right-click and nothing else) fails here with the numbers in the message.
+ *
+ * The attack baseline is the pack's own MARKSMAN profile — the archetype
+ * whose whole output is the swing — and the ability multiplier needs no
+ * baseline at all: amplification and CDR scale any kit linearly.
+ */
+
+type ItemStats = {
+  attackDamage?: number;
+  attackSpeed?: number;
+  critChance?: number;
+  critDamage?: number;
+  onHitDamage?: number;
+  abilityPower?: number;
+  cooldownReduction?: number;
+};
+type ItemDef = { id: string; name: string; cost: number; stats?: ItemStats };
+
+const items: ItemDef[] = Object.values(data.items ?? {}) as ItemDef[];
+
+/** Core's `CRIT_MULTIPLIER` (`Stats.ts`), restated the way `items.test.ts` restates the CDR cap — the pack cannot value-import core. */
+const CRIT_BASE = 1.75;
+const CDR_CAP = 0.6;
+
+/** The pack's own MARKSMAN tuning (`data.ts`'s role table). */
+const BASE_AD = 10;
+const BASE_APS = 1.65;
+
+const sum = (build: ItemDef[], key: keyof ItemStats): number =>
+  build.reduce((total, item) => total + (item.stats?.[key] ?? 0), 0);
+
+const autoDps = (build: ItemDef[]): number => {
+  const swing = BASE_AD + sum(build, 'attackDamage') + sum(build, 'onHitDamage');
+  const chance = Math.min(1, sum(build, 'critChance'));
+  const expectedCrit = 1 + chance * (CRIT_BASE + sum(build, 'critDamage') - 1);
+  return swing * expectedCrit * (BASE_APS + sum(build, 'attackSpeed'));
+};
+
+const kitMultiplier = (build: ItemDef[]): number =>
+  (1 + sum(build, 'abilityPower')) / (1 - Math.min(CDR_CAP, sum(build, 'cooldownReduction')));
+
+/**
+ * The best six for `score`, exhaustively. Only items granting a stat the
+ * score reads are candidates — an item granting none can only displace one
+ * that does — which keeps the enumeration in the hundreds.
+ */
+const bestSix = (
+  keys: (keyof ItemStats)[],
+  score: (build: ItemDef[]) => number
+): { build: ItemDef[]; score: number; gold: number } => {
+  const candidates = items.filter(item => keys.some(key => (item.stats?.[key] ?? 0) > 0));
+  let best: ItemDef[] = [];
+  let bestScore = -Infinity;
+  const pick: ItemDef[] = [];
+  const walk = (from: number): void => {
+    if (pick.length === 6 || from === candidates.length) {
+      const value = score(pick);
+      if (value > bestScore) {
+        bestScore = value;
+        best = pick.slice();
+      }
+      if (pick.length === 6) return;
+    }
+    for (let i = from; i < candidates.length; i++) {
+      pick.push(candidates[i]);
+      walk(i + 1);
+      pick.pop();
+    }
+  };
+  walk(0);
+  return { build: best, score: bestScore, gold: best.reduce((g, item) => g + item.cost, 0) };
+};
+
+describe('gold-for-gold, the two builds this shop sells', () => {
+  const attack = bestSix(
+    ['attackDamage', 'attackSpeed', 'critChance', 'critDamage', 'onHitDamage'],
+    autoDps
+  );
+  const ability = bestSix(['abilityPower', 'cooldownReduction'], kitMultiplier);
+
+  const attackMultiplier = attack.score / (BASE_AD * BASE_APS);
+  const abilityMultiplier = ability.score;
+  // Bonus (multiplier above 1.0) bought per 1000 gold — the marginal value of
+  // walking each path, which is what makes builds of different total cost
+  // comparable at all.
+  const attackPer1000 = ((attackMultiplier - 1) / attack.gold) * 1000;
+  const abilityPer1000 = ((abilityMultiplier - 1) / ability.gold) * 1000;
+  const ratio = attackPer1000 / abilityPer1000;
+
+  it('reports the measurement', () => {
+    const name = (build: ItemDef[]) => build.map(item => item.name).join(', ');
+    // eslint-disable-next-line no-console
+    console.log(
+      [
+        '── balance report (stats-only floors) ──',
+        `attack build  (${attack.gold}g): ${name(attack.build)}`,
+        `  ${attackMultiplier.toFixed(2)}x marksman auto DPS — +${attackPer1000.toFixed(2)}x per 1000g`,
+        `ability build (${ability.gold}g): ${name(ability.build)}`,
+        `  ${abilityMultiplier.toFixed(2)}x kit throughput — +${abilityPer1000.toFixed(2)}x per 1000g`,
+        `attack : ability value ratio = ${ratio.toFixed(2)}`,
+      ].join('\n')
+    );
+    expect(attack.build).toHaveLength(6);
+    expect(ability.build).toHaveLength(6);
+  });
+
+  it('keeps the two paths inside the band measured on 2026-08-27', () => {
+    // Measured then: attack 20.23x marksman auto DPS for 8600g (+2.24x per
+    // 1000g — Vô Cực Kiếm, Guinsoo, Kraken, Tam Hợp, Lưỡi Hái Linh Hồn,
+    // Statikk), ability 4.27x kit for 8800g (+0.37x per 1000g), ratio 6.02.
+    // **That is a finding, not a target**: gold in the attack path buys six
+    // times the throughput the ability path buys, on stats alone — the
+    // crit/attack-speed items multiply each other while ability power only
+    // adds — and the attack path's coded on-hit passives widen it further.
+    // The old "full build ≈ 5.7x damage, 1.5x rate" note predates the
+    // crit line; the shop has outgrown it.
+    //
+    // The band pins today's reality so any retune moves through this test
+    // with its own numbers, not to bless the ratio: an intentional rebalance
+    // (raising ability-power fractions, a Rabadon-style multiplier, or
+    // pricing) should land the ratio nearer 1-2 and tighten these bounds
+    // with its own measurement.
+    expect(ratio, `attack:ability per-gold ratio drifted to ${ratio.toFixed(2)}`).toBeGreaterThan(4);
+    expect(ratio, `attack:ability per-gold ratio drifted to ${ratio.toFixed(2)}`).toBeLessThan(7);
+  });
+});
