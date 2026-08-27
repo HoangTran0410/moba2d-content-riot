@@ -10,7 +10,7 @@
 #
 # This pack's verify needs the sibling core checkout linked (the npm-published
 # core lags the API this pack builds against):
-#   cd ../moba2d-core && npm run pack:link -- ../moba2d-content-riot
+#   cd ../moba2d-core && npm run pack:link -- ../lol
 
 [ "$MOBA2D_SKIP_VERIFY" = "1" ] && exit 0
 
@@ -28,6 +28,6 @@ npm run verify && exit 0
 
 echo ""
 echo "pre-push: verify FAILED — push blocked."
-echo "  - core linked? run from core:  npm run pack:link -- ../moba2d-content-riot"
+echo "  - core linked? run from core:  npm run pack:link -- ../lol"
 echo "  - skip once on purpose:        git push --no-verify"
 exit 1
