@@ -60,7 +60,7 @@ export class Blitzcrank_R_Object extends SpellObject {
     enemies.forEach((enemy: any) => {
       const silenceBuff = new Silence(this.silenceTime, this.owner, enemy);
       enemy.addBuff(silenceBuff);
-      enemy.takeDamage(30, this.owner, 'MAGIC', 'Trường Điện Từ');
+      enemy.takeDamage(30, this.owner, 'MAGIC');
     });
 
     this.playersEffected.push(...enemies);

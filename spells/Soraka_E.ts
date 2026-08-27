@@ -113,7 +113,7 @@ export class Soraka_E_Object extends SpellObject {
     if (!this.hasImpacted) {
       this.hasImpacted = true;
       for (const enemy of this._enemiesInside()) {
-        enemy.takeDamage(IMPACT_DAMAGE, this.owner, 'MAGIC', 'Điểm Phân Cực');
+        enemy.takeDamage(IMPACT_DAMAGE, this.owner, 'MAGIC');
       }
     }
 
@@ -156,7 +156,7 @@ export class Soraka_E_Object extends SpellObject {
 
   _collapse() {
     for (const enemy of this._enemiesInside()) {
-      enemy.takeDamage(ERUPT_DAMAGE, this.owner, 'MAGIC', 'Điểm Phân Cực');
+      enemy.takeDamage(ERUPT_DAMAGE, this.owner, 'MAGIC');
       enemy.addBuff(new Root(ROOT_DURATION_MS, this.owner, enemy));
     }
 

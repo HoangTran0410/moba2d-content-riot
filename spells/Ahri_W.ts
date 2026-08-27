@@ -153,7 +153,7 @@ export class Ahri_W_Object extends SpellObject {
         const slowBuff = new Slow(500, this.owner, this.targetEnemy);
         slowBuff.percent = 0.2;
         this.targetEnemy.addBuff(slowBuff);
-        this.targetEnemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Lửa Hồ Ly');
+        this.targetEnemy.takeDamage(this.damage, this.owner, 'MAGIC');
 
         // the wisp is gone this frame, so the strike needs its own object or the
         // fire simply blinks out of existence on top of its victim

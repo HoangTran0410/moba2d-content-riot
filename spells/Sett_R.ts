@@ -272,7 +272,7 @@ export class Sett_R_Carry extends SpellObject {
     const alive = !thrown.isDead && !thrown.toRemove;
     if (alive) {
       thrown.teleportTo(dropX, dropY);
-      thrown.takeDamage(SETT_R_SLAM, this.owner, 'MAGIC', 'Hủy Diệt Đấu Trường');
+      thrown.takeDamage(SETT_R_SLAM, this.owner, 'MAGIC');
     }
 
     // The rim the crater paints is the radius the damage really used.
@@ -288,7 +288,7 @@ export class Sett_R_Carry extends SpellObject {
     for (const unit of shaken) {
       if (unit === thrown || struck.has(unit)) continue;
       struck.add(unit);
-      unit.takeDamage(SETT_R_BLAST, this.owner, 'MAGIC', 'Hủy Diệt Đấu Trường');
+      unit.takeDamage(SETT_R_BLAST, this.owner, 'MAGIC');
       const slow = new Slow(SETT_R_SLOW_MS, this.owner, unit);
       slow.percent = SETT_R_SLOW;
       slow.stackId = 'sett_r_arena_slow';

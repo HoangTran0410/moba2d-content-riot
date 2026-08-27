@@ -104,7 +104,7 @@ export class Ezreal_Q_Object extends MissileSpellObject {
   }
 
   onHit(enemy: AttackableUnit) {
-    enemy.takeDamage(EZREAL_Q_DAMAGE, this.owner, 'MAGIC', 'Phát Bắn Thần Bí');
+    enemy.takeDamage(EZREAL_Q_DAMAGE, this.owner, 'MAGIC');
     refundEzrealCooldowns(this.owner);
     detonateEssenceFlux(this.owner, enemy);
 

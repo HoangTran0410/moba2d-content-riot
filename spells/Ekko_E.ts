@@ -57,7 +57,7 @@ export default class Ekko_E extends Spell {
             nearest = enemy;
           }
         }
-        nearest.takeDamage(EKKO_E_BLINK_DAMAGE, this.owner, 'MAGIC', 'Biến Chuyển Pha');
+        nearest.takeDamage(EKKO_E_BLINK_DAMAGE, this.owner, 'MAGIC');
         const blinkPos = VectorUtils.getVectorWithRange(
           nearest.position,
           this.owner.position,

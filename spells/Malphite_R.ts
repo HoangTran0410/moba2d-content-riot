@@ -86,7 +86,7 @@ export default class Malphite_R extends Spell {
         airborneBuff.image = this.image;
         enemy.addBuff(airborneBuff);
 
-        enemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Không Thể Cản Phá');
+        enemy.takeDamage(this.damage, this.owner, 'MAGIC');
       });
 
       const obj = new Malphite_R_Object(this.owner);

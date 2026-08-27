@@ -141,7 +141,7 @@ export class Item_Everfrost_Nova extends SpellObject {
       while (turn < -Math.PI) turn += TWO_PI;
       if (Math.abs(turn) > EVERFROST_HALF_ANGLE) continue;
 
-      enemy.takeDamage(EVERFROST_DAMAGE, this.owner, 'MAGIC', 'Vĩnh Sương');
+      enemy.takeDamage(EVERFROST_DAMAGE, this.owner, 'MAGIC');
       const root = new Root(EVERFROST_ROOT_MS, this.owner, enemy);
       root.name = 'Vĩnh Sương';
       root.stackId = EVERFROST_STACK_ID;

@@ -168,7 +168,7 @@ export default class Diana_E extends Spell {
       this.resetCoolDown();
     }
 
-    if (!target.isDead) target.takeDamage(E_DAMAGE, this.owner, 'MAGIC', 'Trăng Non');
+    if (!target.isDead) target.takeDamage(E_DAMAGE, this.owner, 'MAGIC');
   }
 
   drawPreview(): void {

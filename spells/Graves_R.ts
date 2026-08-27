@@ -88,7 +88,7 @@ export class Graves_R_Object extends MissileSpellObject {
   onHit(enemy: AttackableUnit) {
     // `hitTargets` already contains this one, so the first victim pays full.
     const order = Math.max(0, this.hitTargets.length - 1);
-    enemy.takeDamage(Math.max(10, DAMAGE - order * FALLOFF), this.owner, 'MAGIC', 'Đạn Nổ Thần Công');
+    enemy.takeDamage(Math.max(10, DAMAGE - order * FALLOFF), this.owner, 'MAGIC');
     const slow = new Slow(1500, this.owner, enemy);
     slow.percent = 0.4;
     enemy.addBuff(slow);

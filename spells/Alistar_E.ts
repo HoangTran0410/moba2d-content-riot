@@ -65,7 +65,7 @@ export class Alistar_E_Object extends SpellObject {
       area: new Circle({ x: this.position.x, y: this.position.y, r: this.radius }),
       filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
     });
-    enemies.forEach((enemy: any) => enemy.takeDamage(DAMAGE_PER_TICK, this.owner, 'MAGIC', 'Giày Xéo'));
+    enemies.forEach((enemy: any) => enemy.takeDamage(DAMAGE_PER_TICK, this.owner, 'MAGIC'));
   }
 
   draw() {

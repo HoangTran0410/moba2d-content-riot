@@ -259,7 +259,7 @@ export class Rammus_Q_Object extends SpellObject {
       );
       if (gap > this.reachTo(victim)) continue;
 
-      victim.takeDamage(this.damage, this.owner, 'MAGIC', 'Quả Cầu Tốc Độ');
+      victim.takeDamage(this.damage, this.owner, 'MAGIC');
 
       const airborneBuff = new Airborne(this.airborneTime, this.owner, victim);
       victim.addBuff(airborneBuff);

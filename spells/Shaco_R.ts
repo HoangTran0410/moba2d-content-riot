@@ -160,7 +160,7 @@ export class Shaco_R_Clone extends Pet {
       const fearBuff = new Fear(1000, this.ownerUnit, e);
       fearBuff.sourcePosition = clonePos;
       e.addBuff(fearBuff);
-      e.takeDamage(30, this.ownerUnit, 'MAGIC', 'Phân Thân');
+      e.takeDamage(30, this.ownerUnit, 'MAGIC');
     });
 
     // three boxes scattered around the corpse, each a real one: hidden and

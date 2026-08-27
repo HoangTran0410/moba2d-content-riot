@@ -220,7 +220,7 @@ export class Yasuo_Q_Object extends SpellObject {
       const buff = new RootBuff(this.lifeTime / 2, this.owner, p);
       buff.image = api.asset('spell_yasuo_q1');
       p.addBuff(buff);
-      p.takeDamage(Q_DAMAGE, this.owner, 'MAGIC', 'Bão Kiếm');
+      p.takeDamage(Q_DAMAGE, this.owner, 'MAGIC');
 
       this.playersEffected.push(p);
       this.onHit(p);
@@ -367,7 +367,7 @@ export class Yasuo_Q3_Object extends MissileSpellObject {
     const buff = new Airborne(this.airBorneTime, this.owner, enemy);
     buff.image = api.asset('spell_yasuo_q3');
     enemy.addBuff(buff);
-    enemy.takeDamage(Q3_DAMAGE, this.owner, 'MAGIC', 'Bão Kiếm');
+    enemy.takeDamage(Q3_DAMAGE, this.owner, 'MAGIC');
   }
 
   draw() {

@@ -73,7 +73,7 @@ export default class Alistar_W extends Spell {
     dashBuff.onReachedDestination = () => {
       if (target.isDead) return;
 
-      target.takeDamage(this.damage, this.owner, 'MAGIC', 'Bò Húc');
+      target.takeDamage(this.damage, this.owner, 'MAGIC');
 
       const airborneBuff = new Airborne(this.airborneTime, this.owner, target);
       airborneBuff.image = this.image;

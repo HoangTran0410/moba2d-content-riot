@@ -249,7 +249,7 @@ export class Katarina_Q_Object extends MissileSpellObject {
     this.lastHitY = enemy.position.y;
 
     const payload = isFirst ? KATARINA_Q_FIRST_DAMAGE : KATARINA_Q_BOUNCE_DAMAGE;
-    enemy.takeDamage(payload, this.owner, 'MAGIC', 'Phi Dao');
+    enemy.takeDamage(payload, this.owner, 'MAGIC');
     this.game.objectManager.addObject(
       new Katarina_Blade_Impact(this.owner, enemy.position.x, enemy.position.y, isFirst ? 50 : 38)
     );
@@ -370,7 +370,7 @@ export class Katarina_Dagger_Slash extends SpellObject {
     for (const victim of victims) {
       if (struck.has(victim)) continue;
       struck.add(victim);
-      victim.takeDamage(KATARINA_DAGGER_SLASH_DAMAGE, this.owner, 'MAGIC', 'Phi Dao');
+      victim.takeDamage(KATARINA_DAGGER_SLASH_DAMAGE, this.owner, 'MAGIC');
       this.game.objectManager.addObject(
         new Katarina_Blade_Impact(this.owner, victim.position.x, victim.position.y, 45)
       );

@@ -141,7 +141,7 @@ export class Ahri_R_Object extends MissileSpellObject {
 
   onArrive() {
     if (!this.targetEnemy) return;
-    this.targetEnemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Phi Hồ');
+    this.targetEnemy.takeDamage(this.damage, this.owner, 'MAGIC');
 
     // the orb vanishes on arrival, so the landing is its own object — without
     // it an ultimate's three hits are three sprites silently switching off

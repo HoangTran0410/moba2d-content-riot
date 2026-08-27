@@ -77,7 +77,7 @@ export class Varus_R_Object extends MissileSpellObject {
   }
 
   corrupt(victim: AttackableUnit) {
-    victim.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Sợi Xích Tội Lỗi');
+    victim.takeDamage(DAMAGE, this.owner, 'MAGIC');
     victim.addBuff(new Root(ROOT_DURATION, this.owner, victim));
   }
 

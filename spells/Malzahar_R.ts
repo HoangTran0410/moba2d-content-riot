@@ -165,7 +165,7 @@ export default class Malzahar_R extends Spell {
   onChannelTick(): void {
     const victim = this._victim;
     if (!victim || victim.isDead || victim.toRemove) return;
-    victim.takeDamage(DAMAGE_PER_TICK, this.owner, 'MAGIC', 'Âm Ti Trói Buộc');
+    victim.takeDamage(DAMAGE_PER_TICK, this.owner, 'MAGIC');
     this._grasp?.pulse();
   }
 
@@ -377,7 +377,7 @@ export class Malzahar_R_Zone extends SpellObject {
       area: new Circle({ x: this.center.x, y: this.center.y, r: ZONE_RADIUS }),
       filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
     }) as AttackableUnit[];
-    for (const target of targets) target.takeDamage(ZONE_DAMAGE_PER_TICK, this.owner, 'MAGIC', 'Âm Ti Trói Buộc');
+    for (const target of targets) target.takeDamage(ZONE_DAMAGE_PER_TICK, this.owner, 'MAGIC');
   }
 
   draw(): void {

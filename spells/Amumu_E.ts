@@ -35,7 +35,7 @@ export default class Amumu_E extends Spell {
       area: new Circle({ x: this.owner.position.x, y: this.owner.position.y, r: RADIUS }),
       filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
     });
-    enemies.forEach((enemy: any) => enemy.takeDamage(DAMAGE, this.owner), 'MAGIC', 'Giận Dữ');
+    enemies.forEach((enemy: any) => enemy.takeDamage(DAMAGE, this.owner, 'MAGIC'));
 
     // The grief half of the tantrum: a dark wave and the tears it throws. Its
     // own object, because it reaches 200 units past Amumu's body and outlives

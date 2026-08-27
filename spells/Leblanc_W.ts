@@ -83,7 +83,7 @@ export default class Leblanc_W extends Spell {
           filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
         });
         enemies.forEach((enemy: any) => {
-          enemy.takeDamage(20, this.owner, 'MAGIC', 'Biến Ảnh');
+          enemy.takeDamage(20, this.owner, 'MAGIC');
         });
       };
 

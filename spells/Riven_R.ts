@@ -221,7 +221,7 @@ export class Riven_R_WindSlash extends SpellObject {
       this.hitTargets.add(victim);
       const pool = victim.stats.maxHealth.value || 1;
       const ratio = victim.stats.health.value / pool;
-      victim.takeDamage(windSlashDamage(ratio), this.owner, 'MAGIC', 'Lưỡi Kiếm Lưu Đày');
+      victim.takeDamage(windSlashDamage(ratio), this.owner, 'MAGIC');
       this.bursts.push({
         x: victim.position.x,
         y: victim.position.y,

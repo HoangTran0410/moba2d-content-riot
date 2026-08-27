@@ -1,4 +1,10 @@
-import type { CancelReason, CastContext, CastSpec, Slow } from '@moba2d/core/content/types';
+import type {
+  AttackableUnit,
+  CancelReason,
+  CastContext,
+  CastSpec,
+  Slow,
+} from '@moba2d/core/content/types';
 import { api } from '../packApi';
 
 const SpellForm = api.enums.SpellForm;
@@ -261,11 +267,11 @@ export class Varus_Q_Arrow extends MissileSpellObject {
     pop();
   }
 
-  onHit(enemy: { takeDamage(damage: number, owner: unknown): void }): void {
+  onHit(enemy: AttackableUnit): void {
     const reduction = Math.min(
       0.67,
       this.hitTargets.length > 1 ? (this.hitTargets.length - 1) * 0.15 : 0
     );
-    enemy.takeDamage(this.damage * (1 - reduction), this.owner);
+    enemy.takeDamage(this.damage * (1 - reduction), this.owner, 'MAGIC');
   }
 }

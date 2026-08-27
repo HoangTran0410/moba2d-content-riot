@@ -94,7 +94,7 @@ export class Nocturne_Q_Object extends MissileSpellObject {
   trail: Nocturne_Q_Trail | null = null;
 
   onHit(enemy: AttackableUnit) {
-    enemy.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Thanh Gươm Bóng Tối');
+    enemy.takeDamage(DAMAGE, this.owner, 'MAGIC');
 
     // "Enemy champions hit will leave a Dusk Trail behind while moving" — the
     // victim becomes a second source, so running paints Nocturne a road.

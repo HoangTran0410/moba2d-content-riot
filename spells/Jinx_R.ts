@@ -173,7 +173,7 @@ export class Jinx_R_Object extends MissileSpellObject {
       const missing = max > 0 ? 1 - enemy.stats.health.value / max : 0;
       // The missing-health half is deliberately not scaled by distance — the
       // wiki calls that out explicitly.
-      enemy.takeDamage(scaled + MAX_MISSING_HEALTH_BONUS * missing, this.owner, 'MAGIC', 'Tên Lửa Đạn Đạo Siêu Khủng Khiếp!');
+      enemy.takeDamage(scaled + MAX_MISSING_HEALTH_BONUS * missing, this.owner, 'MAGIC');
     });
 
     // Two pulses, not one. A single ring is how every other area ability in the

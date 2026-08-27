@@ -121,7 +121,7 @@ export class Vayne_E_Object extends MissileSpellObject {
   }
 
   onHit(enemy: AttackableUnit): void {
-    enemy.takeDamage(VAYNE_E_DAMAGE, this.owner, 'MAGIC', 'Kết Án');
+    enemy.takeDamage(VAYNE_E_DAMAGE, this.owner, 'MAGIC');
 
     // Directly away from Vayne, measured at the moment of impact. Asking for a
     // point `dist + push` from her along her own line to the victim gives the
@@ -168,7 +168,7 @@ export class Vayne_E_Object extends MissileSpellObject {
     enemy.addBuff(shove);
 
     if (pinned) {
-      enemy.takeDamage(VAYNE_E_WALL_BONUS, this.owner, 'MAGIC', 'Kết Án');
+      enemy.takeDamage(VAYNE_E_WALL_BONUS, this.owner, 'MAGIC');
       enemy.addBuff(new Stun(VAYNE_E_STUN_MS, this.owner, enemy));
       this.game.objectManager.addObject(
         new Vayne_E_Pin(this.owner, createVector(contactX, contactY), heading)

@@ -66,7 +66,7 @@ export class Morgana_Q_Object extends MissileSpellObject {
   }
 
   onHit(enemy: any) {
-    enemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Khóa Bóng Tối');
+    enemy.takeDamage(this.damage, this.owner, 'MAGIC');
 
     const rootBuff = new Root(this.rootTime, this.owner, enemy);
     rootBuff.effectColor = [150, 60, 200, 220];

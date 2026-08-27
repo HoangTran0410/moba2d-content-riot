@@ -118,7 +118,7 @@ export function makeBaronPoisonSpit(api: ContentApi) {
     maxHitCount = 1;
 
     onHit(enemy: AttackableUnitInstance): void {
-      enemy.takeDamage(SPIT.damage, this.owner);
+      enemy.takeDamage(SPIT.damage, this.owner, 'MAGIC');
 
       const poison = new api.buffs.DamageOverTime(SPIT.poisonDurationMs, this.owner, enemy);
       poison.name = 'Độc Baron';
@@ -178,7 +178,7 @@ export function makeBaronTailSlam(api: ContentApi) {
         this.position,
         SLAM.radius
       )) {
-        target.takeDamage(SLAM.damage, this.owner);
+        target.takeDamage(SLAM.damage, this.owner, 'MAGIC');
         target.addBuff(new api.buffs.Airborne(SLAM.airborneMs, this.owner, target));
       }
     }
@@ -233,7 +233,7 @@ export function makeBaronPoisonPool(api: ContentApi) {
         tickEveryMs: POOL.tickMs,
         durationMs: POOL.durationMs,
         onEnter: target => this.soak(target),
-        onTick: target => target.takeDamage(POOL.damagePerTick, this.owner),
+        onTick: target => target.takeDamage(POOL.damagePerTick, this.owner, 'MAGIC'),
         onExit: target => this.dry(target),
       });
     }

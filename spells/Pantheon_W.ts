@@ -123,7 +123,7 @@ export default class Pantheon_W extends Spell {
     // A vault that did not arrive is a reposition, not a stun.
     if (this.owner.position.dist(target.position) > STRIKE_RADIUS) return;
 
-    target.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Khiên Trời Giáng');
+    target.takeDamage(DAMAGE, this.owner, 'MAGIC');
     target.addBuff(new Stun(STUN_DURATION, this.owner, target));
   }
 

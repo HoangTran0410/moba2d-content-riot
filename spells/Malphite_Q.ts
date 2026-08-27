@@ -190,7 +190,7 @@ export class Malphite_Q_Object extends HomingMissileSpellObject {
     slowBuff.percent = this.slowPercent;
     target.addBuff(slowBuff);
 
-    target.takeDamage(this.damage, this.owner, 'MAGIC', 'Mảnh Vỡ Địa Chấn');
+    target.takeDamage(this.damage, this.owner, 'MAGIC');
 
     const speedupBuff = new Malphite_Q_Speedup(this.speedupDuration, this.owner, this.owner);
     speedupBuff.image = this.image;

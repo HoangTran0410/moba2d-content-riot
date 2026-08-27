@@ -153,7 +153,7 @@ describe('Veigar W impact', () => {
     strike.update();
     expect(strike.phase).toBe(Veigar_W_Object.PHASES.IMPACT);
     expect(insideDamage).toHaveBeenCalledTimes(1);
-    expect(insideDamage).toHaveBeenCalledWith(DAMAGE, caster, 'MAGIC', expect.any(String));
+    expect(insideDamage).toHaveBeenCalledWith(DAMAGE, caster, 'MAGIC');
     expect(dodgedDamage).not.toHaveBeenCalled();
     expect(allyDamage).not.toHaveBeenCalled();
 

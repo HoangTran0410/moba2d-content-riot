@@ -110,7 +110,7 @@ export class Anivia_Q_Object extends MissileSpellObject {
   });
 
   onHit(enemy: any) {
-    enemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Quả Cầu Băng');
+    enemy.takeDamage(this.damage, this.owner, 'MAGIC');
 
     const slowBuff = new Slow(this.slowTime, this.owner, enemy);
     slowBuff.percent = this.slowPercent;
@@ -244,7 +244,7 @@ export class Anivia_Q_Blast extends SpellObject {
       });
 
       enemies.forEach((enemy: any) => {
-        enemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Quả Cầu Băng');
+        enemy.takeDamage(this.damage, this.owner, 'MAGIC');
 
         const stunBuff = new Stun(this.stunTime, this.owner, enemy);
         stunBuff.buffAddType = BuffAddType.RENEW_EXISTING;

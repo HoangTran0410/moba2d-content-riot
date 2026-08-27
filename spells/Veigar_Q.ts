@@ -315,7 +315,7 @@ export class Veigar_Q_Object extends MissileSpellObject {
     // body it touched made one cast into a wave five permanent points of max
     // mana — the same "landed, not killed" mistake Nasus Q and Cho'Gath R had.
     const wasAlive = !enemy.isDead;
-    enemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Điềm Gở');
+    enemy.takeDamage(this.damage, this.owner, 'MAGIC');
 
     if (wasAlive && enemy.isDead) {
       this.owner.addBuff(

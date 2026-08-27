@@ -25,7 +25,7 @@ export class Item_TrinityForce_Blade extends SpellbladeBuff {
 
   protected payload(hit: OnHitEvent): void {
     const base = this.targetUnit.stats.attackDamage.baseValue;
-    hit.victim.takeDamage(base * TRINITY_BASE_AD_RATIO, this.targetUnit, 'PHYSICAL', 'Tam Hợp Kiếm');
+    hit.victim.takeDamage(base * TRINITY_BASE_AD_RATIO, this.targetUnit, 'PHYSICAL');
   }
 }
 

@@ -234,7 +234,7 @@ export class Pantheon_R_Object extends SpellObject {
       filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
     });
     enemies.forEach((enemy: any) => {
-      enemy.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Trời Sập');
+      enemy.takeDamage(DAMAGE, this.owner, 'MAGIC');
       const slow = new Slow(SLOW_DURATION, this.owner, enemy);
       slow.percent = SLOW_PERCENT;
       enemy.addBuff(slow);

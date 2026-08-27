@@ -197,7 +197,7 @@ export class Annie_Q_Object extends HomingMissileSpellObject {
 
   onTargetArrive(target: AttackableUnit) {
     const before = target.isDead;
-    target.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Hỏa Cầu');
+    target.takeDamage(DAMAGE, this.owner, 'MAGIC');
     if (!before && target.isDead) this.spell?.rewardKill();
 
     // the fireball is removed on arrival, so the detonation has to be its own

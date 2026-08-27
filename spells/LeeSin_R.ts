@@ -94,7 +94,7 @@ export default class LeeSin_R extends Spell {
     });
     closestEnemyToMouse.addBuff(dashBuff);
 
-    closestEnemyToMouse.takeDamage(this.damage, this.owner, 'MAGIC', 'Nộ Long Cước');
+    closestEnemyToMouse.takeDamage(this.damage, this.owner, 'MAGIC');
 
     const particleSystem = new ParticleSystem({
       getParticlePosFn: (p: any) => p.position,
@@ -160,7 +160,7 @@ export class LeeSin_R_Object extends SpellObject {
     });
 
     enemies.forEach((enemy: any) => {
-      enemy.takeDamage(this.collideDamage, this.owner, 'MAGIC', 'Nộ Long Cước');
+      enemy.takeDamage(this.collideDamage, this.owner, 'MAGIC');
 
       const airbornBuff = new Airborne(1000, this.owner, enemy);
       enemy.addBuff(airbornBuff);

@@ -138,7 +138,7 @@ export default class Renekton_E extends Spell {
       for (const victim of swept) {
         if (hitTargets.has(victim)) continue;
         hitTargets.add(victim);
-        victim.takeDamage(damage, this.owner, 'MAGIC', 'Cắt và Xắt');
+        victim.takeDamage(damage, this.owner, 'MAGIC');
         gash.struck.push(victim.position.copy());
         if (isDice && enraged) this.shred(victim);
       }

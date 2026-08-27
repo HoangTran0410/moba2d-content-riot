@@ -124,7 +124,7 @@ export class Lux_E_Object extends SpellObject {
 
         const enemies = this._getEnemisInRange();
         enemies.forEach((enemy: any) => {
-          enemy.takeDamage(20, this.owner, 'MAGIC', 'Quả Cầu Ánh Sáng');
+          enemy.takeDamage(20, this.owner, 'MAGIC');
         });
       }
 

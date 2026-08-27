@@ -73,7 +73,7 @@ describe('Morgana R (Soul Shackles)', () => {
     spell.press(context(owner));
     releaseCast(spell);
 
-    expect(inRangeDamage).toHaveBeenCalledWith(INITIAL_DAMAGE, owner, 'MAGIC', expect.any(String));
+    expect(inRangeDamage).toHaveBeenCalledWith(INITIAL_DAMAGE, owner, 'MAGIC');
     expect(outOfRangeDamage).not.toHaveBeenCalled();
     expect(allyDamage).not.toHaveBeenCalled();
 
@@ -113,7 +113,7 @@ describe('Morgana R (Soul Shackles)', () => {
     tether.update(TETHER_DURATION_MS);
 
     expect(tether.toRemove).toBe(true);
-    expect(takeDamage).toHaveBeenCalledWith(RESOLVE_DAMAGE, owner, 'MAGIC', expect.any(String));
+    expect(takeDamage).toHaveBeenCalledWith(RESOLVE_DAMAGE, owner, 'MAGIC');
     const stun = target.buffs.find((buff): buff is Stun => buff instanceof Stun);
     expect(stun).toMatchObject({ duration: STUN_DURATION_MS });
   });

@@ -86,7 +86,7 @@ export class Leblanc_E_Object extends MissileSpellObject {
 
   onHit(enemy: any) {
     this.enemyHit = enemy;
-    this.enemyHit.takeDamage(this.hitDamage, this.owner, 'MAGIC', 'Sợi Xích Siêu Phàm');
+    this.enemyHit.takeDamage(this.hitDamage, this.owner, 'MAGIC');
     this.isMissile = false;
     this.phase = Leblanc_E_Object.PHASES.WAITING_FOR_STUN;
     // the chain is anchored on LeBlanc: no caster, no delayed root
@@ -115,7 +115,7 @@ export class Leblanc_E_Object extends MissileSpellObject {
       const rootBuff = new RootBuff(this.stunTime, this.owner, this.enemyHit);
       rootBuff.effectColor = [255, 255, 0] as any;
       this.enemyHit.addBuff(rootBuff);
-      this.enemyHit.takeDamage(this.stunDamage, this.owner, 'MAGIC', 'Sợi Xích Siêu Phàm');
+      this.enemyHit.takeDamage(this.stunDamage, this.owner, 'MAGIC');
 
       this.toRemove = true;
     } else {

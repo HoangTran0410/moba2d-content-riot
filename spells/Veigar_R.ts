@@ -153,7 +153,7 @@ export class Veigar_R_Object extends HomingMissileSpellObject {
     const maxHealth = target.stats.maxHealth.value;
     const missingRatio = maxHealth > 0 ? constrain(1 - health / maxHealth, 0, 1) : 0;
     const damage = this.baseDamage * (1 + this.maxMissingHealthMultiplier * missingRatio);
-    target.takeDamage(damage, this.owner, 'MAGIC', 'Vụ Nổ Vũ Trụ');
+    target.takeDamage(damage, this.owner, 'MAGIC');
 
     const burst = new Veigar_R_Burst(this.owner);
     burst.position = target.position.copy();

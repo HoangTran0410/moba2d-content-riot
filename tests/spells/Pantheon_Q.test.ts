@@ -237,9 +237,13 @@ describe('Pantheon Q', () => {
 
     expect(ally.takeDamage).not.toHaveBeenCalled();
     expect(untargetable.takeDamage).not.toHaveBeenCalled();
-    expect(enemy.takeDamage).toHaveBeenCalledWith(20, caster);
-    expect(monster.takeDamage).toHaveBeenCalledWith(32, caster);
-    expect(minion.takeDamage).toHaveBeenCalledWith(14, caster);
+    // The type is pinned, not omitted. This spell's other call site already
+    // declared `'MAGIC'`, and this one fell through to `takeDamage`'s default —
+    // the same value by accident, from the same ability, which is exactly how a
+    // pack ends up dealing one type here and another there.
+    expect(enemy.takeDamage).toHaveBeenCalledWith(20, caster, 'MAGIC');
+    expect(monster.takeDamage).toHaveBeenCalledWith(32, caster, 'MAGIC');
+    expect(minion.takeDamage).toHaveBeenCalledWith(14, caster, 'MAGIC');
   });
 
   it('crossing the hold threshold releases a thrown linear missile', () => {

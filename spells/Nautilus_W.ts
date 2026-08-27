@@ -127,7 +127,7 @@ export default class Nautilus_W extends Spell {
     for (const soaker of nearby) {
       if (soaked.has(soaker)) continue;
       soaked.add(soaker);
-      soaker.takeDamage(W_SPLASH, this.owner, 'MAGIC', 'Cơn Giận Của Người Khổng Lồ');
+      soaker.takeDamage(W_SPLASH, this.owner, 'MAGIC');
       const corrosion = new DamageOverTime(W_DOT_MS, this.owner, soaker);
       corrosion.damagePerTick = W_DOT_TICK;
       corrosion.tickInterval = W_DOT_TICK_MS;

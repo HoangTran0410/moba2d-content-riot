@@ -129,7 +129,7 @@ export class Veigar_W_Object extends SpellObject {
         enemy.position.y - this.position.y
       );
       if (distance <= this.radius + enemy.collisionRadius) {
-        enemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Thiên Thạch Đen');
+        enemy.takeDamage(this.damage, this.owner, 'MAGIC');
       }
     }
   }

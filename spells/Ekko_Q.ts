@@ -157,7 +157,7 @@ export class Ekko_Q_Object extends MissileSpellObject {
     if (!this.returning) {
       if (!this.forwardHitTargets.includes(enemy)) {
         this.forwardHitTargets.push(enemy);
-        enemy.takeDamage(EKKO_Q_OUT_DAMAGE, this.owner, 'MAGIC', 'Dây Cót Thời Gian');
+        enemy.takeDamage(EKKO_Q_OUT_DAMAGE, this.owner, 'MAGIC');
         this.burstAt(enemy.position.x, enemy.position.y, 5);
       }
       // Expand on hitting champion
@@ -167,7 +167,7 @@ export class Ekko_Q_Object extends MissileSpellObject {
     } else {
       if (!this.returnHitTargets.includes(enemy)) {
         this.returnHitTargets.push(enemy);
-        enemy.takeDamage(EKKO_Q_RETURN_DAMAGE, this.owner, 'MAGIC', 'Dây Cót Thời Gian');
+        enemy.takeDamage(EKKO_Q_RETURN_DAMAGE, this.owner, 'MAGIC');
         this.burstAt(enemy.position.x, enemy.position.y, 9);
       }
     }

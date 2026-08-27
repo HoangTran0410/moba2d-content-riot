@@ -156,7 +156,7 @@ describe('Veigar R', () => {
     arrive(missile);
 
     expect(takeDamage).toHaveBeenCalledTimes(1);
-    expect(takeDamage).toHaveBeenCalledWith(BASE_DAMAGE, owner, 'MAGIC', expect.any(String));
+    expect(takeDamage).toHaveBeenCalledWith(BASE_DAMAGE, owner, 'MAGIC');
   });
 
   it('scales up toward double damage as the target nears death', () => {
@@ -170,7 +170,7 @@ describe('Veigar R', () => {
     arrive(missile);
 
     const expectedDamage = BASE_DAMAGE * (1 + MAX_MISSING_HEALTH_MULTIPLIER * 0.99);
-    expect(takeDamage).toHaveBeenCalledWith(expectedDamage, owner, 'MAGIC', expect.any(String));
+    expect(takeDamage).toHaveBeenCalledWith(expectedDamage, owner, 'MAGIC');
   });
 
   it('bystanders are untouched — only the locked target takes the burst', () => {

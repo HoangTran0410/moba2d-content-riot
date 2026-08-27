@@ -99,7 +99,7 @@ describe('Anivia E', () => {
 
     arrive(bolt);
 
-    expect(takeDamage).toHaveBeenCalledWith(BASE_DAMAGE, owner, 'MAGIC', expect.any(String));
+    expect(takeDamage).toHaveBeenCalledWith(BASE_DAMAGE, owner, 'MAGIC');
   });
 
   it('doubles its damage against a target already Chilled', () => {
@@ -112,7 +112,7 @@ describe('Anivia E', () => {
 
     arrive(bolt);
 
-    expect(takeDamage).toHaveBeenCalledWith(CHILLED_DAMAGE, owner, 'MAGIC', expect.any(String));
+    expect(takeDamage).toHaveBeenCalledWith(CHILLED_DAMAGE, owner, 'MAGIC');
     expect(CHILLED_DAMAGE).toBe(BASE_DAMAGE * 2);
   });
 
@@ -134,7 +134,7 @@ describe('Anivia E', () => {
     const bolt = launch(owner, target);
     arrive(bolt);
 
-    expect(takeDamage).toHaveBeenCalledWith(BASE_DAMAGE, owner, 'MAGIC', expect.any(String));
+    expect(takeDamage).toHaveBeenCalledWith(BASE_DAMAGE, owner, 'MAGIC');
   });
 
   it('applies its arrival payload exactly once', () => {

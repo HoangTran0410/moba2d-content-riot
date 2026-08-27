@@ -113,7 +113,7 @@ export default class Zed_R extends Spell {
     mark.image = Zed_R.PHASES.R1.image;
     target.addBuff(mark);
 
-    target.takeDamage(this.damage, this.owner, 'MAGIC', 'Dấu Ấn Tử Thần');
+    target.takeDamage(this.damage, this.owner, 'MAGIC');
 
     const obj = new Zed_R_Object(this.owner);
     obj.target = target;

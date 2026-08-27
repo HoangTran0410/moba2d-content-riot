@@ -188,7 +188,7 @@ export class Caitlyn_W_Trap extends SpellObject {
         visionRadius: 200,
       })
     );
-    victim.takeDamage(CAITLYN_W_DAMAGE, this.owner, 'MAGIC', 'Bẫy Yordle');
+    victim.takeDamage(CAITLYN_W_DAMAGE, this.owner, 'MAGIC');
 
     for (let i = 0; i < 18; i++) {
       this.particleSystem.addParticle({

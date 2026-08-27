@@ -232,7 +232,7 @@ export class Ekko_R_Object extends SpellObject {
         filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
       });
       for (const enemy of enemies) {
-        enemy.takeDamage(EKKO_R_DAMAGE, this.owner, 'MAGIC', 'Đột Phá Thời Gian');
+        enemy.takeDamage(EKKO_R_DAMAGE, this.owner, 'MAGIC');
         for (let i = 0; i < 6; i++) {
           this.particleSystem.addParticle({
             x: enemy.position.x + random(-16, 16),

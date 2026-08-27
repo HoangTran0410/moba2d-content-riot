@@ -79,7 +79,7 @@ export default class MasterYi_E extends Spell {
       ({ attacker, victim }: BasicAttackHit) => {
         // The event is global; only his own swings carry the style.
         if (attacker !== this.owner || this._remainingMs <= 0) return;
-        victim.takeDamage(BONUS_TRUE_DAMAGE, this.owner, 'MAGIC', 'Võ Thuật Wuju');
+        victim.takeDamage(BONUS_TRUE_DAMAGE, this.owner, 'MAGIC');
         blade.cut(victim);
       }
     );

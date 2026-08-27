@@ -139,7 +139,7 @@ export default class Camille_E extends Spell {
         for (const enemy of enemies) {
           if (!hitTargets.has(enemy)) {
             hitTargets.add(enemy);
-            enemy.takeDamage(CAMILLE_E_DIVE_DAMAGE, this.owner, 'MAGIC', 'Bắn Dây Móc');
+            enemy.takeDamage(CAMILLE_E_DIVE_DAMAGE, this.owner, 'MAGIC');
             enemy.addBuff(new Airborne(CAMILLE_E_CC_MS, this.owner, enemy));
             enemy.addBuff(new Stun(CAMILLE_E_CC_MS, this.owner, enemy));
             streak.impactAt(enemy.position.x, enemy.position.y);

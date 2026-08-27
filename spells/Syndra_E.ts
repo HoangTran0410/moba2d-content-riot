@@ -116,7 +116,7 @@ export default class Syndra_E extends Spell {
       if (!insideCone(origin, heading, reach, victim.position)) continue;
       struck.add(victim);
 
-      victim.takeDamage(SYNDRA_E_DAMAGE, this.owner, 'MAGIC', 'Quét Tan Kẻ Yếu');
+      victim.takeDamage(SYNDRA_E_DAMAGE, this.owner, 'MAGIC');
       this.game.objectManager.addObject(
         new Syndra_Burst(this.owner, victim.position.x, victim.position.y, 40, 260)
       );
@@ -295,7 +295,7 @@ export class Syndra_E_Sphere extends MissileSpellObject {
   }
 
   onHit(enemy: AttackableUnit): void {
-    enemy.takeDamage(SYNDRA_E_SPHERE_DAMAGE, this.owner, 'MAGIC', 'Quét Tan Kẻ Yếu');
+    enemy.takeDamage(SYNDRA_E_SPHERE_DAMAGE, this.owner, 'MAGIC');
     this.game.objectManager.addObject(
       new Syndra_Burst(this.owner, enemy.position.x, enemy.position.y, 42, 280)
     );

@@ -297,7 +297,7 @@ export class Ezreal_W_Mark extends SpellObject {
     this.detonated = true;
     this.toRemove = true;
 
-    this.target.takeDamage(EZREAL_W_DETONATE_DAMAGE, this.owner, 'MAGIC', 'Tinh Hoa Tuôn Chảy');
+    this.target.takeDamage(EZREAL_W_DETONATE_DAMAGE, this.owner, 'MAGIC');
 
     for (let i = 0; i < 16; i++) {
       this.particleSystem.addParticle({

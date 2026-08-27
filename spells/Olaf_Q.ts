@@ -115,7 +115,7 @@ export class Olaf_Q_Object extends MissileSpellObject {
     const slowBuff = new Slow(1000, this.owner, enemy);
     slowBuff.percent = 0.4;
     enemy.addBuff(slowBuff);
-    enemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Phóng Rìu');
+    enemy.takeDamage(this.damage, this.owner, 'MAGIC');
 
     this.particleSystem.addParticle({
       position: enemy.position,

@@ -49,7 +49,7 @@ export default class Nocturne_E extends Spell {
     const target = this._findTarget();
     if (!target) return;
 
-    target.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Nỗi Kinh Hoàng Tột Độ');
+    target.takeDamage(DAMAGE, this.owner, 'MAGIC');
 
     const tether = new Nocturne_E_Object(this.owner);
     tether.victim = target;

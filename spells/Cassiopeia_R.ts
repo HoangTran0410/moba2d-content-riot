@@ -145,7 +145,7 @@ export class Cassiopeia_R_Cone extends AoePulse {
       if (delta > HALF_ANGLE) continue;
 
       this._petrified.push(enemy);
-      enemy.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Cái Nhìn Hóa Đá');
+      enemy.takeDamage(DAMAGE, this.owner, 'MAGIC');
       enemy.addBuff(new Stun(STUN_DURATION, this.owner, enemy));
       const slow = new Slow(SLOW_DURATION, this.owner, enemy);
       slow.percent = SLOW_PERCENT;

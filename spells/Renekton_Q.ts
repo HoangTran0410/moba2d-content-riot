@@ -84,7 +84,7 @@ export default class Renekton_Q extends Spell {
 
     let owed = 0;
     for (const victim of victims) {
-      victim.takeDamage(damage, this.owner, 'MAGIC', 'Vũ Điệu Cá Sấu');
+      victim.takeDamage(damage, this.owner, 'MAGIC');
       owed += (victim instanceof Champion ? HEAL_PER_CHAMPION : HEAL_PER_UNIT) * multiplier;
     }
 

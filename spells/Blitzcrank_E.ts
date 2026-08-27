@@ -54,7 +54,7 @@ export default class Blitzcrank_E extends Spell {
       airborneBuff.image = this.image;
       enemy.addBuff(airborneBuff);
 
-      enemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Đấm Móc');
+      enemy.takeDamage(this.damage, this.owner, 'MAGIC');
       hitPositions.push(enemy.position.copy());
     });
 

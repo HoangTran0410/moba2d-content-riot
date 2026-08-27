@@ -118,7 +118,7 @@ export class Fizz_R_Shark extends SpellObject {
       filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
     });
     enemies.forEach((enemy: any) => {
-      enemy.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Triệu Hồi Thủy Quái');
+      enemy.takeDamage(DAMAGE, this.owner, 'MAGIC');
       enemy.addBuff(new Airborne(700, this.owner, enemy));
       const slow = new Slow(2000, this.owner, enemy);
       slow.percent = 0.6;

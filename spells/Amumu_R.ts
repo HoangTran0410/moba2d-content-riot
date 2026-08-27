@@ -31,7 +31,7 @@ export default class Amumu_R extends Spell {
     });
 
     enemies.forEach((enemy: any) => {
-      enemy.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Lời Nguyền Xác Ướp U Sầu');
+      enemy.takeDamage(DAMAGE, this.owner, 'MAGIC');
       enemy.addBuff(new Root(ROOT_DURATION, this.owner, enemy));
     });
 

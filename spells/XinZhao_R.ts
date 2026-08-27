@@ -106,7 +106,7 @@ export default class XinZhao_R extends Spell {
     }) as AttackableUnit[];
 
     for (const enemy of enemies) {
-      enemy.takeDamage(XINZHAO_R_DAMAGE, this.owner, 'MAGIC', 'Bán Nguyệt Thương');
+      enemy.takeDamage(XINZHAO_R_DAMAGE, this.owner, 'MAGIC');
       // The mark is the whole decision in the kit: whoever he charged stays in
       // the pit with him, everyone else is thrown out of it.
       if (isChallengedBy(enemy, this.owner)) continue;

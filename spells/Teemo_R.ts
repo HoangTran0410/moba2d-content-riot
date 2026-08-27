@@ -250,7 +250,7 @@ export class Teemo_R_Object extends SpellObject {
             slowBuff.buffAddType = BuffAddType.RENEW_EXISTING;
             slowBuff.percent = SLOW_PERCENT;
             enemy.addBuff(slowBuff);
-            enemy.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Bẫy Độc');
+            enemy.takeDamage(DAMAGE, this.owner, 'MAGIC');
           });
 
           this.phase = Teemo_R_Object.PHASES.exploding;

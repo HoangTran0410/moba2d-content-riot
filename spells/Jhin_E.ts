@@ -295,7 +295,7 @@ export class Jhin_E_Trap extends SpellObject {
     }) as AttackableUnit[];
 
     for (const victim of caught) {
-      victim.takeDamage(JHIN_E_DAMAGE, this.owner, 'MAGIC', 'Cạm Bẫy Nghệ Thuật');
+      victim.takeDamage(JHIN_E_DAMAGE, this.owner, 'MAGIC');
       applyJhinMark(this.owner, victim);
     }
 

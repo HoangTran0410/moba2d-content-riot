@@ -203,7 +203,7 @@ export default class Vi_R extends Spell {
       if (victim === this.owner || victim === target) continue;
       if (punched.has(victim) || victim.isDead || victim.toRemove) continue;
       punched.add(victim);
-      victim.takeDamage(R_PASS_DAMAGE, this.owner, 'MAGIC', 'Tả Xung Hữu Đột');
+      victim.takeDamage(R_PASS_DAMAGE, this.owner, 'MAGIC');
 
       // Determine left or right perpendicular shove
       const toVictimX = victim.position.x - this.owner.position.x;
@@ -246,7 +246,7 @@ export default class Vi_R extends Spell {
     const dead = target.toRemove || target.isDead;
     if (!dead) {
       punched.add(target);
-      target.takeDamage(R_DAMAGE, this.owner, 'MAGIC', 'Tả Xung Hữu Đột');
+      target.takeDamage(R_DAMAGE, this.owner, 'MAGIC');
       const knockup = new Airborne(R_KNOCKUP_MS, this.owner, target);
       knockup.height = 95;
       target.addBuff(knockup);
@@ -255,7 +255,7 @@ export default class Vi_R extends Spell {
     for (const victim of found) {
       if (punched.has(victim) || victim.isDead || victim.toRemove) continue;
       punched.add(victim);
-      victim.takeDamage(R_PASS_DAMAGE, this.owner, 'MAGIC', 'Tả Xung Hữu Đột');
+      victim.takeDamage(R_PASS_DAMAGE, this.owner, 'MAGIC');
       victim.addBuff(new Airborne(R_PASS_KNOCKUP_MS, this.owner, victim));
     }
 

@@ -82,7 +82,7 @@ export default class JarvanIV_R extends Spell {
         filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
       });
       for (const enemy of enemies) {
-        enemy.takeDamage(JARVAN_R_DAMAGE, this.owner, 'MAGIC', 'Đại Địa Chấn');
+        enemy.takeDamage(JARVAN_R_DAMAGE, this.owner, 'MAGIC');
       }
 
       // Create ring arena of custom earthen rock slabs around perimeter

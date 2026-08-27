@@ -1,5 +1,5 @@
-import type { AttackableUnit } from '@moba2d/core/content/types';
-import { api } from '../packApi';
+import type { AttackableUnit } from "@moba2d/core/content/types";
+import { api } from "../packApi";
 
 const Spell = api.Spell;
 const MissileSpellObject = api.MissileSpellObject;
@@ -28,13 +28,13 @@ export const CARD_COUNT = 3;
 export const FAN_ANGLE_DEG = 22;
 
 /** How far each card flies, on every bearing alike. */
-export const RANGE = 430;
+export const RANGE = 600;
 
 export const COOLDOWN_MS = 6_000;
 
 export const MANA_COST = 30;
 
-const DAMAGE_LABEL = 'Phi Bài';
+const DAMAGE_LABEL = "Phi Bài";
 
 /** The arcane violet of his deck in flight — his and nobody else's. */
 const CARD_INK: [number, number, number] = [58, 34, 92];
@@ -42,9 +42,9 @@ const CARD_EDGE: [number, number, number] = [206, 176, 255];
 const CARD_GLOW: [number, number, number] = [168, 120, 235];
 
 export default class TwistedFate_Q extends Spell {
-  targetingMode = 'DIRECTION' as const;
-  image = api.asset('spell_twistedfate_q');
-  name = 'Phi Bài (TwistedFate_Q)';
+  targetingMode = "DIRECTION" as const;
+  image = api.asset("spell_twistedfate_q");
+  name = "Phi Bài (TwistedFate_Q)";
   description =
     `Ném ra <span class="buff">${CARD_COUNT} lá bài</span> theo hình rẻ quạt, mỗi lá` +
     ` xuyên qua mọi kẻ địch trên đường bay và gây` +
@@ -55,7 +55,11 @@ export default class TwistedFate_Q extends Spell {
   range = RANGE;
 
   onSpellCast(): void {
-    const { from, to } = VectorUtils.getVectorWithRange(this.owner.position, this.aimPoint, RANGE);
+    const { from, to } = VectorUtils.getVectorWithRange(
+      this.owner.position,
+      this.aimPoint,
+      RANGE,
+    );
     const heading = Math.atan2(to.y - from.y, to.x - from.x);
     const spreadRad = (FAN_ANGLE_DEG * Math.PI) / 180;
 
@@ -68,7 +72,7 @@ export default class TwistedFate_Q extends Spell {
       card.position = from.copy();
       card.destination = createVector(
         from.x + Math.cos(bearing) * RANGE,
-        from.y + Math.sin(bearing) * RANGE
+        from.y + Math.sin(bearing) * RANGE,
       );
       // Each card spins its own way, so three cards read as three objects
       // rather than one wide sprite.
@@ -95,7 +99,7 @@ export class TwistedFate_Q_Card extends MissileSpellObject {
   trailSystem = new TrailSystem({
     maxLength: 14,
     trailSize: this.size * 0.45,
-    trailColor: '#A878EB55',
+    trailColor: "#A878EB55",
   });
 
   onAfterMove(): void {
@@ -103,7 +107,7 @@ export class TwistedFate_Q_Card extends MissileSpellObject {
   }
 
   onHit(enemy: AttackableUnit): void {
-    enemy.takeDamage(CARD_DAMAGE, this.owner, 'MAGIC', DAMAGE_LABEL);
+    enemy.takeDamage(CARD_DAMAGE, this.owner, "MAGIC", DAMAGE_LABEL);
 
     // Rule 3: the hit lands *on the body*, where the player is looking.
     const burst = new AoePulse(this.owner);
@@ -140,7 +144,16 @@ export class TwistedFate_Q_Card extends MissileSpellObject {
     // one pip, so the face has a front and the spin is legible
     noStroke();
     fill(CARD_EDGE[0], CARD_EDGE[1], CARD_EDGE[2], 210 * face);
-    quad(0, -height * 0.22, width * face * 0.3, 0, 0, height * 0.22, -width * face * 0.3, 0);
+    quad(
+      0,
+      -height * 0.22,
+      width * face * 0.3,
+      0,
+      0,
+      height * 0.22,
+      -width * face * 0.3,
+      0,
+    );
 
     pop();
   }

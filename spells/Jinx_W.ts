@@ -72,7 +72,7 @@ export class Jinx_W_Object extends MissileSpellObject {
   });
 
   onHit(enemy: AttackableUnit) {
-    enemy.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Giật Bắn!');
+    enemy.takeDamage(DAMAGE, this.owner, 'MAGIC');
     const slow = new Slow(SLOW_DURATION, this.owner, enemy);
     slow.percent = SLOW_PERCENT;
     enemy.addBuff(slow);

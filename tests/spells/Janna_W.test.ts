@@ -154,7 +154,13 @@ describe('Janna W', () => {
 
     arrive(bolt);
 
-    expect(targetDamage).toHaveBeenCalledWith(DAMAGE, owner, 'MAGIC', expect.any(String));
+    // The fourth argument stays, and is pinned to its value rather than to
+    // `expect.any(String)`: this is one of the few spells that deliberately
+    // names its damage something other than itself — the bolt is 'Gió Tây', the
+    // spell is 'Phù Vân'. Everywhere else the name now comes from core's
+    // ambient attribution and the argument is gone; here it is the override,
+    // and an override nobody checks is an override that quietly stops working.
+    expect(targetDamage).toHaveBeenCalledWith(DAMAGE, owner, 'MAGIC', 'Gió Tây');
     expect(bystanderDamage).not.toHaveBeenCalled();
     const slow = target.buffs.find((buff): buff is Slow => buff instanceof Slow);
     expect(slow).toMatchObject({ percent: SLOW_PERCENT, duration: SLOW_DURATION_MS });

@@ -73,7 +73,7 @@ export class Graves_Q_Object extends MissileSpellObject {
   }
 
   onHit(enemy: AttackableUnit) {
-    enemy.takeDamage(TRAVEL_DAMAGE, this.owner, 'MAGIC', 'Đạn Xuyên Mục Tiêu');
+    enemy.takeDamage(TRAVEL_DAMAGE, this.owner, 'MAGIC');
   }
 
   onArrive() {
@@ -81,7 +81,7 @@ export class Graves_Q_Object extends MissileSpellObject {
       area: new Circle({ x: this.position.x, y: this.position.y, r: BLAST_RADIUS }),
       filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
     });
-    enemies.forEach((enemy: any) => enemy.takeDamage(BLAST_DAMAGE, this.owner, 'MAGIC', 'Đạn Xuyên Mục Tiêu'));
+    enemies.forEach((enemy: any) => enemy.takeDamage(BLAST_DAMAGE, this.owner, 'MAGIC'));
 
     const blast = new AoePulse(this.owner);
     blast.position = this.position.copy();

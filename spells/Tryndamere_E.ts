@@ -74,7 +74,7 @@ export default class Tryndamere_E extends Spell {
       for (const enemy of enemies) {
         if (hitTargets.has(enemy)) continue;
         hitTargets.add(enemy);
-        enemy.takeDamage(TRYNDAMERE_E_DAMAGE, this.owner, 'MAGIC', 'Chém Xoáy');
+        enemy.takeDamage(TRYNDAMERE_E_DAMAGE, this.owner, 'MAGIC');
         blades.cutAt(enemy.position.x, enemy.position.y);
         if (enemy instanceof Champion) {
           this.currentCooldown = Math.max(

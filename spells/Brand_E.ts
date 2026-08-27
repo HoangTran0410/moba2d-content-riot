@@ -112,7 +112,7 @@ export default class Brand_E extends Spell {
     for (const unit of caught) if (unit !== primary) victims.push(unit);
 
     for (const victim of victims) {
-      victim.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Bùng Cháy');
+      victim.takeDamage(DAMAGE, this.owner, 'MAGIC');
       applyAblaze(this.owner, victim, this.image);
     }
 

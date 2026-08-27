@@ -107,7 +107,7 @@ export class Ahri_Q_Object extends MissileSpellObject {
     slowBuff.percent = 0.5;
     enemy.addBuff(slowBuff);
 
-    enemy.takeDamage(15, this.owner, 'MAGIC', 'Quả Cầu Ma Thuật');
+    enemy.takeDamage(15, this.owner, 'MAGIC');
 
     // the orb flies straight on through, so the hit has to leave its own mark —
     // otherwise the only feedback a clipped target gets is the damage number

@@ -90,7 +90,7 @@ export class Garen_E_Object extends SpellObject {
       area: new Circle({ x: this.position.x, y: this.position.y, r: this.radius }),
       filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
     });
-    enemies.forEach((enemy: any) => enemy.takeDamage(DAMAGE_PER_HIT, this.owner, 'MAGIC', 'Phán Quyết'));
+    enemies.forEach((enemy: any) => enemy.takeDamage(DAMAGE_PER_HIT, this.owner, 'MAGIC'));
   }
 
   /** One turn every 260ms. Fast enough to blur, slow enough to read as a sword. */

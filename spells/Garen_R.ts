@@ -210,7 +210,7 @@ export class Garen_R_Strike extends SpellObject {
     if (victim) {
       const max = victim.stats.maxHealth.value;
       const missing = max > 0 ? Math.max(0, max - victim.stats.health.value) : 0;
-      victim.takeDamage(BASE_DAMAGE + missing * MISSING_HEALTH_PERCENT, this.owner, 'MAGIC', 'Công Lý Demacia');
+      victim.takeDamage(BASE_DAMAGE + missing * MISSING_HEALTH_PERCENT, this.owner, 'MAGIC');
 
       victim.addBuff(
         createReveal({

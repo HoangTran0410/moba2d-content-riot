@@ -172,7 +172,7 @@ export default class Vi_Q extends Spell {
   }
 
   private punch(victim: AttackableUnit, damage: number, heading: Vec2): void {
-    victim.takeDamage(damage, this.owner, 'MAGIC', 'Cú Đấm Bùng Nổ');
+    victim.takeDamage(damage, this.owner, 'MAGIC');
     victim.addBuff(new Airborne(Q_KNOCKUP_MS, this.owner, victim));
 
     const shove = new Dash(Q_KNOCKUP_MS, this.owner, victim);

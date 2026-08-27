@@ -68,7 +68,7 @@ export class Lux_Q_Object extends MissileSpellObject {
   onHit(enemy: any) {
     const stunBuff = new RootBuff(this.stunTime, this.owner, enemy);
     enemy.addBuff(stunBuff);
-    enemy.takeDamage(20, this.owner, 'MAGIC', 'Khóa Ánh Sáng');
+    enemy.takeDamage(20, this.owner, 'MAGIC');
 
     // a 500px root landing with no burst is the worst case in the game: the
     // victim stops moving and nothing on screen says why. The bind has to be

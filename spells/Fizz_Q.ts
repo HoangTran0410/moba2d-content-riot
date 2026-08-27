@@ -60,7 +60,7 @@ export default class Fizz_Q extends Spell {
     dash.showTrail = true;
     this.owner.addBuff(dash);
 
-    target.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Đâm Lao');
+    target.takeDamage(DAMAGE, this.owner, 'MAGIC');
 
     // The trident goes in before the water comes up: a directional slash drawn
     // along the line of the dash, so the pass reads as *through* the victim

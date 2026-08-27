@@ -83,7 +83,7 @@ export class Ashe_Q_Object extends MissileSpellObject {
     slowBuff.buffAddType = BuffAddType.RENEW_EXISTING;
     enemy.addBuff(slowBuff);
 
-    enemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Chú Tâm Tiễn');
+    enemy.takeDamage(this.damage, this.owner, 'MAGIC');
 
     // the arrow is removed this frame, so the shatter has to be its own object
     const shatter = new Ashe_Q_Shatter(this.owner);

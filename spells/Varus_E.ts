@@ -78,7 +78,7 @@ export class Varus_E_Object extends SpellObject {
 
     if (!this.landed) {
       this.landed = true;
-      enemies().forEach((enemy: any) => enemy.takeDamage(IMPACT_DAMAGE, this.owner, 'MAGIC', 'Mưa Tên'));
+      enemies().forEach((enemy: any) => enemy.takeDamage(IMPACT_DAMAGE, this.owner, 'MAGIC'));
       return;
     }
 

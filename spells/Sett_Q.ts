@@ -107,7 +107,7 @@ export default class Sett_Q extends Spell {
     if (!victim || victim.isDead || victim.toRemove) return;
 
     this.chargesLeft -= 1;
-    victim.takeDamage(SETT_Q_BONUS, this.owner, 'MAGIC', 'Không Trượt Phát Nào');
+    victim.takeDamage(SETT_Q_BONUS, this.owner, 'MAGIC');
     this.game.objectManager.addObject(new Sett_Q_Knuckle(this.owner, victim.position.copy()));
     if (this.chargesLeft <= 0) this.dropGlow();
   };

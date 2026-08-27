@@ -231,7 +231,7 @@ export default class Lux_R extends Spell {
         !target.isDead &&
         target.teamId !== this.owner.teamId,
       onHit: target => {
-        target.takeDamage(this.damage, this.owner, 'MAGIC', 'Cầu Vồng Tối Thượng');
+        target.takeDamage(this.damage, this.owner, 'MAGIC');
         target.addBuff(
           createReveal({
             stackId: REVEAL_STACK_ID,

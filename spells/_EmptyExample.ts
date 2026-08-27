@@ -93,7 +93,7 @@ export class SpellName_Missile extends api.MissileSpellObject {
   });
 
   onHit(enemy: any) {
-    enemy.takeDamage(this.damage, this.owner);
+    enemy.takeDamage(this.damage, this.owner, 'MAGIC');
     // enemy.addBuff(new api.buffs.SomeBuff(1000, this.owner, enemy));
   }
 

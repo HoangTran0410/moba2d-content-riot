@@ -131,7 +131,7 @@ describe('Leblanc Q (Sigil of Malice)', () => {
     arrive(orb);
 
     expect(takeDamage).toHaveBeenCalledTimes(1);
-    expect(takeDamage).toHaveBeenCalledWith(DAMAGE, owner, 'MAGIC', expect.any(String));
+    expect(takeDamage).toHaveBeenCalledWith(DAMAGE, owner, 'MAGIC');
     const mark = target.buffs.find(
       (buff): buff is Leblanc_Q_Mark => buff instanceof Leblanc_Q_Mark
     );

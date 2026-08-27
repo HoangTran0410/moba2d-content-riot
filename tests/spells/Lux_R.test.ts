@@ -314,7 +314,7 @@ describe('Lux R', () => {
 
     beam.update();
 
-    expect(target.takeDamage).toHaveBeenCalledWith(DAMAGE, owner, 'MAGIC', expect.any(String));
+    expect(target.takeDamage).toHaveBeenCalledWith(DAMAGE, owner, 'MAGIC');
     expect(targetBuffs).toHaveLength(1);
     expect(targetBuffs[0]).toMatchObject({
       duration: REVEAL_DURATION_MS,

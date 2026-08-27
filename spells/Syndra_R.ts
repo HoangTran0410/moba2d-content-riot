@@ -245,7 +245,7 @@ export class Syndra_R_Strike extends SpellObject {
         this.hitFlags[i] = true;
         if (!this.target.toRemove && !this.target.isDead) {
           const dmg = i === this.origins.length - 1 ? lastChunk : baseChunk;
-          this.target.takeDamage(dmg, this.owner, 'MAGIC', 'Bùng Nổ Sức Mạnh');
+          this.target.takeDamage(dmg, this.owner, 'MAGIC');
           this.game.objectManager.addObject(
             new Syndra_Burst(
               this.owner,

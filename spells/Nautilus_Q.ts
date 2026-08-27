@@ -193,7 +193,7 @@ export class Nautilus_Q_Object extends MissileSpellObject {
   }
 
   onHit(enemy: AttackableUnit): void {
-    enemy.takeDamage(Q_DAMAGE, this.owner, 'MAGIC', 'Phóng Mỏ Neo');
+    enemy.takeDamage(Q_DAMAGE, this.owner, 'MAGIC');
     enemy.addBuff(new Stun(Q_STUN_MS, this.owner, enemy));
     this.game.objectManager.addObject(new Nautilus_Q_Impact(this.owner, enemy.position.copy()));
     this.beginReturn();

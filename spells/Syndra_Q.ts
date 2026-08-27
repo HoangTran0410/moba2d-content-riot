@@ -479,7 +479,7 @@ export class Syndra_Q_Fall extends SpellObject {
     for (const victim of victims) {
       if (struck.has(victim)) continue;
       struck.add(victim);
-      victim.takeDamage(SYNDRA_Q_DAMAGE, this.owner, 'MAGIC', 'Quả Cầu Bóng Tối');
+      victim.takeDamage(SYNDRA_Q_DAMAGE, this.owner, 'MAGIC');
       this.game.objectManager.addObject(
         new Syndra_Burst(this.owner, victim.position.x, victim.position.y, 38, 260)
       );

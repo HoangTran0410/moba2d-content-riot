@@ -150,7 +150,7 @@ export class Ziggs_Q_Object extends SpellObject {
     for (const victim of victims) {
       if (hit.has(victim)) continue;
       hit.add(victim);
-      victim.takeDamage(Q_DAMAGE, this.owner, 'MAGIC', 'Bom Nảy');
+      victim.takeDamage(Q_DAMAGE, this.owner, 'MAGIC');
     }
     this.game.objectManager.addObject(new Ziggs_Q_Blast(this.owner, at.copy()));
   }

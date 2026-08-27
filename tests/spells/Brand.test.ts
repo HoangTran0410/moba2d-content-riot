@@ -112,8 +112,8 @@ describe('Brand', () => {
 
     pillar.update(); // 750ms in, past the delay
     expect(pillar.hasErupted).toBe(true);
-    expect(cleanDamage).toHaveBeenCalledWith(W_DAMAGE, owner, 'MAGIC', expect.any(String));
-    expect(burningDamage).toHaveBeenCalledWith(W_DAMAGE * (1 + ABLAZE_DAMAGE_BONUS), owner, 'MAGIC', expect.any(String));
+    expect(cleanDamage).toHaveBeenCalledWith(W_DAMAGE, owner, 'MAGIC');
+    expect(burningDamage).toHaveBeenCalledWith(W_DAMAGE * (1 + ABLAZE_DAMAGE_BONUS), owner, 'MAGIC');
   });
 
   it('E only reaches the far bystander once the primary target is already burning', () => {
@@ -139,7 +139,7 @@ describe('Brand', () => {
     const second = new Brand_E(owner);
     expect(second.press(castContext(owner, primary.position, primary))).toBe(true);
     second.update();
-    expect(bystanderDamage).toHaveBeenCalledWith(E_DAMAGE, owner, 'MAGIC', expect.any(String));
+    expect(bystanderDamage).toHaveBeenCalledWith(E_DAMAGE, owner, 'MAGIC');
   });
 
   it('R hits for every bounce it owes, slowing only once the victim is burning', () => {
@@ -170,7 +170,7 @@ describe('Brand', () => {
 
     expect(fireball.toRemove).toBe(true);
     expect(damage.mock.calls).toHaveLength(BOUNCE_COUNT);
-    expect(damage).toHaveBeenCalledWith(DAMAGE_PER_BOUNCE, owner, 'MAGIC', expect.any(String));
+    expect(damage).toHaveBeenCalledWith(DAMAGE_PER_BOUNCE, owner, 'MAGIC');
     expect(enemy.buffs.some(buff => buff instanceof Slow)).toBe(true);
     expect(enemy.buffs.some(buff => buff.stackId === ABLAZE_STACK_ID)).toBe(true);
   });

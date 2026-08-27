@@ -447,7 +447,7 @@ export class Irelia_R_Wall extends SpellObject {
   }
 
   private cut(unit: AttackableUnit, damage: number): void {
-    unit.takeDamage(damage, this.owner, 'MAGIC', 'Thanh Kiếm Tiên Phong');
+    unit.takeDamage(damage, this.owner, 'MAGIC');
 
     // No `slow.image`: a crowd-control buff keeps its own CC icon, so a slowed
     // unit shows "slowed" rather than an ultimate the player cannot read.

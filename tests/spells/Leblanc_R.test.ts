@@ -183,7 +183,7 @@ describe('Leblanc R (Mimic)', () => {
     expect(orbs).toHaveLength(1);
 
     for (let i = 0; i < 50 && !orbs[0].toRemove; i++) orbs[0].update();
-    expect(takeDamage).toHaveBeenCalledWith(orbs[0].damage, owner, 'MAGIC', expect.any(String));
+    expect(takeDamage).toHaveBeenCalledWith(orbs[0].damage, owner, 'MAGIC');
 
     // Mimic paid its own (zero) cost; the recast must not have charged Q's cost too
     expect(owner.stats.mana.value).toBe(manaAfterQ);

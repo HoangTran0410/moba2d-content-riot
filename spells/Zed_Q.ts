@@ -83,7 +83,7 @@ export class Zed_Q_Object extends MissileSpellObject {
     slowBuff.percent = 0.5;
     enemy.addBuff(slowBuff);
 
-    enemy.takeDamage(this.damage, this.owner, 'MAGIC', 'Phi Tiêu Sắc Lẻm');
+    enemy.takeDamage(this.damage, this.owner, 'MAGIC');
     this.particleSystem.addParticle({
       position: enemy.position,
       size: enemy.stats.size.value + 20,

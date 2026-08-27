@@ -207,7 +207,7 @@ describe('Malphite Q', () => {
 
     arrive(missile);
 
-    expect(targetDamage).toHaveBeenCalledWith(DAMAGE, owner, 'MAGIC', expect.any(String));
+    expect(targetDamage).toHaveBeenCalledWith(DAMAGE, owner, 'MAGIC');
     expect(targetBuff).toHaveBeenCalledWith(expect.any(Slow));
     expect(bystanderDamage).not.toHaveBeenCalled();
     expect(bystanderBuff).not.toHaveBeenCalled();

@@ -135,7 +135,7 @@ export class Teemo_E_Object extends MissileSpellObject {
   }
 
   onHit(enemy: AttackableUnit) {
-    enemy.takeDamage(this.onHitDamage, this.owner, 'MAGIC', 'Bắn Độc');
+    enemy.takeDamage(this.onHitDamage, this.owner, 'MAGIC');
     applyToxicShot(this.owner, enemy);
 
     // the vial shatters on impact, so the poison burst is its own object

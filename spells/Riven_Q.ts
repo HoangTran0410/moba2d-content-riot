@@ -171,7 +171,7 @@ export default class Riven_Q extends Spell {
       if (Math.abs(offAxis) > halfArc + bodyArc) continue;
 
       hit.add(victim);
-      victim.takeDamage(damage, this.owner, 'MAGIC', 'Tam Bộ Kiếm');
+      victim.takeDamage(damage, this.owner, 'MAGIC');
       if (isFinal) victim.addBuff(new Airborne(Q_KNOCKUP_MS, this.owner, victim));
       cuts.push({ x: victim.position.x, y: victim.position.y });
     }

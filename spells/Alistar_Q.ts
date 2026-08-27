@@ -37,7 +37,7 @@ export default class Alistar_Q extends Spell {
     });
 
     enemies.forEach((enemy: any) => {
-      enemy.takeDamage(DAMAGE, this.owner, 'MAGIC', 'Nghiền Nát');
+      enemy.takeDamage(DAMAGE, this.owner, 'MAGIC');
       enemy.addBuff(new Airborne(AIRBORNE_DURATION, this.owner, enemy));
     });
 

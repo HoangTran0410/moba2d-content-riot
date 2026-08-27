@@ -192,7 +192,7 @@ export default class Darius_Q extends Spell {
       // predicting it here — a second guess at the mitigation chain would be
       // wrong the first time a new shield type shipped.
       const takenBefore = victim.tally.damageTaken;
-      victim.takeDamage(bladed ? BLADE_DAMAGE : HANDLE_DAMAGE, this.owner, 'MAGIC', 'Tàn Sát');
+      victim.takeDamage(bladed ? BLADE_DAMAGE : HANDLE_DAMAGE, this.owner, 'MAGIC');
       const dealt = victim.tally.damageTaken - takenBefore;
 
       // The haft is a consolation prize on purpose: it neither bleeds nor heals,

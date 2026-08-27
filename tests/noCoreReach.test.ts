@@ -261,7 +261,13 @@ describe("the pack's tests speak only published core surfaces", () => {
     // `@moba2d/core/testing/spell` and `@moba2d/core/content/types` — all
     // three already on `ALLOWED_CORE_SUBPATHS`, so the population count moves
     // and the offender count below does not.
-    expect(files.length).toBe(90);
+    //
+    // 91, not 90: `tests/damageAttribution.test.ts`, which proves this pack's
+    // damage still reaches the death recap under the ability's name now that
+    // core infers it rather than each `takeDamage` call passing it. It reaches
+    // core through the same three allowed subpaths, so again the population
+    // moves and the offender count does not.
+    expect(files.length).toBe(91);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

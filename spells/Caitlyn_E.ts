@@ -134,7 +134,7 @@ export class Caitlyn_E_Net extends MissileSpellObject {
   }
 
   onHit(enemy: AttackableUnit) {
-    enemy.takeDamage(CAITLYN_E_DAMAGE, this.owner, 'MAGIC', 'Lưới 90');
+    enemy.takeDamage(CAITLYN_E_DAMAGE, this.owner, 'MAGIC');
 
     const slow = new Slow(CAITLYN_E_SLOW_MS, this.owner, enemy);
     slow.buffAddType = BuffAddType.RENEW_EXISTING;

@@ -113,7 +113,7 @@ export default class Morgana_R extends Spell {
   }
 
   private latch(target: ShackleTarget): void {
-    target.takeDamage(INITIAL_DAMAGE, this.owner, 'MAGIC', 'Trói Hồn');
+    target.takeDamage(INITIAL_DAMAGE, this.owner, 'MAGIC');
 
     const slow = new Slow(TETHER_DURATION_MS, this.owner, target);
     slow.percent = SLOW_PERCENT;
@@ -352,7 +352,7 @@ export class Morgana_R_Tether_Object extends SpellObject {
   private endTether(resolved: boolean): void {
     this.toRemove = true;
     if (resolved && !this.target.isDead) {
-      this.target.takeDamage(this.resolveDamage, this.owner, 'MAGIC', 'Trói Hồn');
+      this.target.takeDamage(this.resolveDamage, this.owner, 'MAGIC');
       this.target.addBuff(new Stun(this.stunDurationMs, this.owner, this.target));
     }
     // Either ending gets a picture, and they are different pictures: the chain
