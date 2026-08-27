@@ -124,7 +124,7 @@ const SPEC: Record<
   wits_end: {
     name: 'Đao Tím',
     cost: 1450,
-    stats: { attackSpeed: 0.3, magicResist: 32, abilityPower: 0.25 },
+    stats: { attackSpeed: 0.3, magicResist: 32, abilityPower: 1 },
     passive: 'Item_WitsEnd',
     buildsFrom: ['recurve_bow', 'null_magic_mantle'],
   },
@@ -138,7 +138,7 @@ const SPEC: Record<
   nashors_tooth: {
     name: 'Nanh Nashor',
     cost: 1450,
-    stats: { attackSpeed: 0.4, abilityPower: 0.4 },
+    stats: { attackSpeed: 0.4, abilityPower: 1.4 },
     passive: 'Item_Nashor',
     buildsFrom: ['recurve_bow'],
   },
@@ -166,7 +166,7 @@ const SPEC: Record<
   lich_bane: {
     name: 'Kiếm Tai Ương',
     cost: 1500,
-    stats: { speed: 0.4, maxMana: 20, abilityPower: 0.5 },
+    stats: { speed: 0.4, maxMana: 20, abilityPower: 1.6 },
     passive: 'Item_LichBane',
     buildsFrom: ['sheen', 'boots'],
   },
@@ -201,7 +201,7 @@ const SPEC: Record<
   zhonyas_hourglass: {
     name: 'Đồng Hồ Cát Zhonya',
     cost: 1500,
-    stats: { armor: 30, abilityPower: 0.45 },
+    stats: { armor: 30, abilityPower: 1.5 },
     active: 'Item_Zhonyas',
     buildsFrom: ['cloth_armor'],
   },
@@ -240,7 +240,7 @@ const SPEC: Record<
       speed: 0.45,
       maxHealth: 40,
       maxMana: 30,
-      abilityPower: 0.2,
+      abilityPower: 1,
       cooldownReduction: 0.15,
     },
     active: 'Item_Shurelya',
@@ -253,7 +253,7 @@ const SPEC: Record<
       maxHealth: 45,
       magicResist: 35,
       maxMana: 40,
-      abilityPower: 0.4,
+      abilityPower: 1.4,
       cooldownReduction: 0.1,
     },
     active: 'Item_Everfrost',
@@ -361,12 +361,17 @@ describe('the item set', () => {
    *
    * Core does the scaling (`Stats.abilityPower`, a fraction applied in
    * `takeDamage`); the *magnitude* is this table's decision and nowhere else's,
-   * so it is asserted here. The band is deliberately wide — it is a design
-   * intent, not a tuning lock — but a floor of 2.0 is what stops the whole
-   * point being edited away one item at a time, and a ceiling stops an ability
-   * build quietly out-scaling the attack build it was meant to catch up with.
+   * so it is asserted here. The first magnitude — best six summing to ~2.2, a
+   * 3.2x kit — was set before `balanceReport.test.ts` existed to compare the
+   * two paths gold for gold; that measurement put the attack path at 6x the
+   * ability path's value per 1000g, because crit, attack damage and attack
+   * speed multiply each other while ability power only adds. The 2026-08-28
+   * rebalance raised the six to sum ~7.9 (an 8.9x kit before cooldowns),
+   * which lands the per-gold ratio at ~1.8 — `balanceReport.test.ts` is the
+   * test that owns that ratio; this band only stops the table drifting from
+   * the magnitude that produces it.
    */
-  it('sells enough ability power for a full build to roughly triple a kit', () => {
+  it('sells enough ability power for a full build to keep pace with a full attack build', () => {
     const powers = Object.values(items)
       .map(def => def.stats?.abilityPower ?? 0)
       .filter(amount => amount > 0)
@@ -378,8 +383,8 @@ describe('the item set', () => {
     expect(
       bestSix,
       `the six best ability items grant ${bestSix.toFixed(2)}, a ${(1 + bestSix).toFixed(2)}x kit`
-    ).toBeGreaterThanOrEqual(2);
-    expect(bestSix).toBeLessThanOrEqual(3);
+    ).toBeGreaterThanOrEqual(7);
+    expect(bestSix).toBeLessThanOrEqual(9);
   });
 
   it('sells cooldown reduction, and never enough of it to reach the cap', () => {

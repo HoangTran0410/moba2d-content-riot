@@ -933,9 +933,9 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1500,
     buildsFrom: ['cloth_armor'],
     description:
-      'Tăng 30 giáp và 45% sát thương chiêu thức. Kích hoạt: đóng băng bản thân 2.5 giây, ' +
+      'Tăng 30 giáp và 150% sát thương chiêu thức. Kích hoạt: đóng băng bản thân 2.5 giây, ' +
       'không thể bị nhắm và không nhận sát thương.',
-    stats: { armor: 30, abilityPower: 0.45 },
+    stats: { armor: 30, abilityPower: 1.5 },
     active: 'Item_Zhonyas',
   },
   youmuus_ghostblade: {
@@ -973,9 +973,9 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1450,
     buildsFrom: ['recurve_bow', 'null_magic_mantle'],
     description:
-      'Tăng 0.3 đòn đánh mỗi giây, 32 kháng phép và 25% sát thương chiêu thức. ' +
+      'Tăng 0.3 đòn đánh mỗi giây, 32 kháng phép và 100% sát thương chiêu thức. ' +
       'Nội tại: đòn đánh gây thêm 4 sát thương phép và tăng tốc chạy trong chốc lát.',
-    stats: { attackSpeed: 0.3, magicResist: 32, abilityPower: 0.25 },
+    stats: { attackSpeed: 0.3, magicResist: 32, abilityPower: 1 },
     passive: 'Item_WitsEnd',
   },
   kraken_slayer: {
@@ -997,9 +997,9 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1450,
     buildsFrom: ['recurve_bow'],
     description:
-      'Tăng 0.4 đòn đánh mỗi giây và 40% sát thương chiêu thức. ' +
+      'Tăng 0.4 đòn đánh mỗi giây và 140% sát thương chiêu thức. ' +
       'Nội tại: đòn đánh gây thêm 7 sát thương phép.',
-    stats: { attackSpeed: 0.4, abilityPower: 0.4 },
+    stats: { attackSpeed: 0.4, abilityPower: 1.4 },
     passive: 'Item_Nashor',
   },
   trinity_force: {
@@ -1045,9 +1045,9 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1500,
     buildsFrom: ['sheen', 'boots'],
     description:
-      'Tăng 0.4 tốc chạy, 20 năng lượng và 50% sát thương chiêu thức. Nội tại: sau khi dùng chiêu, ' +
+      'Tăng 0.4 tốc chạy, 20 năng lượng và 160% sát thương chiêu thức. Nội tại: sau khi dùng chiêu, ' +
       'đòn đánh kế tiếp gây thêm 18 sát thương phép.',
-    stats: { speed: 0.4, maxMana: 20, abilityPower: 0.5 },
+    stats: { speed: 0.4, maxMana: 20, abilityPower: 1.6 },
     passive: 'Item_LichBane',
   },
   ravenous_hydra: {
@@ -1152,14 +1152,14 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1400,
     buildsFrom: ['boots', 'ruby_crystal'],
     description:
-      'Tăng 0.45 tốc chạy, 40 máu tối đa, 30 năng lượng, 20% sát thương chiêu thức và giảm 15% ' +
+      'Tăng 0.45 tốc chạy, 40 máu tối đa, 30 năng lượng, 100% sát thương chiêu thức và giảm 15% ' +
       'thời gian hồi chiêu. Kích hoạt: tăng 35% tốc chạy cho bản thân và các đồng minh xung ' +
       'quanh trong 3 giây.',
     stats: {
       speed: 0.45,
       maxHealth: 40,
       maxMana: 30,
-      abilityPower: 0.2,
+      abilityPower: 1,
       cooldownReduction: 0.15,
     },
     active: 'Item_Shurelya',
@@ -1171,14 +1171,14 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1500,
     buildsFrom: ['ruby_crystal', 'null_magic_mantle'],
     description:
-      'Tăng 45 máu tối đa, 35 kháng phép, 40 năng lượng, 40% sát thương chiêu thức và giảm 10% ' +
+      'Tăng 45 máu tối đa, 35 kháng phép, 40 năng lượng, 140% sát thương chiêu thức và giảm 10% ' +
       'thời gian hồi chiêu. Kích hoạt: bắn ra một luồng băng gây 30 sát thương phép và trói ' +
       '1.2 giây mọi kẻ địch trúng đòn.',
     stats: {
       maxHealth: 45,
       magicResist: 35,
       maxMana: 40,
-      abilityPower: 0.4,
+      abilityPower: 1.4,
       cooldownReduction: 0.1,
     },
     active: 'Item_Everfrost',

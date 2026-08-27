@@ -133,23 +133,24 @@ describe('gold-for-gold, the two builds this shop sells', () => {
     expect(ability.build).toHaveLength(6);
   });
 
-  it('keeps the two paths inside the band measured on 2026-08-27', () => {
-    // Measured then: attack 20.23x marksman auto DPS for 8600g (+2.24x per
-    // 1000g — Vô Cực Kiếm, Guinsoo, Kraken, Tam Hợp, Lưỡi Hái Linh Hồn,
-    // Statikk), ability 4.27x kit for 8800g (+0.37x per 1000g), ratio 6.02.
-    // **That is a finding, not a target**: gold in the attack path buys six
-    // times the throughput the ability path buys, on stats alone — the
-    // crit/attack-speed items multiply each other while ability power only
-    // adds — and the attack path's coded on-hit passives widen it further.
-    // The old "full build ≈ 5.7x damage, 1.5x rate" note predates the
-    // crit line; the shop has outgrown it.
+  it('keeps the two paths inside the rebalanced band', () => {
+    // First measured 2026-08-27 at ratio 6.02: attack 20.23x for 8600g
+    // against ability 4.27x for 8800g — gold in the attack path bought six
+    // times the throughput, because crit, attack damage and attack speed
+    // multiply each other while ability power only adds, and the old "full
+    // build ≈ 5.7x damage, 1.5x rate" note predated the crit line entirely.
     //
-    // The band pins today's reality so any retune moves through this test
-    // with its own numbers, not to bless the ratio: an intentional rebalance
-    // (raising ability-power fractions, a Rabadon-style multiplier, or
-    // pricing) should land the ratio nearer 1-2 and tighten these bounds
-    // with its own measurement.
-    expect(ratio, `attack:ability per-gold ratio drifted to ${ratio.toFixed(2)}`).toBeGreaterThan(4);
-    expect(ratio, `attack:ability per-gold ratio drifted to ${ratio.toFixed(2)}`).toBeLessThan(7);
+    // The 2026-08-28 rebalance raised the six ability items' fractions to a
+    // best-six sum of 7.9 (`items.test.ts` pins the table), which measures:
+    // attack 20.23x for 8600g (+2.24x/1000g), ability 11.87x for 8800g
+    // (+1.23x/1000g), **ratio 1.81** — the deliberate target band of 1.5-2,
+    // slightly attack-favoured on stats because the attack path's on-hit
+    // passives are not in this floor while the ability path's item actives
+    // are not either, and the two roughly wash.
+    expect(
+      ratio,
+      `attack:ability per-gold ratio drifted to ${ratio.toFixed(2)}`
+    ).toBeGreaterThan(1.5);
+    expect(ratio, `attack:ability per-gold ratio drifted to ${ratio.toFixed(2)}`).toBeLessThan(2.1);
   });
 });

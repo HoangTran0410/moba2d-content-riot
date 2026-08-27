@@ -276,7 +276,11 @@ describe("the pack's tests speak only published core surfaces", () => {
     // 93, not 92: `tests/roleProfiles.test.ts`, which holds this pack's role
     // table to the durability spread it was tuned to. It reads `../data` and
     // core not at all, so it moves the population and nothing else.
-    expect(files.length).toBe(93);
+    //
+    // 94, not 93: `tests/balanceReport.test.ts`, the gold-for-gold comparison
+    // of the shop's attack and ability paths. It reads `../pack` and core not
+    // at all, so it moves the population and nothing else.
+    expect(files.length).toBe(94);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

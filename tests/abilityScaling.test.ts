@@ -60,13 +60,15 @@ describe('an item in this shop makes this pack’s abilities hit harder', () => 
   });
 
   it('deals more once ability power is on the caster', () => {
-    // 0.45 is one item — Đồng Hồ Cát Zhonya.
-    expect(burst(0.45)).toBe(Math.round(W_DAMAGE * 1.45));
+    // 1.5 is one item — Đồng Hồ Cát Zhonya.
+    expect(burst(1.5)).toBe(Math.round(W_DAMAGE * 2.5));
   });
 
-  it('roughly triples on a full ability build', () => {
-    // 2.2 is the six best ability items in the shop, which `items.test.ts`
-    // holds the table to.
-    expect(burst(2.2)).toBe(Math.round(W_DAMAGE * 3.2));
+  it('roughly ninefolds on a full ability build', () => {
+    // 7.9 is the six best ability items in the shop, which `items.test.ts`
+    // holds the table to — the 2026-08-28 rebalance's magnitude, sized so the
+    // ability path's value per gold keeps pace with the attack path's
+    // (`balanceReport.test.ts` owns that ratio).
+    expect(burst(7.9)).toBe(Math.round(W_DAMAGE * 8.9));
   });
 });
