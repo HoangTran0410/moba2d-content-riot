@@ -10,18 +10,6 @@ import type { SpellCatalogId as PackSpellCatalogId } from './generated/spellCata
 import { spellCatalog } from './generated/spellCatalog';
 import { summonersRift } from './maps/summonersRift';
 
-/**
- * The riot pack's own identity. A literal, not computed — `manifest.id`
- * below is the canonical spelling, and this is that same string exported
- * for the handful of core files that need the well-known "first bundled
- * pack" id without reaching into `packs/` themselves: `src/content/install.ts`
- * re-exports it from `./pack` (itself re-exporting it from here), and
- * `src/game/spellRegistry.ts`'s `qualifySpellId` reads it from there — a
- * bare, unqualified spell id (a loadout saved before content became packs)
- * has always meant "the bundled pack's own", and still does.
- */
-export const BUNDLED_PACK_ID = 'lol';
-
 /** `'BasicAttack'` is core's id, not this pack's own — slot 0 of every kit below names it. */
 type RosterSpellId = PackSpellCatalogId | 'BasicAttack';
 
@@ -1320,10 +1308,10 @@ export const data: ContentPackData = {
    * also why this is no longer the unparseable `'^1'` it used to be.
    */
   manifest: {
-    id: BUNDLED_PACK_ID,
+    id: 'lol',
     version: '1.0.0',
     coreRange: '>=1.6.0',
-    assets: BUNDLED_PACK_ID,
+    assets: 'lol',
   },
   spellDisplay: displayData(),
   champions: championEntries(),

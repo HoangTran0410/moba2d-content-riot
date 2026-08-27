@@ -1,4 +1,4 @@
-export { data, BUNDLED_PACK_ID } from './data';
+export { data } from './data';
 export { default } from './code';
 
 /**

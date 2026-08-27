@@ -34,8 +34,8 @@ import { webpAssets } from '@moba2d/core/pack-webp';
  * `preserveEntrySignatures: 'strict'` is what `build.lib` sets internally
  * and non-lib builds do not default to; without it Rollup is free to
  * restructure the entry's exports, and a runtime install reads `data`,
- * `packId`, `assetManifest` and `default` directly off `pack.js`'s
- * namespace.
+ * `assetManifest` and `default` directly off `pack.js`'s namespace
+ * (`@moba2d/core`'s `packSource.ts` — those three and nothing else).
  *
  * Core is `external`: the pack's only crossings into it are `import type`,
  * which the compiler erases, so nothing of core should ever appear in this

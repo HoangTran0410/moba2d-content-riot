@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { summonersRift } from '../../maps/summonersRift';
 import { NEUTRAL_SLOTS } from '../../maps/summonersRiftGeometry';
 import { validatePack, PackRegistry } from '@moba2d/core/testing';
-import { data as riotData, BUNDLED_PACK_ID } from '../../pack';
+import { data as riotData } from '../../pack';
 import type { MapGeometry, StructureSlot } from '@moba2d/core/content/types';
 import mapJson from '../../maps/summoner_map.json';
 
@@ -114,7 +114,7 @@ describe("the Summoner's Rift map definition", () => {
     registry.installData(riotData);
     const maps = registry.maps();
     expect(maps).toHaveLength(1);
-    expect(maps[0].id).toBe(`${BUNDLED_PACK_ID}:summoners-rift`);
+    expect(maps[0].id).toBe(`${riotData.manifest.id}:summoners-rift`);
     expect(maps[0]).not.toHaveProperty('terrain');
     expect(maps[0]).not.toHaveProperty('slots');
   });

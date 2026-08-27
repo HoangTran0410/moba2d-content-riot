@@ -1,7 +1,7 @@
 import { installEngineGlobalsForTests, installPackForTests } from '@moba2d/core/testing/setup';
 import { buildTestApi, setActiveLanes } from '@moba2d/core/testing';
 import { setPackApi } from './packApi';
-import { data, BUNDLED_PACK_ID } from './pack';
+import { data } from './pack';
 import { assetManifest } from './generated/assetManifest';
 
 /**
@@ -15,7 +15,7 @@ import { assetManifest } from './generated/assetManifest';
  * core's `tests/setup.ts`, which carries the same rule for the same
  * measured reason.
  *
- * `BUNDLED_PACK_ID` rather than the literal `'lol'`: this pack states its
+ * `data.manifest.id` rather than the literal `'lol'`: this pack states its
  * own id once, in its own data, and its test setup reads it from there.
  */
 /**
@@ -32,7 +32,7 @@ import { assetManifest } from './generated/assetManifest';
 setPackApi(buildTestApi());
 
 installEngineGlobalsForTests();
-await installPackForTests({ id: BUNDLED_PACK_ID, assetManifest, data });
+await installPackForTests({ id: data.manifest.id, assetManifest, data });
 
 /**
  * Installing this pack's own map as the active match's lane set.

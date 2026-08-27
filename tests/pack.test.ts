@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import riotCode, { data, BUNDLED_PACK_ID } from '../pack';
+import riotCode, { data } from '../pack';
 import { buildTestApi, PackRegistry } from '@moba2d/core/testing';
 import { spellModules as riotSpellModules } from '../generated/spellModules';
 import type { ContentPack } from '@moba2d/core/content/types';
@@ -111,8 +111,11 @@ describe('the riot pack', () => {
     expect(() => new PackRegistry().install(pack)).toThrow(/BasicAttack/);
   });
 
-  it('is the pack `BUNDLED_PACK_ID` names — the composed, installable shape lives in tests/content/install.test.ts', () => {
-    expect(data.manifest.id).toBe(BUNDLED_PACK_ID);
-    expect(BUNDLED_PACK_ID).toBe('lol');
+  it('is the pack `manifest.id` names — the composed, installable shape lives in tests/content/install.test.ts', () => {
+    // The one place this pack states its own id. Core's barrel
+    // (`scripts/generate-installed-packs.mjs`) reads it from here too, so a
+    // rename here renames the pack everywhere rather than half of it.
+    expect(data.manifest.id).toBe('lol');
+    expect(data.manifest.assets).toBe('lol');
   });
 });

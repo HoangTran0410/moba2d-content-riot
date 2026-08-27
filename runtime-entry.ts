@@ -7,6 +7,5 @@
  * its own: everything here already existed, and keeping it a pure re-export
  * is what stops the two paths from drifting into two different packs.
  */
-export { default } from './pack';
-export { data, BUNDLED_PACK_ID as packId } from './pack';
+export { default, data } from './pack';
 export { assetManifest } from './generated/assetManifest';

@@ -156,9 +156,9 @@ const buildId = createHash('sha256').update(files.join('\n')).digest('hex').slic
  * line at the bottom, and the second drifted the instant the pack was renamed
  * from `riot` to `lol`: the manifest said `lol`, the build log said
  * `riot@1.0.0`, and nothing failed. `data.ts` states it too, as
- * `BUNDLED_PACK_ID`, and core refuses an install where the two disagree —
- * that check is what makes *those* two copies survivable. A third copy with
- * no check behind it was not.
+ * `manifest.id`, and core refuses an install where the two disagree — that
+ * check is what makes *those* two copies survivable. A third copy with no
+ * check behind it was not.
  */
 const packId = 'lol';
 
