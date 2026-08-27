@@ -267,7 +267,16 @@ describe("the pack's tests speak only published core surfaces", () => {
     // core infers it rather than each `takeDamage` call passing it. It reaches
     // core through the same three allowed subpaths, so again the population
     // moves and the offender count does not.
-    expect(files.length).toBe(91);
+    //
+    // 92, not 91: `tests/abilityScaling.test.ts`, which proves an item bought
+    // in this pack's shop makes this pack's abilities hit harder — the other
+    // end of `items.test.ts`'s table read. Same three allowed subpaths, so the
+    // population moves and the offender count does not.
+    //
+    // 93, not 92: `tests/roleProfiles.test.ts`, which holds this pack's role
+    // table to the durability spread it was tuned to. It reads `../data` and
+    // core not at all, so it moves the population and nothing else.
+    expect(files.length).toBe(93);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

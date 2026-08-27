@@ -51,6 +51,94 @@ export const ATTACK = {
   TANK: { damage: 15, attacksPerSecond: 0.95, range: 125 },
 } as const;
 
+/** Every role in this pack's taxonomy, in the order a picker should show them. */
+export type Role = keyof typeof ATTACK;
+
+/**
+ * The other half of a role: how much punishment it takes.
+ *
+ * The twin of `ATTACK`, and it did not exist for most of this project's life —
+ * so every champion above, from the tank to the marksman, was **100 health
+ * with no resistances**, which is less health than a minion's 140. A bruiser
+ * and a marksman were the same body, and the only thing that made a champion
+ * feel different in a fight was its kit.
+ *
+ * That was survivable while nothing could be bought. It stopped being when the
+ * shop grew: a full attack build here reaches about **298 damage a second**
+ * against a pool core's own comment says was sized for roughly 15, and the
+ * best tank build in this shop died to one marksman in 2.5 seconds.
+ *
+ * ## Why the resistances carry this and the health pool barely moves
+ *
+ * Health is one number and armour is a multiplier over it, and they are not
+ * interchangeable for the 39 abilities in this pack that restore or shield a
+ * **flat amount**. A 40-point shield behind 100 armour is worth 80 effective
+ * points — the same multiplier the pool itself gets, so every one of those 39
+ * abilities keeps its worth exactly. Raising the pool to 260 instead would
+ * leave that shield worth 40 against a body two and a half times bigger, and
+ * nothing in core could compensate; the fix would be 39 edits.
+ *
+ * Resistances also cannot run away. `100 / (100 + r)` is asymptotic, so no
+ * amount of armour is ever immunity — 300 armour is four times effective
+ * health and 600 is seven, never infinite. A health pool is linear and has no
+ * such brake.
+ *
+ * ## The numbers
+ *
+ * Tuned so a full tank build survives a full marksman build for about four to
+ * five seconds rather than two and a half — long enough to open a fight, eat a
+ * rotation and get out, while two attackers still bring it down in about two.
+ * `tests/roleProfiles.test.ts` holds that target.
+ */
+export const DEFENCE = {
+  MARKSMAN: { health: 125, healthRegen: 0.06, armor: 15, magicResist: 15 },
+  MAGE: { health: 135, healthRegen: 0.06, armor: 15, magicResist: 22 },
+  SUPPORT: { health: 150, healthRegen: 0.07, armor: 28, magicResist: 30 },
+  ASSASSIN: { health: 145, healthRegen: 0.06, armor: 22, magicResist: 18 },
+  BRUISER: { health: 190, healthRegen: 0.08, armor: 40, magicResist: 28 },
+  TANK: { health: 220, healthRegen: 0.09, armor: 55, magicResist: 45 },
+} as const;
+
+/** What a player sees when picking a role for a hand-built kit. */
+export const ROLE_NAME: Record<Role, string> = {
+  MARKSMAN: 'Xạ Thủ',
+  MAGE: 'Pháp Sư',
+  SUPPORT: 'Hỗ Trợ',
+  ASSASSIN: 'Sát Thủ',
+  BRUISER: 'Đấu Sĩ',
+  TANK: 'Đỡ Đòn',
+};
+
+/**
+ * Which role a roster row picked, read back off the `ATTACK` numbers it copied.
+ *
+ * Derived rather than declared as a `role:` field on all 59 rows, and that is
+ * the point rather than a shortcut: a row already names its role by taking one
+ * of exactly six profiles, so reading the second half back from the same
+ * choice makes an attack profile and a durability profile **impossible to
+ * disagree**. A row that said `attack: ATTACK.TANK, defence: DEFENCE.MAGE`
+ * would type-check and ship.
+ *
+ * Matched on `damage`/`attacksPerSecond`/`range` rather than on object
+ * identity, because a third of the roster spreads its role and overrides one
+ * field — `{ ...ATTACK.MAGE, boltUnitsPerSecond: 875 }`, the live wiki's own
+ * missile speeds. Identity missed every one of those and left them bodiless;
+ * `roleProfiles.test.ts` caught it on the first run. Those three fields are
+ * what a role *is*; the bolt speed is a per-champion flourish on top.
+ */
+const roleShapes = (Object.keys(ATTACK) as Role[]).map(role => ({ role, shape: ATTACK[role] }));
+
+export const roleOfAttack = (attack: unknown): Role | undefined => {
+  const profile = attack as { damage?: number; attacksPerSecond?: number; range?: number };
+  if (!profile) return undefined;
+  return roleShapes.find(
+    ({ shape }) =>
+      shape.damage === profile.damage &&
+      shape.attacksPerSecond === profile.attacksPerSecond &&
+      shape.range === profile.range
+  )?.role;
+};
+
 /**
  * The roster — every champion this pack ships, as data. Moved verbatim out
  * of `src/game/config/spellCatalog.ts`'s `CHAMPION_KITS` (batch 4 task 7):
@@ -561,12 +649,16 @@ const championEntries = (): ChampionEntry[] => {
     // naming convention again.
     const playable =
       Boolean(kit.image?.startsWith('champ_')) && kit.spells.length === 4 && Boolean(kit.attack);
+    // Derived from the very object `attack` points at, so the two halves of a
+    // role cannot drift apart on a row — see `ROLE_OF_ATTACK`.
+    const role = kit.attack ? roleOfAttack(kit.attack) : undefined;
     out.push({
       id: kit.name,
       name: kit.name,
       image: kit.image,
       playable,
       attack: kit.attack,
+      ...(role ? { defence: DEFENCE[role] } : {}),
       spells: [...kit.spells],
       recall: 'Recall',
       summonerShelf: kit.summonerShelf,
@@ -574,6 +666,28 @@ const championEntries = (): ChampionEntry[] => {
   }
   return out;
 };
+
+/**
+ * This pack's role taxonomy, published for the loadout screen.
+ *
+ * A player who assembles a kit by hand — Q from one champion, R from another —
+ * has no champion to inherit a body from, and core cannot invent one: it does
+ * not know what a "tank" is and deliberately never will, because a taxonomy is
+ * the roster's vocabulary and not the engine's (see `ATTACK`'s own note on why
+ * that table moved out of core). So the pack hands the picker its six roles as
+ * data, exactly the way it hands over its champions and its items, and core
+ * stores nothing but whichever id came back.
+ *
+ * Order matters and is the order above: front line first is not how a picker
+ * should read, so it runs marksman to tank, squishy to solid.
+ */
+const archetypeEntries = () =>
+  (Object.keys(ATTACK) as Role[]).map(role => ({
+    id: role.toLowerCase(),
+    name: ROLE_NAME[role],
+    attack: ATTACK[role],
+    defence: DEFENCE[role],
+  }));
 
 /**
  * Every spell's display fields, as plain data — this pack's own generated
@@ -694,9 +808,9 @@ const itemEntries = (): Record<string, ItemDef> => ({
     id: 'null_magic_mantle',
     name: 'Áo Vải',
     icon: 'item_null_magic_mantle',
-    cost: 350,
-    description: 'Tăng 18 kháng phép, giảm khoảng 15% sát thương phép nhận vào.',
-    stats: { magicResist: 18 },
+    cost: 400,
+    description: 'Tăng 22 kháng phép, giảm khoảng 18% sát thương phép nhận vào.',
+    stats: { magicResist: 22 },
   },
   ruby_crystal: {
     id: 'ruby_crystal',
@@ -793,11 +907,11 @@ const itemEntries = (): Record<string, ItemDef> => ({
     id: 'quicksilver_sash',
     name: 'Khăn Giải Thuật',
     icon: 'item_quicksilver_sash',
-    cost: 1100,
+    cost: 1200,
     buildsFrom: ['null_magic_mantle', 'long_sword'],
     description:
-      'Tăng 25 kháng phép và 6 sát thương công. Kích hoạt: gỡ bỏ mọi hiệu ứng khống chế đang chịu.',
-    stats: { magicResist: 25, attackDamage: 6 },
+      'Tăng 40 kháng phép và 6 sát thương công. Kích hoạt: gỡ bỏ mọi hiệu ứng khống chế đang chịu.',
+    stats: { magicResist: 40, attackDamage: 6 },
     active: 'Item_Quicksilver',
   },
   blade_of_the_ruined_king: {
@@ -816,11 +930,12 @@ const itemEntries = (): Record<string, ItemDef> => ({
     id: 'zhonyas_hourglass',
     name: 'Đồng Hồ Cát Zhonya',
     icon: 'item_zhonyas_hourglass',
-    cost: 1400,
+    cost: 1500,
     buildsFrom: ['cloth_armor'],
     description:
-      'Tăng 30 giáp. Kích hoạt: đóng băng bản thân 2.5 giây, không thể bị nhắm và không nhận sát thương.',
-    stats: { armor: 30 },
+      'Tăng 30 giáp và 45% sát thương chiêu thức. Kích hoạt: đóng băng bản thân 2.5 giây, ' +
+      'không thể bị nhắm và không nhận sát thương.',
+    stats: { armor: 30, abilityPower: 0.45 },
     active: 'Item_Zhonyas',
   },
   youmuus_ghostblade: {
@@ -855,12 +970,12 @@ const itemEntries = (): Record<string, ItemDef> => ({
     id: 'wits_end',
     name: 'Đao Tím',
     icon: 'item_wits_end',
-    cost: 1300,
+    cost: 1450,
     buildsFrom: ['recurve_bow', 'null_magic_mantle'],
     description:
-      'Tăng 0.3 đòn đánh mỗi giây và 20 kháng phép. Nội tại: đòn đánh gây thêm 4 sát thương phép ' +
-      'và tăng tốc chạy trong chốc lát.',
-    stats: { attackSpeed: 0.3, magicResist: 20 },
+      'Tăng 0.3 đòn đánh mỗi giây, 32 kháng phép và 25% sát thương chiêu thức. ' +
+      'Nội tại: đòn đánh gây thêm 4 sát thương phép và tăng tốc chạy trong chốc lát.',
+    stats: { attackSpeed: 0.3, magicResist: 32, abilityPower: 0.25 },
     passive: 'Item_WitsEnd',
   },
   kraken_slayer: {
@@ -879,10 +994,12 @@ const itemEntries = (): Record<string, ItemDef> => ({
     id: 'nashors_tooth',
     name: 'Nanh Nashor',
     icon: 'item_nashors_tooth',
-    cost: 1300,
+    cost: 1450,
     buildsFrom: ['recurve_bow'],
-    description: 'Tăng 0.4 đòn đánh mỗi giây. Nội tại: đòn đánh gây thêm 7 sát thương phép.',
-    stats: { attackSpeed: 0.4 },
+    description:
+      'Tăng 0.4 đòn đánh mỗi giây và 40% sát thương chiêu thức. ' +
+      'Nội tại: đòn đánh gây thêm 7 sát thương phép.',
+    stats: { attackSpeed: 0.4, abilityPower: 0.4 },
     passive: 'Item_Nashor',
   },
   trinity_force: {
@@ -925,12 +1042,12 @@ const itemEntries = (): Record<string, ItemDef> => ({
     id: 'lich_bane',
     name: 'Kiếm Tai Ương',
     icon: 'item_lich_bane',
-    cost: 1400,
+    cost: 1500,
     buildsFrom: ['sheen', 'boots'],
     description:
-      'Tăng 0.4 tốc chạy, 20 năng lượng và 0.15 đòn đánh mỗi giây. Nội tại: sau khi dùng chiêu, ' +
+      'Tăng 0.4 tốc chạy, 20 năng lượng và 50% sát thương chiêu thức. Nội tại: sau khi dùng chiêu, ' +
       'đòn đánh kế tiếp gây thêm 18 sát thương phép.',
-    stats: { speed: 0.4, maxMana: 20, attackSpeed: 0.15 },
+    stats: { speed: 0.4, maxMana: 20, abilityPower: 0.5 },
     passive: 'Item_LichBane',
   },
   ravenous_hydra: {
@@ -1020,36 +1137,50 @@ const itemEntries = (): Record<string, ItemDef> => ({
     id: 'locket_of_the_iron_solari',
     name: 'Vòng Sắt Mặt Trời',
     icon: 'item_locket_of_the_iron_solari',
-    cost: 1200,
+    cost: 1300,
     buildsFrom: ['cloth_armor', 'null_magic_mantle'],
     description:
       'Tăng 25 giáp, 25 kháng phép và 40 máu tối đa. Kích hoạt: tạo khiên 30 cho bản thân và ' +
       'các đồng minh xung quanh trong 2.5 giây.',
-    stats: { armor: 25, magicResist: 25, maxHealth: 40 },
+    stats: { armor: 25, magicResist: 40, maxHealth: 40 },
     active: 'Item_Locket',
   },
   shurelyas_battlesong: {
     id: 'shurelyas_battlesong',
     name: 'Khúc Ca Shurelya',
     icon: 'item_shurelyas_battlesong',
-    cost: 1250,
+    cost: 1400,
     buildsFrom: ['boots', 'ruby_crystal'],
     description:
-      'Tăng 0.45 tốc chạy, 40 máu tối đa và 30 năng lượng. Kích hoạt: tăng 35% tốc chạy cho ' +
-      'bản thân và các đồng minh xung quanh trong 3 giây.',
-    stats: { speed: 0.45, maxHealth: 40, maxMana: 30 },
+      'Tăng 0.45 tốc chạy, 40 máu tối đa, 30 năng lượng, 20% sát thương chiêu thức và giảm 15% ' +
+      'thời gian hồi chiêu. Kích hoạt: tăng 35% tốc chạy cho bản thân và các đồng minh xung ' +
+      'quanh trong 3 giây.',
+    stats: {
+      speed: 0.45,
+      maxHealth: 40,
+      maxMana: 30,
+      abilityPower: 0.2,
+      cooldownReduction: 0.15,
+    },
     active: 'Item_Shurelya',
   },
   everfrost: {
     id: 'everfrost',
     name: 'Vĩnh Sương',
     icon: 'item_everfrost',
-    cost: 1350,
+    cost: 1500,
     buildsFrom: ['ruby_crystal', 'null_magic_mantle'],
     description:
-      'Tăng 45 máu tối đa, 22 kháng phép và 40 năng lượng. Kích hoạt: bắn ra một luồng băng ' +
-      'gây 30 sát thương phép và trói 1.2 giây mọi kẻ địch trúng đòn.',
-    stats: { maxHealth: 45, magicResist: 22, maxMana: 40 },
+      'Tăng 45 máu tối đa, 35 kháng phép, 40 năng lượng, 40% sát thương chiêu thức và giảm 10% ' +
+      'thời gian hồi chiêu. Kích hoạt: bắn ra một luồng băng gây 30 sát thương phép và trói ' +
+      '1.2 giây mọi kẻ địch trúng đòn.',
+    stats: {
+      maxHealth: 45,
+      magicResist: 35,
+      maxMana: 40,
+      abilityPower: 0.4,
+      cooldownReduction: 0.1,
+    },
     active: 'Item_Everfrost',
   },
 });
@@ -1304,17 +1435,33 @@ export const data: ContentPackData = {
    * older core never calls the hook, so the camps go back to paying nothing
    * but gold — the buff row just never appears, and nothing says why.
    *
+   * `>=1.7.0` was for the two item stats that make abilities scale with a
+   * build: `abilityPower` and `cooldownReduction`. Six items below grant them.
+   * This one is the *loud* failure rather than the silent kind — core's
+   * `ITEM_STAT_KEYS` is an allow-list and `validate.ts` refuses a pack naming
+   * a key that is not on it, so an older core rejects this pack outright
+   * instead of shipping a shop whose mage items do nothing. The floor turns
+   * that rejection into a sentence a player can read.
+   *
+   * `>=1.8.0` is for `ChampionEntry.defence` and `ContentPackData.archetypes` —
+   * the durability half of a role, and the taxonomy a hand-built kit picks from.
+   * `defence` is the silent kind again: an older core drops the field and every
+   * champion below is back to 100 health with no resistances, which is the exact
+   * state this pack raised its floor to escape. `archetypes` is the loud kind:
+   * an older core's `validate.ts` does not know the key and the pack is refused.
+   *
    * `satisfiesCoreRange` parses `*` and `>=X.Y.Z` and nothing else, which is
    * also why this is no longer the unparseable `'^1'` it used to be.
    */
   manifest: {
     id: 'lol',
     version: '1.0.0',
-    coreRange: '>=1.6.0',
+    coreRange: '>=1.8.0',
     assets: 'lol',
   },
   spellDisplay: displayData(),
   champions: championEntries(),
+  archetypes: archetypeEntries(),
   items: itemEntries(),
   monsters: monsterEntries(),
   maps: [summonersRift],

@@ -75,7 +75,7 @@ const SPEC: Record<
 > = {
   long_sword: { name: 'Kiếm Dài', cost: 350, stats: { attackDamage: 6 } },
   cloth_armor: { name: 'Giáp Lụa', cost: 300, stats: { armor: 18 } },
-  null_magic_mantle: { name: 'Áo Vải', cost: 350, stats: { magicResist: 18 } },
+  null_magic_mantle: { name: 'Áo Vải', cost: 400, stats: { magicResist: 22 } },
   ruby_crystal: { name: 'Hồng Ngọc', cost: 400, stats: { maxHealth: 25 } },
   boots: { name: 'Giày', cost: 300, stats: { speed: 0.35 } },
   recurve_bow: { name: 'Cung Gỗ', cost: 500, stats: { attackSpeed: 0.25 } },
@@ -100,8 +100,8 @@ const SPEC: Record<
   },
   quicksilver_sash: {
     name: 'Khăn Giải Thuật',
-    cost: 1100,
-    stats: { magicResist: 25, attackDamage: 6 },
+    cost: 1200,
+    stats: { magicResist: 40, attackDamage: 6 },
     active: 'Item_Quicksilver',
     buildsFrom: ['null_magic_mantle', 'long_sword'],
   },
@@ -123,8 +123,8 @@ const SPEC: Record<
   },
   wits_end: {
     name: 'Đao Tím',
-    cost: 1300,
-    stats: { attackSpeed: 0.3, magicResist: 20 },
+    cost: 1450,
+    stats: { attackSpeed: 0.3, magicResist: 32, abilityPower: 0.25 },
     passive: 'Item_WitsEnd',
     buildsFrom: ['recurve_bow', 'null_magic_mantle'],
   },
@@ -137,8 +137,8 @@ const SPEC: Record<
   },
   nashors_tooth: {
     name: 'Nanh Nashor',
-    cost: 1300,
-    stats: { attackSpeed: 0.4 },
+    cost: 1450,
+    stats: { attackSpeed: 0.4, abilityPower: 0.4 },
     passive: 'Item_Nashor',
     buildsFrom: ['recurve_bow'],
   },
@@ -165,8 +165,8 @@ const SPEC: Record<
   },
   lich_bane: {
     name: 'Kiếm Tai Ương',
-    cost: 1400,
-    stats: { speed: 0.4, maxMana: 20, attackSpeed: 0.15 },
+    cost: 1500,
+    stats: { speed: 0.4, maxMana: 20, abilityPower: 0.5 },
     passive: 'Item_LichBane',
     buildsFrom: ['sheen', 'boots'],
   },
@@ -200,8 +200,8 @@ const SPEC: Record<
   },
   zhonyas_hourglass: {
     name: 'Đồng Hồ Cát Zhonya',
-    cost: 1400,
-    stats: { armor: 30 },
+    cost: 1500,
+    stats: { armor: 30, abilityPower: 0.45 },
     active: 'Item_Zhonyas',
     buildsFrom: ['cloth_armor'],
   },
@@ -228,22 +228,34 @@ const SPEC: Record<
   },
   locket_of_the_iron_solari: {
     name: 'Vòng Sắt Mặt Trời',
-    cost: 1200,
-    stats: { armor: 25, magicResist: 25, maxHealth: 40 },
+    cost: 1300,
+    stats: { armor: 25, magicResist: 40, maxHealth: 40 },
     active: 'Item_Locket',
     buildsFrom: ['cloth_armor', 'null_magic_mantle'],
   },
   shurelyas_battlesong: {
     name: 'Khúc Ca Shurelya',
-    cost: 1250,
-    stats: { speed: 0.45, maxHealth: 40, maxMana: 30 },
+    cost: 1400,
+    stats: {
+      speed: 0.45,
+      maxHealth: 40,
+      maxMana: 30,
+      abilityPower: 0.2,
+      cooldownReduction: 0.15,
+    },
     active: 'Item_Shurelya',
     buildsFrom: ['boots', 'ruby_crystal'],
   },
   everfrost: {
     name: 'Vĩnh Sương',
-    cost: 1350,
-    stats: { maxHealth: 45, magicResist: 22, maxMana: 40 },
+    cost: 1500,
+    stats: {
+      maxHealth: 45,
+      magicResist: 35,
+      maxMana: 40,
+      abilityPower: 0.4,
+      cooldownReduction: 0.1,
+    },
     active: 'Item_Everfrost',
     buildsFrom: ['ruby_crystal', 'null_magic_mantle'],
   },
@@ -330,7 +342,55 @@ describe('the item set', () => {
     // pack declaring a shop against an older core installs cleanly and has
     // every item silently ignored. `satisfiesCoreRange` parses `*` and
     // `>=X.Y.Z` and nothing else.
-    expect(data.manifest.coreRange).toBe('>=1.6.0');
+    //
+    // 1.7 rather than 1.6 since six items started granting `abilityPower` or
+    // `cooldownReduction`. That one is not the silent failure above: item
+    // stats are an allow-list in core, so an older core refuses this pack
+    // outright — see `data.ts`'s own note on the floor.
+    expect(data.manifest.coreRange).toBe('>=1.8.0');
+  });
+
+  /**
+   * The reason the two stats were added to core at all, held to a number.
+   *
+   * Before them, a full attack build multiplied a champion's damage per swing
+   * by about 5.7 and its rate by about 1.5, while every one of this pack's
+   * abilities dealt a flat number that no item could move — a multiplier of
+   * exactly 1.00. Spamming a kit lost to holding right-click, which is what
+   * was reported.
+   *
+   * Core does the scaling (`Stats.abilityPower`, a fraction applied in
+   * `takeDamage`); the *magnitude* is this table's decision and nowhere else's,
+   * so it is asserted here. The band is deliberately wide — it is a design
+   * intent, not a tuning lock — but a floor of 2.0 is what stops the whole
+   * point being edited away one item at a time, and a ceiling stops an ability
+   * build quietly out-scaling the attack build it was meant to catch up with.
+   */
+  it('sells enough ability power for a full build to roughly triple a kit', () => {
+    const powers = Object.values(items)
+      .map(def => def.stats?.abilityPower ?? 0)
+      .filter(amount => amount > 0)
+      .sort((a, b) => b - a);
+
+    const bestSix = powers.slice(0, 6).reduce((sum, amount) => sum + amount, 0);
+
+    expect(powers.length, 'no item grants ability power at all').toBeGreaterThanOrEqual(6);
+    expect(
+      bestSix,
+      `the six best ability items grant ${bestSix.toFixed(2)}, a ${(1 + bestSix).toFixed(2)}x kit`
+    ).toBeGreaterThanOrEqual(2);
+    expect(bestSix).toBeLessThanOrEqual(3);
+  });
+
+  it('sells cooldown reduction, and never enough of it to reach the cap', () => {
+    // `MAX_COOLDOWN_REDUCTION` is 0.6 in core and a shop that can reach it is
+    // a shop that sells a key which can be held down. Two sources, well short.
+    const reductions = Object.values(items)
+      .map(def => def.stats?.cooldownReduction ?? 0)
+      .filter(amount => amount > 0);
+
+    expect(reductions.length).toBeGreaterThanOrEqual(1);
+    expect(reductions.reduce((sum, amount) => sum + amount, 0)).toBeLessThan(0.6);
   });
 
   it("survives core's own validation, stat allow-list included", () => {
