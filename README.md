@@ -1,6 +1,6 @@
 # @moba2d/content-lol
 
-The League of Legends content pack for [`@moba2d/core`](https://github.com/HoangTran0410/moba2d-core):
+The League of Legends content pack for [`@moba2d/core`](https://github.com/moba2d-game/core):
 63 playable champions' worth of spells, monsters and the Summoner's Rift map,
 built entirely against core's public `ContentApi`. Until content-pack-and-
 repo-split batch 6 task 10, this pack lived inside the core monorepo, at
@@ -35,7 +35,7 @@ git reference:
 
 ```json
 "devDependencies": {
-  "@moba2d/core": "github:HoangTran0410/moba2d-core#main"
+  "@moba2d/core": "github:moba2d-game/core#main"
 }
 ```
 

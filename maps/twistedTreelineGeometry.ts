@@ -1,55 +1,9 @@
 import type { MapGeometry } from "@moba2d/core/content/ContentPack";
 
 /**
- * Twisted Treeline's heavy half — traced from a top-down render with core's
- * `tools/map-tracer` (color-classified walkable mask, seed-connected
- * components, mirror-symmetrized, boundary-traced, Douglas-Peucker
- * simplified), then hand-finished where the art and the game disagree:
- *
- * - **The bases are walled, the way the real map's were.** Each nexus dais
- *   sits in a courtyard behind the crenellated arc, with exactly two gates —
- *   north onto the top lane, south onto the bot lane — and the nexus turret
- *   behind the dais. The courtyard floor is painted in the same brown family
- *   as the jungle rocks, so it is classified by its own seeded component
- *   (the blue floor separates it from every rock) and opened by a carved
- *   disc chain where the art's interior detailing broke it up.
- * - **Vilemaw's lair is the alcove above the top lane's centre** — carved
- *   open with a single gate down to the lane, exactly where the source map
- *   kept it. The `baron` role fills it until this pack ships a spider.
- * - Everything is mirror-symmetric across x = 3150: the mask was
- *   symmetrized before tracing (walls win ties) and the right half of every
- *   slot and lane below is computed as `6300 - x` of the left half.
- *
- * ## Scale: crop-to-fit at 6300, y stretched 1.44x
- *
- * The source render frames the lens-shaped playfield in decorative art — a
- * portrait above, filigree below — and the walkable mask's bounding box is
- * only x:[119,633], y:[198,556] of the 752px image. Scaled uniformly that
- * left the playfield ~33% of the square world, which played as "the outer
- * wall is most of the map." The transform here crops to that box with a 3%
- * out-of-bounds ring per side and scales each axis independently
- * (Fx 11.52, Fy 16.54 — the playfield is ~2:1 wide
- * and the engine's world is square, so filling it means a 1.44x vertical
- * stretch; walls are abstract shapes and nothing in the engine depends on
- * the art's angles, so the stretch costs nothing but art-proportion
- * purism). Playfield now spans ~94% of each axis. The traced frame polygon
- * extends past every map edge after the transform, so out-of-bounds stays
- * sealed with no separate boundary band. The first cut's 4200 uniform
- * scale also played cramped — corridors two bodies wide — so the working
- * scale grew 1.5x at the same time (an 8400 cut in between played oversized); every spatial number below derives from
- * the one transform in the generator, so a retune is a regeneration, not
- * an edit.
- *
- * Walkable pockets enclosed by wall (the courtyards, the dais, Vilemaw's
- * pit, the lens itself) are keyhole-bridged into their outer boundaries by
- * the tracer (`bridgeHoles`), because core blocks a point inside *any*
- * wall polygon and a hole kept as its own loop would change nothing.
- *
- * Six camps: Vilemaw's pit (`baron`), a `wolves` pack at the jungle's
- * centre, a `blue` sentinel either side of it, and a `red` brambleback
- * pair below — all roles this pack's own monsters already fill. Bushes
- * flank each lane outside the base gates, the mid jungle crossings, and
- * Vilemaw's gate.
+ * Twisted Treeline's heavy half — the walls, bushes, slots and both lanes.
+ * The map is drawn by hand in the editor (`moba2d-game/map-editor`) and
+ * exported here, so a retune is a re-export, not an edit in this file.
  */
 export const twistedTreelineGeometry: MapGeometry = {
   terrain: {

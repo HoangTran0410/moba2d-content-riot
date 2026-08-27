@@ -55,7 +55,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const MANIFEST = join(root, 'docs/items-source-manifest.json');
-const UA = 'moba2d-content-lol item icon importer (+https://github.com/HoangTran0410/moba2d-content-riot)';
+const UA = 'moba2d-content-lol item icon importer (+https://github.com/moba2d-packs/lol)';
 
 /**
  * The Data Dragon patch these icons were taken from. Pinned, not "latest": a
