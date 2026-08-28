@@ -165,6 +165,30 @@ Vitest's failure printer walks the test game and trips its throwing `player`
 getter while serialising an ordinary assertion diff. The real failure is the
 assertion above it — read the whole output before touching the fixture.
 
+**Never put an item's spell id in a champion's `spells: [...]`.** That would be
+one spell wearing two prices — an ability a champion casts for free and an item
+the shop charges for.
+
+**An item's spell must stay out of `spellDisplay`.** That map is what a loadout
+screen offers as a *choosable ability*, so an item's active left in it gets
+handed to a player who never bought the item. Skip anything named `Item_*` by
+prefix; do not replace the check with a list — the next item is the one that
+gets left off it.
+
+**The `coreRange` floor lives in `data.ts`** (`manifest.coreRange`, today
+`'>=1.8.0'`), and `scripts/write-manifest.mjs` derives the published one from
+the declared `@moba2d/core` dependency — the two must move together. `items` did
+not exist in `ContentPackData` before core 1.3, `buildsFrom` before 1.4, and
+`Buff.hudVisible`/`Buff.sourceSpell` before 1.5. An older core does not fail on
+any of them; it *ignores* what it does not know, and installs a shop whose
+passives never come off when sold.
+
+**Ship art as files, not as data URIs.** `vite.config.ts` sets
+`assetsInlineLimit: 0` on purpose — `pack.js` is downloaded before the menu can
+draw, and inlined art puts every champion's portrait in it to play a match that
+needs four. Its header explains the `build.lib` interaction that defeated an
+earlier attempt.
+
 **`tests/seam-debt.mjs` pins lines by position *and* content.** Inserting
 lines above a pinned one in a test file shifts its number and the scan
 reports the entry stale. Renumbering the pin is the expected maintenance
@@ -175,3 +199,7 @@ rule instead.
 portraits and ability icons come through the wiki importer, item icons
 through `items:import` — each with a provenance ledger `verify` re-hashes
 offline. Commit the art and its ledger together, always.
+
+**Install the git hooks once per clone:** `npm run hooks:install`. The
+pre-push hook runs `npm run verify`; `git push --no-verify` or
+`MOBA2D_SKIP_VERIFY=1 git push` skips it once, deliberately.
