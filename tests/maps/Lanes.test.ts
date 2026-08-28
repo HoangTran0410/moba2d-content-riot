@@ -1,11 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { TeamId, LANES, Lane, getLaneWaypoints, type LaneWaypoint } from '@moba2d/core/testing';
-import mapData from '../../maps/summoner_map.json';
-import {
-  minionMusterPoint,
-  summonersRiftGeometry,
-  SR_LANE_WAYPOINTS,
-} from '../../maps/summonersRiftGeometry';
+import { summonersRiftGeometry } from '../../maps/summonersRiftGeometry';
 
 /**
  * Summoner's Rift's own lane data — batch 4 task 6 moved it, and this file,
@@ -25,7 +20,27 @@ import {
  */
 
 type Point = [number, number];
-const walls = mapData.wall as Point[][];
+// Read off the geometry that actually ships, not a second copy of the map.
+// The map is one exported file now (`maps/summonersRift_map.json`), so walls
+// and lanes come from the same place — which is what makes "no lane clips a
+// wall" a check on the shipped map rather than on a fixture that could drift
+// away from it while every assertion here went on passing.
+const walls: Point[][] = summonersRiftGeometry.terrain.wall.map(polygon =>
+  polygon.map(({ x, y }) => [x, y] as Point)
+);
+
+/**
+ * The lane paths, keyed by lane, off the map's own declaration.
+ *
+ * `SR_LANE_WAYPOINTS` used to be a hand-written table in
+ * `summonersRiftGeometry.ts` that the module folded into `lanes` at load. The
+ * map is data now, so the table is gone and this reads the result — which is
+ * the stronger subject anyway: every assertion below now grades what a player
+ * is given, not a source the assembly was free to transform on the way out.
+ */
+const SR_LANE_WAYPOINTS: Record<string, { x: number; y: number }[]> = Object.fromEntries(
+  (summonersRiftGeometry.lanes ?? []).map(lane => [lane.id, lane.waypoints])
+);
 // `turret1`/`turret2` used to be read straight off the map JSON
 // (`mapData.turret1`/`.turret2`); they now come off the active map's own
 // `slots.structure` — same points, same order (blue's row first, then
@@ -245,9 +260,11 @@ const segmentTurretClearance = (
 };
 
 /**
- * The split claimed in the comment on `SR_LANE_WAYPOINTS`, written out so both
- * tests below check the same claim against the raw map data rather than
- * restating it twice.
+ * Which turrets belong to which lane, written out once so both tests below
+ * check the same claim rather than restating it twice.
+ *
+ * Stated here rather than derived from the lane paths: an expectation computed
+ * by walking the thing under test agrees with it however wrong it is.
  */
 const BLUE_LANE_TURRETS: Record<string, Point[]> = {
   [Lane.TOP]: [
@@ -567,19 +584,14 @@ describe('the muster point a wave forms up on', () => {
     }
   });
 
-  it('musters a lane whose team has fewer than two turrets', () => {
-    // `minionMusterPoint` is the pure geometry `summonersRiftGeometry.ts`
-    // bakes into `slots.minion` at build time — called directly here with a
-    // truncated turret list, no `Game`, no `MinionSpawner`, no map assembly.
-    const sparse = turret1.slice(0, 1).map(([x, y]) => ({ faction: 'blue', x, y }));
-    const point = minionMusterPoint('blue', BLUE_FOUNTAIN, sparse);
-    expect(point).not.toBeNull();
-    expect(point).toEqual({ x: sparse[0].x, y: sparse[0].y });
-  });
-
-  it('still answers when a team has no turrets at all', () => {
-    const point = minionMusterPoint('blue', BLUE_FOUNTAIN, []);
-    expect(point).not.toBeNull();
-    expect(point).toEqual(BLUE_FOUNTAIN);
-  });
+  /**
+   * Two tests stood here and are gone with the code they tested:
+   * `minionMusterPoint` computed a muster point from a turret row at assembly
+   * time, and they drove its degenerate cases — a team with one turret, a team
+   * with none. The map declares `slots.minion` outright now, so there is no
+   * computation left to be wrong in those ways, and `validate.ts` rejects a
+   * lane with no slot at install. What the map actually declares is checked
+   * above, against walls and turrets, which is the half that was always about
+   * this map rather than about the function.
+   */
 });

@@ -1,13 +1,14 @@
 import { describe, expect, it } from 'vitest';
 // Batch 4 task 6 moved Summoner's Rift's map, whole, out of `src/content/maps/`
-// and into this pack's own `maps/` directory — `summonersRift`/`NEUTRAL_SLOTS`
-// are siblings of this test file now, rather than two directories up in `src/`.
+// and into this pack's own `maps/` directory, so the map is a sibling of this
+// test file now rather than two directories up in `src/`. It became *data*
+// later still: the hand-written tables it used to be assembled from are gone
+// into `maps/summonersRift_map.json`, so what these tests grade is the map a
+// player is given rather than a program that produces one.
 import { summonersRift } from '../../maps/summonersRift';
-import { NEUTRAL_SLOTS } from '../../maps/summonersRiftGeometry';
 import { validatePack, PackRegistry } from '@moba2d/core/testing';
 import { data as riotData } from '../../pack';
 import type { MapGeometry, StructureSlot } from '@moba2d/core/content/types';
-import mapJson from '../../maps/summoner_map.json';
 
 /** `summonersRift.geometry` is a loader now — resolve it once per test that needs it. */
 const geometry = (): Promise<MapGeometry> => {
@@ -28,33 +29,39 @@ describe("the Summoner's Rift map definition", () => {
     expect(typeof summonersRift.geometry).toBe('function');
   });
 
-  it('carries every wall, bush and water polygon the JSON has', async () => {
-    expect(mapJson.wall.length).toBeGreaterThan(10);
+  /**
+   * Counts, written down, rather than a comparison against a second copy of
+   * the map.
+   *
+   * This used to read `maps/summoner_map.json` and check the assembly had not
+   * dropped anything on its way through 350 lines of mapping. There is no
+   * assembly now — the map is one exported file — so that comparison would be
+   * the data agreeing with itself. The numbers are what is worth stating: they
+   * were measured off the map at the migration, and a re-export that halves
+   * the walls or loses the water fails here instead of shipping.
+   */
+  it('carries the whole of the terrain it was drawn with', async () => {
     const { terrain } = await geometry();
-    expect(terrain.wall).toHaveLength(mapJson.wall.length);
-    expect(terrain.bush).toHaveLength(mapJson.bush.length);
-    expect(terrain.water).toHaveLength(mapJson.water.length);
+    expect(terrain.wall).toHaveLength(329);
+    expect(terrain.bush).toHaveLength(40);
+    expect(terrain.water).toHaveLength(26);
   });
 
   it('carries both turret rows as structure slots, with their teams', async () => {
-    // `turret1` and `turret2` are flat lists of [x, y] points — 11 each,
-    // measured, not assumed. `preset.ts`'s `turretsFromSlots` is the reader
-    // that turns these slots into turrets; this copies its interpretation of
-    // which row is which faction rather than inventing one.
+    // 11 each, measured. `preset.ts`'s `turretsFromSlots` is the reader that
+    // turns these slots into turrets; this states the shape it depends on —
+    // two rows, evenly split by faction, every point a real coordinate — which
+    // is what a truncated or half-factioned re-export would break.
     const { slots } = await geometry();
     const blue: StructureSlot[] = [];
     const red: StructureSlot[] = [];
     for (const slot of slots.structure) {
       (slot.faction === 'blue' ? blue : red).push(slot);
     }
-    expect(blue).toHaveLength(mapJson.turret1.length);
-    expect(red).toHaveLength(mapJson.turret2.length);
-    // Every point survives the conversion, in order and unrounded.
-    for (const [index, point] of mapJson.turret1.entries()) {
-      expect([blue[index].x, blue[index].y]).toEqual(point);
-    }
-    for (const [index, point] of mapJson.turret2.entries()) {
-      expect([red[index].x, red[index].y]).toEqual(point);
+    expect(blue).toHaveLength(11);
+    expect(red).toHaveLength(11);
+    for (const slot of [...blue, ...red]) {
+      expect(Number.isFinite(slot.x) && Number.isFinite(slot.y)).toBe(true);
     }
   });
 
@@ -67,19 +74,19 @@ describe("the Summoner's Rift map definition", () => {
   });
 
   it('declares one neutral slot per distinct camp position, and no monster identities', async () => {
-    // Task 7 split position from identity: `mapPresets.ts`'s NEUTRAL_SLOTS is
-    // now the one source of camp positions (11 of them — pre-split
-    // `MonsterPreset` had 21 entries, 14 of them sharing one of 4 distinct
-    // `campId` values (wolf1, wolf2, raptor1, raptor2), and the other 7
-    // (baron, blue1, blue2, red1, red2, gomp1, gomp2) carried no campId and
-    // so were each their own group — 7 + 4 = 11 distinct camp identities,
-    // unchanged by the split). Assert against that real source, not a number
-    // typed into this file — an earlier plan draft asserted "9" here, which
-    // does not hold up against the source.
-    expect(NEUTRAL_SLOTS).toHaveLength(11);
-
+    // Task 7 split position from identity, and the count is the evidence: 11
+    // distinct camps. Pre-split `MonsterPreset` had 21 entries, 14 of them
+    // sharing one of 4 `campId` values (wolf1, wolf2, raptor1, raptor2), and
+    // the other 7 (baron, blue1, blue2, red1, red2, gomp1, gomp2) each their
+    // own group — 7 + 4 = 11. Worth writing down: an earlier plan draft
+    // asserted 9 here, which does not survive counting the source.
+    //
+    // Asserted on the map's own `slots.neutral` rather than on a table beside
+    // it. There used to be a `NEUTRAL_SLOTS` export the geometry folded in,
+    // and this compared the two — which stopped meaning anything the moment
+    // the map became data: the two sides would have been the same array.
     const { slots } = await geometry();
-    expect(slots.neutral).toEqual(NEUTRAL_SLOTS);
+    expect(slots.neutral).toHaveLength(11);
     for (const slot of slots.neutral) {
       expect(typeof slot.role).toBe('string');
       expect(slot).not.toHaveProperty('name');

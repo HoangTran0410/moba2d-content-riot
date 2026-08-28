@@ -70,7 +70,7 @@ enforces it.
 
 `data.ts`'s `monsterEntries()` is the data half (bodies, health, offsets —
 a camp is a composition, not N copies); which pit it stands in is
-`maps/summonersRiftGeometry.ts`'s `NEUTRAL_SLOTS`, matched by `role`. A camp
+`maps/summonersRift_map.json`'s `slots.neutral`, matched by `role`. A camp
 with behaviour gets a **code half**: `monsters/<Name>.ts` exporting a
 `MonsterAbility[]` factory, wired in `code.ts`'s `monsterAbilities` keyed by
 the local monster id — `monsters/Baron.ts` is the model.

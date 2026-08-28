@@ -1189,7 +1189,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
 /**
  * The jungle, as monster identities — six of them, matching Task 7's split:
  * the epic camp, the two buff camps, wolves, gromp, raptors. Where each one
- * stands is `packs/riot/maps/summonersRiftGeometry.ts`'s `NEUTRAL_SLOTS`
+ * stands is `maps/summonersRift_map.json`'s `slots.neutral`
  * (moved there from core's own `mapPresets.ts` by batch 4 task 6), read
  * through that same module's `slots.neutral`; a `role` here and a `role`
  * there is the only thing tying a camp's identity to its place, and
