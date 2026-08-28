@@ -118,7 +118,7 @@ only ever shows up locally.
 pack is linked to a local core checkout (`npm run pack:link` from core), an
 install here silently replaces the symlink with the npm copy and every
 new-API line stops compiling with errors that look like core's fault.
-`scripts/check-core-link.mjs` (first step of `verify`, warn-only on
+`moba2d-check-core-link` (core's bin — first step of `verify`, warn-only on
 `postinstall`) is what tells you; `npm run pack:link` from core is the repair.
 
 **`generated/` is written, not authored.** Editing a file in there is undone
@@ -176,8 +176,10 @@ prefix; do not replace the check with a list — the next item is the one that
 gets left off it.
 
 **The `coreRange` floor lives in `data.ts`** (`manifest.coreRange`, today
-`'>=1.8.0'`), and `scripts/write-manifest.mjs` derives the published one from
-the declared `@moba2d/core` dependency — the two must move together. `items` did
+`'>=1.8.0'`), and only there. `moba2d-write-manifest` reads it off the built
+pack, so the published manifest cannot disagree with the bundled one; it used
+to be a second literal in this pack's own writer, and a test existed purely to
+regex that file and compare the strings. `items` did
 not exist in `ContentPackData` before core 1.3, `buildsFrom` before 1.4, and
 `Buff.hudVisible`/`Buff.sourceSpell` before 1.5. An older core does not fail on
 any of them; it *ignores* what it does not know, and installs a shop whose

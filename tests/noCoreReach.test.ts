@@ -223,8 +223,9 @@ describe("the pack's tests speak only published core surfaces", () => {
     // hangs off the entry URL so that two builds are two URLs — the fix for a
     // republished pack whose old chunk graph 404'd and turned a champion's
     // ability into a basic attack in silence. It reads this pack's own
-    // `scripts/write-manifest.mjs` and `dist/manifest.json` through
-    // `node:fs`/`node:crypto` and reaches core not at all, so the population
+    // `dist/manifest.json` through `node:fs`/`node:crypto` — the writer
+    // itself is core's `moba2d-write-manifest` now — and reaches core not at
+    // all, so the population
     // count moves and the offender count below does not.
     //
     // 81, not 79, the shop: `tests/items.test.ts` and

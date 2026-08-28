@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { buildTestApi, PackRegistry } from '@moba2d/core/testing';
 import type { ContentPack, SpellSource } from '@moba2d/core/content/types';
 import riotCode, { data } from '../pack';
@@ -527,19 +527,25 @@ describe('the build paths', () => {
 });
 
 /**
- * The floor is declared **twice** — `data.ts`'s `manifest.coreRange`, which is
- * the copy `PackRegistry` holds after this pack's code has already run, and
- * `scripts/write-manifest.mjs`'s, which is the copy a *runtime* install checks
- * before a line of it runs. Only the second one can refuse an install, so the
- * two drifting means the bundled build and the published build disagree about
- * which cores they support — and the published one wins. This has already been
- * missed once.
+ * The floor used to be declared **twice** — `data.ts`'s `manifest.coreRange`,
+ * the copy `PackRegistry` holds after this pack's code has already run, and a
+ * literal in this pack's own `scripts/write-manifest.mjs`, the copy a
+ * *runtime* install checks before a line of it runs. Only the second can
+ * refuse an install, so the two drifting meant the bundled build and the
+ * published build disagreed about which cores they support, with the published
+ * one winning. It had been missed once, and this test existed to regex that
+ * script's source and compare the strings.
+ *
+ * `moba2d-write-manifest` reads `data.manifest.coreRange` off the built pack
+ * now, so there is no second copy to police — the check that is still worth
+ * making is that the value actually survived the trip into what shipped.
  */
 describe('the core floor', () => {
-  it('is the same number in the manifest writer as in the data half', () => {
-    const script = readFileSync(new URL('../scripts/write-manifest.mjs', import.meta.url), 'utf8');
-    const declared = script.match(/^const coreRange = '([^']+)';$/m)?.[1];
-    expect(declared, 'scripts/write-manifest.mjs no longer declares one').toBeTruthy();
-    expect(declared).toBe(data.manifest.coreRange);
+  const manifestPath = new URL('../dist/manifest.json', import.meta.url);
+  const built = existsSync(manifestPath);
+
+  it.runIf(built)('reaches the published manifest unchanged from the data half', () => {
+    const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+    expect(manifest.coreRange).toBe(data.manifest.coreRange);
   });
 });

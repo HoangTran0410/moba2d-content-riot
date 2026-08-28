@@ -18,36 +18,27 @@ import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const writer = readFileSync(join(__dirname, '../scripts/write-manifest.mjs'), 'utf8');
-
 /**
  * The writer's derivation, restated so this file's oracle is its own.
  *
  * Deliberately **does not sort**: the writer hands `createHash` an
  * already-sorted list, and an oracle that sorted for it would agree with a
- * writer that had stopped sorting. The ordering guarantee is checked against
- * the writer's source instead, below.
+ * writer that had stopped sorting. The ordering guarantee is asserted on the
+ * emitted manifest instead, below.
  */
 const derive = (files: string[]): string =>
   createHash('sha256').update(files.join('\n')).digest('hex').slice(0, 12);
 
-describe('the manifest writer', () => {
-  it('emits a buildId', () => {
-    expect(writer).toContain('buildId,');
-  });
-
-  /**
-   * Hashed over the file list, not over `pack.js`. The entry is an 86-byte
-   * facade that re-exports from a hashed chunk, so two genuinely different
-   * builds can emit an identical one — while every other name in `dist`
-   * carries a content hash, which makes the list the complete statement of
-   * what the build contains.
-   */
-  it('derives it from the sorted file list', () => {
-    expect(writer).toMatch(/createHash\('sha256'\)\.update\(files\.join\('\\n'\)\)/);
-  });
-});
-
+/**
+ * The writer itself is core's — `moba2d-write-manifest`, and core's
+ * `tests/scripts/writeManifest.bin.test.ts` owns its behaviour. Three
+ * assertions here used to *grep this pack's copy* of that script for
+ * `buildId,`, for the `createHash` call and for a `.sort()` ahead of it. A
+ * copy is what they could check and a copy is what they got: the same file
+ * existed in two packs and in the scaffold, and greping one said nothing
+ * about the other two. What is left below is this pack's own stake — the
+ * artefact its build actually emitted, against an oracle written here.
+ */
 describe('the derivation', () => {
   it('is stable for the same build', () => {
     expect(derive(['a-1.js', 'b-2.js'])).toBe(derive(['a-1.js', 'b-2.js']));
@@ -66,19 +57,6 @@ describe('the derivation', () => {
     expect(derive(['a-1.js'])).toMatch(/^[0-9a-f]{12}$/);
   });
 
-  /**
-   * Order is load-bearing and the hash does not supply it: `emittedFiles`
-   * walks the directory, and a filesystem may hand back a different order on
-   * another machine. An unsorted list would give the same build a different id
-   * per machine and announce an update on every CI run.
-   *
-   * Checked against the writer's source rather than by calling `derive` twice,
-   * which would only prove this file sorts.
-   */
-  it('is fed a list the writer sorted first', () => {
-    expect(writer.indexOf('.sort();')).toBeGreaterThan(-1);
-    expect(writer.indexOf('.sort();')).toBeLessThan(writer.indexOf("createHash('sha256')"));
-  });
 });
 
 /**
@@ -102,6 +80,21 @@ describe('the emitted manifest', () => {
    * pinning whether or not its author thought of it — and a pack that wrote
    * its own query would end up with two.
    */
+  /**
+   * Order is load-bearing and the hash does not supply it: the writer walks
+   * the directory, and a filesystem may hand back a different order on another
+   * machine. An unsorted list would give the same build a different id per
+   * machine and announce an update on every CI run.
+   *
+   * Asserted on what shipped rather than on the writer's source — the source
+   * is core's now, and a sorted `files` array is the only form of this claim
+   * that survives being read from a published manifest.
+   */
+  it.runIf(built)('lists its files in the order the id was hashed over', () => {
+    const { files } = JSON.parse(readFileSync(manifestPath, 'utf8'));
+    expect([...files].sort()).toEqual(files);
+  });
+
   it.runIf(built)('leaves the entry unqueried', () => {
     const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
     expect(manifest.entry).toBe('pack.js');
