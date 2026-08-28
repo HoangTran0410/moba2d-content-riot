@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "maps:generate": "node scripts/generate-maps.mjs",
-    "maps:check": "node scripts/generate-maps.mjs --check",
+    "maps:generate": "moba2d-generate-maps",
+    "maps:check": "moba2d-generate-maps --check",
     "assets:generate": "moba2d-generate-assets",
     "assets:check": "moba2d-generate-assets --check",
     "catalog:generate": "moba2d-generate-spell-catalog --tree=lol --root=.",
