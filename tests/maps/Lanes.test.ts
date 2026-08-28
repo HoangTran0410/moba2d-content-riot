@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { TeamId, LANES, Lane, getLaneWaypoints, type LaneWaypoint } from '@moba2d/core/testing';
-import { summonersRiftGeometry } from '../../maps/summonersRiftGeometry';
+import { summonersRift } from '../../maps/summonersRift';
+import type { MapGeometry } from '@moba2d/core/content/types';
 
 /**
  * Summoner's Rift's own lane data — batch 4 task 6 moved it, and this file,
@@ -20,6 +21,17 @@ import { summonersRiftGeometry } from '../../maps/summonersRiftGeometry';
  */
 
 type Point = [number, number];
+
+// The map's own geometry, awaited once for the whole file. It is behind a
+// dynamic import so the menu never pays for polygons (`summonersRift.ts`), and
+// a top-level await is what lets every table below stay a plain constant.
+//
+// `MapGeometrySource` is a union — a plain object or a loader — because a small
+// map has nothing to be lazy about, so this narrows rather than assuming.
+const summonersRiftGeometry: MapGeometry =
+  typeof summonersRift.geometry === 'function'
+    ? await summonersRift.geometry()
+    : summonersRift.geometry;
 // Read off the geometry that actually ships, not a second copy of the map.
 // The map is one exported file now (`maps/summonersRift_map.json`), so walls
 // and lanes come from the same place — which is what makes "no lane clips a
