@@ -1249,6 +1249,9 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         damage: 12,
         attackInterval: 2000,
         aggroRange: 480,
+        // Reach 400, so core derives `ranged` on its own; the colour is all
+        // this body has to say. Purple to match the blessing it pays.
+        attackColor: [196, 132, 255],
         offset: { x: 0, y: 0 },
       },
     ],
@@ -1277,6 +1280,11 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         damage: 10,
         attackInterval: 1_800,
         aggroRange: 400,
+        // The one camp in this pack that overrides the derived style: at
+        // reach 320 core would give it a spat projectile, and a dragon that
+        // does not breathe is the whole of what was wrong with this pit.
+        attackStyle: 'breath',
+        attackColor: [255, 138, 58],
         offset: { x: 0, y: 0 },
       },
     ],
@@ -1360,6 +1368,7 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         damage: 11,
         attackInterval: 2000,
         aggroRange: 460,
+        attackColor: [152, 245, 128],
         offset: { x: 0, y: 0 },
       },
     ],
@@ -1375,6 +1384,7 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         speed: 2,
         size: 80,
         attackRange: 50,
+        attackColor: [120, 190, 255],
         // Matched to the blessing's own ninety seconds
         // (`monsters/JungleBuffs.ts`), so the camp comes back at about the
         // moment the buff runs out: holding it is a route you keep walking,
@@ -1396,6 +1406,7 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         speed: 2,
         size: 80,
         attackRange: 50,
+        attackColor: [255, 120, 90],
         /** Same ninety seconds as Blue, for the same reason. */
         reviveTime: 90_000,
         health: 300,
@@ -1453,6 +1464,7 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         speed: 2,
         size: 70,
         attackRange: 150,
+        attackColor: [150, 225, 140],
         reviveTime: 3000,
         health: 300,
         offset: { x: 0, y: 0 },
@@ -1473,6 +1485,7 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         speed: 2,
         size: 70,
         attackRange: 150,
+        attackColor: [255, 150, 150],
         reviveTime: 3000,
         health: 300,
         offset: { x: 0, y: 0 },
@@ -1483,6 +1496,7 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         speed: 2,
         size: 40,
         attackRange: 150,
+        attackColor: [255, 150, 150],
         reviveTime: 3000,
         health: 50,
         offset: { x: 91, y: -84 },
@@ -1493,6 +1507,7 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         speed: 2,
         size: 40,
         attackRange: 150,
+        attackColor: [255, 150, 150],
         reviveTime: 3000,
         health: 50,
         offset: { x: 195, y: -15 },
@@ -1503,6 +1518,7 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         speed: 2,
         size: 40,
         attackRange: 150,
+        attackColor: [255, 150, 150],
         reviveTime: 3000,
         health: 50,
         offset: { x: 106, y: 59 },

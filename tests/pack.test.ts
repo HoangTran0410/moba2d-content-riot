@@ -93,6 +93,37 @@ describe('the riot pack', () => {
     for (const champion of data.champions ?? []) expect(champion.recall).toBe('Recall');
   });
 
+  it('overrides the drawn attack style for exactly one camp — the dragon', () => {
+    /*
+     * Core derives a camp's attack style from its reach (melee under
+     * `MONSTER_MELEE_REACH`, a spat projectile past it), which is right for
+     * every body in this pack but one: at reach 320 the dragon would spit,
+     * and a dragon that does not breathe was the whole complaint.
+     *
+     * Pinned as the complete list rather than one lookup, so a body that
+     * quietly grows an override — or the dragon quietly losing its — shows up
+     * here. An older core simply ignores the field (`checkMonsterBody` does
+     * not reject unknown keys), so the failure mode without this test is a
+     * silent revert nobody sees until they walk into the pit.
+     */
+    const overrides = Object.entries(data.monsters ?? {}).flatMap(([id, monster]) =>
+      monster.members
+        .filter(body => body.attackStyle !== undefined)
+        .map(body => [id, body.attackStyle] as const)
+    );
+    expect(overrides).toEqual([['dragon', 'breath']]);
+  });
+
+  it('gives every declared attack colour three channels', () => {
+    // `fill(r, g, b, alpha)` with a two-entry array reads as a greyscale call
+    // in p5, so a short array turns a camp's art grey rather than failing.
+    const colours = Object.values(data.monsters ?? {}).flatMap(monster =>
+      monster.members.map(body => body.attackColor).filter(colour => colour !== undefined)
+    );
+    expect(colours.length).toBeGreaterThan(0);
+    for (const colour of colours) expect(colour).toHaveLength(3);
+  });
+
   it("supplies Baron's abilities", () => {
     const code = riotCode(api);
     expect(code.monsterAbilities?.baron?.length).toBeGreaterThan(0);
