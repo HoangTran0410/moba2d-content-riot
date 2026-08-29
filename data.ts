@@ -1253,6 +1253,117 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
       },
     ],
   },
+  /**
+   * Rồng nguyên tố. Rooted like Baron and, like Baron, worth a team-wide
+   * blessing — but the blessing **replaces** rather than stacks, and the
+   * respawn is read against its duration. Both numbers, and why they are a
+   * pair, are in `monsters/Dragon.ts`.
+   */
+  dragon: {
+    id: 'dragon',
+    name: 'Dragon',
+    fills: ['dragon'],
+    members: [
+      {
+        name: 'Rồng Nguyên Tố',
+        avatar: 'monster_Elemental_Dragon',
+        speed: 0,
+        size: 88,
+        attackRange: 320,
+        // A minute, not Baron's three: this game's pace, and the ceiling the
+        // pack's newer objectives all observe.
+        reviveTime: 60_000,
+        health: 700,
+        damage: 10,
+        attackInterval: 1_800,
+        aggroRange: 400,
+        offset: { x: 0, y: 0 },
+      },
+    ],
+  },
+  /**
+   * Bãi quái đá. One body in the data; the other five arrive at runtime when
+   * this one dies — see `monsters/Krugs.ts` for the split and for why its
+   * children are `ephemeral`.
+   */
+  krugs: {
+    id: 'krugs',
+    name: 'Krugs',
+    fills: ['krugs'],
+    members: [
+      {
+        name: 'Krug Cổ',
+        avatar: 'monster_Ancient_Krug',
+        speed: 1.6,
+        size: 74,
+        attackRange: 50,
+        // Three seconds, matching the wolves and raptors it stands beside.
+        // A farm camp's pace is a property of the jungle, not of this camp.
+        reviveTime: 3000,
+        health: 260,
+        damage: 11,
+        offset: { x: 0, y: 0 },
+      },
+    ],
+  },
+  /**
+   * Cua sông. The first camp in this pack that declares behaviour rather than
+   * only numbers: it runs instead of fighting, and its leash is the shape of
+   * the river.
+   */
+  scuttle: {
+    id: 'scuttle',
+    name: 'Scuttle Crab',
+    fills: ['scuttle'],
+    members: [
+      {
+        name: 'Cua Sông',
+        avatar: 'monster_Rift_Scuttle',
+        // Faster than anything else in the jungle, because running is the
+        // whole of what it does.
+        speed: 3.1,
+        size: 46,
+        attackRange: 50,
+        reviveTime: 45_000,
+        health: 180,
+        // It never swings, so this is only ever the number `Monster` would
+        // have derived from health. Stated as zero so nothing about the camp
+        // depends on reading `temperament` to know it is harmless.
+        damage: 0,
+        // Wide, because this is the distance at which it *notices* you and
+        // starts running — not a distance at which anything is attacked.
+        aggroRange: 420,
+        temperament: 'skittish',
+        roam: { kind: 'terrain', layer: 'water' },
+        offset: { x: 0, y: 0 },
+      },
+    ],
+  },
+  /**
+   * Vilemaw. Ships with no slot on either of this pack's maps: it exists so a
+   * hand-drawn Twisted Treeline can put `role: "vilemaw"` where it wants a
+   * boss. See `monsters/Vilemaw.ts` for why it does not also fill `baron`.
+   */
+  vilemaw: {
+    id: 'vilemaw',
+    name: 'Vilemaw',
+    fills: ['vilemaw'],
+    members: [
+      {
+        name: 'Vilemaw',
+        avatar: 'monster_Vilemaw',
+        speed: 0,
+        size: 100,
+        attackRange: 360,
+        reviveTime: 60_000,
+        health: 900,
+        damage: 11,
+        attackInterval: 2000,
+        aggroRange: 460,
+        offset: { x: 0, y: 0 },
+      },
+    ],
+  },
   blue: {
     id: 'blue',
     name: 'Blue',

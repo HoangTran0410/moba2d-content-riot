@@ -3,6 +3,10 @@ import type { ContentPackCode, SpellSource } from '@moba2d/core/content/ContentP
 import { setPackApi } from './packApi';
 import { spellModules } from './generated/spellModules';
 import makeBaronAbilities from './monsters/Baron';
+import makeDragonAbilities from './monsters/Dragon';
+import makeKrugAbilities from './monsters/Krugs';
+import makeScuttleAbilities from './monsters/ScuttleCrab';
+import makeVilemawAbilities from './monsters/Vilemaw';
 import {
   makeBaronBlessing,
   makeBlueSentinelAbilities,
@@ -64,6 +68,13 @@ const code = (api: ContentApi): ContentPackCode => {
       baron: [...makeBaronAbilities(api), makeBaronBlessing(api)],
       blue: makeBlueSentinelAbilities(api),
       red: makeRedBramblebackAbilities(api),
+      // Three more reward camps and one more boss. Dragon and Vilemaw pay a
+      // team-wide blessing the way Baron does; Krug's "reward" is that it
+      // splits into more of itself; the crab leaves a shrine behind.
+      dragon: makeDragonAbilities(api),
+      krugs: makeKrugAbilities(api),
+      scuttle: makeScuttleAbilities(api),
+      vilemaw: makeVilemawAbilities(api),
     },
   };
 };

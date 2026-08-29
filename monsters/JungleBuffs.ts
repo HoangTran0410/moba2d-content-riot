@@ -38,6 +38,7 @@ import type { MonsterAbility, OnHitEvent } from '@moba2d/core/content/types';
 
 /** An `AttackableUnit` instance, without a value import core forbids here. */
 type AttackableUnitInstance = InstanceType<ContentApi['units']['AttackableUnit']>;
+type MonsterInstance = InstanceType<ContentApi['units']['Monster']>;
 type ChampionInstance = InstanceType<ContentApi['units']['Champion']>;
 
 /**
@@ -127,7 +128,7 @@ const BARON_GLOW: [number, number, number] = [190, 130, 255];
  * of every fight the wearer takes for a minute and a half. The ring reads at
  * minimum zoom as "that champion has something", and the buff row says which.
  */
-function drawBlessingRing(
+export function drawBlessingRing(
   unit: AttackableUnitInstance,
   color: [number, number, number],
   spokes: number
@@ -278,7 +279,10 @@ export function makeBaronBuff(api: ContentApi) {
  * Whose blessing a kill actually is: the killer when it is a champion, its
  * owner when it is a pet, nobody otherwise.
  */
-function beneficiary(api: ContentApi, killer: AttackableUnitInstance): ChampionInstance | null {
+export function beneficiary(
+  api: ContentApi,
+  killer: AttackableUnitInstance
+): ChampionInstance | null {
   // `Pet extends Champion`, so this order matters: a clone would otherwise
   // pass the champion test and wear a ninety-second blessing for the eight
   // seconds it has left.
@@ -292,13 +296,20 @@ function beneficiary(api: ContentApi, killer: AttackableUnitInstance): ChampionI
  * The reward-only ability shape. See this file's header for why the range is
  * negative rather than zero.
  */
-function blessing(name: string, grant: (killer: AttackableUnitInstance) => void): MonsterAbility {
+export function blessing(
+  name: string,
+  grant: (killer: AttackableUnitInstance, monster: MonsterInstance) => void
+): MonsterAbility {
   return {
     name,
     cooldownMs: 0,
     range: -1,
     cast() {},
-    onKilled: (_monster, killer) => grant(killer),
+    // The camp itself is handed over as well as the killer: a reward that
+    // depends on *which* camp paid it — Dragon's element rotation is keyed by
+    // `monster.camp` — cannot be written without it, and the three blessings
+    // here simply ignore the second argument.
+    onKilled: (monster, killer) => grant(killer, monster),
   };
 }
 
@@ -338,33 +349,41 @@ export function makeRedBramblebackAbilities(api: ContentApi): MonsterAbility[] {
  * Exported as a single ability rather than a list, because `code.ts` appends
  * it to the kit `Baron.ts` already returns instead of replacing it.
  */
+/**
+ * Everyone alive on `champion`'s team, the killer always included.
+ *
+ * Exported because Dragon and Vilemaw pay the same way Baron does, and the
+ * subtlety below is exactly the kind that gets lost in a second copy: the
+ * killer is prepended unconditionally, because a champion standing outside
+ * the quadtree's own bounds — or simply not indexed yet on the frame the camp
+ * died — must not be the one person on the team the blessing misses.
+ */
+export function teamOf(api: ContentApi, champion: ChampionInstance): ChampionInstance[] {
+  const { game } = champion;
+  const everyone = game.objectManager.queryObjects({
+    area: new api.utils.Quadtree.Circle({
+      x: game.mapSize / 2,
+      y: game.mapSize / 2,
+      r: game.mapSize,
+    }),
+    filters: [
+      api.combat.PredefinedFilters.type(api.units.Champion),
+      api.combat.PredefinedFilters.excludeType(api.units.Pet),
+      api.combat.PredefinedFilters.teamId(champion.teamId),
+      api.combat.PredefinedFilters.excludeDead,
+    ],
+  }) as ChampionInstance[];
+
+  return everyone.includes(champion) ? everyone : [champion, ...everyone];
+}
+
 export function makeBaronBlessing(api: ContentApi): MonsterAbility {
   const BaronBuff = makeBaronBuff(api);
 
   return blessing(BARON_BUFF.name, killer => {
     const champion = beneficiary(api, killer);
     if (!champion) return;
-
-    const { game } = champion;
-    const everyone = game.objectManager.queryObjects({
-      area: new api.utils.Quadtree.Circle({
-        x: game.mapSize / 2,
-        y: game.mapSize / 2,
-        r: game.mapSize,
-      }),
-      filters: [
-        api.combat.PredefinedFilters.type(api.units.Champion),
-        api.combat.PredefinedFilters.excludeType(api.units.Pet),
-        api.combat.PredefinedFilters.teamId(champion.teamId),
-        api.combat.PredefinedFilters.excludeDead,
-      ],
-    }) as ChampionInstance[];
-
-    // The killer first and unconditionally: a champion standing outside the
-    // quadtree's own bounds (or simply not indexed yet on the frame the camp
-    // died) must not be the one person on the team the blessing misses.
-    const team = everyone.includes(champion) ? everyone : [champion, ...everyone];
-    for (const ally of team) {
+    for (const ally of teamOf(api, champion)) {
       ally.addBuff(new BaronBuff(BARON_BUFF.durationMs, champion, ally));
     }
   });

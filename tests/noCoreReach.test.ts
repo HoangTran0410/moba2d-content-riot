@@ -286,7 +286,7 @@ describe("the pack's tests speak only published core surfaces", () => {
     // suite. It reaches core through `@moba2d/core/testing` and
     // `@moba2d/core/content/types`, both already allowed, so the population
     // moves and the offender count does not.
-    expect(files.length).toBe(95);
+    expect(files.length).toBe(96);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {
