@@ -1173,7 +1173,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     buildsFrom: ['ruby_crystal', 'null_magic_mantle'],
     description:
       'Tăng 45 máu tối đa, 35 kháng phép, 40 năng lượng, 140% sát thương chiêu thức và giảm 10% ' +
-      'thời gian hồi chiêu. Kích hoạt: bắn ra một luồng băng gây 30 sát thương phép và trói ' +
+      'thời gian hồi chiêu. Kích hoạt: bắn ra một luồng băng gây ' +
+      '<span class="damage">30 sát thương phép</span> và trói ' +
       '1.2 giây mọi kẻ địch trúng đòn.',
     stats: {
       maxHealth: 45,
