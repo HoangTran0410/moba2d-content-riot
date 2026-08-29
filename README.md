@@ -96,7 +96,10 @@ happening. They are `.webp` and not `.png` because that is what the wiki CDN
 actually served under its `…Square.png` URLs, and the extension has to agree
 with the bytes. The ten older monster icons predate all of this and are
 knowingly outside it; that test says so rather than letting the ledger look
-complete.
+complete. `Vilemaw.webp` is outside it for a different reason and is worth
+naming: it replaced a hand-drawn placeholder with a portrait supplied by this
+pack's owner rather than fetched by either importer, so there is no URL to
+record and a row claiming one would be provenance invented instead of kept.
 
 ## Trademarks and third-party assets
 

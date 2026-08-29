@@ -112,7 +112,7 @@ import asset109Url from '../assets/images/monsters/Ocean_Drake.webp?url';
 import asset110Url from '../assets/images/monsters/Raptor.png?url';
 import asset111Url from '../assets/images/monsters/Red_Brambleback.png?url';
 import asset112Url from '../assets/images/monsters/Rift_Scuttle.png?url';
-import asset113Url from '../assets/images/monsters/Vilemaw.png?url';
+import asset113Url from '../assets/images/monsters/Vilemaw.webp?url';
 import asset114Url from '../assets/images/objects/yasuo_q3.png?url';
 import asset115Url from '../assets/images/spells/ahri_e.png?url';
 import asset116Url from '../assets/images/spells/ahri_q.png?url';
@@ -574,7 +574,7 @@ export const assetManifest = {
   "monster_Raptor": { kind: 'image', url: asset110Url, path: "assets/images/monsters/Raptor.png" },
   "monster_Red_Brambleback": { kind: 'image', url: asset111Url, path: "assets/images/monsters/Red_Brambleback.png" },
   "monster_Rift_Scuttle": { kind: 'image', url: asset112Url, path: "assets/images/monsters/Rift_Scuttle.png" },
-  "monster_Vilemaw": { kind: 'image', url: asset113Url, path: "assets/images/monsters/Vilemaw.png" },
+  "monster_Vilemaw": { kind: 'image', url: asset113Url, path: "assets/images/monsters/Vilemaw.webp" },
   "obj_yasuo_q3": { kind: 'image', url: asset114Url, path: "assets/images/objects/yasuo_q3.png" },
   "spell_ahri_e": { kind: 'image', url: asset115Url, path: "assets/images/spells/ahri_e.png" },
   "spell_ahri_q": { kind: 'image', url: asset116Url, path: "assets/images/spells/ahri_q.png" },
