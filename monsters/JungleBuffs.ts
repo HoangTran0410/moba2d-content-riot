@@ -1,5 +1,5 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
-import type { MonsterAbility, OnHitEvent } from '@moba2d/core/content/types';
+import type { MonsterAbility, OnHitEvent, Vec2 } from '@moba2d/core/content/types';
 
 /**
  * The three camps whose meaning is what killing them grants — bùa xanh, bùa
@@ -296,6 +296,25 @@ export function beneficiary(
  * The reward-only ability shape. See this file's header for why the range is
  * negative rather than zero.
  */
+/**
+ * Everything hostile to `owner` inside a circle.
+ *
+ * Lived privately in `monsters/Baron.ts` until a second camp wanted it. One
+ * home rather than two copies: a filter list is exactly the kind of thing
+ * that gets fixed in one file and left wrong in the other.
+ */
+export function hostilesIn(
+  api: ContentApi,
+  owner: AttackableUnitInstance,
+  center: Vec2,
+  radius: number
+): AttackableUnitInstance[] {
+  return owner.game.objectManager.queryObjects({
+    area: new api.utils.Quadtree.Circle({ x: center.x, y: center.y, r: radius }),
+    filters: [api.combat.PredefinedFilters.canTakeDamageFromTeam(owner.teamId)],
+  }) as AttackableUnitInstance[];
+}
+
 export function blessing(
   name: string,
   grant: (killer: AttackableUnitInstance, monster: MonsterInstance) => void

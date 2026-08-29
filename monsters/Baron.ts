@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { MonsterAbility, Vec2 } from '@moba2d/core/content/types';
+import { hostilesIn } from './JungleBuffs';
 
 /**
  * Baron's kit — the first monster behaviour to come from a pack rather than a
@@ -96,17 +97,6 @@ export const POOL = {
 } as const;
 
 /** Hostile to Baron: every unit that is not on its side, minions included. */
-const hostilesIn = (
-  api: ContentApi,
-  owner: AttackableUnitInstance,
-  center: Vec2,
-  radius: number
-): AttackableUnitInstance[] =>
-  owner.game.objectManager.queryObjects({
-    area: new api.utils.Quadtree.Circle({ x: center.x, y: center.y, r: radius }),
-    filters: [api.combat.PredefinedFilters.canTakeDamageFromTeam(owner.teamId)],
-  }) as AttackableUnitInstance[];
-
 /**
  * A glob of acid. A plain skillshot: it flies at where you were standing, and
  * walking out of the line is the entire counterplay.

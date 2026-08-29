@@ -292,10 +292,13 @@ describe("the pack's tests speak only published core surfaces", () => {
     //
     // 97, not 96: `tests/monsters/campPower.test.ts`, which builds each camp
     // as a real `Monster` and measures what it actually hits for rather than
-    // reading a table core may not use. Both reach core through
+    // reading a table core may not use.
+    //
+    // 98, not 97: `tests/monsters/DragonKit.test.ts`, the wingbeat and the
+    // four elemental rites. All three reach core through
     // `@moba2d/core/testing` and `/testing/spell`, both already allowed, so
     // the population moves and the offender count does not.
-    expect(files.length).toBe(97);
+    expect(files.length).toBe(98);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

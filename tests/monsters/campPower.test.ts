@@ -48,14 +48,17 @@ const campDps = (id: string): number => {
 
 describe('the dragon fights like a boss', () => {
   /*
-   * Its whole fight is the basic attack. `makeDragonAbilities` returns one
-   * entry and that entry is the blessing paid on death — a reward, never cast
-   * (`range: -1`). Baron and Vilemaw are excluded from the comparison below
-   * for exactly that reason: their basic attacks are similarly modest because
-   * `monsters/Baron.ts` and `monsters/Vilemaw.ts` carry the rest of their
-   * damage in a kit, which no reading of the data table can see.
+   * The swing is the dragon's *steady* damage — the part that lands whatever
+   * else is happening — and this pins that it is not the weakest in the
+   * jungle, which is exactly what it was: 5.6 dps against a raptor pit's 14.0.
    *
-   * The dragon has no such second half, so its swing has to stand on its own.
+   * Baron and Vilemaw are excluded from the comparison because their swings
+   * are deliberately modest: `monsters/Baron.ts` and `monsters/Vilemaw.ts`
+   * carry most of their damage in a kit, and no reading of the data table can
+   * see a kit. The dragon has one now too (`monsters/Dragon.ts`: the wingbeat
+   * and the four rites), but its rites are mostly *not* damage — a heal, a
+   * shield, a slow — so its swing still has to stand up on its own in a way
+   * theirs do not.
    */
   const FARM_CAMPS = ['blue', 'red', 'gromp', 'wolves', 'raptors', 'krugs'];
 
