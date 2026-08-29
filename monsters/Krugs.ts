@@ -85,7 +85,7 @@ function splitInto(
     cooldownMs: 0,
     range: -1,
     cast() {},
-    onKilled(monster) {
+    onKilled(monster, killer) {
       const game = monster.game;
       if (!game?.objectManager?.addObject) return;
 
@@ -115,11 +115,21 @@ function splitInto(
         });
         body.position.set(spot.x, spot.y);
         body.destination.set(spot.x, spot.y);
-        // A camp that was just killed was being fought. The children join
-        // that fight rather than standing about waiting to be noticed —
-        // `aggroOn` is the gate, so a passive or skittish tier would still
-        // refuse, and the tiers here are all ordinary.
         game.objectManager.addObject(body);
+
+        // **A camp that was just killed was being fought, and its children
+        // join that fight.** This comment described the intent for as long as
+        // the split has existed and nothing implemented it: a body spawns in
+        // IDLE, camps no longer wake on proximity, and `alertCamp` only ever
+        // runs from a hit — so six rocks appeared around a jungler and stood
+        // there until each was individually struck.
+        //
+        // `aggroOn` and not a phase assignment, because it is the gate that
+        // knows what a temperament means: a passive tier would still refuse
+        // and a skittish one would run instead. These tiers are all ordinary,
+        // which is exactly why routing through the gate costs nothing and
+        // keeps the rule in one place.
+        if (killer) body.aggroOn(killer as never);
       }
     },
   };

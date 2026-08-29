@@ -97,6 +97,35 @@ describe('Krug', () => {
   const bodies = (): MonsterInstance[] =>
     everything().filter(o => o instanceof Monster) as MonsterInstance[];
 
+  it('hands the children the fight the parent was in', () => {
+    // They spawn in IDLE, camps do not wake on proximity, and `alertCamp` only
+    // runs from a hit — so without this the split produced six rocks standing
+    // around a jungler waiting to be struck one at a time. The file said they
+    // joined the fight for as long as the split existed; nothing did it.
+    const killer = champion(game, 0, 'blue');
+    game.setPlayer(killer);
+
+    slay(game, makeKrugAbilities(api), killer);
+
+    const children = bodies().filter(body => !body.isDead);
+    expect(children.length, 'nothing split, so nothing here is tested').toBe(2);
+    for (const child of children) {
+      expect(child.phase).toBe(Monster.PHASES.ATTACK);
+      expect(child.targetLock).toBe(killer);
+    }
+  });
+
+  it('but not to a thief it never saw, and not to nobody', () => {
+    // `aggroOn` is the gate rather than a phase assignment, so what a child
+    // does about the killer is still a question about the killer.
+    const thief = camp(game, []);
+    slay(game, makeKrugAbilities(api), thief as never);
+
+    const children = bodies().filter(body => !body.isDead && body !== thief);
+    expect(children.length).toBe(2);
+    for (const child of children) expect(child.targetLock).toBe(thief);
+  });
+
   it('splits into two on death', () => {
     const killer = champion(game, 0, 'blue');
     game.setPlayer(killer);
