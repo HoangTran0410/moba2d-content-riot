@@ -215,8 +215,26 @@ describe('the drake walks', () => {
     victim.position.set(600, 0);
     tick(boss, 20);
 
-    expect(boss.isImmovable, 'the drake is still scenery').toBe(false);
+    expect(boss.hasLegs, 'the drake is still scenery').toBe(true);
     expect(boss.position.x).toBeGreaterThan(start);
+  });
+
+  it('but cannot be pulled out of the pit it is guarding', () => {
+    // Legs used to mean hookable — `isImmovable` was `speed === 0` and
+    // nothing else. A boss any grab can relocate is not guarding anything.
+    const boss = dragon();
+    const thresh = champion(400, 0, 'red');
+    indexObjects(game as never, [boss, thresh] as never);
+    const start = boss.position.x;
+
+    const grab = new api.buffs.Dash(1_000, thresh as never, boss as never);
+    grab.dashDestination = createVector(2_000, 0);
+    grab.showTrail = false;
+    boss.addBuff(grab as never);
+    boss.updateBuffs();
+
+    expect(boss.isImmovable).toBe(true);
+    expect(boss.position.x).toBe(start);
   });
 
   it('but holds a shorter leash than the jungle around it', () => {

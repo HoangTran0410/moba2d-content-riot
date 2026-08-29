@@ -1277,10 +1277,8 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         // 2 is what every other single-bodied camp walks at, and a champion
         // walks at 3 — so it genuinely follows and is genuinely kiteable, and
         // with 320 of reach it does not need to catch anyone to keep
-        // breathing on them. The cost of legs is real and deliberate:
-        // `Monster.isImmovable` is `speed === 0`, so this body can now be
-        // hooked, knocked up and dragged out of its own pit the way any camp
-        // with legs can. It walks back; scenery could not.
+        // breathing on them. Paired with `anchored` below, which is what
+        // stops legs also meaning hookable.
         speed: 2,
         size: 88,
         attackRange: 320,
@@ -1311,6 +1309,11 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         // does not breathe is the whole of what was wrong with this pit.
         attackStyle: 'breath',
         attackColor: [255, 138, 58],
+        // Walks, but cannot be relocated. Giving it legs alone also made it
+        // hookable, and a boss that any grab can pull out of the pit it
+        // guards is not guarding anything. It still takes every slow, stun,
+        // root and knock-up — what it refuses is being *moved*.
+        anchored: true,
         // Tighter than the jungle's own 350. With legs, the default leash
         // (`max(camp.r, aggroRange) + chaseMargin`) would let it follow you
         // 750px off its pit and into a lane. 150 keeps the chase to about
