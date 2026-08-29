@@ -303,7 +303,12 @@ describe("the pack's tests speak only published core surfaces", () => {
     // shipped description for a damage span core would rescale wrongly. It
     // reads `../generated/spellCatalog` and core not at all, so it moves the
     // population and nothing else.
-    expect(files.length).toBe(99);
+    //
+    // 100, not 99: `tests/monsterArt.test.ts`, the drake portraits' own
+    // provenance ledger re-hashed offline. It reads `node:crypto`, `node:fs`
+    // and `../generated/assetManifest` — the same shape of import as the one
+    // above, and core not at all.
+    expect(files.length).toBe(100);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

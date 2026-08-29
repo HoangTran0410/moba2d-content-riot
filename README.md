@@ -88,6 +88,16 @@ on purpose: `assets/source-manifest.json` is the *wiki* importer's and
 `docs/abilities/`, which an item — not being an ability — can never satisfy.
 Same reason `docs/spell-names-vi.json` sits where it does.
 
+The seven drake portraits are a third ledger for the third time that reason
+applies — `docs/monsters-source-manifest.json`, re-hashed by
+`tests/monsterArt.test.ts` rather than by a script, since re-hashing is the
+only half `verify` runs and a test does it inside the run that is already
+happening. They are `.webp` and not `.png` because that is what the wiki CDN
+actually served under its `…Square.png` URLs, and the extension has to agree
+with the bytes. The ten older monster icons predate all of this and are
+knowingly outside it; that test says so rather than letting the ledger look
+complete.
+
 ## Trademarks and third-party assets
 
 This is a **non-commercial, unofficial fan project**. It is **not affiliated

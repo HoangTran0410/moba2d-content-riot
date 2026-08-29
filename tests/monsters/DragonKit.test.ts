@@ -8,12 +8,15 @@ import {
 } from '@moba2d/core/testing/spell';
 import { data } from '../../pack';
 import makeDragonAbilities, {
+  ELDER,
   ELEMENTS,
   RITE,
+  ROTATION,
   WINGBEAT,
   elementFor,
   resetDragonRotation,
 } from '../../monsters/Dragon';
+import { assetManifest } from '../../generated/assetManifest';
 
 /**
  * The dragon's kit — the wingbeat every drake has, and the rite each element
@@ -254,10 +257,10 @@ describe('the rite each drake performs', () => {
     abilities[1].cast(boss as never, target as never);
   };
 
-  /** Rotates the shared pit forward to the element with this id. */
+  /** Rotates the shared pit forward to the drake with this id. */
   const rotateTo = (id: string): void => {
     resetDragonRotation(PIT);
-    for (let step = 0; step < ELEMENTS.length; step += 1) {
+    for (let step = 0; step < ROTATION.length; step += 1) {
       if (elementFor(PIT).id === id) return;
       // The rotation only advances on a kill, which is the seam that owns it.
       const boss = dragon();
@@ -315,6 +318,68 @@ describe('the rite each drake performs', () => {
     expect((shell as unknown as { amount: number }).amount).toBe(RITE.mountain.shield);
   });
 
+  it('chains to the three nearest and no further, when it is the hextech drake', () => {
+    // The wiki's own "up to 3 of the closest nearby targets". Four in range,
+    // one far away: the far one is out because of the range, and the fourth
+    // near one is out because of the count — two different refusals, and a
+    // test that only had three candidates could not tell them apart.
+    rotateTo('hextech');
+    const boss = dragon();
+    const near = [champion(60), champion(90), champion(120), champion(150)];
+    const far = champion(2_000);
+    indexObjects(game as never, [boss, ...near, far] as never);
+
+    rite(boss, near[0]);
+
+    const struck = near.filter(one => one.buffs.some(buff => buff instanceof api.buffs.Slow));
+    expect(struck).toHaveLength(RITE.hextech.arcs);
+    // Nearest first, so the fourth-closest is the one left out.
+    expect(struck).not.toContain(near[3]);
+    expect(far.buffs.some(buff => buff instanceof api.buffs.Slow)).toBe(false);
+  });
+
+  it('gasses the pit and works itself into a frenzy, when it is the chemtech drake', () => {
+    rotateTo('chemtech');
+    const boss = dragon();
+    const victim = champion(150);
+    indexObjects(game as never, [boss, victim] as never);
+
+    rite(boss, victim);
+
+    expect(victim.buffs.some(buff => buff instanceof api.buffs.DamageOverTime)).toBe(true);
+    // The wiki's drake gets faster as its health falls; the frenzy is that,
+    // in the form this engine can express without a per-frame hook.
+    const frenzy = boss.buffs.find(buff => buff instanceof api.buffs.StatAmp);
+    expect(frenzy, 'the chemtech drake never sped up').toBeTruthy();
+    expect(boss.stats.attackSpeed.value).toBeGreaterThan(0);
+  });
+
+  it('drags its target down as well as healing, when it is the water drake', () => {
+    // Both halves of the wiki's line — "a ranged attacker that slows its
+    // target" — not only the heal this rite started as.
+    rotateTo('ocean');
+    const boss = dragon();
+    const victim = champion(200);
+    indexObjects(game as never, [boss, victim] as never);
+
+    rite(boss, victim);
+
+    expect(victim.buffs.some(buff => buff instanceof api.buffs.Slow)).toBe(true);
+  });
+
+  it('burns everything in the pit, when it is the Elder', () => {
+    rotateTo('elder');
+    const boss = dragon();
+    const near = champion(150);
+    const far = champion(2_000);
+    indexObjects(game as never, [boss, near, far] as never);
+
+    rite(boss, near);
+
+    expect(near.buffs.some(buff => buff instanceof api.buffs.DamageOverTime)).toBe(true);
+    expect(far.buffs.some(buff => buff instanceof api.buffs.DamageOverTime)).toBe(false);
+  });
+
   it('never does two elements at once', () => {
     rotateTo('mountain');
     const boss = dragon();
@@ -370,5 +435,140 @@ describe('the pit wears the element it is holding', () => {
 
     expect(boss.isDead).toBe(true);
     expect(ring.toRemove).toBeFalsy();
+  });
+});
+
+describe('the body is the drake, not one creature in seven costumes', () => {
+  /** Rotates the shared pit forward to the drake with this id. */
+  const rotateTo = (id: string): void => {
+    resetDragonRotation(PIT);
+    for (let step = 0; step < ROTATION.length; step += 1) {
+      if (elementFor(PIT).id === id) return;
+      const boss = dragon();
+      boss.takeDamage(9_999, champion(0, 0) as never);
+    }
+    expect(elementFor(PIT).id, `never reached ${id}`).toBe(id);
+  };
+
+  it('writes its name, art, swing and rate on the frame it spawns', () => {
+    // `onSpawn` fires on the first `update()` of every life, so a pit that has
+    // rotated is a different creature before anyone reaches it — which is the
+    // point of showing the ring at all.
+    rotateTo('cloud');
+    const boss = dragon();
+    tick(boss, 1);
+
+    const cloud = ELEMENTS.find(drake => drake.id === 'cloud')!;
+    expect(boss.name).toBe(cloud.name);
+    expect(boss.attackStyle).toBe(cloud.attackStyle);
+    expect(boss.attackInterval).toBe(cloud.attackInterval);
+    expect(boss.attackColor).toEqual(cloud.attackColor);
+  });
+
+  it('and writes a different one after the pit has turned over', () => {
+    // The half that catches a `dressFor` guarded the way the ring is: dressing
+    // has to run on *every* life, and only the ring is once per camp.
+    //
+    // **One body across two lives, not two bodies.** `dragon()` builds a fresh
+    // `makeDragonAbilities(api)` each call, so two of them carry two separate
+    // `ringed` sets and a mis-guarded `dressFor` would go on passing. Killing
+    // and respawning the same camp is what puts the guard under test — the
+    // same reason the ring cases below drive one boss through a death.
+    rotateTo('mountain');
+    const boss = dragon();
+    indexObjects(game as never, [boss] as never);
+    tick(boss, 1);
+    expect(boss.attackStyle).toBe('breath');
+    const first = { name: boss.name, interval: boss.attackInterval };
+
+    boss.takeDamage(9_999, champion(0, 0) as never);
+    tick(boss, framesFor(400));
+    expect(boss.isDead, 'the drake never came back, so nothing here is tested').toBe(false);
+
+    expect(boss.name).not.toBe(first.name);
+    expect(boss.attackInterval).not.toBe(first.interval);
+  });
+
+  it('gives every drake in the rotation art this pack actually ships', () => {
+    // A mistyped key is a blank body rather than a crash: `api.asset` answers
+    // for a name nothing shipped and the draw silently paints nothing.
+    for (const drake of ROTATION) {
+      expect(Object.keys(assetManifest), drake.id).toContain(drake.avatar);
+    }
+  });
+
+  it('spreads the swing rate rather than repainting one creature', () => {
+    // Every drake looking different and fighting identically would be a skin
+    // rotation. The wiki's own spread is the check: the wind drake is the
+    // fastest thing in the pit and the earth drake the slowest.
+    const rates = ELEMENTS.map(drake => drake.attackInterval);
+    expect(Math.min(...rates)).toBe(ELEMENTS.find(d => d.id === 'cloud')!.attackInterval);
+    expect(Math.max(...rates)).toBe(ELEMENTS.find(d => d.id === 'mountain')!.attackInterval);
+    expect(new Set(rates).size).toBeGreaterThan(2);
+  });
+});
+
+describe('the seventh, which is not an element', () => {
+  const rotateTo = (id: string): void => {
+    resetDragonRotation(PIT);
+    for (let step = 0; step < ROTATION.length; step += 1) {
+      if (elementFor(PIT).id === id) return;
+      const boss = dragon();
+      boss.takeDamage(9_999, champion(0, 0) as never);
+    }
+    expect(elementFor(PIT).id, `never reached ${id}`).toBe(id);
+  };
+
+  it('arrives only after all six elementals have been taken', () => {
+    resetDragonRotation(PIT);
+    for (let kill = 0; kill < ELEMENTS.length; kill += 1) {
+      expect(elementFor(PIT).id, `kill ${kill}`).toBe(ELEMENTS[kill].id);
+      const boss = dragon();
+      boss.takeDamage(9_999, champion(0, 0) as never);
+    }
+    expect(elementFor(PIT).id).toBe(ELDER.id);
+  });
+
+  it('and the pit goes back to the first drake after it', () => {
+    rotateTo('elder');
+    const boss = dragon();
+    boss.takeDamage(9_999, champion(0, 0) as never);
+
+    expect(elementFor(PIT).id).toBe(ELEMENTS[0].id);
+  });
+
+  it('is a harder body than the six, and says so on spawn', () => {
+    rotateTo('elder');
+    const elder = dragon();
+    tick(elder, 1);
+
+    resetDragonRotation(PIT);
+    const drake = dragon();
+    tick(drake, 1);
+
+    expect(elder.stats.armor.value).toBeGreaterThan(drake.stats.armor.value);
+    expect(elder.stats.attackDamage.value).toBeGreaterThan(drake.stats.attackDamage.value);
+    // Health deliberately untouched: raising `maxHealth` would not raise
+    // `health`, so the Elder would arrive wounded and heal in front of you.
+    expect(elder.stats.health.value).toBe(drake.stats.health.value);
+  });
+
+  it('pays a burn on every hit rather than a stat, and pays it briefly', () => {
+    rotateTo('elder');
+    const killer = champion(200);
+    game.setPlayer(killer as never);
+    const before = killer.stats.onHitDamage.value;
+
+    const boss = dragon();
+    indexObjects(game as never, [boss, killer] as never);
+    boss.takeDamage(9_999, killer as never);
+
+    const blessed = killer.buffs.find(buff => buff instanceof api.buffs.StatAmp);
+    expect(blessed, 'the Elder paid nothing').toBeTruthy();
+    expect(killer.stats.onHitDamage.value).toBeGreaterThan(before);
+    // Shorter than an elemental buff: a window to win a game inside, not a
+    // phase of the match.
+    expect(blessed!.duration).toBe(ELDER.durationMs);
+    expect(ELDER.durationMs).toBeLessThan(180_000);
   });
 });

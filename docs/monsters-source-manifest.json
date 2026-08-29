@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "contentHash": "2cb1f708fe0fcfe3e0380007f6f4a82110cabe64f6a4544147c658055c356095",
+      "fetchedAt": "2026-08-30T00:00:00.000Z",
+      "localAssetKey": "monster_Chemtech_Drake",
+      "localPath": "assets/images/monsters/Chemtech_Drake.webp",
+      "sourceUrl": "https://static.wikia.nocookie.net/leagueoflegends/images/b/bd/Chemtech_DrakeSquare.png"
+    },
+    {
+      "contentHash": "364e584a8c74b287968e449d05fc3a5002eb7312d387635c135673e8b00a51af",
+      "fetchedAt": "2026-08-30T00:00:00.000Z",
+      "localAssetKey": "monster_Cloud_Drake",
+      "localPath": "assets/images/monsters/Cloud_Drake.webp",
+      "sourceUrl": "https://static.wikia.nocookie.net/leagueoflegends/images/4/47/Cloud_DrakeSquare.png"
+    },
+    {
+      "contentHash": "0a64d2c493fa7eaed335a84f95704f9e068ab11a3b0812ce391fc1859a27ec68",
+      "fetchedAt": "2026-08-30T00:00:00.000Z",
+      "localAssetKey": "monster_Elder_Dragon",
+      "localPath": "assets/images/monsters/Elder_Dragon.webp",
+      "sourceUrl": "https://static.wikia.nocookie.net/leagueoflegends/images/3/34/Elder_DragonSquare.png"
+    },
+    {
+      "contentHash": "dc9c8230ae0ab1a06b7993d26fb71f5aa16c80d7a665c49458aa8bd0eac6d049",
+      "fetchedAt": "2026-08-30T00:00:00.000Z",
+      "localAssetKey": "monster_Hextech_Drake",
+      "localPath": "assets/images/monsters/Hextech_Drake.webp",
+      "sourceUrl": "https://static.wikia.nocookie.net/leagueoflegends/images/2/25/Hextech_DrakeSquare.png"
+    },
+    {
+      "contentHash": "1e964ad9dac5d0292fcdbb0abac1ccfcff78013f72ac9d39fafc0c89d66bdf36",
+      "fetchedAt": "2026-08-30T00:00:00.000Z",
+      "localAssetKey": "monster_Infernal_Drake",
+      "localPath": "assets/images/monsters/Infernal_Drake.webp",
+      "sourceUrl": "https://static.wikia.nocookie.net/leagueoflegends/images/a/a0/Infernal_DrakeSquare.png"
+    },
+    {
+      "contentHash": "5c95b25ec1df14ae0b32190224da59f8c3d346592c4f1519c4270413b6bfa54d",
+      "fetchedAt": "2026-08-30T00:00:00.000Z",
+      "localAssetKey": "monster_Mountain_Drake",
+      "localPath": "assets/images/monsters/Mountain_Drake.webp",
+      "sourceUrl": "https://static.wikia.nocookie.net/leagueoflegends/images/0/00/Mountain_DrakeSquare.png"
+    },
+    {
+      "contentHash": "bb5a14e7125cc3c1659f0c1604498f14be4c77860cb7c0b3e9c1b4294bf5401a",
+      "fetchedAt": "2026-08-30T00:00:00.000Z",
+      "localAssetKey": "monster_Ocean_Drake",
+      "localPath": "assets/images/monsters/Ocean_Drake.webp",
+      "sourceUrl": "https://static.wikia.nocookie.net/leagueoflegends/images/5/55/Ocean_DrakeSquare.png"
+    }
+  ]
+}

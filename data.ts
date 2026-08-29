@@ -1270,7 +1270,12 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
     members: [
       {
         name: 'Rồng Nguyên Tố',
-        avatar: 'monster_Elemental_Dragon',
+        // The first drake of the rotation, and only ever what stands here for
+        // one frame: `monsters/Dragon.ts`'s `onSpawn` writes the name, the
+        // art, the swing style, its colour and its rate for whichever of the
+        // seven is actually up. A `MonsterBody` is one row and cannot describe
+        // seven creatures, so the row describes the one that spawns first.
+        avatar: 'monster_Infernal_Drake',
         // The one boss in this pack with legs. Baron and Vilemaw are scenery
         // with a long reach; a dragon that cannot take a step is not, and it
         // is the objective a match is meant to rotate around every minute.
@@ -1303,11 +1308,15 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         // telegraph mean anything. `tests/monsters/campPower.test.ts` measures
         // all of this against the real camps rather than trusting the table.
         damage: 24,
+        // Both of these are the *fire* drake's, and both are replaced on every
+        // spawn by whichever drake the rotation is on — the wind drake swings
+        // half again as fast and the earth drake half as fast, which is the
+        // wiki's own spread and the clearest signal of which one you walked
+        // into. They stay stated here because a body that named no style would
+        // be given a spat projectile by core's reach rule, and a dragon that
+        // does not breathe is the whole of what was wrong with this pit.
         attackInterval: 1_600,
         aggroRange: 400,
-        // The one camp in this pack that overrides the derived style: at
-        // reach 320 core would give it a spat projectile, and a dragon that
-        // does not breathe is the whole of what was wrong with this pit.
         attackStyle: 'breath',
         attackColor: [255, 138, 58],
         // Walks, but cannot be relocated. Giving it legs alone also made it
