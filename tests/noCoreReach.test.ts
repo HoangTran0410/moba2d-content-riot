@@ -286,7 +286,16 @@ describe("the pack's tests speak only published core surfaces", () => {
     // suite. It reaches core through `@moba2d/core/testing` and
     // `@moba2d/core/content/types`, both already allowed, so the population
     // moves and the offender count does not.
-    expect(files.length).toBe(96);
+    //
+    // 96, not 95: `tests/monsters/NewCamps.test.ts`, the four camps added on
+    // top of Baron and the two buff pits.
+    //
+    // 97, not 96: `tests/monsters/campPower.test.ts`, which builds each camp
+    // as a real `Monster` and measures what it actually hits for rather than
+    // reading a table core may not use. Both reach core through
+    // `@moba2d/core/testing` and `/testing/spell`, both already allowed, so
+    // the population moves and the offender count does not.
+    expect(files.length).toBe(97);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

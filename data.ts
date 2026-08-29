@@ -1277,8 +1277,23 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         // pack's newer objectives all observe.
         reviveTime: 60_000,
         health: 700,
-        damage: 10,
-        attackInterval: 1_800,
+        // A boss's whole fight, because this camp has no kit: `code.ts` wires
+        // `makeDragonAbilities`, and that returns one entry — the blessing
+        // paid on death, never cast. Baron and Vilemaw can afford modest
+        // swings because `monsters/Baron.ts` and `monsters/Vilemaw.ts` carry
+        // the rest in spit, slam, pool, web and venom. At 10 per 1.8s this
+        // camp put out 5.6 dps and was the weakest fighting thing in the
+        // jungle — a raptor pit did two and a half times as much.
+        //
+        // 24 per 1.6s is 15 dps, just past the raptors and a shade over
+        // Baron's swing-plus-kit total. It is a large single hit on a ~100
+        // health champion on purpose: the swing is a `breath` cone with a
+        // wind-up that re-checks reach before it lands, so it is dodgeable by
+        // walking, and a number worth walking away from is what makes that
+        // telegraph mean anything. `tests/monsters/campPower.test.ts` measures
+        // all of this against the real camps rather than trusting the table.
+        damage: 24,
+        attackInterval: 1_600,
         aggroRange: 400,
         // The one camp in this pack that overrides the derived style: at
         // reach 320 core would give it a spat projectile, and a dragon that
