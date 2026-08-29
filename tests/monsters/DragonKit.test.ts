@@ -13,6 +13,7 @@ import makeDragonAbilities, {
   RITE,
   ROTATION,
   WINGBEAT,
+  WINGBEAT_LANDS_AT,
   elementFor,
   resetDragonRotation,
 } from '../../monsters/Dragon';
@@ -137,11 +138,81 @@ describe('the wingbeat', () => {
     // against its own travel time and would flip on any retune of `landing`.
     const start = victim.position.x;
 
-    tick(boss, framesFor(WINGBEAT.telegraphMs - 60));
-    expect(victim.position.x, 'the beat landed during its own wind-up').toBe(start);
+    tick(boss, framesFor(WINGBEAT_LANDS_AT - 60));
+    expect(victim.position.x, 'the beat landed during its own leap').toBe(start);
 
     tick(boss, framesFor(400));
     expect(victim.position.x).toBeGreaterThan(start);
+  });
+
+  /**
+   * The leap, which is the whole of what the ability *looks* like.
+   *
+   * The old wingbeat was a ring closing on the pit and then a shove from a
+   * creature that had visibly not moved — a telegraph that said something was
+   * about to happen and nothing about what. `Stats.height` is the engine's own
+   * airborne channel (`AttackableUnit` draws a body at `size + height`, which
+   * is how `buffs/Airborne` lifts the things this ability throws), so the arc
+   * is a number this suite can read rather than a claim about pixels.
+   */
+  it('leaves the ground before it lands, and comes back down on the pit', () => {
+    const boss = dragon();
+    const victim = champion(200);
+    engage(boss, victim);
+    expect(boss.stats.height.baseValue).toBe(0);
+
+    tick(boss, framesFor(WINGBEAT.riseMs));
+    const top = boss.stats.height.baseValue;
+    expect(top, 'the drake never left the ground').toBeGreaterThan(WINGBEAT.liftHeight * 0.8);
+
+    // One long frame, from the top of the arc to past the landing. The arc
+    // itself reaches zero on its own at the end of a fall it gets to walk
+    // through frame by frame — this is the case where it does not: a frame
+    // that steps over the landing entirely, which is what makes putting the
+    // height back a thing `drop` has to do rather than a thing the curve does.
+    vi.stubGlobal('deltaTime', WINGBEAT.hangMs + WINGBEAT.slamMs + 40);
+    tick(boss, 1);
+    vi.stubGlobal('deltaTime', 16);
+
+    expect(top).toBeGreaterThan(0);
+    expect(boss.stats.height.baseValue, 'the drake never came down').toBe(0);
+  });
+
+  it('is highest in the middle of the leap and not at either end', () => {
+    // The arc's shape, rather than only its endpoints: a linear climb that
+    // ended at the same place would pass the case above and read as an
+    // elevator.
+    const boss = dragon();
+    engage(boss, champion(200));
+
+    tick(boss, framesFor(WINGBEAT.riseMs * 0.5));
+    const early = boss.stats.height.baseValue;
+    tick(boss, framesFor(WINGBEAT.riseMs * 0.5 + WINGBEAT.hangMs * 0.5));
+    const hanging = boss.stats.height.baseValue;
+
+    // Eased out: half way through the climb it is three quarters of the way
+    // up. A linear rise would be at exactly a half here, which is the reading
+    // this bound exists to reject.
+    expect(early).toBeGreaterThan(WINGBEAT.liftHeight * 0.65);
+    expect(early).toBeLessThan(hanging);
+    expect(hanging).toBeCloseTo(WINGBEAT.liftHeight, 0);
+  });
+
+  it('puts a drake killed at the top of its leap back on the ground', () => {
+    // Otherwise the corpse is drawn at a body and a half, forever, because the
+    // height was written onto the body and the thing that would have taken it
+    // off never landed.
+    const boss = dragon();
+    const killer = champion(200);
+    engage(boss, killer);
+    tick(boss, framesFor(WINGBEAT.riseMs));
+    expect(boss.stats.height.baseValue).toBeGreaterThan(0);
+
+    boss.takeDamage(999_999, killer as never);
+    for (const object of everything()) (object as { toRemove?: boolean }).toRemove = true;
+    for (const object of everything()) (object as { onRemoved?(): void }).onRemoved?.();
+
+    expect(boss.stats.height.baseValue).toBe(0);
   });
 
   it('lands them inside its own reach, so a rooted boss keeps fighting', () => {
@@ -164,7 +235,7 @@ describe('the wingbeat', () => {
     const victim = champion(200);
     engage(boss, victim);
 
-    tick(boss, framesFor(WINGBEAT.telegraphMs + 60));
+    tick(boss, framesFor(WINGBEAT_LANDS_AT + 60));
 
     const dash = victim.buffs.find(buff => buff instanceof api.buffs.Dash);
     expect(dash, 'nothing threw the champion').toBeTruthy();
@@ -182,7 +253,7 @@ describe('the wingbeat', () => {
     const health = victim.stats.health.value;
     engage(boss, victim);
 
-    tick(boss, framesFor(WINGBEAT.telegraphMs + 60));
+    tick(boss, framesFor(WINGBEAT_LANDS_AT + 60));
 
     expect(victim.stats.health.value).toBeLessThan(health);
   });
@@ -195,7 +266,7 @@ describe('the wingbeat', () => {
     const victim = champion(0, 0);
     engage(boss, victim);
 
-    tick(boss, framesFor(WINGBEAT.telegraphMs + 60));
+    tick(boss, framesFor(WINGBEAT_LANDS_AT + 60));
 
     const dash = victim.buffs.find(buff => buff instanceof api.buffs.Dash);
     const landing = (dash as unknown as { dashDestination: { x: number; y: number } })

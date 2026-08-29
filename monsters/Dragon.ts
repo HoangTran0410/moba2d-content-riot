@@ -271,11 +271,50 @@ export const WINGBEAT = {
   landing: 380,
   damage: 10,
   dashSpeed: 24,
-  /** The rear-up you get to read before the beat lands. */
-  telegraphMs: 500,
+  /**
+   * The leap, in three parts, and the reason the ability reads at all.
+   *
+   * It used to be a five-hundred-millisecond ring closing on the pit and then
+   * a shove: a telegraph that said "something is about to happen here" and
+   * nothing about *what*. Every hostile in 240px was thrown outward by a
+   * creature that had visibly not moved, which is the shape of a bug rather
+   * than of an attack.
+   *
+   * So the dragon takes off, hangs, and comes down on the pit, and the
+   * shockwave is what the landing makes. The three legs are the arc a player
+   * can read the ability out of: `rise` is fast and eases *out* so the take-off
+   * is a shove of its own, `hang` is the beat that makes the top of the arc a
+   * moment rather than a corner, and `slam` is short and accelerates, because
+   * a fall that is not faster than the rise does not read as a fall.
+   *
+   * 760ms of wind-up against the old 500 is deliberate: this is a boss's
+   * signature and the whole point is that it is coming and you can see it. The
+   * ground marker is up for all of it.
+   */
+  riseMs: 380,
+  hangMs: 180,
+  slamMs: 200,
+  /**
+   * How far the body appears to leave the ground.
+   *
+   * `Stats.height` is the engine's own airborne channel — `AttackableUnit`
+   * draws a unit at `size + height`, which is what `buffs/Airborne` uses to
+   * lift the things this very ability throws. Seventy against a drake's own
+   * size is roughly a body and a half: unmistakably off the ground, and short
+   * of the size where the sprite stops reading as the same creature.
+   */
+  liftHeight: 70,
   /** How long the shockwave stays on screen after it. */
   burstMs: 320,
 } as const;
+
+/**
+ * When the body reaches the ground again, and therefore when everything the
+ * ability actually *does* happens. Exported because it is the one instant the
+ * suite has to name, and deriving it in the test would be the test agreeing
+ * with a copy of the sum rather than with the sum.
+ */
+export const WINGBEAT_LANDS_AT = WINGBEAT.riseMs + WINGBEAT.hangMs + WINGBEAT.slamMs;
 
 /**
  * One ability, seven fights. Each rhymes with the blessing its drake pays, so
@@ -426,27 +465,92 @@ function makeDragonPitRing(api: ContentApi) {
 }
 
 /**
- * The shockwave: a ring that reads the wingbeat out, then throws.
+ * The leap: up, hang, down — and the shockwave is what the landing makes.
  *
- * The telegraph is readability, not counterplay — nothing walks 330px in half
- * a second — and it is worth having anyway: a shove that arrives with no
- * warning reads as the game glitching rather than as the boss doing something.
+ * ## The lift is driven per frame rather than by a buff
+ *
+ * `buffs/Airborne` is the obvious tool and is the wrong one here. It is a
+ * *step*: one `height` bonus on and, later, off. `AttackableUnit` smooths what
+ * it draws with a fixed `lerp(..., 0.3)`, so a step of any size becomes the
+ * same ~150ms pop whatever duration the buff was given — which is precisely
+ * what a leap must not be, since the whole ability is the shape of the arc.
+ * Writing `height` each frame keeps the curve here, where the three timings
+ * that define it also live, and the renderer's lerp then reads as weight
+ * rather than as the animation.
+ *
+ * `onRemoved` puts the height back, and so does landing. Both are needed: a
+ * drake killed at the top of its own leap would otherwise stay drawn at a body
+ * and a half forever, on a corpse.
+ *
+ * ## The telegraph is readability, not counterplay
+ *
+ * Nothing walks 330px in three quarters of a second, and that was true of the
+ * old half-second ring too. What the leap adds is *what*: a shove that arrives
+ * from a creature which has not moved reads as the game glitching, and one
+ * that arrives from a creature landing on the pit reads as the boss doing
+ * something.
  */
 function makeWingbeat(api: ContentApi) {
   return class Wingbeat extends api.SpellObject {
     age = 0;
     struck = false;
     glow: Glow = [220, 235, 255];
+    /** Whatever the body's own height was, restored on landing and on removal. */
+    private groundHeight = 0;
+    private lifted = false;
 
     update(): void {
       this.age += deltaTime;
       this.position.set(this.owner.position.x, this.owner.position.y);
 
-      if (!this.struck && this.age >= WINGBEAT.telegraphMs) {
+      // Landing is checked *before* the lift, so the frame the body arrives is
+      // never also a frame that writes a height onto it. Written the other way
+      // round the arc happens to end at zero anyway and `drop` looks
+      // redundant — right up to a long frame that steps over the landing, or a
+      // drake whose body carries a height of its own.
+      if (!this.struck && this.age >= WINGBEAT_LANDS_AT) {
         this.struck = true;
+        this.drop();
         this.throwEveryone();
+      } else if (!this.struck) {
+        this.lift();
       }
-      if (this.age >= WINGBEAT.telegraphMs + WINGBEAT.burstMs) this.toRemove = true;
+      if (this.age >= WINGBEAT_LANDS_AT + WINGBEAT.burstMs) this.toRemove = true;
+    }
+
+    /** Where the body is in its arc, 0 on the ground and 1 at the top. */
+    private arc(): number {
+      const { riseMs, hangMs, slamMs } = WINGBEAT;
+      if (this.age < riseMs) {
+        // eased out: most of the height is bought in the first half, so the
+        // take-off is a shove and the top of the arc is a drift
+        const t = this.age / riseMs;
+        return 1 - (1 - t) * (1 - t);
+      }
+      if (this.age < riseMs + hangMs) return 1;
+      // eased in: a fall has to be faster than the rise or it is a descent
+      const t = constrain((this.age - riseMs - hangMs) / slamMs, 0, 1);
+      return 1 - t * t;
+    }
+
+    private lift(): void {
+      const stats = (this.owner as AttackableUnitInstance).stats;
+      if (!this.lifted) {
+        this.groundHeight = stats.height.baseValue;
+        this.lifted = true;
+      }
+      stats.height.baseValue = this.groundHeight + WINGBEAT.liftHeight * this.arc();
+    }
+
+    private drop(): void {
+      if (!this.lifted) return;
+      (this.owner as AttackableUnitInstance).stats.height.baseValue = this.groundHeight;
+      this.lifted = false;
+    }
+
+    onRemoved(): void {
+      this.drop();
+      super.onRemoved();
     }
 
     throwEveryone(): void {
@@ -482,19 +586,62 @@ function makeWingbeat(api: ContentApi) {
       const pos = this.owner.position;
 
       push();
-      noFill();
-      if (this.age < WINGBEAT.telegraphMs) {
-        // rearing up: a ring closing inward on the pit
-        const charge = this.age / WINGBEAT.telegraphMs;
-        stroke(r, g, b, 60 + 140 * charge);
-        strokeWeight(2 + 3 * charge);
-        circle(pos.x, pos.y, WINGBEAT.radius * 2 * (1.35 - 0.35 * charge));
+      translate(pos.x, pos.y);
+
+      if (!this.struck) {
+        const height = this.arc();
+        // The ground marker: where the landing will reach, up for the whole
+        // leap. The edge you read is the edge that throws you.
+        noFill();
+        stroke(r, g, b, 70 + 70 * height);
+        strokeWeight(2);
+        circle(0, 0, WINGBEAT.radius * 2);
+
+        // The shadow, which is the only thing on the ground while the body is
+        // in the air — it shrinks and sharpens as the drake climbs, then races
+        // back out under it on the way down.
+        noStroke();
+        fill(8, 10, 16, 90 + 90 * height);
+        const shadow = this.owner.stats.size.value * (1.05 - 0.45 * height);
+        ellipse(0, 0, shadow, shadow * 0.55);
+
+        // and the air it is pushing down, three arcs tightening under it
+        noFill();
+        stroke(r, g, b, 40 + 120 * height);
+        for (let ring = 0; ring < 3; ring++) {
+          const spread = 0.35 + 0.28 * ring - 0.2 * height;
+          strokeWeight(1.5);
+          circle(0, 0, WINGBEAT.radius * 2 * spread);
+        }
       } else {
-        // the beat: a ring racing out, fading as it goes
-        const swept = constrain((this.age - WINGBEAT.telegraphMs) / WINGBEAT.burstMs, 0, 1);
-        stroke(r, g, b, 220 * (1 - swept));
-        strokeWeight(9 * (1 - swept) + 2);
-        circle(pos.x, pos.y, WINGBEAT.radius * 2 * (0.3 + 0.9 * swept));
+        const swept = constrain((this.age - WINGBEAT_LANDS_AT) / WINGBEAT.burstMs, 0, 1);
+        const fade = 1 - swept;
+
+        // the impact: a hard flash on the pit that dies fast, so the eye is
+        // pulled to the point the shockwave leaves from
+        noStroke();
+        fill(255, 255, 255, 200 * fade * fade);
+        circle(0, 0, WINGBEAT.radius * 0.8 * (0.2 + 0.4 * swept));
+
+        // the shockwave itself, racing out and thinning
+        noFill();
+        stroke(r, g, b, 230 * fade);
+        strokeWeight(10 * fade + 2);
+        circle(0, 0, WINGBEAT.radius * 2 * (0.25 + 0.95 * swept));
+        // a second, faster edge just ahead of it, so the wave has a front
+        stroke(255, 255, 255, 150 * fade);
+        strokeWeight(2);
+        circle(0, 0, WINGBEAT.radius * 2 * (0.35 + 1.05 * swept));
+
+        // dust thrown outward along eight spokes
+        stroke(r, g, b, 140 * fade);
+        strokeWeight(3 * fade + 1);
+        for (let spoke = 0; spoke < 8; spoke++) {
+          const angle = (spoke / 8) * TWO_PI;
+          const inner = WINGBEAT.radius * (0.25 + 0.7 * swept);
+          const outer = inner + WINGBEAT.radius * 0.22 * fade;
+          line(cos(angle) * inner, sin(angle) * inner, cos(angle) * outer, sin(angle) * outer);
+        }
       }
       pop();
     }
