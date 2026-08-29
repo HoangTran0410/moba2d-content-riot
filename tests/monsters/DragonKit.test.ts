@@ -6,6 +6,7 @@ import {
   installSpellObjectGlobals,
   type TestGame,
 } from '@moba2d/core/testing/spell';
+import { data } from '../../pack';
 import makeDragonAbilities, {
   ELEMENTS,
   RITE,
@@ -45,18 +46,14 @@ const dragon = (camp: { x: number; y: number; r: number } = PIT): MonsterInstanc
   new Monster({
     game,
     preset: {
-      name: 'Rồng',
-      avatar: 'monster_Elemental_Dragon',
+      // The shipped body, not a hand-rolled copy of it: speed, reach and the
+      // leash are exactly what this file is about, and a local fixture would
+      // go on passing after `data.ts` moved any of them. Only `camp` and
+      // `abilities` are supplied here — a slot's position is the map's, and a
+      // kit is the pack's code half, neither of which lives in `data.ts`.
+      ...data.monsters!.dragon.members[0],
       camp,
-      speed: 0,
-      size: 88,
-      attackRange: 320,
-      attackStyle: 'breath',
       reviveTime: 100,
-      health: 700,
-      damage: 24,
-      attackInterval: 1_600,
-      aggroRange: 400,
       abilities: makeDragonAbilities(api),
     },
   } as never);
@@ -202,6 +199,33 @@ describe('the wingbeat', () => {
       .dashDestination;
     expect(Number.isFinite(landing.x)).toBe(true);
     expect(Number.isFinite(landing.y)).toBe(true);
+  });
+});
+
+describe('the drake walks', () => {
+  it('follows a target that steps out of reach, unlike the pack\'s other bosses', () => {
+    // Baron and Vilemaw are `speed: 0` scenery. This one is the objective a
+    // match rotates around every minute, and standing still made backing off
+    // one step a way to leave the fight.
+    const boss = dragon();
+    const victim = champion(200);
+    engage(boss, victim);
+    const start = boss.position.x;
+
+    victim.position.set(600, 0);
+    tick(boss, 20);
+
+    expect(boss.isImmovable, 'the drake is still scenery').toBe(false);
+    expect(boss.position.x).toBeGreaterThan(start);
+  });
+
+  it('but holds a shorter leash than the jungle around it', () => {
+    // `max(camp.r, aggroRange) + chaseMargin`. On the default margin a body
+    // with legs and 400 of aggro would follow you 750px off its pit, which on
+    // this map is into a lane.
+    const boss = dragon();
+
+    expect(boss.chaseLeashRange()).toBeLessThan(600);
   });
 });
 

@@ -1270,7 +1270,18 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
       {
         name: 'Rồng Nguyên Tố',
         avatar: 'monster_Elemental_Dragon',
-        speed: 0,
+        // The one boss in this pack with legs. Baron and Vilemaw are scenery
+        // with a long reach; a dragon that cannot take a step is not, and it
+        // is the objective a match is meant to rotate around every minute.
+        //
+        // 2 is what every other single-bodied camp walks at, and a champion
+        // walks at 3 — so it genuinely follows and is genuinely kiteable, and
+        // with 320 of reach it does not need to catch anyone to keep
+        // breathing on them. The cost of legs is real and deliberate:
+        // `Monster.isImmovable` is `speed === 0`, so this body can now be
+        // hooked, knocked up and dragged out of its own pit the way any camp
+        // with legs can. It walks back; scenery could not.
+        speed: 2,
         size: 88,
         attackRange: 320,
         // A minute, not Baron's three: this game's pace, and the ceiling the
@@ -1300,6 +1311,12 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         // does not breathe is the whole of what was wrong with this pit.
         attackStyle: 'breath',
         attackColor: [255, 138, 58],
+        // Tighter than the jungle's own 350. With legs, the default leash
+        // (`max(camp.r, aggroRange) + chaseMargin`) would let it follow you
+        // 750px off its pit and into a lane. 150 keeps the chase to about
+        // 550 — far enough that stepping back is not an escape, short enough
+        // that the pit is still where the fight happens.
+        chaseMargin: 150,
         offset: { x: 0, y: 0 },
       },
     ],
