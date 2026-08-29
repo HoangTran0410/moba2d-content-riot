@@ -694,7 +694,7 @@ export const spellCatalog = {
   },
   "Irelia_W": {
     name: "Vũ Điệu Thách Thức (Irelia_W)",
-    description: "Giữ phím để tích lực — <span class=\"buff\">giảm 35% sát thương phải chịu</span> trong lúc tích. Thả ra để quét kiếm về phía con trỏ,\n    gây <span class=\"damage\">14–32 sát thương</span> tuỳ mức tích lực,\n    <span class=\"buff\">làm chậm 30%</span> trong\n    <span class=\"time\">1 giây</span> và hồi 6 máu mỗi mục tiêu trúng.",
+    description: "Giữ phím để tích lực — <span class=\"buff\">giảm 35% sát thương phải chịu</span> trong lúc tích. Thả ra để quét kiếm về phía con trỏ,\n    gây <span class=\"damage\">14</span>–<span class=\"damage\">32 sát thương</span> tuỳ mức tích lực,\n    <span class=\"buff\">làm chậm 30%</span> trong\n    <span class=\"time\">1 giây</span> và hồi 6 máu mỗi mục tiêu trúng.",
     iconKey: "spell_irelia_w",
     coolDownMs: 9000,
     manaCost: 40,
@@ -910,7 +910,7 @@ export const spellCatalog = {
   },
   "Janna_R": {
     name: "Gió Mùa (Janna_R)",
-    description: "Đẩy lùi kẻ địch gần đó, rồi vận sức tối đa <span class=\"time\">3 giây</span>, hồi <span class=\"damage\">2 máu mỗi 0.25 giây</span> cho bản thân và đồng minh trong vùng",
+    description: "Đẩy lùi kẻ địch gần đó, rồi vận sức tối đa <span class=\"time\">3 giây</span>, hồi <span class=\"buff\">2 máu mỗi 0.25 giây</span> cho bản thân và đồng minh trong vùng",
     iconKey: "spell_janna_r",
     coolDownMs: 10000,
     manaCost: 100,
@@ -1270,7 +1270,7 @@ export const spellCatalog = {
   },
   "MasterYi_W": {
     name: "Thiền (MasterYi_W)",
-    description: "Yi ngồi thiền tối đa <span class=\"time\">2 giây</span>, hồi <span class=\"damage\">4 máu</span> mỗi <span class=\"time\">0.25 giây</span> và nhận <span class=\"buff\">Khiên 25</span>. Di chuyển hoặc bị khống chế sẽ ngắt thiền",
+    description: "Yi ngồi thiền tối đa <span class=\"time\">2 giây</span>, hồi <span class=\"buff\">4 máu</span> mỗi <span class=\"time\">0.25 giây</span> và nhận <span class=\"buff\">Khiên 25</span>. Di chuyển hoặc bị khống chế sẽ ngắt thiền",
     iconKey: "spell_masteryi_w",
     coolDownMs: 8000,
     manaCost: 40,
@@ -1710,7 +1710,7 @@ export const spellCatalog = {
   },
   "Shen_R": {
     name: "Nhất Thống (Shen_R)",
-    description: "Shen tụ khí trong <span class=\"buff\">1.6 giây</span>, nhắm vào một tướng đồng minh <span class=\"buff\">ở bất cứ đâu trên bản đồ</span>. Kênh xong, Shen dịch chuyển tới bên cạnh đồng minh; đồng minh nhận <span class=\"damage\">55 lá chắn</span> và Shen nhận <span class=\"damage\">35 lá chắn</span> trong <span class=\"buff\">3.5 giây</span>. Di chuyển sẽ ngắt kênh, và không thể tự chọn chính mình — đây là chiêu đi cứu người.",
+    description: "Shen tụ khí trong <span class=\"buff\">1.6 giây</span>, nhắm vào một tướng đồng minh <span class=\"buff\">ở bất cứ đâu trên bản đồ</span>. Kênh xong, Shen dịch chuyển tới bên cạnh đồng minh; đồng minh nhận <span class=\"buff\">55 lá chắn</span> và Shen nhận <span class=\"buff\">35 lá chắn</span> trong <span class=\"buff\">3.5 giây</span>. Di chuyển sẽ ngắt kênh, và không thể tự chọn chính mình — đây là chiêu đi cứu người.",
     iconKey: "spell_shen_r",
     coolDownMs: 10000,
     manaCost: 80,
@@ -1774,7 +1774,7 @@ export const spellCatalog = {
   },
   "Soraka_R": {
     name: "Nguyện Ước (Soraka_R)",
-    description: "Cầu xin các vì sao: hồi <span class=\"damage\">45 máu</span> cho Soraka và toàn bộ đồng minh trên khắp bản đồ, tăng lên <span class=\"damage\">68 máu</span> với những ai đang dưới <span class=\"buff\">40% máu tối đa</span>.",
+    description: "Cầu xin các vì sao: hồi <span class=\"buff\">45 máu</span> cho Soraka và toàn bộ đồng minh trên khắp bản đồ, tăng lên <span class=\"buff\">68 máu</span> với những ai đang dưới <span class=\"buff\">40% máu tối đa</span>.",
     iconKey: "spell_soraka_r",
     coolDownMs: 10000,
     manaCost: 60,
@@ -1782,7 +1782,7 @@ export const spellCatalog = {
   },
   "Soraka_W": {
     name: "Tinh Tú Hộ Mệnh (Soraka_W)",
-    description: "Hồi <span class=\"damage\">28 máu</span> cho một đồng minh, trả bằng <span class=\"damage\">12 máu</span> của chính Soraka (chỉ còn <span class=\"damage\">4</span> khi cô đang có bụi sao từ Vẫn Tinh, và khi đó đồng minh cũng nhận được bụi sao). Không thể dùng khi Soraka còn dưới <span class=\"buff\">5% máu tối đa</span>.",
+    description: "Hồi <span class=\"buff\">28 máu</span> cho một đồng minh, trả bằng <span class=\"buff\">12 máu</span> của chính Soraka (chỉ còn <span class=\"buff\">4</span> khi cô đang có bụi sao từ Vẫn Tinh, và khi đó đồng minh cũng nhận được bụi sao). Không thể dùng khi Soraka còn dưới <span class=\"buff\">5% máu tối đa</span>.",
     iconKey: "spell_soraka_w",
     coolDownMs: 4000,
     manaCost: 15,
@@ -1902,7 +1902,7 @@ export const spellCatalog = {
   },
   "Tryndamere_Q": {
     name: "Say Máu (Tryndamere_Q)",
-    description: "Hồi <span class=\"damage\">14 máu</span> cộng <span class=\"damage\">28% lượng máu đã mất</span> (tối đa <span class=\"damage\">40</span>), đồng thời nhận tới <span class=\"buff\">14 sát thương đánh</span> tùy theo lượng máu đã mất trong <span class=\"time\">6 giây</span>.",
+    description: "Hồi <span class=\"buff\">14 máu</span> cộng <span class=\"buff\">28% lượng máu đã mất</span> (tối đa <span class=\"damage\">40</span>), đồng thời nhận tới <span class=\"buff\">14 sát thương đánh</span> tùy theo lượng máu đã mất trong <span class=\"time\">6 giây</span>.",
     iconKey: "spell_tryndamere_q",
     coolDownMs: 9000,
     manaCost: 0,

@@ -28,7 +28,7 @@ export default class Tryndamere_Q extends Spell {
   image = api.asset('spell_tryndamere_q');
   name = 'Say Máu (Tryndamere_Q)';
   description =
-    'Hồi <span class="damage">14 máu</span> cộng <span class="damage">28% lượng máu đã mất</span> ' +
+    'Hồi <span class="buff">14 máu</span> cộng <span class="buff">28% lượng máu đã mất</span> ' +
     '(tối đa <span class="damage">40</span>), đồng thời nhận tới <span class="buff">14 sát thương đánh</span> ' +
     'tùy theo lượng máu đã mất trong <span class="time">6 giây</span>.';
   coolDown = 9_000;

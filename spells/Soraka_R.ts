@@ -35,7 +35,7 @@ export default class Soraka_R extends Spell {
   targetingMode = 'SELF' as const;
   image = api.asset('spell_soraka_r');
   name = 'Nguyện Ước (Soraka_R)';
-  description = `Cầu xin các vì sao: hồi <span class="damage">${HEAL} máu</span> cho Soraka và toàn bộ đồng minh trên khắp bản đồ, tăng lên <span class="damage">${Math.round(HEAL * (1 + LOW_HEALTH_BONUS))} máu</span> với những ai đang dưới <span class="buff">${Math.round(LOW_HEALTH_RATIO * 100)}% máu tối đa</span>.`;
+  description = `Cầu xin các vì sao: hồi <span class="buff">${HEAL} máu</span> cho Soraka và toàn bộ đồng minh trên khắp bản đồ, tăng lên <span class="buff">${Math.round(HEAL * (1 + LOW_HEALTH_BONUS))} máu</span> với những ai đang dưới <span class="buff">${Math.round(LOW_HEALTH_RATIO * 100)}% máu tối đa</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

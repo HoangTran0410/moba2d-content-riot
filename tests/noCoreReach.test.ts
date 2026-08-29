@@ -298,7 +298,12 @@ describe("the pack's tests speak only published core surfaces", () => {
     // four elemental rites. All three reach core through
     // `@moba2d/core/testing` and `/testing/spell`, both already allowed, so
     // the population moves and the offender count does not.
-    expect(files.length).toBe(98);
+    //
+    // 99, not 98: `tests/spellDescriptionTags.test.ts`, which scans every
+    // shipped description for a damage span core would rescale wrongly. It
+    // reads `../generated/spellCatalog` and core not at all, so it moves the
+    // population and nothing else.
+    expect(files.length).toBe(99);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

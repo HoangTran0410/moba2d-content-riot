@@ -78,8 +78,8 @@ export default class Shen_R extends Spell {
     `Shen tụ khí trong <span class="buff">${CHANNEL_DURATION_MS / 1000} giây</span>, nhắm vào` +
     ` một tướng đồng minh <span class="buff">ở bất cứ đâu trên bản đồ</span>.` +
     ` Kênh xong, Shen dịch chuyển tới bên cạnh đồng minh; đồng minh nhận` +
-    ` <span class="damage">${SHIELD_ALLY} lá chắn</span> và Shen nhận` +
-    ` <span class="damage">${SHIELD_SELF} lá chắn</span> trong` +
+    ` <span class="buff">${SHIELD_ALLY} lá chắn</span> và Shen nhận` +
+    ` <span class="buff">${SHIELD_SELF} lá chắn</span> trong` +
     ` <span class="buff">${SHIELD_DURATION_MS / 1000} giây</span>.` +
     ` Di chuyển sẽ ngắt kênh, và không thể tự chọn chính mình — đây là chiêu đi cứu người.`;
   coolDown = COOLDOWN_MS;
