@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { existsSync, readFileSync } from 'node:fs';
 import { buildTestApi, PackRegistry } from '@moba2d/core/testing';
+import { describeItemShop } from '@moba2d/core/testing/items';
 import type { ContentPack, SpellSource } from '@moba2d/core/content/types';
 import riotCode, { data } from '../pack';
 import { spellCatalog } from '../generated/spellCatalog';
@@ -54,6 +55,20 @@ const ITEM_SPELL_IDS = [
   'Item_Shurelya',
   'Item_Everfrost',
 ] as const;
+
+/**
+ * Everything about this shop that is really a rule about *core*: the icon it
+ * looks up, the spell ids it resolves, the recipe it combines, the ceiling it
+ * clamps cooldowns at, and what an item description may contain now that both
+ * the shop card and the inventory tooltip draw the stat list themselves.
+ *
+ * All of it used to be written out here, and a differently-shaped half of it
+ * was written out in the other pack — with core's own `MAX_COOLDOWN_REDUCTION`
+ * copied into each as a literal `0.6`. `@moba2d/core/testing/items` is the one
+ * copy; what is left in this file is this pack's own design, which is the only
+ * thing a pack's shop test should have been about.
+ */
+describeItemShop({ data, assetManifest, spellCatalog });
 
 /**
  * The set as specified: id, name, cost, and every stat with its exact amount.
@@ -292,11 +307,6 @@ describe('the item set', () => {
 
   it('ships exactly the thirty-three specified, keyed by their own id', () => {
     expect(Object.keys(items).sort()).toEqual(Object.keys(SPEC).sort());
-    for (const [key, def] of Object.entries(items)) {
-      // `validate.ts` refuses the pack over this, but the message names a key
-      // rather than what went wrong with it.
-      expect(def.id, key).toBe(key);
-    }
   });
 
   it('carries the specified name, cost and stats, to the number', () => {
@@ -309,47 +319,6 @@ describe('the item set', () => {
       expect(def.passive, `${key} passive`).toBe(expected.passive);
       expect(def.active, `${key} active`).toBe(expected.active);
       expect(def.buildsFrom, `${key} buildsFrom`).toEqual(expected.buildsFrom);
-    }
-  });
-
-  it('describes what an item *does*, and leaves what it grants to the stat list', () => {
-    // The rule used to be "no angle brackets at all", because `ShopDetail.vue`
-    // interpolated this text and markup would have been printed at the player
-    // as literal brackets. It renders with `v-html` now, for the reason the
-    // spell panel always has: these three spans are how core paints a number
-    // in the colour of what it is, and an item sentence full of numbers that
-    // are all the same grey is a sentence nobody reads.
-    //
-    // What it is *not* is a scaling claim. Core rescales a `damage` span by
-    // the reader's ability power for a spell and deliberately not for an item
-    // (`economy/ItemShop` opts item abilities out), so the class here is
-    // colour and nothing more — see `spellDescriptionTags.test.ts`.
-    //
-    // So the contract is narrower rather than gone: the same three spans a
-    // spell may use, and nothing else. Arbitrary markup in shop text is still
-    // a thing this pack does not ship.
-    //
-    // **A description is now optional, and six items correctly have none.**
-    // Every one of these sentences used to open by restating the item's own
-    // stat block in prose — which the shop then printed a second time under
-    // its own list, and the inventory tooltip printed *only* as prose because
-    // it had no list. Core builds both lists from `hud/itemStatLines.ts` now,
-    // so the prose is free to be what it should have been: the passive, the
-    // active, and any note the numbers cannot carry. An item that is nothing
-    // but stats therefore has nothing left to say, and says nothing rather
-    // than repeating the list beside it.
-    const ALLOWED_SPAN = /<span class="(damage|buff|time)">[^<]*<\/span>/g;
-    const STAT_PROSE = /^Tăng /;
-    for (const [key, def] of Object.entries(items)) {
-      const text = def.description ?? '';
-      expect(text.replace(ALLOWED_SPAN, ''), key).not.toMatch(/[<>]/);
-      expect(text, `${key} restates its own stat list`).not.toMatch(STAT_PROSE);
-    }
-  });
-
-  it('names an icon this pack actually ships', () => {
-    for (const [key, def] of Object.entries(items)) {
-      expect(Object.keys(assetManifest), key).toContain(def.icon);
     }
   });
 
@@ -412,15 +381,14 @@ describe('the item set', () => {
     expect(bestSix).toBeLessThanOrEqual(9);
   });
 
-  it('sells cooldown reduction, and never enough of it to reach the cap', () => {
-    // `MAX_COOLDOWN_REDUCTION` is 0.6 in core and a shop that can reach it is
-    // a shop that sells a key which can be held down. Two sources, well short.
-    const reductions = Object.values(items)
-      .map(def => def.stats?.cooldownReduction ?? 0)
-      .filter(amount => amount > 0);
-
-    expect(reductions.length).toBeGreaterThanOrEqual(1);
-    expect(reductions.reduce((sum, amount) => sum + amount, 0)).toBeLessThan(0.6);
+  it('sells cooldown reduction at all', () => {
+    // The ceiling — that the whole shop cannot reach `MAX_COOLDOWN_REDUCTION`,
+    // which would be a shop selling a key that can be held down — is core's
+    // own rule and lives in `describeItemShop`. What is this pack's is that
+    // the stat is *for sale*: three of its ability items lean on it, and a
+    // shop with none would leave them scaling on one axis.
+    const sources = Object.values(items).filter(def => (def.stats?.cooldownReduction ?? 0) > 0);
+    expect(sources.length).toBeGreaterThanOrEqual(1);
   });
 
   it("survives core's own validation, stat allow-list included", () => {
@@ -451,24 +419,22 @@ describe('the item set', () => {
 });
 
 /**
- * Ghép đồ — the build paths, and the three rules core cannot check for us.
+ * Ghép đồ — the part of the build paths that is *this shop's* design.
  *
- * Core's `validate.ts` refuses a recipe naming an item that does not exist, a
- * cycle, and a total under the sum of its parts. Everything below is a rule
- * about *this shop* rather than about recipes in general, and every one of
- * them is silent if broken:
+ * The rules that are core's are in `describeItemShop` above and are not
+ * repeated here: a recipe naming an item that does not exist, a total under
+ * the sum of its parts, a combine that is a downgrade (caught while designing
+ * these — Zhonya's grants 30 armour and two Giáp Lụa grant 36, so the obvious
+ * two-component recipe would have charged 800 gold to *lose* six armour, and
+ * it builds from one instead), and a recipe with more parts than a bag has
+ * slots. Every one of those is silent if broken and none of them is a fact
+ * about this pack.
  *
- *   - **A finished item must not be a downgrade.** Combining swaps the parts'
- *     stats for the finished item's, so an item granting less of something its
- *     own parts granted makes the upgrade a punishment. Caught while designing
- *     these: Zhonya's grants 30 armour and two Giáp Lụa grant 36, so the
- *     obvious two-component recipe would have charged 800 gold to lose six
- *     armour. It builds from one instead.
- *   - **Every component must be reachable.** A component nothing builds from
- *     is a cheap stat stick a player buys once and then cannot upgrade, and
- *     the shop gives them no way to find that out.
- *   - **A recipe must fit in the bag.** Six slots, and the parts have to be
- *     held at once for the combine to be worth anything.
+ * What is left is the shape of *this* shelf: which eight items are sold as
+ * parts rather than as an end in themselves, and the promise that each of
+ * them leads somewhere. The shared rule only catches a component that is a
+ * dead end *and* does nothing; this one holds the stronger line, that
+ * everything on this pack's own component list is genuinely on a build path.
  */
 describe('the build paths', () => {
   const items = data.items ?? {};
@@ -487,17 +453,6 @@ describe('the build paths', () => {
 
   const finished = Object.values(items).filter(def => !COMPONENTS.includes(def.id));
 
-  /** Everything the parts of `def` grant, added up. */
-  const partStats = (def: (typeof items)[string]): Record<string, number> => {
-    const total: Record<string, number> = {};
-    for (const partId of def.buildsFrom ?? []) {
-      for (const [key, amount] of Object.entries(items[partId]?.stats ?? {})) {
-        total[key] = (total[key] ?? 0) + amount;
-      }
-    }
-    return total;
-  };
-
   it('gives every finished item a recipe and every component none', () => {
     for (const id of COMPONENTS) {
       expect(items[id]?.buildsFrom, `${id} is a component`).toBeUndefined();
@@ -507,46 +462,10 @@ describe('the build paths', () => {
     }
   });
 
-  it('names only parts this pack actually sells', () => {
-    for (const def of finished) {
-      for (const partId of def.buildsFrom ?? []) {
-        expect(items[partId], `${def.id} builds from ${partId}`).toBeDefined();
-      }
-    }
-  });
-
-  it('prices every total at or above the sum of its parts', () => {
-    // Core refuses the pack over this, but its message arrives at install and
-    // names one item. Here it names all eight and prints the combine cost,
-    // which is the number a designer is actually retuning.
-    for (const def of finished) {
-      const parts = (def.buildsFrom ?? []).reduce((sum, id) => sum + (items[id]?.cost ?? 0), 0);
-      expect(def.cost, `${def.id}: parts cost ${parts}, item costs ${def.cost}`).toBeGreaterThanOrEqual(parts);
-    }
-  });
-
-  it('never makes the upgrade worse than the things it is made of', () => {
-    for (const def of finished) {
-      const own = def.stats ?? {};
-      for (const [key, fromParts] of Object.entries(partStats(def))) {
-        expect(
-          own[key] ?? 0,
-          `${def.id} grants ${own[key] ?? 0} ${key}, its parts grant ${fromParts}`
-        ).toBeGreaterThanOrEqual(fromParts);
-      }
-    }
-  });
-
   it('gives every component somewhere to go', () => {
     const used = new Set(finished.flatMap(def => def.buildsFrom ?? []));
     for (const id of COMPONENTS) {
       expect(used.has(id), `${id} builds into nothing`).toBe(true);
-    }
-  });
-
-  it('keeps every recipe inside the six slots a bag has', () => {
-    for (const def of finished) {
-      expect((def.buildsFrom ?? []).length, def.id).toBeLessThanOrEqual(6);
     }
   });
 });

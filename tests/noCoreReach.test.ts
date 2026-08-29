@@ -78,6 +78,12 @@ const ALLOWED_CORE_SUBPATHS = new Set([
   '@moba2d/core/testing',
   '@moba2d/core/testing/spell',
   '@moba2d/core/testing/spells',
+  // The shared shop rules. Published on its own subpath, out of the `./testing`
+  // barrel, for the reason `./testing/spells` is: `export *` evaluates the
+  // whole module and this one value-imports core's `Item` and `Stats` for the
+  // two constants (`INVENTORY_SIZE`, `MAX_COOLDOWN_REDUCTION`) it refuses to
+  // let a pack copy.
+  '@moba2d/core/testing/items',
   // The two build helpers core ships for packs: the asset-manifest generator
   // (this pack used to carry its own copy) and the WebP re-encode plugin.
   // Neither is ever part of `pack.js` — one is a bin plus the module behind
@@ -135,7 +141,7 @@ function checkSpecifier(
 
   if (specifier.startsWith('@moba2d/core')) {
     if (ALLOWED_CORE_SUBPATHS.has(specifier) || extraAllowed.has(specifier)) return null;
-    return `${label}: "${specifier}" is not @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells`;
+    return `${label}: "${specifier}" is not one of ${[...ALLOWED_CORE_SUBPATHS].join(', ')}`;
   }
 
   return null;
