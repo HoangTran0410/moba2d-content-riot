@@ -21,11 +21,18 @@ import { data } from '../pack';
  * shields on Shen's ultimate, heals across Soraka's kit, Master Yi's W,
  * Janna's ultimate and Tryndamere's Q. This is what stops a tenth.
  *
- * Item text is scanned beside spell text and for the same reason: an item
- * active is a `Spell`, `takeDamage` amplifies it, and the shop card is
- * rescaled by the same function. An item's *stat* line is the trap there —
- * "Tăng 6 sát thương công" is a stat, not a hit, and tagging it would print
- * a bonus on a number ability power never touches.
+ * Item text is scanned beside spell text, for a **weaker** reason that is
+ * worth stating rather than assuming. Core does *not* rescale an item
+ * description — `economy/ItemShop` builds every item ability with
+ * `damageScalesWithAbilityPower = false`, since they already read
+ * `attackDamage` — so on the shelf this class is a colour and nothing more.
+ * It is still worth holding: a heal or a stat wearing the damage colour reads
+ * to a player as damage, which is the same lie one panel earlier.
+ *
+ * An item's *stat* line is the trap on that side. "Tăng 6 sát thương công" is
+ * a number the item grants you, not a hit it deals, and the whole shelf is
+ * full of them — which is why `NOT_DAMAGE` below names the stats as well as
+ * the heals.
  */
 
 /**
@@ -35,7 +42,33 @@ import { data } from '../pack';
  * "damage from 40% to 100% of 30" is a sentence where colouring the shares as
  * damage reads correctly.
  */
-const NOT_DAMAGE = ['máu', 'lá chắn', 'khiên', 'giây', 'px'];
+const NOT_DAMAGE = [
+  // Restored, absorbed or waited out — never dealt.
+  'máu',
+  'lá chắn',
+  'khiên',
+  'giây',
+  'px',
+  // Granted. Every one of these appears on the item shelf, where a sentence is
+  // mostly stats and a `damage` span among them is almost always a slip.
+  'giáp',
+  'kháng phép',
+  'tốc chạy',
+  'năng lượng',
+  'đòn đánh',
+  'sát thương công',
+  'sát thương chiêu thức',
+  'tỉ lệ chí mạng',
+];
+
+/**
+ * **Not** on that list, and it looked as though it belonged: "sát thương chí
+ * mạng". On the shelf it is the crit-*damage* stat; in a spell it is damage
+ * actually dealt, and Jhin's ultimate says exactly that — `60 sát thương chí
+ * mạng` — which this scan flagged the moment the word was added. The stat
+ * spelling is always a percentage and core refuses those on its own, so the
+ * word buys nothing and costs a false positive on a real ability.
+ */
 
 /** `<span class="damage">…</span>`, non-greedy so two on a line stay two. */
 const DAMAGE_SPAN = /<span class="damage">([\s\S]*?)<\/span>/g;
@@ -86,10 +119,27 @@ describe('every damage span this pack ships', () => {
   });
 
   it('and reaches the item shelf, not only the spell list', () => {
-    // The one item whose active states a damage figure. If the shelf ever
-    // stops being read, this is the case that says so.
+    // If the shelf ever stops being read, this is the case that says so.
     const items = shipped().filter(([id]) => id.startsWith('item '));
     expect(items.length).toBeGreaterThan(20);
     expect(items.some(([, text]) => text.includes('class="damage"'))).toBe(true);
+  });
+
+  it('gives every item card a number a reader can pick out', () => {
+    // The bug this half was added for. Spell descriptions have been tagged
+    // since they were written and item descriptions never were, so the item
+    // panel rendered as one flat grey paragraph beside a spell panel with
+    // three colours in it — the same HTML pipeline, the same stylesheet, and
+    // nothing in the text for either to work on.
+    //
+    // Every shipped item states at least one number, so every shipped item
+    // has at least one span. A component with a single stat is the floor here,
+    // not an exception.
+    const untagged = shipped()
+      .filter(([id]) => id.startsWith('item '))
+      .filter(([, text]) => !/<span class="(damage|buff|time)">/.test(text))
+      .map(([id]) => id);
+
+    expect(untagged).toEqual([]);
   });
 });

@@ -315,18 +315,24 @@ describe('the item set', () => {
   it('gives every one of them a one-line Vietnamese description the shop can print', () => {
     // The rule used to be "no angle brackets at all", because `ShopDetail.vue`
     // interpolated this text and markup would have been printed at the player
-    // as literal brackets. It renders with `v-html` now, for the same reason
-    // the spell panel always has: core rescales a `class="damage"` span by the
-    // buyer's ability power (`combat/Amplification.ts`), and an item active is
-    // a `Spell` like any other.
+    // as literal brackets. It renders with `v-html` now, for the reason the
+    // spell panel always has: these three spans are how core paints a number
+    // in the colour of what it is, and an item sentence full of numbers that
+    // are all the same grey is a sentence nobody reads.
     //
-    // So the contract is narrower rather than gone — the same three spans a
+    // What it is *not* is a scaling claim. Core rescales a `damage` span by
+    // the reader's ability power for a spell and deliberately not for an item
+    // (`economy/ItemShop` opts item abilities out), so the class here is
+    // colour and nothing more — see `spellDescriptionTags.test.ts`.
+    //
+    // So the contract is narrower rather than gone: the same three spans a
     // spell may use, and nothing else. Arbitrary markup in shop text is still
     // a thing this pack does not ship.
     const ALLOWED_SPAN = /<span class="(damage|buff|time)">[^<]*<\/span>/g;
     for (const [key, def] of Object.entries(items)) {
-      expect(def.description, key).toBeTruthy();
-      expect(def.description.replace(ALLOWED_SPAN, ''), key).not.toMatch(/[<>]/);
+      const text = def.description ?? '';
+      expect(text, key).toBeTruthy();
+      expect(text.replace(ALLOWED_SPAN, ''), key).not.toMatch(/[<>]/);
     }
   });
 
