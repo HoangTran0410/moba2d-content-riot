@@ -794,7 +794,6 @@ const itemEntries = (): Record<string, ItemDef> => ({
     name: 'Kiếm Dài',
     icon: 'item_long_sword',
     cost: 350,
-    description: 'Tăng <span class="buff">6</span> sát thương công.',
     stats: { attackDamage: 6 },
   },
   cloth_armor: {
@@ -802,7 +801,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     name: 'Giáp Lụa',
     icon: 'item_cloth_armor',
     cost: 300,
-    description: 'Tăng <span class="buff">18</span> giáp, giảm khoảng <span class="buff">15%</span> sát thương vật lý nhận vào.',
+    description: 'Giảm khoảng <span class="buff">15%</span> sát thương vật lý nhận vào.',
     stats: { armor: 18 },
   },
   null_magic_mantle: {
@@ -810,7 +809,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     name: 'Áo Vải',
     icon: 'item_null_magic_mantle',
     cost: 400,
-    description: 'Tăng <span class="buff">22</span> kháng phép, giảm khoảng <span class="buff">18%</span> sát thương phép nhận vào.',
+    description: 'Giảm khoảng <span class="buff">18%</span> sát thương phép nhận vào.',
     stats: { magicResist: 22 },
   },
   ruby_crystal: {
@@ -818,7 +817,6 @@ const itemEntries = (): Record<string, ItemDef> => ({
     name: 'Hồng Ngọc',
     icon: 'item_ruby_crystal',
     cost: 400,
-    description: 'Tăng <span class="buff">25</span> máu tối đa.',
     stats: { maxHealth: 25 },
   },
   boots: {
@@ -826,7 +824,6 @@ const itemEntries = (): Record<string, ItemDef> => ({
     name: 'Giày',
     icon: 'item_boots',
     cost: 300,
-    description: 'Tăng <span class="buff">0.35</span> tốc chạy.',
     stats: { speed: 0.35 },
   },
   recurve_bow: {
@@ -834,7 +831,6 @@ const itemEntries = (): Record<string, ItemDef> => ({
     name: 'Cung Gỗ',
     icon: 'item_recurve_bow',
     cost: 500,
-    description: 'Tăng <span class="buff">0.25</span> đòn đánh mỗi giây.',
     stats: { attackSpeed: 0.25 },
   },
   sheen: {
@@ -843,7 +839,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     icon: 'item_sheen',
     cost: 450,
     description:
-      'Tăng <span class="buff">15</span> năng lượng tối đa. Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm <span class="buff">50%</span> công cơ bản.',
+      'Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm <span class="buff">50%</span> công cơ bản.',
     stats: { maxMana: 15 },
     passive: 'Item_Sheen',
   },
@@ -853,7 +849,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     icon: 'item_tiamat',
     cost: 550,
     description:
-      'Tăng <span class="buff">6</span> sát thương công. Nội tại: đòn đánh gây thêm <span class="buff">40%</span> công lên các kẻ địch khác quanh mục tiêu.',
+      'Nội tại: đòn đánh gây thêm <span class="buff">40%</span> công lên các kẻ địch khác quanh mục tiêu.',
     stats: { attackDamage: 6 },
     passive: 'Item_Tiamat',
   },
@@ -865,7 +861,6 @@ const itemEntries = (): Record<string, ItemDef> => ({
     icon: 'item_berserkers_greaves',
     cost: 900,
     buildsFrom: ['boots', 'recurve_bow'],
-    description: 'Tăng <span class="buff">0.45</span> tốc chạy và <span class="buff">0.3</span> đòn đánh mỗi giây.',
     stats: { speed: 0.45, attackSpeed: 0.3 },
   },
   warmogs_armor: {
@@ -877,7 +872,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     // `healthRegen` is applied per *frame* by `Stats.update`, not per second —
     // base is 0.06, which is 3.6 health a second at 60fps. 0.25 was ~15/s on a
     // 100-health pool, which outheals most of the abilities in this pack.
-    description: 'Tăng <span class="buff">70</span> máu tối đa và hồi máu nhanh <span class="buff">gần gấp đôi</span> mức cơ bản.',
+    description: 'Hồi máu nhanh <span class="buff">gần gấp đôi</span> mức cơ bản.',
     stats: { maxHealth: 70, healthRegen: 0.05 },
   },
   thornmail: {
@@ -886,7 +881,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     icon: 'item_thornmail',
     cost: 1100,
     buildsFrom: ['cloth_armor', 'cloth_armor'],
-    description: 'Tăng <span class="buff">45</span> giáp, và phản <span class="buff">25%</span> sát thương nhận vào về kẻ đã gây ra nó.',
+    description:
+      'Nội tại: phản <span class="buff">25%</span> sát thương nhận vào về kẻ đã gây ra nó.',
     stats: { armor: 45 },
     passive: 'Item_Thornmail',
   },
@@ -896,7 +892,6 @@ const itemEntries = (): Record<string, ItemDef> => ({
     icon: 'item_infinity_edge',
     cost: 1300,
     buildsFrom: ['long_sword', 'long_sword', 'long_sword'],
-    description: 'Tăng <span class="buff">18</span> sát thương công, <span class="buff">25%</span> tỉ lệ chí mạng và <span class="buff">20%</span> sát thương chí mạng.',
     stats: { attackDamage: 18, critChance: 0.25, critDamage: 0.2 },
   },
   // The name and the icon are Data Dragon item 3140, whose Vietnamese name is
@@ -910,8 +905,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     icon: 'item_quicksilver_sash',
     cost: 1200,
     buildsFrom: ['null_magic_mantle', 'long_sword'],
-    description:
-      'Tăng <span class="buff">40</span> kháng phép và <span class="buff">6</span> sát thương công. Kích hoạt: gỡ bỏ mọi hiệu ứng khống chế đang chịu.',
+    description: 'Kích hoạt: gỡ bỏ mọi hiệu ứng khống chế đang chịu.',
     stats: { magicResist: 40, attackDamage: 6 },
     active: 'Item_Quicksilver',
   },
@@ -921,9 +915,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     icon: 'item_blade_of_the_ruined_king',
     cost: 1200,
     buildsFrom: ['recurve_bow', 'long_sword'],
-    description:
-      'Tăng <span class="buff">10</span> sát thương công, <span class="buff">0.25</span> đòn đánh mỗi giây và hút <span class="buff">12%</span> sát thương gây ra. ' +
-      'Nội tại: đòn đánh gây thêm <span class="buff">5%</span> máu hiện tại của mục tiêu.',
+    description: 'Nội tại: đòn đánh gây thêm <span class="buff">5%</span> máu hiện tại của mục tiêu.',
     stats: { attackDamage: 10, attackSpeed: 0.25, omnivamp: 0.12 },
     passive: 'Item_RuinedKing',
   },
@@ -934,8 +926,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1500,
     buildsFrom: ['cloth_armor'],
     description:
-      'Tăng <span class="buff">30</span> giáp và <span class="buff">150%</span> sát thương chiêu thức. Kích hoạt: đóng băng bản thân <span class="time">2.5 giây</span>, ' +
-      'không thể bị nhắm và không nhận sát thương.',
+      'Kích hoạt: đóng băng bản thân <span class="time">2.5 giây</span>, không thể bị nhắm và không nhận sát thương.',
     stats: { armor: 30, abilityPower: 1.5 },
     active: 'Item_Zhonyas',
   },
@@ -945,7 +936,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     icon: 'item_youmuus_ghostblade',
     cost: 1200,
     buildsFrom: ['long_sword', 'long_sword'],
-    description: 'Tăng <span class="buff">12</span> sát thương công. Kích hoạt: tăng <span class="buff">40%</span> tốc chạy trong <span class="time">5 giây</span>.',
+    description:
+      'Kích hoạt: tăng <span class="buff">40%</span> tốc chạy trong <span class="time">5 giây</span>.',
     stats: { attackDamage: 12 },
     active: 'Item_Ghostblade',
   },
@@ -962,8 +954,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1400,
     buildsFrom: ['recurve_bow', 'long_sword'],
     description:
-      'Tăng <span class="buff">8</span> sát thương công và <span class="buff">0.35</span> đòn đánh mỗi giây. Nội tại: mỗi đòn đánh tăng thêm tốc đánh, ' +
-      'cộng dồn <span class="buff">6</span> lần; khi tích đủ, mỗi đòn thứ 3 kích hoạt các hiệu ứng đòn đánh <span class="buff">2</span> lần.',
+      'Nội tại: mỗi đòn đánh tăng thêm tốc đánh, cộng dồn <span class="buff">6</span> lần; khi tích đủ, ' +
+      'mỗi đòn thứ <span class="buff">3</span> kích hoạt các hiệu ứng đòn đánh <span class="buff">2</span> lần.',
     stats: { attackDamage: 8, attackSpeed: 0.35 },
     passive: 'Item_Guinsoo',
   },
@@ -974,7 +966,6 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1450,
     buildsFrom: ['recurve_bow', 'null_magic_mantle'],
     description:
-      'Tăng <span class="buff">0.3</span> đòn đánh mỗi giây, <span class="buff">32</span> kháng phép và <span class="buff">100%</span> sát thương chiêu thức. ' +
       'Nội tại: đòn đánh gây thêm <span class="damage">4 sát thương phép</span> và tăng tốc chạy trong chốc lát.',
     stats: { attackSpeed: 0.3, magicResist: 32, abilityPower: 1 },
     passive: 'Item_WitsEnd',
@@ -986,8 +977,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1500,
     buildsFrom: ['recurve_bow', 'long_sword', 'long_sword'],
     description:
-      'Tăng <span class="buff">14</span> sát thương công và <span class="buff">0.3</span> đòn đánh mỗi giây. Nội tại: mỗi đòn thứ 3 liên tiếp lên ' +
-      'cùng một mục tiêu gây thêm <span class="damage">12 sát thương vật lý</span>.',
+      'Nội tại: mỗi đòn thứ <span class="buff">3</span> liên tiếp lên cùng một mục tiêu gây thêm ' +
+      '<span class="damage">12 sát thương vật lý</span>.',
     stats: { attackDamage: 14, attackSpeed: 0.3 },
     passive: 'Item_Kraken',
   },
@@ -997,9 +988,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     icon: 'item_nashors_tooth',
     cost: 1450,
     buildsFrom: ['recurve_bow'],
-    description:
-      'Tăng <span class="buff">0.4</span> đòn đánh mỗi giây và <span class="buff">140%</span> sát thương chiêu thức. ' +
-      'Nội tại: đòn đánh gây thêm <span class="damage">7 sát thương phép</span>.',
+    description: 'Nội tại: đòn đánh gây thêm <span class="damage">7 sát thương phép</span>.',
     stats: { attackSpeed: 0.4, abilityPower: 1.4 },
     passive: 'Item_Nashor',
   },
@@ -1010,7 +999,6 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1700,
     buildsFrom: ['sheen', 'long_sword', 'recurve_bow'],
     description:
-      'Tăng <span class="buff">10</span> sát thương công, <span class="buff">0.3</span> đòn đánh mỗi giây, <span class="buff">20</span> năng lượng và <span class="buff">0.15</span> tốc chạy. ' +
       'Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm <span class="buff">100%</span> công cơ bản.',
     stats: { attackDamage: 10, attackSpeed: 0.3, maxMana: 20, speed: 0.15 },
     passive: 'Item_TrinityForce',
@@ -1022,8 +1010,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1500,
     buildsFrom: ['sheen', 'ruby_crystal'],
     description:
-      'Tăng <span class="buff">35</span> máu, <span class="buff">15</span> năng lượng và <span class="buff">8</span> sát thương công. Nội tại: sau khi dùng chiêu, đòn đánh ' +
-      'kế tiếp gây thêm <span class="buff">6%</span> máu tối đa của mục tiêu và hồi lại <span class="buff">65%</span> lượng đó.',
+      'Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm <span class="buff">6%</span> máu tối đa của ' +
+      'mục tiêu và hồi lại <span class="buff">65%</span> lượng đó.',
     stats: { maxHealth: 35, maxMana: 15, attackDamage: 8 },
     passive: 'Item_DivineSunderer',
   },
@@ -1034,8 +1022,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1400,
     buildsFrom: ['sheen', 'long_sword'],
     description:
-      'Tăng <span class="buff">12</span> sát thương công, <span class="buff">25</span> năng lượng và <span class="buff">15%</span> tỉ lệ chí mạng. Nội tại: sau khi dùng chiêu, ' +
-      'đòn đánh kế tiếp gây thêm <span class="buff">70%</span> công cơ bản và hồi <span class="buff">15%</span> năng lượng tối đa.',
+      'Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm <span class="buff">70%</span> công cơ bản và ' +
+      'hồi <span class="buff">15%</span> năng lượng tối đa.',
     stats: { attackDamage: 12, maxMana: 25, critChance: 0.15 },
     passive: 'Item_EssenceReaver',
   },
@@ -1046,8 +1034,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1500,
     buildsFrom: ['sheen', 'boots'],
     description:
-      'Tăng <span class="buff">0.4</span> tốc chạy, <span class="buff">20</span> năng lượng và <span class="buff">160%</span> sát thương chiêu thức. Nội tại: sau khi dùng chiêu, ' +
-      'đòn đánh kế tiếp gây thêm <span class="damage">18 sát thương phép</span>.',
+      'Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm <span class="damage">18 sát thương phép</span>.',
     stats: { speed: 0.4, maxMana: 20, abilityPower: 1.6 },
     passive: 'Item_LichBane',
   },
@@ -1058,8 +1045,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1400,
     buildsFrom: ['tiamat', 'long_sword'],
     description:
-      'Tăng <span class="buff">14</span> sát thương công và hút <span class="buff">10%</span> sát thương gây ra. Nội tại: đòn đánh gây thêm <span class="buff">60%</span> công ' +
-      'lên các kẻ địch khác quanh mục tiêu.',
+      'Nội tại: đòn đánh gây thêm <span class="buff">60%</span> công lên các kẻ địch khác quanh mục tiêu.',
     stats: { attackDamage: 14, omnivamp: 0.1 },
     passive: 'Item_RavenousHydra',
   },
@@ -1070,8 +1056,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1500,
     buildsFrom: ['tiamat', 'ruby_crystal'],
     description:
-      'Tăng <span class="buff">8</span> sát thương công và <span class="buff">40</span> máu tối đa. Nội tại: đòn đánh gây thêm <span class="buff">3</span> cộng <span class="buff">3%</span> máu tối đa ' +
-      'của bạn lên các kẻ địch khác quanh mục tiêu.',
+      'Nội tại: đòn đánh gây thêm <span class="buff">3</span> cộng <span class="buff">3%</span> máu tối đa của bạn lên các kẻ địch ' +
+      'khác quanh mục tiêu.',
     stats: { attackDamage: 8, maxHealth: 40 },
     passive: 'Item_TitanicHydra',
   },
@@ -1082,8 +1068,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1400,
     buildsFrom: ['recurve_bow', 'recurve_bow'],
     description:
-      'Tăng <span class="buff">0.55</span> đòn đánh mỗi giây. Nội tại (đánh xa): mỗi đòn đánh bắn thêm <span class="buff">2</span> tia phụ vào các ' +
-      'kẻ địch khác gần nhất, gây <span class="buff">45%</span> công và áp dụng hiệu ứng đòn đánh của bạn.',
+      'Nội tại (đánh xa): mỗi đòn đánh bắn thêm <span class="buff">2</span> tia phụ vào các kẻ địch khác ' +
+      'gần nhất, gây <span class="buff">45%</span> công và áp dụng hiệu ứng đòn đánh của bạn.',
     stats: { attackSpeed: 0.55 },
     passive: 'Item_Runaan',
   },
@@ -1094,8 +1080,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1700,
     buildsFrom: ['ruby_crystal', 'ruby_crystal'],
     description:
-      'Tăng <span class="buff">60</span> máu tối đa và <span class="buff">6</span> sát thương công. Nội tại: các hiệu ứng đòn đánh của bạn kích hoạt ' +
-      '<span class="buff">2</span> lần mỗi đòn đánh.',
+      'Nội tại: các hiệu ứng đòn đánh của bạn kích hoạt <span class="buff">2</span> lần mỗi đòn đánh.',
     stats: { maxHealth: 60, attackDamage: 6 },
     passive: 'Item_DuskAndDawn',
   },
@@ -1115,9 +1100,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1300,
     buildsFrom: ['recurve_bow', 'long_sword'],
     description:
-      'Tăng <span class="buff">10</span> sát thương công và <span class="buff">0.35</span> đòn đánh mỗi giây. Nội tại: mỗi đòn đánh tích điện; ' +
-      'khi tích đầy, đòn kế tiếp phóng tia sét gây <span class="damage">16 sát thương phép</span> lên mục tiêu và lan ' +
-      'sang <span class="buff">3</span> kẻ địch gần đó.',
+      'Nội tại: mỗi đòn đánh tích điện; khi tích đầy, đòn kế tiếp phóng tia sét gây ' +
+      '<span class="damage">16 sát thương phép</span> lên mục tiêu và lan sang <span class="buff">3</span> kẻ địch gần đó.',
     stats: { attackDamage: 10, attackSpeed: 0.35 },
     passive: 'Item_StatikkShiv',
   },
@@ -1128,9 +1112,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1200,
     buildsFrom: ['cloth_armor', 'ruby_crystal'],
     description:
-      'Tăng <span class="buff">30</span> giáp, <span class="buff">50</span> máu tối đa và <span class="buff">0.2</span> tốc chạy. Nội tại: di chuyển tích lực, tối đa tăng ' +
-      'thêm <span class="buff">30%</span> tốc chạy; đòn đánh kế tiếp xả toàn bộ lực, gây tới <span class="damage">20 sát thương vật lý</span> và ' +
-      'làm chậm <span class="buff">50%</span> khi tích đầy.',
+      'Nội tại: di chuyển tích lực, tối đa tăng thêm <span class="buff">30%</span> tốc chạy; đòn đánh kế tiếp ' +
+      'xả toàn bộ lực, gây tới <span class="damage">20 sát thương vật lý</span> và làm chậm <span class="buff">50%</span> khi tích đầy.',
     stats: { armor: 30, maxHealth: 50, speed: 0.2 },
     passive: 'Item_DeadMansPlate',
   },
@@ -1141,8 +1124,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1300,
     buildsFrom: ['cloth_armor', 'null_magic_mantle'],
     description:
-      'Tăng <span class="buff">25</span> giáp, <span class="buff">25</span> kháng phép và <span class="buff">40</span> máu tối đa. Kích hoạt: tạo khiên <span class="buff">30</span> cho bản thân và ' +
-      'các đồng minh xung quanh trong <span class="time">2.5 giây</span>.',
+      'Kích hoạt: tạo khiên <span class="buff">30</span> cho bản thân và các đồng minh xung quanh trong <span class="time">2.5 giây</span>.',
     stats: { armor: 25, magicResist: 40, maxHealth: 40 },
     active: 'Item_Locket',
   },
@@ -1153,9 +1135,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1400,
     buildsFrom: ['boots', 'ruby_crystal'],
     description:
-      'Tăng <span class="buff">0.45</span> tốc chạy, <span class="buff">40</span> máu tối đa, <span class="buff">30</span> năng lượng, <span class="buff">100%</span> sát thương chiêu thức và giảm <span class="buff">15%</span> ' +
-      'thời gian hồi chiêu. Kích hoạt: tăng <span class="buff">35%</span> tốc chạy cho bản thân và các đồng minh xung ' +
-      'quanh trong <span class="time">3 giây</span>.',
+      'Kích hoạt: tăng <span class="buff">35%</span> tốc chạy cho bản thân và các đồng minh xung quanh trong <span class="time">3 giây</span>.',
     stats: {
       speed: 0.45,
       maxHealth: 40,
@@ -1172,10 +1152,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1500,
     buildsFrom: ['ruby_crystal', 'null_magic_mantle'],
     description:
-      'Tăng <span class="buff">45</span> máu tối đa, <span class="buff">35</span> kháng phép, <span class="buff">40</span> năng lượng, <span class="buff">140%</span> sát thương chiêu thức và giảm <span class="buff">10%</span> ' +
-      'thời gian hồi chiêu. Kích hoạt: bắn ra một luồng băng gây ' +
-      '<span class="damage">30 sát thương phép</span> và trói ' +
-      '<span class="time">1.2 giây</span> mọi kẻ địch trúng đòn.',
+      'Kích hoạt: bắn ra một luồng băng gây <span class="damage">30 sát thương phép</span> và trói <span class="time">1.2 giây</span> mọi kẻ địch trúng đòn.',
     stats: {
       maxHealth: 45,
       magicResist: 35,

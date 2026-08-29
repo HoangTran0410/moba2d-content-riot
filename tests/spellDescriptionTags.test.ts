@@ -125,19 +125,23 @@ describe('every damage span this pack ships', () => {
     expect(items.some(([, text]) => text.includes('class="damage"'))).toBe(true);
   });
 
-  it('gives every item card a number a reader can pick out', () => {
+  it('gives every number an item states a colour a reader can pick out', () => {
     // The bug this half was added for. Spell descriptions have been tagged
     // since they were written and item descriptions never were, so the item
     // panel rendered as one flat grey paragraph beside a spell panel with
     // three colours in it — the same HTML pipeline, the same stylesheet, and
     // nothing in the text for either to work on.
     //
-    // Every shipped item states at least one number, so every shipped item
-    // has at least one span. A component with a single stat is the floor here,
-    // not an exception.
+    // Written as "any digit outside a span is untagged" rather than "every
+    // item has a span", because an item's *stats* left the prose when core
+    // grew a stat list of its own (`hud/itemStatLines.ts`) — six components
+    // now have no description at all, and demanding a span of them would
+    // demand a sentence they have no reason to carry. What is left is the
+    // passive and the active, where every number is one this pack chose to
+    // print and should therefore have coloured.
     const untagged = shipped()
       .filter(([id]) => id.startsWith('item '))
-      .filter(([, text]) => !/<span class="(damage|buff|time)">/.test(text))
+      .filter(([, text]) => /\d/.test(text.replace(/<span class="[a-z]+">[^<]*<\/span>/g, '')))
       .map(([id]) => id);
 
     expect(untagged).toEqual([]);

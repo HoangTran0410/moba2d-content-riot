@@ -312,7 +312,7 @@ describe('the item set', () => {
     }
   });
 
-  it('gives every one of them a one-line Vietnamese description the shop can print', () => {
+  it('describes what an item *does*, and leaves what it grants to the stat list', () => {
     // The rule used to be "no angle brackets at all", because `ShopDetail.vue`
     // interpolated this text and markup would have been printed at the player
     // as literal brackets. It renders with `v-html` now, for the reason the
@@ -328,11 +328,22 @@ describe('the item set', () => {
     // So the contract is narrower rather than gone: the same three spans a
     // spell may use, and nothing else. Arbitrary markup in shop text is still
     // a thing this pack does not ship.
+    //
+    // **A description is now optional, and six items correctly have none.**
+    // Every one of these sentences used to open by restating the item's own
+    // stat block in prose — which the shop then printed a second time under
+    // its own list, and the inventory tooltip printed *only* as prose because
+    // it had no list. Core builds both lists from `hud/itemStatLines.ts` now,
+    // so the prose is free to be what it should have been: the passive, the
+    // active, and any note the numbers cannot carry. An item that is nothing
+    // but stats therefore has nothing left to say, and says nothing rather
+    // than repeating the list beside it.
     const ALLOWED_SPAN = /<span class="(damage|buff|time)">[^<]*<\/span>/g;
+    const STAT_PROSE = /^Tăng /;
     for (const [key, def] of Object.entries(items)) {
       const text = def.description ?? '';
-      expect(text, key).toBeTruthy();
       expect(text.replace(ALLOWED_SPAN, ''), key).not.toMatch(/[<>]/);
+      expect(text, `${key} restates its own stat list`).not.toMatch(STAT_PROSE);
     }
   });
 
