@@ -109,9 +109,23 @@ export const WINGBEAT = {
   name: 'Vỗ Cánh',
   cooldownMs: 9_000,
   /** Everything inside this, measured from the pit, is thrown out. */
-  radius: 330,
-  /** Where it lands them, also measured from the pit. */
-  landing: 560,
+  radius: 240,
+  /**
+   * Where it lands them, also measured from the pit — and **inside the
+   * dragon's own reach**, which is `attackRange` plus both bodies' radii, so
+   * about 390 against a default-sized champion.
+   *
+   * It used to be 560. The dragon is rooted, so that threw every target past
+   * the only range it has and left the boss standing in an empty pit until
+   * they chose to walk back: a signature ability whose whole effect was to
+   * end its own fight. Landing short of the reach keeps the breath on you all
+   * the way back in, so the beat costs *you* the tempo — melee out of range,
+   * out of the pit, walking — rather than costing the dragon its turn.
+   *
+   * Larger than `radius` on purpose: everyone caught is thrown outward, never
+   * dragged in.
+   */
+  landing: 380,
   damage: 10,
   dashSpeed: 24,
   /** The rear-up you get to read before the beat lands. */

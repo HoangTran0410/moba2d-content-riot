@@ -132,14 +132,29 @@ describe('the wingbeat', () => {
     const victim = champion(200);
     engage(boss, victim);
 
-    tick(boss, framesFor(WINGBEAT.telegraphMs - 60));
-    expect(
-      victim.buffs.some(buff => buff instanceof api.buffs.Dash),
-      'the beat landed during its own wind-up'
-    ).toBe(false);
+    // Asserted on where the champion *is*, not on whether a `Dash` is still
+    // attached: the dash ends as soon as it arrives, so a buff check is a race
+    // against its own travel time and would flip on any retune of `landing`.
+    const start = victim.position.x;
 
-    tick(boss, framesFor(120));
-    expect(victim.buffs.some(buff => buff instanceof api.buffs.Dash)).toBe(true);
+    tick(boss, framesFor(WINGBEAT.telegraphMs - 60));
+    expect(victim.position.x, 'the beat landed during its own wind-up').toBe(start);
+
+    tick(boss, framesFor(400));
+    expect(victim.position.x).toBeGreaterThan(start);
+  });
+
+  it('lands them inside its own reach, so a rooted boss keeps fighting', () => {
+    // The beat used to throw to 560 while the dragon reaches about 390, which
+    // made its signature ability the thing that ended its own fight.
+    const boss = dragon();
+    const victim = champion(150);
+    engage(boss, victim);
+    const reach = boss.attackRange + boss.stats.size.value / 2 + victim.stats.size.value / 2;
+
+    expect(WINGBEAT.landing).toBeLessThan(reach);
+    // And outward for everyone it can catch, never dragged in.
+    expect(WINGBEAT.landing).toBeGreaterThan(WINGBEAT.radius);
   });
 
   it('throws them out of the pit rather than up in the air', () => {
