@@ -1363,9 +1363,14 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
       {
         name: 'Cua Sông',
         avatar: 'monster_Rift_Scuttle',
-        // Faster than anything else in the jungle, because running is the
-        // whole of what it does.
+        // Faster than anything else in the jungle, because running is what it
+        // does once anything touches it.
         speed: 3.1,
+        // And a quarter of that the rest of the time. This is the pace it
+        // drifts up and down the river at while nothing is happening — see
+        // `monsters/ScuttleCrab.ts`'s header for why the two are different
+        // numbers rather than one.
+        wanderSpeed: 0.75,
         size: 46,
         attackRange: 50,
         reviveTime: 45_000,
@@ -1374,8 +1379,9 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         // have derived from health. Stated as zero so nothing about the camp
         // depends on reading `temperament` to know it is harmless.
         damage: 0,
-        // Wide, because this is the distance at which it *notices* you and
-        // starts running — not a distance at which anything is attacked.
+        // Wide, and it no longer means "notices you". Nothing startles this
+        // camp any more; `aggroRange` is what `updateFlee` asks — how near
+        // something has to be for it to keep running from it.
         aggroRange: 420,
         temperament: 'skittish',
         roam: { kind: 'terrain', layer: 'water' },

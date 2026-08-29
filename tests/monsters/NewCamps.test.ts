@@ -227,36 +227,73 @@ describe('Dragon', () => {
 });
 
 describe('Scuttle Crab', () => {
-  it('leaves a shrine on its corpse, owned by the killer\'s team', () => {
+  /** Anything in the world carrying a fog radius — the eye or the shrine. */
+  const eyes = (): { fogRevealRadius: number; teamId?: string }[] =>
+    everything().filter(
+      o => typeof (o as { fogRevealRadius?: number }).fogRevealRadius === 'number'
+    ) as { fogRevealRadius: number; teamId?: string }[];
+
+  const shrine = () => eyes().find(o => o.fogRevealRadius === SCUTTLE.radius);
+  const eye = () => eyes().find(o => o.fogRevealRadius === SCUTTLE.eyeRevealRadius);
+
+  it('leaves an eye on its corpse, owned by the killer\'s team', () => {
     const killer = champion(game, 0, 'blue');
     game.setPlayer(killer);
 
     slay(game, makeScuttleAbilities(api), killer);
 
-    const shrine = everything().find(
-      o => (o as { fogRevealRadius?: number }).fogRevealRadius === SCUTTLE.radius
-    ) as { teamId?: string } | undefined;
-    expect(shrine, 'no shrine was left behind').toBeTruthy();
-    // The crab is neutral; the shrine has to belong to the team that earned
-    // it, or the fog lights for nobody.
-    expect(shrine!.teamId).toBe('blue');
+    expect(eye(), 'no eye was left behind').toBeTruthy();
+    // The crab is neutral; whatever it leaves has to belong to the team that
+    // earned it, or the fog lights for nobody.
+    expect(eye()!.teamId).toBe('blue');
+    // And the reward itself is not here yet — it is still being carried.
+    expect(shrine()).toBeUndefined();
   });
 
-  it('lights fog, which is the whole of how it grants vision', () => {
+  it('flies the reward to the camp point rather than dropping it where it fell', () => {
+    // The whole reason the eye exists. The crab wanders now, so "where it
+    // died" is nowhere in particular; what a team contests is the crossing.
+    const killer = champion(game, 0, 'blue');
+    game.setPlayer(killer);
+
+    const crab = camp(game, makeScuttleAbilities(api));
+    const home = { x: crab.home.x, y: crab.home.y };
+    // Killed a long way down the river from its own spot.
+    crab.position.set(home.x + 900, home.y + 700);
+    crab.takeDamage(9_999, killer as never);
+    expect(crab.isDead).toBe(true);
+
+    const flier = eye() as unknown as { update(): void; position: { x: number; y: number } };
+    expect(flier, 'no eye was left behind').toBeTruthy();
+    // It starts at the corpse, not at the camp.
+    expect(flier.position.x).toBeCloseTo(home.x + 900, 0);
+
+    // Flown, not teleported: stepping the object is the only thing that moves
+    // it, and the number of steps is a consequence of its own speed.
+    const travel = Math.hypot(900, 700);
+    for (let step = 0; step < Math.ceil(travel / SCUTTLE.eyeSpeed) + 2; step++) flier.update();
+
+    expect(shrine(), 'the eye never planted anything').toBeTruthy();
+    const planted = shrine() as unknown as { center: { x: number; y: number } };
+    expect(planted.center.x).toBeCloseTo(home.x, 0);
+    expect(planted.center.y).toBeCloseTo(home.y, 0);
+  });
+
+  it('lights fog the whole way, which is how it grants vision at all', () => {
     // `FogOfWar` asks two questions of a candidate revealer — my team, and a
-    // `fogRevealRadius` above zero — and never asks whether it is a unit.
+    // `fogRevealRadius` above zero — and never asks whether it is a unit. Both
+    // halves carry one, so the flight is watchable and the crossing is lit.
     const killer = champion(game, 0, 'blue');
     game.setPlayer(killer);
 
     slay(game, makeScuttleAbilities(api), killer);
 
-    const shrine = everything().find(
-      o => (o as { fogRevealRadius?: number }).fogRevealRadius !== undefined
-    ) as { fogRevealRadius: number };
-    expect(shrine.fogRevealRadius).toBeGreaterThan(0);
+    expect(eye()!.fogRevealRadius).toBeGreaterThan(0);
+    // Smaller than the shrine's: a trail, not the reward arriving early.
+    expect(SCUTTLE.eyeRevealRadius).toBeLessThan(SCUTTLE.radius);
   });
 
-  it('grants no shrine when something that is not a champion steals the kill', () => {
+  it('grants nothing when something that is not a champion steals the kill', () => {
     // A real unit rather than a stub: `takeDamage` writes to the attacker's
     // own `tally`, so a hand-rolled object has to grow engine internals to
     // get through the death path at all — and a test that mocks the path it
@@ -266,14 +303,12 @@ describe('Scuttle Crab', () => {
 
     slay(game, makeScuttleAbilities(api), thief as never);
 
-    // Asserted on the shrine specifically, not on the object count: a death
+    // Asserted on the eye specifically, not on the object count: a death
     // legitimately adds other things to the world (combat text, for one), so
     // "nothing at all appeared" would be a claim about the wrong thing and
     // would fail for a reason that has nothing to do with this camp.
-    const shrine = everything().find(
-      o => (o as { fogRevealRadius?: number }).fogRevealRadius === SCUTTLE.radius
-    );
-    expect(shrine).toBeUndefined();
+    expect(eye()).toBeUndefined();
+    expect(shrine()).toBeUndefined();
   });
 });
 
