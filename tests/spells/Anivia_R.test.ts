@@ -15,6 +15,14 @@ class TestVector {
   copy(): TestVector {
     return new TestVector(this.x, this.y);
   }
+  /** Part of `p5.Vector`, and core uses it — an `AreaSpellObject` keeps its
+   *  own `position` on its centre, so a stub without this throws on
+   *  construction. Two of these six local stubs were missing it. */
+  set(x: number, y: number): TestVector {
+    this.x = x;
+    this.y = y;
+    return this;
+  }
   limit(maximum: number): TestVector {
     const magnitude = Math.hypot(this.x, this.y);
     if (magnitude > maximum) {

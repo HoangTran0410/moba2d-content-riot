@@ -113,16 +113,33 @@ export function makeScuttleShrine(api: ContentApi) {
       // Fades out over its own life, so "this is about to go" is readable
       // without a number on screen.
       const left = 1 - Math.min(1, this.elapsedMs / SCUTTLE.shrineDurationMs);
+
       push();
       noStroke();
-      fill(90, 210, 220, 34 * left);
+      // **Three fills, brightest in the middle, and that is not decoration.**
+      // Core paints a granted circle with a 100px fade at its edge
+      // (`FogOfWar`'s `GRANTED_SIGHT_RING_PX`), so the fog is solid well
+      // inside this radius and washes out on the way to it. One flat disc at
+      // the full radius therefore claimed vision out to a line the fog does
+      // not actually reach, which reads as the shrine lighting less than it
+      // says it does. The gradient says the true shape instead.
+      fill(90, 210, 220, 40 * left);
+      circle(x, y, this.radius * 1.2);
+      fill(90, 210, 220, 26 * left);
+      circle(x, y, this.radius * 1.6);
+      fill(90, 210, 220, 14 * left);
       circle(x, y, this.radius * 2);
+
       noFill();
       stroke(120, 235, 245, 150 * left);
       strokeWeight(3);
-      circle(x, y, this.radius * 1.7);
+      // The bright ring marks where the light is still solid, not the outer
+      // edge — the edge is a fade and drawing a hard line on it would be the
+      // same overclaim one layer out.
+      circle(x, y, this.radius * 1.2);
+      stroke(120, 235, 245, 70 * left);
       strokeWeight(2);
-      circle(x, y, this.radius * 1.15);
+      circle(x, y, this.radius * 2);
       pop();
     }
   };
