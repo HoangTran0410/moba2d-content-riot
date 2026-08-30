@@ -253,6 +253,38 @@ describe('Janna R', () => {
     expect(owner.stats.mana.value).toBe(200 - MANA_COST);
   });
 
+  it('pushes a champion on the rim outward, never back towards Janna', () => {
+    // Reported from a real match, and visible only from the rim, which is why
+    // it survived: the destination used to be `origin + direction * 260` — a
+    // radius rather than a displacement. `RADIUS` is 420, so anybody standing
+    // in the outer 160px of the storm was *dragged in* by an ability whose
+    // whole description is blowing people away, and the further out they
+    // stood the harder they were pulled.
+    const buffs: unknown[] = [];
+    const start = RADIUS - 20;
+    const enemy: TestUnit = {
+      position: new TestVector(start, 0),
+      destination: new TestVector(start, 0),
+      collisionRadius: 20,
+      teamId: 'red',
+      isDead: false,
+      canCast: true,
+      stopMovement() {
+        this.destination.set(this.position.x, this.position.y);
+      },
+      addBuff: buff => buffs.push(buff),
+      takeHeal: vi.fn(),
+    };
+    const { owner } = makeOwner([enemy]);
+
+    new Janna_R(owner).press(context(owner));
+
+    expect(buffs).toHaveLength(1);
+    const landing = (buffs[0] as { dashDestination: { x: number; y: number } }).dashDestination;
+    expect(landing.x).toBeGreaterThan(start);
+    expect(landing.x).toBeCloseTo(start + KNOCKBACK_DISTANCE, 5);
+  });
+
   it('knocks enemies back once then heals allies on runtime channel ticks', () => {
     const enemyBuffs: unknown[] = [];
     const enemy: TestUnit = {
@@ -292,10 +324,13 @@ describe('Janna R', () => {
       dashDestination: { x: number; y: number };
       dashSpeed: number;
     };
-    expect(knockback.dashDestination).toEqual({ x: KNOCKBACK_DISTANCE, y: 0 });
-    // enemy started 100 units from the origin, along the same axis
-    const displacement = KNOCKBACK_DISTANCE - 100;
-    expect(knockback.dashSpeed).toBeCloseTo(displacement / (KNOCKBACK_DURATION_MS / (1000 / 60)));
+    // 100 out, pushed 260 further out. The knockback is a *displacement* from
+    // where the target stands, not a radius it is snapped to — see the case
+    // below for the bug that distinction fixes.
+    expect(knockback.dashDestination).toEqual({ x: 100 + KNOCKBACK_DISTANCE, y: 0 });
+    expect(knockback.dashSpeed).toBeCloseTo(
+      KNOCKBACK_DISTANCE / (KNOCKBACK_DURATION_MS / (1000 / 60))
+    );
 
     vi.stubGlobal('deltaTime', TICK_EVERY_MS);
     spell.update();

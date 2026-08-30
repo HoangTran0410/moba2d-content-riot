@@ -178,9 +178,19 @@ export default class Janna_R extends Spell {
 
       const directionX = distance === 0 ? 1 : dx / distance;
       const directionY = distance === 0 ? 0 : dy / distance;
+      // Measured from where the target is standing, never from the vortex.
+      //
+      // It used to be `origin + direction * knockbackDistance` — a *destination
+      // radius* rather than a displacement — and the two are only the same
+      // thing while everybody caught is closer in than that radius. They are
+      // not: `RADIUS` is 420 and this is 260, so a champion anywhere in the
+      // outer 160px of the storm was **dragged towards Janna** by an ability
+      // whose entire description is blowing people away, and the further out
+      // they stood the harder they were pulled. Reported from a real match,
+      // and visible only from the rim, which is why it survived.
       const desiredDestination = {
-        x: context.origin.x + directionX * this.knockbackDistance,
-        y: context.origin.y + directionY * this.knockbackDistance,
+        x: target.position.x + directionX * this.knockbackDistance,
+        y: target.position.y + directionY * this.knockbackDistance,
       };
       const destination = this.clampKnockbackDestination(target, desiredDestination);
       const displacement = Math.hypot(
