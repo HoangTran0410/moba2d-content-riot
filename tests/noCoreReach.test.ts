@@ -331,7 +331,12 @@ describe("the pack's tests speak only published core surfaces", () => {
     // rules against every map this pack ships. It reaches core through
     // `@moba2d/core/testing/maps` and `@moba2d/core/content/types`, both
     // allowed, so the population moves and the offender count does not.
-    expect(files.length).toBe(101);
+    //
+    // 102, not 101: `tests/monsters/bossParity.test.ts`, which adds Baron's
+    // and Vilemaw's kits up and holds them to each other. It reaches core
+    // through `@moba2d/core/testing` and `@moba2d/core/testing/spell`, the
+    // same two every other monster test here uses.
+    expect(files.length).toBe(102);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

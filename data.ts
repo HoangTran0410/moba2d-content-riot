@@ -1390,10 +1390,18 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
         avatar: 'monster_Vilemaw',
         speed: 0,
         size: 100,
+        // Shorter than Baron's 400 on purpose — a spider you can stand off
+        // from — and the one number here that is *not* matched to it.
         attackRange: 360,
         reviveTime: 60_000,
-        health: 900,
-        damage: 11,
+        // Baron's pool and Baron's swing. It used to be 900 and 11, which read
+        // as "a slightly smaller Baron" and played as a boss that did not
+        // matter: `tests/monsters/bossParity.test.ts` added it up and found
+        // Vilemaw landing 70% of Baron's damage while paying a **three-minute**
+        // blessing on a **sixty-second** respawn, against Baron's two on three.
+        // The richer objective was the easier fight.
+        health: 1000,
+        damage: 13,
         attackInterval: 2000,
         aggroRange: 460,
         attackColor: [152, 245, 128],

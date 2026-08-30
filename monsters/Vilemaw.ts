@@ -45,7 +45,16 @@ export const WEB = {
   /** How close to the pit you end up. */
   landing: 150,
   dashSpeed: 16,
-  damage: 8,
+  /**
+   * The bite that lands as the web takes hold.
+   *
+   * 8 once, which is what "Vilemaw yếu quá" was mostly made of: the signature
+   * ability of a boss hauls a champion 520px across the ground and then asks
+   * for less than two seconds of its own basic attacks. Baron opens with 18
+   * plus poison and does not move you at all. Being caught has to cost
+   * something on the frame it happens, or the pull reads as a taxi.
+   */
+  damage: 20,
   /**
    * The spray, before anything moves.
    *
@@ -76,7 +85,13 @@ export const VENOM = {
   radius: 190,
   durationMs: 4_000,
   tickEveryMs: 500,
-  damagePerTick: 4,
+  /**
+   * Baron's pool pays 6 a tick and so does this one — the difference between
+   * them is shape, not rate: Baron's is 140px lying wherever it was spat, this
+   * is 190px landing on a champion who was just dragged into the middle of it
+   * and has to walk back out.
+   */
+  damagePerTick: 6,
 } as const;
 
 const VENOM_GREEN: [number, number, number] = [140, 230, 110];
