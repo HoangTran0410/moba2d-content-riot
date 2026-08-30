@@ -115,15 +115,33 @@ describe('Krug', () => {
     }
   });
 
-  it('but not to a thief it never saw, and not to nobody', () => {
-    // `aggroOn` is the gate rather than a phase assignment, so what a child
-    // does about the killer is still a question about the killer.
+  /**
+   * Routing through `aggroOn` rather than assigning a phase is what makes this
+   * true without the split knowing any of it: the gate is where "a camp fights
+   * champions and nothing else" lives, alongside temperament.
+   *
+   * This case asserted `toBe(thief)` when it was written, which contradicted
+   * its own title — core's gate took any `AttackableUnit` then, so the split
+   * inherited whatever that did. Core refuses a non-champion killer now (a camp
+   * that answered a *turret* stood under it trading with a building), and the
+   * body says what the title always said.
+   *
+   * The title's other half — "and not to nobody" — is dropped rather than
+   * written, because it is not reachable: `Monster.die` runs `onKilled` only
+   * `if (deathData.attacker)`, so a camp killed by nothing does not split at
+   * all. `Krugs.ts`'s own `if (killer)` guards a value core already
+   * guarantees.
+   */
+  it('but not to a thief it never saw', () => {
     const thief = camp(game, []);
     slay(game, makeKrugAbilities(api), thief as never);
 
     const children = bodies().filter(body => !body.isDead && body !== thief);
-    expect(children.length).toBe(2);
-    for (const child of children) expect(child.targetLock).toBe(thief);
+    expect(children.length, 'nothing split, so nothing here is tested').toBe(2);
+    for (const child of children) {
+      expect(child.targetLock).toBeNull();
+      expect(child.phase).toBe(Monster.PHASES.IDLE);
+    }
   });
 
   it('splits into two on death', () => {
