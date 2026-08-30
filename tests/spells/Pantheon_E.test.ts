@@ -5,6 +5,7 @@ import {
   createUnit,
   installSketchMathGlobals,
   installSpellObjectGlobals,
+  pressSpell,
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import Pantheon_E, { BLOCK_HALF_ANGLE, Pantheon_E_Guard } from '../../spells/Pantheon_E';
@@ -40,7 +41,7 @@ describe('Pantheon E (Aegis Assault)', () => {
   /** Planted facing +x. */
   const plant = (): Pantheon_E_Guard => {
     (game as unknown as { worldMouse: unknown }).worldMouse = createVector(1_000, 0);
-    new Pantheon_E(pantheon).onSpellCast();
+    expect(pressSpell(new Pantheon_E(pantheon), { at: { x: 1_000, y: 0 } })).toBe(true);
     const guard = pantheon.buffs.find(
       buff => buff instanceof Pantheon_E_Guard
     ) as Pantheon_E_Guard;

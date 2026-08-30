@@ -5,6 +5,7 @@ import {
   createUnit,
   installSketchMathGlobals,
   installSpellObjectGlobals,
+  pressSpell,
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import Heal, { HEAL_PERCENT, HEAL_RADIUS } from '../../spells/Heal';
@@ -49,7 +50,7 @@ describe('Heal (summoner)', () => {
     const far = ally(HEAL_RADIUS - 50);
     indexObjects(game, [caster, near, far]);
 
-    new Heal(caster).onSpellCast();
+    expect(pressSpell(new Heal(caster))).toBe(true);
 
     for (const unit of [caster, near, far]) {
       expect(unit.stats.health.value, 'an ally in range was not healed').toBe(
@@ -65,7 +66,7 @@ describe('Heal (summoner)', () => {
     const tank = ally(400, 400);
     indexObjects(game, [caster, tank]);
 
-    new Heal(caster).onSpellCast();
+    expect(pressSpell(new Heal(caster))).toBe(true);
 
     expect(tank.stats.health.value).toBe(200 + 400 * HEAL_PERCENT);
   });
@@ -74,7 +75,7 @@ describe('Heal (summoner)', () => {
     const mate = ally(200);
     indexObjects(game, [caster, mate]);
 
-    new Heal(caster).onSpellCast();
+    expect(pressSpell(new Heal(caster))).toBe(true);
 
     for (const unit of [caster, mate]) {
       expect(unit.buffs.some(buff => buff instanceof Speedup)).toBe(true);
@@ -89,7 +90,7 @@ describe('Heal (summoner)', () => {
     const distant = ally(HEAL_RADIUS + 400);
     indexObjects(game, [caster, enemy, distant]);
 
-    new Heal(caster).onSpellCast();
+    expect(pressSpell(new Heal(caster))).toBe(true);
 
     expect(enemy.stats.health.value, 'the enemy was healed').toBe(50);
     expect(distant.stats.health.value, 'an ally outside the circle was healed').toBe(50);
@@ -99,7 +100,7 @@ describe('Heal (summoner)', () => {
     // The one case that has to work whatever the quadtree says.
     indexObjects(game, []);
 
-    new Heal(caster).onSpellCast();
+    expect(pressSpell(new Heal(caster))).toBe(true);
 
     expect(caster.stats.health.value).toBe(50 + 100 * HEAL_PERCENT);
   });

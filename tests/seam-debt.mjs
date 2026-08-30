@@ -208,6 +208,12 @@ const GRANDFATHERED_TESTS = new Set([
   // so this file no longer needs SKIP at all, and this entry is consumed
   // and stale-checked again like every other one in this set.
   "Pantheon_Q.test.ts",
+  // Same shape, same reason: driving a charge from a test means calling
+  // `.onChargeUpdate(` — the hook is *how* you hold a button when there is no
+  // button, and `pressSpell` has no way to express "and now two thirds of a
+  // second passed with it held". Pyke Q joined the charge spells when Bone
+  // Skewer got its pull back; every other cast in this file presses.
+  "Pyke.test.ts",
   "Rammus_R.test.ts",
   "Rammus_WE.test.ts",
   "Renekton.test.ts",

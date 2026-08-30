@@ -5,6 +5,7 @@ import {
   createUnit,
   installSketchMathGlobals,
   installSpellObjectGlobals,
+  pressSpell,
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import Morgana_E, { Morgana_E_BlackShield, SHIELD_AMOUNT } from '../../spells/Morgana_E';
@@ -31,7 +32,7 @@ describe('Morgana E (Black Shield)', () => {
 
   const shielded = (): Morgana_E_BlackShield => {
     const spell = new Morgana_E(morgana);
-    spell.onSpellCast();
+    expect(pressSpell(spell), 'the cast was refused').toBe(true);
     const shield = morgana.buffs.find(
       buff => buff instanceof Morgana_E_BlackShield
     ) as Morgana_E_BlackShield;

@@ -46,9 +46,30 @@
  * of them). This file is clean on both counts as of the last measurement.
  */
 
-/** `castspec-frozen`: cast specs that still read live state on every cast
- *  (`this.shotsRemaining`-shaped fields), pre-dating the rule. File
- *  basenames. */
+/**
+ * `castspec-frozen`: cast specs whose getter mentions `this.<field>`. File
+ * basenames.
+ *
+ * Two populations, and it is worth saying which is which rather than filing
+ * everything as debt.
+ *
+ * **Debt**, which is what the seam is for: a getter that *computes* part of
+ * the spec from live state. `castSpec` is read once, on the opening press, and
+ * frozen — so a recast cooldown derived from `this.shotsRemaining` describes
+ * the spell as it was four casts ago for the rest of the match.
+ *
+ * **False positives**: the charge spells. `Pantheon_Q`, `Varus_Q` and
+ * `Pyke_Q` mention live fields only inside the `() =>` closures they hand to
+ * `vfx.castLoop` — a `CastBar` reading `this.chargeMs`, a
+ * `ChargeRangeTelegraph` reading `this.currentRange`. Those are invoked every
+ * frame *after* the freeze, which is the entire reason they are closures and
+ * not values, so the thing the rule guards cannot happen there. The check is a
+ * textual scan for `this.` inside the getter body and has no way to tell the
+ * two apart; this set is where that costs the least.
+ *
+ * `Pyke_Q` joined the second group when Bone Skewer got its charge back. It is
+ * the same shape as the two above it, line for line.
+ */
 const GRANDFATHERED = new Set([
   'Janna_Q.ts',
   'Janna_R.ts',
@@ -56,6 +77,7 @@ const GRANDFATHERED = new Set([
   'Malzahar_R.ts',
   'MasterYi_W.ts',
   'Pantheon_Q.ts',
+  'Pyke_Q.ts',
   'Rammus_Q.ts',
   'Riven_Q.ts',
   'Varus_Q.ts',

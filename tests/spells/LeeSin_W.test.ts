@@ -5,6 +5,7 @@ import {
   createUnit,
   installSketchMathGlobals,
   installSpellObjectGlobals,
+  pressSpell,
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import LeeSin_W, { IRON_WILL_OMNIVAMP, LeeSin_W_IronWill } from '../../spells/LeeSin_W';
@@ -57,7 +58,7 @@ describe('Lee Sin W (Safeguard / Iron Will)', () => {
     const ironWill = (): LeeSin_W_IronWill => {
       const w = new LeeSin_W(lee);
       w.phase = 'W2';
-      w.onSpellCast();
+      expect(pressSpell(w), 'the recast was refused').toBe(true);
       const buff = lee.buffs.find(b => b instanceof LeeSin_W_IronWill) as LeeSin_W_IronWill;
       expect(buff, 'the recast left no Iron Will').toBeDefined();
       return buff;

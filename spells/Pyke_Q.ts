@@ -19,7 +19,6 @@ const CastBar = api.vfx.CastBar;
 const unitCastBarAnchor = api.vfx.unitCastBarAnchor;
 const ChargeRangeTelegraph = api.vfx.ChargeRangeTelegraph;
 const VfxGroup = api.vfx.VfxGroup;
-const VectorUtils = api.utils.VectorUtils;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const AoePulse = api.AoePulse;
 

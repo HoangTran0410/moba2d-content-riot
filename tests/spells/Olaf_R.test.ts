@@ -5,6 +5,7 @@ import {
   createUnit,
   installSketchMathGlobals,
   installSpellObjectGlobals,
+  pressSpell,
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import Olaf_R, { BONUS_DAMAGE, DURATION, Olaf_R_Ragnarok, SPEED_PERCENT } from '../../spells/Olaf_R';
@@ -27,7 +28,7 @@ describe('Olaf R (Ragnarok)', () => {
   let olaf: AnyUnit;
 
   const cast = (): Olaf_R_Ragnarok => {
-    new Olaf_R(olaf).onSpellCast();
+    expect(pressSpell(new Olaf_R(olaf)), 'the cast was refused').toBe(true);
     const buff = olaf.buffs.find(b => b instanceof Olaf_R_Ragnarok) as Olaf_R_Ragnarok;
     expect(buff, 'the cast left no Ragnarok').toBeDefined();
     return buff;
