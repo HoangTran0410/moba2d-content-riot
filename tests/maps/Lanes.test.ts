@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { TeamId, LANES, Lane, getLaneWaypoints, type LaneWaypoint } from '@moba2d/core/testing';
+import { laneIssues, laneRuleLimits } from '@moba2d/core/seams';
 import { summonersRift } from '../../maps/summonersRift';
 import type { MapGeometry } from '@moba2d/core/content/types';
 
@@ -85,34 +86,6 @@ const MIN_CLEARANCE = 40;
 const TURRET_BLOCKED_RADIUS = 46 + 17;
 
 /**
- * A waypoint any closer than this to a turret centre is unreachable: the
- * minion is held `TURRET_BLOCKED_RADIUS` away and `Minion.WAYPOINT_TOLERANCE`
- * is 40, so it never registers arrival, never advances `waypointIndex`, and
- * grinds against the turret until the match ends. That is not hypothetical —
- * it is what these paths did when they were the raw turret coordinates. The
- * margin over the blocked radius is small on purpose: the assertion is about
- * "can a minion stand here at all", and the real paths clear 80px.
- */
-const MIN_TURRET_CLEARANCE = TURRET_BLOCKED_RADIUS + 5;
-
-/**
- * The same question asked of the *walk* rather than of the waypoints, which is
- * the one that decides whether a wave gets down its lane.
- *
- * A minion goes to its next waypoint with `moveTo` — a straight line, no
- * routing — so clearing the turrets at the waypoints and nowhere else buys
- * nothing. The old paths cleared every waypoint by 80px and then ran their
- * segments through turret centres at 4, 5, 8, 14, 19 and 22px: the wave drove
- * into the building, `UnitCollisionSystem` shoved it around, and it re-aimed
- * at the same line on the far side. That is the "minions hug the turret and
- * walk around it" report, and it was invisible to a waypoint-only check.
- *
- * 100 rather than the blocked radius: this is a *lane*, not a squeeze, and a
- * wave is six bodies pushing each other sideways. The real paths hold 118.
- */
-const MIN_SEGMENT_TURRET_CLEARANCE = 100;
-
-/**
  * A lane "covers" the turret it is meant to walk past within this radius,
  * measured to the path rather than to the nearest waypoint — there is no
  * longer one waypoint per turret, because a straight run that passes three of
@@ -189,28 +162,6 @@ const wallClearance = (px: number, py: number, ceiling = 200): number => {
   return best;
 };
 
-/** Worst clearance along the straight line a minion actually walks. */
-const segmentClearance = (
-  a: LaneWaypoint,
-  b: LaneWaypoint
-): { clearance: number; at: LaneWaypoint } => {
-  const length = Math.hypot(b.x - a.x, b.y - a.y);
-  const steps = Math.max(2, Math.ceil(length / 20));
-  let worst = Infinity;
-  let at = a;
-  for (let i = 0; i <= steps; i++) {
-    const t = i / steps;
-    const x = a.x + (b.x - a.x) * t;
-    const y = a.y + (b.y - a.y) * t;
-    const clearance = wallClearance(x, y);
-    if (clearance < worst) {
-      worst = clearance;
-      at = { x: Math.round(x), y: Math.round(y) };
-    }
-  }
-  return { clearance: worst, at };
-};
-
 /**
  * How close a lane comes to `point`, and how far along it that happens.
  *
@@ -247,28 +198,6 @@ const nearestOnPath = (
     travelled += length;
   }
   return { distance, along };
-};
-
-/** The worst turret clearance anywhere on the straight line a minion walks. */
-const segmentTurretClearance = (
-  a: LaneWaypoint,
-  b: LaneWaypoint
-): { clearance: number; at: LaneWaypoint } => {
-  const length = Math.hypot(b.x - a.x, b.y - a.y);
-  const steps = Math.max(2, Math.ceil(length / 10));
-  let worst = Infinity;
-  let at = a;
-  for (let i = 0; i <= steps; i++) {
-    const t = i / steps;
-    const x = a.x + (b.x - a.x) * t;
-    const y = a.y + (b.y - a.y) * t;
-    const clearance = turretClearance(x, y);
-    if (clearance < worst) {
-      worst = clearance;
-      at = { x: Math.round(x), y: Math.round(y) };
-    }
-  }
-  return { clearance: worst, at };
 };
 
 /**
@@ -347,25 +276,50 @@ const nearAFountain = ([x, y]: Point): boolean =>
   Math.hypot(x - BLUE_FOUNTAIN.x, y - BLUE_FOUNTAIN.y) < SHARED_BASE_EXIT ||
   Math.hypot(x - RED_FOUNTAIN.x, y - RED_FOUNTAIN.y) < SHARED_BASE_EXIT;
 
-/** Distance from a point to the nearest turret of either row. */
-const turretClearance = (x: number, y: number): number =>
-  Math.min(...turret1.concat(turret2).map(([tx, ty]) => Math.hypot(x - tx, y - ty)));
-
 // ---------------------------------------------------------------- tests
 
 describe("Summoner's Rift lane waypoints", () => {
-  it('walks every lane end to end without clipping a wall', () => {
-    for (const lane of LANES) {
-      const path = SR_LANE_WAYPOINTS[lane];
-      for (let i = 0; i + 1 < path.length; i++) {
-        const { clearance, at } = segmentClearance(path[i], path[i + 1]);
-        expect(
-          clearance,
-          `${lane} segment ${i} (${path[i].x},${path[i].y}) -> (${path[i + 1].x},${path[i + 1].y}) ` +
-            `is ${Math.round(clearance)}px from a wall at (${at.x},${at.y})`
-        ).toBeGreaterThanOrEqual(MIN_CLEARANCE);
-      }
-    }
+  /**
+   * Three rules, one call, and the implementation is **core's**.
+   *
+   * They used to be three cases in this file with their own thresholds and
+   * their own geometry — a wall check, a waypoint-versus-turret check and a
+   * segment-versus-turret check — and the map editor grew all three
+   * separately, with the same numbers typed a second time. Two copies of a
+   * rule drift, and the drift has a direction: the editor says `0 lỗi`, this
+   * gate says no, and the person holding both is told the map is fine by the
+   * only tool that could have helped them fix it. That happened, over a lane
+   * three pixels inside a wall.
+   *
+   * `@moba2d/core/seams`' `laneIssues` is the single implementation now. It
+   * loads the editor's own `public/map-editor/js/mapRules.js`, which is where
+   * the rule has to live if the editor is to run it at all — that tool has no
+   * bundler and no build step, only `<script>` tags talking through globals,
+   * so the narrower side is the one that holds the original.
+   *
+   * The three failures it replaces are all still described, in that file:
+   * lane waypoints that *were* the turret coordinates and wedged every wave
+   * against its own first tower; a path whose vertices clear a turret while
+   * the straight run between them goes through it; and a lane with less than
+   * a minion body of room beside a wall.
+   */
+  it('has no lane the map editor’s own checker would refuse', () => {
+    const limits = laneRuleLimits();
+    // Not vacuous: a rule that loaded but checks nothing would pass the
+    // assertion below in silence, which is the one way this can go quiet.
+    expect(limits.wall).toBeGreaterThan(0);
+    expect(limits.waypointTurret).toBeGreaterThan(limits.turretBlocked);
+
+    const issues = laneIssues({
+      lanes: LANES.map(lane => ({
+        id: lane,
+        points: SR_LANE_WAYPOINTS[lane].map(({ x, y }): [number, number] => [x, y]),
+      })),
+      walls,
+      turrets: turret1.concat(turret2),
+    });
+
+    expect(issues.map(issue => `${issue.text} @ ${issue.at.map(Math.round).join(',')}`)).toEqual([]);
   });
 
   it('runs blue fountain to red fountain in every lane', () => {
@@ -374,50 +328,6 @@ describe("Summoner's Rift lane waypoints", () => {
       expect(path[0]).toEqual(BLUE_FOUNTAIN);
       expect(path[path.length - 1]).toEqual(RED_FOUNTAIN);
       expect(path.length).toBeGreaterThan(3);
-    }
-  });
-
-  /**
-   * The bug this guards: lane waypoints used to *be* the turret coordinates,
-   * which put each one `TURRET_BLOCKED_RADIUS` deep inside ground a minion's
-   * body can never enter. Every wave then wedged itself against the first
-   * turret on its lane — its own, so it could not attack its way past either —
-   * and never advanced another waypoint. Reproduced in the real game before
-   * the fix: `distToWaypoint` and `nearestTurret` both pinned at 62px with
-   * `waypointIndex` unchanged over 16 seconds of walking.
-   */
-  it('keeps every waypoint outside a turret, so a minion can stand on it', () => {
-    for (const lane of LANES) {
-      SR_LANE_WAYPOINTS[lane].forEach((waypoint, i) => {
-        const clearance = turretClearance(waypoint.x, waypoint.y);
-        expect(
-          clearance,
-          `${lane}[${i}] (${waypoint.x},${waypoint.y}) is ${Math.round(clearance)}px from a turret ` +
-            `centre — a minion body is blocked at ${TURRET_BLOCKED_RADIUS}px and gives up at 40px`
-        ).toBeGreaterThanOrEqual(MIN_TURRET_CLEARANCE);
-      });
-    }
-  });
-
-  /**
-   * The bug the whole re-derivation was for, and the one the waypoint check
-   * above structurally cannot see: a minion walks the *segment*, in a straight
-   * line with no routing, so a path whose vertices all clear a turret and whose
-   * runs between them go through one still drives every wave into a building.
-   * The old paths measured 4px at the worst of it.
-   */
-  it('keeps the whole walk out of the turrets, not just the waypoints', () => {
-    for (const lane of LANES) {
-      const path = SR_LANE_WAYPOINTS[lane];
-      for (let i = 0; i + 1 < path.length; i++) {
-        const { clearance, at } = segmentTurretClearance(path[i], path[i + 1]);
-        expect(
-          clearance,
-          `${lane} segment ${i} (${path[i].x},${path[i].y}) -> (${path[i + 1].x},${path[i + 1].y}) ` +
-            `passes ${Math.round(clearance)}px from a turret centre at (${at.x},${at.y}) — ` +
-            `a minion body is blocked at ${TURRET_BLOCKED_RADIUS}px`
-        ).toBeGreaterThanOrEqual(MIN_SEGMENT_TURRET_CLEARANCE);
-      }
     }
   });
 
