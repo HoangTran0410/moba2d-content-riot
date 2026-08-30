@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import type { CastContext } from '@moba2d/core/content/types';
 
 import { buildTestApi, indexObjects } from '@moba2d/core/testing';
 import {
@@ -10,7 +11,10 @@ import {
 } from '@moba2d/core/testing/spell';
 
 import Pyke_Q, {
+  CHARGE_SLOW_PERCENT,
   HARPOON_RANGE,
+  MIN_HARPOON_RANGE,
+  RANGE_CHARGE_MS,
   PULL_DURATION_MS,
   PULL_FRAMES,
   PULL_STOP_DISTANCE,
@@ -39,6 +43,7 @@ import Pyke_R, {
   R_RANGE,
   STRIKE_DAMAGE,
   WINDUP_MS,
+  Pyke_R_Dive,
   Pyke_R_Mark,
 } from '../../spells/Pyke_R';
 
@@ -83,13 +88,41 @@ afterEach(() => {
  * is short, and what actually decides a fight is that the victim ends up next
  * to Pyke instead of where they chose to stand.
  */
+/** The shape `press`/`hold`/`release` are handed, for the two charged spells here. */
+const castContext = (
+  caster: { position: { x: number; y: number } },
+  cursorWorld: { x: number; y: number }
+): CastContext =>
+  Object.freeze({
+    spellId: 'pyke-q',
+    activationId: 'activation',
+    startedAtMs: 0,
+    caster,
+    origin: Object.freeze({ x: caster.position.x, y: caster.position.y }),
+    cursorWorld: Object.freeze(cursorWorld),
+    direction: Object.freeze({ x: 1, y: 0 }),
+  }) as CastContext;
+
 describe('Pyke Q — Đâm Thấu Xương', () => {
-  const throwAt = (aimX: number) => {
+  /**
+   * Q is a charge now, so a test has to hold the button.
+   *
+   * `chargeMs` defaults to a full pull, because that is the throw every case
+   * below was written against — the ability shipped as the full-reach harpoon
+   * and nothing else, and none of what those cases assert (one victim, the
+   * damage, the slow, the drag) is supposed to change with the pull.
+   */
+  const throwAt = (aimX: number, chargeMs = RANGE_CHARGE_MS) => {
     const game = createGame();
     const pyke = champion(game, 0, 0, 'blue');
     game.setPlayer(pyke);
     const spell = new Pyke_Q(pyke);
-    const accepted = pressSpell(spell, { at: { x: aimX, y: 0 } });
+    const aim = castContext(pyke, { x: aimX, y: 0 });
+
+    const accepted = spell.press(aim);
+    spell.onChargeUpdate(aim, chargeMs);
+    spell.release(aim);
+
     return { game, pyke, spell, accepted, harpoon: pending(game, Pyke_Q_Harpoon) };
   };
 
@@ -98,6 +131,56 @@ describe('Pyke Q — Đâm Thấu Xương', () => {
     expect(accepted).toBe(true);
     expect(harpoon).toBeTruthy();
     expect(harpoon!.destination.dist(pyke.position)).toBeCloseTo(HARPOON_RANGE, 5);
+  });
+
+  /**
+   * The reason the charge exists. A hook that is always 420 long is a
+   * yes-or-no question asked at maximum distance; one that grows while you
+   * hold it is a decision about whether the extra 270px is worth standing
+   * still for.
+   */
+  it('throws a short stab on a tap and the full harpoon on a full pull', () => {
+    const tap = throwAt(2_000, 0);
+    expect(tap.harpoon!.destination.dist(tap.pyke.position)).toBeCloseTo(MIN_HARPOON_RANGE, 5);
+
+    const half = throwAt(2_000, RANGE_CHARGE_MS / 2);
+    const reach = half.harpoon!.destination.dist(half.pyke.position);
+    expect(reach).toBeGreaterThan(MIN_HARPOON_RANGE);
+    expect(reach).toBeLessThan(HARPOON_RANGE);
+  });
+
+  it('grows the live range monotonically and stops at the full reach', () => {
+    const game = createGame();
+    const pyke = champion(game, 0, 0, 'blue');
+    game.setPlayer(pyke);
+    const spell = new Pyke_Q(pyke);
+    const aim = castContext(pyke, { x: 1_000, y: 0 });
+
+    spell.onChargeUpdate(aim, 0);
+    expect(spell.currentRange).toBe(MIN_HARPOON_RANGE);
+    spell.onChargeUpdate(aim, RANGE_CHARGE_MS / 2);
+    const middle = spell.currentRange;
+    spell.onChargeUpdate(aim, RANGE_CHARGE_MS * 3);
+
+    expect(middle).toBeGreaterThan(MIN_HARPOON_RANGE);
+    expect(spell.currentRange, 'holding longer than the clock kept adding range').toBe(
+      HARPOON_RANGE
+    );
+  });
+
+  it('wears the pose slow while pulling and drops it on release', () => {
+    const game = createGame();
+    const pyke = champion(game, 0, 0, 'blue');
+    game.setPlayer(pyke);
+    const spell = new Pyke_Q(pyke);
+    const aim = castContext(pyke, { x: 1_000, y: 0 });
+
+    spell.press(aim);
+    const slow = live(pyke).find(b => b instanceof Slow) as InstanceType<typeof Slow>;
+    expect(slow?.percent).toBe(CHARGE_SLOW_PERCENT);
+
+    spell.release(aim);
+    expect(slow.toRemove).toBe(true);
   });
 
   it('stops on the first body it touches and never a second', () => {
@@ -181,7 +264,10 @@ describe('Pyke Q — Đâm Thấu Xương', () => {
 
     for (const _throw of [0, 1, 2]) {
       const spell = new Pyke_Q(pyke);
-      pressSpell(spell, { at: { x: HARPOON_RANGE, y: 0 } });
+      const aim = castContext(pyke, { x: HARPOON_RANGE, y: 0 });
+      spell.press(aim);
+      spell.onChargeUpdate(aim, RANGE_CHARGE_MS);
+      spell.release(aim);
       const harpoon = pending(game, Pyke_Q_Harpoon)!;
       game.objectManager._objectToBeAdd.length = 0;
       indexObjects(game, [pyke, victim, harpoon] as never);
@@ -445,6 +531,63 @@ describe('Pyke R — Tử Thần Đáy Sâu', () => {
     indexObjects(game, [pyke, healthy, dying] as never);
 
     expect(pickExecuteTarget(spell)).toBe(dying);
+  });
+
+  /**
+   * The half of Death From Below that was not there.
+   *
+   * The ability read as a delayed ranged nuke: the X went down, the blade came
+   * up out of it, and Pyke stood exactly where he had been — in the open, for
+   * the whole 350ms he is supposed to be underground. The untargetable window
+   * is what makes the ultimate an escape as well as an execution, and the
+   * relocation is why the blade erupting 400px away from him ever made sense.
+   */
+  describe('the dive', () => {
+    it('goes untargetable for the wind-up and comes back after it', () => {
+      const { game, pyke, spell } = arena();
+      const victim = champion(game, 200, 0, 'red');
+      indexObjects(game, [pyke, victim] as never);
+
+      expect(pressSpell(spell, { target: victim, at: victim.position })).toBe(true);
+      // One tick, because `targetable` is recomputed from the buff list by
+      // `Stats.updateActionState` and not the moment `addBuff` returns.
+      tick(pyke, 1);
+      expect(pyke.targetable, 'he stayed targetable while submerged').toBe(false);
+
+      // The buff's clock is Pyke's clock, and `strikeHome` only ticks the mark.
+      strikeHome(game);
+      tick(pyke, Math.ceil(WINDUP_MS / 16) + 2);
+      expect(pyke.targetable, 'he never came back up').toBe(true);
+    });
+
+    it('surfaces where the mark is, not where he went under', () => {
+      const { game, pyke, spell } = arena();
+      const victim = champion(game, 300, 0, 'red');
+      indexObjects(game, [pyke, victim] as never);
+
+      expect(pressSpell(spell, { target: victim, at: victim.position })).toBe(true);
+      expect(pyke.position.x, 'he moved before the blade landed').toBe(0);
+
+      strikeHome(game);
+
+      // The X is a place, not a leash — he comes up at the X even if the
+      // target walked out of it, which is what makes stepping away counterplay
+      // rather than a way to drag him around.
+      expect(pyke.position.x).toBeCloseTo(300, 0);
+    });
+
+    it('leaves a dive trail joining the two ends', () => {
+      const { game, pyke, spell } = arena();
+      const victim = champion(game, 300, 0, 'red');
+      indexObjects(game, [pyke, victim] as never);
+
+      pressSpell(spell, { target: victim, at: victim.position });
+
+      const dive = pending(game, Pyke_R_Dive);
+      expect(dive, 'nothing on the floor said where he went').toBeTruthy();
+      expect(dive!.from.x).toBe(0);
+      expect(dive!.to.x).toBe(300);
+    });
   });
 
   it('kills outright below the threshold and hands the button straight back', () => {

@@ -18,6 +18,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const TargetResolver = api.combat.TargetResolver;
 const canSee = api.combat.Vision.canSee;
 const effectiveRange = api.combat.Reach.effectiveRange;
+const Untargetable = api.buffs.Untargetable;
 const effectiveHealth = api.combat.ExecuteTargeting.effectiveHealth;
 const pickExecuteTarget = api.combat.ExecuteTargeting.pickExecuteTarget;
 
@@ -75,6 +76,8 @@ export default class Pyke_R extends Spell implements ExecuteSpell {
     ` Kẻ địch còn dưới <span class="buff">${EXECUTE_THRESHOLD} máu hiệu dụng</span> (tính cả khiên) bị` +
     ` <span class="damage">hành quyết ngay lập tức</span>; số còn lại chỉ nhận` +
     ` <span class="damage magic">${STRIKE_DAMAGE} sát thương phép</span>.` +
+    ` Trong lúc chờ, Pyke <span class="buff">lặn xuống đất và không thể bị chọn làm mục tiêu</span>,` +
+    ` rồi <span class="buff">trồi lên ngay tại chỗ đánh dấu</span>.` +
     ` Nếu nhát đâm kết liễu mục tiêu, chiêu cuối <span class="buff">hồi ngay lập tức</span>`;
   coolDown = R_COOLDOWN_MS;
   manaCost = R_MANA_COST;
@@ -169,6 +172,22 @@ export default class Pyke_R extends Spell implements ExecuteSpell {
     const target = context.target;
     if (!isStrikeTarget(target)) return;
 
+    // He goes under, and while he is under nothing can touch him. This is the
+    // half of Death From Below that was missing: the ability read as a delayed
+    // ranged nuke, with Pyke standing exactly where he was, in the open, for
+    // the whole 350ms he is supposed to be gone. The untargetable window is
+    // what makes the ultimate an escape as well as an execution, and it is why
+    // pressing it into a losing fight is a decision rather than a mistake.
+    const submerged = new Untargetable(WINDUP_MS, this.owner, this.owner);
+    submerged.image = this.image;
+    submerged.stackId = 'pyke_r_submerged';
+    this.owner.addBuff(submerged);
+
+    const dive = new Pyke_R_Dive(this.owner);
+    dive.from = this.owner.position.copy();
+    dive.to = target.position.copy();
+    this.game.objectManager.addObject(dive);
+
     const mark = new Pyke_R_Mark(this.owner);
     // The X is a place, not a leash: it is stamped where the target stands now
     // and stays there, so stepping out of it before the blade arrives is the
@@ -180,6 +199,15 @@ export default class Pyke_R extends Spell implements ExecuteSpell {
 
   /** The blade comes up. Everything the ultimate decides, it decides here. */
   private strikeAt(target: AttackableUnit, at: p5.Vector): void {
+    // He comes up where the X is, not where he went down. The blade was always
+    // drawn erupting out of the mark; Pyke standing 400px away watching it
+    // happen was the part that never made sense.
+    //
+    // `blinkOwnerTo` and not a bare `position.set`: it is the one mover that
+    // answers to terrain and to the things that are allowed to stop a blink,
+    // which a written coordinate is not.
+    this.blinkOwnerTo(at.x, at.y);
+
     const blade = new Pyke_R_Strike(this.owner);
     blade.position = at.copy();
     this.game.objectManager.addObject(blade);
@@ -371,5 +399,81 @@ export class Pyke_R_Strike extends SpellObject {
       h: pad * 2,
       data: this,
     });
+  }
+}
+
+
+/**
+ * Pyke going under, and the water closing over him.
+ *
+ * The champion body itself keeps being drawn by the engine — a pack cannot
+ * hide one — so this does the next best thing and makes the *ground* tell the
+ * story: a spreading ring of dark water where he went down, and a rising
+ * pressure ring where he is about to come up. Between them a low, fast wake
+ * runs along the line he is travelling under, which is what stops the two
+ * rings reading as two unrelated puddles.
+ *
+ * `Untargetable` draws its own halo around him for the same window, so the
+ * "you cannot hit me" half is stated twice — once on his body by core, once on
+ * the floor by this. That is deliberate: the body says it to the player who
+ * owns him, the floor says it to everyone else, and a defensive window nobody
+ * else can read is a defensive window that gets people killed.
+ */
+export class Pyke_R_Dive extends SpellObject {
+  zIndex = api.layers.GROUND_Z_INDEX;
+
+  from: p5.Vector = createVector();
+  to: p5.Vector = createVector();
+  age = 0;
+  lifeTime = WINDUP_MS;
+
+  update(): void {
+    this.age += deltaTime;
+    if (this.age >= this.lifeTime) this.toRemove = true;
+  }
+
+  draw(): void {
+    const t = constrain(this.age / this.lifeTime, 0, 1);
+    const fade = 1 - t;
+
+    push();
+
+    // where he went down: a ring spreading and dimming, like something heavy
+    // entering water
+    noFill();
+    stroke(58, 96, 108, 200 * fade);
+    strokeWeight(3 * fade + 1);
+    circle(this.from.x, this.from.y, 30 + 90 * t);
+    stroke(150, 220, 230, 150 * fade * fade);
+    strokeWeight(2);
+    circle(this.from.x, this.from.y, 14 + 60 * t);
+
+    // the wake: a short dark streak travelling the line, so the two ends read
+    // as one journey rather than two effects
+    const head = constrain(t * 1.15, 0, 1);
+    const tail = Math.max(0, head - 0.32);
+    stroke(42, 78, 92, 190 * (1 - Math.abs(0.5 - t) * 1.2));
+    strokeWeight(9);
+    line(
+      this.from.x + (this.to.x - this.from.x) * tail,
+      this.from.y + (this.to.y - this.from.y) * tail,
+      this.from.x + (this.to.x - this.from.x) * head,
+      this.from.y + (this.to.y - this.from.y) * head
+    );
+
+    // where he is coming up: pressure building, tightening as the clock runs out
+    const swell = 1 - (1 - t) * (1 - t);
+    stroke(160, 235, 245, 90 + 150 * swell);
+    strokeWeight(2 + 3 * swell);
+    circle(this.to.x, this.to.y, 96 * (1 - swell) + 22);
+    pop();
+  }
+
+  getDisplayBoundingBox() {
+    // Both ends and the line between them, so the wake is not culled when the
+    // camera holds only the far half of the dive.
+    this.position.set((this.from.x + this.to.x) / 2, (this.from.y + this.to.y) / 2);
+    const span = Math.hypot(this.to.x - this.from.x, this.to.y - this.from.y);
+    return this.squareDisplayBoundingBox(span + 200);
   }
 }

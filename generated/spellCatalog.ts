@@ -1510,7 +1510,7 @@ export const spellCatalog = {
   },
   "Pyke_Q": {
     name: "Đâm Thấu Xương (Pyke_Q)",
-    description: "Phóng lao xương theo hướng chỉ định. Kẻ địch <span class=\"buff\">đầu tiên</span> trúng lao nhận <span class=\"damage physical\">22 sát thương vật lý</span>, bị <span class=\"buff\">Làm Chậm 30%</span> trong <span class=\"time\">1 giây</span> và bị <span class=\"buff\">kéo về phía Pyke</span> trong <span class=\"time\">0.3 giây</span>, dừng lại ngay trong tầm đánh của hắn",
+    description: "<b>Giữ để rút dây</b>: tầm phóng lớn dần từ <span>150px</span> lên <span>420px</span> sau <span class=\"time\">0.9 giây</span>, trong lúc đó Pyke <span class=\"buff\">tự làm chậm 15%</span>. Thả ra để phóng lao xương. Kẻ địch <span class=\"buff\">đầu tiên</span> trúng lao nhận <span class=\"damage physical\">22 sát thương vật lý</span>, bị <span class=\"buff\">Làm Chậm 30%</span> trong <span class=\"time\">1 giây</span> và bị <span class=\"buff\">kéo về phía Pyke</span> trong <span class=\"time\">0.3 giây</span>, dừng lại ngay trong tầm đánh của hắn",
     iconKey: "spell_pyke_q",
     coolDownMs: 8000,
     manaCost: 30,
@@ -1518,7 +1518,7 @@ export const spellCatalog = {
   },
   "Pyke_R": {
     name: "Tử Thần Đáy Sâu (Pyke_R)",
-    description: "Pyke đánh dấu chỗ đứng của mục tiêu bằng một chữ X, rồi sau <span class=\"time\">0.4 giây</span> đâm lên từ dưới đất. Kẻ địch còn dưới <span class=\"buff\">32 máu hiệu dụng</span> (tính cả khiên) bị <span class=\"damage\">hành quyết ngay lập tức</span>; số còn lại chỉ nhận <span class=\"damage magic\">30 sát thương phép</span>. Nếu nhát đâm kết liễu mục tiêu, chiêu cuối <span class=\"buff\">hồi ngay lập tức</span>",
+    description: "Pyke đánh dấu chỗ đứng của mục tiêu bằng một chữ X, rồi sau <span class=\"time\">0.4 giây</span> đâm lên từ dưới đất. Kẻ địch còn dưới <span class=\"buff\">32 máu hiệu dụng</span> (tính cả khiên) bị <span class=\"damage\">hành quyết ngay lập tức</span>; số còn lại chỉ nhận <span class=\"damage magic\">30 sát thương phép</span>. Trong lúc chờ, Pyke <span class=\"buff\">lặn xuống đất và không thể bị chọn làm mục tiêu</span>, rồi <span class=\"buff\">trồi lên ngay tại chỗ đánh dấu</span>. Nếu nhát đâm kết liễu mục tiêu, chiêu cuối <span class=\"buff\">hồi ngay lập tức</span>",
     iconKey: "spell_pyke_r",
     coolDownMs: 10000,
     manaCost: 60,
