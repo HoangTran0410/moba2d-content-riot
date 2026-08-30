@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const effectiveRange = api.combat.Reach.effectiveRange;
@@ -9,8 +10,20 @@ const Champion = api.units.Champion;
 const Dash = api.buffs.Dash;
 const Shield = api.buffs.Shield;
 const BuffAddType = api.enums.BuffAddType;
-const Buff = api.buffs.Buff;
+const StatAmp = api.buffs.StatAmp;
 const SpellObject = api.SpellObject;
+
+/** What a share of his own output is worth back, while Iron Will holds. */
+export const IRON_WILL_OMNIVAMP = 0.35;
+
+/** A champion pool is ~100 health, so the shell is sized as a share of that. */
+export const SHIELD_AMOUNT = 22;
+
+export const SHIELD_DURATION_MS = 3_000;
+
+export const IRON_WILL_DURATION_MS = 4_000;
+
+export const IRON_WILL_WINDOW_MS = 3_000;
 
 /**
  * Safeguard / Iron Will.
@@ -20,9 +33,14 @@ const SpellObject = api.SpellObject;
  * exactly like the real spell. With nobody around he self-casts and shields
  * himself on the spot. Reaching an allied *champion* halves the cooldown.
  *
- * Stage 2 (Iron Will): recastable for 3s afterwards. The real Iron Will is pure
- * omnivamp, which is meaningless here because this game has no basic attacks —
- * it is adapted into a heal-over-time of the same "sustain in a fight" shape.
+ * Stage 2 (Iron Will): recastable for 3s afterwards, and it is the real Iron
+ * Will now — omnivamp, for its duration. It shipped as a heal-over-time under
+ * a comment saying "this game has no basic attacks", which had stopped being
+ * true long before anybody noticed: the engine has had `Stats.omnivamp` and a
+ * `landBasicAttack` funnel for as long as items have granted the stat. And
+ * even while that comment was true the two were not the same shape — a fixed
+ * drip pays out whether or not he is fighting, and Iron Will is supposed to
+ * pay *because* he is.
  */
 export default class LeeSin_W extends Spell {
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
@@ -38,20 +56,27 @@ export default class LeeSin_W extends Spell {
   image = LeeSin_W.PHASES[this.phase].image;
   name = 'Hộ Thể / Kiên Định (LeeSin_W)';
   description =
-    'Lee Sin <span class="buff">Lướt</span> tới đồng minh gần nhất trong phạm vi, khi tới nơi cả hai nhận lá chắn hấp thụ <span class="heal">70 sát thương</span> trong <span class="time">3 giây</span> (không có đồng minh thì tự khoác lá chắn tại chỗ; nếu cú lướt bị chặn thì không có lá chắn). Lướt tới đồng minh là tướng sẽ giảm một nửa thời gian hồi. Có thể tái kích hoạt trong <span class="time">3 giây</span> để dùng <span class="buff">Ý Chí Sắt Đá</span>: game không có đòn đánh thường nên hút máu được chuyển thành hồi <span class="heal">60 máu</span> trong <span class="time">4 giây</span>';
+    `Lee Sin <span class="buff">Lướt</span> tới <b>đồng minh gần con trỏ nhất</b> trong phạm vi;` +
+    ` khi tới nơi cả hai nhận lá chắn hấp thụ <span class="heal">${SHIELD_AMOUNT} sát thương</span>` +
+    ` trong <span class="time">${secs(SHIELD_DURATION_MS)} giây</span> (không có đồng minh thì tự` +
+    ` khoác lá chắn tại chỗ; nếu cú lướt bị chặn thì không có lá chắn). Lướt tới đồng minh là` +
+    ` tướng sẽ giảm một nửa thời gian hồi. Có thể tái kích hoạt trong` +
+    ` <span class="time">${secs(IRON_WILL_WINDOW_MS)} giây</span> để dùng` +
+    ` <span class="buff">Ý Chí Sắt Đá</span>:` +
+    ` <span class="buff">hút ${pct(IRON_WILL_OMNIVAMP)}% máu từ mọi sát thương gây ra</span>` +
+    ` trong <span class="time">${secs(IRON_WILL_DURATION_MS)} giây</span>`;
   coolDown = 9000;
   manaCost = 30;
 
   range = 400;
   dashSpeed = 14;
-  // A champion pool is 100 health, so a shield is sized as a share of that.
-  shieldAmount = 22;
-  shieldDuration = 3000;
+  shieldAmount = SHIELD_AMOUNT;
+  shieldDuration = SHIELD_DURATION_MS;
 
   /** How long Iron Will stays available after Safeguard, like the real 3s window. */
-  ironWillWindow = 3000;
-  ironWillDuration = 4000;
-  ironWillHeal = 60;
+  ironWillWindow = IRON_WILL_WINDOW_MS;
+  ironWillDuration = IRON_WILL_DURATION_MS;
+  ironWillOmnivamp = IRON_WILL_OMNIVAMP;
 
   _ironWillTimeLeft = 0;
   _cooldownAfterSafeguard = 9000;
@@ -62,7 +87,7 @@ export default class LeeSin_W extends Spell {
   }
 
   castSafeguard() {
-    const ally = this.findNearestAlly();
+    const ally = this.findAllyNearCursor();
 
     // the real spell halves its cooldown when it lands on an allied champion
     this._cooldownAfterSafeguard = ally instanceof Champion ? this.coolDown / 2 : this.coolDown;
@@ -102,7 +127,7 @@ export default class LeeSin_W extends Spell {
   castIronWill() {
     const ironWill = new LeeSin_W_IronWill(this.ironWillDuration, this.owner, this.owner);
     ironWill.image = this.image;
-    ironWill.totalHeal = this.ironWillHeal;
+    ironWill.bonuses = { omnivamp: { baseBonus: this.ironWillOmnivamp } };
     this.owner.addBuff(ironWill);
 
     this.endRecastWindow();
@@ -132,7 +157,17 @@ export default class LeeSin_W extends Spell {
     this.currentCooldown = this.reducedCooldown(this._cooldownAfterSafeguard);
   }
 
-  findNearestAlly(): any {
+  /**
+   * The ally the *cursor* is pointing at, out of everything in range.
+   *
+   * It used to be the ally nearest Lee Sin, which meant the ability chose its
+   * own destination: standing in a wave, W dashed to whichever minion happened
+   * to be closest to his feet, and there was no way to say "that one, behind
+   * me" — the escape the ability exists for. Range still gates which allies
+   * are candidates, because that is the ability's reach; the cursor only picks
+   * among them, the same division Katarina E draws.
+   */
+  findAllyNearCursor(): any {
     const allies = this.game.objectManager.queryObjects({
       area: new Circle({
         x: this.owner.position.x,
@@ -147,16 +182,17 @@ export default class LeeSin_W extends Spell {
       ],
     });
 
-    let nearest: any = null;
-    let nearestDistance = Infinity;
+    const aim = this.aimPoint;
+    let chosen: any = null;
+    let closest = Infinity;
     for (const ally of allies) {
-      const distance = ally.position.dist(this.owner.position);
-      if (distance < nearestDistance) {
-        nearest = ally;
-        nearestDistance = distance;
+      const gap = Math.hypot(ally.position.x - aim.x, ally.position.y - aim.y);
+      if (gap < closest) {
+        closest = gap;
+        chosen = ally;
       }
     }
-    return nearest;
+    return chosen;
   }
 
   onUpdate() {
@@ -173,18 +209,20 @@ export default class LeeSin_W extends Spell {
 
 
 /**
- * Iron Will, adapted: the real one is omnivamp on his attacks and spells, which
- * this game has no way to express, so the sustain is paid out as a heal spread
- * over the same 4 seconds.
+ * Iron Will: a share of everything he deals comes back as health.
+ *
+ * A `StatAmp` rather than the hand-rolled drip this was. `Stats.omnivamp` is
+ * cashed in by `AttackableUnit.takeDamage` — the one funnel every source of
+ * damage already goes through — so nothing here has to know how he is dealing
+ * it, which is exactly the property the drip was written to work around.
+ *
+ * `omnivamp` and not `lifesteal`: the wiki's Iron Will is life steal *and*
+ * spell vamp, which in this engine's type-split vocabulary (`combat/Vamp.ts`)
+ * is the general stat rather than either of the two typed ones.
  */
-export class LeeSin_W_IronWill extends Buff {
+export class LeeSin_W_IronWill extends StatAmp {
   name = 'Ý Chí Sắt Đá';
-  description = 'Hồi máu đều đặn trong suốt thời gian hiệu lực.';
   buffAddType = BuffAddType.RENEW_EXISTING;
-
-  totalHeal = 60;
-  tickInterval = 500;
-  _tickTimer = 0;
 
   /** Cosmetic motes of chi drifting up off the target. */
   _motes: { x: number; y: number; age: number; life: number; size: number }[] = [];
@@ -192,14 +230,6 @@ export class LeeSin_W_IronWill extends Buff {
 
   onUpdate(): void {
     if (this.targetUnit.isDead) return;
-
-    this._tickTimer += deltaTime;
-    if (this._tickTimer >= this.tickInterval) {
-      this._tickTimer -= this.tickInterval;
-
-      const ticks = Math.max(1, Math.round(this.duration / this.tickInterval));
-      this.targetUnit.takeHeal(Math.round(this.totalHeal / ticks), this.sourceUnit);
-    }
 
     // particles are spawned here, never in draw(), so their density does not
     // depend on how often the unit happens to be rendered

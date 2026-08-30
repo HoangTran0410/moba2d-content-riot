@@ -342,6 +342,10 @@ describe("the pack's tests speak only published core surfaces", () => {
     // source as text and imports nothing from core at all, so it adds to the
     // population and to no other count here.
     //
+    // 108, not 106: `tests/spells/Heal.test.ts` and
+    // `tests/spells/LeeSin_W.test.ts` — the summoner spell that healed only
+    // its caster, and the Iron Will that paid a drip instead of omnivamp.
+    //
     // 106, not 105: `tests/spells/Morgana_E.test.ts`, which pins Black Shield
     // to magic damage only — the ability that asked core for `Shield.absorbs`.
     //
@@ -352,7 +356,7 @@ describe("the pack's tests speak only published core surfaces", () => {
     // 104, not 103: `tests/buffDescriptions.test.ts`, which checks that a buff
     // this pack invents says what it does. Like the one above it, it reads this
     // pack's own source as text and imports nothing from core.
-    expect(files.length).toBe(106);
+    expect(files.length).toBe(108);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

@@ -654,7 +654,7 @@ export const spellCatalog = {
   },
   "Heal": {
     name: "Hồi Máu (Heal)",
-    description: "<span class=\"buff\">Hồi Máu</span> một lượng bằng <span>30% máu tối đa</span> và <span class=\"buff\">Tăng Tốc 50%</span> trong <span class=\"time\">3 giây</span>",
+    description: "<span class=\"buff\">Hồi máu</span> cho <b>mọi đồng minh</b> trong bán kính <span>500px</span> (kể cả bản thân) một lượng bằng <span class=\"heal\">30% máu tối đa của chính họ</span>, và cho tất cả <span class=\"buff\">Tăng Tốc 50%</span> trong <span class=\"time\">3 giây</span>",
     iconKey: "spell_heal",
     coolDownMs: 10000,
     manaCost: 100,
@@ -1110,7 +1110,7 @@ export const spellCatalog = {
   },
   "LeeSin_W": {
     name: "Hộ Thể / Kiên Định (LeeSin_W)",
-    description: "Lee Sin <span class=\"buff\">Lướt</span> tới đồng minh gần nhất trong phạm vi, khi tới nơi cả hai nhận lá chắn hấp thụ <span class=\"heal\">70 sát thương</span> trong <span class=\"time\">3 giây</span> (không có đồng minh thì tự khoác lá chắn tại chỗ; nếu cú lướt bị chặn thì không có lá chắn). Lướt tới đồng minh là tướng sẽ giảm một nửa thời gian hồi. Có thể tái kích hoạt trong <span class=\"time\">3 giây</span> để dùng <span class=\"buff\">Ý Chí Sắt Đá</span>: game không có đòn đánh thường nên hút máu được chuyển thành hồi <span class=\"heal\">60 máu</span> trong <span class=\"time\">4 giây</span>",
+    description: "Lee Sin <span class=\"buff\">Lướt</span> tới <b>đồng minh gần con trỏ nhất</b> trong phạm vi; khi tới nơi cả hai nhận lá chắn hấp thụ <span class=\"heal\">22 sát thương</span> trong <span class=\"time\">3 giây</span> (không có đồng minh thì tự khoác lá chắn tại chỗ; nếu cú lướt bị chặn thì không có lá chắn). Lướt tới đồng minh là tướng sẽ giảm một nửa thời gian hồi. Có thể tái kích hoạt trong <span class=\"time\">3 giây</span> để dùng <span class=\"buff\">Ý Chí Sắt Đá</span>: <span class=\"buff\">hút 35% máu từ mọi sát thương gây ra</span> trong <span class=\"time\">4 giây</span>",
     iconKey: "spell_leesin_w",
     coolDownMs: 9000,
     manaCost: 30,
