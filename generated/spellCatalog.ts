@@ -1886,7 +1886,7 @@ export const spellCatalog = {
   },
   "Thresh_W": {
     name: "Con Đường Tăm Tối (Thresh_W)",
-    description: "Ném chiếc đèn bay tới vị trí chỉ định; <span class=\"damage\">khi đáp xuống</span> nó treo ở đó <span class=\"time\">5 giây</span>: mọi đồng minh <span class=\"buff\">đứng trong</span> <span>200px</span> liên tục nhận khiên <span class=\"heal\">45</span>",
+    description: "Ném chiếc đèn bay tới vị trí chỉ định; <span class=\"damage\">khi đáp xuống</span> nó treo ở đó <span class=\"time\">5 giây</span>: mỗi đồng minh <span class=\"buff\">bước vào</span> <span>200px</span> nhận khiên <span class=\"heal\">45</span> trong <span class=\"time\">3 giây</span>, một lần cho mỗi người",
     iconKey: "spell_thresh_w",
     coolDownMs: 10000,
     manaCost: 40,

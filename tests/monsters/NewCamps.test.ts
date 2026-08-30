@@ -342,13 +342,61 @@ describe('Scuttle Crab', () => {
 });
 
 describe('Vilemaw', () => {
+  /**
+   * Casts the web and runs the object it spawns for `ms`.
+   *
+   * The ability used to apply its `Dash` inside `cast` and draw nothing at
+   * all: a champion at the end of a 520px reach was simply somewhere else, and
+   * the creature that did it had visibly not moved. Everything it does now
+   * lives in the spell object, which is why every case below has to run one.
+   */
+  const spray = (boss: MonsterInstance, victim: ChampionInstance, ms: number) => {
+    makeVilemawAbilities(api)[0].cast(boss as never, victim as never);
+    const web = everything().find(
+      object => (object as { target?: unknown })?.target === victim
+    ) as { update(): void };
+    expect(web, 'the cast spawned no web').toBeTruthy();
+    for (let elapsed = 0; elapsed < ms; elapsed += 16) web.update();
+    return web;
+  };
+
+  it('throws its strands before anything moves', () => {
+    // The whole point of the rewrite: half a second of web crossing the ground
+    // is the part of this ability a player gets to see.
+    const victim = champion(game, 600, 'blue');
+    game.setPlayer(victim);
+    const boss = camp(game, makeVilemawAbilities(api), { speed: 0 });
+
+    spray(boss, victim, WEB.sprayMs - 100);
+
+    expect(victim.buffs.some(buff => buff instanceof api.buffs.Dash)).toBe(false);
+    expect(victim.stats.health.value).toBe(victim.stats.maxHealth.value);
+  });
+
+  it('does not yank a champion that died during the spray', () => {
+    // Half a second is long enough to die in, and dragging a corpse across the
+    // map is worse than missing.
+    const victim = champion(game, 600, 'blue');
+    game.setPlayer(victim);
+    const boss = camp(game, makeVilemawAbilities(api), { speed: 0 });
+
+    makeVilemawAbilities(api)[0].cast(boss as never, victim as never);
+    const web = everything().find(
+      object => (object as { target?: unknown })?.target === victim
+    ) as { update(): void };
+    victim.takeDamage(999_999, boss as never);
+    expect(victim.isDead, 'the victim did not actually die').toBe(true);
+    for (let elapsed = 0; elapsed < WEB.sprayMs + 100; elapsed += 16) web.update();
+
+    expect(victim.buffs.some(buff => buff instanceof api.buffs.Dash)).toBe(false);
+  });
+
   it('yanks a champion toward its pit', () => {
     const killer = champion(game, 600, 'blue');
     game.setPlayer(killer);
     const boss = camp(game, makeVilemawAbilities(api), { speed: 0 });
 
-    const web = makeVilemawAbilities(api)[0];
-    web.cast(boss as never, killer as never);
+    spray(boss, killer, WEB.sprayMs + 100);
 
     const dash = killer.buffs.find(buff => buff instanceof api.buffs.Dash);
     expect(dash, 'nothing pulled the champion').toBeTruthy();

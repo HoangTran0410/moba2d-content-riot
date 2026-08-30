@@ -4,7 +4,7 @@ import { buildTestApi } from '@moba2d/core/testing';
 import { createGame, createUnit, installSpellObjectGlobals } from '@moba2d/core/testing/spell';
 import { HALF_LENGTH, HALF_WIDTH, SWEEP_DISTANCE } from '../../spells/Thresh_E';
 import Thresh_E, { Thresh_E_Object } from '../../spells/Thresh_E';
-import { RADIUS } from '../../spells/Thresh_W';
+import { RADIUS, SHIELD_DURATION_MS } from '../../spells/Thresh_W';
 import Thresh_W, { Thresh_W_Lantern_Throw, Thresh_W_Object } from '../../spells/Thresh_W';
 const __api = buildTestApi();
 const { Dash, Shield } = __api.buffs;
@@ -176,5 +176,48 @@ describe('Thresh W is thrown before it is a lantern', () => {
 
     expect(inside.buffs.some(buff => buff instanceof Shield)).toBe(true);
     expect(outside.buffs.some(buff => buff instanceof Shield)).toBe(false);
+  });
+
+  it('pays each ally once, however long they stand in it', () => {
+    // Reported from a real match: the lantern handed out a shield on every
+    // 500ms tick, and `Shield` stacks to five — so standing in the light was
+    // not a shield, it was a room you could not be hurt in, with a buff bar
+    // full of the same icon to look at while you were in it.
+    const { game, thresh, flight } = throwIt();
+    while (!flight.toRemove) flight.update();
+    const lantern = game.objectManager._objectToBeAdd.find(
+      (object: unknown): object is Thresh_W_Object => object instanceof Thresh_W_Object
+    )!;
+
+    const ally = at(300, 0, thresh.teamId, game);
+    game.objectManager.queryObjects = vi.fn(() => [ally]) as never;
+
+    vi.stubGlobal('deltaTime', 600);
+    for (let tick = 0; tick < 6; tick++) lantern.update();
+    vi.stubGlobal('deltaTime', 16);
+
+    expect(ally.buffs.filter(buff => buff instanceof Shield)).toHaveLength(1);
+  });
+
+  it('gives a shield worth carrying out of the light', () => {
+    // The other half of the same fix. At 900ms against a 500ms re-tick the
+    // duration was doing no work at all — it only had to outlive the gap. Once
+    // it is handed out once, it has to be long enough to walk away with.
+    const { game, thresh, flight } = throwIt();
+    while (!flight.toRemove) flight.update();
+    const lantern = game.objectManager._objectToBeAdd.find(
+      (object: unknown): object is Thresh_W_Object => object instanceof Thresh_W_Object
+    )!;
+
+    const ally = at(300, 0, thresh.teamId, game);
+    game.objectManager.queryObjects = vi.fn(() => [ally]) as never;
+
+    vi.stubGlobal('deltaTime', 600);
+    lantern.update();
+    vi.stubGlobal('deltaTime', 16);
+
+    const shield = ally.buffs.find(buff => buff instanceof Shield)!;
+    expect((shield as unknown as { duration: number }).duration).toBe(SHIELD_DURATION_MS);
+    expect(SHIELD_DURATION_MS).toBeGreaterThan(2_000);
   });
 });

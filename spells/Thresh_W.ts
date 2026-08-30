@@ -15,13 +15,30 @@ export const DURATION = 5000;
 
 export const SHIELD_AMOUNT = 45;
 
+/**
+ * How long the shield an ally picks up out of the light lasts.
+ *
+ * It used to be 900ms, which was not a duration at all: the lantern re-applied
+ * every 500ms, so an ally who stood still simply had a shield for as long as
+ * they stood still — and `Shield` stacks to five, so they had up to five of
+ * them, each one refreshing, and a buff bar full of the same icon. Three
+ * seconds is a shield you carry *out* of the light, which is what makes
+ * stepping into it a decision rather than a place to stand.
+ */
+export const SHIELD_DURATION_MS = 3_000;
+
 export const THROW_SPEED = 11;
 
 
 /**
  * Dark Passage. The lantern in League is a *ride*, and this game has no ally
  * targeting to click it with — so it lands as what the lantern is for instead:
- * a lit patch that keeps whoever stands in it alive. Refreshed while they stay.
+ * a lit patch that hands out a shield.
+ *
+ * **Once per ally, per lantern.** It used to shield everyone inside on a
+ * 500ms tick, which is not a shield — it is a room you cannot be hurt in, and
+ * `Shield` stacking to five made it five rooms. Picking the shield up on the
+ * way through is the ability; standing in the light forever is not.
  */
 export default class Thresh_W extends Spell {
   targetingMode = 'POINT' as const;
@@ -29,8 +46,9 @@ export default class Thresh_W extends Spell {
   name = 'Con Đường Tăm Tối (Thresh_W)';
   description =
     `Ném chiếc đèn bay tới vị trí chỉ định; <span class="damage">khi đáp xuống</span> nó treo ở đó` +
-    ` <span class="time">${DURATION / 1000} giây</span>: mọi đồng minh <span class="buff">đứng trong</span>` +
-    ` <span>${RADIUS}px</span> liên tục nhận khiên <span class="heal">${SHIELD_AMOUNT}</span>`;
+    ` <span class="time">${DURATION / 1000} giây</span>: mỗi đồng minh <span class="buff">bước vào</span>` +
+    ` <span>${RADIUS}px</span> nhận khiên <span class="heal">${SHIELD_AMOUNT}</span> trong` +
+    ` <span class="time">${SHIELD_DURATION_MS / 1000} giây</span>, một lần cho mỗi người`;
   coolDown = 10000;
   manaCost = 40;
 
@@ -134,6 +152,15 @@ export class Thresh_W_Object extends SpellObject {
   lifeTime = DURATION;
   age = 0;
   sinceTick = 0;
+  /**
+   * Who this lantern has already paid out to.
+   *
+   * Weak, so an ally that dies and is cleaned up takes its entry with it, and
+   * per *object*, so the next cast is a fresh lantern that shields the same
+   * people again — which is the difference between an ability with a cooldown
+   * and a place on the map that is safe.
+   */
+  shielded = new WeakSet<object>();
 
   update() {
     this.age += deltaTime;
@@ -162,8 +189,10 @@ export class Thresh_W_Object extends SpellObject {
       if (!unit?.addBuff || unit.isDead) continue;
       if (unit.teamId !== this.owner.teamId && unit !== this.owner) continue;
       if (this.position.dist(unit.position) > this.radius) continue;
+      if (this.shielded.has(unit)) continue;
+      this.shielded.add(unit);
 
-      const shield = new Shield(900, this.owner, unit);
+      const shield = new Shield(SHIELD_DURATION_MS, this.owner, unit);
       shield.stackId = 'thresh_w_lantern';
       shield.amount = SHIELD_AMOUNT;
       shield.color = [140, 255, 210];
