@@ -112,7 +112,7 @@ export const KATARINA_Q_WINDUP_MS = 140;
 export default class Katarina_Q extends Spell {
   image = api.asset('spell_katarina_q');
   name = 'Phi Dao (Katarina_Q)';
-  description = `Phóng một lưỡi dao nảy tới <b>${KATARINA_Q_MAX_TARGETS}</b> mục tiêu, gây
+  description = `Phóng một lưỡi dao <b>vào một kẻ địch trong tầm</b> (không có mục tiêu thì không dùng được), nảy tới <b>${KATARINA_Q_MAX_TARGETS}</b> mục tiêu, gây
     <span class="damage magic">${KATARINA_Q_FIRST_DAMAGE} sát thương phép</span> cho mục tiêu đầu và
     <span class="damage magic">${KATARINA_Q_BOUNCE_DAMAGE} sát thương phép</span> cho mỗi lần nảy.
     Sau đó dao cắm xuống đất phía sau mục tiêu đầu tiên. Đi vào dao sẽ <b>xoay kiếm</b> gây sát thương diện rộng.`;
@@ -130,54 +130,66 @@ export default class Katarina_Q extends Spell {
     };
   }
 
-  onSpellCast(context: CastContext): void {
-    const reach = effectiveRange(this.range, this.owner);
-    const aim = context?.cursorWorld ?? this.aimPoint;
-    const origin = this.owner.position;
-
-    // Find enemy closest to cursor within reach
-    const enemies = this.game.objectManager.queryObjects({
-      area: new Circle({ x: aim.x, y: aim.y, r: 160 }),
+  /**
+   * A body to throw at, or no throw.
+   *
+   * The blade used to sail into open ground whenever the cursor was not within
+   * 160px of somebody: full cooldown, full cast time, no dagger planted,
+   * nothing hit. That is not a skillshot missing — Q does not travel to a
+   * *point*, it travels to a *target* and bounces between more of them — so
+   * "the cursor was in a gap" was never a thing a player could aim their way
+   * out of.
+   *
+   * The candidate set is now the whole cast range rather than a window around
+   * the cursor, and the cursor decides *which* of them, which is the same rule
+   * the bounce already used. `checkCastCondition` asks the same question with
+   * no cursor at all, so a bot cannot spend it on air either.
+   */
+  private enemiesInRange(): AttackableUnit[] {
+    return this.game.objectManager.queryObjects({
+      area: new Circle({
+        x: this.owner.position.x,
+        y: this.owner.position.y,
+        r: effectiveRange(this.range, this.owner),
+      }),
       filters: [
         PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId),
         PredefinedFilters.visibleTo(this.owner),
       ],
     }) as AttackableUnit[];
+  }
 
-    let primaryTarget: AttackableUnit | null = null;
-    let closestDistance = Infinity;
-    for (const enemy of enemies) {
-      const distToOwner = Math.hypot(enemy.position.x - origin.x, enemy.position.y - origin.y);
-      if (distToOwner <= reach + 60) {
-        const distToAim = Math.hypot(enemy.position.x - aim.x, enemy.position.y - aim.y);
-        if (distToAim < closestDistance) {
-          closestDistance = distToAim;
-          primaryTarget = enemy;
-        }
+  /** The one the cursor is pointing at, out of everything actually reachable. */
+  private pickTarget(aim: { x: number; y: number }): AttackableUnit | null {
+    let chosen: AttackableUnit | null = null;
+    let closest = Infinity;
+    for (const enemy of this.enemiesInRange()) {
+      const gap = Math.hypot(enemy.position.x - aim.x, enemy.position.y - aim.y);
+      if (gap < closest) {
+        closest = gap;
+        chosen = enemy;
       }
     }
+    return chosen;
+  }
 
-    let toX = aim.x - origin.x;
-    let toY = aim.y - origin.y;
-    const span = Math.hypot(toX, toY);
-    if (span < 1) {
-      const heading = this.firingDirection(context);
-      const length = Math.hypot(heading.x, heading.y) || 1;
-      toX = (heading.x / length) * reach;
-      toY = (heading.y / length) * reach;
-    } else {
-      const travel = Math.min(span, reach);
-      toX = (toX / span) * travel;
-      toY = (toY / span) * travel;
-    }
+  checkCastCondition(): boolean {
+    return this.enemiesInRange().length > 0;
+  }
+
+  onSpellCast(context: CastContext): void {
+    const aim = context?.cursorWorld ?? this.aimPoint;
+
+    // Re-asked after the wind-up rather than trusted from before it: the only
+    // enemy in range can die, blink or step out during those 140ms, and a
+    // blade thrown at a body that is no longer there is the bug this method
+    // exists to prevent.
+    const primaryTarget = this.pickTarget(aim);
+    if (!primaryTarget) return;
 
     const dagger = new Katarina_Q_Object(this.owner);
-    if (primaryTarget) {
-      dagger.chasing = primaryTarget;
-      dagger.destination = createVector(primaryTarget.position.x, primaryTarget.position.y);
-    } else {
-      dagger.destination = createVector(origin.x + toX, origin.y + toY);
-    }
+    dagger.chasing = primaryTarget;
+    dagger.destination = createVector(primaryTarget.position.x, primaryTarget.position.y);
     this.game.objectManager.addObject(dagger);
   }
 

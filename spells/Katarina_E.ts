@@ -27,7 +27,7 @@ export const KATARINA_E_Q_REFUND_MS = 1_500;
 export default class Katarina_E extends Spell {
   image = api.asset('spell_katarina_e');
   name = 'Ám Sát (Katarina_E)';
-  description = `Dịch chuyển tức thời tới một <b>kẻ địch, đồng minh</b> hoặc <b>con dao</b>.
+  description = `Dịch chuyển tức thời tới một <b>kẻ địch, đồng minh, lính, quái, trụ</b> hoặc <b>con dao</b> trong tầm — <b>không có mục tiêu thì không dùng được</b>, không thể nhảy vào chỗ trống.
     Nếu tới kẻ địch, gây <span class="damage magic">${KATARINA_E_STRIKE_DAMAGE} sát thương phép</span>.
     Nếu tới con dao, kích hoạt <b>xoay kiếm diện rộng</b> gây
     <span class="damage magic">${KATARINA_DAGGER_SLASH_DAMAGE} sát thương phép</span> và hồi lại phần lớn thời gian hồi chiêu Ám Sát.`;
@@ -44,8 +44,57 @@ export default class Katarina_E extends Spell {
     };
   }
 
+  /**
+   * Every body Shunpo may land on: an ally, an enemy, a minion, a camp, a
+   * turret — anything that is a unit and is not Katarina herself.
+   *
+   * Deliberately not filtered by team. Shunpo is a *reposition* first and a
+   * gap-closer second, and stepping to a friendly minion to escape is as much
+   * the ability as stepping to a champion to kill one.
+   */
+  private unitsInRange(): AttackableUnit[] {
+    const reach = effectiveRange(this.range, this.owner);
+    const found = this.game.objectManager.queryObjects({
+      area: new Circle({ x: this.owner.position.x, y: this.owner.position.y, r: reach }),
+      filters: [PredefinedFilters.type(AttackableUnit), PredefinedFilters.visibleTo(this.owner)],
+    }) as AttackableUnit[];
+
+    const kept: AttackableUnit[] = [];
+    for (const unit of found) {
+      if (unit === this.owner || unit.isDead || unit.toRemove) continue;
+      if (!(unit instanceof AttackableUnit)) continue;
+      kept.push(unit);
+    }
+    return kept;
+  }
+
+  /** Her own daggers close enough to step to, whatever the cursor is doing. */
+  private daggersInRange(): Katarina_Dagger[] {
+    const reach = effectiveRange(this.range, this.owner);
+    const kept: Katarina_Dagger[] = [];
+    for (const dagger of Katarina_Dagger.aliveFor(this.owner)) {
+      const gap = Math.hypot(
+        dagger.position.x - this.owner.position.x,
+        dagger.position.y - this.owner.position.y
+      );
+      if (gap <= reach) kept.push(dagger);
+    }
+    return kept;
+  }
+
+  /**
+   * Shunpo goes *to* something, or it does not go.
+   *
+   * It used to blink to bare ground whenever the cursor was not within 90px of
+   * a unit or a dagger — a 420px free teleport on a 10s cooldown, which is a
+   * different and much stronger ability than the one the tooltip describes.
+   * The candidate set is now the whole cast range and the cursor picks which
+   * of them, so aiming at a gap between two bodies steps to the nearer one
+   * instead of into the gap.
+   */
   checkCastCondition(): boolean {
-    return !this.owner.grounded;
+    if (this.owner.grounded) return false;
+    return this.daggersInRange().length > 0 || this.unitsInRange().length > 0;
   }
 
   onSpellCast(context: CastContext): void {
@@ -53,52 +102,41 @@ export default class Katarina_E extends Spell {
     const aim = context?.cursorWorld ?? this.aimPoint;
     const origin = createVector(this.owner.position.x, this.owner.position.y);
 
-    // 1. Check if aim is near an active/landing Dagger
-    const dagger = Katarina_Dagger.snapTarget(this.owner, aim.x, aim.y);
-
-    // 2. Check if aim is near an AttackableUnit (enemy, ally, monster, minion)
-    const unitCandidates = this.game.objectManager.queryObjects({
-      area: new Circle({ x: aim.x, y: aim.y, r: 90 }),
-      filters: [
-        PredefinedFilters.type(AttackableUnit),
-        PredefinedFilters.visibleTo(this.owner),
-      ],
-    }) as AttackableUnit[];
+    // A dagger under the cursor wins outright — that is the combo the whole
+    // kit is built around, and it should never lose a tie to a passing minion.
+    let snappedDagger = Katarina_Dagger.snapTarget(this.owner, aim.x, aim.y);
+    if (snappedDagger) {
+      const gap = Math.hypot(
+        snappedDagger.position.x - origin.x,
+        snappedDagger.position.y - origin.y
+      );
+      if (gap > reach) snappedDagger = null;
+    }
 
     let targetUnit: AttackableUnit | null = null;
-    let closestDist = Infinity;
-    for (const u of unitCandidates) {
-      if (u === this.owner || u.isDead || u.toRemove || !(u instanceof AttackableUnit)) continue;
-      const d = Math.hypot(u.position.x - aim.x, u.position.y - aim.y);
-      if (d < closestDist) {
-        closestDist = d;
-        targetUnit = u;
+    if (!snappedDagger) {
+      let closestDist = Infinity;
+      for (const unit of this.unitsInRange()) {
+        const d = Math.hypot(unit.position.x - aim.x, unit.position.y - aim.y);
+        if (d < closestDist) {
+          closestDist = d;
+          targetUnit = unit;
+        }
       }
     }
 
-    let arrivalX = aim.x;
-    let arrivalY = aim.y;
-    let snappedDagger: Katarina_Dagger | null = null;
+    // Nothing to step to. Re-asked here rather than trusted from
+    // `checkCastCondition` because the only candidate can die or walk out
+    // between the two.
+    let anchor: { x: number; y: number } | null = snappedDagger
+      ? { x: snappedDagger.position.x, y: snappedDagger.position.y }
+      : targetUnit
+        ? { x: targetUnit.position.x, y: targetUnit.position.y }
+        : this.nearestDaggerTo(aim);
+    if (!anchor) return;
 
-    if (dagger) {
-      arrivalX = dagger.position.x;
-      arrivalY = dagger.position.y;
-      snappedDagger = dagger;
-    } else if (targetUnit) {
-      arrivalX = targetUnit.position.x;
-      arrivalY = targetUnit.position.y;
-    } else {
-      const span = Math.hypot(aim.x - origin.x, aim.y - origin.y);
-      if (span < 1) {
-        const heading = this.firingDirection(context);
-        const length = Math.hypot(heading.x, heading.y) || 1;
-        arrivalX = origin.x + (heading.x / length) * reach;
-        arrivalY = origin.y + (heading.y / length) * reach;
-      } else if (span > reach) {
-        arrivalX = origin.x + ((aim.x - origin.x) / span) * reach;
-        arrivalY = origin.y + ((aim.y - origin.y) / span) * reach;
-      }
-    }
+    let arrivalX = anchor.x;
+    let arrivalY = anchor.y;
 
     // Clamp distance to max reach
     const finalSpan = Math.hypot(arrivalX - origin.x, arrivalY - origin.y);
@@ -116,7 +154,7 @@ export default class Katarina_E extends Spell {
     this.game.objectManager.addObject(new Katarina_E_Arrival(this.owner, arrivalX, arrivalY));
 
     // If destination is near a dagger (or snapped dagger), consume & slash
-    const daggerAtArrival =
+    const daggerAtArrival: Katarina_Dagger | null =
       snappedDagger ?? Katarina_Dagger.snapTarget(this.owner, arrivalX, arrivalY);
     if (daggerAtArrival) {
       daggerAtArrival.consumeAndSlash();
@@ -124,6 +162,20 @@ export default class Katarina_E extends Spell {
 
     // Single target strike if an enemy was targeted / is at arrival
     this.strike(arrivalX, arrivalY, targetUnit);
+  }
+
+  /** The dagger nearest the cursor, when the cursor named nothing at all. */
+  private nearestDaggerTo(aim: { x: number; y: number }): { x: number; y: number } | null {
+    let chosen: Katarina_Dagger | null = null;
+    let closest = Infinity;
+    for (const dagger of this.daggersInRange()) {
+      const gap = Math.hypot(dagger.position.x - aim.x, dagger.position.y - aim.y);
+      if (gap < closest) {
+        closest = gap;
+        chosen = dagger;
+      }
+    }
+    return chosen ? { x: chosen.position.x, y: chosen.position.y } : null;
   }
 
   private strike(x: number, y: number, explicitTarget: AttackableUnit | null): void {

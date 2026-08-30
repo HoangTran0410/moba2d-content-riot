@@ -1022,7 +1022,7 @@ export const spellCatalog = {
   },
   "Katarina_E": {
     name: "Ám Sát (Katarina_E)",
-    description: "Dịch chuyển tức thời tới một <b>kẻ địch, đồng minh</b> hoặc <b>con dao</b>.\n    Nếu tới kẻ địch, gây <span class=\"damage magic\">14 sát thương phép</span>.\n    Nếu tới con dao, kích hoạt <b>xoay kiếm diện rộng</b> gây\n    <span class=\"damage magic\">22 sát thương phép</span> và hồi lại phần lớn thời gian hồi chiêu Ám Sát.",
+    description: "Dịch chuyển tức thời tới một <b>kẻ địch, đồng minh, lính, quái, trụ</b> hoặc <b>con dao</b> trong tầm — <b>không có mục tiêu thì không dùng được</b>, không thể nhảy vào chỗ trống.\n    Nếu tới kẻ địch, gây <span class=\"damage magic\">14 sát thương phép</span>.\n    Nếu tới con dao, kích hoạt <b>xoay kiếm diện rộng</b> gây\n    <span class=\"damage magic\">22 sát thương phép</span> và hồi lại phần lớn thời gian hồi chiêu Ám Sát.",
     iconKey: "spell_katarina_e",
     coolDownMs: 10000,
     manaCost: 0,
@@ -1030,7 +1030,7 @@ export const spellCatalog = {
   },
   "Katarina_Q": {
     name: "Phi Dao (Katarina_Q)",
-    description: "Phóng một lưỡi dao nảy tới <b>3</b> mục tiêu, gây\n    <span class=\"damage magic\">18 sát thương phép</span> cho mục tiêu đầu và\n    <span class=\"damage magic\">14 sát thương phép</span> cho mỗi lần nảy.\n    Sau đó dao cắm xuống đất phía sau mục tiêu đầu tiên. Đi vào dao sẽ <b>xoay kiếm</b> gây sát thương diện rộng.",
+    description: "Phóng một lưỡi dao <b>vào một kẻ địch trong tầm</b> (không có mục tiêu thì không dùng được), nảy tới <b>3</b> mục tiêu, gây\n    <span class=\"damage magic\">18 sát thương phép</span> cho mục tiêu đầu và\n    <span class=\"damage magic\">14 sát thương phép</span> cho mỗi lần nảy.\n    Sau đó dao cắm xuống đất phía sau mục tiêu đầu tiên. Đi vào dao sẽ <b>xoay kiếm</b> gây sát thương diện rộng.",
     iconKey: "spell_katarina_q",
     coolDownMs: 8000,
     manaCost: 0,
@@ -1278,7 +1278,7 @@ export const spellCatalog = {
   },
   "Morgana_E": {
     name: "Khiên Đen (Morgana_E)",
-    description: "Ban cho đồng minh có ít máu nhất trong phạm vi (hoặc chính mình) một <span class=\"buff\">Lá Chắn Đen</span> hấp thụ <span class=\"heal\">35 sát thương</span> trong <span class=\"time\">5 giây</span>. Khi lá chắn còn tồn tại, mục tiêu <span class=\"buff\">miễn nhiễm mọi hiệu ứng khống chế</span> của kẻ địch (choáng, trói, câm lặng, làm chậm, hất tung, mê hoặc, khiếp sợ, ghìm, kéo/đẩy) — mỗi hiệu ứng bị chặn sẽ bị xoá ngay lập tức. Không chặn được <span class=\"buff\">Mờ Mắt</span>, cũng không chặn khống chế từ chính mình hoặc đồng đội. Lá chắn hấp thụ mọi loại sát thương, kể cả sát thương chuẩn.",
+    description: "Ban cho đồng minh có ít máu nhất trong phạm vi (hoặc chính mình) một <span class=\"buff\">Lá Chắn Đen</span> hấp thụ <span class=\"heal\">35</span> <span class=\"damage magic\">sát thương phép</span> trong <span class=\"time\">5 giây</span>. <span class=\"buff\">Chỉ chặn sát thương phép</span> — sát thương vật lý và sát thương chuẩn đi thẳng qua và không làm hao lá chắn. Khi lá chắn còn tồn tại, mục tiêu <span class=\"buff\">miễn nhiễm mọi hiệu ứng khống chế</span> của kẻ địch (choáng, trói, câm lặng, làm chậm, hất tung, mê hoặc, khiếp sợ, ghìm, kéo/đẩy) — mỗi hiệu ứng bị chặn sẽ bị xoá ngay lập tức. Không chặn được <span class=\"buff\">Mờ Mắt</span>, cũng không chặn khống chế từ chính mình hoặc đồng đội.",
     iconKey: "spell_morgana_e",
     coolDownMs: 6000,
     manaCost: 40,

@@ -1,3 +1,4 @@
+import type { DamageType } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 import { secs } from '../text';
 
@@ -35,7 +36,7 @@ export default class Morgana_E extends Spell {
   targetingMode = 'SELF' as const;
   image = api.asset('spell_morgana_e');
   name = 'Khiên Đen (Morgana_E)';
-  description = `Ban cho đồng minh có ít máu nhất trong phạm vi (hoặc chính mình) một <span class="buff">Lá Chắn Đen</span> hấp thụ <span class="heal">${SHIELD_AMOUNT} sát thương</span> trong <span class="time">${secs(SHIELD_DURATION_MS)} giây</span>. Khi lá chắn còn tồn tại, mục tiêu <span class="buff">miễn nhiễm mọi hiệu ứng khống chế</span> của kẻ địch (choáng, trói, câm lặng, làm chậm, hất tung, mê hoặc, khiếp sợ, ghìm, kéo/đẩy) — mỗi hiệu ứng bị chặn sẽ bị xoá ngay lập tức. Không chặn được <span class="buff">Mờ Mắt</span>, cũng không chặn khống chế từ chính mình hoặc đồng đội. Lá chắn hấp thụ mọi loại sát thương, kể cả sát thương chuẩn.`;
+  description = `Ban cho đồng minh có ít máu nhất trong phạm vi (hoặc chính mình) một <span class="buff">Lá Chắn Đen</span> hấp thụ <span class="heal">${SHIELD_AMOUNT}</span> <span class="damage magic">sát thương phép</span> trong <span class="time">${secs(SHIELD_DURATION_MS)} giây</span>. <span class="buff">Chỉ chặn sát thương phép</span> — sát thương vật lý và sát thương chuẩn đi thẳng qua và không làm hao lá chắn. Khi lá chắn còn tồn tại, mục tiêu <span class="buff">miễn nhiễm mọi hiệu ứng khống chế</span> của kẻ địch (choáng, trói, câm lặng, làm chậm, hất tung, mê hoặc, khiếp sợ, ghìm, kéo/đẩy) — mỗi hiệu ứng bị chặn sẽ bị xoá ngay lập tức. Không chặn được <span class="buff">Mờ Mắt</span>, cũng không chặn khống chế từ chính mình hoặc đồng đội.`;
   coolDown = 6000;
   manaCost = 40;
 
@@ -105,6 +106,20 @@ export class Morgana_E_BlackShield extends Shield {
   name = 'Lá Chắn Đen';
   stackId = 'morgana_e_blackshield';
   color: [number, number, number] = [180, 90, 230];
+
+  /**
+   * Magic only, which is the wiki's Black Shield and was not what this shipped.
+   *
+   * It used to absorb all three types, and its own description said so —
+   * "hấp thụ mọi loại sát thương, kể cả sát thương chuẩn" — because the engine
+   * had no way to say otherwise. That made it strictly the best shield in the
+   * game wearing an anti-magic name, and it made the *buff* tooltip useless in
+   * the other direction: a player hovering it read "hấp thụ 35 sát thương" and
+   * could not tell whether it would still be there when the physical damage
+   * arrived. `Shield.absorbs` is core's answer to that question, and this is
+   * the ability that asked it.
+   */
+  absorbs: DamageType[] = ['MAGIC'];
 
   /** Crowd control this shield eats. `Dash` covers enemy displacements (hooks, pulls). */
   static BLOCKED_BUFFS: any[] = [Stun, Root, Silence, Slow, Airborne, Charm, Fear, Ground, Dash];

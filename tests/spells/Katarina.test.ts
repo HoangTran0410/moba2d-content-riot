@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { buildTestApi } from '@moba2d/core/testing';
+import { buildTestApi, indexObjects } from '@moba2d/core/testing';
 import {
   createGame,
   createUnit,
@@ -53,6 +53,8 @@ describe('Katarina — Reworked Dagger Mechanics', () => {
     owner = unit(game, 0, 'blue');
     game.setPlayer(owner);
     game.objectManager.addObject(owner);
+    spawned.length = 0;
+    spawned.push(owner);
     (game as any).worldMouse = createVector(300, 0);
   });
 
@@ -63,9 +65,28 @@ describe('Katarina — Reworked Dagger Mechanics', () => {
     return { x: owner.position.x + dx, y: owner.position.y + dy };
   }
 
+  /**
+   * Indexed, not merely added — and indexed *cumulatively*.
+   *
+   * `addObject` parks a unit in `_objectToBeAdd` until the next
+   * `objectManager.update()`, so it is invisible to `queryObjects` until then.
+   * That did not matter while Q threw at a *point*: the blade flew down the aim
+   * line and found these by collision on the way. It matters now that Q refuses
+   * to cast without a target in range, which is a quadtree question asked at
+   * press time.
+   *
+   * `indexObjects` *replaces* the world rather than adding to it, so calling it
+   * once per spawn leaves only the last one findable — which reads as "the
+   * spell refuses to cast" and is a fixture bug wearing a product bug's
+   * clothes. Hence the running list.
+   */
+  const spawned: AttackableUnit[] = [];
+
   function enemy(x: number, y = 0): AttackableUnit {
     const victim = unit(game, x, 'red', y);
     game.objectManager.addObject(victim);
+    spawned.push(victim);
+    indexObjects(game, [...spawned]);
     return victim;
   }
 
@@ -89,6 +110,77 @@ describe('Katarina — Reworked Dagger Mechanics', () => {
     for (let frame = 0; frame < 600 && !missile.toRemove; frame++) game.objectManager.update();
     return missile;
   }
+
+  /**
+   * Q and E both used to fire into open ground.
+   *
+   * Q travels to a *target* and bounces between more of them — it is not a
+   * skillshot and there is no line to miss along — so a cursor that landed in
+   * a gap between bodies spent the cooldown, the wind-up and the mana on
+   * nothing at all, and planted no dagger. E was worse: with no unit and no
+   * dagger under the cursor it blinked to bare ground, which is a 420px free
+   * teleport on a 10s cooldown and a materially stronger ability than the one
+   * its own tooltip describes.
+   */
+  describe('neither Q nor E fires at empty ground', () => {
+    it('refuses Q with nothing in range', () => {
+      expect(pressSpell(new Katarina_Q(owner), { at: at(300, 0) })).toBe(false);
+    });
+
+    it('allows Q once something is in range, wherever the cursor is', () => {
+      enemy(300);
+      // Aimed at open ground well away from the only body: the old code needed
+      // the cursor within 160px of a target, so this cast threw at nothing.
+      expect(pressSpell(new Katarina_Q(owner), { at: at(80, 380) })).toBe(true);
+    });
+
+    it('sends the blade to the body nearest the cursor, not the one nearest her', () => {
+      const near = enemy(120);
+      const far = enemy(400);
+
+      const q = new Katarina_Q(owner);
+      expect(pressSpell(q, { at: at(420, 0) })).toBe(true);
+      vi.stubGlobal('deltaTime', KATARINA_Q_WINDUP_MS);
+      q.update();
+      vi.stubGlobal('deltaTime', 250);
+
+      const missile = game.objectManager._objectToBeAdd.find(
+        object => object instanceof Object && 'struck' in (object as any)
+      ) as Katarina_Q_Object;
+      expect(missile.chasing).toBe(far);
+      expect(missile.chasing).not.toBe(near);
+    });
+
+    it('refuses E with no unit and no dagger in range', () => {
+      expect(pressSpell(new Katarina_E(owner), { at: at(300, 0) })).toBe(false);
+    });
+
+    it('allows E to a friendly body, not only to an enemy', () => {
+      const ally = unit(game, 200, 'blue');
+      game.objectManager.addObject(ally);
+      spawned.push(ally);
+      indexObjects(game, [...spawned]);
+
+      // Shunpo is a reposition first and a gap-closer second: stepping to a
+      // friendly minion to escape is as much the ability as stepping to a
+      // champion to kill one.
+      expect(pressSpell(new Katarina_E(owner), { at: at(210, 0) })).toBe(true);
+    });
+
+    it('allows E to one of her own daggers with nobody else around', () => {
+      Katarina_Dagger.plant(owner, 200, 0, 0);
+      expect(pressSpell(new Katarina_E(owner), { at: at(200, 0) })).toBe(true);
+    });
+
+    it('never leaves her standing where the cursor was rather than on a body', () => {
+      const target = enemy(300);
+      const e = new Katarina_E(owner);
+      // Cursor 200px past the only body — the old code blinked to the cursor.
+      expect(pressSpell(e, { at: at(400, 300) })).toBe(true);
+      expect(owner.position.x).toBeCloseTo(target.position.x, 0);
+      expect(owner.position.y).toBeCloseTo(target.position.y, 0);
+    });
+  });
 
   it('Q chains at most MAX_TARGETS units and never bills one twice', () => {
     const first = enemy(300);

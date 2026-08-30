@@ -342,6 +342,9 @@ describe("the pack's tests speak only published core surfaces", () => {
     // source as text and imports nothing from core at all, so it adds to the
     // population and to no other count here.
     //
+    // 106, not 105: `tests/spells/Morgana_E.test.ts`, which pins Black Shield
+    // to magic damage only — the ability that asked core for `Shield.absorbs`.
+    //
     // 105, not 104: `tests/spellNumberFormat.test.ts`, which scans every
     // rendered description for a floating-point tail — the bug that had
     // Lissandra Q advertising a 28.000000004% slow.
@@ -349,7 +352,7 @@ describe("the pack's tests speak only published core surfaces", () => {
     // 104, not 103: `tests/buffDescriptions.test.ts`, which checks that a buff
     // this pack invents says what it does. Like the one above it, it reads this
     // pack's own source as text and imports nothing from core.
-    expect(files.length).toBe(105);
+    expect(files.length).toBe(106);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {
