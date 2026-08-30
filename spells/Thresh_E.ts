@@ -114,7 +114,7 @@ export default class Thresh_E extends Spell {
     `Quất xích thành một <span class="buff">vệt quét hình chữ nhật</span> dài <span>${HALF_LENGTH * 2}px</span>` +
     ` rộng <span>${HALF_WIDTH * 2}px</span>, tâm ở Thresh và xoay theo hướng con trỏ. Xích quét qua trong` +
     ` <span class="time">${SWEEP_DURATION / 1000} giây</span>, <i>chạm tới ai thì trúng người đó</i>:` +
-    ` <span class="damage">${DAMAGE} sát thương</span>, <span class="buff">quét</span> kẻ địch` +
+    ` <span class="damage magic">${DAMAGE} sát thương phép</span>, <span class="buff">quét</span> kẻ địch` +
     ` <span>${SWEEP_DISTANCE}px</span> theo đúng hướng quất và <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span>`;
   coolDown = 8000;
   manaCost = 30;

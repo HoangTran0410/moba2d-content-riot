@@ -49,7 +49,7 @@ export default class Vi_E extends Spell {
   image = api.asset('spell_vi_e');
   name = 'Cú Đấm Xuyên Thấu (Vi_E)';
   description = `Đòn đánh thường kế tiếp xuyên qua mục tiêu thành một hình nêm dài
-    ${E_LENGTH} đơn vị, gây <span class="damage">${E_DAMAGE} sát thương</span> cho mọi
+    ${E_LENGTH} đơn vị, gây <span class="damage physical">${E_DAMAGE} sát thương vật lý</span> cho mọi
     kẻ địch phía sau. Tích được ${E_CHARGES} lần dùng.`;
   coolDown = 9_000;
   manaCost = 25;
@@ -208,7 +208,7 @@ export default class Vi_E extends Spell {
       if (forward < -body || forward > E_LENGTH + body) continue;
       if (lateral > viECleaveHalfWidth(forward) + body) continue;
       struck.add(candidate);
-      candidate.takeDamage(E_DAMAGE, this.owner, 'MAGIC');
+      candidate.takeDamage(E_DAMAGE, this.owner, 'PHYSICAL');
     }
 
     this.game.objectManager.addObject(

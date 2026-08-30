@@ -25,7 +25,7 @@ export default class Amumu_E extends Spell {
   image = api.asset('spell_amumu_e');
   name = 'Giận Dữ (Amumu_E)';
   description =
-    `Đập xuống đất, gây <span class="damage">${DAMAGE} sát thương</span> cho mọi kẻ địch trong` +
+    `Đập xuống đất, gây <span class="damage magic">${DAMAGE} sát thương phép</span> cho mọi kẻ địch trong` +
     ` <span>${RADIUS}px</span> quanh mình`;
   coolDown = 6000;
   manaCost = 20;

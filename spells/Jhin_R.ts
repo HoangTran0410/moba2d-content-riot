@@ -49,8 +49,8 @@ export default class Jhin_R extends Spell {
   name = 'Sân Khấu Tử Thần (Jhin_R)';
   description = `Dựng sân khấu tử thần: Bấm R lần đầu để mở sân khấu hình quạt dài ${JHIN_R_RANGE} đơn vị trong ${JHIN_R_WINDOW_MS / 1000} giây (Jhin bị trói chân và mở rộng tầm nhìn).
     Bấm R thêm ${JHIN_R_SHOTS} lần nữa, mỗi lần cách nhau ${JHIN_R_SHOT_GAP_MS / 1000} giây, để bắn ${JHIN_R_SHOTS} phát đạn tỉa:
-    <span class="damage">${JHIN_R_DAMAGE} sát thương</span> cho 3 phát đầu và
-    <span class="damage">${JHIN_R_FINAL_DAMAGE} sát thương chí mạng</span> cho phát thứ 4,
+    <span class="damage physical">${JHIN_R_DAMAGE} sát thương vật lý</span> cho 3 phát đầu và
+    <span class="damage physical">${JHIN_R_FINAL_DAMAGE} sát thương chí mạng</span> cho phát thứ 4,
     làm chậm kẻ địch đầu tiên trúng đạn ${JHIN_R_SLOW * 100}% trong ${JHIN_R_SLOW_MS / 1000} giây.`;
   coolDown = 10_000;
   manaCost = 100;
@@ -281,7 +281,7 @@ export class Jhin_R_Bullet extends MissileSpellObject {
     ) {
       return;
     }
-    victim.takeDamage(this.damage, this.owner, 'MAGIC');
+    victim.takeDamage(this.damage, this.owner, 'PHYSICAL');
     const slow = new Slow(JHIN_R_SLOW_MS, this.owner, victim);
     slow.percent = JHIN_R_SLOW;
     slow.stackId = 'jhin_curtain_call_slow';

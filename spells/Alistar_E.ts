@@ -22,7 +22,7 @@ export default class Alistar_E extends Spell {
   name = 'Giày Xéo (Alistar_E)';
   description =
     `Lồng lên trong <span class="time">${DURATION / 1000} giây</span>: <span class="buff">+30% tốc chạy</span>` +
-    ` và gây <span class="damage">${DAMAGE_PER_TICK} sát thương</span> mỗi` +
+    ` và gây <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span> mỗi` +
     ` <span class="time">${TICK_INTERVAL / 1000} giây</span> cho kẻ địch trong <span>${RADIUS}px</span>`;
   coolDown = 10000;
   manaCost = 30;

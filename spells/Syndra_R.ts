@@ -44,7 +44,7 @@ export default class Syndra_R extends Spell {
   image = api.asset('spell_syndra_r');
   name = 'Bùng Nổ Sức Mạnh (Syndra_R)';
   description = `Dồn toàn bộ quả cầu đang nằm trên đất vào một tướng địch:
-    <span class="damage">${SYNDRA_R_BASE} sát thương</span> cộng thêm
+    <span class="damage magic">${SYNDRA_R_BASE} sát thương phép</span> cộng thêm
     <span class="damage">${SYNDRA_R_PER_SPHERE}</span> mỗi quả cầu, tối đa
     <span class="damage">${SYNDRA_R_MAX}</span>. Các quả cầu bị tiêu hao.`;
   coolDown = 10_000;

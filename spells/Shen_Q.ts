@@ -72,13 +72,13 @@ export default class Shen_Q extends Spell {
   name = 'Công Kích Hoàng Hôn (Shen_Q)';
   description =
     `Shen phóng Linh Kiếm theo hướng chỉ định rồi thu về. Mỗi lượt bay gây` +
-    ` <span class="damage">${PASS_DAMAGE} sát thương phép</span> và` +
+    ` <span class="damage magic">${PASS_DAMAGE} sát thương phép</span> và` +
     ` <span class="buff">làm chậm ${SLOW_PERCENT * 100}%</span> trong` +
     ` <span class="buff">${SLOW_DURATION_MS / 1000} giây</span> — mỗi lượt chỉ trúng một mục tiêu` +
     ` một lần, nên một đường kiếm đặt khéo sẽ chém trúng hai lần.` +
     ` Khi kiếm về tới tay, <span class="buff">${EMPOWERED_ATTACKS} đòn đánh thường</span> kế tiếp` +
     ` trong <span class="buff">${EMPOWER_WINDOW_MS / 1000} giây</span> được cộng` +
-    ` <span class="damage">${EMPOWERED_BONUS} sát thương phép</span> và` +
+    ` <span class="damage magic">${EMPOWERED_BONUS} sát thương phép</span> và` +
     ` <span class="buff">${BONUS_ATTACK_RANGE} tầm đánh</span>, nâng lên` +
     ` <span class="damage">${EMPOWERED_BONUS_VS_CHAMPION}</span> nếu lưỡi kiếm có chạm trúng tướng địch.`;
   coolDown = COOLDOWN_MS;
@@ -214,7 +214,7 @@ export class Shen_Q_Empower extends Buff {
   name = 'Lưỡi Kiếm Hoàng Hôn';
   description =
     `<span class="buff">${EMPOWERED_ATTACKS} đòn đánh thường</span> kế tiếp gây thêm` +
-    ` <span class="damage">${EMPOWERED_BONUS} sát thương phép</span>` +
+    ` <span class="damage magic">${EMPOWERED_BONUS} sát thương phép</span>` +
     ` (<span class="damage">${EMPOWERED_BONUS_VS_CHAMPION}</span> nếu Linh Kiếm đã chạm tướng)` +
     ` và cộng <span class="buff">${BONUS_ATTACK_RANGE} tầm đánh</span>`;
   stackId = 'shen_q_empower';

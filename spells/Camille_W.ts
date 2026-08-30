@@ -27,7 +27,7 @@ export default class Camille_W extends Spell {
   image = api.asset('spell_camille_w');
   name = 'Đá Quét Chiến Thuật (Camille_W)';
   description =
-    'Quét chân theo hình nón trước mặt. Kẻ địch ở viền ngoài chịu <span class="damage">40 sát thương</span>, bị <span class="buff">Làm Chậm 80%</span> trong <span class="time">2 giây</span> và hồi máu cho Camille.';
+    'Quét chân theo hình nón trước mặt. Kẻ địch ở viền ngoài chịu <span class="damage physical">40 sát thương vật lý</span>, bị <span class="buff">Làm Chậm 80%</span> trong <span class="time">2 giây</span> và hồi máu cho Camille.';
   coolDown = 10000;
   manaCost = 50;
   range = 400;
@@ -91,7 +91,7 @@ export class Camille_W_Object extends SpellObject {
 
         if (angleDiff <= this.arcSpan / 2) {
           if (d >= this.outerMinRange) {
-            enemy.takeDamage(CAMILLE_W_OUTER_DAMAGE, this.owner, 'MAGIC');
+            enemy.takeDamage(CAMILLE_W_OUTER_DAMAGE, this.owner, 'PHYSICAL');
             const slow = new Slow(CAMILLE_W_SLOW_MS, this.owner, enemy);
             slow.percent = CAMILLE_W_SLOW_PERCENT;
             enemy.addBuff(slow);
@@ -110,7 +110,7 @@ export class Camille_W_Object extends SpellObject {
               });
             }
           } else {
-            enemy.takeDamage(CAMILLE_W_INNER_DAMAGE, this.owner, 'MAGIC');
+            enemy.takeDamage(CAMILLE_W_INNER_DAMAGE, this.owner, 'PHYSICAL');
             for (let i = 0; i < 3; i++) {
               this.particleSystem.addParticle({
                 x: enemy.position.x + random(-10, 10),

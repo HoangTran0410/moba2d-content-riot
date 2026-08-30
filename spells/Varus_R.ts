@@ -28,7 +28,7 @@ export default class Varus_R extends Spell {
   image = api.asset('spell_varus_r');
   name = 'Sợi Xích Tội Lỗi (Varus_R)';
   description =
-    `Phóng một dây leo: mục tiêu đầu tiên trúng phải nhận <span class="damage">${DAMAGE} sát thương</span>` +
+    `Phóng một dây leo: mục tiêu đầu tiên trúng phải nhận <span class="damage magic">${DAMAGE} sát thương phép</span>` +
     ` và bị <span class="buff">Trói Chân</span> trong <span class="time">${ROOT_DURATION / 1000} giây</span>,` +
     ` rồi lan sang mọi kẻ địch trong <span>${SPREAD_RADIUS}px</span> quanh nó`;
   coolDown = 10000;

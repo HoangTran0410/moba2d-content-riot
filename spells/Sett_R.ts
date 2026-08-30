@@ -56,8 +56,8 @@ export default class Sett_R extends Spell {
   name = 'Hủy Diệt Đấu Trường (Sett_R)';
   description =
     `Sett bốc một tướng địch lên không trung (không thể bị chọn làm mục tiêu), bay vút lên ` +
-    `và nện xuống đất: mục tiêu bị ném nhận <span class="damage">${SETT_R_SLAM} sát thương</span>, ` +
-    `mọi kẻ địch khác trong bán kính ${SETT_R_BLAST_RADIUS} nhận <span class="damage">${SETT_R_BLAST} sát thương</span> ` +
+    `và nện xuống đất: mục tiêu bị ném nhận <span class="damage physical">${SETT_R_SLAM} sát thương vật lý</span>, ` +
+    `mọi kẻ địch khác trong bán kính ${SETT_R_BLAST_RADIUS} nhận <span class="damage physical">${SETT_R_BLAST} sát thương vật lý</span> ` +
     `và bị làm chậm ${Math.round(SETT_R_SLOW * 100)}% trong ${SETT_R_SLOW_MS / 1000} giây.`;
   coolDown = 10_000;
   manaCost = 100;
@@ -272,7 +272,7 @@ export class Sett_R_Carry extends SpellObject {
     const alive = !thrown.isDead && !thrown.toRemove;
     if (alive) {
       thrown.teleportTo(dropX, dropY);
-      thrown.takeDamage(SETT_R_SLAM, this.owner, 'MAGIC');
+      thrown.takeDamage(SETT_R_SLAM, this.owner, 'PHYSICAL');
     }
 
     // The rim the crater paints is the radius the damage really used.
@@ -288,7 +288,7 @@ export class Sett_R_Carry extends SpellObject {
     for (const unit of shaken) {
       if (unit === thrown || struck.has(unit)) continue;
       struck.add(unit);
-      unit.takeDamage(SETT_R_BLAST, this.owner, 'MAGIC');
+      unit.takeDamage(SETT_R_BLAST, this.owner, 'PHYSICAL');
       const slow = new Slow(SETT_R_SLOW_MS, this.owner, unit);
       slow.percent = SETT_R_SLOW;
       slow.stackId = 'sett_r_arena_slow';

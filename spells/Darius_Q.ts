@@ -126,8 +126,8 @@ export default class Darius_Q extends Spell {
   name = 'Tàn Sát (Darius_Q)';
   description =
     `Vung rìu quanh mình sau <span class="time">${WINDUP_MS / 1000} giây</span> vung tay:` +
-    ` <span class="damage">${BLADE_DAMAGE} sát thương</span> ở vành ngoài (<span>${INNER_RADIUS}px – ${OUTER_RADIUS}px</span>),` +
-    ` chỉ <span class="damage">${HANDLE_DAMAGE} sát thương</span> cho kẻ đứng sát người.` +
+    ` <span class="damage physical">${BLADE_DAMAGE} sát thương vật lý</span> ở vành ngoài (<span>${INNER_RADIUS}px – ${OUTER_RADIUS}px</span>),` +
+    ` chỉ <span class="damage physical">${HANDLE_DAMAGE} sát thương vật lý</span> cho kẻ đứng sát người.` +
     ` Lưỡi rìu <span class="buff">hút ${HEAL_PERCENT_CHAMPION * 100}% sát thương gây lên tướng</span>` +
     ` (<span class="buff">${HEAL_PERCENT_UNIT * 100}%</span> lên lính và quái) và gây <span class="damage">Chảy Máu</span>`;
   coolDown = 7_000;
@@ -192,7 +192,7 @@ export default class Darius_Q extends Spell {
       // predicting it here — a second guess at the mitigation chain would be
       // wrong the first time a new shield type shipped.
       const takenBefore = victim.tally.damageTaken;
-      victim.takeDamage(bladed ? BLADE_DAMAGE : HANDLE_DAMAGE, this.owner, 'MAGIC');
+      victim.takeDamage(bladed ? BLADE_DAMAGE : HANDLE_DAMAGE, this.owner, 'PHYSICAL');
       const dealt = victim.tally.damageTaken - takenBefore;
 
       // The haft is a consolation prize on purpose: it neither bleeds nor heals,

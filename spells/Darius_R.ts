@@ -51,7 +51,7 @@ export default class Darius_R extends Spell implements ExecuteSpell {
   name = 'Máy Chém Noxus (Darius_R)';
   description =
     `Nhảy tới kẻ địch trong <span>${RANGE}px</span> — <span class="buff">ưu tiên kẻ sẽ chết vì nhát này</span> —` +
-    ` và bổ rìu xuống: <span class="damage">${BASE_DAMAGE} sát thương</span>,` +
+    ` và bổ rìu xuống: <span class="damage true">${BASE_DAMAGE} sát thương chuẩn</span>,` +
     ` cộng thêm <span class="damage">${DAMAGE_PER_STACK}</span> cho mỗi cấp <span class="damage">Chảy Máu</span>` +
     ` (tối đa <span class="damage">${MAX_DAMAGE}</span>).` +
     ` Nếu chém chết mục tiêu, chiêu cuối <span class="buff">hồi ngay lập tức</span>` +
@@ -138,7 +138,7 @@ export default class Darius_R extends Spell implements ExecuteSpell {
 
     // Alive one line above, so `isDead` below is this hit and nothing else.
     // `takeDamage` is synchronous, which is what makes that readable at all.
-    target.takeDamage(damage, this.owner, 'MAGIC');
+    target.takeDamage(damage, this.owner, 'TRUE');
     if (!target.isDead) return;
 
     blade.executed = true;

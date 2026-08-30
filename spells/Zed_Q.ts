@@ -12,7 +12,7 @@ export default class Zed_Q extends Spell {
   image = api.asset('spell_zed_q');
   name = 'Phi Tiêu Sắc Lẻm (Zed_Q)';
   description =
-    'Phóng 1 phi tiêu về phía trước, gây <span class="damage">15 sát thương</span> và <span class="buff">làm chậm 50%</span> trong <span class="time">0.2 giây</span> cho mỗi kẻ địch bị xuyên qua.';
+    'Phóng 1 phi tiêu về phía trước, gây <span class="damage physical">15 sát thương vật lý</span> và <span class="buff">làm chậm 50%</span> trong <span class="time">0.2 giây</span> cho mỗi kẻ địch bị xuyên qua.';
   coolDown = 3000;
   manaCost = 30;
 
@@ -83,7 +83,7 @@ export class Zed_Q_Object extends MissileSpellObject {
     slowBuff.percent = 0.5;
     enemy.addBuff(slowBuff);
 
-    enemy.takeDamage(this.damage, this.owner, 'MAGIC');
+    enemy.takeDamage(this.damage, this.owner, 'PHYSICAL');
     this.particleSystem.addParticle({
       position: enemy.position,
       size: enemy.stats.size.value + 20,

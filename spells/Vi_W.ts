@@ -43,7 +43,7 @@ export default class Vi_W extends Spell {
   image = api.asset('spell_vi_w');
   name = 'Cú Đấm Phá Giáp (Vi_W)';
   description = `Kích hoạt tăng <b>50% tốc đánh</b> trong ${W_DURATION_MS / 1000} giây. Mỗi ${W_STACKS} đòn đánh thường vào
-    <b>cùng một mục tiêu</b> gây thêm <span class="damage">${W_PROC} sát thương</span> và
+    <b>cùng một mục tiêu</b> gây thêm <span class="damage physical">${W_PROC} sát thương vật lý</span> và
     làm chậm ${W_SLOW * 100}% trong ${W_SLOW_MS / 1000} giây.`;
   coolDown = 10_000;
   manaCost = 20;
@@ -88,7 +88,7 @@ export default class Vi_W extends Spell {
   }
 
   private breakArmour(victim: AttackableUnit): void {
-    victim.takeDamage(W_PROC, this.owner, 'MAGIC');
+    victim.takeDamage(W_PROC, this.owner, 'PHYSICAL');
 
     const held = new Slow(W_SLOW_MS, this.owner, victim);
     held.percent = W_SLOW;

@@ -48,7 +48,7 @@ export default class TwistedFate_Q extends Spell {
   description =
     `Ném ra <span class="buff">${CARD_COUNT} lá bài</span> theo hình rẻ quạt, mỗi lá` +
     ` xuyên qua mọi kẻ địch trên đường bay và gây` +
-    ` <span class="damage">${CARD_DAMAGE} sát thương phép</span>.` +
+    ` <span class="damage magic">${CARD_DAMAGE} sát thương phép</span>.` +
     ` Kẻ địch đứng đúng chỗ hai lá bài giao nhau sẽ ăn đủ hai lần`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;

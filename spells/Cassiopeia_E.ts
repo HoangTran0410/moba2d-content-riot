@@ -56,8 +56,8 @@ export default class Cassiopeia_E extends Spell {
   image = api.asset('spell_cassiopeia_e');
   name = 'Nanh Độc (Cassiopeia_E)';
   description =
-    `Phun nọc vào kẻ địch gần nhất trong <span>${RANGE}px</span>: <span class="damage">${BASE_DAMAGE} sát thương</span>,` +
-    ` hoặc <span class="damage">${POISONED_DAMAGE} sát thương</span> nếu mục tiêu <span class="damage">đang trúng độc</span>` +
+    `Phun nọc vào kẻ địch gần nhất trong <span>${RANGE}px</span>: <span class="damage magic">${BASE_DAMAGE} sát thương phép</span>,` +
+    ` hoặc <span class="damage magic">${POISONED_DAMAGE} sát thương phép</span> nếu mục tiêu <span class="damage">đang trúng độc</span>` +
     ` <i>khi nọc chạm tới</i>`;
   coolDown = 2500;
   manaCost = 12;

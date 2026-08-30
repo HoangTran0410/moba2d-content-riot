@@ -36,7 +36,7 @@ const WINDUP_MS = 170;
 export default class Ziggs_Q extends Spell {
   image = api.asset('spell_ziggs_q');
   name = 'Bom Nảy (Ziggs_Q)';
-  description = `Ném quả bom nảy ${Q_BOUNCE_COUNT} nhịp theo một đường thẳng, mỗi nhịp xa thêm ${Q_BOUNCE_STEP}. Mỗi vụ nổ gây <span class="damage">${Q_DAMAGE} sát thương</span> trong bán kính ${Q_BLAST_RADIUS}; đứng ở chỗ hai vụ nổ trùm nhau thì trúng cả hai.`;
+  description = `Ném quả bom nảy ${Q_BOUNCE_COUNT} nhịp theo một đường thẳng, mỗi nhịp xa thêm ${Q_BOUNCE_STEP}. Mỗi vụ nổ gây <span class="damage magic">${Q_DAMAGE} sát thương phép</span> trong bán kính ${Q_BLAST_RADIUS}; đứng ở chỗ hai vụ nổ trùm nhau thì trúng cả hai.`;
   coolDown = 6_000;
   manaCost = 25;
   range = Q_RANGE;

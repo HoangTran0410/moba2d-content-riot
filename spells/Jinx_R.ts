@@ -83,7 +83,7 @@ export default class Jinx_R extends Spell {
     ` <span class="damage">tướng địch</span> (đi xuyên qua lính). Bay càng xa càng nhanh và càng mạnh:` +
     ` sát thương từ <span class="damage">${MIN_TRAVEL_SCALE * 100}%</span> tới` +
     ` <span class="damage">100%</span> của <span class="damage">${BASE_DAMAGE}</span> theo quãng đường,` +
-    ` cộng thêm tới <span class="damage">${MAX_MISSING_HEALTH_BONUS} sát thương</span> theo lượng máu mục tiêu đã mất.` +
+    ` cộng thêm tới <span class="damage physical">${MAX_MISSING_HEALTH_BONUS} sát thương vật lý</span> theo lượng máu mục tiêu đã mất.` +
     ` Nổ trong bán kính <span>${BLAST_RADIUS}px</span>`;
   coolDown = 10000;
   manaCost = 90;
@@ -173,7 +173,7 @@ export class Jinx_R_Object extends MissileSpellObject {
       const missing = max > 0 ? 1 - enemy.stats.health.value / max : 0;
       // The missing-health half is deliberately not scaled by distance — the
       // wiki calls that out explicitly.
-      enemy.takeDamage(scaled + MAX_MISSING_HEALTH_BONUS * missing, this.owner, 'MAGIC');
+      enemy.takeDamage(scaled + MAX_MISSING_HEALTH_BONUS * missing, this.owner, 'PHYSICAL');
     });
 
     // Two pulses, not one. A single ring is how every other area ability in the

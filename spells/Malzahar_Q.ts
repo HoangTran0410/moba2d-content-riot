@@ -57,7 +57,7 @@ export default class Malzahar_Q extends Spell {
   description =
     `Mở hai cánh cổng Hư Không cách nhau <span>${PORTAL_GAP}px</span>. Sau` +
     ` <span class="time">${DELAY_MS / 1000} giây</span>, kẻ địch đứng giữa hai cổng nhận` +
-    ` <span class="damage">${DAMAGE} sát thương</span> và bị <span class="buff">Câm Lặng</span>` +
+    ` <span class="damage magic">${DAMAGE} sát thương phép</span> và bị <span class="buff">Câm Lặng</span>` +
     ` trong <span class="time">${SILENCE_MS / 1000} giây</span>`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;

@@ -68,7 +68,7 @@ export default class Orianna_R extends Spell {
   targetingMode = 'SELF' as const;
   image = api.asset('spell_orianna_r');
   name = 'Lệnh: Sóng Âm (Orianna_R)';
-  description = `Quả Cầu nạp năng lượng trong <span class="time">${WINDUP_MS / 1000} giây</span> rồi bung ra một chấn động bán kính <span class="buff">${RADIUS}</span>: <span class="damage">${DAMAGE} sát thương phép</span>, <span class="buff">hút mọi kẻ địch về phía Quả Cầu</span> và <span class="buff">Hất Tung</span> trong <span class="time">${AIRBORNE_DURATION_MS / 1000} giây</span>.`;
+  description = `Quả Cầu nạp năng lượng trong <span class="time">${WINDUP_MS / 1000} giây</span> rồi bung ra một chấn động bán kính <span class="buff">${RADIUS}</span>: <span class="damage magic">${DAMAGE} sát thương phép</span>, <span class="buff">hút mọi kẻ địch về phía Quả Cầu</span> và <span class="buff">Hất Tung</span> trong <span class="time">${AIRBORNE_DURATION_MS / 1000} giây</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

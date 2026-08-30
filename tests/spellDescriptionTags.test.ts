@@ -85,8 +85,17 @@ const NOT_DAMAGE = [
  * word buys nothing and costs a false positive on a real ability.
  */
 
-/** `<span class="damage">…</span>`, non-greedy so two on a line stay two. */
-const DAMAGE_SPAN = /<span class="damage">([\s\S]*?)<\/span>/g;
+/**
+ * `<span class="damage">…</span>`, non-greedy so two on a line stay two.
+ *
+ * The optional second class is the damage type (`damage physical`), which
+ * `scripts/wiki/sync-damage-types.mjs` writes and core's stylesheet paints. It
+ * has to be optional *here* and not merely tolerated: this scan is what holds
+ * every damage span to being a flat figure, and a pattern requiring the
+ * attribute to be exactly `class="damage"` would have quietly stopped reading
+ * the 178 spans that gained a type and gone on passing.
+ */
+const DAMAGE_SPAN = /<span class="damage(?: (?:physical|magic|true))?">([\s\S]*?)<\/span>/g;
 /** Its twin, for the class that means the same claim in the other colour. */
 const HEAL_SPAN = /<span class="heal">([\s\S]*?)<\/span>/g;
 
@@ -183,7 +192,11 @@ describe('every damage span this pack ships', () => {
   });
 
   it('reads enough of them to be worth running at all', () => {
-    const tagged = shipped().filter(([, text]) => text.includes('class="damage"'));
+    // `class="damage` without the closing quote, so a span that also names its
+    // type still counts as one. Counting only the bare class is how this case
+    // would report 61 the day the pack labelled its types and look like a
+    // regression in the content rather than in its own scan.
+    const tagged = shipped().filter(([, text]) => text.includes('class="damage'));
     expect(tagged.length).toBeGreaterThan(150);
   });
 
@@ -191,7 +204,7 @@ describe('every damage span this pack ships', () => {
     // If the shelf ever stops being read, this is the case that says so.
     const items = shipped().filter(([id]) => id.startsWith('item '));
     expect(items.length).toBeGreaterThan(20);
-    expect(items.some(([, text]) => text.includes('class="damage"'))).toBe(true);
+    expect(items.some(([, text]) => text.includes('class="damage'))).toBe(true);
   });
 
   it('gives every number an item states a colour a reader can pick out', () => {

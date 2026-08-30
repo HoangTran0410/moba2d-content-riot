@@ -272,6 +272,6 @@ export class Varus_Q_Arrow extends MissileSpellObject {
       0.67,
       this.hitTargets.length > 1 ? (this.hitTargets.length - 1) * 0.15 : 0
     );
-    enemy.takeDamage(this.damage * (1 - reduction), this.owner, 'MAGIC');
+    enemy.takeDamage(this.damage * (1 - reduction), this.owner, 'PHYSICAL');
   }
 }

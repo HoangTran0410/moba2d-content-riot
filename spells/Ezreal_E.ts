@@ -46,7 +46,7 @@ export default class Ezreal_E extends Spell {
   name = 'Dịch Chuyển Cổ Học (Ezreal_E)';
   description =
     `Dịch chuyển tối đa <span>${EZREAL_E_BLINK_RANGE}px</span> về hướng con trỏ, sau đó bắn một` +
-    ` tia dẫn đường vào kẻ địch gần nhất, gây <span class="damage">${EZREAL_E_BOLT_DAMAGE} sát thương</span>` +
+    ` tia dẫn đường vào kẻ địch gần nhất, gây <span class="damage magic">${EZREAL_E_BOLT_DAMAGE} sát thương phép</span>` +
     ` và <span class="buff">Lộ Diện</span> mục tiêu trong <span class="time">${EZREAL_E_REVEAL_MS / 1000} giây</span>.` +
     ' Ưu tiên mục tiêu đang mang dấu Tinh Hoa Tuôn Chảy.';
 

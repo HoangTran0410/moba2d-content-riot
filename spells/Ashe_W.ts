@@ -23,7 +23,7 @@ export default class Ashe_W extends Spell {
   image = api.asset('spell_ashe_w');
   name = 'Tán Xạ Tiễn (Ashe_W)';
   description =
-    'Bắn ra <span>10 mũi tên</span> theo hình nón. Mỗi mũi tên gây <span class="damage">5 sát thương</span> và <span class="buff">Làm Chậm 75%</span> kẻ địch trúng chiêu trong <span class="time">1.5 giây</span>';
+    'Bắn ra <span>10 mũi tên</span> theo hình nón. Mỗi mũi tên gây <span class="damage physical">5 sát thương vật lý</span> và <span class="buff">Làm Chậm 75%</span> kẻ địch trúng chiêu trong <span class="time">1.5 giây</span>';
   coolDown = 5000;
   manaCost = 30;
 
@@ -90,7 +90,7 @@ export class Ashe_W_Object extends MissileSpellObject {
     slowBuff.percent = 0.75;
     slowBuff.buffAddType = BuffAddType.RENEW_EXISTING;
     enemy.addBuff(slowBuff);
-    enemy.takeDamage(5, this.owner, 'MAGIC');
+    enemy.takeDamage(5, this.owner, 'PHYSICAL');
 
     // a 75% slow is the harshest thing in this spell and the needle vanishes on
     // contact, so the freeze needs its own object or the player never sees what

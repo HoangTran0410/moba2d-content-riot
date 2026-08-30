@@ -24,7 +24,7 @@ export default class Ekko_E extends Spell {
   image = api.asset('spell_ekko_e');
   name = 'Biến Chuyển Pha (Ekko_E)';
   description =
-    '<span class="buff">Lướt</span> theo hướng chỉ định. Tái kích hoạt E hoặc đánh thường trong <span class="time">5 giây</span> để dịch chuyển tới kẻ địch và gây thêm <span class="damage">25 sát thương</span>.';
+    '<span class="buff">Lướt</span> theo hướng chỉ định. Tái kích hoạt E hoặc đánh thường trong <span class="time">5 giây</span> để dịch chuyển tới kẻ địch và gây thêm <span class="damage magic">25 sát thương phép</span>.';
   coolDown = 9000;
   manaCost = 40;
   range = 250;

@@ -71,7 +71,7 @@ export default class Vi_Q extends Spell {
   image = api.asset('spell_vi_q');
   name = 'Cú Đấm Bùng Nổ (Vi_Q)';
   description = `Nạp lực rồi lao tới, dừng lại ở kẻ địch đầu tiên:
-    <span class="damage">${Q_MIN_DAMAGE} đến ${Q_MAX_DAMAGE} sát thương</span>,
+    <span class="damage physical">${Q_MIN_DAMAGE} đến ${Q_MAX_DAMAGE} sát thương vật lý</span>,
     hất tung ${Q_KNOCKUP_MS / 1000} giây và đẩy lùi ${Q_PUSH} đơn vị.
     Nạp càng lâu, cú lao càng xa.`;
   coolDown = 10_000;
@@ -172,7 +172,7 @@ export default class Vi_Q extends Spell {
   }
 
   private punch(victim: AttackableUnit, damage: number, heading: Vec2): void {
-    victim.takeDamage(damage, this.owner, 'MAGIC');
+    victim.takeDamage(damage, this.owner, 'PHYSICAL');
     victim.addBuff(new Airborne(Q_KNOCKUP_MS, this.owner, victim));
 
     const shove = new Dash(Q_KNOCKUP_MS, this.owner, victim);

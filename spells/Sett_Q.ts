@@ -36,7 +36,7 @@ export default class Sett_Q extends Spell {
   name = 'Không Trượt Phát Nào (Sett_Q)';
   description =
     `Nắm tay rực lửa: ${SETT_Q_HITS} đòn đánh thường tiếp theo trong ` +
-    `${SETT_Q_WINDOW_MS / 1000} giây gây thêm <span class="damage">${SETT_Q_BONUS} sát thương</span>, ` +
+    `${SETT_Q_WINDOW_MS / 1000} giây gây thêm <span class="damage physical">${SETT_Q_BONUS} sát thương vật lý</span>, ` +
     `và Sett được +${Math.round(SETT_Q_ATTACK_SPEED * 100)}% tốc độ đánh trong suốt thời gian đó.`;
   coolDown = 7_000;
   manaCost = 20;
@@ -107,7 +107,7 @@ export default class Sett_Q extends Spell {
     if (!victim || victim.isDead || victim.toRemove) return;
 
     this.chargesLeft -= 1;
-    victim.takeDamage(SETT_Q_BONUS, this.owner, 'MAGIC');
+    victim.takeDamage(SETT_Q_BONUS, this.owner, 'PHYSICAL');
     this.game.objectManager.addObject(new Sett_Q_Knuckle(this.owner, victim.position.copy()));
     if (this.chargesLeft <= 0) this.dropGlow();
   };

@@ -84,7 +84,7 @@ export default class Garen_R extends Spell implements ExecuteSpell {
   description =
     `Giáng kiếm lên <span class="damage">tướng địch</span> yếu nhất trong <span>${RANGE}px</span>` +
     ` sau <span class="time">${WINDUP_MS / 1000} giây</span>:` +
-    ` <span class="damage">${BASE_DAMAGE} sát thương</span> cộng thêm` +
+    ` <span class="damage true">${BASE_DAMAGE} sát thương chuẩn</span> cộng thêm` +
     ` <span class="damage">${MISSING_HEALTH_PERCENT * 100}% lượng máu đã mất</span> của mục tiêu,` +
     ` và <span class="buff">lộ diện</span> chúng trong <span class="time">${REVEAL_MS / 1000} giây</span>`;
   coolDown = 10000;

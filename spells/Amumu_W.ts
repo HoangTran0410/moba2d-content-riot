@@ -21,7 +21,7 @@ export default class Amumu_W extends Spell {
   name = 'Tuyệt Vọng (Amumu_W)';
   description =
     `Tỏa ra nỗi buồn trong <span class="time">${DURATION / 1000} giây</span>, gây` +
-    ` <span class="damage">${DAMAGE_PER_TICK} sát thương</span> mỗi <span class="time">${TICK_INTERVAL / 1000} giây</span>` +
+    ` <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span> mỗi <span class="time">${TICK_INTERVAL / 1000} giây</span>` +
     ` cho mọi kẻ địch trong <span>${RADIUS}px</span>`;
   coolDown = 10000;
   manaCost = 25;

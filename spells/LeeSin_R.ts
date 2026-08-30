@@ -17,7 +17,7 @@ export default class LeeSin_R extends Spell {
   image = api.asset('spell_leesin_r');
   name = 'Nộ Long Cước (LeeSin_R)';
   description =
-    'Tung cước đá mục tiêu <span class="buff">Văng ra xa</span>, gây <span class="damage">30 sát thương</span> và <span class="buff">Làm Choáng</span> mục tiêu trong <span class="time">0.5 giây</span>. Những kẻ địch khác bị mục tiêu va trúng sẽ bị <span class="buff">Hất Tung</span> trong <span class="time">1 giây</span> và nhận <span class="damage">30 sát thương</span>';
+    'Tung cước đá mục tiêu <span class="buff">Văng ra xa</span>, gây <span class="damage physical">30 sát thương vật lý</span> và <span class="buff">Làm Choáng</span> mục tiêu trong <span class="time">0.5 giây</span>. Những kẻ địch khác bị mục tiêu va trúng sẽ bị <span class="buff">Hất Tung</span> trong <span class="time">1 giây</span> và nhận <span class="damage physical">30 sát thương vật lý</span>';
   coolDown = 10000;
   manaCost = 50;
 
@@ -94,7 +94,7 @@ export default class LeeSin_R extends Spell {
     });
     closestEnemyToMouse.addBuff(dashBuff);
 
-    closestEnemyToMouse.takeDamage(this.damage, this.owner, 'MAGIC');
+    closestEnemyToMouse.takeDamage(this.damage, this.owner, 'PHYSICAL');
 
     const particleSystem = new ParticleSystem({
       getParticlePosFn: (p: any) => p.position,
@@ -160,7 +160,7 @@ export class LeeSin_R_Object extends SpellObject {
     });
 
     enemies.forEach((enemy: any) => {
-      enemy.takeDamage(this.collideDamage, this.owner, 'MAGIC');
+      enemy.takeDamage(this.collideDamage, this.owner, 'PHYSICAL');
 
       const airbornBuff = new Airborne(1000, this.owner, enemy);
       enemy.addBuff(airbornBuff);

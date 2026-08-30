@@ -38,7 +38,7 @@ export default class Jhin_W extends Spell {
   image = api.asset('spell_jhin_w');
   name = 'Nét Vẽ Chết Chóc (Jhin_W)';
   description = `Nâng súng trong ${JHIN_W_CAST_MS / 1000} giây rồi bắn một phát xuyên thẳng tầm xa
-    ${JHIN_W_RANGE} đơn vị, gây <span class="damage">${JHIN_W_DAMAGE} sát thương</span> cho mọi
+    ${JHIN_W_RANGE} đơn vị, gây <span class="damage physical">${JHIN_W_DAMAGE} sát thương vật lý</span> cho mọi
     kẻ địch trên đường đạn. Mục tiêu đang bị <b>đánh dấu</b> bị trói chân
     ${JHIN_W_ROOT_MS / 1000} giây và mất dấu.`;
   coolDown = 10_000;
@@ -99,7 +99,7 @@ export default class Jhin_W extends Spell {
       if (!intersectsBeam(victim, geometry)) continue;
       swept.add(victim);
 
-      victim.takeDamage(JHIN_W_DAMAGE, this.owner, 'MAGIC');
+      victim.takeDamage(JHIN_W_DAMAGE, this.owner, 'PHYSICAL');
       const wasMarked = consumeJhinMark(victim);
       if (wasMarked) victim.addBuff(new Root(JHIN_W_ROOT_MS, this.owner, victim));
       this.game.objectManager.addObject(

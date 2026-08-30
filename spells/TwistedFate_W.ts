@@ -78,12 +78,12 @@ export default class TwistedFate_W extends Spell {
   description =
     `Bắt đầu đảo bài, mỗi <span class="time">${SHUFFLE_INTERVAL_MS / 1000} giây</span> đổi một lá.` +
     ` Kích hoạt lần nữa để <span class="buff">chốt lá đang hiện</span>, nạp vào đòn đánh kế tiếp:` +
-    ` <span class="buff">Xanh</span> thêm <span class="damage">${BLUE_BONUS_DAMAGE} sát thương phép</span>` +
+    ` <span class="buff">Xanh</span> thêm <span class="damage magic">${BLUE_BONUS_DAMAGE} sát thương phép</span>` +
     ` và hồi <span class="buff">${BLUE_MANA_RESTORED} năng lượng</span>;` +
-    ` <span class="buff">Đỏ</span> thêm <span class="damage">${RED_BONUS_DAMAGE} sát thương phép</span>` +
+    ` <span class="buff">Đỏ</span> thêm <span class="damage magic">${RED_BONUS_DAMAGE} sát thương phép</span>` +
     ` lan quanh mục tiêu và <span class="buff">Làm Chậm ${RED_SLOW_PERCENT * 100}%</span>` +
     ` trong <span class="time">${RED_SLOW_MS / 1000} giây</span>;` +
-    ` <span class="buff">Vàng</span> thêm <span class="damage">${GOLD_BONUS_DAMAGE} sát thương phép</span>` +
+    ` <span class="buff">Vàng</span> thêm <span class="damage magic">${GOLD_BONUS_DAMAGE} sát thương phép</span>` +
     ` và <span class="buff">Choáng</span> trong <span class="time">${GOLD_STUN_MS / 1000} giây</span>`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;

@@ -44,7 +44,7 @@ export default class Nautilus_E extends Spell {
   name = 'Thủy Triều Dữ Dội (Nautilus_E)';
   description =
     `Ba đợt cột nước dựng lên quanh Nautilus ở ${E_RADII.join(', ')} đơn vị, cách nhau ` +
-    `${E_WAVE_GAP_MS / 1000} giây. Mỗi đợt gây <span class="damage">${E_WAVE_DAMAGE} sát thương</span> ` +
+    `${E_WAVE_GAP_MS / 1000} giây. Mỗi đợt gây <span class="damage magic">${E_WAVE_DAMAGE} sát thương phép</span> ` +
     `và làm chậm ${Math.round(E_SLOW * 100)}%. Đứng yên là ăn đủ cả ba.`;
   coolDown = 10_000;
   manaCost = 40;

@@ -26,11 +26,13 @@
     "items:check": "node scripts/import-items.mjs --check",
     "names:sync": "node scripts/wiki/sync-spell-names.mjs",
     "names:apply": "node scripts/wiki/sync-spell-names.mjs --apply",
+    "damage:sync": "node scripts/wiki/sync-damage-types.mjs",
+    "damage:check": "node scripts/wiki/sync-damage-types.mjs --check",
     "core:check": "moba2d-check-core-link",
     "postinstall": "moba2d-check-core-link --warn-only",
     "prepare": "npm run maps:generate && npm run assets:generate && npm run catalog:generate",
     "hooks:install": "git config core.hooksPath scripts/git-hooks",
-    "verify": "npm run core:check && npm run maps:check && npm run assets:check && npm run catalog:check && npm run ability:check && npm run items:check && npm run typecheck && npm run check-unused && npm run check-seams && npm run check-seams:monsters && npm run build && npm test"
+    "verify": "npm run core:check && npm run maps:check && npm run assets:check && npm run catalog:check && npm run ability:check && npm run items:check && npm run damage:check && npm run typecheck && npm run check-unused && npm run check-seams && npm run check-seams:monsters && npm run build && npm test"
   },
   "devDependencies": {
     "@moba2d/core": "github:moba2d-game/core#main",

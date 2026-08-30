@@ -18,7 +18,7 @@ export default class Twitch_E extends Spell {
   name = 'Nhiễm Khuẩn (Twitch_E)';
   description =
     `Kích nổ chất độc: mọi kẻ địch <span class="damage">đang nhiễm độc</span> trong <span>${RANGE}px</span>` +
-    ` nhận <span class="damage">${DAMAGE} sát thương</span> và mất hiệu ứng độc`;
+    ` nhận <span class="damage physical">${DAMAGE} sát thương vật lý</span> và mất hiệu ứng độc`;
   coolDown = 10000;
   manaCost = 35;
 
@@ -30,7 +30,7 @@ export default class Twitch_E extends Spell {
 
   onSpellCast() {
     for (const enemy of this._poisonedEnemies()) {
-      enemy.takeDamage(DAMAGE, this.owner, 'MAGIC');
+      enemy.takeDamage(DAMAGE, this.owner, 'PHYSICAL');
       // Consumed, not merely expired: the poison is what paid for the burst.
       for (const buff of enemy.buffs) {
         if (buff.stackId === 'twitch_poison') buff.deactivateBuff();

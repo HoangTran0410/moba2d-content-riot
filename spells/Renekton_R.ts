@@ -64,7 +64,7 @@ export default class Renekton_R extends Spell {
     `Hóa thân trong <span class="time">${DURATION_MS / 1000} giây</span>:` +
     ` <span class="buff">+${BONUS_HEALTH} máu tối đa</span>, to lớn hơn ${SIZE_BONUS * 100}%,` +
     ` <span class="buff">+${BONUS_ATTACK_RANGE} tầm đánh</span>, và thiêu đốt kẻ địch trong <span>${AURA_RADIUS}px</span>` +
-    ` <span class="damage">${DAMAGE_PER_TICK} sát thương</span> mỗi <span class="time">${TICK_MS / 1000} giây</span>.` +
+    ` <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span> mỗi <span class="time">${TICK_MS / 1000} giây</span>.` +
     ` Trong lúc này Q, W và E đều được <span class="buff">Cuồng Nộ cường hóa</span>`;
   coolDown = 10_000;
   manaCost = 60;

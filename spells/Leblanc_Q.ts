@@ -41,7 +41,7 @@ export default class Leblanc_Q extends Spell {
   image = api.asset('spell_leblanc_q');
   name = 'Ấn Ác Ý (Leblanc_Q)';
   description =
-    'Phóng một quả cầu vào kẻ địch, gây <span class="damage">24 sát thương phép</span> và đánh dấu mục tiêu trong <span class="time">3.5 giây</span>. Kỹ năng gây sát thương tiếp theo của LeBlanc lên mục tiêu đã đánh dấu sẽ kích nổ dấu ấn, gây thêm <span class="damage">24 sát thương</span> và làm mới dấu ấn.';
+    'Phóng một quả cầu vào kẻ địch, gây <span class="damage magic">24 sát thương phép</span> và đánh dấu mục tiêu trong <span class="time">3.5 giây</span>. Kỹ năng gây sát thương tiếp theo của LeBlanc lên mục tiêu đã đánh dấu sẽ kích nổ dấu ấn, gây thêm <span class="damage magic">24 sát thương phép</span> và làm mới dấu ấn.';
   coolDown = 6_000;
   manaCost = MANA_COST;
 

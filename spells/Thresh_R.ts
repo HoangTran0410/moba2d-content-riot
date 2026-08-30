@@ -63,7 +63,7 @@ export default class Thresh_R extends Spell {
   description =
     `Dựng một chiếc lồng bán kính <span>${RADIUS}px</span> quanh mình trong` +
     ` <span class="time">${DURATION / 1000} giây</span>. Kẻ địch <span class="damage">bước ra khỏi lồng</span>` +
-    ` nhận <span class="damage">${DAMAGE} sát thương</span> và <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span>` +
+    ` nhận <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span>` +
     ` — mỗi kẻ chỉ phá được một lần`;
   coolDown = 10000;
   manaCost = 70;

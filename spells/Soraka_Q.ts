@@ -75,7 +75,7 @@ export default class Soraka_Q extends Spell {
   targetingMode = 'POINT' as const;
   image = api.asset('spell_soraka_q');
   name = 'Vẫn Tinh (Soraka_Q)';
-  description = `Gọi một vì sao rơi xuống vị trí chỉ định sau <span class="time">${FALL_TIME_MS / 1000} giây</span>, gây <span class="damage">${DAMAGE} sát thương</span> và <span class="buff">Làm Chậm ${Math.round(SLOW_PERCENT * 100)}%</span> trong <span class="time">${SLOW_DURATION_MS / 1000} giây</span>. Nếu trúng ít nhất một kẻ địch, bụi sao trở về với Soraka: hồi <span class="heal">${REJUVENATION_HEAL} máu</span> và <span class="buff">+${Math.round(REJUVENATION_SPEED_PERCENT * 100)}% tốc chạy</span> trong <span class="time">${REJUVENATION_DURATION_MS / 1000} giây</span>.`;
+  description = `Gọi một vì sao rơi xuống vị trí chỉ định sau <span class="time">${FALL_TIME_MS / 1000} giây</span>, gây <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Làm Chậm ${Math.round(SLOW_PERCENT * 100)}%</span> trong <span class="time">${SLOW_DURATION_MS / 1000} giây</span>. Nếu trúng ít nhất một kẻ địch, bụi sao trở về với Soraka: hồi <span class="heal">${REJUVENATION_HEAL} máu</span> và <span class="buff">+${Math.round(REJUVENATION_SPEED_PERCENT * 100)}% tốc chạy</span> trong <span class="time">${REJUVENATION_DURATION_MS / 1000} giây</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

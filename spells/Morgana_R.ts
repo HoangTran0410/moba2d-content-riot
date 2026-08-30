@@ -64,7 +64,7 @@ export default class Morgana_R extends Spell {
   image = api.asset('spell_morgana_r');
   name = 'Trói Hồn (Morgana_R)';
   description =
-    'Móc xiềng năng lượng vào các kẻ địch gần đó, gây <span class="damage">35 sát thương</span>, <span class="buff">Lộ Diện</span> và <span class="buff">Làm Chậm 20%</span> chúng trong <span class="time">3 giây</span>. Nếu mục tiêu vẫn còn trong tầm xiềng khi hết hạn, chúng nhận thêm <span class="damage">35 sát thương</span> và bị <span class="buff">Choáng 1.5 giây</span>. Bản thân Morgana được <span class="buff">Tăng Tốc 20%</span> trong lúc xiềng còn hiệu lực.';
+    'Móc xiềng năng lượng vào các kẻ địch gần đó, gây <span class="damage magic">35 sát thương phép</span>, <span class="buff">Lộ Diện</span> và <span class="buff">Làm Chậm 20%</span> chúng trong <span class="time">3 giây</span>. Nếu mục tiêu vẫn còn trong tầm xiềng khi hết hạn, chúng nhận thêm <span class="damage magic">35 sát thương phép</span> và bị <span class="buff">Choáng 1.5 giây</span>. Bản thân Morgana được <span class="buff">Tăng Tốc 20%</span> trong lúc xiềng còn hiệu lực.';
   coolDown = 10_000;
   manaCost = MANA_COST;
 

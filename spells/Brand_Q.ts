@@ -79,7 +79,7 @@ export default class Brand_Q extends Spell {
   targetingMode = 'DIRECTION' as const;
   image = api.asset('spell_brand_q');
   name = 'Vệt Lửa (Brand_Q)';
-  description = `Phóng một quả cầu lửa, gây <span class="damage">${DAMAGE} sát thương</span> cho kẻ địch đầu tiên trúng phải và <span class="buff">Thiêu Đốt</span> mục tiêu. Nếu mục tiêu <span class="buff">đã bị Thiêu Đốt</span> từ trước, nó bị <span class="buff">Choáng</span> trong <span class="time">${STUN_DURATION_MS / 1000} giây</span>.`;
+  description = `Phóng một quả cầu lửa, gây <span class="damage magic">${DAMAGE} sát thương phép</span> cho kẻ địch đầu tiên trúng phải và <span class="buff">Thiêu Đốt</span> mục tiêu. Nếu mục tiêu <span class="buff">đã bị Thiêu Đốt</span> từ trước, nó bị <span class="buff">Choáng</span> trong <span class="time">${STUN_DURATION_MS / 1000} giây</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

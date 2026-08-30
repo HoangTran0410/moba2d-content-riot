@@ -135,11 +135,11 @@ export default class Irelia_R extends Spell {
   name = 'Thanh Kiếm Tiên Phong (Irelia_R)';
   description = `Ném một chùm kiếm về phía trước. Khi trúng kẻ địch — hoặc khi tới cuối tầm —
     chùm kiếm <span class="buff">bung ra thành hàng rào kiếm hình chữ V</span>, gây
-    <span class="damage">${R_DAMAGE} sát thương</span> và
+    <span class="damage magic">${R_DAMAGE} sát thương phép</span> và
     <span class="buff">làm chậm ${Math.round(R_SLOW_PERCENT * 100)}%</span> trong
     <span class="time">${R_SLOW_MS / 1000} giây</span> cho mọi kẻ địch trúng phải.
     Hàng kiếm cắm lại <span class="time">${R_WALL_MS / 1000} giây</span>: ai bước vào cũng chịu
-    thêm <span class="damage">${R_WALL_DAMAGE} sát thương</span> và bị làm chậm.`;
+    thêm <span class="damage magic">${R_WALL_DAMAGE} sát thương phép</span> và bị làm chậm.`;
   coolDown = 10_000;
   manaCost = 100;
   range = R_RANGE;

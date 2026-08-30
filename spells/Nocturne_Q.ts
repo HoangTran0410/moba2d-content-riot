@@ -55,7 +55,7 @@ export default class Nocturne_Q extends Spell {
   image = api.asset('spell_nocturne_q');
   name = 'Thanh Gươm Bóng Tối (Nocturne_Q)';
   description =
-    `Phóng lưỡi hái xuyên thẳng <span>${RANGE}px</span>, gây <span class="damage">${DAMAGE} sát thương</span>` +
+    `Phóng lưỡi hái xuyên thẳng <span>${RANGE}px</span>, gây <span class="damage physical">${DAMAGE} sát thương vật lý</span>` +
     ` và <span class="buff">để lại Vệt Hoàng Hôn</span> dọc đường bay trong` +
     ` <span class="time">${TRAIL_MS / 1000} giây</span>. Tướng địch trúng chiêu cũng <span class="buff">rớt vệt</span>` +
     ` khi di chuyển. <span class="buff">Khi đứng trên vệt</span>, Nocturne` +
@@ -94,7 +94,7 @@ export class Nocturne_Q_Object extends MissileSpellObject {
   trail: Nocturne_Q_Trail | null = null;
 
   onHit(enemy: AttackableUnit) {
-    enemy.takeDamage(DAMAGE, this.owner, 'MAGIC');
+    enemy.takeDamage(DAMAGE, this.owner, 'PHYSICAL');
 
     // "Enemy champions hit will leave a Dusk Trail behind while moving" — the
     // victim becomes a second source, so running paints Nocturne a road.

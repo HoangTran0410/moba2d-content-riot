@@ -24,7 +24,7 @@ export default class Veigar_Q extends Spell implements ExecuteSpell {
   image = api.asset('spell_veigar_q');
   name = 'Điềm Gở (Veigar_Q)';
   description =
-    'Bắn ra một quả cầu năng lượng hắc ám xuyên qua mọi kẻ địch, gây <span class="damage">22 sát thương</span>.' +
+    'Bắn ra một quả cầu năng lượng hắc ám xuyên qua mọi kẻ địch, gây <span class="damage magic">22 sát thương phép</span>.' +
     ' Mỗi kẻ địch <span class="buff">bị tiêu diệt</span> bởi quả cầu giúp Veigar' +
     ' <span class="buff">cộng dồn vĩnh viễn +20 năng lượng tối đa</span>, và hồi lại' +
     ' <span class="buff">20 năng lượng</span> ngay lập tức';

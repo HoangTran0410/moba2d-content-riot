@@ -89,7 +89,7 @@ export default class Jhin_E extends Spell {
     ${JHIN_E_LIFETIME_MS / 1000} giây. Kẻ địch bước vào bán kính ${JHIN_E_TRIGGER_RADIUS} bị làm chậm
     ${JHIN_E_SLOW * 100}% trong ${JHIN_E_SLOW_MS / 1000} giây và bị <b>đánh dấu</b>
     ${JHIN_MARK_MS / 1000} giây; bẫy lộ ra và <b>nở dần</b> trong ${JHIN_E_FUSE_MS / 1000} giây rồi
-    nổ, gây <span class="damage">${JHIN_E_DAMAGE} sát thương</span> cho mọi kẻ địch còn đứng trong
+    nổ, gây <span class="damage magic">${JHIN_E_DAMAGE} sát thương phép</span> cho mọi kẻ địch còn đứng trong
     bán kính ${JHIN_E_BLAST_RADIUS} — chạy kịp thì thoát. Tối đa ${JHIN_E_MAX_TRAPS} bẫy cùng lúc.`;
   coolDown = 9_000;
   manaCost = 25;

@@ -44,7 +44,7 @@ export default class Singed_E extends Spell {
   description =
     `Túm kẻ địch gần nhất trong <span>${RANGE}px</span> và quăng qua đầu mình,` +
     ` <span class="buff">Hất Tung</span> chúng và đáp xuống <span>${THROW_DISTANCE}px</span> phía sau lưng Singed.` +
-    ` <i>Khi tiếp đất</i>: <span class="damage">${DAMAGE} sát thương</span> và` +
+    ` <i>Khi tiếp đất</i>: <span class="damage magic">${DAMAGE} sát thương phép</span> và` +
     ` <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span>`;
   coolDown = 9000;
   manaCost = 25;

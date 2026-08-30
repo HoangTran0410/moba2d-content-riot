@@ -12,7 +12,7 @@ export default class Zed_E extends Spell {
   image = api.asset('spell_zed_e');
   name = 'Đường Kiếm Bóng Tối (Zed_E)';
   description =
-    'Xoay lưỡi kiếm xung quanh bản thân. Gây <span class="damage">15 sát thương</span> và <span class="buff">Làm chậm 30%</span> các kẻ địch trong <span class="time">1 giây</span>';
+    'Xoay lưỡi kiếm xung quanh bản thân. Gây <span class="damage physical">15 sát thương vật lý</span> và <span class="buff">Làm chậm 30%</span> các kẻ địch trong <span class="time">1 giây</span>';
   coolDown = 1000;
   manaCost = 10;
 
@@ -95,7 +95,7 @@ export class Zed_E_Object extends SpellObject {
       // wide enough that a bearing can never slip between two frames' angles
       if (delta > this.angleSpeed) continue;
 
-      enemy.takeDamage(this.damage, this.owner, 'MAGIC');
+      enemy.takeDamage(this.damage, this.owner, 'PHYSICAL');
 
       const slowBuff = new Slow(this.slowDuration, this.owner, enemy);
       slowBuff.percent = this.slowPercent;

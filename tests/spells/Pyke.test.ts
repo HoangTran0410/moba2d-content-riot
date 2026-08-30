@@ -350,7 +350,7 @@ describe('Pyke E — Dòng Nước Ma Quái', () => {
     const hurt = vi.spyOn(caught, 'takeDamage');
     tick(phantom!, Math.ceil(PHANTOM_DELAY_MS / 16) + Math.ceil(PHANTOM_DASH_DISTANCE / PHANTOM_SPEED) + 4);
 
-    expect(hurt.mock.calls[0].slice(0, 3)).toEqual([E_DAMAGE, pyke, 'MAGIC']);
+    expect(hurt.mock.calls[0].slice(0, 3)).toEqual([E_DAMAGE, pyke, 'PHYSICAL']);
     const stun = live(caught).find(b => b instanceof Stun) as InstanceType<typeof Stun>;
     expect(stun?.duration).toBe(E_STUN_MS);
   });

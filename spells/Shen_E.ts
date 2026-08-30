@@ -53,7 +53,7 @@ export default class Shen_E extends Spell {
   name = 'Vô Ảnh Bộ (Shen_E)';
   description =
     `Shen lướt <span class="buff">${DASH_DISTANCE}</span> về phía con trỏ, gây` +
-    ` <span class="damage">${DASH_DAMAGE} sát thương vật lý</span> lên mọi tướng địch` +
+    ` <span class="damage physical">${DASH_DAMAGE} sát thương vật lý</span> lên mọi tướng địch` +
     ` mà anh đi xuyên qua (mỗi mục tiêu chỉ một lần) và <span class="debuff">Khiêu Khích</span>` +
     ` chúng trong <span class="buff">${TAUNT_DURATION_MS / 1000} giây</span>:` +
     ` mục tiêu buộc phải đuổi theo và đánh thường vào Shen — vẫn chạy và đánh được,` +

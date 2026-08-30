@@ -61,7 +61,7 @@ export default class Lissandra_E extends Spell {
   name = 'Con Đường Băng Giá (Lissandra_E)';
   description =
     `Phóng một vuốt băng bay tới, chậm dần trong <span class="time">${E_FLIGHT_MS / 1000} giây</span> ` +
-    `và gây <span class="damage">${E_DAMAGE} sát thương phép</span> cho mọi kẻ địch nó xuyên qua. ` +
+    `và gây <span class="damage magic">${E_DAMAGE} sát thương phép</span> cho mọi kẻ địch nó xuyên qua. ` +
     `<span class="buff">Kích hoạt lại</span> khi vuốt băng còn sống để ` +
     `<span class="buff">dịch chuyển</span> tới vị trí của nó.`;
   coolDown = E_COOLDOWN_MS;

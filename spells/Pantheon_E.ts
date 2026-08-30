@@ -62,7 +62,7 @@ export default class Pantheon_E extends Spell {
   description =
     `Cắm khiên về hướng chỉ định trong <span class="time">${DURATION / 1000} giây</span>:` +
     ` nhận <span class="buff">Khiên ${SHIELD_AMOUNT}</span> và liên tục đâm giáo` +
-    ` <span class="damage">${DAMAGE_PER_TICK} sát thương</span> mỗi nhịp cho kẻ địch phía trước`;
+    ` <span class="damage physical">${DAMAGE_PER_TICK} sát thương vật lý</span> mỗi nhịp cho kẻ địch phía trước`;
   coolDown = 10000;
   manaCost = 35;
 
@@ -160,7 +160,7 @@ export class Pantheon_E_Object extends SpellObject {
       let delta = Math.abs(toEnemy - heading) % (Math.PI * 2);
       if (delta > Math.PI) delta = Math.PI * 2 - delta;
       if (delta > HALF_ANGLE) return;
-      enemy.takeDamage(DAMAGE_PER_TICK, this.owner, 'MAGIC');
+      enemy.takeDamage(DAMAGE_PER_TICK, this.owner, 'PHYSICAL');
     });
   }
 

@@ -22,7 +22,7 @@ export default class Lux_Q extends Spell {
   name = 'Khóa Ánh Sáng (Lux_Q)';
   image = api.asset('spell_lux_q');
   description =
-    'Lux phóng ra một quả cầu ánh sáng theo đường thẳng, gây <span class="damage">20 sát thương</span> và <span class="buff">Trói Chân</span> 2 kẻ địch đầu tiên trúng phải trong <span class="time">2 giây</span>';
+    'Lux phóng ra một quả cầu ánh sáng theo đường thẳng, gây <span class="damage magic">20 sát thương phép</span> và <span class="buff">Trói Chân</span> 2 kẻ địch đầu tiên trúng phải trong <span class="time">2 giây</span>';
   coolDown = 5000;
   manaCost = 20;
 

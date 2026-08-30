@@ -47,7 +47,7 @@ export default class Rammus_R extends Spell {
   name = 'Cú Nhảy Chấn Động (Rammus_R)';
   description =
     `Bay tới vị trí chỉ định, <span class="buff">Không Thể Bị Chọn</span> suốt đường bay, rồi giáng xuống` +
-    ` bán kính <span>${RADIUS}px</span>: <span class="damage">${DAMAGE} sát thương</span>,` +
+    ` bán kính <span>${RADIUS}px</span>: <span class="damage magic">${DAMAGE} sát thương phép</span>,` +
     ` <span class="buff">Hất Tung</span> và <span class="buff">Làm Chậm 50%</span> kẻ địch trúng phải`;
   coolDown = 10000;
   manaCost = 60;

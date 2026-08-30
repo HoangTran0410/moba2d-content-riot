@@ -14,7 +14,7 @@ export default class ChoGath_W extends Spell {
   image = api.asset('spell_chogath_w');
   name = "Tiếng Gầm Hoang Dã (Cho'Gath_W)";
   description =
-    'Gầm vào hướng đã chọn theo <span>hình nón</span>, <span class="buff">Làm Choáng</span> <span class="time">1 giây</span> và gây <span class="damage">15 sát thương</span> cho các kẻ địch trong tầm.';
+    'Gầm vào hướng đã chọn theo <span>hình nón</span>, <span class="buff">Làm Choáng</span> <span class="time">1 giây</span> và gây <span class="damage magic">15 sát thương phép</span> cho các kẻ địch trong tầm.';
   coolDown = 5000;
   manaCost = 25;
 

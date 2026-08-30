@@ -54,7 +54,7 @@ export default class Cassiopeia_R extends Spell {
   name = 'Cái Nhìn Hóa Đá (Cassiopeia_R)';
   description =
     `Quét một hình nón <span>${REACH}px</span> theo hướng chỉ định trong` +
-    ` <span class="time">${SWEEP_DURATION / 1000} giây</span>: <span class="damage">${DAMAGE} sát thương</span>,` +
+    ` <span class="time">${SWEEP_DURATION / 1000} giây</span>: <span class="damage magic">${DAMAGE} sát thương phép</span>,` +
     ` <span class="buff">Choáng</span> trong <span class="time">${STUN_DURATION / 1000} giây</span>` +
     ` và <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span> sau đó, <i>khi làn sóng chạm tới từng mục tiêu</i>`;
   coolDown = 10000;

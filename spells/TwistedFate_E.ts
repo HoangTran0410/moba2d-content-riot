@@ -48,7 +48,7 @@ export default class TwistedFate_E extends Spell {
   description =
     `Nội tại: cộng vĩnh viễn <span class="buff">${BONUS_ATTACK_SPEED} tốc độ đánh</span>.` +
     ` Cứ mỗi <span class="buff">${ATTACKS_PER_EMPOWER} đòn đánh thường</span>, đòn thứ` +
-    ` ${ATTACKS_PER_EMPOWER} gây thêm <span class="damage">${BONUS_DAMAGE} sát thương phép</span>`;
+    ` ${ATTACKS_PER_EMPOWER} gây thêm <span class="damage magic">${BONUS_DAMAGE} sát thương phép</span>`;
   coolDown = 0;
   manaCost = 0;
 

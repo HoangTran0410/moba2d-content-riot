@@ -49,7 +49,7 @@ type SlamTarget = AttackableUnit;
 export default class Malphite_E extends Spell {
   image = api.asset('spell_malphite_e');
   name = 'Dậm Đất (Malphite_E)';
-  description = `Malphite đập tay xuống đất, gây <span class="damage">${DAMAGE} sát thương</span> cho kẻ địch trong bán kính <span>${RADIUS}px</span> quanh mình, <span class="buff">Làm Chậm ${Math.round(SLOW_PERCENT * 100)}%</span> và <span class="buff">Giảm ${Math.round(CRIPPLE_PERCENT * 100)}% tốc độ đánh</span> trong <span class="time">${SLOW_DURATION_MS / 1000} giây</span>.`;
+  description = `Malphite đập tay xuống đất, gây <span class="damage magic">${DAMAGE} sát thương phép</span> cho kẻ địch trong bán kính <span>${RADIUS}px</span> quanh mình, <span class="buff">Làm Chậm ${Math.round(SLOW_PERCENT * 100)}%</span> và <span class="buff">Giảm ${Math.round(CRIPPLE_PERCENT * 100)}% tốc độ đánh</span> trong <span class="time">${SLOW_DURATION_MS / 1000} giây</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

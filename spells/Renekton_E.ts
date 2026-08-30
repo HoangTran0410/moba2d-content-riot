@@ -53,11 +53,11 @@ export default class Renekton_E extends Spell {
   name = 'Cắt và Xắt (Renekton_E)';
   description =
     `Lướt <span>${DASH_DISTANCE}px</span> theo hướng chỉ định, gây` +
-    ` <span class="damage">${DAMAGE} sát thương</span> cho mọi kẻ địch trên đường (mỗi mục tiêu chỉ trúng một lần).` +
+    ` <span class="damage physical">${DAMAGE} sát thương vật lý</span> cho mọi kẻ địch trên đường (mỗi mục tiêu chỉ trúng một lần).` +
     ` Nếu trúng ít nhất một kẻ địch, có thể <span class="buff">lướt lần hai</span> trong` +
     ` <span class="time">${RECAST_WINDOW_MS / 1000} giây</span>.` +
     ` <span class="buff">Cuồng Nộ</span>: lần lướt thứ hai gây thêm` +
-    ` <span class="damage">${ENRAGED_BONUS_DAMAGE} sát thương</span> và` +
+    ` <span class="damage physical">${ENRAGED_BONUS_DAMAGE} sát thương vật lý</span> và` +
     ` <span class="damage">giảm ${SHRED_PERCENT * 100}% Sát thương</span> của mục tiêu` +
     ` trong <span class="time">${SHRED_MS / 1000} giây</span>`;
   coolDown = 9_000;
@@ -138,7 +138,7 @@ export default class Renekton_E extends Spell {
       for (const victim of swept) {
         if (hitTargets.has(victim)) continue;
         hitTargets.add(victim);
-        victim.takeDamage(damage, this.owner, 'MAGIC');
+        victim.takeDamage(damage, this.owner, 'PHYSICAL');
         gash.struck.push(victim.position.copy());
         if (isDice && enraged) this.shred(victim);
       }

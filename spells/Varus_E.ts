@@ -26,7 +26,7 @@ export default class Varus_E extends Spell {
   image = api.asset('spell_varus_e');
   name = 'Mưa Tên (Varus_E)';
   description =
-    `Bắn một loạt tên xuống vị trí chỉ định: <span class="damage">${IMPACT_DAMAGE} sát thương</span> khi chạm đất,` +
+    `Bắn một loạt tên xuống vị trí chỉ định: <span class="damage physical">${IMPACT_DAMAGE} sát thương vật lý</span> khi chạm đất,` +
     ` sau đó vùng đất bị <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span> trong` +
     ` <span class="time">${DURATION / 1000} giây</span>`;
   coolDown = 9000;
@@ -78,7 +78,7 @@ export class Varus_E_Object extends SpellObject {
 
     if (!this.landed) {
       this.landed = true;
-      enemies().forEach((enemy: any) => enemy.takeDamage(IMPACT_DAMAGE, this.owner, 'MAGIC'));
+      enemies().forEach((enemy: any) => enemy.takeDamage(IMPACT_DAMAGE, this.owner, 'PHYSICAL'));
       return;
     }
 

@@ -33,7 +33,7 @@ export default class Ekko_R extends Spell {
   image = api.asset('spell_ekko_r');
   name = 'Đột Phá Thời Gian (Ekko_R)';
   description =
-    'Giật ngược thời gian trở về vị trí cách đây <span class="time">4 giây</span>, hồi lại ít nhất <span class="buff">40 Máu</span> (tăng theo lượng máu đã mất) và gây <span class="damage">60 sát thương</span> diện rộng tại điểm đến.';
+    'Giật ngược thời gian trở về vị trí cách đây <span class="time">4 giây</span>, hồi lại ít nhất <span class="buff">40 Máu</span> (tăng theo lượng máu đã mất) và gây <span class="damage magic">60 sát thương phép</span> diện rộng tại điểm đến.';
   coolDown = 10000;
   manaCost = 100;
 

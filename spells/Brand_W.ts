@@ -36,7 +36,7 @@ export default class Brand_W extends Spell {
   targetingMode = 'POINT' as const;
   image = api.asset('spell_brand_w');
   name = 'Cột Lửa (Brand_W)';
-  description = `Sau <span class="time">${ERUPT_DELAY_MS / 1000} giây</span>, một cột lửa phun lên tại vị trí chỉ định, gây <span class="damage">${DAMAGE} sát thương</span> và <span class="buff">Thiêu Đốt</span> mọi kẻ địch trong vùng. Mục tiêu <span class="buff">đã bị Thiêu Đốt</span> nhận <span class="damage">${Math.round(DAMAGE * (1 + ABLAZE_DAMAGE_BONUS))} sát thương</span>.`;
+  description = `Sau <span class="time">${ERUPT_DELAY_MS / 1000} giây</span>, một cột lửa phun lên tại vị trí chỉ định, gây <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Thiêu Đốt</span> mọi kẻ địch trong vùng. Mục tiêu <span class="buff">đã bị Thiêu Đốt</span> nhận <span class="damage magic">${Math.round(DAMAGE * (1 + ABLAZE_DAMAGE_BONUS))} sát thương phép</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

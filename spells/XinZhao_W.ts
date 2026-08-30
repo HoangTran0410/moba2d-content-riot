@@ -41,8 +41,8 @@ export default class XinZhao_W extends Spell {
   image = api.asset('spell_xinzhao_w');
   name = 'Phong Lôi Thương (XinZhao_W)';
   description =
-    'Vung <span class="buff">4 nhát</span> quanh mình gây <span class="damage">5 sát thương</span> mỗi nhát, ' +
-    'rồi <span class="time">sau 0.3 giây</span> đâm thẳng cây thương gây <span class="damage">26 sát thương</span> ' +
+    'Vung <span class="buff">4 nhát</span> quanh mình gây <span class="damage physical">5 sát thương vật lý</span> mỗi nhát, ' +
+    'rồi <span class="time">sau 0.3 giây</span> đâm thẳng cây thương gây <span class="damage physical">26 sát thương vật lý</span> ' +
     'và <span class="buff">làm chậm 40%</span> trong <span class="time">1.4 giây</span>.';
   coolDown = 9_000;
   manaCost = 55;
@@ -121,7 +121,7 @@ export class XinZhao_W_Object extends SpellObject {
       while (delta > Math.PI) delta -= TWO_PI;
       while (delta < -Math.PI) delta += TWO_PI;
       if (Math.abs(delta) > half) continue;
-      enemy.takeDamage(XINZHAO_W_SLASH_DAMAGE, this.owner, 'MAGIC');
+      enemy.takeDamage(XINZHAO_W_SLASH_DAMAGE, this.owner, 'PHYSICAL');
     }
   }
 
@@ -161,7 +161,7 @@ export class XinZhao_W_Object extends SpellObject {
         endY
       );
       if (distance > halfWidth + (enemy.collisionRadius ?? 0)) continue;
-      enemy.takeDamage(XINZHAO_W_THRUST_DAMAGE, this.owner, 'MAGIC');
+      enemy.takeDamage(XINZHAO_W_THRUST_DAMAGE, this.owner, 'PHYSICAL');
       const slow = new Slow(XINZHAO_W_SLOW_MS, this.owner, enemy);
       slow.percent = XINZHAO_W_SLOW_PERCENT;
       enemy.addBuff(slow);

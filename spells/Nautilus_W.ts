@@ -55,10 +55,10 @@ export default class Nautilus_W extends Spell {
   image = api.asset('spell_nautilus_w');
   name = 'Cơn Giận Của Người Khổng Lồ (Nautilus_W)';
   description =
-    `Khoác lớp vỏ sắt hà chắn <span class="damage">${W_SHIELD} sát thương</span> trong ` +
+    `Khoác lớp vỏ sắt hà chắn <span class="damage magic">${W_SHIELD} sát thương phép</span> trong ` +
     `${W_DURATION_MS / 1000} giây. Khi còn khiên, mỗi đòn đánh thường bắn nước ra ` +
-    `${W_SPLASH_RADIUS} đơn vị quanh mục tiêu: <span class="damage">${W_SPLASH} sát thương</span> ` +
-    `và <span class="damage">${W_DOT_TOTAL} sát thương</span> ăn mòn theo thời gian.`;
+    `${W_SPLASH_RADIUS} đơn vị quanh mục tiêu: <span class="damage magic">${W_SPLASH} sát thương phép</span> ` +
+    `và <span class="damage magic">${W_DOT_TOTAL} sát thương phép</span> ăn mòn theo thời gian.`;
   coolDown = 10_000;
   manaCost = 30;
 

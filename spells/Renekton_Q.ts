@@ -47,11 +47,11 @@ export default class Renekton_Q extends Spell {
   name = 'Vũ Điệu Cá Sấu (Renekton_Q)';
   description =
     `Chém một vòng quanh mình trong <span>${RADIUS}px</span> gây` +
-    ` <span class="damage">${DAMAGE} sát thương</span>, hồi <span class="heal">${HEAL_PER_UNIT} máu</span>` +
+    ` <span class="damage physical">${DAMAGE} sát thương vật lý</span>, hồi <span class="heal">${HEAL_PER_UNIT} máu</span>` +
     ` mỗi mục tiêu và <span class="heal">${HEAL_PER_CHAMPION} máu</span> mỗi tướng trúng chiêu` +
     ` (tối đa ${HEAL_CAP}).` +
     ` <span class="buff">Cuồng Nộ</span>: <span>${ENRAGED_RADIUS}px</span>,` +
-    ` <span class="damage">${ENRAGED_DAMAGE} sát thương</span>, hồi máu nhân đôi (tối đa ${ENRAGED_HEAL_CAP})`;
+    ` <span class="damage physical">${ENRAGED_DAMAGE} sát thương vật lý</span>, hồi máu nhân đôi (tối đa ${ENRAGED_HEAL_CAP})`;
   coolDown = 5_000;
   manaCost = 25;
 
@@ -84,7 +84,7 @@ export default class Renekton_Q extends Spell {
 
     let owed = 0;
     for (const victim of victims) {
-      victim.takeDamage(damage, this.owner, 'MAGIC');
+      victim.takeDamage(damage, this.owner, 'PHYSICAL');
       owed += (victim instanceof Champion ? HEAL_PER_CHAMPION : HEAL_PER_UNIT) * multiplier;
     }
 

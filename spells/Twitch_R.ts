@@ -58,7 +58,7 @@ export default class Twitch_R extends Spell {
     ` <span class="buff">+${Math.round(ATTACK_SPEED_PERCENT * 100)}% tốc độ đánh</span>,` +
     ` <span class="buff">+${ON_HIT_DAMAGE} sát thương mỗi đòn đánh</span>,` +
     ` và mỗi đòn đánh thường <span class="damage">xuyên qua mục tiêu</span> bắn tiếp` +
-    ` <span class="damage">${BOLT_DAMAGE} sát thương</span> cho mọi kẻ địch phía sau`;
+    ` <span class="damage physical">${BOLT_DAMAGE} sát thương vật lý</span> cho mọi kẻ địch phía sau`;
   coolDown = 10000;
   manaCost = 50;
 
@@ -181,7 +181,7 @@ export class Twitch_R_Bolt extends MissileSpellObject {
   }
 
   onHit(enemy: AttackableUnit) {
-    enemy.takeDamage(BOLT_DAMAGE, this.owner, 'MAGIC');
+    enemy.takeDamage(BOLT_DAMAGE, this.owner, 'PHYSICAL');
     // the burst is drawn per body, so a pierce through four is four separate
     // punches rather than one smear
     const splash = new Twitch_R_Pierce(this.owner, this.position.x, this.position.y);

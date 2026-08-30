@@ -27,7 +27,7 @@ export default class Cassiopeia_Q extends Spell {
   name = 'Vụ Nổ Độc Hại (Cassiopeia_Q)';
   description =
     `Nổ một đám độc bán kính <span>${RADIUS}px</span> sau <span class="time">${DELAY_MS / 1000} giây</span>:` +
-    ` <span class="damage">${IMPACT_DAMAGE} sát thương</span> và <span class="damage">nhiễm độc</span>` +
+    ` <span class="damage magic">${IMPACT_DAMAGE} sát thương phép</span> và <span class="damage">nhiễm độc</span>` +
     ` trong <span class="time">${POISON_DURATION / 1000} giây</span>. Trúng mục tiêu thì Cassiopeia` +
     ` <span class="buff">+30% tốc chạy</span>`;
   coolDown = 5000;

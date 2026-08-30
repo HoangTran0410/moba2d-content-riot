@@ -32,7 +32,7 @@ export default class Riven_W extends Spell {
   name = 'Kình Lực (Riven_W)';
   description =
     `Đóng lưỡi kiếm xuống đất, nứt ra bán kính ${W_RADIUS} sau ${W_WINDUP_MS}ms rồi gây ` +
-    `<span class="damage">${W_DAMAGE} sát thương</span> và choáng ` +
+    `<span class="damage physical">${W_DAMAGE} sát thương vật lý</span> và choáng ` +
     `${W_STUN_MS / 1000} giây quanh mình.`;
   coolDown = 9_000;
   manaCost = 30;
@@ -71,7 +71,7 @@ export default class Riven_W extends Spell {
     for (const victim of candidates) {
       if (hit.has(victim)) continue;
       hit.add(victim);
-      victim.takeDamage(W_DAMAGE, this.owner, 'MAGIC');
+      victim.takeDamage(W_DAMAGE, this.owner, 'PHYSICAL');
       victim.addBuff(new Stun(W_STUN_MS, this.owner, victim));
       cuts.push({ x: victim.position.x, y: victim.position.y });
     }

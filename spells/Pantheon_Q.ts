@@ -226,7 +226,7 @@ export default class Pantheon_Q extends Spell {
           target.targetable &&
           !target.isDead &&
           target.teamId !== this.owner.teamId,
-        onHit: target => target.takeDamage(spearDamage(target, false), this.owner, 'MAGIC'),
+        onHit: target => target.takeDamage(spearDamage(target, false), this.owner, 'PHYSICAL'),
       }
     );
     this.game.objectManager.addObject(beam);
@@ -328,7 +328,7 @@ export class Pantheon_Q_Spear extends MissileSpellObject {
   }
 
   onHit(enemy: AttackableUnit): void {
-    enemy.takeDamage(spearDamage(enemy, this.hitTargets.length > 1), this.owner, 'MAGIC');
+    enemy.takeDamage(spearDamage(enemy, this.hitTargets.length > 1), this.owner, 'PHYSICAL');
   }
 }
 

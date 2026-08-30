@@ -16,7 +16,7 @@ export default class Morgana_Q extends Spell {
   image = api.asset('spell_morgana_q');
   name = 'Khóa Bóng Tối (Morgana_Q)';
   description =
-    'Phóng một xiềng xích bóng tối đi rất xa theo hướng chỉ định, gây <span class="damage">25 sát thương</span> và <span class="buff">Trói Chân</span> kẻ địch đầu tiên trúng phải trong <span class="time">2 giây</span>';
+    'Phóng một xiềng xích bóng tối đi rất xa theo hướng chỉ định, gây <span class="damage magic">25 sát thương phép</span> và <span class="buff">Trói Chân</span> kẻ địch đầu tiên trúng phải trong <span class="time">2 giây</span>';
   coolDown = 8000;
   manaCost = 30;
 

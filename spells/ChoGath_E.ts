@@ -12,7 +12,7 @@ export default class ChoGath_E extends Spell {
   image = api.asset('spell_chogath_e');
   name = "Phóng Gai (Cho'Gath_E)";
   description =
-    'Phóng một chùm gai xương <span>xuyên qua mọi kẻ địch</span> trên đường bay, gây <span class="damage">12 sát thương</span> và khiến chúng <span class="buff">Chảy Máu</span> <span class="damage">4 sát thương</span> mỗi <span class="time">0.5 giây</span> trong <span class="time">3 giây</span>';
+    'Phóng một chùm gai xương <span>xuyên qua mọi kẻ địch</span> trên đường bay, gây <span class="damage magic">12 sát thương phép</span> và khiến chúng <span class="buff">Chảy Máu</span> <span class="damage magic">4 sát thương phép</span> mỗi <span class="time">0.5 giây</span> trong <span class="time">3 giây</span>';
   coolDown = 6000;
   manaCost = 20;
 

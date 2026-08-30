@@ -32,7 +32,7 @@ export default class LeeSin_Q extends Spell {
   image = LeeSin_Q.PHASES[this.phase].image;
   name = 'Sóng Âm / Vô Ảnh Cước (LeeSin_Q)';
   description =
-    'Chưởng 1 luồng Sóng Âm về hướng chỉ định, gây <span class="damage">15 sát thương</span> khi trúng địch. Có thể tái kích hoạt trong vòng <span class="time">3 giây</span> để <span class="buff">Lướt</span> tới kẻ địch trúng Sóng Âm, gây thêm <span class="damage">15 sát thương</span> khi tới nơi';
+    'Chưởng 1 luồng Sóng Âm về hướng chỉ định, gây <span class="damage physical">15 sát thương vật lý</span> khi trúng địch. Có thể tái kích hoạt trong vòng <span class="time">3 giây</span> để <span class="buff">Lướt</span> tới kẻ địch trúng Sóng Âm, gây thêm <span class="damage physical">15 sát thương vật lý</span> khi tới nơi';
   coolDown = 5000;
   manaCost = 30;
   collDownAfterQ1 = 500;
@@ -71,7 +71,7 @@ export default class LeeSin_Q extends Spell {
       obj.lifeTimeAfterHit = lifeTimeAfterHit;
       obj.onHitCallback = (enemy: any) => {
         this.enemyHit = enemy;
-        enemy.takeDamage(hitDamage, this.owner, 'MAGIC');
+        enemy.takeDamage(hitDamage, this.owner, 'PHYSICAL');
 
         enemy.addBuff(
           createReveal({
@@ -101,7 +101,7 @@ export default class LeeSin_Q extends Spell {
         if (this.spellObject) this.spellObject.toRemove = true;
       };
       dashBuff.onReachedDestination = () => {
-        if (this.enemyHit) this.enemyHit.takeDamage(q2HitDamage, this.owner, 'MAGIC');
+        if (this.enemyHit) this.enemyHit.takeDamage(q2HitDamage, this.owner, 'PHYSICAL');
         if (this.spellObject) this.spellObject.toRemove = true;
       };
       this.owner.addBuff(dashBuff);

@@ -61,7 +61,7 @@ export default class Lissandra_Q extends Spell {
   image = api.asset('spell_lissandra_q');
   name = 'Mảnh Băng (Lissandra_Q)';
   description =
-    `Phóng một mũi băng gây <span class="damage">${Q_DAMAGE} sát thương phép</span> và ` +
+    `Phóng một mũi băng gây <span class="damage magic">${Q_DAMAGE} sát thương phép</span> và ` +
     `<span class="buff">làm chậm ${Q_SLOW_PERCENT * 100}%</span> trong ` +
     `<span class="time">${Q_SLOW_DURATION_MS / 1000} giây</span>. Khi trúng mục tiêu đầu tiên, ` +
     `mũi băng <span class="buff">vỡ tan</span> thành một luồng mảnh vụn rộng và nhanh hơn, ` +

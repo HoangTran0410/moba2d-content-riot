@@ -73,7 +73,7 @@ export default class Riven_R extends Spell {
     `Hàn lại lưỡi kiếm vỡ trong ${R_DURATION_MS / 1000} giây: ` +
     `<span class="damage">+${Math.round(R_DAMAGE_AMP * 100)}% sát thương</span> và mọi nhát Q ` +
     `mang một lưỡi năng lượng dài. Bấm lại để phóng Kiếm Phong hình nón dài ${R_LENGTH}, ` +
-    `gây <span class="damage">${R_DAMAGE} sát thương</span>, tăng dần tới ` +
+    `gây <span class="damage physical">${R_DAMAGE} sát thương vật lý</span>, tăng dần tới ` +
     `<span class="damage">${R_DAMAGE_MAX}</span> khi mục tiêu còn dưới ` +
     `${Math.round(R_EXECUTE_THRESHOLD * 100)}% máu.`;
   coolDown = 10_000;
@@ -221,7 +221,7 @@ export class Riven_R_WindSlash extends SpellObject {
       this.hitTargets.add(victim);
       const pool = victim.stats.maxHealth.value || 1;
       const ratio = victim.stats.health.value / pool;
-      victim.takeDamage(windSlashDamage(ratio), this.owner, 'MAGIC');
+      victim.takeDamage(windSlashDamage(ratio), this.owner, 'PHYSICAL');
       this.bursts.push({
         x: victim.position.x,
         y: victim.position.y,

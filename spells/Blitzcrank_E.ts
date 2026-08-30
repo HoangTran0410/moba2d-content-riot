@@ -14,7 +14,7 @@ export default class Blitzcrank_E extends Spell {
   image = api.asset('spell_blitzcrank_e');
   name = 'Đấm Móc (Blitzcrank_E)';
   description =
-    'Vung nắm đấm thành <span>hình nón</span> ngay trước mặt, gây <span class="damage">25 sát thương</span> và <span class="buff">Hất Tung</span> mọi kẻ địch trúng đòn trong <span class="time">0.6 giây</span>';
+    'Vung nắm đấm thành <span>hình nón</span> ngay trước mặt, gây <span class="damage physical">25 sát thương vật lý</span> và <span class="buff">Hất Tung</span> mọi kẻ địch trúng đòn trong <span class="time">0.6 giây</span>';
   coolDown = 6000;
   manaCost = 20;
 
@@ -54,7 +54,7 @@ export default class Blitzcrank_E extends Spell {
       airborneBuff.image = this.image;
       enemy.addBuff(airborneBuff);
 
-      enemy.takeDamage(this.damage, this.owner, 'MAGIC');
+      enemy.takeDamage(this.damage, this.owner, 'PHYSICAL');
       hitPositions.push(enemy.position.copy());
     });
 

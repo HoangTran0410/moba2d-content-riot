@@ -62,7 +62,7 @@ export default class Yasuo_Q extends Spell {
   image = this.phase.image;
   name = 'Bão Kiếm (Yasuo_Q)';
   description =
-    'Đâm lưỡi kiếm về hướng chỉ định, gây <span class="damage">10 sát thương</span>. <span>Cộng dồn 2 lần</span> sẽ tạo ra một cơn lốc lớn, <span class="buff">Hất Tung</span> kẻ địch trúng chiêu trong <span class="time">1 giây</span> và gây <span class="damage">20 sát thương</span>';
+    'Đâm lưỡi kiếm về hướng chỉ định, gây <span class="damage physical">10 sát thương vật lý</span>. <span>Cộng dồn 2 lần</span> sẽ tạo ra một cơn lốc lớn, <span class="buff">Hất Tung</span> kẻ địch trúng chiêu trong <span class="time">1 giây</span> và gây <span class="damage physical">20 sát thương vật lý</span>';
   coolDown = 3500;
   manaCost = 20;
 
@@ -220,7 +220,7 @@ export class Yasuo_Q_Object extends SpellObject {
       const buff = new RootBuff(this.lifeTime / 2, this.owner, p);
       buff.image = api.asset('spell_yasuo_q1');
       p.addBuff(buff);
-      p.takeDamage(Q_DAMAGE, this.owner, 'MAGIC');
+      p.takeDamage(Q_DAMAGE, this.owner, 'PHYSICAL');
 
       this.playersEffected.push(p);
       this.onHit(p);
@@ -367,7 +367,7 @@ export class Yasuo_Q3_Object extends MissileSpellObject {
     const buff = new Airborne(this.airBorneTime, this.owner, enemy);
     buff.image = api.asset('spell_yasuo_q3');
     enemy.addBuff(buff);
-    enemy.takeDamage(Q3_DAMAGE, this.owner, 'MAGIC');
+    enemy.takeDamage(Q3_DAMAGE, this.owner, 'PHYSICAL');
   }
 
   draw() {

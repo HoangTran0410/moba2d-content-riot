@@ -37,8 +37,8 @@ export default class Caitlyn_Q extends Spell {
   name = 'Bắn Xuyên Táo (Caitlyn_Q)';
   description =
     `Lên đạn trong <span class="time">${CAITLYN_Q_CAST_TIME_MS / 1000} giây</span> rồi bắn một phát` +
-    ` xuyên thấu, gây <span class="damage">${CAITLYN_Q_DAMAGE} sát thương</span> lên mục tiêu đầu tiên` +
-    ` và <span class="damage">${CAITLYN_Q_REDUCED_DAMAGE} sát thương</span> lên những mục tiêu sau.` +
+    ` xuyên thấu, gây <span class="damage physical">${CAITLYN_Q_DAMAGE} sát thương vật lý</span> lên mục tiêu đầu tiên` +
+    ` và <span class="damage physical">${CAITLYN_Q_REDUCED_DAMAGE} sát thương vật lý</span> lên những mục tiêu sau.` +
     ' Kẻ địch đang dính Bẫy Yordle luôn nhận sát thương đầy đủ.';
 
   coolDown = 8000;
@@ -160,7 +160,7 @@ export class Caitlyn_Q_Object extends MissileSpellObject {
     const first = this.pierced === 0;
     this.pierced++;
     const damage = first || isTrapRevealed(enemy) ? CAITLYN_Q_DAMAGE : CAITLYN_Q_REDUCED_DAMAGE;
-    enemy.takeDamage(damage, this.owner, 'MAGIC');
+    enemy.takeDamage(damage, this.owner, 'PHYSICAL');
 
     for (let i = 0; i < 8; i++) {
       this.particleSystem.addParticle({

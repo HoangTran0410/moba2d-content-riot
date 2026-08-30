@@ -76,7 +76,7 @@ export default class Nautilus_Q extends Spell {
   name = 'Phóng Mỏ Neo (Nautilus_Q)';
   description =
     `Phóng mỏ neo về phía trước và móc vào thứ đầu tiên nó gặp. ` +
-    `Trúng địch: <span class="damage">${Q_DAMAGE} sát thương</span>, choáng ` +
+    `Trúng địch: <span class="damage magic">${Q_DAMAGE} sát thương phép</span>, choáng ` +
     `${Q_STUN_MS / 1000} giây rồi kéo cả hai lại gần nhau. ` +
     `Trúng vách đá: Nautilus tự kéo mình tới đó.`;
   coolDown = 10_000;

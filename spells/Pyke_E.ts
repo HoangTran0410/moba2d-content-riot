@@ -54,7 +54,7 @@ export default class Pyke_E extends Spell {
     `Pyke lướt <span class="buff">${PHANTOM_DASH_DISTANCE}px</span> theo hướng chỉ định, để lại một bóng ma tại chỗ cũ.` +
     ` Sau <span class="time">${PHANTOM_DELAY_MS / 1000} giây</span>, bóng ma lao ngược về phía Pyke,` +
     ` <span class="buff">Làm Choáng</span> mọi kẻ địch nó đi xuyên qua trong` +
-    ` <span class="time">${E_STUN_MS / 1000} giây</span> và gây <span class="damage">${E_DAMAGE} sát thương phép</span>`;
+    ` <span class="time">${E_STUN_MS / 1000} giây</span> và gây <span class="damage physical">${E_DAMAGE} sát thương vật lý</span>`;
   coolDown = E_COOLDOWN_MS;
   manaCost = E_MANA_COST;
 
@@ -152,7 +152,7 @@ export class Pyke_E_Phantom extends SpellObject {
       if (this.caught.has(victim)) continue;
       this.caught.add(victim);
 
-      victim.takeDamage(E_DAMAGE, this.owner, 'MAGIC', LABEL);
+      victim.takeDamage(E_DAMAGE, this.owner, 'PHYSICAL', LABEL);
 
       const daze = new StunBuff(E_STUN_MS, this.owner, victim);
       if (this.icon) daze.image = this.icon;

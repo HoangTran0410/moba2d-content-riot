@@ -40,7 +40,7 @@ export default class Yasuo_E extends Spell {
   image = api.asset('spell_yasuo_e');
   name = 'Quét Kiếm (Yasuo_E)';
   description =
-    '<span class="buff">Lướt</span> xuyên qua kẻ địch gần nhất trong tầm, gây <span class="damage">10 sát thương</span> <i>khi lưỡi kiếm chạm tới mục tiêu</i>';
+    '<span class="buff">Lướt</span> xuyên qua kẻ địch gần nhất trong tầm, gây <span class="damage magic">10 sát thương phép</span> <i>khi lưỡi kiếm chạm tới mục tiêu</i>';
   coolDown = 2000;
   manaCost = 20;
 

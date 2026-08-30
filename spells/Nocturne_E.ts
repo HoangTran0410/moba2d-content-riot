@@ -33,7 +33,7 @@ export default class Nocturne_E extends Spell {
   name = 'Nỗi Kinh Hoàng Tột Độ (Nocturne_E)';
   description =
     `Nối một sợi xích với kẻ địch gần nhất trong <span>${RANGE}px</span>, gây` +
-    ` <span class="damage">${DAMAGE} sát thương</span>. Nếu sau <span class="time">${CHANNEL_MS / 1000} giây</span>` +
+    ` <span class="damage magic">${DAMAGE} sát thương phép</span>. Nếu sau <span class="time">${CHANNEL_MS / 1000} giây</span>` +
     ` xích chưa đứt (xa hơn <span>${LEASH_RANGE}px</span>), mục tiêu bị <span class="buff">Khiếp Sợ</span>` +
     ` trong <span class="time">${FEAR_DURATION / 1000} giây</span>`;
   coolDown = 10000;

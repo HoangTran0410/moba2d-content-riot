@@ -101,7 +101,7 @@ export default class Jhin_Q extends Spell {
   name = 'Lựu Đạn Nhảy Múa (Jhin_Q)';
   description = `Ném lựu đạn hoa vào <b>một kẻ địch được chỉ định</b>, rồi nảy sang tối đa
     ${JHIN_Q_MAX_HITS - 1} mục tiêu khác trong bán kính ${JHIN_Q_BOUNCE_RANGE}, mỗi lần nảy
-    mạnh hơn lần trước: <span class="damage">${JHIN_Q_DAMAGE.join(' / ')} sát thương</span>.
+    mạnh hơn lần trước: <span class="damage physical">${JHIN_Q_DAMAGE.join(' / ')} sát thương vật lý</span>.
     Mọi mục tiêu trúng đòn bị <b>đánh dấu</b> trong ${JHIN_MARK_MS / 1000} giây.`;
   coolDown = 8_000;
   manaCost = 30;
@@ -239,7 +239,7 @@ export class Jhin_Q_Object extends MissileSpellObject {
     this.hits += 1;
     this.struck.add(enemy);
 
-    enemy.takeDamage(jhinBounceDamage(index), this.owner, 'MAGIC', 'Lựu Đạn Nhảy Múa');
+    enemy.takeDamage(jhinBounceDamage(index), this.owner, 'PHYSICAL', 'Lựu Đạn Nhảy Múa');
     applyJhinMark(this.owner, enemy);
     this.game.objectManager.addObject(new Jhin_Q_Blast(this.owner, enemy.position.copy(), index));
 

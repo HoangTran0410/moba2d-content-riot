@@ -24,7 +24,7 @@ export default class Annie_W extends Spell {
   name = 'Thiêu Cháy (Annie_W)';
   description =
     `Phun lửa thành hình nón dài <span>${REACH}px</span> theo hướng chỉ định, gây` +
-    ` <span class="damage">${DAMAGE} sát thương</span> cho mọi kẻ địch trong đó`;
+    ` <span class="damage magic">${DAMAGE} sát thương phép</span> cho mọi kẻ địch trong đó`;
   coolDown = 7000;
   manaCost = 35;
 

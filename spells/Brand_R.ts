@@ -54,7 +54,7 @@ export const SLOW_DURATION_MS = 800;
 export default class Brand_R extends Spell {
   image = api.asset('spell_brand_r');
   name = 'Bão Lửa (Brand_R)';
-  description = `Ném một quả cầu lửa nảy qua lại giữa các kẻ địch <span class="buff">${BOUNCE_COUNT} lần</span>, mỗi lần gây <span class="damage">${DAMAGE_PER_BOUNCE} sát thương</span> và <span class="buff">Thiêu Đốt</span>. Mục tiêu <span class="buff">đã bị Thiêu Đốt</span> còn bị <span class="buff">Làm Chậm ${Math.round(SLOW_PERCENT * 100)}%</span> trong <span class="time">${SLOW_DURATION_MS / 1000} giây</span>. Ưu tiên nảy vào tướng đang cháy.`;
+  description = `Ném một quả cầu lửa nảy qua lại giữa các kẻ địch <span class="buff">${BOUNCE_COUNT} lần</span>, mỗi lần gây <span class="damage magic">${DAMAGE_PER_BOUNCE} sát thương phép</span> và <span class="buff">Thiêu Đốt</span>. Mục tiêu <span class="buff">đã bị Thiêu Đốt</span> còn bị <span class="buff">Làm Chậm ${Math.round(SLOW_PERCENT * 100)}%</span> trong <span class="time">${SLOW_DURATION_MS / 1000} giây</span>. Ưu tiên nảy vào tướng đang cháy.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

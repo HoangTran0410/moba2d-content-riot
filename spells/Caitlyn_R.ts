@@ -59,7 +59,7 @@ export default class Caitlyn_R extends Spell {
   description =
     `Khóa mục tiêu và ngắm bắn trong <span class="time">${CAITLYN_R_CHANNEL_MS / 1000} giây</span>,` +
     ` <span class="buff">Lộ Diện</span> mục tiêu trong <span class="time">${CAITLYN_R_REVEAL_MS / 1000} giây</span>.` +
-    ` Sau đó bắn một viên đạn dẫn đường gây <span class="damage">${CAITLYN_R_DAMAGE} sát thương</span>.`;
+    ` Sau đó bắn một viên đạn dẫn đường gây <span class="damage physical">${CAITLYN_R_DAMAGE} sát thương vật lý</span>.`;
 
   coolDown = 10000;
   manaCost = 100;
@@ -203,7 +203,7 @@ export class Caitlyn_R_Bullet extends HomingMissileSpellObject {
   });
 
   onTargetArrive(target: AttackableUnit): void {
-    target.takeDamage(CAITLYN_R_DAMAGE, this.owner, 'MAGIC');
+    target.takeDamage(CAITLYN_R_DAMAGE, this.owner, 'PHYSICAL');
 
     const hit = new Caitlyn_R_Hit(this.owner);
     hit.position = target.position.copy();

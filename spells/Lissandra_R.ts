@@ -121,7 +121,7 @@ export default class Lissandra_R extends Spell {
     `Một trận địa băng lan rộng ra bán kính <span class="buff">${R_FIELD_RADIUS}</span> trong ` +
     `<span class="time">${R_FIELD_SPREAD_MS / 1000} giây</span> và tồn tại ` +
     `<span class="time">${R_FIELD_DURATION_MS / 1000} giây</span>, gây ` +
-    `<span class="damage">${R_FIELD_DAMAGE} sát thương phép</span> một lần cho mỗi kẻ địch và ` +
+    `<span class="damage magic">${R_FIELD_DAMAGE} sát thương phép</span> một lần cho mỗi kẻ địch và ` +
     `<span class="buff">làm chậm ${R_FIELD_SLOW_PERCENT * 100}%</span> khi chúng còn đứng trong đó.`;
   coolDown = R_COOLDOWN_MS;
   manaCost = R_MANA_COST;

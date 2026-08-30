@@ -21,7 +21,7 @@ export const DAMAGE_PER_STACK = 5;
 const describe = (stacks: number): string =>
   `Chém một kẻ địch trong phạm vi <span>${RANGE}px</span> — ` +
   `<span class="buff">ưu tiên kẻ sẽ chết vì nhát này</span>, nếu không có thì kẻ gần nhất — gây ` +
-  `<span class="damage">${BASE_DAMAGE + stacks * DAMAGE_PER_STACK} sát thương</span>` +
+  `<span class="damage physical">${BASE_DAMAGE + stacks * DAMAGE_PER_STACK} sát thương vật lý</span>` +
   ` <i>(${stacks} cộng dồn)</i>. Mỗi lần <span class="buff">hạ gục</span> bằng chiêu này, ` +
   `sát thương của nó <span class="buff">vĩnh viễn tăng thêm ${DAMAGE_PER_STACK}</span>`;
 
@@ -77,7 +77,7 @@ export default class Nasus_Q extends Spell implements ExecuteSpell {
     // false through some future filter change — but a stack is permanent, and
     // "was it alive before I hit it" is the whole condition for earning one.
     const wasAlive = !target.isDead;
-    target.takeDamage(damage, this.owner, 'MAGIC');
+    target.takeDamage(damage, this.owner, 'PHYSICAL');
 
     const slain = wasAlive && target.isDead;
     if (slain) {

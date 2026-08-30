@@ -31,7 +31,7 @@ export default class Garen_E extends Spell {
   name = 'Phán Quyết (Garen_E)';
   description =
     `Xoay kiếm quanh mình <span class="time">${DURATION / 1000} giây</span>, chém` +
-    ` <span>${HITS} lần</span> × <span class="damage">${DAMAGE_PER_HIT} sát thương</span> cho kẻ địch trong` +
+    ` <span>${HITS} lần</span> × <span class="damage physical">${DAMAGE_PER_HIT} sát thương vật lý</span> cho kẻ địch trong` +
     ` <span>${RADIUS}px</span>. Trong lúc xoay, Garen <span class="buff">đi xuyên qua kẻ địch</span> nhưng` +
     ` <span class="damage">không thể đánh thường</span>`;
   coolDown = 9000;
@@ -90,7 +90,7 @@ export class Garen_E_Object extends SpellObject {
       area: new Circle({ x: this.position.x, y: this.position.y, r: this.radius }),
       filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
     });
-    enemies.forEach((enemy: any) => enemy.takeDamage(DAMAGE_PER_HIT, this.owner, 'MAGIC'));
+    enemies.forEach((enemy: any) => enemy.takeDamage(DAMAGE_PER_HIT, this.owner, 'PHYSICAL'));
   }
 
   /** One turn every 260ms. Fast enough to blur, slow enough to read as a sword. */

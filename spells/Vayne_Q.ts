@@ -50,7 +50,7 @@ export default class Vayne_Q extends Spell {
   name = 'Nhào Lộn (Vayne_Q)';
   description = `Lăn một đoạn ngắn. Đòn đánh thường kế tiếp trong
     ${VAYNE_Q_EMPOWER_MS / 1000} giây gây thêm
-    <span class="damage">${VAYNE_Q_BONUS} sát thương</span>.`;
+    <span class="damage physical">${VAYNE_Q_BONUS} sát thương vật lý</span>.`;
   coolDown = 4_000;
   manaCost = 20;
   range = VAYNE_Q_DISTANCE;
@@ -156,7 +156,7 @@ export class Vayne_Q_Empower extends Buff {
     if (!victim || victim.isDead) return;
 
     this.spent = true;
-    victim.takeDamage(VAYNE_Q_BONUS, this.sourceUnit, 'MAGIC', 'Nhào Lộn');
+    victim.takeDamage(VAYNE_Q_BONUS, this.sourceUnit, 'PHYSICAL', 'Nhào Lộn');
     this.game.objectManager.addObject(
       new Vayne_Q_Bolt_Flash(this.sourceUnit, victim.position.copy())
     );

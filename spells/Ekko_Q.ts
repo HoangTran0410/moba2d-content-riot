@@ -26,7 +26,7 @@ export default class Ekko_Q extends Spell {
   image = api.asset('spell_ekko_q');
   name = 'Dây Cót Thời Gian (Ekko_Q)';
   description =
-    'Bắn ra một bẫy thời gian theo hướng chỉ định gây <span class="damage">20 sát thương</span>. Khi trúng tướng hoặc bay hết tầm, bẫy mở rộng làm chậm kẻ địch <span class="buff">40%</span>. Sau đó quay về Ekko gây <span class="damage">30 sát thương</span>.';
+    'Bắn ra một bẫy thời gian theo hướng chỉ định gây <span class="damage magic">20 sát thương phép</span>. Khi trúng tướng hoặc bay hết tầm, bẫy mở rộng làm chậm kẻ địch <span class="buff">40%</span>. Sau đó quay về Ekko gây <span class="damage magic">30 sát thương phép</span>.';
   coolDown = 7000;
   manaCost = 50;
 

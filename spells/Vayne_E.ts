@@ -64,9 +64,9 @@ export default class Vayne_E extends Spell {
   image = api.asset('spell_vayne_e');
   name = 'Kết Án (Vayne_E)';
   description = `Bắn một mũi sắt nặng gây
-    <span class="damage">${VAYNE_E_DAMAGE} sát thương</span> và đẩy mục tiêu ra xa. Nếu bị ghim
+    <span class="damage physical">${VAYNE_E_DAMAGE} sát thương vật lý</span> và đẩy mục tiêu ra xa. Nếu bị ghim
     vào địa hình: choáng ${VAYNE_E_STUN_MS / 1000} giây và thêm
-    <span class="damage">${VAYNE_E_WALL_BONUS} sát thương</span>.`;
+    <span class="damage physical">${VAYNE_E_WALL_BONUS} sát thương vật lý</span>.`;
   coolDown = 10_000;
   manaCost = 50;
   range = VAYNE_E_RANGE;
@@ -121,7 +121,7 @@ export class Vayne_E_Object extends MissileSpellObject {
   }
 
   onHit(enemy: AttackableUnit): void {
-    enemy.takeDamage(VAYNE_E_DAMAGE, this.owner, 'MAGIC');
+    enemy.takeDamage(VAYNE_E_DAMAGE, this.owner, 'PHYSICAL');
 
     // Directly away from Vayne, measured at the moment of impact. Asking for a
     // point `dist + push` from her along her own line to the victim gives the
@@ -168,7 +168,7 @@ export class Vayne_E_Object extends MissileSpellObject {
     enemy.addBuff(shove);
 
     if (pinned) {
-      enemy.takeDamage(VAYNE_E_WALL_BONUS, this.owner, 'MAGIC');
+      enemy.takeDamage(VAYNE_E_WALL_BONUS, this.owner, 'PHYSICAL');
       enemy.addBuff(new Stun(VAYNE_E_STUN_MS, this.owner, enemy));
       this.game.objectManager.addObject(
         new Vayne_E_Pin(this.owner, createVector(contactX, contactY), heading)

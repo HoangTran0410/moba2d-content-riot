@@ -29,7 +29,7 @@ export default class JarvanIV_Q extends Spell {
   image = api.asset('spell_jarvaniv_q');
   name = 'Giáng Long Kích (JarvanIV_Q)';
   description =
-    'Đâm giáo theo hướng chỉ định gây <span class="damage">25 sát thương</span>. Nếu giáo chạm vào <span class="buff">Hoàng Kim Kỳ (E)</span>, Jarvan IV sẽ <span class="buff">Lướt</span> tới lá cờ và <span class="buff">Hất Tung</span> kẻ địch trên đường lướt.';
+    'Đâm giáo theo hướng chỉ định gây <span class="damage physical">25 sát thương vật lý</span>. Nếu giáo chạm vào <span class="buff">Hoàng Kim Kỳ (E)</span>, Jarvan IV sẽ <span class="buff">Lướt</span> tới lá cờ và <span class="buff">Hất Tung</span> kẻ địch trên đường lướt.';
   coolDown = 8000;
   manaCost = 45;
   range = 450;
@@ -116,7 +116,7 @@ export default class JarvanIV_Q extends Spell {
           this.owner.position.dist(enemy.position) < JARVAN_Q_DASH_HIT_RADIUS
         ) {
           hitTargets.add(enemy);
-          enemy.takeDamage(JARVAN_Q_DAMAGE, this.owner, 'MAGIC');
+          enemy.takeDamage(JARVAN_Q_DAMAGE, this.owner, 'PHYSICAL');
           enemy.addBuff(new Airborne(JARVAN_Q_KNOCKUP_MS, this.owner, enemy));
           charge.impactAt(enemy.position.x, enemy.position.y);
         }
@@ -204,7 +204,7 @@ export class JarvanIV_Q_Object extends SpellObject {
             40
           )
         ) {
-          enemy.takeDamage(JARVAN_Q_DAMAGE, this.owner, 'MAGIC');
+          enemy.takeDamage(JARVAN_Q_DAMAGE, this.owner, 'PHYSICAL');
           for (let i = 0; i < 6; i++) {
             this.particleSystem.addParticle({
               x: enemy.position.x + random(-14, 14),

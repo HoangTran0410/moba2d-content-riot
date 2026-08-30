@@ -61,9 +61,9 @@ export default class Vi_R extends Spell {
   image = api.asset('spell_vi_r');
   name = 'Tả Xung Hữu Đột (Vi_R)';
   description = `Lao tới một mục tiêu và không gì cản được:
-    <span class="damage">${R_DAMAGE} sát thương</span> và hất tung
+    <span class="damage physical">${R_DAMAGE} sát thương vật lý</span> và hất tung
     ${R_KNOCKUP_MS / 1000} giây khi tới. Kẻ địch trên đường bị gạt sang bên,
-    chịu <span class="damage">${R_PASS_DAMAGE} sát thương</span>.`;
+    chịu <span class="damage physical">${R_PASS_DAMAGE} sát thương vật lý</span>.`;
   coolDown = 10_000;
   manaCost = 100;
   range = R_RANGE;
@@ -203,7 +203,7 @@ export default class Vi_R extends Spell {
       if (victim === this.owner || victim === target) continue;
       if (punched.has(victim) || victim.isDead || victim.toRemove) continue;
       punched.add(victim);
-      victim.takeDamage(R_PASS_DAMAGE, this.owner, 'MAGIC');
+      victim.takeDamage(R_PASS_DAMAGE, this.owner, 'PHYSICAL');
 
       // Determine left or right perpendicular shove
       const toVictimX = victim.position.x - this.owner.position.x;
@@ -246,7 +246,7 @@ export default class Vi_R extends Spell {
     const dead = target.toRemove || target.isDead;
     if (!dead) {
       punched.add(target);
-      target.takeDamage(R_DAMAGE, this.owner, 'MAGIC');
+      target.takeDamage(R_DAMAGE, this.owner, 'PHYSICAL');
       const knockup = new Airborne(R_KNOCKUP_MS, this.owner, target);
       knockup.height = 95;
       target.addBuff(knockup);
@@ -255,7 +255,7 @@ export default class Vi_R extends Spell {
     for (const victim of found) {
       if (punched.has(victim) || victim.isDead || victim.toRemove) continue;
       punched.add(victim);
-      victim.takeDamage(R_PASS_DAMAGE, this.owner, 'MAGIC');
+      victim.takeDamage(R_PASS_DAMAGE, this.owner, 'PHYSICAL');
       victim.addBuff(new Airborne(R_PASS_KNOCKUP_MS, this.owner, victim));
     }
 

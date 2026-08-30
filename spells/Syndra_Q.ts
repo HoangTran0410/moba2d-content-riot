@@ -349,7 +349,7 @@ export default class Syndra_Q extends Spell {
   image = api.asset('spell_syndra_q');
   name = 'Quả Cầu Bóng Tối (Syndra_Q)';
   description = `Triệu hồi một quả cầu bóng tối rơi xuống điểm chỉ định, gây
-    <span class="damage">${SYNDRA_Q_DAMAGE} sát thương</span> trong bán kính ${SYNDRA_Q_RADIUS}.
+    <span class="damage magic">${SYNDRA_Q_DAMAGE} sát thương phép</span> trong bán kính ${SYNDRA_Q_RADIUS}.
     Quả cầu <b>nằm lại trên mặt đất</b> để W, E và R sử dụng.`;
   coolDown = 6_000;
   manaCost = 25;

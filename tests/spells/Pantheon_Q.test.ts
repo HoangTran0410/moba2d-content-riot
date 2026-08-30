@@ -237,13 +237,14 @@ describe('Pantheon Q', () => {
 
     expect(ally.takeDamage).not.toHaveBeenCalled();
     expect(untargetable.takeDamage).not.toHaveBeenCalled();
-    // The type is pinned, not omitted. This spell's other call site already
-    // declared `'MAGIC'`, and this one fell through to `takeDamage`'s default —
-    // the same value by accident, from the same ability, which is exactly how a
-    // pack ends up dealing one type here and another there.
-    expect(enemy.takeDamage).toHaveBeenCalledWith(20, caster, 'MAGIC');
-    expect(monster.takeDamage).toHaveBeenCalledWith(32, caster, 'MAGIC');
-    expect(minion.takeDamage).toHaveBeenCalledWith(14, caster, 'MAGIC');
+    // The type is pinned, not omitted, and both of this spell's call sites are
+    // pinned to the *same* value. That is the whole assertion: one of them used
+    // to declare its type while the other fell through to `takeDamage`'s
+    // default, which agreed by accident — one ability dealing one type here and
+    // another there is exactly what that looks like the day the default moves.
+    expect(enemy.takeDamage).toHaveBeenCalledWith(20, caster, 'PHYSICAL');
+    expect(monster.takeDamage).toHaveBeenCalledWith(32, caster, 'PHYSICAL');
+    expect(minion.takeDamage).toHaveBeenCalledWith(14, caster, 'PHYSICAL');
   });
 
   it('crossing the hold threshold releases a thrown linear missile', () => {

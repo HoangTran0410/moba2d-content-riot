@@ -85,7 +85,7 @@ export default class Irelia_E extends Spell {
   name = 'Bước Nhảy Hoàn Vũ (Irelia_E)';
   description = `Ném một lưỡi kiếm tới vị trí chỉ định; kiếm cắm xuống đất và chờ ở đó.
     Bấm lần nữa để ném lưỡi thứ hai — khi nó cắm xuống, hai lưỡi kiếm lao vào nhau,
-    gây <span class="damage">${E_DAMAGE} sát thương</span> và
+    gây <span class="damage magic">${E_DAMAGE} sát thương phép</span> và
     <span class="buff">làm choáng</span> <span class="time">${E_STUN_MS / 1000} giây</span>
     mọi kẻ địch nằm giữa chúng.`;
   coolDown = 10_000;

@@ -33,7 +33,7 @@ export default class Ezreal_Q extends Spell {
   image = api.asset('spell_ezreal_q');
   name = 'Phát Bắn Thần Bí (Ezreal_Q)';
   description =
-    `Bắn một mũi tên năng lượng gây <span class="damage">${EZREAL_Q_DAMAGE} sát thương</span>` +
+    `Bắn một mũi tên năng lượng gây <span class="damage physical">${EZREAL_Q_DAMAGE} sát thương vật lý</span>` +
     ' lên kẻ địch đầu tiên trúng phải. Nếu trúng, mọi chiêu thức của Ezreal được giảm' +
     ` <span class="time">${EZREAL_Q_COOLDOWN_REFUND_MS / 1000} giây</span> hồi chiêu.`;
 
@@ -104,7 +104,7 @@ export class Ezreal_Q_Object extends MissileSpellObject {
   }
 
   onHit(enemy: AttackableUnit) {
-    enemy.takeDamage(EZREAL_Q_DAMAGE, this.owner, 'MAGIC');
+    enemy.takeDamage(EZREAL_Q_DAMAGE, this.owner, 'PHYSICAL');
     refundEzrealCooldowns(this.owner);
     detonateEssenceFlux(this.owner, enemy);
 

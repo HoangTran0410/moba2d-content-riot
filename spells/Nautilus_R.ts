@@ -51,8 +51,8 @@ export default class Nautilus_R extends Spell {
   name = 'Thủy Lôi Tầm Nhiệt (Nautilus_R)';
   description =
     `Thả một quả thủy lôi chạy ngầm dưới đất, đuổi theo mục tiêu đã chọn. Ai bị nó đi qua ` +
-    `nhận <span class="damage">${R_PASS_DAMAGE} sát thương</span> và bị hất tung. Tới đích, ` +
-    `nó nổ trong bán kính ${R_BLAST_RADIUS}: <span class="damage">${R_DAMAGE} sát thương</span> ` +
+    `nhận <span class="damage magic">${R_PASS_DAMAGE} sát thương phép</span> và bị hất tung. Tới đích, ` +
+    `nó nổ trong bán kính ${R_BLAST_RADIUS}: <span class="damage magic">${R_DAMAGE} sát thương phép</span> ` +
     `và hất tung ${R_KNOCKUP_MS / 1000} giây.`;
   coolDown = 10_000;
   manaCost = 100;

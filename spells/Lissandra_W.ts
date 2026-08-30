@@ -45,7 +45,7 @@ export default class Lissandra_W extends Spell {
   name = 'Vòng Tròn Lạnh Giá (Lissandra_W)';
   description =
     `Đóng băng kẻ địch xung quanh trong bán kính <span class="buff">${W_RADIUS}</span>, ` +
-    `gây <span class="damage">${W_DAMAGE} sát thương phép</span> và ` +
+    `gây <span class="damage magic">${W_DAMAGE} sát thương phép</span> và ` +
     `<span class="buff">trói chân</span> chúng trong ` +
     `<span class="time">${W_ROOT_DURATION_MS / 1000} giây</span>.`;
   coolDown = W_COOLDOWN_MS;

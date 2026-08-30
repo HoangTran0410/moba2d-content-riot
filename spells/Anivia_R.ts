@@ -63,7 +63,7 @@ export default class Anivia_R extends Spell {
   image = api.asset('spell_anivia_r');
   name = 'Bão Tuyết (Anivia_R)';
   description =
-    'Tạo một cơn bão tuyết có thể bật/tắt tại vị trí chỉ định. Bão lớn dần trong <span class="time">1.5 giây</span>, gây <span class="damage">4 sát thương mỗi 0.5 giây</span> và làm chậm kẻ địch trong vùng.';
+    'Tạo một cơn bão tuyết có thể bật/tắt tại vị trí chỉ định. Bão lớn dần trong <span class="time">1.5 giây</span>, gây <span class="damage magic">4 sát thương phép mỗi 0.5 giây</span> và làm chậm kẻ địch trong vùng.';
   coolDown = 4_000;
   manaCost = MANA_COST;
   range = TETHER_RANGE;

@@ -34,7 +34,7 @@ export default class Jinx_W extends Spell {
   name = 'Giật Bắn! (Jinx_W)';
   description =
     `Bắn một tia điện xa <span>${RANGE}px</span>: mục tiêu đầu tiên trúng phải nhận` +
-    ` <span class="damage">${DAMAGE} sát thương</span> và bị <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span>` +
+    ` <span class="damage physical">${DAMAGE} sát thương vật lý</span> và bị <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span>` +
     ` trong <span class="time">${SLOW_DURATION / 1000} giây</span>`;
   coolDown = 9000;
   manaCost = 35;
@@ -72,7 +72,7 @@ export class Jinx_W_Object extends MissileSpellObject {
   });
 
   onHit(enemy: AttackableUnit) {
-    enemy.takeDamage(DAMAGE, this.owner, 'MAGIC');
+    enemy.takeDamage(DAMAGE, this.owner, 'PHYSICAL');
     const slow = new Slow(SLOW_DURATION, this.owner, enemy);
     slow.percent = SLOW_PERCENT;
     enemy.addBuff(slow);

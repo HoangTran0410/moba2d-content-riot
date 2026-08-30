@@ -25,7 +25,7 @@ export default class Nasus_R extends Spell {
   description =
     `Hóa khổng lồ trong <span class="time">${DURATION / 1000} giây</span>:` +
     ` <span class="buff">+${BONUS_HEALTH} máu tối đa</span> và thiêu đốt mọi kẻ địch trong <span>${AURA_RADIUS}px</span>` +
-    ` <span class="damage">${DAMAGE_PER_TICK} sát thương</span> mỗi <span class="time">${TICK_INTERVAL / 1000} giây</span>`;
+    ` <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span> mỗi <span class="time">${TICK_INTERVAL / 1000} giây</span>`;
   coolDown = 10000;
   manaCost = 60;
 

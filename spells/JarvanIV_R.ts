@@ -37,7 +37,7 @@ export default class JarvanIV_R extends Spell {
   image = api.asset('spell_jarvaniv_r');
   name = 'Đại Địa Chấn (JarvanIV_R)';
   description =
-    'Nhảy vào điểm chỉ định gây <span class="damage">45 sát thương</span> diện rộng và <span class="buff">Dựng Đấu Trường Tường Đá</span> tạo chướng ngại vật xung quanh trong <span class="time">3.5 giây</span>.';
+    'Nhảy vào điểm chỉ định gây <span class="damage physical">45 sát thương vật lý</span> diện rộng và <span class="buff">Dựng Đấu Trường Tường Đá</span> tạo chướng ngại vật xung quanh trong <span class="time">3.5 giây</span>.';
   coolDown = 10000;
   manaCost = 100;
   range = 650;
@@ -82,7 +82,7 @@ export default class JarvanIV_R extends Spell {
         filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
       });
       for (const enemy of enemies) {
-        enemy.takeDamage(JARVAN_R_DAMAGE, this.owner, 'MAGIC');
+        enemy.takeDamage(JARVAN_R_DAMAGE, this.owner, 'PHYSICAL');
       }
 
       // Create ring arena of custom earthen rock slabs around perimeter

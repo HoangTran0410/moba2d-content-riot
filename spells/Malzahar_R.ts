@@ -71,11 +71,11 @@ export default class Malzahar_R extends Spell {
   name = 'Âm Ti Trói Buộc (Malzahar_R)';
   description =
     `Trói một kẻ địch, <span class="buff">Choáng</span> và gây` +
-    ` <span class="damage">${DAMAGE_PER_TICK} sát thương</span> mỗi` +
+    ` <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span> mỗi` +
     ` <span class="time">${TICK_EVERY_MS / 1000} giây</span> suốt` +
     ` <span class="time">${CHANNEL_DURATION_MS / 1000} giây</span>. Một` +
     ` <span class="buff">Vùng Hư Vô</span> mở ra dưới chân nạn nhân, gây` +
-    ` <span class="damage">${ZONE_DAMAGE_PER_TICK} sát thương</span> mỗi nhịp trong` +
+    ` <span class="damage magic">${ZONE_DAMAGE_PER_TICK} sát thương phép</span> mỗi nhịp trong` +
     ` <span class="time">${ZONE_DURATION_MS / 1000} giây</span> và tồn tại kể cả khi kênh bị ngắt`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;

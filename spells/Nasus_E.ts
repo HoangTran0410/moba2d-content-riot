@@ -22,7 +22,7 @@ export default class Nasus_E extends Spell {
   name = 'Lửa Tâm Linh (Nasus_E)';
   description =
     `Gọi một vùng lửa bán kính <span>${RADIUS}px</span> tồn tại <span class="time">${DURATION / 1000} giây</span>,` +
-    ` gây <span class="damage">${DAMAGE_PER_TICK} sát thương</span> mỗi <span class="time">${TICK_INTERVAL / 1000} giây</span>` +
+    ` gây <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span> mỗi <span class="time">${TICK_INTERVAL / 1000} giây</span>` +
     ` cho kẻ địch đứng trong đó`;
   coolDown = 10000;
   manaCost = 30;

@@ -60,6 +60,43 @@ const CLAIMS: [RegExp, string][] = [
   [/sát thương phép/i, 'MAGIC'],
 ];
 
+/**
+ * Every damage type a file actually deals.
+ *
+ * Paren-balanced rather than `takeDamage\([^)]*?'(...)'`, and the difference is
+ * not cosmetic: arguments routinely contain calls of their own —
+ * `takeDamage(scaled(base, level), this.owner, 'PHYSICAL')` — and a character
+ * class that cannot cross the inner `)` simply fails to find the type. The
+ * file then reports *no* damage at all and is skipped whole, which is a silent
+ * hole in a test whose entire job is catching silence. It mattered little
+ * while four abilities made a claim and matters a great deal now that every
+ * one of them does.
+ */
+const typesDealt = (source: string): Set<string> => {
+  const dealt = new Set<string>();
+  const CALL = 'takeDamage(';
+  let i = 0;
+  while ((i = source.indexOf(CALL, i)) !== -1) {
+    const open = i + CALL.length - 1;
+    let depth = 0;
+    let end = open;
+    for (let j = open; j < source.length; j++) {
+      if (source[j] === '(') depth++;
+      else if (source[j] === ')') {
+        depth--;
+        if (depth === 0) {
+          end = j;
+          break;
+        }
+      }
+    }
+    const type = source.slice(open + 1, end).match(/(['"])(PHYSICAL|MAGIC|TRUE)\1/);
+    if (type) dealt.add(type[2]);
+    i = end;
+  }
+  return dealt;
+};
+
 const spellFiles = (): string[] =>
   readdirSync(SPELLS)
     .filter(name => name.endsWith('.ts'))
@@ -79,9 +116,7 @@ describe('a spell that names a damage type', () => {
 
     for (const file of spellFiles()) {
       const source = readFileSync(file, 'utf8');
-      const dealt = new Set(
-        [...source.matchAll(/takeDamage\([^)]*?'(PHYSICAL|MAGIC|TRUE)'/gs)].map(m => m[1])
-      );
+      const dealt = typesDealt(source);
       if (!dealt.size) continue;
 
       for (const [phrase, type] of CLAIMS) {

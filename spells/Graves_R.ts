@@ -39,7 +39,7 @@ export default class Graves_R extends Spell {
   image = api.asset('spell_graves_r');
   name = 'Đạn Nổ Thần Công (Graves_R)';
   description =
-    `Nã một phát đại bác xuyên thẳng <span>${RANGE}px</span>: <span class="damage">${DAMAGE} sát thương</span>` +
+    `Nã một phát đại bác xuyên thẳng <span>${RANGE}px</span>: <span class="damage physical">${DAMAGE} sát thương vật lý</span>` +
     ` cho mục tiêu đầu tiên, <span class="damage">giảm ${FALLOFF}</span> cho mỗi mục tiêu tiếp theo,` +
     ` kèm <span class="buff">Làm Chậm 40%</span>`;
   coolDown = 10000;
@@ -88,7 +88,7 @@ export class Graves_R_Object extends MissileSpellObject {
   onHit(enemy: AttackableUnit) {
     // `hitTargets` already contains this one, so the first victim pays full.
     const order = Math.max(0, this.hitTargets.length - 1);
-    enemy.takeDamage(Math.max(10, DAMAGE - order * FALLOFF), this.owner, 'MAGIC');
+    enemy.takeDamage(Math.max(10, DAMAGE - order * FALLOFF), this.owner, 'PHYSICAL');
     const slow = new Slow(1500, this.owner, enemy);
     slow.percent = 0.4;
     enemy.addBuff(slow);

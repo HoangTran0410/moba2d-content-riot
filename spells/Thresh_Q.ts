@@ -43,7 +43,7 @@ export default class Thresh_Q extends Spell {
   image = Thresh_Q.PHASES[this.phase].image;
   name = 'Án Tử (Thresh_Q)';
   description =
-    'Quăng lưỡi hái theo hướng chỉ định, móc trúng kẻ địch đầu tiên, gây <span class="damage">25 sát thương</span> và <span class="buff">Choáng</span> chúng trong <span class="time">1.5 giây</span>. Thresh giật xích <b>2 lần</b> (sau <span class="time">0.1 giây</span> và <span class="time">0.6 giây</span> kế tiếp), mỗi lần kéo nạn nhân lại gần một đoạn ngắn. Sau <span class="time">0.5 giây</span> có thể tái kích hoạt để <span class="buff">Lướt</span> tới chỗ nạn nhân đang bị xích';
+    'Quăng lưỡi hái theo hướng chỉ định, móc trúng kẻ địch đầu tiên, gây <span class="damage magic">25 sát thương phép</span> và <span class="buff">Choáng</span> chúng trong <span class="time">1.5 giây</span>. Thresh giật xích <b>2 lần</b> (sau <span class="time">0.1 giây</span> và <span class="time">0.6 giây</span> kế tiếp), mỗi lần kéo nạn nhân lại gần một đoạn ngắn. Sau <span class="time">0.5 giây</span> có thể tái kích hoạt để <span class="buff">Lướt</span> tới chỗ nạn nhân đang bị xích';
   coolDown = 8000;
   manaCost = 30;
 

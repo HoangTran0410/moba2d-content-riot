@@ -25,7 +25,7 @@ export default class Alistar_Q extends Spell {
   image = api.asset('spell_alistar_q');
   name = 'Nghiền Nát (Alistar_Q)';
   description =
-    `Giậm đất, gây <span class="damage">${DAMAGE} sát thương</span> và <span class="buff">Hất Tung</span>` +
+    `Giậm đất, gây <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Hất Tung</span>` +
     ` mọi kẻ địch trong <span>${RADIUS}px</span> trong <span class="time">${AIRBORNE_DURATION / 1000} giây</span>`;
   coolDown = 10000;
   manaCost = 30;

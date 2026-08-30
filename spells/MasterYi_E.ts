@@ -43,7 +43,7 @@ export default class MasterYi_E extends Spell {
   name = 'Võ Thuật Wuju (MasterYi_E)';
   description =
     `Trong <span class="time">${DURATION_MS / 1000} giây</span>, đòn đánh thường của Yi gây thêm` +
-    ` <span class="damage">${BONUS_TRUE_DAMAGE} sát thương chuẩn</span> và anh nhận` +
+    ` <span class="damage true">${BONUS_TRUE_DAMAGE} sát thương chuẩn</span> và anh nhận` +
     ` <span class="buff">+${Math.round(ATTACK_SPEED_PERCENT * 100)}% tốc độ đánh</span>`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;

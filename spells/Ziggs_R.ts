@@ -32,7 +32,7 @@ export const R_DROP_HEIGHT = 420;
 export default class Ziggs_R extends Spell {
   image = api.asset('spell_ziggs_r');
   name = 'Siêu Bom Địa Ngục (Ziggs_R)';
-  description = `Nã một siêu bom bay ${R_FLIGHT_MS / 1000} giây rồi rơi xuống điểm chỉ định: <span class="damage">${R_INNER_DAMAGE} sát thương</span> trong lõi bán kính ${R_INNER_RADIUS}, <span class="damage">${R_OUTER_DAMAGE} sát thương</span> ở vành ngoài tới ${R_OUTER_RADIUS}. Cái bóng lớn dần trên mặt đất là thời gian để tránh.`;
+  description = `Nã một siêu bom bay ${R_FLIGHT_MS / 1000} giây rồi rơi xuống điểm chỉ định: <span class="damage magic">${R_INNER_DAMAGE} sát thương phép</span> trong lõi bán kính ${R_INNER_RADIUS}, <span class="damage magic">${R_OUTER_DAMAGE} sát thương phép</span> ở vành ngoài tới ${R_OUTER_RADIUS}. Cái bóng lớn dần trên mặt đất là thời gian để tránh.`;
   coolDown = 10_000;
   manaCost = 100;
   range = R_RANGE;

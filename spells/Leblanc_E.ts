@@ -14,7 +14,7 @@ export default class Leblanc_E extends Spell {
   image = api.asset('spell_leblanc_e');
   name = 'Sợi Xích Siêu Phàm (Leblanc_E)';
   description =
-    'Phóng 1 sợi xích theo hướng chỉ định, gây <span class="damage">15 sát thương</span> khi trúng địch. Nếu giữ được trong tầm sau <span class="time">1.5 giây</span>, <span class="buff">Trói Chân</span> địch trong <span class="time">1.5 giây</span> và gây thêm <span class="damage">15 sát thương</span>';
+    'Phóng 1 sợi xích theo hướng chỉ định, gây <span class="damage magic">15 sát thương phép</span> khi trúng địch. Nếu giữ được trong tầm sau <span class="time">1.5 giây</span>, <span class="buff">Trói Chân</span> địch trong <span class="time">1.5 giây</span> và gây thêm <span class="damage magic">15 sát thương phép</span>';
   coolDown = 5000;
   manaCost = 40;
 

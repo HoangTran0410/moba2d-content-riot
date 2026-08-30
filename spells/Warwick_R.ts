@@ -59,7 +59,7 @@ export default class Warwick_R extends Spell {
   description =
     `Nhảy tới kẻ địch gần con trỏ nhất trong <span>${RANGE}px</span>, ghim chúng` +
     ` <span class="buff">Choáng</span> trong <span class="time">${SUPPRESS_MS / 1000} giây</span>` +
-    ` và cắn <span class="damage">${DAMAGE_PER_TICK} sát thương</span> mỗi nhịp`;
+    ` và cắn <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span> mỗi nhịp`;
   coolDown = 10000;
   manaCost = 70;
 

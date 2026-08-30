@@ -28,9 +28,9 @@ export default class Graves_Q extends Spell {
   image = api.asset('spell_graves_q');
   name = 'Đạn Xuyên Mục Tiêu (Graves_Q)';
   description =
-    `Bắn một viên đạn xuyên qua kẻ địch (<span class="damage">${TRAVEL_DAMAGE} sát thương</span>)` +
+    `Bắn một viên đạn xuyên qua kẻ địch (<span class="damage physical">${TRAVEL_DAMAGE} sát thương vật lý</span>)` +
     ` rồi <span class="damage">phát nổ</span> ở cuối đường bay, gây thêm` +
-    ` <span class="damage">${BLAST_DAMAGE} sát thương</span> trong <span>${BLAST_RADIUS}px</span>`;
+    ` <span class="damage physical">${BLAST_DAMAGE} sát thương vật lý</span> trong <span>${BLAST_RADIUS}px</span>`;
   coolDown = 9000;
   manaCost = 30;
 
@@ -73,7 +73,7 @@ export class Graves_Q_Object extends MissileSpellObject {
   }
 
   onHit(enemy: AttackableUnit) {
-    enemy.takeDamage(TRAVEL_DAMAGE, this.owner, 'MAGIC');
+    enemy.takeDamage(TRAVEL_DAMAGE, this.owner, 'PHYSICAL');
   }
 
   onArrive() {
@@ -81,7 +81,7 @@ export class Graves_Q_Object extends MissileSpellObject {
       area: new Circle({ x: this.position.x, y: this.position.y, r: BLAST_RADIUS }),
       filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
     });
-    enemies.forEach((enemy: any) => enemy.takeDamage(BLAST_DAMAGE, this.owner, 'MAGIC'));
+    enemies.forEach((enemy: any) => enemy.takeDamage(BLAST_DAMAGE, this.owner, 'PHYSICAL'));
 
     const blast = new AoePulse(this.owner);
     blast.position = this.position.copy();

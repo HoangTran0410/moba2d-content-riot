@@ -35,7 +35,7 @@ export default class Fizz_R extends Spell {
   description =
     `Ném một con cá mồi <span>${RANGE}px</span>. Nó dính vào mục tiêu đầu tiên trúng phải (hoặc rơi xuống đất),` +
     ` và sau <span class="time">${FUSE_MS / 1000} giây</span> một con cá mập trồi lên:` +
-    ` <span class="damage">${DAMAGE} sát thương</span>, <span class="buff">Hất Tung</span> và` +
+    ` <span class="damage magic">${DAMAGE} sát thương phép</span>, <span class="buff">Hất Tung</span> và` +
     ` <span class="buff">Làm Chậm 60%</span> trong <span>${RADIUS}px</span>`;
   coolDown = 10000;
   manaCost = 80;

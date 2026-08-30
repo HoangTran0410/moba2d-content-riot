@@ -104,7 +104,7 @@ export default class Morgana_W extends Spell {
   image = api.asset('spell_morgana_w');
   name = 'Vùng Đất Chết (Morgana_W)';
   description =
-    'Nguyền rủa mặt đất tại vị trí chỉ định trong <span class="time">5 giây</span>, gây <span class="damage">3-5 sát thương phép mỗi 0.5 giây</span> cho kẻ địch đứng trong đó — sát thương tăng theo phần trăm máu đã mất của mục tiêu, và tăng 70% khi nhắm vào quái rừng.';
+    'Nguyền rủa mặt đất tại vị trí chỉ định trong <span class="time">5 giây</span>, gây <span class="damage magic">3-5 sát thương phép mỗi 0.5 giây</span> cho kẻ địch đứng trong đó — sát thương tăng theo phần trăm máu đã mất của mục tiêu, và tăng 70% khi nhắm vào quái rừng.';
   coolDown = 9_000;
   manaCost = MANA_COST;
 

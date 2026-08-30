@@ -113,7 +113,7 @@ export default class Zed_R extends Spell {
     mark.image = Zed_R.PHASES.R1.image;
     target.addBuff(mark);
 
-    target.takeDamage(this.damage, this.owner, 'MAGIC');
+    target.takeDamage(this.damage, this.owner, 'PHYSICAL');
 
     const obj = new Zed_R_Object(this.owner);
     obj.target = target;
@@ -234,7 +234,7 @@ export class Zed_R_Mark extends Buff {
 
     const payload = Math.round(this.storedDamage);
     if (payload > 0 && this.targetUnit && !this.targetUnit.isDead) {
-      this.targetUnit.takeDamage(payload, this.sourceUnit, 'MAGIC', 'Dấu Ấn Tử Thần');
+      this.targetUnit.takeDamage(payload, this.sourceUnit, 'PHYSICAL', 'Dấu Ấn Tử Thần');
 
       // the payload landing: without this the mark deals its damage in silence
       const burst = new Zed_R_Detonation(this.sourceUnit);

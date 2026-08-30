@@ -12,7 +12,7 @@ export default class Teemo_Q extends Spell {
   image = api.asset('spell_teemo_q');
   name = 'Phi Tiêu Mù (Teemo_Q)';
   description =
-    'Phóng một phi tiêu tẩm độc về hướng chỉ định, gây <span class="damage">20 sát thương</span> và <span class="buff">Mờ Mắt</span> kẻ địch đầu tiên trúng phải trong <span class="time">2 giây</span>';
+    'Phóng một phi tiêu tẩm độc về hướng chỉ định, gây <span class="damage magic">20 sát thương phép</span> và <span class="buff">Mờ Mắt</span> kẻ địch đầu tiên trúng phải trong <span class="time">2 giây</span>';
   coolDown = 5000;
   manaCost = 20;
 

@@ -33,7 +33,7 @@ export default class XinZhao_Q extends Spell {
   name = 'Liên Hoàn Tam Kích (XinZhao_Q)';
   description =
     'Cường hóa <span class="buff">3 đòn đánh kế tiếp</span> trong <span class="time">5 giây</span>, mỗi đòn gây thêm ' +
-    '<span class="damage">12 sát thương</span> và giảm <span class="time">0.8 giây</span> hồi chiêu các kỹ năng khác. ' +
+    '<span class="damage physical">12 sát thương vật lý</span> và giảm <span class="time">0.8 giây</span> hồi chiêu các kỹ năng khác. ' +
     'Đòn thứ ba <span class="buff">hất tung</span> mục tiêu.';
   coolDown = 7_000;
   manaCost = 30;
@@ -97,7 +97,7 @@ export class XinZhao_Q_Buff extends Buff {
     this.strikesLeft = Math.max(0, this.strikesLeft - 1);
     // Each landed strike refreshes the window: the combo is a rhythm, not a race.
     this.timeElapsed = 0;
-    victim.takeDamage(XINZHAO_Q_BONUS_DAMAGE, this.targetUnit, 'MAGIC', 'Liên Hoàn Tam Kích');
+    victim.takeDamage(XINZHAO_Q_BONUS_DAMAGE, this.targetUnit, 'PHYSICAL', 'Liên Hoàn Tam Kích');
     this.refundOtherCooldowns();
 
     const finisher = this.strikesLeft === 0;

@@ -47,7 +47,7 @@ export default class Pantheon_W extends Spell {
   name = 'Khiên Trời Giáng (Pantheon_W)';
   description =
     `Lao tới kẻ địch <i>gần con trỏ chuột nhất</i> trong <span>${RANGE}px</span>.` +
-    ` <i>Khi đáp xuống</i>, đập khiên gây <span class="damage">${DAMAGE} sát thương</span>` +
+    ` <i>Khi đáp xuống</i>, đập khiên gây <span class="damage physical">${DAMAGE} sát thương vật lý</span>` +
     ` và <span class="buff">Choáng</span> trong <span class="time">${STUN_DURATION / 1000} giây</span>`;
   coolDown = 9000;
   manaCost = 30;
@@ -123,7 +123,7 @@ export default class Pantheon_W extends Spell {
     // A vault that did not arrive is a reposition, not a stun.
     if (this.owner.position.dist(target.position) > STRIKE_RADIUS) return;
 
-    target.takeDamage(DAMAGE, this.owner, 'MAGIC');
+    target.takeDamage(DAMAGE, this.owner, 'PHYSICAL');
     target.addBuff(new Stun(STUN_DURATION, this.owner, target));
   }
 

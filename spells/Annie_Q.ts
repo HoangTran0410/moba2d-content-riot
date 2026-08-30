@@ -55,7 +55,7 @@ export default class Annie_Q extends Spell implements ExecuteSpell {
   name = 'Hỏa Cầu (Annie_Q)';
   description =
     `Ném cầu lửa vào một mục tiêu trong <span>${RANGE}px</span>, gây` +
-    ` <span class="damage">${DAMAGE} sát thương</span>. Nếu <span class="buff">hạ gục</span> mục tiêu,` +
+    ` <span class="damage magic">${DAMAGE} sát thương phép</span>. Nếu <span class="buff">hạ gục</span> mục tiêu,` +
     ` hoàn lại toàn bộ mana và <span class="buff">giảm ${(1 - KILL_COOLDOWN_SCALE) * 100}% hồi chiêu</span>`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;

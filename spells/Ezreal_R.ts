@@ -41,8 +41,8 @@ export default class Ezreal_R extends Spell {
   description =
     `Tích tụ trong <span class="time">${EZREAL_R_CAST_TIME_MS / 1000} giây</span> rồi bắn một luồng` +
     ' năng lượng khổng lồ xuyên qua toàn bộ kẻ địch trên đường đi, gây' +
-    ` <span class="damage">${EZREAL_R_DAMAGE} sát thương</span> lên tướng và` +
-    ` <span class="damage">${EZREAL_R_MINION_DAMAGE} sát thương</span> lên lính và quái.`;
+    ` <span class="damage magic">${EZREAL_R_DAMAGE} sát thương phép</span> lên tướng và` +
+    ` <span class="damage magic">${EZREAL_R_MINION_DAMAGE} sát thương phép</span> lên lính và quái.`;
 
   coolDown = 10000;
   manaCost = 100;

@@ -259,7 +259,7 @@ export const Q_ORBIT_GAP = 16;
 export default class Irelia_Q extends Spell implements ExecuteSpell {
   image = api.asset('spell_irelia_q');
   name = 'Đâm Kiếm (Irelia_Q)';
-  description = `Lướt tới một kẻ địch và chém <span class="damage">${Q_DAMAGE} sát thương</span>.
+  description = `Lướt tới một kẻ địch và chém <span class="damage physical">${Q_DAMAGE} sát thương vật lý</span>.
     Nếu cú chém <span class="buff">hạ gục</span> mục tiêu, hoặc mục tiêu đang
     <span class="buff">bị đánh dấu</span> (bởi Bước Nhảy Hoàn Vũ hay Thanh Kiếm Tiên Phong),
     Đâm Kiếm được hoàn lại ngay lập tức và dấu bị tiêu thụ.`;
@@ -496,7 +496,7 @@ export default class Irelia_Q extends Spell implements ExecuteSpell {
     if (target.toRemove) return;
 
     const wasAlive = !target.isDead;
-    if (wasAlive) target.takeDamage(Q_DAMAGE, this.owner, 'MAGIC', 'Đâm Kiếm');
+    if (wasAlive) target.takeDamage(Q_DAMAGE, this.owner, 'PHYSICAL', 'Đâm Kiếm');
     const killed = wasAlive && target.isDead;
     // Taken, not merely read: a mark buys exactly one surge back, so a target
     // that survives cannot hand the key over twice.

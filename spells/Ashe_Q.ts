@@ -14,7 +14,7 @@ export default class Ashe_Q extends Spell {
   image = api.asset('spell_ashe_q');
   name = 'Chú Tâm Tiễn (Ashe_Q)';
   description =
-    'Bắn liên tiếp <span>3 mũi tên băng</span> theo hình nón hẹp. Mỗi mũi tên gây <span class="damage">8 sát thương</span> và <span class="buff">Làm Chậm 30%</span> kẻ địch trúng chiêu trong <span class="time">1 giây</span>';
+    'Bắn liên tiếp <span>3 mũi tên băng</span> theo hình nón hẹp. Mỗi mũi tên gây <span class="damage physical">8 sát thương vật lý</span> và <span class="buff">Làm Chậm 30%</span> kẻ địch trúng chiêu trong <span class="time">1 giây</span>';
   coolDown = 4000;
   manaCost = 15;
 
@@ -83,7 +83,7 @@ export class Ashe_Q_Object extends MissileSpellObject {
     slowBuff.buffAddType = BuffAddType.RENEW_EXISTING;
     enemy.addBuff(slowBuff);
 
-    enemy.takeDamage(this.damage, this.owner, 'MAGIC');
+    enemy.takeDamage(this.damage, this.owner, 'PHYSICAL');
 
     // the arrow is removed this frame, so the shatter has to be its own object
     const shatter = new Ashe_Q_Shatter(this.owner);

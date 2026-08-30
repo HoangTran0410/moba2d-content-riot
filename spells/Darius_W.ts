@@ -45,7 +45,7 @@ export default class Darius_W extends Spell {
   name = 'Đánh Thọt (Darius_W)';
   description =
     `Cường hóa đòn đánh thường tiếp theo trong <span class="time">${WINDOW_MS / 1000} giây</span>:` +
-    ` gây thêm <span class="damage">${BONUS_DAMAGE} sát thương</span>,` +
+    ` gây thêm <span class="damage physical">${BONUS_DAMAGE} sát thương vật lý</span>,` +
     ` <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span> trong <span class="time">${SLOW_MS / 1000} giây</span>` +
     ` và cộng một cấp <span class="damage">Chảy Máu</span>.` +
     ` Nếu đòn này <span class="buff">hạ gục</span> mục tiêu, hồi lại một nửa thời gian hồi chiêu`;
@@ -95,7 +95,7 @@ export class Darius_W_Buff extends Buff {
     // Latched before the hit, read after: `takeDamage` is synchronous, so this
     // is the only honest way to ask "did my swing kill it".
     const wasAlive = !victim.isDead;
-    victim.takeDamage(BONUS_DAMAGE, this.targetUnit, 'MAGIC', 'Đánh Thọt');
+    victim.takeDamage(BONUS_DAMAGE, this.targetUnit, 'PHYSICAL', 'Đánh Thọt');
 
     if (!victim.isDead) {
       const cripple = new Slow(SLOW_MS, this.targetUnit, victim);

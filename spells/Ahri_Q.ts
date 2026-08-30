@@ -29,7 +29,7 @@ export default class Ahri_Q extends Spell {
   image = api.asset('spell_ahri_q');
   name = 'Quả Cầu Ma Thuật (Ahri_Q)';
   description =
-    'Phóng quả cầu theo hướng chỉ định, khi tới giới hạn 350px, quả cầu sẽ quay lại. Gây <span class="damage">15 sát thương</span> và <span class="buff">Làm Chậm 50%</span> trong <span class="time">0.5 giây</span> trên cả đường đi và đường về của quả cầu';
+    'Phóng quả cầu theo hướng chỉ định, khi tới giới hạn 350px, quả cầu sẽ quay lại. Gây <span class="damage magic">15 sát thương phép</span> và <span class="buff">Làm Chậm 50%</span> trong <span class="time">0.5 giây</span> trên cả đường đi và đường về của quả cầu';
   coolDown = 5000;
   manaCost = 20;
 

@@ -29,7 +29,7 @@ export default class Anivia_Q extends Spell {
   image = api.asset('spell_anivia_q');
   name = 'Quả Cầu Băng (Anivia_Q)';
   description =
-    'Phóng một khối băng bay chậm <b>xuyên qua</b> mọi kẻ địch trên đường đi, gây <span class="damage">15 sát thương</span> và <span class="buff">Làm Chậm 40%</span> trong <span class="time">2 giây</span>. <b>Bấm lại phím chiêu</b> để cho khối băng nổ sớm: vụ nổ bán kính 150px gây thêm <span class="damage">25 sát thương</span> và <span class="buff">Làm Choáng</span> trong <span class="time">1.2 giây</span>. Nếu không bấm lại, khối băng tự nổ khi bay hết tầm';
+    'Phóng một khối băng bay chậm <b>xuyên qua</b> mọi kẻ địch trên đường đi, gây <span class="damage magic">15 sát thương phép</span> và <span class="buff">Làm Chậm 40%</span> trong <span class="time">2 giây</span>. <b>Bấm lại phím chiêu</b> để cho khối băng nổ sớm: vụ nổ bán kính 150px gây thêm <span class="damage magic">25 sát thương phép</span> và <span class="buff">Làm Choáng</span> trong <span class="time">1.2 giây</span>. Nếu không bấm lại, khối băng tự nổ khi bay hết tầm';
   coolDown = 9000;
   manaCost = 30;
 

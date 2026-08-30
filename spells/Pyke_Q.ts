@@ -59,7 +59,7 @@ export default class Pyke_Q extends Spell {
   name = 'Đâm Thấu Xương (Pyke_Q)';
   description =
     `Phóng lao xương theo hướng chỉ định. Kẻ địch <span class="buff">đầu tiên</span> trúng lao nhận` +
-    ` <span class="damage">${Q_DAMAGE} sát thương vật lý</span>, bị <span class="buff">Làm Chậm ${Math.round(
+    ` <span class="damage physical">${Q_DAMAGE} sát thương vật lý</span>, bị <span class="buff">Làm Chậm ${Math.round(
       Q_SLOW_PERCENT * 100
     )}%</span> trong <span class="time">${Q_SLOW_MS / 1000} giây</span> và bị` +
     ` <span class="buff">kéo về phía Pyke</span> trong <span class="time">${

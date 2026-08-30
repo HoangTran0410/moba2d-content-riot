@@ -48,8 +48,8 @@ export default class Veigar_R extends Spell {
   image = api.asset('spell_veigar_r');
   name = 'Vụ Nổ Vũ Trụ (Veigar_R)';
   description =
-    `Gửi một luồng năng lượng nguyên thủy đến kẻ địch mục tiêu, gây <span class="damage">${BASE_DAMAGE} sát thương</span>,` +
-    ` tăng lên tối đa <span class="damage">${BASE_DAMAGE * (1 + MAX_MISSING_HEALTH_MULTIPLIER)} sát thương</span> dựa trên lượng máu đã mất của mục tiêu.`;
+    `Gửi một luồng năng lượng nguyên thủy đến kẻ địch mục tiêu, gây <span class="damage magic">${BASE_DAMAGE} sát thương phép</span>,` +
+    ` tăng lên tối đa <span class="damage magic">${BASE_DAMAGE * (1 + MAX_MISSING_HEALTH_MULTIPLIER)} sát thương phép</span> dựa trên lượng máu đã mất của mục tiêu.`;
   // kept as a literal (not an exported constant) so the repo-wide arcade
   // cooldown-cap scan in tests/game/spells/cooldowns.test.ts can see it
   coolDown = 10_000;

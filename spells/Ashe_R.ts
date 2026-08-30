@@ -55,7 +55,7 @@ export default class Ashe_R extends Spell {
     ` (đi xuyên qua lính). Bay càng xa càng nhanh và càng mạnh:` +
     ` <span class="buff">Làm Choáng</span> từ <span class="time">${MIN_STUN_MS / 1000}</span> tới` +
     ` <span class="time">${MAX_STUN_MS / 1000} giây</span> theo quãng đường, gây` +
-    ` <span class="damage">${DAMAGE} sát thương</span> cho mục tiêu và mọi kẻ địch xung quanh`;
+    ` <span class="damage magic">${DAMAGE} sát thương phép</span> cho mục tiêu và mọi kẻ địch xung quanh`;
   coolDown = 10000;
   manaCost = 80;
 

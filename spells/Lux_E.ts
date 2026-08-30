@@ -16,7 +16,7 @@ export default class Lux_E extends Spell {
   name = 'Quả Cầu Ánh Sáng (Lux_E)';
   image = api.asset('spell_lux_e');
   description =
-    'Phóng ra 1 xoáy ánh sáng tới vị trí chỉ định, <span class="buff">Làm Chậm 50%</span> các kẻ địch đi vào. Tái kích hoạt hoặc sau <span class="time">5 giây</span> sẽ phát nổ, gây <span class="damage">20 sát thương</span> cho các kẻ địch trong vùng';
+    'Phóng ra 1 xoáy ánh sáng tới vị trí chỉ định, <span class="buff">Làm Chậm 50%</span> các kẻ địch đi vào. Tái kích hoạt hoặc sau <span class="time">5 giây</span> sẽ phát nổ, gây <span class="damage magic">20 sát thương phép</span> cho các kẻ địch trong vùng';
   coolDown = 5000;
   manaCost = 20;
 

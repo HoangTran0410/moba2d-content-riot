@@ -29,7 +29,7 @@ export default class Olaf_E extends Spell {
   image = api.asset('spell_olaf_e');
   name = 'Bổ Củi (Olaf_E)';
   description =
-    `Bổ rìu vào kẻ địch gần nhất trong <span>${RANGE}px</span>: <span class="damage">${DAMAGE} sát thương</span>,` +
+    `Bổ rìu vào kẻ địch gần nhất trong <span>${RANGE}px</span>: <span class="damage true">${DAMAGE} sát thương chuẩn</span>,` +
     ` đổi lại Olaf <span class="damage">tự mất ${HEALTH_COST} máu</span>`;
   coolDown = 5000;
   manaCost = 0;
@@ -142,7 +142,7 @@ export class Olaf_E_Swing extends SpellObject {
       // it stands — the ability auto-locks, it is not a skillshot
       if (!this.target.isDead && !this.target.toRemove) {
         this.aim = this.target.position.copy();
-        this.target.takeDamage(DAMAGE, this.owner, 'MAGIC');
+        this.target.takeDamage(DAMAGE, this.owner, 'TRUE');
       }
       for (let i = 0; i < 14; i++) {
         this.particleSystem.addParticle({

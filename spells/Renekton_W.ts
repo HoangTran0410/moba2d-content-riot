@@ -47,7 +47,7 @@ export default class Renekton_W extends Spell {
   name = 'Kẻ Săn Mồi Tàn Nhẫn (Renekton_W)';
   description =
     `Cường hóa đòn đánh tiếp theo trong <span class="time">${WINDOW_MS / 1000} giây</span>:` +
-    ` cắn <span>${STRIKES} nhát</span> × <span class="damage">${DAMAGE_PER_STRIKE} sát thương</span>` +
+    ` cắn <span>${STRIKES} nhát</span> × <span class="damage physical">${DAMAGE_PER_STRIKE} sát thương vật lý</span>` +
     ` và <span class="buff">Choáng</span> trong <span class="time">${STUN_MS / 1000} giây</span>.` +
     ` <span class="buff">Cuồng Nộ</span>: <span>${ENRAGED_STRIKES} nhát</span>,` +
     ` <span class="buff">Choáng ${ENRAGED_STUN_MS / 1000} giây</span>` +
@@ -100,7 +100,7 @@ export class Renekton_W_Buff extends Buff {
 
     for (let i = 0; i < strikes; i++) {
       if (victim.isDead) break;
-      victim.takeDamage(DAMAGE_PER_STRIKE, this.targetUnit, 'MAGIC', 'Kẻ Săn Mồi Tàn Nhẫn');
+      victim.takeDamage(DAMAGE_PER_STRIKE, this.targetUnit, 'PHYSICAL', 'Kẻ Săn Mồi Tàn Nhẫn');
     }
 
     if (!victim.isDead) {

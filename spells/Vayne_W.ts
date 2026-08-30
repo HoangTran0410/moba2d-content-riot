@@ -45,7 +45,7 @@ export default class Vayne_W extends Spell {
   name = 'Mũi Tên Bạc (Vayne_W)';
   description = `Trong ${VAYNE_W_DURATION_MS / 1000} giây, mỗi ${VAYNE_W_STACKS} đòn đánh thường
     vào <b>cùng một mục tiêu</b> gây thêm
-    <span class="damage">${VAYNE_W_PROC} sát thương</span>. Đổi mục tiêu là mất đếm.`;
+    <span class="damage true">${VAYNE_W_PROC} sát thương chuẩn</span>. Đổi mục tiêu là mất đếm.`;
   coolDown = 10_000;
   manaCost = 40;
 
@@ -108,7 +108,7 @@ export class Vayne_W_Buff extends Buff {
         row.mark.toRemove = true;
         row.mark = null;
       }
-      victim.takeDamage(VAYNE_W_PROC, this.sourceUnit, 'MAGIC', 'Mũi Tên Bạc');
+      victim.takeDamage(VAYNE_W_PROC, this.sourceUnit, 'TRUE', 'Mũi Tên Bạc');
       this.game.objectManager.addObject(new Vayne_W_Proc(this.sourceUnit, victim));
       return;
     }

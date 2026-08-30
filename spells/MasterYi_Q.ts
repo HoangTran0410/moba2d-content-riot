@@ -66,8 +66,8 @@ export default class MasterYi_Q extends Spell {
   description =
     `Yi biến mất và <span class="buff">không thể bị chọn</span>, lướt qua tối đa` +
     ` <span class="buff">${MAX_STRIKES} kẻ địch</span> trong <span>${SEARCH_RADIUS}px</span>.` +
-    ` Mục tiêu đầu nhận <span class="damage">${FIRST_STRIKE_DAMAGE} sát thương</span>,` +
-    ` mỗi mục tiêu sau nhận <span class="damage">${EXTRA_STRIKE_DAMAGE} sát thương</span>.` +
+    ` Mục tiêu đầu nhận <span class="damage physical">${FIRST_STRIKE_DAMAGE} sát thương vật lý</span>,` +
+    ` mỗi mục tiêu sau nhận <span class="damage physical">${EXTRA_STRIKE_DAMAGE} sát thương vật lý</span>.` +
     ` Mỗi kẻ địch chỉ trúng một lần, và Yi hiện lại cạnh nạn nhân cuối cùng`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
@@ -225,7 +225,7 @@ export class MasterYi_Q_Object extends SpellObject {
       victim.position.y + Math.sin(angle) * REAPPEAR_OFFSET
     );
 
-    victim.takeDamage(this.struck === 0 ? FIRST_STRIKE_DAMAGE : EXTRA_STRIKE_DAMAGE, this.owner, 'MAGIC');
+    victim.takeDamage(this.struck === 0 ? FIRST_STRIKE_DAMAGE : EXTRA_STRIKE_DAMAGE, this.owner, 'PHYSICAL');
 
     this._marks.push({
       x: victim.position.x,

@@ -56,7 +56,7 @@ export default class Caitlyn_W extends Spell {
     ` và tồn tại <span class="time">${CAITLYN_W_LIFETIME_MS / 1000} giây</span>.` +
     ` Tướng địch dẫm phải bị <span class="buff">Trói ${CAITLYN_W_ROOT_MS / 1000} giây</span>,` +
     ` <span class="buff">Lộ Diện ${CAITLYN_W_REVEAL_MS / 1000} giây</span> và nhận` +
-    ` <span class="damage">${CAITLYN_W_DAMAGE} sát thương</span>.` +
+    ` <span class="damage physical">${CAITLYN_W_DAMAGE} sát thương vật lý</span>.` +
     ` Tối đa <span>${CAITLYN_W_MAX_TRAPS}</span> bẫy cùng lúc.`;
 
   coolDown = 5000;
@@ -188,7 +188,7 @@ export class Caitlyn_W_Trap extends SpellObject {
         visionRadius: 200,
       })
     );
-    victim.takeDamage(CAITLYN_W_DAMAGE, this.owner, 'MAGIC');
+    victim.takeDamage(CAITLYN_W_DAMAGE, this.owner, 'PHYSICAL');
 
     for (let i = 0; i < 18; i++) {
       this.particleSystem.addParticle({

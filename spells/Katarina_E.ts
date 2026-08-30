@@ -28,9 +28,9 @@ export default class Katarina_E extends Spell {
   image = api.asset('spell_katarina_e');
   name = 'Ám Sát (Katarina_E)';
   description = `Dịch chuyển tức thời tới một <b>kẻ địch, đồng minh</b> hoặc <b>con dao</b>.
-    Nếu tới kẻ địch, gây <span class="damage">${KATARINA_E_STRIKE_DAMAGE} sát thương</span>.
+    Nếu tới kẻ địch, gây <span class="damage magic">${KATARINA_E_STRIKE_DAMAGE} sát thương phép</span>.
     Nếu tới con dao, kích hoạt <b>xoay kiếm diện rộng</b> gây
-    <span class="damage">${KATARINA_DAGGER_SLASH_DAMAGE} sát thương</span> và hồi lại phần lớn thời gian hồi chiêu Ám Sát.`;
+    <span class="damage magic">${KATARINA_DAGGER_SLASH_DAMAGE} sát thương phép</span> và hồi lại phần lớn thời gian hồi chiêu Ám Sát.`;
   coolDown = 10_000;
   manaCost = 0;
   range = KATARINA_E_RANGE;

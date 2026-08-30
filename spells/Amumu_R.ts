@@ -18,7 +18,7 @@ export default class Amumu_R extends Spell {
   image = api.asset('spell_amumu_r');
   name = 'Lời Nguyền Xác Ướp U Sầu (Amumu_R)';
   description =
-    `Băng quấn bung ra <span>${RADIUS}px</span>, gây <span class="damage">${DAMAGE} sát thương</span>` +
+    `Băng quấn bung ra <span>${RADIUS}px</span>, gây <span class="damage magic">${DAMAGE} sát thương phép</span>` +
     ` và <span class="buff">Trói Chân</span> mọi kẻ địch trúng phải trong` +
     ` <span class="time">${ROOT_DURATION / 1000} giây</span>`;
   coolDown = 10000;

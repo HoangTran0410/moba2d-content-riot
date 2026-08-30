@@ -100,7 +100,7 @@ export default class Orianna_Q extends Spell {
   targetingMode = 'POINT' as const;
   image = api.asset('spell_orianna_q');
   name = 'Lệnh: Tấn Công (Orianna_Q)';
-  description = `Ra lệnh cho Quả Cầu bay tới vị trí chỉ định và <span class="buff">ở lại đó</span>, gây <span class="damage">${BALL_PASS_DAMAGE} sát thương phép</span> lên mọi kẻ địch nó xuyên qua trên đường bay. Tầm ra lệnh <span class="buff">${MAX_REACH}</span>.`;
+  description = `Ra lệnh cho Quả Cầu bay tới vị trí chỉ định và <span class="buff">ở lại đó</span>, gây <span class="damage magic">${BALL_PASS_DAMAGE} sát thương phép</span> lên mọi kẻ địch nó xuyên qua trên đường bay. Tầm ra lệnh <span class="buff">${MAX_REACH}</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
   range = MAX_REACH;

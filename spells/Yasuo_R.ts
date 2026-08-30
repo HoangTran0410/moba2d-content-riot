@@ -48,7 +48,7 @@ export default class Yasuo_R extends Spell {
   image = api.asset('spell_yasuo_r');
   name = 'Trăng Trối (Yasuo_R)';
   description =
-    'Lao tới các mục tiêu gần nhất đang bị <span>Hất tung</span>. <span class="buff">Giữ chúng trên không</span> trong <span class="time">1 giây</span> và gây <span class="damage">30 sát thương</span>. Bạn được <span class="buff">Tăng tốc 40%</span> trong <span class="time">2 giây</span> sau đó.';
+    'Lao tới các mục tiêu gần nhất đang bị <span>Hất tung</span>. <span class="buff">Giữ chúng trên không</span> trong <span class="time">1 giây</span> và gây <span class="damage physical">30 sát thương vật lý</span>. Bạn được <span class="buff">Tăng tốc 40%</span> trong <span class="time">2 giây</span> sau đó.';
   coolDown = 10000;
   manaCost = 50;
 
@@ -144,7 +144,7 @@ export default class Yasuo_R extends Spell {
         buff.image = this.image;
         buff.draw = () => drawSuspension(enemy);
         enemy.addBuff(buff);
-        enemy.takeDamage(R_DAMAGE, this.owner, 'MAGIC');
+        enemy.takeDamage(R_DAMAGE, this.owner, 'PHYSICAL');
       }
 
       const speedup = new Speedup(R_SPEEDUP_MS, this.owner, this.owner);

@@ -49,7 +49,7 @@ export default class Sett_E extends Spell {
   name = 'Song Thú Chưởng (Sett_E)';
   description =
     `Sett kẹp hai bên người: mọi kẻ địch trong hai ô ${SETT_E_BOX_LENGTH}x${SETT_E_BOX_WIDTH} ` +
-    `trước và sau lưng nhận <span class="damage">${SETT_E_DAMAGE} sát thương</span> và bị lôi ` +
+    `trước và sau lưng nhận <span class="damage physical">${SETT_E_DAMAGE} sát thương vật lý</span> và bị lôi ` +
     `sát vào người hắn. Nếu bắt được cả hai phía, tất cả bị choáng ` +
     `${SETT_E_STUN_MS / 1000} giây.`;
   coolDown = 10_000;
@@ -104,7 +104,7 @@ export default class Sett_E extends Spell {
       else behind += 1;
       grabs.push({ unit: victim, fromX: victim.position.x, fromY: victim.position.y, side });
 
-      victim.takeDamage(SETT_E_DAMAGE, this.owner, 'MAGIC');
+      victim.takeDamage(SETT_E_DAMAGE, this.owner, 'PHYSICAL');
       if (victim.isDead || victim.toRemove) continue;
 
       // Haul him in. The pull never pushes anyone out: a body already closer

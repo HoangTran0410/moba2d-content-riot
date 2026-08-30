@@ -51,9 +51,9 @@ export default class Annie_R extends Spell {
   name = 'Triệu Hồi: Tibbers (Annie_R)';
   description =
     `Triệu hồi Tibbers tại vị trí chỉ định trong <span class="time">${TIBBERS_LIFETIME_MS / 1000} giây</span>:` +
-    ` vụ lửa xuất hiện gây <span class="damage">${SUMMON_DAMAGE} sát thương</span> trong <span>${SUMMON_RADIUS}px</span>.` +
+    ` vụ lửa xuất hiện gây <span class="damage magic">${SUMMON_DAMAGE} sát thương phép</span> trong <span>${SUMMON_RADIUS}px</span>.` +
     ` Tibbers có <span class="buff">${TIBBERS_HEALTH} máu</span>, tự đánh kẻ địch gần nhất và thiêu` +
-    ` <span class="damage">${AURA_DAMAGE_PER_TICK} sát thương</span> mỗi nhịp quanh mình.` +
+    ` <span class="damage magic">${AURA_DAMAGE_PER_TICK} sát thương phép</span> mỗi nhịp quanh mình.` +
     ` <span class="buff">Bấm lại</span> để điều Tibbers tới vị trí mới`;
   coolDown = 10000;
   manaCost = 100;

@@ -30,7 +30,7 @@ export default class Tryndamere_E extends Spell {
   image = api.asset('spell_tryndamere_e');
   name = 'Chém Xoáy (Tryndamere_E)';
   description =
-    'Xoay kiếm lướt tới vị trí chỉ định, gây <span class="damage">28 sát thương</span> cho mọi kẻ địch trên đường đi ' +
+    'Xoay kiếm lướt tới vị trí chỉ định, gây <span class="damage physical">28 sát thương vật lý</span> cho mọi kẻ địch trên đường đi ' +
     '(<span class="buff">mỗi mục tiêu chỉ trúng một lần</span>). Mỗi tướng chém trúng giảm <span class="time">1 giây</span> hồi chiêu.';
   coolDown = 9_000;
   manaCost = 0;
@@ -74,7 +74,7 @@ export default class Tryndamere_E extends Spell {
       for (const enemy of enemies) {
         if (hitTargets.has(enemy)) continue;
         hitTargets.add(enemy);
-        enemy.takeDamage(TRYNDAMERE_E_DAMAGE, this.owner, 'MAGIC');
+        enemy.takeDamage(TRYNDAMERE_E_DAMAGE, this.owner, 'PHYSICAL');
         blades.cutAt(enemy.position.x, enemy.position.y);
         if (enemy instanceof Champion) {
           this.currentCooldown = Math.max(
