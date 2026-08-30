@@ -45,6 +45,10 @@ const GUINSOO_FLAME: [number, number, number] = [255, 130, 70];
 
 export class Item_Guinsoo_Rage extends Buff {
   name = 'Cuồng Đao Guinsoo';
+  description =
+    `Mỗi đòn đánh cộng <span class="buff">+${Math.round(RAGE_ATTACK_SPEED_PER_STACK * 100)}% tốc đánh</span>, ` +
+    `tối đa <span class="buff">${RAGE_MAX_STACKS} cộng dồn</span>. Ở cộng dồn tối đa, cứ ` +
+    `<span class="buff">${PHANTOM_HIT_INTERVAL} đòn đánh</span> lại có một đòn đánh ra hai lần.`;
   buffAddType = BuffAddType.REPLACE_EXISTING;
 
   /** Swings at full rage since the last phantom, 0..interval-1. */

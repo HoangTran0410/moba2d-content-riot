@@ -64,6 +64,10 @@ export default class Renekton_W extends Spell {
 export class Renekton_W_Buff extends Buff {
   image: Buff['image'] = api.asset('spell_renekton_w');
   name = 'Kẻ Săn Mồi Tàn Bạo';
+  description =
+    `<span class="buff">${STRIKES} đòn đánh</span> kế tiếp gây thêm ` +
+    `<span class="damage physical">${DAMAGE_PER_STRIKE} sát thương vật lý</span> và ` +
+    `<span class="buff">Choáng</span> trong <span class="time">${STUN_MS / 1000} giây</span>.`;
 
   private stopListening?: () => void;
   private art: Renekton_W_Object | null = null;

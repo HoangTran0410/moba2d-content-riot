@@ -211,6 +211,14 @@ export class Zed_R_Mark extends Buff {
   buffAddType = BuffAddType.REPLACE_EXISTING;
 
   storePercent = 0.35;
+
+  // `storePercent` is a field the caster may override, so the sentence is
+  // built where the final value is known rather than beside the declaration.
+  onCreate(): void {
+    this.description =
+      `Ghi lại <span class="buff">${Math.round(this.storePercent * 100)}%</span> sát thương Zed gây ra; ` +
+      `khi dấu ấn kết thúc, toàn bộ lượng đó nổ ra.`;
+  }
   storedDamage = 0;
 
   _detonated = false;

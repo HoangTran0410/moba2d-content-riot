@@ -156,6 +156,8 @@ export default class Morgana_R extends Spell {
  */
 export class Morgana_R_Tether extends Buff {
   name = 'Xiềng Hồn';
+  description =
+    'Bị xiềng — nếu vẫn trong tầm khi xiềng đứt, mục tiêu bị <span class="buff">Choáng</span>.';
   image: Buff['image'] = api.asset('spell_morgana_r');
 
   draw(): void {

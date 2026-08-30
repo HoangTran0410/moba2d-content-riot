@@ -341,7 +341,11 @@ describe("the pack's tests speak only published core surfaces", () => {
     // a spell promising "sát thương chuẩn" deals it. It reads this pack's own
     // source as text and imports nothing from core at all, so it adds to the
     // population and to no other count here.
-    expect(files.length).toBe(103);
+    //
+    // 104, not 103: `tests/buffDescriptions.test.ts`, which checks that a buff
+    // this pack invents says what it does. Like the one above it, it reads this
+    // pack's own source as text and imports nothing from core.
+    expect(files.length).toBe(104);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

@@ -39,6 +39,10 @@ export default class Camille_Q extends Spell {
 export class Camille_Q_Buff extends Buff {
   image = api.asset('spell_camille_q');
   name = 'Giao Thức Chuẩn Xác (Cường Hóa)';
+  description =
+    `Đòn đánh kế tiếp gây thêm <span class="damage magic">${CAMILLE_Q_DAMAGE} sát thương phép</span>, ` +
+    `hoặc <span class="damage true">${CAMILLE_Q_TRUE_DAMAGE} sát thương chuẩn</span> nếu chờ đủ ` +
+    `<span class="time">${CAMILLE_Q_CHARGE_MS / 1000} giây</span>.`;
   isQ2Ready = false;
   timer = 0;
   private stopListening?: () => void;

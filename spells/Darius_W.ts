@@ -64,6 +64,10 @@ export default class Darius_W extends Spell {
 export class Darius_W_Buff extends Buff {
   image: Buff['image'] = api.asset('spell_darius_w');
   name = 'Đòn Hiểm';
+  description =
+    `Đòn đánh kế tiếp gây thêm <span class="damage physical">${BONUS_DAMAGE} sát thương vật lý</span> và ` +
+    `<span class="buff">Làm Chậm ${Math.round(SLOW_PERCENT * 100)}%</span> trong ` +
+    `<span class="time">${SLOW_MS / 1000} giây</span>.`;
 
   /**
    * The spell that armed this, so a kill can pay part of its cooldown back.

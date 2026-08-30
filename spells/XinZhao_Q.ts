@@ -70,6 +70,11 @@ export default class XinZhao_Q extends Spell {
 export class XinZhao_Q_Buff extends Buff {
   image: Buff['image'] = api.asset('spell_xinzhao_q');
   name = 'Liên Hoàn Tam Kích';
+  description =
+    `<span class="buff">${XINZHAO_Q_ATTACKS} đòn đánh</span> kế tiếp gây thêm ` +
+    `<span class="damage physical">${XINZHAO_Q_BONUS_DAMAGE} sát thương vật lý</span>; ` +
+    `đòn cuối <span class="buff">Hất Tung</span> trong ` +
+    `<span class="time">${XINZHAO_Q_KNOCKUP_MS / 1000} giây</span>.`;
   strikesLeft = XINZHAO_Q_ATTACKS;
   spellRef: Spell | null = null;
 

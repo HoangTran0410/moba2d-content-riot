@@ -179,6 +179,7 @@ export default class LeeSin_W extends Spell {
  */
 export class LeeSin_W_IronWill extends Buff {
   name = 'Ý Chí Sắt Đá';
+  description = 'Hồi máu đều đặn trong suốt thời gian hiệu lực.';
   buffAddType = BuffAddType.RENEW_EXISTING;
 
   totalHeal = 60;

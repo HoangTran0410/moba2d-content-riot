@@ -52,6 +52,10 @@ const SHEEN_GLOW: [number, number, number] = [140, 190, 255];
  */
 export class SpellbladeBuff extends Buff {
   name = 'Thủy Kiếm';
+  description =
+    `Sau khi dùng một chiêu thức, đòn đánh kế tiếp gây thêm ` +
+    `<span class="damage physical">${Math.round(SHEEN_BASE_AD_RATIO * 100)}% sát thương công vật lý</span>. ` +
+    `Hồi lại sau <span class="time">${SPELLBLADE_ICD_MS / 1000} giây</span>.`;
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
 
   /** When the charge was armed, or null while unarmed. */

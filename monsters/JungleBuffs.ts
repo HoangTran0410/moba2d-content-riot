@@ -166,6 +166,14 @@ export function makeBlueBuff(api: ContentApi) {
     // is what `STACKS_AND_CONTINUE` with `maxStacks: 1` would do.
     buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
     bonuses = { manaRegen: { flatBonus: BLUE_BUFF.manaRegenBonus } };
+    // Written rather than left to `StatAmp`'s own list, which would name the
+    // mana regeneration and nothing else — and the regeneration is not why
+    // anyone takes this camp. The cooldown burn is an `onUpdate` loop over the
+    // wearer's spells, and no stat exists for it to appear as.
+    description =
+      `Hồi <span class="heal">${Math.round(BLUE_BUFF.instantManaPercent * 100)}% năng lượng tối đa</span> ngay lập tức. ` +
+      `Tăng <span class="buff">${Math.round(BLUE_BUFF.manaRegenBonus * 60)}/giây</span> hồi năng lượng và ` +
+      `rút ngắn mọi thời gian hồi chiêu <span class="buff">${Math.round(BLUE_BUFF.cooldownHaste * 100)}%</span>.`;
 
     onUpdate(): void {
       const wearer = this.targetUnit;
@@ -228,6 +236,15 @@ export function makeRedBuff(api: ContentApi) {
     stackId = RED_BUFF.stackId;
     image = api.asset('monster_Red_Brambleback');
     buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
+    // This buff carries no stats and sets no status flags — it is an `onHit`
+    // and nothing else — so there is nothing for core to derive a sentence
+    // from. Without this the row would hover as a name and a countdown, which
+    // is the state every buff in this pack was in.
+    description =
+      `Đòn đánh thường thiêu đốt mục tiêu: <span class="damage true">${RED_BUFF.burnTotal} sát thương chuẩn</span> ` +
+      `trong <span class="time">${RED_BUFF.burnDurationMs / 1000} giây</span> và ` +
+      `<span class="buff">Làm Chậm ${Math.round(RED_BUFF.slowPercent * 100)}%</span> trong ` +
+      `<span class="time">${RED_BUFF.slowDurationMs / 1000} giây</span>.`;
 
     onHit(hit: OnHitEvent): void {
       // The brand belongs to the swing, not to every application the swing
@@ -244,6 +261,7 @@ export function makeRedBuff(api: ContentApi) {
       const slow = new api.buffs.Slow(RED_BUFF.slowDurationMs, this.targetUnit, hit.victim);
       slow.name = RED_BUFF.name;
       slow.stackId = RED_BUFF.slowStackId;
+      slow.description = `Bị Bùa Đỏ thiêu đốt — giảm <span class="buff">${Math.round(RED_BUFF.slowPercent * 100)}%</span> tốc chạy.`;
       slow.percent = RED_BUFF.slowPercent;
       slow.buffAddType = api.enums.BuffAddType.RENEW_EXISTING;
       hit.victim.addBuff(slow);

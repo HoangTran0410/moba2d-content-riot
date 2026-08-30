@@ -35,6 +35,9 @@ const KRAKEN_DEEP_BLUE: [number, number, number] = [110, 170, 255];
 
 export class Item_Kraken_Harpoon extends Buff {
   name = 'Móc Diệt Thủy Quái';
+  description =
+    `Cứ <span class="buff">${KRAKEN_HIT_INTERVAL} đòn đánh</span> lên cùng một mục tiêu thì đòn thứ ` +
+    `${KRAKEN_HIT_INTERVAL} gây thêm <span class="damage physical">${KRAKEN_PROC_DAMAGE} sát thương vật lý</span>.`;
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
 
   /** Consecutive swings into `lastVictim`, 0..2 — the third fires and resets. */

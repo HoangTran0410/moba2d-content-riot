@@ -234,6 +234,7 @@ export default class Sett_W extends Spell {
  */
 export class Sett_W_Grit_Listener extends Buff {
   name = 'Nộ Khí';
+  description = 'Sát thương phải nhận được tích thành Nộ Khí cho chiêu W.';
   spell: Sett_W | null = null;
 
   onDamageTaken(_swung: number, landed: number): void {

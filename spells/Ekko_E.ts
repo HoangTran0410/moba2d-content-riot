@@ -248,6 +248,9 @@ export class Ekko_E_Rift extends SpellObject {
 export class Ekko_E_Buff extends Buff {
   image = api.asset('spell_ekko_e');
   name = 'Biến Chuyển Pha (Cường Hóa)';
+  description =
+    `Đòn đánh kế tiếp gây thêm <span class="damage magic">${EKKO_E_BLINK_DAMAGE} sát thương phép</span> ` +
+    `và dịch chuyển Ekko tới sát mục tiêu.`;
   private stopListening?: () => void;
   private auraObj: Ekko_E_AuraObject | null = null;
 

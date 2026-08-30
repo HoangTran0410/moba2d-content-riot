@@ -140,6 +140,14 @@ export class Leblanc_Q_Mark extends Buff {
   /** The bonus damage a consuming hit deals — set by whoever placed the mark. */
   bonusDamage = 0;
 
+  // In `onCreate` because the caster sets `bonusDamage` after constructing
+  // this — the same reason core's own numeric buffs describe themselves there.
+  onCreate(): void {
+    this.description =
+      `Bị đánh dấu — chiêu thức kế tiếp của LeBlanc kích nổ ấn ký để gây thêm ` +
+      `<span class="damage magic">${Math.round(this.bonusDamage)} sát thương phép</span>.`;
+  }
+
   draw(): void {
     const pos = this.targetUnit.position;
     const size = this.targetUnit.animatedValues.displaySize;

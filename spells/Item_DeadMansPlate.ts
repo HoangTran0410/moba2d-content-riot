@@ -73,6 +73,10 @@ const PLATE_IMPACT: [number, number, number] = [235, 175, 95];
 
 export class Item_DeadMansPlate_Momentum extends Buff {
   name = 'Giáp Người Chết';
+  description =
+    `Đi bộ tích Đà: đầy Đà cho <span class="buff">+${Math.round(SPEED_AT_FULL * 100)}%</span> tốc chạy, ` +
+    `và đòn đánh kế tiếp tiêu hết Đà để gây thêm ` +
+    `<span class="damage physical">${IMPACT_DAMAGE_AT_FULL} sát thương vật lý</span> và Làm Chậm.`;
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
 
   /** 0 .. `MAX_MOMENTUM`. */

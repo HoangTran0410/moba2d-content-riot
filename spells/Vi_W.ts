@@ -148,6 +148,11 @@ export default class Vi_W extends Spell {
 /** The window itself: a timer with an icon, so the player can see it running out. */
 export class Vi_W_Buff extends Buff {
   name = 'Phá Giáp';
+  description =
+    `Mỗi <span class="buff">${W_STACKS} đòn đánh</span> lên cùng một mục tiêu gây thêm ` +
+    `<span class="damage physical">${W_PROC} sát thương vật lý</span> và ` +
+    `<span class="buff">Làm Chậm ${Math.round(W_SLOW * 100)}%</span> trong ` +
+    `<span class="time">${W_SLOW_MS / 1000} giây</span>.`;
   image = api.asset('spell_vi_w');
 }
 
