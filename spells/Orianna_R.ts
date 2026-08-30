@@ -1,6 +1,7 @@
 import type { AttackableUnit } from '@moba2d/core/content/types';
 import { Orianna_Ball, ballFor } from './Orianna_Q';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
@@ -68,7 +69,7 @@ export default class Orianna_R extends Spell {
   targetingMode = 'SELF' as const;
   image = api.asset('spell_orianna_r');
   name = 'Lệnh: Sóng Âm (Orianna_R)';
-  description = `Quả Cầu nạp năng lượng trong <span class="time">${WINDUP_MS / 1000} giây</span> rồi bung ra một chấn động bán kính <span class="buff">${RADIUS}</span>: <span class="damage magic">${DAMAGE} sát thương phép</span>, <span class="buff">hút mọi kẻ địch về phía Quả Cầu</span> và <span class="buff">Hất Tung</span> trong <span class="time">${AIRBORNE_DURATION_MS / 1000} giây</span>.`;
+  description = `Quả Cầu nạp năng lượng trong <span class="time">${secs(WINDUP_MS)} giây</span> rồi bung ra một chấn động bán kính <span class="buff">${RADIUS}</span>: <span class="damage magic">${DAMAGE} sát thương phép</span>, <span class="buff">hút mọi kẻ địch về phía Quả Cầu</span> và <span class="buff">Hất Tung</span> trong <span class="time">${secs(AIRBORNE_DURATION_MS)} giây</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

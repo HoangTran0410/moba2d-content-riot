@@ -1,5 +1,6 @@
 import type { AttackableUnit } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const effectiveRange = api.combat.Reach.effectiveRange;
@@ -58,7 +59,7 @@ export default class Warwick_R extends Spell {
   name = 'Khóa Chết (Warwick_R)';
   description =
     `Nhảy tới kẻ địch gần con trỏ nhất trong <span>${RANGE}px</span>, ghim chúng` +
-    ` <span class="buff">Choáng</span> trong <span class="time">${SUPPRESS_MS / 1000} giây</span>` +
+    ` <span class="buff">Choáng</span> trong <span class="time">${secs(SUPPRESS_MS)} giây</span>` +
     ` và cắn <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span> mỗi nhịp`;
   coolDown = 10000;
   manaCost = 70;

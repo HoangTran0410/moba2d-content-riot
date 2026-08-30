@@ -1,5 +1,6 @@
 import type { CastSpec, Rectangle } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const SpellForm = api.enums.SpellForm;
 
@@ -53,8 +54,8 @@ export default class MasterYi_W extends Spell {
   image = api.asset('spell_masteryi_w');
   name = 'Thiền (MasterYi_W)';
   description =
-    `Yi ngồi thiền tối đa <span class="time">${CHANNEL_DURATION_MS / 1000} giây</span>, hồi` +
-    ` <span class="heal">${HEAL_PER_TICK} máu</span> mỗi <span class="time">${TICK_EVERY_MS / 1000} giây</span>` +
+    `Yi ngồi thiền tối đa <span class="time">${secs(CHANNEL_DURATION_MS)} giây</span>, hồi` +
+    ` <span class="heal">${HEAL_PER_TICK} máu</span> mỗi <span class="time">${secs(TICK_EVERY_MS)} giây</span>` +
     ` và nhận khiên <span class="heal">${SHIELD_AMOUNT}</span>. Di chuyển hoặc bị khống chế sẽ ngắt thiền`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;

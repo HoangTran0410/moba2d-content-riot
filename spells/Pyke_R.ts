@@ -7,6 +7,7 @@ import type {
   TargetingRequest,
 } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
@@ -70,9 +71,7 @@ export default class Pyke_R extends Spell implements ExecuteSpell {
   image = api.asset('spell_pyke_r');
   name = 'Tử Thần Đáy Sâu (Pyke_R)';
   description =
-    `Pyke đánh dấu chỗ đứng của mục tiêu bằng một chữ X, rồi sau <span class="time">${
-      WINDUP_MS / 1000
-    } giây</span> đâm lên từ dưới đất.` +
+    `Pyke đánh dấu chỗ đứng của mục tiêu bằng một chữ X, rồi sau <span class="time">${secs(WINDUP_MS)} giây</span> đâm lên từ dưới đất.` +
     ` Kẻ địch còn dưới <span class="buff">${EXECUTE_THRESHOLD} máu hiệu dụng</span> (tính cả khiên) bị` +
     ` <span class="damage">hành quyết ngay lập tức</span>; số còn lại chỉ nhận` +
     ` <span class="damage magic">${STRIKE_DAMAGE} sát thương phép</span>.` +

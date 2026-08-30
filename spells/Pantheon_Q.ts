@@ -1,5 +1,6 @@
 import type { AttackableUnit, CancelReason, CastContext, CastSpec, Rectangle, Slow, Vec2 } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Monster = api.units.Monster;
 const SpellForm = api.enums.SpellForm;
@@ -41,13 +42,52 @@ type SpearTarget = AttackableUnit & {
 };
 
 
+/**
+ * What the spear is worth, and against whom.
+ *
+ * Exported one constant at a time rather than left inline, because the
+ * description now quotes every one of them: a tooltip that said only "đâm
+ * giáo" was the complaint that started this, and the cure for it is a
+ * description built from the same numbers the arithmetic below uses. Retuning
+ * one of these retunes the sentence.
+ */
+export const BASE_DAMAGE = 20;
+
+export const MINION_MULTIPLIER = 0.7;
+
+export const MONSTER_MULTIPLIER = 0.8;
+
+/** Every body the spear pierces after the first. */
+export const SUBSEQUENT_MULTIPLIER = 0.5;
+
+/** Below this share of their maximum, the spear finishes the job. */
+export const EXECUTE_THRESHOLD = 0.2;
+
+export const EXECUTE_MULTIPLIER = 2;
+
+/** How much winding up the throw costs him in footspeed. */
+export const CHARGE_SLOW_PERCENT = 0.1;
+
+
 export const damageMultiplier = (target: SpearTarget): number =>
-  target instanceof Monster ? 0.8 : target.unitType === 'minion' ? 0.7 : 1;
+  target instanceof Monster
+    ? MONSTER_MULTIPLIER
+    : target.unitType === 'minion'
+      ? MINION_MULTIPLIER
+      : 1;
 
 
 export const spearDamage = (target: SpearTarget, subsequent: boolean): number => {
-  const executeMultiplier = target.stats.health.value < target.stats.maxHealth.value * 0.2 ? 2 : 1;
-  return 20 * damageMultiplier(target) * executeMultiplier * (subsequent ? 0.5 : 1);
+  const executeMultiplier =
+    target.stats.health.value < target.stats.maxHealth.value * EXECUTE_THRESHOLD
+      ? EXECUTE_MULTIPLIER
+      : 1;
+  return (
+    BASE_DAMAGE *
+    damageMultiplier(target) *
+    executeMultiplier *
+    (subsequent ? SUBSEQUENT_MULTIPLIER : 1)
+  );
 };
 
 
@@ -99,7 +139,20 @@ const drawSpearBody = (half: number, blade: number): void => {
 export default class Pantheon_Q extends Spell {
   image = api.asset('spell_pantheon_q');
   name = 'Ngọn Giáo Sao Băng (Pantheon_Q)';
-  description = 'Thả sớm để đâm giáo, hoặc giữ để ném một ngọn giáo xuyên.';
+  description =
+    `<b>Thả sớm</b> (dưới <span class="time">${secs(HOLD_THRESHOLD_MS)} giây</span>): đâm một nhát giáo` +
+    ` rộng <span>${THRUST_WIDTH}px</span>, xa <span>${THRUST_REACH}px</span> ngay trước mặt.` +
+    ` <b>Giữ</b> để ném một ngọn giáo <span class="buff">xuyên qua mọi kẻ địch</span>:` +
+    ` tầm ném lớn dần từ <span>${MIN_RANGE}px</span> lên <span>${RANGE}px</span> sau` +
+    ` <span class="time">${secs(RANGE_CHARGE_MS)} giây</span> tích lực.` +
+    ` Cả hai đều gây <span class="damage physical">${BASE_DAMAGE} sát thương vật lý</span>` +
+    ` — <span class="buff">${pct(MINION_MULTIPLIER)}%</span> lên lính,` +
+    ` <span class="buff">${pct(MONSTER_MULTIPLIER)}%</span> lên quái,` +
+    ` <span class="buff">${pct(SUBSEQUENT_MULTIPLIER)}%</span> cho những mục tiêu bị xuyên tiếp theo —` +
+    ` và <span class="buff">nhân đôi</span> lên kẻ địch còn dưới` +
+    ` <span class="buff">${pct(EXECUTE_THRESHOLD)}% máu</span>.` +
+    ` Trong lúc tích lực Pantheon <span class="buff">bị làm chậm ${pct(CHARGE_SLOW_PERCENT)}%</span>` +
+    ` và mọi hiệu ứng khống chế đều huỷ cú ném.`;
   coolDown = 4_000;
   manaCost = 25;
 
@@ -147,7 +200,7 @@ export default class Pantheon_Q extends Spell {
     this.castDirection = this.firingDirection(context);
     this.aimContext = context;
     this.chargeSlow = new Slow(MAX_CHARGE_MS, this.owner, this.owner);
-    this.chargeSlow.percent = 0.1;
+    this.chargeSlow.percent = CHARGE_SLOW_PERCENT;
     this.chargeSlow.stackId = 'pantheon_q_charge_slow';
     this.owner.addBuff(this.chargeSlow);
   }

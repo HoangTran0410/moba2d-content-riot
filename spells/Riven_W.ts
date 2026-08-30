@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const effectiveRange = api.combat.Reach.effectiveRange;
@@ -33,7 +34,7 @@ export default class Riven_W extends Spell {
   description =
     `Đóng lưỡi kiếm xuống đất, nứt ra bán kính ${W_RADIUS} sau ${W_WINDUP_MS}ms rồi gây ` +
     `<span class="damage physical">${W_DAMAGE} sát thương vật lý</span> và choáng ` +
-    `${W_STUN_MS / 1000} giây quanh mình.`;
+    `${secs(W_STUN_MS)} giây quanh mình.`;
   coolDown = 9_000;
   manaCost = 30;
   range = W_RADIUS;

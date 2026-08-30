@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastSpec, StatAmp } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const EventType = api.enums.EventType;
 const StatAmp = api.buffs.StatAmp;
@@ -36,8 +37,8 @@ export default class Sett_Q extends Spell {
   name = 'Không Trượt Phát Nào (Sett_Q)';
   description =
     `Nắm tay rực lửa: ${SETT_Q_HITS} đòn đánh thường tiếp theo trong ` +
-    `${SETT_Q_WINDOW_MS / 1000} giây gây thêm <span class="damage physical">${SETT_Q_BONUS} sát thương vật lý</span>, ` +
-    `và Sett được +${Math.round(SETT_Q_ATTACK_SPEED * 100)}% tốc độ đánh trong suốt thời gian đó.`;
+    `${secs(SETT_Q_WINDOW_MS)} giây gây thêm <span class="damage physical">${SETT_Q_BONUS} sát thương vật lý</span>, ` +
+    `và Sett được +${pct(SETT_Q_ATTACK_SPEED)}% tốc độ đánh trong suốt thời gian đó.`;
   coolDown = 7_000;
   manaCost = 20;
 

@@ -1,5 +1,6 @@
 import type { AttackableUnit } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
@@ -37,7 +38,7 @@ export default class Veigar_W extends Spell {
   targetingMode = 'POINT' as const;
   image = api.asset('spell_veigar_w');
   name = 'Thiên Thạch Đen (Veigar_W)';
-  description = `Gọi một khối vật chất hắc ám giáng xuống vị trí chỉ định. Vùng đất bị ảnh hưởng hiện rõ trong <span class="time">${WINDUP_MS / 1000} giây</span> trước khi nổ, gây <span class="damage magic">${DAMAGE} sát thương phép</span> cho kẻ địch còn đứng trong vùng.`;
+  description = `Gọi một khối vật chất hắc ám giáng xuống vị trí chỉ định. Vùng đất bị ảnh hưởng hiện rõ trong <span class="time">${secs(WINDUP_MS)} giây</span> trước khi nổ, gây <span class="damage magic">${DAMAGE} sát thương phép</span> cho kẻ địch còn đứng trong vùng.`;
   // kept as a literal (not an exported constant) so the repo-wide arcade
   // cooldown-cap scan in tests/game/spells/cooldowns.test.ts can see it
   coolDown = 6_000;

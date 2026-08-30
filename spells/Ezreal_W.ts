@@ -1,5 +1,6 @@
 import type { AttackableUnit, BasicAttackHit, Spell } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const EventType = api.enums.EventType;
@@ -43,7 +44,7 @@ export default class Ezreal_W extends Spell {
   name = 'Tinh Hoa Tuôn Chảy (Ezreal_W)';
   description =
     'Bắn một quả cầu tinh túy xuyên qua lính, đánh dấu tướng địch đầu tiên trúng phải trong' +
-    ` <span class="time">${EZREAL_W_MARK_DURATION_MS / 1000} giây</span>.` +
+    ` <span class="time">${secs(EZREAL_W_MARK_DURATION_MS)} giây</span>.` +
     ' Đòn đánh hoặc chiêu thức kế tiếp của Ezreal lên mục tiêu đó sẽ kích nổ dấu ấn, gây' +
     ` <span class="damage magic">${EZREAL_W_DETONATE_DAMAGE} sát thương phép</span>.` +
     ` Nếu kích nổ bằng chiêu thức, Ezreal hoàn lại <span class="buff">${EZREAL_W_MANA_REFUND} năng lượng</span>.`;

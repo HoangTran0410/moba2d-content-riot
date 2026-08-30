@@ -1,5 +1,6 @@
 import type { AttackableUnit, TrailSystem } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
@@ -34,8 +35,8 @@ export default class Jinx_W extends Spell {
   name = 'Giật Bắn! (Jinx_W)';
   description =
     `Bắn một tia điện xa <span>${RANGE}px</span>: mục tiêu đầu tiên trúng phải nhận` +
-    ` <span class="damage physical">${DAMAGE} sát thương vật lý</span> và bị <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span>` +
-    ` trong <span class="time">${SLOW_DURATION / 1000} giây</span>`;
+    ` <span class="damage physical">${DAMAGE} sát thương vật lý</span> và bị <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span>` +
+    ` trong <span class="time">${secs(SLOW_DURATION)} giây</span>`;
   coolDown = 9000;
   manaCost = 35;
 

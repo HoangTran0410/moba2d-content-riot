@@ -1,5 +1,6 @@
 import type { Buff } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
@@ -39,10 +40,8 @@ export default class Pyke_W extends Spell {
   image = api.asset('spell_pyke_w');
   name = 'Lặn Mất Tăm (Pyke_W)';
   description =
-    `Pyke lặn xuống nước trong <span class="time">${DIVE_MS / 1000} giây</span>:` +
-    ` <span class="buff">Tàng Hình</span> và <span class="buff">Tăng Tốc ${Math.round(
-      SPEEDUP_START_PERCENT * 100
-    )}%</span>, giảm dần còn <span class="buff">${Math.round(SPEEDUP_END_PERCENT * 100)}%</span>` +
+    `Pyke lặn xuống nước trong <span class="time">${secs(DIVE_MS)} giây</span>:` +
+    ` <span class="buff">Tàng Hình</span> và <span class="buff">Tăng Tốc ${pct(SPEEDUP_START_PERCENT)}%</span>, giảm dần còn <span class="buff">${pct(SPEEDUP_END_PERCENT)}%</span>` +
     ` khi hết thời gian. <span class="buff">Đánh thường hoặc dùng bất kỳ chiêu nào</span> sẽ khiến hắn nổi lên ngay lập tức`;
   coolDown = W_COOLDOWN_MS;
   manaCost = W_MANA_COST;

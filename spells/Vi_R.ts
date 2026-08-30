@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastContext, CastSpec, Dash, TargetingRequest } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const effectiveRange = api.combat.Reach.effectiveRange;
@@ -62,7 +63,7 @@ export default class Vi_R extends Spell {
   name = 'Tả Xung Hữu Đột (Vi_R)';
   description = `Lao tới một mục tiêu và không gì cản được:
     <span class="damage physical">${R_DAMAGE} sát thương vật lý</span> và hất tung
-    ${R_KNOCKUP_MS / 1000} giây khi tới. Kẻ địch trên đường bị gạt sang bên,
+    ${secs(R_KNOCKUP_MS)} giây khi tới. Kẻ địch trên đường bị gạt sang bên,
     chịu <span class="damage physical">${R_PASS_DAMAGE} sát thương vật lý</span>.`;
   coolDown = 10_000;
   manaCost = 100;

@@ -262,7 +262,7 @@ export const spellCatalog = {
   },
   "Brand_Q": {
     name: "Vệt Lửa (Brand_Q)",
-    description: "Phóng một quả cầu lửa, gây <span class=\"damage magic\">26 sát thương phép</span> cho kẻ địch đầu tiên trúng phải và <span class=\"buff\">Thiêu Đốt</span> mục tiêu. Nếu mục tiêu <span class=\"buff\">đã bị Thiêu Đốt</span> từ trước, nó bị <span class=\"buff\">Choáng</span> trong <span class=\"time\">1.25 giây</span>.",
+    description: "Phóng một quả cầu lửa, gây <span class=\"damage magic\">26 sát thương phép</span> cho kẻ địch đầu tiên trúng phải và <span class=\"buff\">Thiêu Đốt</span> mục tiêu. Nếu mục tiêu <span class=\"buff\">đã bị Thiêu Đốt</span> từ trước, nó bị <span class=\"buff\">Choáng</span> trong <span class=\"time\">1.3 giây</span>.",
     iconKey: "spell_brand_q",
     coolDownMs: 6000,
     manaCost: 30,
@@ -278,7 +278,7 @@ export const spellCatalog = {
   },
   "Brand_W": {
     name: "Cột Lửa (Brand_W)",
-    description: "Sau <span class=\"time\">0.62 giây</span>, một cột lửa phun lên tại vị trí chỉ định, gây <span class=\"damage magic\">28 sát thương phép</span> và <span class=\"buff\">Thiêu Đốt</span> mọi kẻ địch trong vùng. Mục tiêu <span class=\"buff\">đã bị Thiêu Đốt</span> nhận <span class=\"damage magic\">35 sát thương phép</span>.",
+    description: "Sau <span class=\"time\">0.6 giây</span>, một cột lửa phun lên tại vị trí chỉ định, gây <span class=\"damage magic\">28 sát thương phép</span> và <span class=\"buff\">Thiêu Đốt</span> mọi kẻ địch trong vùng. Mục tiêu <span class=\"buff\">đã bị Thiêu Đốt</span> nhận <span class=\"damage magic\">35 sát thương phép</span>.",
     iconKey: "spell_brand_w",
     coolDownMs: 8000,
     manaCost: 35,
@@ -294,7 +294,7 @@ export const spellCatalog = {
   },
   "Caitlyn_Q": {
     name: "Bắn Xuyên Táo (Caitlyn_Q)",
-    description: "Lên đạn trong <span class=\"time\">0.35 giây</span> rồi bắn một phát xuyên thấu, gây <span class=\"damage physical\">32 sát thương vật lý</span> lên mục tiêu đầu tiên và <span class=\"damage physical\">19 sát thương vật lý</span> lên những mục tiêu sau. Kẻ địch đang dính Bẫy Yordle luôn nhận sát thương đầy đủ.",
+    description: "Lên đạn trong <span class=\"time\">0.4 giây</span> rồi bắn một phát xuyên thấu, gây <span class=\"damage physical\">32 sát thương vật lý</span> lên mục tiêu đầu tiên và <span class=\"damage physical\">19 sát thương vật lý</span> lên những mục tiêu sau. Kẻ địch đang dính Bẫy Yordle luôn nhận sát thương đầy đủ.",
     iconKey: "spell_caitlyn_q",
     coolDownMs: 8000,
     manaCost: 45,
@@ -366,7 +366,7 @@ export const spellCatalog = {
   },
   "Cassiopeia_R": {
     name: "Cái Nhìn Hóa Đá (Cassiopeia_R)",
-    description: "Quét một hình nón <span>420px</span> theo hướng chỉ định trong <span class=\"time\">0.42 giây</span>: <span class=\"damage magic\">40 sát thương phép</span>, <span class=\"buff\">Choáng</span> trong <span class=\"time\">1.4 giây</span> và <span class=\"buff\">Làm Chậm 50%</span> sau đó, <i>khi làn sóng chạm tới từng mục tiêu</i>",
+    description: "Quét một hình nón <span>420px</span> theo hướng chỉ định trong <span class=\"time\">0.4 giây</span>: <span class=\"damage magic\">40 sát thương phép</span>, <span class=\"buff\">Choáng</span> trong <span class=\"time\">1.4 giây</span> và <span class=\"buff\">Làm Chậm 50%</span> sau đó, <i>khi làn sóng chạm tới từng mục tiêu</i>",
     iconKey: "spell_cassiopeia_r",
     coolDownMs: 10000,
     manaCost: 80,
@@ -422,7 +422,7 @@ export const spellCatalog = {
   },
   "Darius_Q": {
     name: "Tàn Sát (Darius_Q)",
-    description: "Vung rìu quanh mình sau <span class=\"time\">0.55 giây</span> vung tay: <span class=\"damage physical\">30 sát thương vật lý</span> ở vành ngoài (<span>95px – 235px</span>), chỉ <span class=\"damage physical\">11 sát thương vật lý</span> cho kẻ đứng sát người. Lưỡi rìu <span class=\"buff\">hút 50% sát thương gây lên tướng</span> (<span class=\"buff\">70%</span> lên lính và quái) và gây <span class=\"damage\">Chảy Máu</span>",
+    description: "Vung rìu quanh mình sau <span class=\"time\">0.6 giây</span> vung tay: <span class=\"damage physical\">30 sát thương vật lý</span> ở vành ngoài (<span>95px – 235px</span>), chỉ <span class=\"damage physical\">11 sát thương vật lý</span> cho kẻ đứng sát người. Lưỡi rìu <span class=\"buff\">hút 50% sát thương gây lên tướng</span> (<span class=\"buff\">70%</span> lên lính và quái) và gây <span class=\"damage\">Chảy Máu</span>",
     iconKey: "spell_darius_q",
     coolDownMs: 7000,
     manaCost: 30,
@@ -462,7 +462,7 @@ export const spellCatalog = {
   },
   "Diana_R": {
     name: "Trăng Mờ (Diana_R)",
-    description: "Mọi kẻ địch trong bán kính 330 bị kéo về sát Diana trong\n    0.75 giây, rồi hứng <span class=\"damage magic\">42 sát thương phép</span> khi\n    đã bị dồn lại.",
+    description: "Mọi kẻ địch trong bán kính 330 bị kéo về sát Diana trong\n    0.8 giây, rồi hứng <span class=\"damage magic\">42 sát thương phép</span> khi\n    đã bị dồn lại.",
     iconKey: "spell_diana_r",
     coolDownMs: 10000,
     manaCost: 100,
@@ -598,7 +598,7 @@ export const spellCatalog = {
   },
   "Garen_R": {
     name: "Công Lý Demacia (Garen_R)",
-    description: "Giáng kiếm lên <span class=\"damage\">tướng địch</span> yếu nhất trong <span>200px</span> sau <span class=\"time\">0.45 giây</span>: <span class=\"damage true\">30 sát thương chuẩn</span> cộng thêm <span class=\"damage\">35% lượng máu đã mất</span> của mục tiêu, và <span class=\"buff\">lộ diện</span> chúng trong <span class=\"time\">1 giây</span>",
+    description: "Giáng kiếm lên <span class=\"damage\">tướng địch</span> yếu nhất trong <span>200px</span> sau <span class=\"time\">0.5 giây</span>: <span class=\"damage true\">30 sát thương chuẩn</span> cộng thêm <span class=\"damage\">35% lượng máu đã mất</span> của mục tiêu, và <span class=\"buff\">lộ diện</span> chúng trong <span class=\"time\">1 giây</span>",
     iconKey: "spell_garen_r",
     coolDownMs: 10000,
     manaCost: 60,
@@ -670,7 +670,7 @@ export const spellCatalog = {
   },
   "Irelia_E": {
     name: "Bước Nhảy Hoàn Vũ (Irelia_E)",
-    description: "Ném một lưỡi kiếm tới vị trí chỉ định; kiếm cắm xuống đất và chờ ở đó.\n    Bấm lần nữa để ném lưỡi thứ hai — khi nó cắm xuống, hai lưỡi kiếm lao vào nhau,\n    gây <span class=\"damage magic\">24 sát thương phép</span> và\n    <span class=\"buff\">làm choáng</span> <span class=\"time\">0.85 giây</span>\n    mọi kẻ địch nằm giữa chúng.",
+    description: "Ném một lưỡi kiếm tới vị trí chỉ định; kiếm cắm xuống đất và chờ ở đó.\n    Bấm lần nữa để ném lưỡi thứ hai — khi nó cắm xuống, hai lưỡi kiếm lao vào nhau,\n    gây <span class=\"damage magic\">24 sát thương phép</span> và\n    <span class=\"buff\">làm choáng</span> <span class=\"time\">0.9 giây</span>\n    mọi kẻ địch nằm giữa chúng.",
     iconKey: "spell_irelia_e",
     coolDownMs: 10000,
     manaCost: 50,
@@ -958,7 +958,7 @@ export const spellCatalog = {
   },
   "Jhin_E": {
     name: "Cạm Bẫy Nghệ Thuật (Jhin_E)",
-    description: "Đặt một bông sen bẫy <b>tàng hình</b> sau 0.75 giây, chờ\n    20 giây. Kẻ địch bước vào bán kính 90 bị làm chậm\n    60% trong 2 giây và bị <b>đánh dấu</b>\n    4 giây; bẫy lộ ra và <b>nở dần</b> trong 1.3 giây rồi\n    nổ, gây <span class=\"damage magic\">18 sát thương phép</span> cho mọi kẻ địch còn đứng trong\n    bán kính 150 — chạy kịp thì thoát. Tối đa 3 bẫy cùng lúc.",
+    description: "Đặt một bông sen bẫy <b>tàng hình</b> sau 0.8 giây, chờ\n    20 giây. Kẻ địch bước vào bán kính 90 bị làm chậm\n    60% trong 2 giây và bị <b>đánh dấu</b>\n    4 giây; bẫy lộ ra và <b>nở dần</b> trong 1.3 giây rồi\n    nổ, gây <span class=\"damage magic\">18 sát thương phép</span> cho mọi kẻ địch còn đứng trong\n    bán kính 150 — chạy kịp thì thoát. Tối đa 3 bẫy cùng lúc.",
     iconKey: "spell_jhin_e",
     coolDownMs: 9000,
     manaCost: 25,
@@ -1038,7 +1038,7 @@ export const spellCatalog = {
   },
   "Katarina_R": {
     name: "Bông Sen Tử Thần (Katarina_R)",
-    description: "Xoay tròn liên tục trong 2.5 giây, phóng bão dao ra mọi hướng:\n    <span class=\"damage magic\">8 sát thương phép</span> mỗi\n    0.166 giây cho tối đa 3 kẻ địch trong vùng 350\n    (tổng cộng <span class=\"damage magic\">120</span>).\n    Bị choáng hoặc di chuyển sẽ ngắt kênh niệm.",
+    description: "Xoay tròn liên tục trong 2.5 giây, phóng bão dao ra mọi hướng:\n    <span class=\"damage magic\">8 sát thương phép</span> mỗi\n    0.2 giây cho tối đa 3 kẻ địch trong vùng 350\n    (tổng cộng <span class=\"damage magic\">120</span>).\n    Bị choáng hoặc di chuyển sẽ ngắt kênh niệm.",
     iconKey: "spell_katarina_r",
     coolDownMs: 10000,
     manaCost: 0,
@@ -1046,7 +1046,7 @@ export const spellCatalog = {
   },
   "Katarina_W": {
     name: "Tung Hứng (Katarina_W)",
-    description: "Tung một con dao lên không trung và nhận\n    <span class=\"buff\">+45% tốc độ di chuyển</span>\n    giảm dần trong 1.25 giây.\n    Dao sẽ rơi xuống đất đúng vị trí này sau 0.8 giây.",
+    description: "Tung một con dao lên không trung và nhận\n    <span class=\"buff\">+45% tốc độ di chuyển</span>\n    giảm dần trong 1.3 giây.\n    Dao sẽ rơi xuống đất đúng vị trí này sau 0.8 giây.",
     iconKey: "spell_katarina_w",
     coolDownMs: 9000,
     manaCost: 0,
@@ -1126,7 +1126,7 @@ export const spellCatalog = {
   },
   "Lissandra_Q": {
     name: "Mảnh Băng (Lissandra_Q)",
-    description: "Phóng một mũi băng gây <span class=\"damage magic\">18 sát thương phép</span> và <span class=\"buff\">làm chậm 28.000000000000004%</span> trong <span class=\"time\">1.5 giây</span>. Khi trúng mục tiêu đầu tiên, mũi băng <span class=\"buff\">vỡ tan</span> thành một luồng mảnh vụn rộng và nhanh hơn, bay thêm <span class=\"buff\">170 tầm</span> và gây sát thương cho những kẻ địch phía sau.",
+    description: "Phóng một mũi băng gây <span class=\"damage magic\">18 sát thương phép</span> và <span class=\"buff\">làm chậm 28%</span> trong <span class=\"time\">1.5 giây</span>. Khi trúng mục tiêu đầu tiên, mũi băng <span class=\"buff\">vỡ tan</span> thành một luồng mảnh vụn rộng và nhanh hơn, bay thêm <span class=\"buff\">170 tầm</span> và gây sát thương cho những kẻ địch phía sau.",
     iconKey: "spell_lissandra_q",
     coolDownMs: 5000,
     manaCost: 25,
@@ -1134,7 +1134,7 @@ export const spellCatalog = {
   },
   "Lissandra_R": {
     name: "Hầm Mộ Hàn Băng (Lissandra_R)",
-    description: "Tự phong ấn bản thân trong băng <span class=\"time\">2.5 giây</span>: <span class=\"buff\">không thể bị chọn làm mục tiêu và không nhận sát thương</span>, đồng thời hồi <span class=\"buff\">4–9 máu mỗi 0.25 giây</span> (càng mất nhiều máu, hồi càng nhiều). Một trận địa băng lan rộng ra bán kính <span class=\"buff\">260</span> trong <span class=\"time\">1.5 giây</span> và tồn tại <span class=\"time\">3 giây</span>, gây <span class=\"damage magic\">45 sát thương phép</span> một lần cho mỗi kẻ địch và <span class=\"buff\">làm chậm 35%</span> khi chúng còn đứng trong đó.",
+    description: "Tự phong ấn bản thân trong băng <span class=\"time\">2.5 giây</span>: <span class=\"buff\">không thể bị chọn làm mục tiêu và không nhận sát thương</span>, đồng thời hồi <span class=\"buff\">4–9 máu mỗi 0.3 giây</span> (càng mất nhiều máu, hồi càng nhiều). Một trận địa băng lan rộng ra bán kính <span class=\"buff\">260</span> trong <span class=\"time\">1.5 giây</span> và tồn tại <span class=\"time\">3 giây</span>, gây <span class=\"damage magic\">45 sát thương phép</span> một lần cho mỗi kẻ địch và <span class=\"buff\">làm chậm 35%</span> khi chúng còn đứng trong đó.",
     iconKey: "spell_lissandra_r",
     coolDownMs: 10000,
     manaCost: 90,
@@ -1222,7 +1222,7 @@ export const spellCatalog = {
   },
   "Malzahar_Q": {
     name: "Tiếng Gọi Hư Không (Malzahar_Q)",
-    description: "Mở hai cánh cổng Hư Không cách nhau <span>240px</span>. Sau <span class=\"time\">0.45 giây</span>, kẻ địch đứng giữa hai cổng nhận <span class=\"damage magic\">26 sát thương phép</span> và bị <span class=\"buff\">Câm Lặng</span> trong <span class=\"time\">1.4 giây</span>",
+    description: "Mở hai cánh cổng Hư Không cách nhau <span>240px</span>. Sau <span class=\"time\">0.5 giây</span>, kẻ địch đứng giữa hai cổng nhận <span class=\"damage magic\">26 sát thương phép</span> và bị <span class=\"buff\">Câm Lặng</span> trong <span class=\"time\">1.4 giây</span>",
     iconKey: "spell_malzahar_q",
     coolDownMs: 6000,
     manaCost: 60,
@@ -1230,7 +1230,7 @@ export const spellCatalog = {
   },
   "Malzahar_R": {
     name: "Âm Ti Trói Buộc (Malzahar_R)",
-    description: "Trói một kẻ địch, <span class=\"buff\">Choáng</span> và gây <span class=\"damage magic\">5 sát thương phép</span> mỗi <span class=\"time\">0.25 giây</span> suốt <span class=\"time\">2 giây</span>. Một <span class=\"buff\">Vùng Hư Vô</span> mở ra dưới chân nạn nhân, gây <span class=\"damage magic\">2 sát thương phép</span> mỗi nhịp trong <span class=\"time\">4 giây</span> và tồn tại kể cả khi kênh bị ngắt",
+    description: "Trói một kẻ địch, <span class=\"buff\">Choáng</span> và gây <span class=\"damage magic\">5 sát thương phép</span> mỗi <span class=\"time\">0.3 giây</span> suốt <span class=\"time\">2 giây</span>. Một <span class=\"buff\">Vùng Hư Vô</span> mở ra dưới chân nạn nhân, gây <span class=\"damage magic\">2 sát thương phép</span> mỗi nhịp trong <span class=\"time\">4 giây</span> và tồn tại kể cả khi kênh bị ngắt",
     iconKey: "spell_malzahar_r",
     coolDownMs: 10000,
     manaCost: 100,
@@ -1270,7 +1270,7 @@ export const spellCatalog = {
   },
   "MasterYi_W": {
     name: "Thiền (MasterYi_W)",
-    description: "Yi ngồi thiền tối đa <span class=\"time\">2 giây</span>, hồi <span class=\"heal\">4 máu</span> mỗi <span class=\"time\">0.25 giây</span> và nhận khiên <span class=\"heal\">25</span>. Di chuyển hoặc bị khống chế sẽ ngắt thiền",
+    description: "Yi ngồi thiền tối đa <span class=\"time\">2 giây</span>, hồi <span class=\"heal\">4 máu</span> mỗi <span class=\"time\">0.3 giây</span> và nhận khiên <span class=\"heal\">25</span>. Di chuyển hoặc bị khống chế sẽ ngắt thiền",
     iconKey: "spell_masteryi_w",
     coolDownMs: 8000,
     manaCost: 40,
@@ -1342,7 +1342,7 @@ export const spellCatalog = {
   },
   "Nautilus_E": {
     name: "Thủy Triều Dữ Dội (Nautilus_E)",
-    description: "Ba đợt cột nước dựng lên quanh Nautilus ở 130, 220, 310 đơn vị, cách nhau 0.25 giây. Mỗi đợt gây <span class=\"damage magic\">14 sát thương phép</span> và làm chậm 30%. Đứng yên là ăn đủ cả ba.",
+    description: "Ba đợt cột nước dựng lên quanh Nautilus ở 130, 220, 310 đơn vị, cách nhau 0.3 giây. Mỗi đợt gây <span class=\"damage magic\">14 sát thương phép</span> và làm chậm 30%. Đứng yên là ăn đủ cả ba.",
     iconKey: "spell_nautilus_e",
     coolDownMs: 10000,
     manaCost: 40,
@@ -1478,7 +1478,7 @@ export const spellCatalog = {
   },
   "Pantheon_Q": {
     name: "Ngọn Giáo Sao Băng (Pantheon_Q)",
-    description: "Thả sớm để đâm giáo, hoặc giữ để ném một ngọn giáo xuyên.",
+    description: "<b>Thả sớm</b> (dưới <span class=\"time\">0.4 giây</span>): đâm một nhát giáo rộng <span>100px</span>, xa <span>210px</span> ngay trước mặt. <b>Giữ</b> để ném một ngọn giáo <span class=\"buff\">xuyên qua mọi kẻ địch</span>: tầm ném lớn dần từ <span>100px</span> lên <span>700px</span> sau <span class=\"time\">1.5 giây</span> tích lực. Cả hai đều gây <span class=\"damage physical\">20 sát thương vật lý</span> — <span class=\"buff\">70%</span> lên lính, <span class=\"buff\">80%</span> lên quái, <span class=\"buff\">50%</span> cho những mục tiêu bị xuyên tiếp theo — và <span class=\"buff\">nhân đôi</span> lên kẻ địch còn dưới <span class=\"buff\">20% máu</span>. Trong lúc tích lực Pantheon <span class=\"buff\">bị làm chậm 10%</span> và mọi hiệu ứng khống chế đều huỷ cú ném.",
     iconKey: "spell_pantheon_q",
     coolDownMs: 4000,
     manaCost: 25,
@@ -1518,7 +1518,7 @@ export const spellCatalog = {
   },
   "Pyke_R": {
     name: "Tử Thần Đáy Sâu (Pyke_R)",
-    description: "Pyke đánh dấu chỗ đứng của mục tiêu bằng một chữ X, rồi sau <span class=\"time\">0.35 giây</span> đâm lên từ dưới đất. Kẻ địch còn dưới <span class=\"buff\">32 máu hiệu dụng</span> (tính cả khiên) bị <span class=\"damage\">hành quyết ngay lập tức</span>; số còn lại chỉ nhận <span class=\"damage magic\">30 sát thương phép</span>. Nếu nhát đâm kết liễu mục tiêu, chiêu cuối <span class=\"buff\">hồi ngay lập tức</span>",
+    description: "Pyke đánh dấu chỗ đứng của mục tiêu bằng một chữ X, rồi sau <span class=\"time\">0.4 giây</span> đâm lên từ dưới đất. Kẻ địch còn dưới <span class=\"buff\">32 máu hiệu dụng</span> (tính cả khiên) bị <span class=\"damage\">hành quyết ngay lập tức</span>; số còn lại chỉ nhận <span class=\"damage magic\">30 sát thương phép</span>. Nếu nhát đâm kết liễu mục tiêu, chiêu cuối <span class=\"buff\">hồi ngay lập tức</span>",
     iconKey: "spell_pyke_r",
     coolDownMs: 10000,
     manaCost: 60,
@@ -1622,7 +1622,7 @@ export const spellCatalog = {
   },
   "Riven_W": {
     name: "Kình Lực (Riven_W)",
-    description: "Đóng lưỡi kiếm xuống đất, nứt ra bán kính 170 sau 180ms rồi gây <span class=\"damage physical\">20 sát thương vật lý</span> và choáng 0.75 giây quanh mình.",
+    description: "Đóng lưỡi kiếm xuống đất, nứt ra bán kính 170 sau 180ms rồi gây <span class=\"damage physical\">20 sát thương vật lý</span> và choáng 0.8 giây quanh mình.",
     iconKey: "spell_riven_w",
     coolDownMs: 9000,
     manaCost: 30,
@@ -1758,7 +1758,7 @@ export const spellCatalog = {
   },
   "Soraka_E": {
     name: "Điểm Phân Cực (Soraka_E)",
-    description: "Mở một vùng ngày-đêm tại vị trí chỉ định, gây <span class=\"damage magic\">16 sát thương phép</span> ngay lập tức và <span class=\"buff\">Câm Lặng</span> kẻ địch đứng trong đó. Sau <span class=\"time\">1.5 giây</span> vùng này sụp xuống, gây thêm <span class=\"damage magic\">16 sát thương phép</span> và <span class=\"buff\">Trói</span> trong <span class=\"time\">1.25 giây</span>.",
+    description: "Mở một vùng ngày-đêm tại vị trí chỉ định, gây <span class=\"damage magic\">16 sát thương phép</span> ngay lập tức và <span class=\"buff\">Câm Lặng</span> kẻ địch đứng trong đó. Sau <span class=\"time\">1.5 giây</span> vùng này sụp xuống, gây thêm <span class=\"damage magic\">16 sát thương phép</span> và <span class=\"buff\">Trói</span> trong <span class=\"time\">1.3 giây</span>.",
     iconKey: "spell_soraka_e",
     coolDownMs: 9000,
     manaCost: 35,
@@ -1766,7 +1766,7 @@ export const spellCatalog = {
   },
   "Soraka_Q": {
     name: "Vẫn Tinh (Soraka_Q)",
-    description: "Gọi một vì sao rơi xuống vị trí chỉ định sau <span class=\"time\">0.45 giây</span>, gây <span class=\"damage magic\">24 sát thương phép</span> và <span class=\"buff\">Làm Chậm 30%</span> trong <span class=\"time\">1.5 giây</span>. Nếu trúng ít nhất một kẻ địch, bụi sao trở về với Soraka: hồi <span class=\"heal\">12 máu</span> và <span class=\"buff\">+25% tốc chạy</span> trong <span class=\"time\">2.5 giây</span>.",
+    description: "Gọi một vì sao rơi xuống vị trí chỉ định sau <span class=\"time\">0.5 giây</span>, gây <span class=\"damage magic\">24 sát thương phép</span> và <span class=\"buff\">Làm Chậm 30%</span> trong <span class=\"time\">1.5 giây</span>. Nếu trúng ít nhất một kẻ địch, bụi sao trở về với Soraka: hồi <span class=\"heal\">12 máu</span> và <span class=\"buff\">+25% tốc chạy</span> trong <span class=\"time\">2.5 giây</span>.",
     iconKey: "spell_soraka_q",
     coolDownMs: 6000,
     manaCost: 25,
@@ -1862,7 +1862,7 @@ export const spellCatalog = {
   },
   "Thresh_E": {
     name: "Lưỡi Hái Xoáy (Thresh_E)",
-    description: "Quất xích thành một <span class=\"buff\">vệt quét hình chữ nhật</span> dài <span>440px</span> rộng <span>180px</span>, tâm ở Thresh và xoay theo hướng con trỏ. Xích quét qua trong <span class=\"time\">0.32 giây</span>, <i>chạm tới ai thì trúng người đó</i>: <span class=\"damage magic\">18 sát thương phép</span>, <span class=\"buff\">quét</span> kẻ địch <span>200px</span> theo đúng hướng quất và <span class=\"buff\">Làm Chậm 40%</span>",
+    description: "Quất xích thành một <span class=\"buff\">vệt quét hình chữ nhật</span> dài <span>440px</span> rộng <span>180px</span>, tâm ở Thresh và xoay theo hướng con trỏ. Xích quét qua trong <span class=\"time\">0.3 giây</span>, <i>chạm tới ai thì trúng người đó</i>: <span class=\"damage magic\">18 sát thương phép</span>, <span class=\"buff\">quét</span> kẻ địch <span>200px</span> theo đúng hướng quất và <span class=\"buff\">Làm Chậm 40%</span>",
     iconKey: "spell_thresh_e",
     coolDownMs: 8000,
     manaCost: 30,
@@ -1998,7 +1998,7 @@ export const spellCatalog = {
   },
   "Varus_Q": {
     name: "Mũi Tên Xuyên Phá (Varus_Q)",
-    description: "Giữ để tích lực rồi bắn một mũi tên xuyên theo hướng con trỏ.",
+    description: "<b>Giữ</b> để kéo cung rồi thả ra một mũi tên <span class=\"buff\">xuyên qua mọi kẻ địch</span> trên đường bay. Tích lực đầy sau <span class=\"time\">1.5 giây</span> kéo tầm bắn từ <span>100px</span> lên <span>700px</span>, và sau <span class=\"time\">1.3 giây</span> kéo sát thương từ <span class=\"damage physical\">20</span> lên <span class=\"damage physical\">30 sát thương vật lý</span>. Mỗi mục tiêu bị xuyên sau đó nhận <span class=\"buff\">ít hơn 15%</span>, tối đa giảm <span class=\"buff\">67%</span>. Trong lúc kéo cung Varus <span class=\"buff\">tự làm chậm 20%</span> và mọi hiệu ứng khống chế đều huỷ mũi tên (hoàn lại nửa năng lượng).",
     iconKey: "spell_varus_q",
     coolDownMs: 5000,
     manaCost: 50,

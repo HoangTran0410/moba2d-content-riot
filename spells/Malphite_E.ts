@@ -1,5 +1,6 @@
 import type { AttackableUnit, CancelReason, CastContext, CastSpec, Rectangle } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Circle = api.utils.Quadtree.Circle;
@@ -49,7 +50,7 @@ type SlamTarget = AttackableUnit;
 export default class Malphite_E extends Spell {
   image = api.asset('spell_malphite_e');
   name = 'Dậm Đất (Malphite_E)';
-  description = `Malphite đập tay xuống đất, gây <span class="damage magic">${DAMAGE} sát thương phép</span> cho kẻ địch trong bán kính <span>${RADIUS}px</span> quanh mình, <span class="buff">Làm Chậm ${Math.round(SLOW_PERCENT * 100)}%</span> và <span class="buff">Giảm ${Math.round(CRIPPLE_PERCENT * 100)}% tốc độ đánh</span> trong <span class="time">${SLOW_DURATION_MS / 1000} giây</span>.`;
+  description = `Malphite đập tay xuống đất, gây <span class="damage magic">${DAMAGE} sát thương phép</span> cho kẻ địch trong bán kính <span>${RADIUS}px</span> quanh mình, <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> và <span class="buff">Giảm ${pct(CRIPPLE_PERCENT)}% tốc độ đánh</span> trong <span class="time">${secs(SLOW_DURATION_MS)} giây</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

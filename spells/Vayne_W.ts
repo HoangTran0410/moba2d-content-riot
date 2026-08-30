@@ -1,5 +1,6 @@
 import type { AttackableUnit, BasicAttackHit } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const BuffAddType = api.enums.BuffAddType;
@@ -43,7 +44,7 @@ export default class Vayne_W extends Spell {
   targetingMode = 'SELF' as const;
   image = api.asset('spell_vayne_w');
   name = 'Mũi Tên Bạc (Vayne_W)';
-  description = `Trong ${VAYNE_W_DURATION_MS / 1000} giây, mỗi ${VAYNE_W_STACKS} đòn đánh thường
+  description = `Trong ${secs(VAYNE_W_DURATION_MS)} giây, mỗi ${VAYNE_W_STACKS} đòn đánh thường
     vào <b>cùng một mục tiêu</b> gây thêm
     <span class="damage true">${VAYNE_W_PROC} sát thương chuẩn</span>. Đổi mục tiêu là mất đếm.`;
   coolDown = 10_000;

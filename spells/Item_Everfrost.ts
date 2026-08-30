@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const Root = api.buffs.Root;
@@ -52,7 +53,7 @@ export default class Item_Everfrost extends Spell {
   description =
     `Kích hoạt: bắn ra một luồng băng gây` +
     ` <span class="damage magic">${EVERFROST_DAMAGE} sát thương phép</span> và` +
-    ` <span class="buff">trói ${EVERFROST_ROOT_MS / 1000} giây</span> mọi kẻ địch trúng đòn`;
+    ` <span class="buff">trói ${secs(EVERFROST_ROOT_MS)} giây</span> mọi kẻ địch trúng đòn`;
   coolDown = EVERFROST_COOLDOWN_MS;
   manaCost = 0;
   range = EVERFROST_RANGE;

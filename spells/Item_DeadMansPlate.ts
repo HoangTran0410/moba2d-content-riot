@@ -1,5 +1,6 @@
 import type { CastSpec, OnHitEvent } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct } from '../text';
 
 const Spell = api.Spell;
 const Buff = api.buffs.Buff;
@@ -74,7 +75,7 @@ const PLATE_IMPACT: [number, number, number] = [235, 175, 95];
 export class Item_DeadMansPlate_Momentum extends Buff {
   name = 'Giáp Người Chết';
   description =
-    `Đi bộ tích Đà: đầy Đà cho <span class="buff">+${Math.round(SPEED_AT_FULL * 100)}%</span> tốc chạy, ` +
+    `Đi bộ tích Đà: đầy Đà cho <span class="buff">+${pct(SPEED_AT_FULL)}%</span> tốc chạy, ` +
     `và đòn đánh kế tiếp tiêu hết Đà để gây thêm ` +
     `<span class="damage physical">${IMPACT_DAMAGE_AT_FULL} sát thương vật lý</span> và Làm Chậm.`;
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
@@ -204,9 +205,9 @@ export default class Item_DeadMansPlate extends Spell {
   image = api.asset('item_dead_mans_plate');
   name = 'Giáp Người Chết (Item_DeadMansPlate)';
   description =
-    `Nội tại: di chuyển tích lực, tối đa tăng ${SPEED_AT_FULL * 100}% tốc chạy;` +
+    `Nội tại: di chuyển tích lực, tối đa tăng ${pct(SPEED_AT_FULL)}% tốc chạy;` +
     ` đòn đánh kế tiếp xả toàn bộ lực, gây tới ${IMPACT_DAMAGE_AT_FULL} sát thương vật lý` +
-    ` và làm chậm ${SLOW_PERCENT * 100}% khi tích đầy`;
+    ` và làm chậm ${pct(SLOW_PERCENT)}% khi tích đầy`;
   coolDown = 0;
   manaCost = 0;
 

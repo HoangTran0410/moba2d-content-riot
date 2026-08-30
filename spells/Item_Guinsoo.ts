@@ -1,5 +1,6 @@
 import type { CastSpec, OnHitEvent } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Buff = api.buffs.Buff;
@@ -46,7 +47,7 @@ const GUINSOO_FLAME: [number, number, number] = [255, 130, 70];
 export class Item_Guinsoo_Rage extends Buff {
   name = 'Cuồng Đao Guinsoo';
   description =
-    `Mỗi đòn đánh cộng <span class="buff">+${Math.round(RAGE_ATTACK_SPEED_PER_STACK * 100)}% tốc đánh</span>, ` +
+    `Mỗi đòn đánh cộng <span class="buff">+${pct(RAGE_ATTACK_SPEED_PER_STACK)}% tốc đánh</span>, ` +
     `tối đa <span class="buff">${RAGE_MAX_STACKS} cộng dồn</span>. Ở cộng dồn tối đa, cứ ` +
     `<span class="buff">${PHANTOM_HIT_INTERVAL} đòn đánh</span> lại có một đòn đánh ra hai lần.`;
   buffAddType = BuffAddType.REPLACE_EXISTING;
@@ -151,7 +152,7 @@ export default class Item_Guinsoo extends Spell {
   name = 'Cuồng Đao Guinsoo (Item_Guinsoo)';
   description =
     `Nội tại: mỗi đòn đánh tăng ${RAGE_ATTACK_SPEED_PER_STACK} tốc đánh trong` +
-    ` ${RAGE_STACK_MS / 1000} giây, cộng dồn ${RAGE_MAX_STACKS} lần. Khi tích đủ, mỗi đòn thứ` +
+    ` ${secs(RAGE_STACK_MS)} giây, cộng dồn ${RAGE_MAX_STACKS} lần. Khi tích đủ, mỗi đòn thứ` +
     ` ${PHANTOM_HIT_INTERVAL} kích hoạt các hiệu ứng đòn đánh của bạn thêm một lần nữa`;
   coolDown = 0;
   manaCost = 0;

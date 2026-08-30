@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
@@ -39,7 +40,7 @@ export default class Soraka_E extends Spell {
   targetingMode = 'POINT' as const;
   image = api.asset('spell_soraka_e');
   name = 'Điểm Phân Cực (Soraka_E)';
-  description = `Mở một vùng ngày-đêm tại vị trí chỉ định, gây <span class="damage magic">${IMPACT_DAMAGE} sát thương phép</span> ngay lập tức và <span class="buff">Câm Lặng</span> kẻ địch đứng trong đó. Sau <span class="time">${ZONE_DURATION_MS / 1000} giây</span> vùng này sụp xuống, gây thêm <span class="damage magic">${ERUPT_DAMAGE} sát thương phép</span> và <span class="buff">Trói</span> trong <span class="time">${ROOT_DURATION_MS / 1000} giây</span>.`;
+  description = `Mở một vùng ngày-đêm tại vị trí chỉ định, gây <span class="damage magic">${IMPACT_DAMAGE} sát thương phép</span> ngay lập tức và <span class="buff">Câm Lặng</span> kẻ địch đứng trong đó. Sau <span class="time">${secs(ZONE_DURATION_MS)} giây</span> vùng này sụp xuống, gây thêm <span class="damage magic">${ERUPT_DAMAGE} sát thương phép</span> và <span class="buff">Trói</span> trong <span class="time">${secs(ROOT_DURATION_MS)} giây</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

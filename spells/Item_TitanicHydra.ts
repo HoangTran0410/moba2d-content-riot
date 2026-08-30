@@ -1,6 +1,7 @@
 import type { CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 import { CleaveBuff, CLEAVE_RADIUS } from './Item_Tiamat';
+import { pct } from '../text';
 
 const Spell = api.Spell;
 
@@ -41,7 +42,7 @@ export default class Item_TitanicHydra extends Spell {
   name = 'Rìu Đại Mãng Xà (Item_TitanicHydra)';
   description =
     `Nội tại: đòn đánh gây thêm sát thương vật lý bằng ${TITANIC_FLAT_DAMAGE} cộng` +
-    ` ${TITANIC_MAX_HEALTH_RATIO * 100}% máu tối đa của bạn lên các kẻ địch khác trong` +
+    ` ${pct(TITANIC_MAX_HEALTH_RATIO)}% máu tối đa của bạn lên các kẻ địch khác trong` +
     ` ${CLEAVE_RADIUS} đơn vị quanh mục tiêu`;
   coolDown = 0;
   manaCost = 0;

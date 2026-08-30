@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastContext, CastSpec, Rectangle } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Dash = api.buffs.Dash;
 const Spell = api.Spell;
@@ -77,7 +78,7 @@ export default class Nautilus_Q extends Spell {
   description =
     `Phóng mỏ neo về phía trước và móc vào thứ đầu tiên nó gặp. ` +
     `Trúng địch: <span class="damage magic">${Q_DAMAGE} sát thương phép</span>, choáng ` +
-    `${Q_STUN_MS / 1000} giây rồi kéo cả hai lại gần nhau. ` +
+    `${secs(Q_STUN_MS)} giây rồi kéo cả hai lại gần nhau. ` +
     `Trúng vách đá: Nautilus tự kéo mình tới đó.`;
   coolDown = 10_000;
   manaCost = 30;

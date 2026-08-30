@@ -1,5 +1,6 @@
 import type { Shield } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Shield = api.buffs.Shield;
@@ -53,8 +54,8 @@ export default class Nocturne_W extends Spell {
   image = api.asset('spell_nocturne_w');
   name = 'Bóng Đen Bao Phủ (Nocturne_W)';
   description =
-    `Nhận khiên <span class="heal">${SHIELD_AMOUNT}</span>, <span class="buff">+${ATTACK_SPEED_PERCENT * 100}% tốc độ đánh</span>` +
-    ` và <span class="buff">hút ${OMNIVAMP * 100}% máu</span> trong <span class="time">${DURATION / 1000} giây</span>`;
+    `Nhận khiên <span class="heal">${SHIELD_AMOUNT}</span>, <span class="buff">+${pct(ATTACK_SPEED_PERCENT)}% tốc độ đánh</span>` +
+    ` và <span class="buff">hút ${pct(OMNIVAMP)}% máu</span> trong <span class="time">${secs(DURATION)} giây</span>`;
   coolDown = 10000;
   manaCost = 25;
 

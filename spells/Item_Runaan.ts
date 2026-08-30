@@ -1,5 +1,6 @@
 import type { CastSpec, OnHitEvent } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct } from '../text';
 
 const Spell = api.Spell;
 const Buff = api.buffs.Buff;
@@ -144,7 +145,7 @@ export default class Item_Runaan extends Spell {
   name = 'Cuồng Cung Runaan (Item_Runaan)';
   description =
     `Nội tại (chỉ tướng đánh xa): mỗi đòn đánh bắn thêm ${SIDE_BOLT_COUNT} tia phụ vào các kẻ địch` +
-    ` khác gần nhất, gây ${SIDE_BOLT_AD_RATIO * 100}% công và áp dụng hiệu ứng đòn đánh của bạn`;
+    ` khác gần nhất, gây ${pct(SIDE_BOLT_AD_RATIO)}% công và áp dụng hiệu ứng đòn đánh của bạn`;
   coolDown = 0;
   manaCost = 0;
 

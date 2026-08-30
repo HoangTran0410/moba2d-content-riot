@@ -1,5 +1,6 @@
 import type { AttackableUnit, BasicAttackHit, Rectangle, Shield } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const EventType = api.enums.EventType;
@@ -56,7 +57,7 @@ export default class Nautilus_W extends Spell {
   name = 'Cơn Giận Của Người Khổng Lồ (Nautilus_W)';
   description =
     `Khoác lớp vỏ sắt hà chắn <span class="damage magic">${W_SHIELD} sát thương phép</span> trong ` +
-    `${W_DURATION_MS / 1000} giây. Khi còn khiên, mỗi đòn đánh thường bắn nước ra ` +
+    `${secs(W_DURATION_MS)} giây. Khi còn khiên, mỗi đòn đánh thường bắn nước ra ` +
     `${W_SPLASH_RADIUS} đơn vị quanh mục tiêu: <span class="damage magic">${W_SPLASH} sát thương phép</span> ` +
     `và <span class="damage magic">${W_DOT_TOTAL} sát thương phép</span> ăn mòn theo thời gian.`;
   coolDown = 10_000;

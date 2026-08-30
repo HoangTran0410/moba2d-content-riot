@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastContext, Rectangle, TargetingRequest } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const Circle = api.utils.Quadtree.Circle;
@@ -53,7 +54,7 @@ export default class Nautilus_R extends Spell {
     `Thả một quả thủy lôi chạy ngầm dưới đất, đuổi theo mục tiêu đã chọn. Ai bị nó đi qua ` +
     `nhận <span class="damage magic">${R_PASS_DAMAGE} sát thương phép</span> và bị hất tung. Tới đích, ` +
     `nó nổ trong bán kính ${R_BLAST_RADIUS}: <span class="damage magic">${R_DAMAGE} sát thương phép</span> ` +
-    `và hất tung ${R_KNOCKUP_MS / 1000} giây.`;
+    `và hất tung ${secs(R_KNOCKUP_MS)} giây.`;
   coolDown = 10_000;
   manaCost = 100;
   range = R_RANGE;

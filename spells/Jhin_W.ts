@@ -1,6 +1,7 @@
 import type { AttackableUnit, BeamGeometry, CastSpec } from '@moba2d/core/content/types';
 import { consumeJhinMark } from './Jhin_Q';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const effectiveRange = api.combat.Reach.effectiveRange;
@@ -37,10 +38,10 @@ const SHOT_LIFE_MS = 260;
 export default class Jhin_W extends Spell {
   image = api.asset('spell_jhin_w');
   name = 'Nét Vẽ Chết Chóc (Jhin_W)';
-  description = `Nâng súng trong ${JHIN_W_CAST_MS / 1000} giây rồi bắn một phát xuyên thẳng tầm xa
+  description = `Nâng súng trong ${secs(JHIN_W_CAST_MS)} giây rồi bắn một phát xuyên thẳng tầm xa
     ${JHIN_W_RANGE} đơn vị, gây <span class="damage physical">${JHIN_W_DAMAGE} sát thương vật lý</span> cho mọi
     kẻ địch trên đường đạn. Mục tiêu đang bị <b>đánh dấu</b> bị trói chân
-    ${JHIN_W_ROOT_MS / 1000} giây và mất dấu.`;
+    ${secs(JHIN_W_ROOT_MS)} giây và mất dấu.`;
   coolDown = 10_000;
   manaCost = 40;
   range = JHIN_W_RANGE;

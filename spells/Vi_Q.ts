@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastContext, CastSpec, Slow, Vec2 } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const effectiveRange = api.combat.Reach.effectiveRange;
@@ -72,7 +73,7 @@ export default class Vi_Q extends Spell {
   name = 'Cú Đấm Bùng Nổ (Vi_Q)';
   description = `Nạp lực rồi lao tới, dừng lại ở kẻ địch đầu tiên:
     <span class="damage physical">${Q_MIN_DAMAGE} đến ${Q_MAX_DAMAGE} sát thương vật lý</span>,
-    hất tung ${Q_KNOCKUP_MS / 1000} giây và đẩy lùi ${Q_PUSH} đơn vị.
+    hất tung ${secs(Q_KNOCKUP_MS)} giây và đẩy lùi ${Q_PUSH} đơn vị.
     Nạp càng lâu, cú lao càng xa.`;
   coolDown = 10_000;
   manaCost = 30;

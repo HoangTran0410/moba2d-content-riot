@@ -1,5 +1,6 @@
 import type { CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const Stasis = api.buffs.Stasis;
@@ -56,7 +57,7 @@ export default class Item_Zhonyas extends Spell {
   image = api.asset('item_zhonyas_hourglass');
   name = 'Đồng Hồ Cát Zhonya (Item_Zhonyas)';
   description =
-    `Tự đóng băng bản thân trong <span class="time">${DURATION_MS / 1000} giây</span>:` +
+    `Tự đóng băng bản thân trong <span class="time">${secs(DURATION_MS)} giây</span>:` +
     ' <span class="buff">không thể bị chọn làm mục tiêu và không nhận sát thương</span>,' +
     ' đổi lại không thể di chuyển hay dùng chiêu';
   coolDown = COOLDOWN_MS;

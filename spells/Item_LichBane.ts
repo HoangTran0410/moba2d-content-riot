@@ -1,6 +1,7 @@
 import type { CastSpec, OnHitEvent } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 import { SpellbladeBuff, SPELLBLADE_ICD_MS } from './Item_Sheen';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 
@@ -37,7 +38,7 @@ export default class Item_LichBane extends Spell {
   name = 'Kiếm Tai Ương (Item_LichBane)';
   description =
     `Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm` +
-    ` ${LICH_BANE_MAGIC_DAMAGE} sát thương phép (hồi ${SPELLBLADE_ICD_MS / 1000} giây)`;
+    ` ${LICH_BANE_MAGIC_DAMAGE} sát thương phép (hồi ${secs(SPELLBLADE_ICD_MS)} giây)`;
   coolDown = 0;
   manaCost = 0;
 

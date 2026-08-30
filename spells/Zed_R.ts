@@ -1,5 +1,6 @@
 import { Zed_W_Clone } from './Zed_W';
 import { api } from '../packApi';
+import { pct } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const VectorUtils = api.utils.VectorUtils;
@@ -216,7 +217,7 @@ export class Zed_R_Mark extends Buff {
   // built where the final value is known rather than beside the declaration.
   onCreate(): void {
     this.description =
-      `Ghi lại <span class="buff">${Math.round(this.storePercent * 100)}%</span> sát thương Zed gây ra; ` +
+      `Ghi lại <span class="buff">${pct(this.storePercent)}%</span> sát thương Zed gây ra; ` +
       `khi dấu ấn kết thúc, toàn bộ lượng đó nổ ra.`;
   }
   storedDamage = 0;

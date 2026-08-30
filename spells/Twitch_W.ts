@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Rectangle = api.utils.Quadtree.Rectangle;
@@ -28,8 +29,8 @@ export default class Twitch_W extends Spell {
   name = 'Độc Suy Nhược (Twitch_W)';
   description =
     `Ném một bình độc bay tới vị trí chỉ định; <span class="damage">khi chạm đất</span> bình vỡ thành vũng` +
-    ` bán kính <span>${RADIUS}px</span> trong <span class="time">${DURATION / 1000} giây</span>,` +
-    ` <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span> và <span class="damage">nhiễm độc</span> kẻ địch bước vào`;
+    ` bán kính <span>${RADIUS}px</span> trong <span class="time">${secs(DURATION)} giây</span>,` +
+    ` <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> và <span class="damage">nhiễm độc</span> kẻ địch bước vào`;
   coolDown = 10000;
   manaCost = 30;
 

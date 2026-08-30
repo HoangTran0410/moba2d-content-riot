@@ -1,6 +1,7 @@
 import type { AttackableUnit } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 import { Lissandra_Frostburst } from './Lissandra_Q';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
@@ -47,7 +48,7 @@ export default class Lissandra_W extends Spell {
     `Đóng băng kẻ địch xung quanh trong bán kính <span class="buff">${W_RADIUS}</span>, ` +
     `gây <span class="damage magic">${W_DAMAGE} sát thương phép</span> và ` +
     `<span class="buff">trói chân</span> chúng trong ` +
-    `<span class="time">${W_ROOT_DURATION_MS / 1000} giây</span>.`;
+    `<span class="time">${secs(W_ROOT_DURATION_MS)} giây</span>.`;
   coolDown = W_COOLDOWN_MS;
   manaCost = W_MANA_COST;
   range = W_RADIUS;

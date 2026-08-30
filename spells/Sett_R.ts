@@ -1,5 +1,6 @@
 import type { Airborne, AttackableUnit, CastContext, CastSpec, TargetingRequest, Untargetable } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const effectiveRange = api.combat.Reach.effectiveRange;
 const withinRange = api.combat.Reach.withinRange;
@@ -58,7 +59,7 @@ export default class Sett_R extends Spell {
     `Sett bốc một tướng địch lên không trung (không thể bị chọn làm mục tiêu), bay vút lên ` +
     `và nện xuống đất: mục tiêu bị ném nhận <span class="damage physical">${SETT_R_SLAM} sát thương vật lý</span>, ` +
     `mọi kẻ địch khác trong bán kính ${SETT_R_BLAST_RADIUS} nhận <span class="damage physical">${SETT_R_BLAST} sát thương vật lý</span> ` +
-    `và bị làm chậm ${Math.round(SETT_R_SLOW * 100)}% trong ${SETT_R_SLOW_MS / 1000} giây.`;
+    `và bị làm chậm ${pct(SETT_R_SLOW)}% trong ${secs(SETT_R_SLOW_MS)} giây.`;
   coolDown = 10_000;
   manaCost = 100;
   range = SETT_R_RANGE;

@@ -2,6 +2,7 @@ import type { AttackableUnit, BeamGeometry, CastContext, CastSpec, Rectangle, Ve
 import { applyIreliaMark } from './Irelia_Q';
 import { drawIreliaBlade, IRELIA_CREST, IRELIA_EDGE, IRELIA_RIM, IRELIA_STEEL } from './Irelia_Q';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const effectiveRange = api.combat.Reach.effectiveRange;
 const PredefinedFilters = api.combat.PredefinedFilters;
@@ -86,7 +87,7 @@ export default class Irelia_E extends Spell {
   description = `Ném một lưỡi kiếm tới vị trí chỉ định; kiếm cắm xuống đất và chờ ở đó.
     Bấm lần nữa để ném lưỡi thứ hai — khi nó cắm xuống, hai lưỡi kiếm lao vào nhau,
     gây <span class="damage magic">${E_DAMAGE} sát thương phép</span> và
-    <span class="buff">làm choáng</span> <span class="time">${E_STUN_MS / 1000} giây</span>
+    <span class="buff">làm choáng</span> <span class="time">${secs(E_STUN_MS)} giây</span>
     mọi kẻ địch nằm giữa chúng.`;
   coolDown = 10_000;
   manaCost = 50;

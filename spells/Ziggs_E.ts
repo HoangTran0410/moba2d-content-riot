@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const effectiveRange = api.combat.Reach.effectiveRange;
 const Spell = api.Spell;
@@ -40,7 +41,7 @@ export const E_MAX_TRIPS_PER_UNIT = 2;
 export default class Ziggs_E extends Spell {
   image = api.asset('spell_ziggs_e');
   name = 'Bãi Mìn (Ziggs_E)';
-  description = `Rải ${E_MINE_COUNT} quả mìn lục giác quanh điểm chỉ định. Mìn kích hoạt sau ${E_ARM_MS / 1000} giây và tồn tại ${E_LIFETIME_MS / 1000} giây; ai bước vào sẽ chịu <span class="damage magic">${E_DAMAGE} sát thương phép</span> và bị làm chậm ${Math.round(E_SLOW * 100)}% trong ${E_SLOW_MS / 1000} giây. Mỗi mục tiêu chỉ đạp được tối đa ${E_MAX_TRIPS_PER_UNIT} quả.`;
+  description = `Rải ${E_MINE_COUNT} quả mìn lục giác quanh điểm chỉ định. Mìn kích hoạt sau ${secs(E_ARM_MS)} giây và tồn tại ${secs(E_LIFETIME_MS)} giây; ai bước vào sẽ chịu <span class="damage magic">${E_DAMAGE} sát thương phép</span> và bị làm chậm ${pct(E_SLOW)}% trong ${secs(E_SLOW_MS)} giây. Mỗi mục tiêu chỉ đạp được tối đa ${E_MAX_TRIPS_PER_UNIT} quả.`;
   coolDown = 10_000;
   manaCost = 40;
   range = E_RANGE;

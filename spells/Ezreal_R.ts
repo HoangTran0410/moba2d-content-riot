@@ -1,6 +1,7 @@
 import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { detonateEssenceFlux } from './Ezreal_W';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
@@ -39,7 +40,7 @@ export default class Ezreal_R extends Spell {
   image = api.asset('spell_ezreal_r');
   name = 'Cung Ánh Sáng (Ezreal_R)';
   description =
-    `Tích tụ trong <span class="time">${EZREAL_R_CAST_TIME_MS / 1000} giây</span> rồi bắn một luồng` +
+    `Tích tụ trong <span class="time">${secs(EZREAL_R_CAST_TIME_MS)} giây</span> rồi bắn một luồng` +
     ' năng lượng khổng lồ xuyên qua toàn bộ kẻ địch trên đường đi, gây' +
     ` <span class="damage magic">${EZREAL_R_DAMAGE} sát thương phép</span> lên tướng và` +
     ` <span class="damage magic">${EZREAL_R_MINION_DAMAGE} sát thương phép</span> lên lính và quái.`;

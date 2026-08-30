@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Buff = api.buffs.Buff;
 const canSee = api.combat.Vision.canSee;
@@ -102,7 +103,7 @@ export default class Jhin_Q extends Spell {
   description = `Ném lựu đạn hoa vào <b>một kẻ địch được chỉ định</b>, rồi nảy sang tối đa
     ${JHIN_Q_MAX_HITS - 1} mục tiêu khác trong bán kính ${JHIN_Q_BOUNCE_RANGE}, mỗi lần nảy
     mạnh hơn lần trước: <span class="damage physical">${JHIN_Q_DAMAGE.join(' / ')} sát thương vật lý</span>.
-    Mọi mục tiêu trúng đòn bị <b>đánh dấu</b> trong ${JHIN_MARK_MS / 1000} giây.`;
+    Mọi mục tiêu trúng đòn bị <b>đánh dấu</b> trong ${secs(JHIN_MARK_MS)} giây.`;
   coolDown = 8_000;
   manaCost = 30;
   range = JHIN_Q_RANGE;

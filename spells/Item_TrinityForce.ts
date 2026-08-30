@@ -1,6 +1,7 @@
 import type { CastSpec, OnHitEvent } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 import { SpellbladeBuff, SPELLBLADE_ICD_MS } from './Item_Sheen';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 
@@ -35,7 +36,7 @@ export default class Item_TrinityForce extends Spell {
   name = 'Tam Hợp Kiếm (Item_TrinityForce)';
   description =
     `Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm sát thương vật lý bằng` +
-    ` ${TRINITY_BASE_AD_RATIO * 100}% công cơ bản (hồi ${SPELLBLADE_ICD_MS / 1000} giây)`;
+    ` ${pct(TRINITY_BASE_AD_RATIO)}% công cơ bản (hồi ${secs(SPELLBLADE_ICD_MS)} giây)`;
   coolDown = 0;
   manaCost = 0;
 

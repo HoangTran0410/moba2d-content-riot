@@ -1,5 +1,6 @@
 import type { AttackableUnit } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
@@ -35,9 +36,9 @@ export default class Shaco_W extends Spell {
   image = api.asset('spell_shaco_w');
   name = 'Hộp Hề Ma Quái (Shaco_W)';
   description =
-    `Đặt một Hộp Hề Ma Quái, tàng hình sau <span class="time">${ARM_TIME_MS / 1000} giây</span> và tồn tại` +
-    ` <span class="time">${LIFETIME_MS / 1000} giây</span>. Khi kẻ địch tới gần, hộp bật ra:` +
-    ` <span class="buff">Hoảng Sợ</span> và nã <span class="damage">mọi kẻ địch xung quanh</span> trong <span class="time">${ATTACK_WINDOW_MS / 1000} giây</span>,` +
+    `Đặt một Hộp Hề Ma Quái, tàng hình sau <span class="time">${secs(ARM_TIME_MS)} giây</span> và tồn tại` +
+    ` <span class="time">${secs(LIFETIME_MS)} giây</span>. Khi kẻ địch tới gần, hộp bật ra:` +
+    ` <span class="buff">Hoảng Sợ</span> và nã <span class="damage">mọi kẻ địch xung quanh</span> trong <span class="time">${secs(ATTACK_WINDOW_MS)} giây</span>,` +
     ` <span class="damage magic">${ATTACK_DAMAGE} sát thương phép</span> mỗi phát. Lúc tàng hình <span class="buff">không thể bị chọn</span>,` +
     ` nhưng khi đã bật ra thì <span class="damage">có thể bị phá</span> (${BOX_HEALTH} máu)`;
   coolDown = 5000;

@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
@@ -56,9 +57,9 @@ export default class Warwick_W extends Spell {
   image = api.asset('spell_warwick_w');
   name = 'Mùi Máu (Warwick_W)';
   description =
-    `Đánh hơi trong <span class="time">${DURATION / 1000} giây</span>: <span class="buff">+${SPEED_PERCENT * 100}% tốc chạy</span>` +
-    `, <span class="buff">hút ${OMNIVAMP * 100}% máu từ mọi sát thương</span>,` +
-    ` và <span class="buff">lộ diện</span> mọi kẻ địch dưới <span>${WOUNDED_THRESHOLD * 100}% máu</span>` +
+    `Đánh hơi trong <span class="time">${secs(DURATION)} giây</span>: <span class="buff">+${pct(SPEED_PERCENT)}% tốc chạy</span>` +
+    `, <span class="buff">hút ${pct(OMNIVAMP)}% máu từ mọi sát thương</span>,` +
+    ` và <span class="buff">lộ diện</span> mọi kẻ địch dưới <span>${pct(WOUNDED_THRESHOLD)}% máu</span>` +
     ` trong <span>${HUNT_RADIUS}px</span>`;
   coolDown = 10000;
   manaCost = 25;

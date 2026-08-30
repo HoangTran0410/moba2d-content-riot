@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const StatAmp = api.buffs.StatAmp;
@@ -40,8 +41,8 @@ export default class Singed_R extends Spell {
   image = api.asset('spell_singed_r');
   name = 'Thuốc Hóa Điên (Singed_R)';
   description =
-    `Uống thuốc trong <span class="time">${DURATION / 1000} giây</span>:` +
-    ` <span class="buff">+${BONUS_HEALTH} máu tối đa</span>, <span class="buff">+${SPEED_PERCENT * 100}% tốc chạy</span>` +
+    `Uống thuốc trong <span class="time">${secs(DURATION)} giây</span>:` +
+    ` <span class="buff">+${BONUS_HEALTH} máu tối đa</span>, <span class="buff">+${pct(SPEED_PERCENT)}% tốc chạy</span>` +
     ` và <span class="buff">+6 sát thương đánh thường</span>`;
   coolDown = 10000;
   manaCost = 50;

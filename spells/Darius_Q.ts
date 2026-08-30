@@ -3,6 +3,7 @@ import { api } from '../packApi';
 // Relative, not `@/`: `DariusAxe` moved into `packs/riot/vfx/` (Task 2 of the
 // content-pack extraction) — see `Lux_R.ts`'s identical note on `LuxBeamEffect`.
 import { drawAxeArc, drawDariusAxe } from '../vfx/DariusAxe';
+import { pct, secs } from '../text';
 
 const DamageOverTime = api.buffs.DamageOverTime;
 const Circle = api.utils.Quadtree.Circle;
@@ -125,11 +126,11 @@ export default class Darius_Q extends Spell {
   image = api.asset('spell_darius_q');
   name = 'Tàn Sát (Darius_Q)';
   description =
-    `Vung rìu quanh mình sau <span class="time">${WINDUP_MS / 1000} giây</span> vung tay:` +
+    `Vung rìu quanh mình sau <span class="time">${secs(WINDUP_MS)} giây</span> vung tay:` +
     ` <span class="damage physical">${BLADE_DAMAGE} sát thương vật lý</span> ở vành ngoài (<span>${INNER_RADIUS}px – ${OUTER_RADIUS}px</span>),` +
     ` chỉ <span class="damage physical">${HANDLE_DAMAGE} sát thương vật lý</span> cho kẻ đứng sát người.` +
-    ` Lưỡi rìu <span class="buff">hút ${HEAL_PERCENT_CHAMPION * 100}% sát thương gây lên tướng</span>` +
-    ` (<span class="buff">${HEAL_PERCENT_UNIT * 100}%</span> lên lính và quái) và gây <span class="damage">Chảy Máu</span>`;
+    ` Lưỡi rìu <span class="buff">hút ${pct(HEAL_PERCENT_CHAMPION)}% sát thương gây lên tướng</span>` +
+    ` (<span class="buff">${pct(HEAL_PERCENT_UNIT)}%</span> lên lính và quái) và gây <span class="damage">Chảy Máu</span>`;
   coolDown = 7_000;
   manaCost = 30;
 

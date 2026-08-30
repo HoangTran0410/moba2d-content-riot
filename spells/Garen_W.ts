@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Shield = api.buffs.Shield;
@@ -70,8 +71,8 @@ export default class Garen_W extends Spell {
   image = api.asset('spell_garen_w');
   name = 'Lòng Can Đảm (Garen_W)';
   description =
-    `Nhận khiên <span class="heal">${SHIELD_AMOUNT}</span> và <span class="buff">hút ${OMNIVAMP * 100}% máu</span>` +
-    ` từ mọi sát thương gây ra, trong <span class="time">${DURATION / 1000} giây</span>`;
+    `Nhận khiên <span class="heal">${SHIELD_AMOUNT}</span> và <span class="buff">hút ${pct(OMNIVAMP)}% máu</span>` +
+    ` từ mọi sát thương gây ra, trong <span class="time">${secs(DURATION)} giây</span>`;
   coolDown = 9000;
   manaCost = 25;
 

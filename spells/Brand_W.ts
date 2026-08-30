@@ -1,6 +1,7 @@
 import { applyAblaze } from './Brand_Q';
 import { isAblaze } from './Brand_Q';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
@@ -36,7 +37,7 @@ export default class Brand_W extends Spell {
   targetingMode = 'POINT' as const;
   image = api.asset('spell_brand_w');
   name = 'Cột Lửa (Brand_W)';
-  description = `Sau <span class="time">${ERUPT_DELAY_MS / 1000} giây</span>, một cột lửa phun lên tại vị trí chỉ định, gây <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Thiêu Đốt</span> mọi kẻ địch trong vùng. Mục tiêu <span class="buff">đã bị Thiêu Đốt</span> nhận <span class="damage magic">${Math.round(DAMAGE * (1 + ABLAZE_DAMAGE_BONUS))} sát thương phép</span>.`;
+  description = `Sau <span class="time">${secs(ERUPT_DELAY_MS)} giây</span>, một cột lửa phun lên tại vị trí chỉ định, gây <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Thiêu Đốt</span> mọi kẻ địch trong vùng. Mục tiêu <span class="buff">đã bị Thiêu Đốt</span> nhận <span class="damage magic">${Math.round(DAMAGE * (1 + ABLAZE_DAMAGE_BONUS))} sát thương phép</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

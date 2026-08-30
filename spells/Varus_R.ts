@@ -1,5 +1,6 @@
 import type { AttackableUnit } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
@@ -29,7 +30,7 @@ export default class Varus_R extends Spell {
   name = 'Sợi Xích Tội Lỗi (Varus_R)';
   description =
     `Phóng một dây leo: mục tiêu đầu tiên trúng phải nhận <span class="damage magic">${DAMAGE} sát thương phép</span>` +
-    ` và bị <span class="buff">Trói Chân</span> trong <span class="time">${ROOT_DURATION / 1000} giây</span>,` +
+    ` và bị <span class="buff">Trói Chân</span> trong <span class="time">${secs(ROOT_DURATION)} giây</span>,` +
     ` rồi lan sang mọi kẻ địch trong <span>${SPREAD_RADIUS}px</span> quanh nó`;
   coolDown = 10000;
   manaCost = 70;

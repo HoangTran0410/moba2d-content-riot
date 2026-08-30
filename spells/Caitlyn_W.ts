@@ -1,5 +1,6 @@
 import type { AttackableUnit } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
@@ -52,10 +53,10 @@ export default class Caitlyn_W extends Spell {
   image = api.asset('spell_caitlyn_w');
   name = 'Bẫy Yordle (Caitlyn_W)';
   description =
-    `Đặt một cái bẫy, kích hoạt sau <span class="time">${CAITLYN_W_ARM_DELAY_MS / 1000} giây</span>` +
-    ` và tồn tại <span class="time">${CAITLYN_W_LIFETIME_MS / 1000} giây</span>.` +
-    ` Tướng địch dẫm phải bị <span class="buff">Trói ${CAITLYN_W_ROOT_MS / 1000} giây</span>,` +
-    ` <span class="buff">Lộ Diện ${CAITLYN_W_REVEAL_MS / 1000} giây</span> và nhận` +
+    `Đặt một cái bẫy, kích hoạt sau <span class="time">${secs(CAITLYN_W_ARM_DELAY_MS)} giây</span>` +
+    ` và tồn tại <span class="time">${secs(CAITLYN_W_LIFETIME_MS)} giây</span>.` +
+    ` Tướng địch dẫm phải bị <span class="buff">Trói ${secs(CAITLYN_W_ROOT_MS)} giây</span>,` +
+    ` <span class="buff">Lộ Diện ${secs(CAITLYN_W_REVEAL_MS)} giây</span> và nhận` +
     ` <span class="damage physical">${CAITLYN_W_DAMAGE} sát thương vật lý</span>.` +
     ` Tối đa <span>${CAITLYN_W_MAX_TRAPS}</span> bẫy cùng lúc.`;
 

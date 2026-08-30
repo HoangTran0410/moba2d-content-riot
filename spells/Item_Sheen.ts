@@ -1,5 +1,6 @@
 import type { CastSpec, OnHitEvent } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Buff = api.buffs.Buff;
@@ -54,8 +55,8 @@ export class SpellbladeBuff extends Buff {
   name = 'Thủy Kiếm';
   description =
     `Sau khi dùng một chiêu thức, đòn đánh kế tiếp gây thêm ` +
-    `<span class="damage physical">${Math.round(SHEEN_BASE_AD_RATIO * 100)}% sát thương công vật lý</span>. ` +
-    `Hồi lại sau <span class="time">${SPELLBLADE_ICD_MS / 1000} giây</span>.`;
+    `<span class="damage physical">${pct(SHEEN_BASE_AD_RATIO)}% sát thương công vật lý</span>. ` +
+    `Hồi lại sau <span class="time">${secs(SPELLBLADE_ICD_MS)} giây</span>.`;
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
 
   /** When the charge was armed, or null while unarmed. */
@@ -173,7 +174,7 @@ export default class Item_Sheen extends Spell {
   name = 'Thủy Kiếm (Item_Sheen)';
   description =
     `Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm sát thương vật lý bằng` +
-    ` ${SHEEN_BASE_AD_RATIO * 100}% công cơ bản (hồi ${SPELLBLADE_ICD_MS / 1000} giây)`;
+    ` ${pct(SHEEN_BASE_AD_RATIO)}% công cơ bản (hồi ${secs(SPELLBLADE_ICD_MS)} giây)`;
   coolDown = 0;
   manaCost = 0;
 

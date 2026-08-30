@@ -1,6 +1,7 @@
 import type { CastSpec, OnHitEvent } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 import { SpellbladeBuff, SPELLBLADE_ICD_MS } from './Item_Sheen';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 
@@ -43,8 +44,8 @@ export default class Item_DivineSunderer extends Spell {
   name = 'Búa Rìu Sát Thần (Item_DivineSunderer)';
   description =
     `Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm sát thương vật lý bằng` +
-    ` ${SUNDERER_MAX_HEALTH_RATIO * 100}% máu tối đa của mục tiêu và hồi lại` +
-    ` ${SUNDERER_HEAL_RATIO * 100}% lượng đó (hồi ${SPELLBLADE_ICD_MS / 1000} giây)`;
+    ` ${pct(SUNDERER_MAX_HEALTH_RATIO)}% máu tối đa của mục tiêu và hồi lại` +
+    ` ${pct(SUNDERER_HEAL_RATIO)}% lượng đó (hồi ${secs(SPELLBLADE_ICD_MS)} giây)`;
   coolDown = 0;
   manaCost = 0;
 

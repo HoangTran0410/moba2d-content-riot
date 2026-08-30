@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const StatModifier = api.units.StatModifier;
@@ -14,7 +15,7 @@ export default class Heal extends Spell {
   targetingMode = 'SELF' as const;
   name = 'Hồi Máu (Heal)';
   image = api.asset('spell_heal');
-  description = `<span class="buff">Hồi Máu</span> một lượng bằng <span>30% máu tối đa</span> và <span class="buff">Tăng Tốc 50%</span> trong <span class="time">${SPEEDUP_TIME / 1000} giây</span>`;
+  description = `<span class="buff">Hồi Máu</span> một lượng bằng <span>30% máu tối đa</span> và <span class="buff">Tăng Tốc 50%</span> trong <span class="time">${secs(SPEEDUP_TIME)} giây</span>`;
   coolDown = 10000;
   manaCost = 100;
 

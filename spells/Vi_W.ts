@@ -1,5 +1,6 @@
 import type { AttackableUnit, BasicAttackHit } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const EventType = api.enums.EventType;
 const Slow = api.buffs.Slow;
@@ -42,9 +43,9 @@ export default class Vi_W extends Spell {
   targetingMode = 'SELF' as const;
   image = api.asset('spell_vi_w');
   name = 'Cú Đấm Phá Giáp (Vi_W)';
-  description = `Kích hoạt tăng <b>50% tốc đánh</b> trong ${W_DURATION_MS / 1000} giây. Mỗi ${W_STACKS} đòn đánh thường vào
+  description = `Kích hoạt tăng <b>50% tốc đánh</b> trong ${secs(W_DURATION_MS)} giây. Mỗi ${W_STACKS} đòn đánh thường vào
     <b>cùng một mục tiêu</b> gây thêm <span class="damage physical">${W_PROC} sát thương vật lý</span> và
-    làm chậm ${W_SLOW * 100}% trong ${W_SLOW_MS / 1000} giây.`;
+    làm chậm ${pct(W_SLOW)}% trong ${secs(W_SLOW_MS)} giây.`;
   coolDown = 10_000;
   manaCost = 20;
 
@@ -151,8 +152,8 @@ export class Vi_W_Buff extends Buff {
   description =
     `Mỗi <span class="buff">${W_STACKS} đòn đánh</span> lên cùng một mục tiêu gây thêm ` +
     `<span class="damage physical">${W_PROC} sát thương vật lý</span> và ` +
-    `<span class="buff">Làm Chậm ${Math.round(W_SLOW * 100)}%</span> trong ` +
-    `<span class="time">${W_SLOW_MS / 1000} giây</span>.`;
+    `<span class="buff">Làm Chậm ${pct(W_SLOW)}%</span> trong ` +
+    `<span class="time">${secs(W_SLOW_MS)} giây</span>.`;
   image = api.asset('spell_vi_w');
 }
 

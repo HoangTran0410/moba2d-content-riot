@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Circle = api.utils.Quadtree.Circle;
@@ -62,8 +63,8 @@ export default class Thresh_R extends Spell {
   name = 'Đóng Hộp (Thresh_R)';
   description =
     `Dựng một chiếc lồng bán kính <span>${RADIUS}px</span> quanh mình trong` +
-    ` <span class="time">${DURATION / 1000} giây</span>. Kẻ địch <span class="damage">bước ra khỏi lồng</span>` +
-    ` nhận <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span>` +
+    ` <span class="time">${secs(DURATION)} giây</span>. Kẻ địch <span class="damage">bước ra khỏi lồng</span>` +
+    ` nhận <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span>` +
     ` — mỗi kẻ chỉ phá được một lần`;
   coolDown = 10000;
   manaCost = 70;

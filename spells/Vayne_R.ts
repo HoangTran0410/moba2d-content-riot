@@ -1,5 +1,6 @@
 import type { AttackableUnit, Buff } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const StatAmp = api.buffs.StatAmp;
 const Spell = api.Spell;
@@ -47,9 +48,9 @@ export default class Vayne_R extends Spell {
   targetingMode = 'SELF' as const;
   image = api.asset('spell_vayne_r');
   name = 'Giờ Khắc Cuối Cùng (Vayne_R)';
-  description = `Trong ${VAYNE_R_DURATION_MS / 1000} giây, Vayne nhận
+  description = `Trong ${secs(VAYNE_R_DURATION_MS)} giây, Vayne nhận
     <span class="buff">+${VAYNE_R_AD} sát thương đánh thường</span>, hồi chiêu Nhào Lộn giảm
-    một nửa, và mỗi lần Nhào Lộn khiến cô tàng hình ${VAYNE_R_STEALTH_MS / 1000} giây.`;
+    một nửa, và mỗi lần Nhào Lộn khiến cô tàng hình ${secs(VAYNE_R_STEALTH_MS)} giây.`;
   coolDown = 10_000;
   manaCost = 100;
 

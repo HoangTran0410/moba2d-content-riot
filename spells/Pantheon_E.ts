@@ -1,5 +1,6 @@
 import { drawAegis } from './Pantheon_W';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
@@ -60,7 +61,7 @@ export default class Pantheon_E extends Spell {
   image = api.asset('spell_pantheon_e');
   name = 'Tiến Công Vũ Bão (Pantheon_E)';
   description =
-    `Cắm khiên về hướng chỉ định trong <span class="time">${DURATION / 1000} giây</span>:` +
+    `Cắm khiên về hướng chỉ định trong <span class="time">${secs(DURATION)} giây</span>:` +
     ` nhận <span class="buff">Khiên ${SHIELD_AMOUNT}</span> và liên tục đâm giáo` +
     ` <span class="damage physical">${DAMAGE_PER_TICK} sát thương vật lý</span> mỗi nhịp cho kẻ địch phía trước`;
   coolDown = 10000;

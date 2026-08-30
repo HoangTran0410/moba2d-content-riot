@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
@@ -50,7 +51,7 @@ export default class Annie_R extends Spell {
   image = api.asset('spell_annie_r');
   name = 'Triệu Hồi: Tibbers (Annie_R)';
   description =
-    `Triệu hồi Tibbers tại vị trí chỉ định trong <span class="time">${TIBBERS_LIFETIME_MS / 1000} giây</span>:` +
+    `Triệu hồi Tibbers tại vị trí chỉ định trong <span class="time">${secs(TIBBERS_LIFETIME_MS)} giây</span>:` +
     ` vụ lửa xuất hiện gây <span class="damage magic">${SUMMON_DAMAGE} sát thương phép</span> trong <span>${SUMMON_RADIUS}px</span>.` +
     ` Tibbers có <span class="buff">${TIBBERS_HEALTH} máu</span>, tự đánh kẻ địch gần nhất và thiêu` +
     ` <span class="damage magic">${AURA_DAMAGE_PER_TICK} sát thương phép</span> mỗi nhịp quanh mình.` +

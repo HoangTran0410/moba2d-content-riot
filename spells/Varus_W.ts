@@ -1,5 +1,6 @@
 import type { BasicAttackHit, Buff } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const EventType = api.enums.EventType;
 const Spell = api.Spell;
@@ -53,9 +54,9 @@ export default class Varus_W extends Spell {
   image = api.asset('spell_varus_w');
   name = 'Tên Độc (Varus_W)';
   description =
-    `Trong <span class="time">${DURATION / 1000} giây</span>, mỗi đòn đánh thường bám thêm` +
+    `Trong <span class="time">${secs(DURATION)} giây</span>, mỗi đòn đánh thường bám thêm` +
     ` <span class="damage magic">${BLIGHT_PER_TICK} sát thương phép mỗi nhịp</span> trong` +
-    ` <span class="time">${BLIGHT_DURATION / 1000} giây</span>, kèm <span class="buff">+15% tốc độ đánh</span>`;
+    ` <span class="time">${secs(BLIGHT_DURATION)} giây</span>, kèm <span class="buff">+15% tốc độ đánh</span>`;
   coolDown = 10000;
   manaCost = 25;
 

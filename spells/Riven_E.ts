@@ -1,5 +1,6 @@
 import type { AttackableUnit, Buff, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const effectiveRange = api.combat.Reach.effectiveRange;
 const Dash = api.buffs.Dash;
@@ -32,7 +33,7 @@ export default class Riven_E extends Spell {
   name = 'Anh Dũng (Riven_E)';
   description =
     `Lao ${E_DISTANCE} theo hướng chỉ định và dựng một lớp khiên ` +
-    `<span class="heal">${E_SHIELD} điểm</span> trong ${E_SHIELD_MS / 1000} giây.`;
+    `<span class="heal">${E_SHIELD} điểm</span> trong ${secs(E_SHIELD_MS)} giây.`;
   coolDown = 8_000;
   manaCost = 20;
   range = E_DISTANCE;

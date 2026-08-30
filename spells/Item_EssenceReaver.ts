@@ -1,6 +1,7 @@
 import type { CastSpec, OnHitEvent } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 import { SpellbladeBuff, SPELLBLADE_ICD_MS } from './Item_Sheen';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 
@@ -44,8 +45,8 @@ export default class Item_EssenceReaver extends Spell {
   name = 'Lưỡi Hái Linh Hồn (Item_EssenceReaver)';
   description =
     `Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm sát thương vật lý bằng` +
-    ` ${REAVER_BASE_AD_RATIO * 100}% công cơ bản và hồi` +
-    ` ${REAVER_MANA_REFUND_RATIO * 100}% năng lượng tối đa (hồi ${SPELLBLADE_ICD_MS / 1000} giây)`;
+    ` ${pct(REAVER_BASE_AD_RATIO)}% công cơ bản và hồi` +
+    ` ${pct(REAVER_MANA_REFUND_RATIO)}% năng lượng tối đa (hồi ${secs(SPELLBLADE_ICD_MS)} giây)`;
   coolDown = 0;
   manaCost = 0;
 

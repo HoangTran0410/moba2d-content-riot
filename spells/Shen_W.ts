@@ -1,5 +1,6 @@
 import type { AttackableUnit } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const Disarm = api.buffs.Disarm;
@@ -61,10 +62,10 @@ export default class Shen_W extends Spell {
   name = 'Bảo Hộ Linh Hồn (Shen_W)';
   description =
     `Shen dựng một vùng linh hồn quanh mình trong` +
-    ` <span class="buff">${ZONE_DURATION_MS / 1000} giây</span>, bán kính` +
+    ` <span class="buff">${secs(ZONE_DURATION_MS)} giây</span>, bán kính` +
     ` <span class="buff">${ZONE_RADIUS}</span>:` +
     ` <span class="debuff">kẻ địch đứng trong vùng không thể đánh thường</span>,` +
-    ` và chỉ cầm lại được vũ khí <span class="buff">${DISARM_TAIL_MS / 1000} giây</span>` +
+    ` và chỉ cầm lại được vũ khí <span class="buff">${secs(DISARM_TAIL_MS)} giây</span>` +
     ` sau khi rời khỏi vùng. Chúng vẫn đi lại và dùng chiêu thức bình thường —` +
     ` đây là chỗ trú, không phải là trói.`;
   coolDown = COOLDOWN_MS;

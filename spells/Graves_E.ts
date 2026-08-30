@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
@@ -23,9 +24,9 @@ export default class Graves_E extends Spell {
   name = 'Rút Súng Nhanh (Graves_E)';
   description =
     `Lướt <span>${DASH_DISTANCE}px</span> theo hướng chỉ định và nhận` +
-    ` <span class="buff">+${ATTACK_SPEED_PERCENT * 100}% tốc độ đánh</span> và` +
-    ` <span class="buff">${CRIT_CHANCE * 100}% tỉ lệ chí mạng</span> trong` +
-    ` <span class="time">${BUFF_DURATION / 1000} giây</span>`;
+    ` <span class="buff">+${pct(ATTACK_SPEED_PERCENT)}% tốc độ đánh</span> và` +
+    ` <span class="buff">${pct(CRIT_CHANCE)}% tỉ lệ chí mạng</span> trong` +
+    ` <span class="time">${secs(BUFF_DURATION)} giây</span>`;
   coolDown = 8000;
   manaCost = 25;
 

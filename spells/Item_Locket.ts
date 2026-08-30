@@ -1,6 +1,7 @@
 import type { AttackableUnit, CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 import { alliedChampionsAround } from './Item_Shurelya';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const Shield = api.buffs.Shield;
@@ -51,7 +52,7 @@ export default class Item_Locket extends Spell {
   name = 'Vòng Sắt Mặt Trời (Item_Locket)';
   description =
     `Kích hoạt: tạo <span class="buff">khiên ${LOCKET_SHIELD}</span> cho bản thân và các đồng` +
-    ` minh xung quanh trong <span class="time">${LOCKET_SHIELD_MS / 1000} giây</span>`;
+    ` minh xung quanh trong <span class="time">${secs(LOCKET_SHIELD_MS)} giây</span>`;
   coolDown = LOCKET_COOLDOWN_MS;
   manaCost = 0;
 

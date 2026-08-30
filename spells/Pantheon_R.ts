@@ -1,5 +1,6 @@
 import { drawAegis } from './Pantheon_W';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const StatusFlags = api.enums.StatusFlags;
@@ -64,9 +65,9 @@ export default class Pantheon_R extends Spell {
   name = 'Trời Sập (Pantheon_R)';
   description =
     `Pantheon bay vút lên trời cao, <span class="buff">Không Thể Bị Chọn</span> suốt` +
-    ` <span class="time">${FLIGHT_MS / 1000} giây</span>, rồi rơi như thiên thạch xuống địa điểm chỉ định` +
+    ` <span class="time">${secs(FLIGHT_MS)} giây</span>, rồi rơi như thiên thạch xuống địa điểm chỉ định` +
     ` (xa tới <span>${MAX_RANGE}px</span>): <span class="damage magic">${DAMAGE} sát thương phép</span>` +
-    ` và <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span> trong bán kính <span>${RADIUS}px</span>`;
+    ` và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> trong bán kính <span>${RADIUS}px</span>`;
   coolDown = 10000;
   manaCost = 80;
 

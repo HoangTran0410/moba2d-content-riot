@@ -1,5 +1,6 @@
 import type { AttackableUnit, BasicAttackHit, Rectangle } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const EventType = api.enums.EventType;
 const Spell = api.Spell;
@@ -42,9 +43,9 @@ export default class MasterYi_E extends Spell {
   image = api.asset('spell_masteryi_e');
   name = 'Võ Thuật Wuju (MasterYi_E)';
   description =
-    `Trong <span class="time">${DURATION_MS / 1000} giây</span>, đòn đánh thường của Yi gây thêm` +
+    `Trong <span class="time">${secs(DURATION_MS)} giây</span>, đòn đánh thường của Yi gây thêm` +
     ` <span class="damage true">${BONUS_TRUE_DAMAGE} sát thương chuẩn</span> và anh nhận` +
-    ` <span class="buff">+${Math.round(ATTACK_SPEED_PERCENT * 100)}% tốc độ đánh</span>`;
+    ` <span class="buff">+${pct(ATTACK_SPEED_PERCENT)}% tốc độ đánh</span>`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

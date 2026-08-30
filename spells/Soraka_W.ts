@@ -2,6 +2,7 @@ import type { AttackableUnit, CastContext, CastSpec, TargetingRequest } from '@m
 import { grantRejuvenation } from './Soraka_Q';
 import { hasRejuvenation } from './Soraka_Q';
 import { api } from '../packApi';
+import { pct } from '../text';
 
 const effectiveRange = api.combat.Reach.effectiveRange;
 const withinRange = api.combat.Reach.withinRange;
@@ -43,7 +44,7 @@ export const MIN_HEALTH_RATIO = 0.05;
 export default class Soraka_W extends Spell {
   image = api.asset('spell_soraka_w');
   name = 'Tinh Tú Hộ Mệnh (Soraka_W)';
-  description = `Hồi <span class="heal">${HEAL} máu</span> cho một đồng minh, trả bằng <span class="buff">${HEALTH_COST} máu</span> của chính Soraka (chỉ còn <span class="buff">${REJUVENATED_HEALTH_COST}</span> khi cô đang có bụi sao từ Vẫn Tinh, và khi đó đồng minh cũng nhận được bụi sao). Không thể dùng khi Soraka còn dưới <span class="buff">${Math.round(MIN_HEALTH_RATIO * 100)}% máu tối đa</span>.`;
+  description = `Hồi <span class="heal">${HEAL} máu</span> cho một đồng minh, trả bằng <span class="buff">${HEALTH_COST} máu</span> của chính Soraka (chỉ còn <span class="buff">${REJUVENATED_HEALTH_COST}</span> khi cô đang có bụi sao từ Vẫn Tinh, và khi đó đồng minh cũng nhận được bụi sao). Không thể dùng khi Soraka còn dưới <span class="buff">${pct(MIN_HEALTH_RATIO)}% máu tối đa</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
   healthCost = HEALTH_COST;

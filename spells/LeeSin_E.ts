@@ -1,5 +1,6 @@
 import type { AttackableUnit, ParticleSystem, Spell } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Circle = api.utils.Quadtree.Circle;
@@ -46,8 +47,8 @@ export default class LeeSin_E extends Spell {
   name = 'Địa Chấn / Dư Chấn (LeeSin_E)';
   description =
     `Dẫm mạnh xuống đất, một vòng khí lan ra <span>${RANGE}px</span> gây` +
-    ` <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span>` +
-    ` trong <span class="time">${SLOW_DURATION / 1000} giây</span> <i>khi sóng chạm tới từng kẻ địch</i>`;
+    ` <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span>` +
+    ` trong <span class="time">${secs(SLOW_DURATION)} giây</span> <i>khi sóng chạm tới từng kẻ địch</i>`;
   coolDown = 5000;
   manaCost = 30;
 

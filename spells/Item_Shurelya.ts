@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Speedup = api.buffs.Speedup;
@@ -68,9 +69,9 @@ export default class Item_Shurelya extends Spell {
   image = api.asset('item_shurelyas_battlesong');
   name = 'Khúc Ca Shurelya (Item_Shurelya)';
   description =
-    `Kích hoạt: <span class="buff">tăng ${SHURELYA_SPEED_PERCENT * 100}% tốc chạy</span> cho bản` +
+    `Kích hoạt: <span class="buff">tăng ${pct(SHURELYA_SPEED_PERCENT)}% tốc chạy</span> cho bản` +
     ` thân và các đồng minh xung quanh trong` +
-    ` <span class="time">${SHURELYA_DURATION_MS / 1000} giây</span>`;
+    ` <span class="time">${secs(SHURELYA_DURATION_MS)} giây</span>`;
   coolDown = SHURELYA_COOLDOWN_MS;
   manaCost = 0;
 

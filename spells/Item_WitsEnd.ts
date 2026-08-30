@@ -1,5 +1,6 @@
 import type { CastSpec, OnHitEvent } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const Buff = api.buffs.Buff;
@@ -49,7 +50,7 @@ export default class Item_WitsEnd extends Spell {
   name = 'Đao Tím (Item_WitsEnd)';
   description =
     `Nội tại: đòn đánh gây thêm ${WITS_END_MAGIC_DAMAGE} sát thương phép và tăng` +
-    ` ${WITS_END_MOVE_SPEED_BONUS} tốc chạy trong ${WITS_END_MOVE_SPEED_MS / 1000} giây`;
+    ` ${WITS_END_MOVE_SPEED_BONUS} tốc chạy trong ${secs(WITS_END_MOVE_SPEED_MS)} giây`;
   coolDown = 0;
   manaCost = 0;
 

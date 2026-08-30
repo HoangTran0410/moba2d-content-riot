@@ -1,5 +1,6 @@
 import type { Rectangle } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Speedup = api.buffs.Speedup;
@@ -42,9 +43,9 @@ export default class MasterYi_R extends Spell {
   image = api.asset('spell_masteryi_r');
   name = 'Chiến Binh Sơn Cước (MasterYi_R)';
   description =
-    `Trong <span class="time">${DURATION_MS / 1000} giây</span>, Yi nhận` +
-    ` <span class="buff">+${Math.round(MOVE_SPEED_PERCENT * 100)}% tốc chạy</span> và` +
-    ` <span class="buff">+${Math.round(ATTACK_SPEED_PERCENT * 100)}% tốc độ đánh</span>,` +
+    `Trong <span class="time">${secs(DURATION_MS)} giây</span>, Yi nhận` +
+    ` <span class="buff">+${pct(MOVE_SPEED_PERCENT)}% tốc chạy</span> và` +
+    ` <span class="buff">+${pct(ATTACK_SPEED_PERCENT)}% tốc độ đánh</span>,` +
     ` đồng thời <span class="buff">gỡ bỏ và miễn nhiễm mọi hiệu ứng làm chậm</span>`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;

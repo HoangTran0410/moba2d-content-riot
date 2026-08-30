@@ -1,5 +1,6 @@
 import type { CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct } from '../text';
 
 const Spell = api.Spell;
 const DamageReflect = api.buffs.DamageReflect;
@@ -56,7 +57,7 @@ export default class Item_Thornmail extends Spell {
   image = api.asset('item_thornmail');
   name = 'Giáp Gai (Item_Thornmail)';
   description =
-    `Nội tại: phản <span class="buff">${REFLECT_PERCENT * 100}% sát thương</span> nhận vào` +
+    `Nội tại: phản <span class="buff">${pct(REFLECT_PERCENT)}% sát thương</span> nhận vào` +
     ' về kẻ đã gây ra nó (tính trên đòn đánh gốc, trước khi khiên đỡ)';
   coolDown = 0;
   manaCost = 0;

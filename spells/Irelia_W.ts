@@ -1,6 +1,7 @@
 import { api } from '../packApi';
 import type { AttackableUnit, BeamGeometry, CancelReason, CastContext, CastSpec, Rectangle, Vec2 } from '@moba2d/core/content/types';
 import { drawIreliaBlade, IRELIA_CREST, IRELIA_EDGE, IRELIA_RIM, IRELIA_STEEL } from './Irelia_Q';
+import { pct, secs } from '../text';
 
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellForm = api.enums.SpellForm;
@@ -62,12 +63,10 @@ export const W_HEAL_PER_HIT = 6;
 export default class Irelia_W extends Spell {
   image = api.asset('spell_irelia_w');
   name = 'Vũ Điệu Thách Thức (Irelia_W)';
-  description = `Giữ phím để tích lực — <span class="buff">giảm ${Math.round(
-    W_DAMAGE_REDUCTION * 100
-  )}% sát thương phải chịu</span> trong lúc tích. Thả ra để quét kiếm về phía con trỏ,
+  description = `Giữ phím để tích lực — <span class="buff">giảm ${pct(W_DAMAGE_REDUCTION)}% sát thương phải chịu</span> trong lúc tích. Thả ra để quét kiếm về phía con trỏ,
     gây <span class="damage physical">${W_MIN_DAMAGE}</span>–<span class="damage physical">${W_MAX_DAMAGE} sát thương vật lý</span> tuỳ mức tích lực,
-    <span class="buff">làm chậm ${Math.round(W_SLOW_PERCENT * 100)}%</span> trong
-    <span class="time">${W_SLOW_MS / 1000} giây</span> và hồi <span class="heal">${W_HEAL_PER_HIT} máu</span> mỗi mục tiêu trúng.`;
+    <span class="buff">làm chậm ${pct(W_SLOW_PERCENT)}%</span> trong
+    <span class="time">${secs(W_SLOW_MS)} giây</span> và hồi <span class="heal">${W_HEAL_PER_HIT} máu</span> mỗi mục tiêu trúng.`;
   coolDown = 9_000;
   manaCost = 40;
   range = W_MAX_REACH;

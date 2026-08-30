@@ -2,6 +2,7 @@ import type { AttackableUnit, CastSpec } from '@moba2d/core/content/types';
 import { applyJhinMark } from './Jhin_Q';
 import { JHIN_MARK_MS } from './Jhin_Q';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const effectiveRange = api.combat.Reach.effectiveRange;
@@ -85,10 +86,10 @@ function releaseTrap(trap: Jhin_E_Trap): void {
 export default class Jhin_E extends Spell {
   image = api.asset('spell_jhin_e');
   name = 'Cạm Bẫy Nghệ Thuật (Jhin_E)';
-  description = `Đặt một bông sen bẫy <b>tàng hình</b> sau ${JHIN_E_ARM_MS / 1000} giây, chờ
-    ${JHIN_E_LIFETIME_MS / 1000} giây. Kẻ địch bước vào bán kính ${JHIN_E_TRIGGER_RADIUS} bị làm chậm
-    ${JHIN_E_SLOW * 100}% trong ${JHIN_E_SLOW_MS / 1000} giây và bị <b>đánh dấu</b>
-    ${JHIN_MARK_MS / 1000} giây; bẫy lộ ra và <b>nở dần</b> trong ${JHIN_E_FUSE_MS / 1000} giây rồi
+  description = `Đặt một bông sen bẫy <b>tàng hình</b> sau ${secs(JHIN_E_ARM_MS)} giây, chờ
+    ${secs(JHIN_E_LIFETIME_MS)} giây. Kẻ địch bước vào bán kính ${JHIN_E_TRIGGER_RADIUS} bị làm chậm
+    ${pct(JHIN_E_SLOW)}% trong ${secs(JHIN_E_SLOW_MS)} giây và bị <b>đánh dấu</b>
+    ${secs(JHIN_MARK_MS)} giây; bẫy lộ ra và <b>nở dần</b> trong ${secs(JHIN_E_FUSE_MS)} giây rồi
     nổ, gây <span class="damage magic">${JHIN_E_DAMAGE} sát thương phép</span> cho mọi kẻ địch còn đứng trong
     bán kính ${JHIN_E_BLAST_RADIUS} — chạy kịp thì thoát. Tối đa ${JHIN_E_MAX_TRAPS} bẫy cùng lúc.`;
   coolDown = 9_000;

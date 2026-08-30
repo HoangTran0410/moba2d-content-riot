@@ -7,6 +7,7 @@ import type {
   TargetingRequest,
 } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const Shield = api.buffs.Shield;
@@ -75,12 +76,12 @@ export default class Shen_R extends Spell {
   image = api.asset('spell_shen_r');
   name = 'Nhất Thống (Shen_R)';
   description =
-    `Shen tụ khí trong <span class="buff">${CHANNEL_DURATION_MS / 1000} giây</span>, nhắm vào` +
+    `Shen tụ khí trong <span class="buff">${secs(CHANNEL_DURATION_MS)} giây</span>, nhắm vào` +
     ` một tướng đồng minh <span class="buff">ở bất cứ đâu trên bản đồ</span>.` +
     ` Kênh xong, Shen dịch chuyển tới bên cạnh đồng minh; đồng minh nhận` +
     ` <span class="heal">${SHIELD_ALLY} lá chắn</span> và Shen nhận` +
     ` <span class="heal">${SHIELD_SELF} lá chắn</span> trong` +
-    ` <span class="buff">${SHIELD_DURATION_MS / 1000} giây</span>.` +
+    ` <span class="buff">${secs(SHIELD_DURATION_MS)} giây</span>.` +
     ` Di chuyển sẽ ngắt kênh, và không thể tự chọn chính mình — đây là chiêu đi cứu người.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;

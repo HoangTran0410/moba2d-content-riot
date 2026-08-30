@@ -6,6 +6,7 @@ import type {
   Slow,
 } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const SpellForm = api.enums.SpellForm;
 const Spell = api.Spell;
@@ -37,6 +38,17 @@ export const MAX_DAMAGE = 30;
 
 export const SELF_SLOW_PERCENT = 0.2;
 
+/**
+ * What each body past the first takes off the arrow, and where that stops.
+ *
+ * Named rather than inline for the same reason Pantheon Q's multipliers are:
+ * this description used to be one sentence that promised no numbers at all,
+ * and the fix is a sentence built out of the constants the arithmetic reads.
+ */
+export const PIERCE_FALLOFF = 0.15;
+
+export const MAX_PIERCE_FALLOFF = 0.67;
+
 export const MANA_COST = 50;
 
 export const ARROW_SPEED = 1_200 / 60;
@@ -51,7 +63,17 @@ export const ARROW_VISUAL_HEIGHT = 32;
 export default class Varus_Q extends Spell {
   image = api.asset('spell_varus_q');
   name = 'Mũi Tên Xuyên Phá (Varus_Q)';
-  description = 'Giữ để tích lực rồi bắn một mũi tên xuyên theo hướng con trỏ.';
+  description =
+    `<b>Giữ</b> để kéo cung rồi thả ra một mũi tên <span class="buff">xuyên qua mọi kẻ địch</span>` +
+    ` trên đường bay. Tích lực đầy sau <span class="time">${secs(RANGE_CHARGE_MS)} giây</span> kéo` +
+    ` tầm bắn từ <span>${MIN_CENTER_TRAVEL}px</span> lên <span>${MAX_CENTER_TRAVEL}px</span>, và sau` +
+    ` <span class="time">${secs(DAMAGE_CHARGE_MS)} giây</span> kéo sát thương từ` +
+    ` <span class="damage physical">${MIN_DAMAGE}</span> lên` +
+    ` <span class="damage physical">${MAX_DAMAGE} sát thương vật lý</span>.` +
+    ` Mỗi mục tiêu bị xuyên sau đó nhận <span class="buff">ít hơn ${pct(PIERCE_FALLOFF)}%</span>,` +
+    ` tối đa giảm <span class="buff">${pct(MAX_PIERCE_FALLOFF)}%</span>.` +
+    ` Trong lúc kéo cung Varus <span class="buff">tự làm chậm ${pct(SELF_SLOW_PERCENT)}%</span>` +
+    ` và mọi hiệu ứng khống chế đều huỷ mũi tên (hoàn lại nửa năng lượng).`;
   coolDown = 5_000;
   manaCost = MANA_COST;
 
@@ -269,8 +291,8 @@ export class Varus_Q_Arrow extends MissileSpellObject {
 
   onHit(enemy: AttackableUnit): void {
     const reduction = Math.min(
-      0.67,
-      this.hitTargets.length > 1 ? (this.hitTargets.length - 1) * 0.15 : 0
+      MAX_PIERCE_FALLOFF,
+      this.hitTargets.length > 1 ? (this.hitTargets.length - 1) * PIERCE_FALLOFF : 0
     );
     enemy.takeDamage(this.damage * (1 - reduction), this.owner, 'PHYSICAL');
   }

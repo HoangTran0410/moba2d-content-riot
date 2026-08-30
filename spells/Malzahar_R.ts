@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastContext, CastSpec, Rectangle, TargetingRequest } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const SpellForm = api.enums.SpellForm;
 
@@ -72,11 +73,11 @@ export default class Malzahar_R extends Spell {
   description =
     `Trói một kẻ địch, <span class="buff">Choáng</span> và gây` +
     ` <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span> mỗi` +
-    ` <span class="time">${TICK_EVERY_MS / 1000} giây</span> suốt` +
-    ` <span class="time">${CHANNEL_DURATION_MS / 1000} giây</span>. Một` +
+    ` <span class="time">${secs(TICK_EVERY_MS)} giây</span> suốt` +
+    ` <span class="time">${secs(CHANNEL_DURATION_MS)} giây</span>. Một` +
     ` <span class="buff">Vùng Hư Vô</span> mở ra dưới chân nạn nhân, gây` +
     ` <span class="damage magic">${ZONE_DAMAGE_PER_TICK} sát thương phép</span> mỗi nhịp trong` +
-    ` <span class="time">${ZONE_DURATION_MS / 1000} giây</span> và tồn tại kể cả khi kênh bị ngắt`;
+    ` <span class="time">${secs(ZONE_DURATION_MS)} giây</span> và tồn tại kể cả khi kênh bị ngắt`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

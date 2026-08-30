@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastContext, CastSpec, Rectangle, TargetingRequest } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const Rectangle = api.utils.Quadtree.Rectangle;
@@ -65,8 +66,8 @@ export default class Malzahar_E extends Spell {
   name = 'Ám Ảnh Kinh Hoàng (Malzahar_E)';
   description =
     `Gieo ảo ảnh vào tâm trí mục tiêu, gây <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span>` +
-    ` mỗi <span class="time">${TICK_INTERVAL_MS / 1000} giây</span> trong` +
-    ` <span class="time">${DURATION_MS / 1000} giây</span>. Nếu vật chủ chết khi còn nhiễm, ảo ảnh` +
+    ` mỗi <span class="time">${secs(TICK_INTERVAL_MS)} giây</span> trong` +
+    ` <span class="time">${secs(DURATION_MS)} giây</span>. Nếu vật chủ chết khi còn nhiễm, ảo ảnh` +
     ` <span class="buff">lây sang kẻ địch gần nhất</span> và Malzahar hồi` +
     ` <span class="buff">${MANA_ON_KILL} năng lượng</span>`;
   coolDown = COOLDOWN_MS;

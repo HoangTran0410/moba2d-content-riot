@@ -2,6 +2,7 @@ import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content
 import { Katarina_Dagger } from './Katarina_Q';
 import { KATARINA_BLOOD, KATARINA_STEEL } from './Katarina_Q';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Speedup = api.buffs.Speedup;
 const Spell = api.Spell;
@@ -19,9 +20,9 @@ export default class Katarina_W extends Spell {
   image = api.asset('spell_katarina_w');
   name = 'Tung Hứng (Katarina_W)';
   description = `Tung một con dao lên không trung và nhận
-    <span class="buff">+${Math.round(KATARINA_W_SPEEDUP_PERCENT * 100)}% tốc độ di chuyển</span>
-    giảm dần trong ${KATARINA_W_SPEEDUP_MS / 1000} giây.
-    Dao sẽ rơi xuống đất đúng vị trí này sau ${KATARINA_W_DROP_DELAY_MS / 1000} giây.`;
+    <span class="buff">+${pct(KATARINA_W_SPEEDUP_PERCENT)}% tốc độ di chuyển</span>
+    giảm dần trong ${secs(KATARINA_W_SPEEDUP_MS)} giây.
+    Dao sẽ rơi xuống đất đúng vị trí này sau ${secs(KATARINA_W_DROP_DELAY_MS)} giây.`;
   coolDown = 9_000;
   manaCost = 0;
   range = 0;

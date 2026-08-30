@@ -1,5 +1,6 @@
 import type { AttackableUnit } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
@@ -45,8 +46,8 @@ export default class Caitlyn_E extends Spell {
   name = 'Lưới 90 (Caitlyn_E)';
   description =
     `Bắn một tấm lưới gây <span class="damage magic">${CAITLYN_E_DAMAGE} sát thương phép</span> và` +
-    ` <span class="buff">Làm Chậm ${CAITLYN_E_SLOW_PERCENT * 100}%</span> kẻ địch đầu tiên trúng phải` +
-    ` trong <span class="time">${CAITLYN_E_SLOW_MS / 1000} giây</span>.` +
+    ` <span class="buff">Làm Chậm ${pct(CAITLYN_E_SLOW_PERCENT)}%</span> kẻ địch đầu tiên trúng phải` +
+    ` trong <span class="time">${secs(CAITLYN_E_SLOW_MS)} giây</span>.` +
     ` Lực giật đẩy Caitlyn lùi lại <span>${CAITLYN_E_RECOIL_DISTANCE}px</span> theo hướng ngược lại.`;
 
   coolDown = 9000;

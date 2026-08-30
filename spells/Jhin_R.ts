@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastSpec, Root } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const effectiveRange = api.combat.Reach.effectiveRange;
 const SpellForm = api.enums.SpellForm;
@@ -47,11 +48,11 @@ const PETAL_ORBIT = 52;
 export default class Jhin_R extends Spell {
   image = api.asset('spell_jhin_r');
   name = 'Sân Khấu Tử Thần (Jhin_R)';
-  description = `Dựng sân khấu tử thần: Bấm R lần đầu để mở sân khấu hình quạt dài ${JHIN_R_RANGE} đơn vị trong ${JHIN_R_WINDOW_MS / 1000} giây (Jhin bị trói chân và mở rộng tầm nhìn).
-    Bấm R thêm ${JHIN_R_SHOTS} lần nữa, mỗi lần cách nhau ${JHIN_R_SHOT_GAP_MS / 1000} giây, để bắn ${JHIN_R_SHOTS} phát đạn tỉa:
+  description = `Dựng sân khấu tử thần: Bấm R lần đầu để mở sân khấu hình quạt dài ${JHIN_R_RANGE} đơn vị trong ${secs(JHIN_R_WINDOW_MS)} giây (Jhin bị trói chân và mở rộng tầm nhìn).
+    Bấm R thêm ${JHIN_R_SHOTS} lần nữa, mỗi lần cách nhau ${secs(JHIN_R_SHOT_GAP_MS)} giây, để bắn ${JHIN_R_SHOTS} phát đạn tỉa:
     <span class="damage physical">${JHIN_R_DAMAGE} sát thương vật lý</span> cho 3 phát đầu và
     <span class="damage physical">${JHIN_R_FINAL_DAMAGE} sát thương chí mạng</span> cho phát thứ 4,
-    làm chậm kẻ địch đầu tiên trúng đạn ${JHIN_R_SLOW * 100}% trong ${JHIN_R_SLOW_MS / 1000} giây.`;
+    làm chậm kẻ địch đầu tiên trúng đạn ${pct(JHIN_R_SLOW)}% trong ${secs(JHIN_R_SLOW_MS)} giây.`;
   coolDown = 10_000;
   manaCost = 100;
   range = JHIN_R_RANGE;

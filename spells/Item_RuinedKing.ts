@@ -1,5 +1,6 @@
 import type { CastSpec, OnHitEvent } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct } from '../text';
 
 const Spell = api.Spell;
 const Buff = api.buffs.Buff;
@@ -39,7 +40,7 @@ export default class Item_RuinedKing extends Spell {
   name = 'Gươm Suy Vong (Item_RuinedKing)';
   description =
     `Nội tại: đòn đánh gây thêm sát thương vật lý bằng` +
-    ` ${RUINED_KING_CURRENT_HEALTH_RATIO * 100}% máu hiện tại của mục tiêu`;
+    ` ${pct(RUINED_KING_CURRENT_HEALTH_RATIO)}% máu hiện tại của mục tiêu`;
   coolDown = 0;
   manaCost = 0;
 

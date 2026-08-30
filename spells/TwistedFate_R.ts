@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
@@ -64,10 +65,10 @@ export default class TwistedFate_R extends Spell {
   image = api.asset('spell_twistedfate_r');
   name = 'Định Mệnh (TwistedFate_R)';
   description =
-    `Kênh trong <span class="time">${CHANNEL_MS / 1000} giây</span>, sau đó` +
+    `Kênh trong <span class="time">${secs(CHANNEL_MS)} giây</span>, sau đó` +
     ` <span class="buff">Lộ Diện</span> toàn bộ tướng địch trên bản đồ trong` +
-    ` <span class="time">${REVEAL_MS / 1000} giây</span>. Trong` +
-    ` <span class="time">${GATE_WINDOW_MS / 1000} giây</span> kế tiếp, kích hoạt lại để` +
+    ` <span class="time">${secs(REVEAL_MS)} giây</span>. Trong` +
+    ` <span class="time">${secs(GATE_WINDOW_MS)} giây</span> kế tiếp, kích hoạt lại để` +
     ` <span class="buff">dịch chuyển</span> tới vị trí chỉ định trong tầm` +
     ` <span>${BLINK_RANGE}px</span>`;
   coolDown = COOLDOWN_MS;

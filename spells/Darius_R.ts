@@ -1,6 +1,7 @@
 import type { AttackableUnit, ExecuteFallback, ExecuteSpell } from '@moba2d/core/content/types';
 import { HEMORRHAGE_MAX_STACKS, hemorrhageStacks } from './Darius_Q';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const pickExecuteTarget = api.combat.ExecuteTargeting.pickExecuteTarget;
@@ -55,7 +56,7 @@ export default class Darius_R extends Spell implements ExecuteSpell {
     ` cộng thêm <span class="damage true">${DAMAGE_PER_STACK}</span> cho mỗi cấp <span class="damage">Chảy Máu</span>` +
     ` (tối đa <span class="damage true">${MAX_DAMAGE}</span>).` +
     ` Nếu chém chết mục tiêu, chiêu cuối <span class="buff">hồi ngay lập tức</span>` +
-    ` và lính quanh đó <span class="buff">Khiếp Sợ</span> trong <span class="time">${FEAR_MS / 1000} giây</span>`;
+    ` và lính quanh đó <span class="buff">Khiếp Sợ</span> trong <span class="time">${secs(FEAR_MS)} giây</span>`;
   coolDown = 10_000;
   manaCost = 60;
 

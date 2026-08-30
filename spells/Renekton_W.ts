@@ -1,6 +1,7 @@
 import type { AttackableUnit, BasicAttackHit, Buff } from '@moba2d/core/content/types';
 import { isEnraged } from './Renekton_R';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const EventType = api.enums.EventType;
@@ -46,11 +47,11 @@ export default class Renekton_W extends Spell {
   image = api.asset('spell_renekton_w');
   name = 'Kẻ Săn Mồi Tàn Nhẫn (Renekton_W)';
   description =
-    `Cường hóa đòn đánh tiếp theo trong <span class="time">${WINDOW_MS / 1000} giây</span>:` +
+    `Cường hóa đòn đánh tiếp theo trong <span class="time">${secs(WINDOW_MS)} giây</span>:` +
     ` cắn <span>${STRIKES} nhát</span> × <span class="damage physical">${DAMAGE_PER_STRIKE} sát thương vật lý</span>` +
-    ` và <span class="buff">Choáng</span> trong <span class="time">${STUN_MS / 1000} giây</span>.` +
+    ` và <span class="buff">Choáng</span> trong <span class="time">${secs(STUN_MS)} giây</span>.` +
     ` <span class="buff">Cuồng Nộ</span>: <span>${ENRAGED_STRIKES} nhát</span>,` +
-    ` <span class="buff">Choáng ${ENRAGED_STUN_MS / 1000} giây</span>` +
+    ` <span class="buff">Choáng ${secs(ENRAGED_STUN_MS)} giây</span>` +
     ` và <span class="damage">phá huỷ mọi lá chắn</span> của mục tiêu`;
   coolDown = 8_000;
   manaCost = 25;
@@ -67,7 +68,7 @@ export class Renekton_W_Buff extends Buff {
   description =
     `<span class="buff">${STRIKES} đòn đánh</span> kế tiếp gây thêm ` +
     `<span class="damage physical">${DAMAGE_PER_STRIKE} sát thương vật lý</span> và ` +
-    `<span class="buff">Choáng</span> trong <span class="time">${STUN_MS / 1000} giây</span>.`;
+    `<span class="buff">Choáng</span> trong <span class="time">${secs(STUN_MS)} giây</span>.`;
 
   private stopListening?: () => void;
   private art: Renekton_W_Object | null = null;

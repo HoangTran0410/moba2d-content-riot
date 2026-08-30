@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const Rectangle = api.utils.Quadtree.Rectangle;
@@ -46,9 +47,9 @@ export default class Thresh_W extends Spell {
   name = 'Con Đường Tăm Tối (Thresh_W)';
   description =
     `Ném chiếc đèn bay tới vị trí chỉ định; <span class="damage">khi đáp xuống</span> nó treo ở đó` +
-    ` <span class="time">${DURATION / 1000} giây</span>: mỗi đồng minh <span class="buff">bước vào</span>` +
+    ` <span class="time">${secs(DURATION)} giây</span>: mỗi đồng minh <span class="buff">bước vào</span>` +
     ` <span>${RADIUS}px</span> nhận khiên <span class="heal">${SHIELD_AMOUNT}</span> trong` +
-    ` <span class="time">${SHIELD_DURATION_MS / 1000} giây</span>, một lần cho mỗi người`;
+    ` <span class="time">${secs(SHIELD_DURATION_MS)} giây</span>, một lần cho mỗi người`;
   coolDown = 10000;
   manaCost = 40;
 

@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const Disarm = api.buffs.Disarm;
@@ -30,7 +31,7 @@ export default class Garen_E extends Spell {
   image = api.asset('spell_garen_e');
   name = 'Phán Quyết (Garen_E)';
   description =
-    `Xoay kiếm quanh mình <span class="time">${DURATION / 1000} giây</span>, chém` +
+    `Xoay kiếm quanh mình <span class="time">${secs(DURATION)} giây</span>, chém` +
     ` <span>${HITS} lần</span> × <span class="damage physical">${DAMAGE_PER_HIT} sát thương vật lý</span> cho kẻ địch trong` +
     ` <span>${RADIUS}px</span>. Trong lúc xoay, Garen <span class="buff">đi xuyên qua kẻ địch</span> nhưng` +
     ` <span class="damage">không thể đánh thường</span>`;

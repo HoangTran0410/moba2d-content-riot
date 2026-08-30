@@ -1,5 +1,6 @@
 import type { AttackableUnit, BasicAttackHit, Buff, Rectangle, Spell } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const EventType = api.enums.EventType;
@@ -74,7 +75,7 @@ export class XinZhao_Q_Buff extends Buff {
     `<span class="buff">${XINZHAO_Q_ATTACKS} đòn đánh</span> kế tiếp gây thêm ` +
     `<span class="damage physical">${XINZHAO_Q_BONUS_DAMAGE} sát thương vật lý</span>; ` +
     `đòn cuối <span class="buff">Hất Tung</span> trong ` +
-    `<span class="time">${XINZHAO_Q_KNOCKUP_MS / 1000} giây</span>.`;
+    `<span class="time">${secs(XINZHAO_Q_KNOCKUP_MS)} giây</span>.`;
   strikesLeft = XINZHAO_Q_ATTACKS;
   spellRef: Spell | null = null;
 

@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
@@ -20,7 +21,7 @@ export default class Amumu_R extends Spell {
   description =
     `Băng quấn bung ra <span>${RADIUS}px</span>, gây <span class="damage magic">${DAMAGE} sát thương phép</span>` +
     ` và <span class="buff">Trói Chân</span> mọi kẻ địch trúng phải trong` +
-    ` <span class="time">${ROOT_DURATION / 1000} giây</span>`;
+    ` <span class="time">${secs(ROOT_DURATION)} giây</span>`;
   coolDown = 10000;
   manaCost = 60;
 

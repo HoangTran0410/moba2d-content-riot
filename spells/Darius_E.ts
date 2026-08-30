@@ -4,6 +4,7 @@ import { api } from '../packApi';
 // content-pack extraction) — see `Lux_R.ts`'s identical note on `LuxBeamEffect`.
 import { drawAxeArc, drawDariusAxe } from '../vfx/DariusAxe';
 import { applyHemorrhage } from './Darius_Q';
+import { pct, secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
@@ -53,8 +54,8 @@ export default class Darius_E extends Spell {
     `Quét rìu thành hình quạt xa <span>${CONE_RANGE}px</span>, gây` +
     ` <span class="damage physical">${DAMAGE} sát thương vật lý</span>, cộng một cấp <span class="damage">Chảy Máu</span>` +
     ` và <span class="buff">kéo</span> mọi kẻ địch trúng chiêu về sát người.` +
-    ` Khi tiếp đất chúng bị <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span>` +
-    ` trong <span class="time">${SLOW_MS / 1000} giây</span>`;
+    ` Khi tiếp đất chúng bị <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span>` +
+    ` trong <span class="time">${secs(SLOW_MS)} giây</span>`;
   coolDown = 9_000;
   manaCost = 45;
 

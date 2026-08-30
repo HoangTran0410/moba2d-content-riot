@@ -1,5 +1,6 @@
 import type { AttackableUnit, Rectangle } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
@@ -56,9 +57,9 @@ export default class Malzahar_Q extends Spell {
   name = 'Tiếng Gọi Hư Không (Malzahar_Q)';
   description =
     `Mở hai cánh cổng Hư Không cách nhau <span>${PORTAL_GAP}px</span>. Sau` +
-    ` <span class="time">${DELAY_MS / 1000} giây</span>, kẻ địch đứng giữa hai cổng nhận` +
+    ` <span class="time">${secs(DELAY_MS)} giây</span>, kẻ địch đứng giữa hai cổng nhận` +
     ` <span class="damage magic">${DAMAGE} sát thương phép</span> và bị <span class="buff">Câm Lặng</span>` +
-    ` trong <span class="time">${SILENCE_MS / 1000} giây</span>`;
+    ` trong <span class="time">${secs(SILENCE_MS)} giây</span>`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

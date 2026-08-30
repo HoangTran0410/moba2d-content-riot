@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const Buff = api.buffs.Buff;
@@ -25,7 +26,7 @@ export default class Camille_Q extends Spell {
   image = api.asset('spell_camille_q');
   name = 'Giao Thức Chuẩn Xác (Camille_Q)';
   description =
-    `Cường hóa đòn đánh tiếp theo gây thêm <span class="damage magic">${CAMILLE_Q_DAMAGE} sát thương phép</span> và tăng <span class="buff">30% Tốc chạy</span>. Có thể tái kích hoạt sau ${CAMILLE_Q_CHARGE_MS / 1000} giây để đòn đánh tiếp theo gây <span class="damage true">${CAMILLE_Q_TRUE_DAMAGE} sát thương chuẩn</span> thay thế.`;
+    `Cường hóa đòn đánh tiếp theo gây thêm <span class="damage magic">${CAMILLE_Q_DAMAGE} sát thương phép</span> và tăng <span class="buff">30% Tốc chạy</span>. Có thể tái kích hoạt sau ${secs(CAMILLE_Q_CHARGE_MS)} giây để đòn đánh tiếp theo gây <span class="damage true">${CAMILLE_Q_TRUE_DAMAGE} sát thương chuẩn</span> thay thế.`;
   coolDown = 6000;
   manaCost = 25;
 
@@ -42,7 +43,7 @@ export class Camille_Q_Buff extends Buff {
   description =
     `Đòn đánh kế tiếp gây thêm <span class="damage magic">${CAMILLE_Q_DAMAGE} sát thương phép</span>, ` +
     `hoặc <span class="damage true">${CAMILLE_Q_TRUE_DAMAGE} sát thương chuẩn</span> nếu chờ đủ ` +
-    `<span class="time">${CAMILLE_Q_CHARGE_MS / 1000} giây</span>.`;
+    `<span class="time">${secs(CAMILLE_Q_CHARGE_MS)} giây</span>.`;
   isQ2Ready = false;
   timer = 0;
   private stopListening?: () => void;

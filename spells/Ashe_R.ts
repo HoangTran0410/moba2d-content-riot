@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const Circle = api.utils.Quadtree.Circle;
@@ -54,7 +55,7 @@ export default class Ashe_R extends Spell {
     `Bắn mũi tên băng <span class="buff">bay khắp bản đồ</span>, chỉ vỡ khi trúng <span class="damage">tướng địch</span>` +
     ` (đi xuyên qua lính). Bay càng xa càng nhanh và càng mạnh:` +
     ` <span class="buff">Làm Choáng</span> từ <span class="time">${MIN_STUN_MS / 1000}</span> tới` +
-    ` <span class="time">${MAX_STUN_MS / 1000} giây</span> theo quãng đường, gây` +
+    ` <span class="time">${secs(MAX_STUN_MS)} giây</span> theo quãng đường, gây` +
     ` <span class="damage magic">${DAMAGE} sát thương phép</span> cho mục tiêu và mọi kẻ địch xung quanh`;
   coolDown = 10000;
   manaCost = 80;

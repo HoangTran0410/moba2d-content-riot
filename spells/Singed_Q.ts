@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const Rectangle = api.utils.Quadtree.Rectangle;
@@ -23,7 +24,7 @@ export default class Singed_Q extends Spell {
   image = api.asset('spell_singed_q');
   name = 'Phun Khói Độc (Singed_Q)';
   description =
-    `Rải khí độc phía sau trong <span class="time">${DURATION / 1000} giây</span>. Kẻ địch đi qua vệt độc bị` +
+    `Rải khí độc phía sau trong <span class="time">${secs(DURATION)} giây</span>. Kẻ địch đi qua vệt độc bị` +
     ` <span class="damage magic">nhiễm độc ${POISON_PER_TICK} sát thương phép</span> mỗi nhịp`;
   coolDown = 10000;
   manaCost = 30;

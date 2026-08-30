@@ -1,6 +1,7 @@
 import type { CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 import { CleaveBuff, CLEAVE_RADIUS } from './Item_Tiamat';
+import { pct } from '../text';
 
 const Spell = api.Spell;
 
@@ -33,7 +34,7 @@ export default class Item_RavenousHydra extends Spell {
   image = api.asset('item_ravenous_hydra');
   name = 'Rìu Mãng Xà (Item_RavenousHydra)';
   description =
-    `Nội tại: đòn đánh gây thêm sát thương vật lý bằng ${RAVENOUS_AD_RATIO * 100}% công` +
+    `Nội tại: đòn đánh gây thêm sát thương vật lý bằng ${pct(RAVENOUS_AD_RATIO)}% công` +
     ` lên các kẻ địch khác trong ${CLEAVE_RADIUS} đơn vị quanh mục tiêu`;
   coolDown = 0;
   manaCost = 0;

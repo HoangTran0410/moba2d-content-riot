@@ -2,6 +2,7 @@ import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content
 import { groundedSpheres, Syndra_Burst, Syndra_Sphere } from './Syndra_Q';
 import { SPHERE_GRAB_RADIUS } from './Syndra_Q';
 import { api } from '../packApi';
+import { pct } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const VectorUtils = api.utils.VectorUtils;
@@ -42,7 +43,7 @@ export default class Syndra_W extends Spell {
   name = 'Ý Lực (Syndra_W)';
   description = `Nhấc quả cầu gần nhất trong ${SPHERE_GRAB_RADIUS} lên đầu, rồi nhấn lại để ném
     tới điểm chỉ định: <span class="damage magic">${SYNDRA_W_DAMAGE} sát thương phép</span> trong bán kính
-    ${SYNDRA_W_RADIUS} và <b>làm chậm ${Math.round(SYNDRA_W_SLOW * 100)}%</b>. Quả cầu
+    ${SYNDRA_W_RADIUS} và <b>làm chậm ${pct(SYNDRA_W_SLOW)}%</b>. Quả cầu
     <b>nằm lại</b> ở điểm rơi — cô chỉ dịch chuyển nó.`;
   coolDown = 9_000;
   manaCost = 40;

@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Airborne = api.buffs.Airborne;
 const Charm = api.buffs.Charm;
@@ -32,7 +33,7 @@ export default class Olaf_R extends Spell {
   name = 'Tận Thế Ragnarok (Olaf_R)';
   description =
     `Gỡ bỏ <span class="buff">mọi hiệu ứng khống chế</span> đang dính, và trong` +
-    ` <span class="time">${DURATION / 1000} giây</span> nhận <span class="buff">+${BONUS_DAMAGE} sát thương đánh thường</span>` +
+    ` <span class="time">${secs(DURATION)} giây</span> nhận <span class="buff">+${BONUS_DAMAGE} sát thương đánh thường</span>` +
     ` cùng <span class="buff">+25% tốc chạy</span>`;
   coolDown = 10000;
   manaCost = 50;

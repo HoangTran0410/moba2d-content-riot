@@ -1,6 +1,7 @@
 import type { AttackableUnit, CastContext } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 import { Lissandra_Frostburst } from './Lissandra_Q';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
@@ -60,7 +61,7 @@ export default class Lissandra_E extends Spell {
   image = api.asset('spell_lissandra_e');
   name = 'Con Đường Băng Giá (Lissandra_E)';
   description =
-    `Phóng một vuốt băng bay tới, chậm dần trong <span class="time">${E_FLIGHT_MS / 1000} giây</span> ` +
+    `Phóng một vuốt băng bay tới, chậm dần trong <span class="time">${secs(E_FLIGHT_MS)} giây</span> ` +
     `và gây <span class="damage magic">${E_DAMAGE} sát thương phép</span> cho mọi kẻ địch nó xuyên qua. ` +
     `<span class="buff">Kích hoạt lại</span> khi vuốt băng còn sống để ` +
     `<span class="buff">dịch chuyển</span> tới vị trí của nó.`;

@@ -1,5 +1,6 @@
 import type { AttackableUnit } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const effectiveRange = api.combat.Reach.effectiveRange;
@@ -40,7 +41,7 @@ export default class Rammus_E extends Spell {
   name = 'Khiêu Khích Điên Cuồng (Rammus_E)';
   description =
     `Chọc giận <span class="buff">toàn bộ kẻ địch</span> trong <span>${RANGE}px</span>: mỗi mục tiêu chịu <span class="damage magic">${DAMAGE} sát thương phép</span>` +
-    ` và <span class="buff">Khiêu Khích</span> trong <span class="time">${DURATION / 1000} giây</span> —` +
+    ` và <span class="buff">Khiêu Khích</span> trong <span class="time">${secs(DURATION)} giây</span> —` +
     ` mục tiêu <span class="debuff">buộc phải đuổi theo và đánh thường vào Rammus</span>,` +
     ` không thể dùng chiêu thức (vẫn đánh thường và di chuyển được, nhưng không tự chọn được nữa)`;
   coolDown = 10000;

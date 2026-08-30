@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastSpec, ExecuteSpell, TargetingRequest } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
@@ -56,7 +57,7 @@ export default class Annie_Q extends Spell implements ExecuteSpell {
   description =
     `Ném cầu lửa vào một mục tiêu trong <span>${RANGE}px</span>, gây` +
     ` <span class="damage magic">${DAMAGE} sát thương phép</span>. Nếu <span class="buff">hạ gục</span> mục tiêu,` +
-    ` hoàn lại toàn bộ mana và <span class="buff">giảm ${(1 - KILL_COOLDOWN_SCALE) * 100}% hồi chiêu</span>`;
+    ` hoàn lại toàn bộ mana và <span class="buff">giảm ${pct((1 - KILL_COOLDOWN_SCALE))}% hồi chiêu</span>`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

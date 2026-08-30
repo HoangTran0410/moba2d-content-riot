@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
@@ -49,7 +50,7 @@ export default class Veigar_E extends Spell {
   targetingMode = 'POINT' as const;
   image = api.asset('spell_veigar_e');
   name = 'Bẻ Cong Không Gian (Veigar_E)';
-  description = `Vặn xoắn không gian, tạo ra một lồng giam tồn tại trong <span class="time">${CAGE_LIFETIME_MS / 1000} giây</span>. <span class="buff">Làm Choáng</span> <span class="time">${STUN_TIME / 1000} giây</span> những kẻ địch dám bước qua.`;
+  description = `Vặn xoắn không gian, tạo ra một lồng giam tồn tại trong <span class="time">${secs(CAGE_LIFETIME_MS)} giây</span>. <span class="buff">Làm Choáng</span> <span class="time">${secs(STUN_TIME)} giây</span> những kẻ địch dám bước qua.`;
   coolDown = 5000;
   manaCost = 50;
 

@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastSpec, Rectangle } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const Dash = api.buffs.Dash;
@@ -55,7 +56,7 @@ export default class Shen_E extends Spell {
     `Shen lướt <span class="buff">${DASH_DISTANCE}</span> về phía con trỏ, gây` +
     ` <span class="damage physical">${DASH_DAMAGE} sát thương vật lý</span> lên mọi tướng địch` +
     ` mà anh đi xuyên qua (mỗi mục tiêu chỉ một lần) và <span class="debuff">Khiêu Khích</span>` +
-    ` chúng trong <span class="buff">${TAUNT_DURATION_MS / 1000} giây</span>:` +
+    ` chúng trong <span class="buff">${secs(TAUNT_DURATION_MS)} giây</span>:` +
     ` mục tiêu buộc phải đuổi theo và đánh thường vào Shen — vẫn chạy và đánh được,` +
     ` nhưng không dùng được chiêu thức.`;
   coolDown = COOLDOWN_MS;

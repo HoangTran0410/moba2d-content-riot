@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const bodyRadiusOf = api.combat.Reach.bodyRadiusOf;
@@ -51,7 +52,7 @@ export default class Sett_E extends Spell {
     `Sett kẹp hai bên người: mọi kẻ địch trong hai ô ${SETT_E_BOX_LENGTH}x${SETT_E_BOX_WIDTH} ` +
     `trước và sau lưng nhận <span class="damage physical">${SETT_E_DAMAGE} sát thương vật lý</span> và bị lôi ` +
     `sát vào người hắn. Nếu bắt được cả hai phía, tất cả bị choáng ` +
-    `${SETT_E_STUN_MS / 1000} giây.`;
+    `${secs(SETT_E_STUN_MS)} giây.`;
   coolDown = 10_000;
   manaCost = 30;
   range = SETT_E_BOX_LENGTH;

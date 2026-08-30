@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const effectiveRange = api.combat.Reach.effectiveRange;
 const Spell = api.Spell;
@@ -32,7 +33,7 @@ export const R_DROP_HEIGHT = 420;
 export default class Ziggs_R extends Spell {
   image = api.asset('spell_ziggs_r');
   name = 'Siêu Bom Địa Ngục (Ziggs_R)';
-  description = `Nã một siêu bom bay ${R_FLIGHT_MS / 1000} giây rồi rơi xuống điểm chỉ định: <span class="damage magic">${R_INNER_DAMAGE} sát thương phép</span> trong lõi bán kính ${R_INNER_RADIUS}, <span class="damage magic">${R_OUTER_DAMAGE} sát thương phép</span> ở vành ngoài tới ${R_OUTER_RADIUS}. Cái bóng lớn dần trên mặt đất là thời gian để tránh.`;
+  description = `Nã một siêu bom bay ${secs(R_FLIGHT_MS)} giây rồi rơi xuống điểm chỉ định: <span class="damage magic">${R_INNER_DAMAGE} sát thương phép</span> trong lõi bán kính ${R_INNER_RADIUS}, <span class="damage magic">${R_OUTER_DAMAGE} sát thương phép</span> ở vành ngoài tới ${R_OUTER_RADIUS}. Cái bóng lớn dần trên mặt đất là thời gian để tránh.`;
   coolDown = 10_000;
   manaCost = 100;
   range = R_RANGE;

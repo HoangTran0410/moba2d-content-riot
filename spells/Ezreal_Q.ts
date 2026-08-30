@@ -1,6 +1,7 @@
 import type { AttackableUnit, Spell } from '@moba2d/core/content/types';
 import { detonateEssenceFlux } from './Ezreal_W';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
@@ -35,7 +36,7 @@ export default class Ezreal_Q extends Spell {
   description =
     `Bắn một mũi tên năng lượng gây <span class="damage physical">${EZREAL_Q_DAMAGE} sát thương vật lý</span>` +
     ' lên kẻ địch đầu tiên trúng phải. Nếu trúng, mọi chiêu thức của Ezreal được giảm' +
-    ` <span class="time">${EZREAL_Q_COOLDOWN_REFUND_MS / 1000} giây</span> hồi chiêu.`;
+    ` <span class="time">${secs(EZREAL_Q_COOLDOWN_REFUND_MS)} giây</span> hồi chiêu.`;
 
   coolDown = 4000;
   manaCost = 25;

@@ -1,6 +1,7 @@
 import type { AttackableUnit } from '@moba2d/core/content/types';
 import { MOON_CORE, MOON_PALE, drawCrescent } from './Diana_Q';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const effectiveRange = api.combat.Reach.effectiveRange;
@@ -40,7 +41,7 @@ export default class Diana_R extends Spell {
   image = api.asset('spell_diana_r');
   name = 'Trăng Mờ (Diana_R)';
   description = `Mọi kẻ địch trong bán kính ${R_RADIUS} bị kéo về sát Diana trong
-    ${R_PULL_MS / 1000} giây, rồi hứng <span class="damage magic">${R_DAMAGE} sát thương phép</span> khi
+    ${secs(R_PULL_MS)} giây, rồi hứng <span class="damage magic">${R_DAMAGE} sát thương phép</span> khi
     đã bị dồn lại.`;
   coolDown = 10_000;
   manaCost = 100;

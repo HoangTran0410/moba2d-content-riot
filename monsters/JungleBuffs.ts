@@ -1,5 +1,6 @@
 import type { ContentApi } from '@moba2d/core/content/ContentApi';
 import type { MonsterAbility, OnHitEvent, Vec2 } from '@moba2d/core/content/types';
+import { pct, secs } from '../text';
 
 /**
  * The three camps whose meaning is what killing them grants — bùa xanh, bùa
@@ -171,7 +172,7 @@ export function makeBlueBuff(api: ContentApi) {
     // anyone takes this camp. The cooldown burn is an `onUpdate` loop over the
     // wearer's spells, and no stat exists for it to appear as.
     description =
-      `Hồi <span class="heal">${Math.round(BLUE_BUFF.instantManaPercent * 100)}% năng lượng tối đa</span> ngay lập tức. ` +
+      `Hồi <span class="heal">${pct(BLUE_BUFF.instantManaPercent)}% năng lượng tối đa</span> ngay lập tức. ` +
       `Tăng <span class="buff">${Math.round(BLUE_BUFF.manaRegenBonus * 60)}/giây</span> hồi năng lượng và ` +
       `rút ngắn mọi thời gian hồi chiêu <span class="buff">${Math.round(BLUE_BUFF.cooldownHaste * 100)}%</span>.`;
 
@@ -242,9 +243,9 @@ export function makeRedBuff(api: ContentApi) {
     // is the state every buff in this pack was in.
     description =
       `Đòn đánh thường thiêu đốt mục tiêu: <span class="damage true">${RED_BUFF.burnTotal} sát thương chuẩn</span> ` +
-      `trong <span class="time">${RED_BUFF.burnDurationMs / 1000} giây</span> và ` +
-      `<span class="buff">Làm Chậm ${Math.round(RED_BUFF.slowPercent * 100)}%</span> trong ` +
-      `<span class="time">${RED_BUFF.slowDurationMs / 1000} giây</span>.`;
+      `trong <span class="time">${secs(RED_BUFF.burnDurationMs)} giây</span> và ` +
+      `<span class="buff">Làm Chậm ${pct(RED_BUFF.slowPercent)}%</span> trong ` +
+      `<span class="time">${secs(RED_BUFF.slowDurationMs)} giây</span>.`;
 
     onHit(hit: OnHitEvent): void {
       // The brand belongs to the swing, not to every application the swing
@@ -261,7 +262,7 @@ export function makeRedBuff(api: ContentApi) {
       const slow = new api.buffs.Slow(RED_BUFF.slowDurationMs, this.targetUnit, hit.victim);
       slow.name = RED_BUFF.name;
       slow.stackId = RED_BUFF.slowStackId;
-      slow.description = `Bị Bùa Đỏ thiêu đốt — giảm <span class="buff">${Math.round(RED_BUFF.slowPercent * 100)}%</span> tốc chạy.`;
+      slow.description = `Bị Bùa Đỏ thiêu đốt — giảm <span class="buff">${pct(RED_BUFF.slowPercent)}%</span> tốc chạy.`;
       slow.percent = RED_BUFF.slowPercent;
       slow.buffAddType = api.enums.BuffAddType.RENEW_EXISTING;
       hit.victim.addBuff(slow);

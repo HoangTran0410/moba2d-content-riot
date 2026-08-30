@@ -1,5 +1,6 @@
 import type { AttackableUnit, BasicAttackHit, Buff } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const EventType = api.enums.EventType;
@@ -53,9 +54,9 @@ export default class Twitch_R extends Spell {
   image = api.asset('spell_twitch_r');
   name = 'Nhắm Mắt Bắn Bừa (Twitch_R)';
   description =
-    `Trong <span class="time">${DURATION / 1000} giây</span>: <span class="buff">+${BONUS_RANGE} tầm đánh</span>,` +
+    `Trong <span class="time">${secs(DURATION)} giây</span>: <span class="buff">+${BONUS_RANGE} tầm đánh</span>,` +
     ` <span class="buff">+${BONUS_DAMAGE} sát thương đánh thường</span>,` +
-    ` <span class="buff">+${Math.round(ATTACK_SPEED_PERCENT * 100)}% tốc độ đánh</span>,` +
+    ` <span class="buff">+${pct(ATTACK_SPEED_PERCENT)}% tốc độ đánh</span>,` +
     ` <span class="buff">+${ON_HIT_DAMAGE} sát thương mỗi đòn đánh</span>,` +
     ` và mỗi đòn đánh thường <span class="damage">xuyên qua mục tiêu</span> bắn tiếp` +
     ` <span class="damage physical">${BOLT_DAMAGE} sát thương vật lý</span> cho mọi kẻ địch phía sau`;

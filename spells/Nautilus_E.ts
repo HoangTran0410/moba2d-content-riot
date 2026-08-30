@@ -1,5 +1,6 @@
 import type { AttackableUnit, Rectangle } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Circle = api.utils.Quadtree.Circle;
@@ -44,8 +45,8 @@ export default class Nautilus_E extends Spell {
   name = 'Thủy Triều Dữ Dội (Nautilus_E)';
   description =
     `Ba đợt cột nước dựng lên quanh Nautilus ở ${E_RADII.join(', ')} đơn vị, cách nhau ` +
-    `${E_WAVE_GAP_MS / 1000} giây. Mỗi đợt gây <span class="damage magic">${E_WAVE_DAMAGE} sát thương phép</span> ` +
-    `và làm chậm ${Math.round(E_SLOW * 100)}%. Đứng yên là ăn đủ cả ba.`;
+    `${secs(E_WAVE_GAP_MS)} giây. Mỗi đợt gây <span class="damage magic">${E_WAVE_DAMAGE} sát thương phép</span> ` +
+    `và làm chậm ${pct(E_SLOW)}%. Đứng yên là ăn đủ cả ba.`;
   coolDown = 10_000;
   manaCost = 40;
   range = E_MAX_RADIUS;

@@ -2,6 +2,7 @@ import type { AttackableUnit, BasicAttackHit, Buff, CastSpec } from '@moba2d/cor
 import { Vayne_R_Buff } from './Vayne_R';
 import { VAYNE_R_Q_CDR, VAYNE_R_STEALTH_MS } from './Vayne_R';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const effectiveRange = api.combat.Reach.effectiveRange;
@@ -49,7 +50,7 @@ export default class Vayne_Q extends Spell {
   image = api.asset('spell_vayne_q');
   name = 'Nhào Lộn (Vayne_Q)';
   description = `Lăn một đoạn ngắn. Đòn đánh thường kế tiếp trong
-    ${VAYNE_Q_EMPOWER_MS / 1000} giây gây thêm
+    ${secs(VAYNE_Q_EMPOWER_MS)} giây gây thêm
     <span class="damage physical">${VAYNE_Q_BONUS} sát thương vật lý</span>.`;
   coolDown = 4_000;
   manaCost = 20;

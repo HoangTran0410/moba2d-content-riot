@@ -1,6 +1,7 @@
 import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { Riven_R_Reforge } from './Riven_R';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const effectiveRange = api.combat.Reach.effectiveRange;
@@ -54,7 +55,7 @@ export default class Riven_Q extends Spell {
   description =
     `Lao ${Q_STEP} về phía trước rồi chém một hình quạt ${Q_ARC_DEG}° bán kính ${Q_RADIUS}, ` +
     `gây <span class="damage physical">${Q_DAMAGE} sát thương vật lý</span>. Có ${Q_CHARGES} lần đánh trong ` +
-    `${Q_WINDOW_MS / 1000} giây; nhát thứ ba lao ${Q_STEP_FINAL}, gây ` +
+    `${secs(Q_WINDOW_MS)} giây; nhát thứ ba lao ${Q_STEP_FINAL}, gây ` +
     `<span class="damage physical">${Q_DAMAGE_FINAL} sát thương vật lý</span> và hất tung mục tiêu.`;
   coolDown = 3_500;
   manaCost = 0;

@@ -1,6 +1,7 @@
 import type { AttackableUnit } from '@moba2d/core/content/types';
 import { detonateEssenceFlux, essenceFluxSpell } from './Ezreal_W';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const VectorUtils = api.utils.VectorUtils;
@@ -47,7 +48,7 @@ export default class Ezreal_E extends Spell {
   description =
     `Dịch chuyển tối đa <span>${EZREAL_E_BLINK_RANGE}px</span> về hướng con trỏ, sau đó bắn một` +
     ` tia dẫn đường vào kẻ địch gần nhất, gây <span class="damage magic">${EZREAL_E_BOLT_DAMAGE} sát thương phép</span>` +
-    ` và <span class="buff">Lộ Diện</span> mục tiêu trong <span class="time">${EZREAL_E_REVEAL_MS / 1000} giây</span>.` +
+    ` và <span class="buff">Lộ Diện</span> mục tiêu trong <span class="time">${secs(EZREAL_E_REVEAL_MS)} giây</span>.` +
     ' Ưu tiên mục tiêu đang mang dấu Tinh Hoa Tuôn Chảy.';
 
   coolDown = 9000;

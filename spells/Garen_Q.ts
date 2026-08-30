@@ -1,5 +1,6 @@
 import type { BasicAttackHit, Buff } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const EventType = api.enums.EventType;
 const Spell = api.Spell;
@@ -36,10 +37,10 @@ export default class Garen_Q extends Spell {
   image = api.asset('spell_garen_q');
   name = 'Đòn Quyết Định (Garen_Q)';
   description =
-    `<span class="buff">Gỡ mọi hiệu ứng làm chậm</span> và nhận <span class="buff">+${SPEED_PERCENT * 100}% tốc chạy</span>` +
-    ` trong <span class="time">${SPEED_DURATION / 1000} giây</span>. Đòn đánh thường tiếp theo trong` +
-    ` <span class="time">${WINDOW_MS / 1000} giây</span> gây thêm <span class="damage physical">${BONUS_DAMAGE} sát thương vật lý</span>` +
-    ` và <span class="buff">Câm Lặng</span> mục tiêu <span class="time">${SILENCE_MS / 1000} giây</span>`;
+    `<span class="buff">Gỡ mọi hiệu ứng làm chậm</span> và nhận <span class="buff">+${pct(SPEED_PERCENT)}% tốc chạy</span>` +
+    ` trong <span class="time">${secs(SPEED_DURATION)} giây</span>. Đòn đánh thường tiếp theo trong` +
+    ` <span class="time">${secs(WINDOW_MS)} giây</span> gây thêm <span class="damage physical">${BONUS_DAMAGE} sát thương vật lý</span>` +
+    ` và <span class="buff">Câm Lặng</span> mục tiêu <span class="time">${secs(SILENCE_MS)} giây</span>`;
   coolDown = 8000;
   manaCost = 20;
 

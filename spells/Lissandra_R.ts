@@ -1,6 +1,7 @@
 import type { AttackableUnit } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 import { Lissandra_Frostburst } from './Lissandra_Q';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
@@ -114,15 +115,15 @@ export default class Lissandra_R extends Spell {
   image = api.asset('spell_lissandra_r');
   name = 'Hầm Mộ Hàn Băng (Lissandra_R)';
   description =
-    `Tự phong ấn bản thân trong băng <span class="time">${R_STASIS_MS / 1000} giây</span>: ` +
+    `Tự phong ấn bản thân trong băng <span class="time">${secs(R_STASIS_MS)} giây</span>: ` +
     '<span class="buff">không thể bị chọn làm mục tiêu và không nhận sát thương</span>, ' +
     `đồng thời hồi <span class="buff">${R_HEAL_PER_TICK_MIN}–${R_HEAL_PER_TICK_MAX} máu mỗi ` +
-    `${R_HEAL_TICK_MS / 1000} giây</span> (càng mất nhiều máu, hồi càng nhiều). ` +
+    `${secs(R_HEAL_TICK_MS)} giây</span> (càng mất nhiều máu, hồi càng nhiều). ` +
     `Một trận địa băng lan rộng ra bán kính <span class="buff">${R_FIELD_RADIUS}</span> trong ` +
-    `<span class="time">${R_FIELD_SPREAD_MS / 1000} giây</span> và tồn tại ` +
-    `<span class="time">${R_FIELD_DURATION_MS / 1000} giây</span>, gây ` +
+    `<span class="time">${secs(R_FIELD_SPREAD_MS)} giây</span> và tồn tại ` +
+    `<span class="time">${secs(R_FIELD_DURATION_MS)} giây</span>, gây ` +
     `<span class="damage magic">${R_FIELD_DAMAGE} sát thương phép</span> một lần cho mỗi kẻ địch và ` +
-    `<span class="buff">làm chậm ${R_FIELD_SLOW_PERCENT * 100}%</span> khi chúng còn đứng trong đó.`;
+    `<span class="buff">làm chậm ${pct(R_FIELD_SLOW_PERCENT)}%</span> khi chúng còn đứng trong đó.`;
   coolDown = R_COOLDOWN_MS;
   manaCost = R_MANA_COST;
   range = R_FIELD_RADIUS;

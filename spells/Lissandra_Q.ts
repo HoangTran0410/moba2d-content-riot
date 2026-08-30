@@ -1,5 +1,6 @@
 import type { AttackableUnit } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
@@ -62,8 +63,8 @@ export default class Lissandra_Q extends Spell {
   name = 'Mảnh Băng (Lissandra_Q)';
   description =
     `Phóng một mũi băng gây <span class="damage magic">${Q_DAMAGE} sát thương phép</span> và ` +
-    `<span class="buff">làm chậm ${Q_SLOW_PERCENT * 100}%</span> trong ` +
-    `<span class="time">${Q_SLOW_DURATION_MS / 1000} giây</span>. Khi trúng mục tiêu đầu tiên, ` +
+    `<span class="buff">làm chậm ${pct(Q_SLOW_PERCENT)}%</span> trong ` +
+    `<span class="time">${secs(Q_SLOW_DURATION_MS)} giây</span>. Khi trúng mục tiêu đầu tiên, ` +
     `mũi băng <span class="buff">vỡ tan</span> thành một luồng mảnh vụn rộng và nhanh hơn, ` +
     `bay thêm <span class="buff">${Q_SHATTER_RANGE} tầm</span> và gây sát thương cho những kẻ địch phía sau.`;
   coolDown = Q_COOLDOWN_MS;

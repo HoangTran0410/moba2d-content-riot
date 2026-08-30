@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const Circle = api.utils.Quadtree.Circle;
@@ -26,9 +27,9 @@ export default class Cassiopeia_Q extends Spell {
   image = api.asset('spell_cassiopeia_q');
   name = 'Vụ Nổ Độc Hại (Cassiopeia_Q)';
   description =
-    `Nổ một đám độc bán kính <span>${RADIUS}px</span> sau <span class="time">${DELAY_MS / 1000} giây</span>:` +
+    `Nổ một đám độc bán kính <span>${RADIUS}px</span> sau <span class="time">${secs(DELAY_MS)} giây</span>:` +
     ` <span class="damage magic">${IMPACT_DAMAGE} sát thương phép</span> và <span class="damage">nhiễm độc</span>` +
-    ` trong <span class="time">${POISON_DURATION / 1000} giây</span>. Trúng mục tiêu thì Cassiopeia` +
+    ` trong <span class="time">${secs(POISON_DURATION)} giây</span>. Trúng mục tiêu thì Cassiopeia` +
     ` <span class="buff">+30% tốc chạy</span>`;
   coolDown = 5000;
   manaCost = 20;

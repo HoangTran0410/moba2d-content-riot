@@ -1,6 +1,7 @@
 import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { CAITLYN_W_REVEAL_STACK_ID } from './Caitlyn_W';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
@@ -36,7 +37,7 @@ export default class Caitlyn_Q extends Spell {
   image = api.asset('spell_caitlyn_q');
   name = 'Bắn Xuyên Táo (Caitlyn_Q)';
   description =
-    `Lên đạn trong <span class="time">${CAITLYN_Q_CAST_TIME_MS / 1000} giây</span> rồi bắn một phát` +
+    `Lên đạn trong <span class="time">${secs(CAITLYN_Q_CAST_TIME_MS)} giây</span> rồi bắn một phát` +
     ` xuyên thấu, gây <span class="damage physical">${CAITLYN_Q_DAMAGE} sát thương vật lý</span> lên mục tiêu đầu tiên` +
     ` và <span class="damage physical">${CAITLYN_Q_REDUCED_DAMAGE} sát thương vật lý</span> lên những mục tiêu sau.` +
     ' Kẻ địch đang dính Bẫy Yordle luôn nhận sát thương đầy đủ.';

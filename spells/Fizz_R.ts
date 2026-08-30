@@ -1,5 +1,6 @@
 import type { AttackableUnit } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
@@ -34,7 +35,7 @@ export default class Fizz_R extends Spell {
   name = 'Triệu Hồi Thủy Quái (Fizz_R)';
   description =
     `Ném một con cá mồi <span>${RANGE}px</span>. Nó dính vào mục tiêu đầu tiên trúng phải (hoặc rơi xuống đất),` +
-    ` và sau <span class="time">${FUSE_MS / 1000} giây</span> một con cá mập trồi lên:` +
+    ` và sau <span class="time">${secs(FUSE_MS)} giây</span> một con cá mập trồi lên:` +
     ` <span class="damage magic">${DAMAGE} sát thương phép</span>, <span class="buff">Hất Tung</span> và` +
     ` <span class="buff">Làm Chậm 60%</span> trong <span>${RADIUS}px</span>`;
   coolDown = 10000;

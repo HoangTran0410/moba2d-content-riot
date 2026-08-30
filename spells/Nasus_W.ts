@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const effectiveRange = api.combat.Reach.effectiveRange;
@@ -21,8 +22,8 @@ export default class Nasus_W extends Spell {
   image = api.asset('spell_nasus_w');
   name = 'Lão Hóa (Nasus_W)';
   description =
-    `Nguyền rủa kẻ địch gần nhất trong <span>${RANGE}px</span>, <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span>` +
-    ` và giảm tốc độ đánh của chúng trong <span class="time">${DURATION / 1000} giây</span>`;
+    `Nguyền rủa kẻ địch gần nhất trong <span>${RANGE}px</span>, <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span>` +
+    ` và giảm tốc độ đánh của chúng trong <span class="time">${secs(DURATION)} giây</span>`;
   coolDown = 9000;
   manaCost = 25;
 

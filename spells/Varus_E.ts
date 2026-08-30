@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Circle = api.utils.Quadtree.Circle;
@@ -27,8 +28,8 @@ export default class Varus_E extends Spell {
   name = 'Mưa Tên (Varus_E)';
   description =
     `Bắn một loạt tên xuống vị trí chỉ định: <span class="damage physical">${IMPACT_DAMAGE} sát thương vật lý</span> khi chạm đất,` +
-    ` sau đó vùng đất bị <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span> trong` +
-    ` <span class="time">${DURATION / 1000} giây</span>`;
+    ` sau đó vùng đất bị <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> trong` +
+    ` <span class="time">${secs(DURATION)} giây</span>`;
   coolDown = 9000;
   manaCost = 30;
 

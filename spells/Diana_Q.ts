@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Buff = api.buffs.Buff;
 const effectiveRange = api.combat.Reach.effectiveRange;
@@ -121,7 +122,7 @@ export default class Diana_Q extends Spell {
   name = 'Trăng Lưỡi Liềm (Diana_Q)';
   description = `Bắn ra một vệt ánh trăng hình lưỡi liềm uốn lượn tới điểm chỉ định, gây
     <span class="damage magic">${Q_DAMAGE} sát thương phép</span> cho kẻ địch trên đường bay và tại điểm đích,
-    đồng thời đánh dấu Ánh Trăng trong ${MOONLIGHT_MS / 1000} giây.`;
+    đồng thời đánh dấu Ánh Trăng trong ${secs(MOONLIGHT_MS)} giây.`;
   coolDown = 8_000;
   manaCost = 30;
   range = Q_RADIUS;

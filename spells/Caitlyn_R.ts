@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastContext, CastSpec, TargetingRequest } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const AttackableUnit = api.units.AttackableUnit;
 const effectiveRange = api.combat.Reach.effectiveRange;
@@ -57,8 +58,8 @@ export default class Caitlyn_R extends Spell {
   image = api.asset('spell_caitlyn_r');
   name = 'Bách Phát Bách Trúng (Caitlyn_R)';
   description =
-    `Khóa mục tiêu và ngắm bắn trong <span class="time">${CAITLYN_R_CHANNEL_MS / 1000} giây</span>,` +
-    ` <span class="buff">Lộ Diện</span> mục tiêu trong <span class="time">${CAITLYN_R_REVEAL_MS / 1000} giây</span>.` +
+    `Khóa mục tiêu và ngắm bắn trong <span class="time">${secs(CAITLYN_R_CHANNEL_MS)} giây</span>,` +
+    ` <span class="buff">Lộ Diện</span> mục tiêu trong <span class="time">${secs(CAITLYN_R_REVEAL_MS)} giây</span>.` +
     ` Sau đó bắn một viên đạn dẫn đường gây <span class="damage physical">${CAITLYN_R_DAMAGE} sát thương vật lý</span>.`;
 
   coolDown = 10000;

@@ -1,6 +1,7 @@
 import type { AttackableUnit, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { isEnraged } from './Renekton_R';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
@@ -55,11 +56,11 @@ export default class Renekton_E extends Spell {
     `Lướt <span>${DASH_DISTANCE}px</span> theo hướng chỉ định, gây` +
     ` <span class="damage physical">${DAMAGE} sát thương vật lý</span> cho mọi kẻ địch trên đường (mỗi mục tiêu chỉ trúng một lần).` +
     ` Nếu trúng ít nhất một kẻ địch, có thể <span class="buff">lướt lần hai</span> trong` +
-    ` <span class="time">${RECAST_WINDOW_MS / 1000} giây</span>.` +
+    ` <span class="time">${secs(RECAST_WINDOW_MS)} giây</span>.` +
     ` <span class="buff">Cuồng Nộ</span>: lần lướt thứ hai gây thêm` +
     ` <span class="damage physical">${ENRAGED_BONUS_DAMAGE} sát thương vật lý</span> và` +
-    ` <span class="damage">giảm ${SHRED_PERCENT * 100}% Sát thương</span> của mục tiêu` +
-    ` trong <span class="time">${SHRED_MS / 1000} giây</span>`;
+    ` <span class="damage">giảm ${pct(SHRED_PERCENT)}% Sát thương</span> của mục tiêu` +
+    ` trong <span class="time">${secs(SHRED_MS)} giây</span>`;
   coolDown = 9_000;
   manaCost = 30;
 

@@ -1,5 +1,6 @@
 import type { CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Speedup = api.buffs.Speedup;
@@ -55,8 +56,8 @@ export default class Item_Ghostblade extends Spell {
   image = api.asset('item_youmuus_ghostblade');
   name = 'Kiếm Ma Youmuu (Item_Ghostblade)';
   description =
-    `<span class="buff">Tăng tốc ${SPEED_PERCENT * 100}%</span> trong` +
-    ` <span class="time">${DURATION_MS / 1000} giây</span>`;
+    `<span class="buff">Tăng tốc ${pct(SPEED_PERCENT)}%</span> trong` +
+    ` <span class="time">${secs(DURATION_MS)} giây</span>`;
   coolDown = COOLDOWN_MS;
   manaCost = 0;
 

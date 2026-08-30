@@ -1,5 +1,6 @@
 import type { AttackableUnit } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const BuffAddType = api.enums.BuffAddType;
 const Speedup = api.buffs.Speedup;
@@ -75,7 +76,7 @@ export default class Soraka_Q extends Spell {
   targetingMode = 'POINT' as const;
   image = api.asset('spell_soraka_q');
   name = 'Vẫn Tinh (Soraka_Q)';
-  description = `Gọi một vì sao rơi xuống vị trí chỉ định sau <span class="time">${FALL_TIME_MS / 1000} giây</span>, gây <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Làm Chậm ${Math.round(SLOW_PERCENT * 100)}%</span> trong <span class="time">${SLOW_DURATION_MS / 1000} giây</span>. Nếu trúng ít nhất một kẻ địch, bụi sao trở về với Soraka: hồi <span class="heal">${REJUVENATION_HEAL} máu</span> và <span class="buff">+${Math.round(REJUVENATION_SPEED_PERCENT * 100)}% tốc chạy</span> trong <span class="time">${REJUVENATION_DURATION_MS / 1000} giây</span>.`;
+  description = `Gọi một vì sao rơi xuống vị trí chỉ định sau <span class="time">${secs(FALL_TIME_MS)} giây</span>, gây <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> trong <span class="time">${secs(SLOW_DURATION_MS)} giây</span>. Nếu trúng ít nhất một kẻ địch, bụi sao trở về với Soraka: hồi <span class="heal">${REJUVENATION_HEAL} máu</span> và <span class="buff">+${pct(REJUVENATION_SPEED_PERCENT)}% tốc chạy</span> trong <span class="time">${secs(REJUVENATION_DURATION_MS)} giây</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

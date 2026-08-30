@@ -1,5 +1,6 @@
 import type { AttackableUnit, SpellObject, StatsModifier } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
@@ -57,9 +58,9 @@ export default class Nocturne_Q extends Spell {
   description =
     `Phóng lưỡi hái xuyên thẳng <span>${RANGE}px</span>, gây <span class="damage physical">${DAMAGE} sát thương vật lý</span>` +
     ` và <span class="buff">để lại Vệt Hoàng Hôn</span> dọc đường bay trong` +
-    ` <span class="time">${TRAIL_MS / 1000} giây</span>. Tướng địch trúng chiêu cũng <span class="buff">rớt vệt</span>` +
+    ` <span class="time">${secs(TRAIL_MS)} giây</span>. Tướng địch trúng chiêu cũng <span class="buff">rớt vệt</span>` +
     ` khi di chuyển. <span class="buff">Khi đứng trên vệt</span>, Nocturne` +
-    ` <span class="buff">+${SPEED_PERCENT * 100}% tốc chạy</span>,` +
+    ` <span class="buff">+${pct(SPEED_PERCENT)}% tốc chạy</span>,` +
     ` <span class="buff">+${BONUS_ATTACK_DAMAGE} sát thương đánh thường</span> và` +
     ` <span class="buff">đi xuyên qua mọi đơn vị</span>`;
   coolDown = 8000;

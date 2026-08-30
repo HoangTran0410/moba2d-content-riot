@@ -1,6 +1,7 @@
 import type { AttackableUnit } from '@moba2d/core/content/types';
 import { ballFor } from './Orianna_Q';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
@@ -62,7 +63,7 @@ export default class Orianna_W extends Spell {
   targetingMode = 'SELF' as const;
   image = api.asset('spell_orianna_w');
   name = 'Lệnh: Phát Sóng (Orianna_W)';
-  description = `Quả Cầu phát ra một xung điện <span class="buff">ngay tại chỗ nó đang đứng</span> trong bán kính <span class="buff">${RADIUS}</span>, gây <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Làm Chậm ${Math.round(SLOW_PERCENT * 100)}%</span> kẻ địch trong <span class="time">${SLOW_DURATION_MS / 1000} giây</span>. Điện trường còn lại <span class="time">${FIELD_DURATION_MS / 1000} giây</span>, cho đồng minh đứng trong đó <span class="buff">+${Math.round(SPEEDUP_PERCENT * 100)}% tốc chạy</span>.`;
+  description = `Quả Cầu phát ra một xung điện <span class="buff">ngay tại chỗ nó đang đứng</span> trong bán kính <span class="buff">${RADIUS}</span>, gây <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> kẻ địch trong <span class="time">${secs(SLOW_DURATION_MS)} giây</span>. Điện trường còn lại <span class="time">${secs(FIELD_DURATION_MS)} giây</span>, cho đồng minh đứng trong đó <span class="buff">+${pct(SPEEDUP_PERCENT)}% tốc chạy</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

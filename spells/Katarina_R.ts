@@ -2,6 +2,7 @@ import type { AttackableUnit, CancelReason, CastContext, CastSpec } from '@moba2
 import { Katarina_Blade_Impact } from './Katarina_Q';
 import { KATARINA_BLOOD, KATARINA_DAGGER_LENGTH, KATARINA_STEEL, drawKatarinaDagger } from './Katarina_Q';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const SpellForm = api.enums.SpellForm;
 
@@ -28,9 +29,9 @@ const VOLLEY_MS = 200;
 export default class Katarina_R extends Spell {
   image = api.asset('spell_katarina_r');
   name = 'Bông Sen Tử Thần (Katarina_R)';
-  description = `Xoay tròn liên tục trong ${KATARINA_R_DURATION_MS / 1000} giây, phóng bão dao ra mọi hướng:
+  description = `Xoay tròn liên tục trong ${secs(KATARINA_R_DURATION_MS)} giây, phóng bão dao ra mọi hướng:
     <span class="damage magic">${KATARINA_R_TICK_DAMAGE} sát thương phép</span> mỗi
-    ${KATARINA_R_TICK_MS / 1000} giây cho tối đa 3 kẻ địch trong vùng ${KATARINA_R_RADIUS}
+    ${secs(KATARINA_R_TICK_MS)} giây cho tối đa 3 kẻ địch trong vùng ${KATARINA_R_RADIUS}
     (tổng cộng <span class="damage magic">${KATARINA_R_TICK_COUNT * KATARINA_R_TICK_DAMAGE}</span>).
     Bị choáng hoặc di chuyển sẽ ngắt kênh niệm.`;
   coolDown = 10_000;

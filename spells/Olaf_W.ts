@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const StatAmp = api.buffs.StatAmp;
@@ -97,9 +98,9 @@ export default class Olaf_W extends Spell {
   image = api.asset('spell_olaf_w');
   name = 'Nổi Khùng (Olaf_W)';
   description =
-    `Trong <span class="time">${DURATION / 1000} giây</span>: <span class="buff">+${ATTACK_SPEED_PERCENT * 100}% tốc độ đánh</span>,` +
+    `Trong <span class="time">${secs(DURATION)} giây</span>: <span class="buff">+${pct(ATTACK_SPEED_PERCENT)}% tốc độ đánh</span>,` +
     ` <span class="buff">+${ON_HIT_DAMAGE} sát thương mỗi đòn đánh</span> và` +
-    ` <span class="buff">hút ${OMNIVAMP * 100}% máu từ mọi sát thương gây ra</span>`;
+    ` <span class="buff">hút ${pct(OMNIVAMP)}% máu từ mọi sát thương gây ra</span>`;
   coolDown = 10000;
   manaCost = 30;
 

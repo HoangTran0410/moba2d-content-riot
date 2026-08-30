@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const effectiveRange = api.combat.Reach.effectiveRange;
@@ -65,7 +66,7 @@ export default class Vayne_E extends Spell {
   name = 'Kết Án (Vayne_E)';
   description = `Bắn một mũi sắt nặng gây
     <span class="damage physical">${VAYNE_E_DAMAGE} sát thương vật lý</span> và đẩy mục tiêu ra xa. Nếu bị ghim
-    vào địa hình: choáng ${VAYNE_E_STUN_MS / 1000} giây và thêm
+    vào địa hình: choáng ${secs(VAYNE_E_STUN_MS)} giây và thêm
     <span class="damage physical">${VAYNE_E_WALL_BONUS} sát thương vật lý</span>.`;
   coolDown = 10_000;
   manaCost = 50;

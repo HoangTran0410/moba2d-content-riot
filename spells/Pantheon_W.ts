@@ -1,5 +1,6 @@
 import type { AttackableUnit } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const effectiveRange = api.combat.Reach.effectiveRange;
@@ -48,7 +49,7 @@ export default class Pantheon_W extends Spell {
   description =
     `Lao tới kẻ địch <i>gần con trỏ chuột nhất</i> trong <span>${RANGE}px</span>.` +
     ` <i>Khi đáp xuống</i>, đập khiên gây <span class="damage physical">${DAMAGE} sát thương vật lý</span>` +
-    ` và <span class="buff">Choáng</span> trong <span class="time">${STUN_DURATION / 1000} giây</span>`;
+    ` và <span class="buff">Choáng</span> trong <span class="time">${secs(STUN_DURATION)} giây</span>`;
   coolDown = 9000;
   manaCost = 30;
 

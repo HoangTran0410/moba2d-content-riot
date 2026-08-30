@@ -4,6 +4,7 @@ import { api } from '../packApi';
 // content-pack extraction) — see `Lux_R.ts`'s identical note on `LuxBeamEffect`.
 import { drawDariusAxe } from '../vfx/DariusAxe';
 import { applyHemorrhage } from './Darius_Q';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const EventType = api.enums.EventType;
@@ -44,9 +45,9 @@ export default class Darius_W extends Spell {
   image = api.asset('spell_darius_w');
   name = 'Đánh Thọt (Darius_W)';
   description =
-    `Cường hóa đòn đánh thường tiếp theo trong <span class="time">${WINDOW_MS / 1000} giây</span>:` +
+    `Cường hóa đòn đánh thường tiếp theo trong <span class="time">${secs(WINDOW_MS)} giây</span>:` +
     ` gây thêm <span class="damage physical">${BONUS_DAMAGE} sát thương vật lý</span>,` +
-    ` <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span> trong <span class="time">${SLOW_MS / 1000} giây</span>` +
+    ` <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> trong <span class="time">${secs(SLOW_MS)} giây</span>` +
     ` và cộng một cấp <span class="damage">Chảy Máu</span>.` +
     ` Nếu đòn này <span class="buff">hạ gục</span> mục tiêu, hồi lại một nửa thời gian hồi chiêu`;
   coolDown = 6_000;
@@ -66,8 +67,8 @@ export class Darius_W_Buff extends Buff {
   name = 'Đòn Hiểm';
   description =
     `Đòn đánh kế tiếp gây thêm <span class="damage physical">${BONUS_DAMAGE} sát thương vật lý</span> và ` +
-    `<span class="buff">Làm Chậm ${Math.round(SLOW_PERCENT * 100)}%</span> trong ` +
-    `<span class="time">${SLOW_MS / 1000} giây</span>.`;
+    `<span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> trong ` +
+    `<span class="time">${secs(SLOW_MS)} giây</span>.`;
 
   /**
    * The spell that armed this, so a kill can pay part of its cooldown back.

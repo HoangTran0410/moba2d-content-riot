@@ -1,5 +1,6 @@
 import type { AttackableUnit, CancelReason, CastContext, CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const StatAmp = api.buffs.StatAmp;
 const effectiveRange = api.combat.Reach.effectiveRange;
@@ -70,12 +71,12 @@ export default class Riven_R extends Spell {
   image = api.asset('spell_riven_r');
   name = 'Lưỡi Kiếm Lưu Đày (Riven_R)';
   description =
-    `Hàn lại lưỡi kiếm vỡ trong ${R_DURATION_MS / 1000} giây: ` +
-    `<span class="damage">+${Math.round(R_DAMAGE_AMP * 100)}% sát thương</span> và mọi nhát Q ` +
+    `Hàn lại lưỡi kiếm vỡ trong ${secs(R_DURATION_MS)} giây: ` +
+    `<span class="damage">+${pct(R_DAMAGE_AMP)}% sát thương</span> và mọi nhát Q ` +
     `mang một lưỡi năng lượng dài. Bấm lại để phóng Kiếm Phong hình nón dài ${R_LENGTH}, ` +
     `gây <span class="damage physical">${R_DAMAGE} sát thương vật lý</span>, tăng dần tới ` +
     `<span class="damage physical">${R_DAMAGE_MAX}</span> khi mục tiêu còn dưới ` +
-    `${Math.round(R_EXECUTE_THRESHOLD * 100)}% máu.`;
+    `${pct(R_EXECUTE_THRESHOLD)}% máu.`;
   coolDown = 10_000;
   manaCost = 100;
   range = R_LENGTH;

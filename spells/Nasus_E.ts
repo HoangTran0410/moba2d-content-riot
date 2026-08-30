@@ -1,4 +1,5 @@
 import { api } from '../packApi';
+import { secs } from '../text';
 
 const Spell = api.Spell;
 const Circle = api.utils.Quadtree.Circle;
@@ -21,8 +22,8 @@ export default class Nasus_E extends Spell {
   image = api.asset('spell_nasus_e');
   name = 'Lửa Tâm Linh (Nasus_E)';
   description =
-    `Gọi một vùng lửa bán kính <span>${RADIUS}px</span> tồn tại <span class="time">${DURATION / 1000} giây</span>,` +
-    ` gây <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span> mỗi <span class="time">${TICK_INTERVAL / 1000} giây</span>` +
+    `Gọi một vùng lửa bán kính <span>${RADIUS}px</span> tồn tại <span class="time">${secs(DURATION)} giây</span>,` +
+    ` gây <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span> mỗi <span class="time">${secs(TICK_INTERVAL)} giây</span>` +
     ` cho kẻ địch đứng trong đó`;
   coolDown = 10000;
   manaCost = 30;

@@ -1,5 +1,6 @@
 import type { CastSpec, OnHitEvent } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct } from '../text';
 
 const Spell = api.Spell;
 const Buff = api.buffs.Buff;
@@ -100,7 +101,7 @@ export default class Item_Tiamat extends Spell {
   image = api.asset('item_tiamat');
   name = 'Rìu Tiamat (Item_Tiamat)';
   description =
-    `Nội tại: đòn đánh gây thêm sát thương vật lý bằng ${TIAMAT_AD_RATIO * 100}% công` +
+    `Nội tại: đòn đánh gây thêm sát thương vật lý bằng ${pct(TIAMAT_AD_RATIO)}% công` +
     ` lên các kẻ địch khác quanh mục tiêu`;
   coolDown = 0;
   manaCost = 0;
