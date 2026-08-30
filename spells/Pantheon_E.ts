@@ -4,7 +4,7 @@ import { secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
-const Shield = api.buffs.Shield;
+const Buff = api.buffs.Buff;
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
@@ -14,8 +14,6 @@ const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
 
 
 export const DURATION = 1600;
-
-export const SHIELD_AMOUNT = 60;
 
 export const DAMAGE_PER_TICK = 6;
 
@@ -37,6 +35,22 @@ export const HALF_WIDTH = 70;
 export const HALF_ANGLE = Math.atan2(HALF_WIDTH, REACH * 0.5);
 
 
+/**
+ * Half the arc the aegis actually *stops* things from, which is wider than the
+ * wedge his spear reaches into and is a different claim.
+ *
+ * `HALF_ANGLE` answers "where does the spear hit"; this answers "where is he
+ * covered". They are two questions and they get two numbers — but the file's
+ * own rule still holds and is why `drawBlockArc` exists: a wedge that is not
+ * painted is a wedge a player loses a duel to. Both are drawn.
+ *
+ * 75° either side, so the shield covers the front and a little of each flank
+ * and leaves the whole of his back open. That gap is the counterplay to a
+ * total block, and it has to be big enough to walk into.
+ */
+export const BLOCK_HALF_ANGLE = (75 * Math.PI) / 180;
+
+
 /** How long the aegis takes to slam into the dirt before the first thrust. */
 export const PLANT_MS = 180;
 
@@ -45,6 +59,21 @@ export const PLANT_MS = 180;
  * Aegis Assault: he plants the shield in one direction and hammers everything
  * in front of it. The shield is the point — a window where he can stand in a
  * fight he would otherwise have to walk out of.
+ *
+ * **It is a wall, not a pool.** This shipped as a plain 60-point `Shield`,
+ * which is a completely different ability: a pool absorbs the *first* 60
+ * damage from wherever it arrives and then he is standing in the open, while
+ * the real Aegis Assault stops everything coming from the direction he planted
+ * it in and nothing at all from behind him. A pool made the ability weakest
+ * exactly when it should be strongest — into a barrage — and gave it a
+ * benefit it should never have, which is protection from the man walking round
+ * behind him.
+ *
+ * So damage from inside `BLOCK_HALF_ANGLE` is refused outright and damage from
+ * outside it lands in full. Which side an attack came from is decided by where
+ * its *attacker* stands, which is the only thing `modifyIncomingDamage` is
+ * given and is the right answer anyway: a spear thrown from in front is
+ * blocked whatever path the missile took to get there.
  *
  * The art used to be a flat blue pie slice, a 12px rounded rectangle and one
  * white line sliding in and out. Nothing about it was Pantheon, nothing about
@@ -62,28 +91,30 @@ export default class Pantheon_E extends Spell {
   name = 'Tiến Công Vũ Bão (Pantheon_E)';
   description =
     `Cắm khiên về hướng chỉ định trong <span class="time">${secs(DURATION)} giây</span>:` +
-    ` nhận <span class="buff">Khiên ${SHIELD_AMOUNT}</span> và liên tục đâm giáo` +
-    ` <span class="damage physical">${DAMAGE_PER_TICK} sát thương vật lý</span> mỗi nhịp cho kẻ địch phía trước`;
+    ` <span class="buff">chặn sạch mọi sát thương bay tới từ phía đó</span> — đòn đánh, chiêu thức,` +
+    ` đạn, không giới hạn số lượng — nhưng <span class="buff">hoàn toàn hở lưng</span>.` +
+    ` Trong lúc đó Pantheon liên tục đâm giáo gây` +
+    ` <span class="damage physical">${DAMAGE_PER_TICK} sát thương vật lý</span> mỗi` +
+    ` <span class="time">${secs(TICK_INTERVAL)} giây</span> cho kẻ địch trong nón phía trước`;
   coolDown = 10000;
   manaCost = 35;
 
   range = REACH;
 
   onSpellCast() {
-    const shield = new Shield(DURATION, this.owner, this.owner);
-    shield.stackId = 'pantheon_e';
-    shield.image = this.image;
-    shield.amount = SHIELD_AMOUNT;
-    // Bronze, not the old ice blue — that palette is Anivia's.
-    shield.color = [214, 168, 96];
-    this.owner.addBuff(shield);
-
     const direction = VectorUtils.getVectorWithRange(this.owner.position, this.aimPoint, 1)
       .to.copy()
       .sub(this.owner.position);
 
+    const guard = new Pantheon_E_Guard(DURATION, this.owner, this.owner);
+    guard.stackId = 'pantheon_e';
+    guard.image = this.image;
+    guard.heading = Math.atan2(direction.y, direction.x);
+    this.owner.addBuff(guard);
+
     const ground = new Pantheon_E_Object(this.owner);
     ground.direction = direction;
+    ground.guard = guard;
     this.game.objectManager.addObject(ground);
 
     const aegis = new Pantheon_E_Aegis(this.owner);
@@ -121,6 +152,8 @@ export class Pantheon_E_Object extends SpellObject {
   /** Dirt, so it paints under the units standing on it. */
   zIndex = GROUND_Z_INDEX;
   aegis: Pantheon_E_Aegis | null = null;
+  /** The buff doing the blocking, so the aegis can flash when it eats something. */
+  guard: Pantheon_E_Guard | null = null;
 
   _fissures: Fissure[] = [];
 
@@ -255,6 +288,10 @@ export class Pantheon_E_Aegis extends SpellObject {
   ground: Pantheon_E_Object | null = null;
   _sparks: Spark[] = [];
   _seenTicks = 0;
+  /** How many blocks the guard had reported last frame. */
+  _seenBlocks = 0;
+  /** 1 the frame something was stopped, fading to 0 — the shield's own flinch. */
+  _impact = 0;
 
   update() {
     if (!this.ground || this.ground.toRemove || this.owner.isDead) {
@@ -267,6 +304,16 @@ export class Pantheon_E_Aegis extends SpellObject {
       this._seenTicks = this.ground.tickCount;
       this._burst();
     }
+
+    // Something hit the face of the shield. The block is otherwise invisible —
+    // a number simply fails to appear — and "nothing happened" is the one thing
+    // a defensive ability must never look like.
+    const blocked = this.ground.guard?.blockedCount ?? 0;
+    if (blocked !== this._seenBlocks) {
+      this._seenBlocks = blocked;
+      this._impact = 1;
+    }
+    if (this._impact > 0) this._impact = Math.max(0, this._impact - deltaTime / 220);
 
     for (const spark of this._sparks) {
       spark.x += spark.vx;
@@ -335,6 +382,36 @@ export class Pantheon_E_Aegis extends SpellObject {
     translate(this.position.x, this.position.y);
     rotate(heading);
 
+    // **The covered arc.** Wider than the wedge his spear reaches into and a
+    // different claim, so it is drawn as a different thing: a thin bronze rim
+    // standing off his body, rather than a filled pie. A player has to be able
+    // to see where the wall ends, because walking around it is the whole
+    // counterplay to a block with no pool behind it — and an attacker has to
+    // be able to see it too.
+    const guardRadius = stand + 26;
+    noFill();
+    stroke(214, 168, 96, (60 + 120 * this._impact) * fade * plant);
+    strokeWeight(2 + 5 * this._impact);
+    arc(
+      0,
+      -lift * 0.3,
+      guardRadius * 2,
+      guardRadius * 2,
+      -BLOCK_HALF_ANGLE,
+      BLOCK_HALF_ANGLE
+    );
+    // the two ends of the wall, marked so the gap behind him is legible
+    stroke(240, 214, 150, (90 + 120 * this._impact) * fade * plant);
+    strokeWeight(3);
+    for (const edge of [-BLOCK_HALF_ANGLE, BLOCK_HALF_ANGLE]) {
+      line(
+        cos(edge) * (guardRadius - 9),
+        sin(edge) * (guardRadius - 9) - lift * 0.3,
+        cos(edge) * (guardRadius + 9),
+        sin(edge) * (guardRadius + 9) - lift * 0.3
+      );
+    }
+
     // the spear: shaft out of his hand, clearing the rim of the shield. The
     // reach has to beat the aegis's own half-width or the thrust happens
     // entirely behind the shield and the ability looks like it does nothing.
@@ -390,5 +467,52 @@ export class Pantheon_E_Aegis extends SpellObject {
     // The spear reaches past the shield, and the wedge it works in is REACH deep.
     const span = REACH + 60;
     return this.squareDisplayBoundingBox(span * 2);
+  }
+}
+
+
+/**
+ * The wall itself: a buff that refuses damage arriving from one side.
+ *
+ * `modifyIncomingDamage` is the hook, and its third argument — the damage type
+ * — is deliberately ignored. A shield that stopped magic but not steel would
+ * be a *resistance*, and this is a slab of bronze: what decides whether it
+ * works is where the attacker is standing, not what they threw.
+ *
+ * An attacker it cannot place — a burn with no source, a map hazard — gets
+ * through. Refusing what it cannot see the origin of would make the ability
+ * quietly immune to a whole class of damage, which is the failure mode a total
+ * block has to avoid most.
+ */
+export class Pantheon_E_Guard extends Buff {
+  name = 'Tiến Công Vũ Bão';
+  description =
+    `<span class="buff">Chặn sạch mọi sát thương</span> bay tới từ hướng đã cắm khiên` +
+    ` (±${Math.round((BLOCK_HALF_ANGLE * 180) / Math.PI)}°). Hoàn toàn hở lưng.`;
+
+  /** Which way the shield faces, in radians. Set by the cast, never moved. */
+  heading = 0;
+
+  /** Bumped every time it eats something, so the aegis can flash on the hit. */
+  blockedCount = 0;
+
+  /** Whether an attack from `attacker` comes at the face of the shield. */
+  covers(attacker: { position?: { x: number; y: number } } | undefined): boolean {
+    const from = attacker?.position;
+    if (!from) return false;
+
+    const here = this.targetUnit.position;
+    const toAttacker = Math.atan2(from.y - here.y, from.x - here.x);
+    let delta = Math.abs(toAttacker - this.heading) % (Math.PI * 2);
+    if (delta > Math.PI) delta = Math.PI * 2 - delta;
+    return delta <= BLOCK_HALF_ANGLE;
+  }
+
+  modifyIncomingDamage(damage: number, attacker?: any): number {
+    if (this.toRemove || damage <= 0) return damage;
+    if (!this.covers(attacker)) return damage;
+
+    this.blockedCount++;
+    return 0;
   }
 }

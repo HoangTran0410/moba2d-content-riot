@@ -16,6 +16,7 @@ import Orianna_Q, {
   BALL_PASS_DAMAGE,
   COOLDOWN_MS as Q_COOLDOWN_MS,
   MANA_COST as Q_MANA_COST,
+  LEASH_RANGE,
   MAX_REACH,
   Orianna_Ball,
   ballFor,
@@ -148,6 +149,96 @@ describe('Orianna — Quả Cầu (the Ball)', () => {
     ball.update();
     expect(ball.position.dist(owner.position)).toBeCloseTo(BALL_ORBIT_RADIUS, 5);
     expect(ball.position.x).toBeGreaterThan(300);
+  });
+
+  /**
+   * The leash was dropped once, on the grounds that a Ball teleporting home
+   * mid-fight is an invisible rule for a player to lose a duel to. That was
+   * right about the danger and wrong about the cure: without one, walking away
+   * from a placed Ball left Orianna with *no abilities at all* and nothing on
+   * screen to say why, since W, E and R all fire from the Ball. The cure is a
+   * drawn tether, not an absent rule.
+   */
+  describe('the leash', () => {
+    const placed = (game: TestGame, owner: Unit, x: number) => {
+      const ball = ballFor(owner);
+      ball.carrier = null;
+      ball.position.set(x, 0);
+      return ball;
+    };
+
+    it('comes home when she walks past the limit', () => {
+      const game = createGame();
+      const owner = unit(game, 0, 'blue');
+      game.setPlayer(owner);
+      indexObjects(game, [owner]);
+
+      const ball = placed(game, owner, LEASH_RANGE + 10);
+      ball.update();
+
+      expect(ball.isCarried, 'the Ball stayed out past its tether').toBe(true);
+      expect(ball.carrier).toBe(owner);
+      expect(ball.position.dist(owner.position)).toBeCloseTo(BALL_ORBIT_RADIUS, 5);
+    });
+
+    it('stays put anywhere inside it, including at full Q range', () => {
+      const game = createGame();
+      const owner = unit(game, 0, 'blue');
+      game.setPlayer(owner);
+      indexObjects(game, [owner]);
+
+      // Placing the Ball at maximum throw and standing still must never snap
+      // it — the leash is about walking away, not about throwing far.
+      const ball = placed(game, owner, MAX_REACH);
+      ball.update();
+
+      expect(ball.isPlaced).toBe(true);
+      expect(ball.position.x).toBe(MAX_REACH);
+    });
+
+    it('does not sweep damage on the way back', () => {
+      const game = createGame();
+      const owner = unit(game, 0, 'blue');
+      const victim = unit(game, LEASH_RANGE / 2, 'red');
+      game.setPlayer(owner);
+      indexObjects(game, [owner, victim]);
+      const before = victim.stats.health.value;
+
+      const ball = placed(game, owner, LEASH_RANGE + 10);
+      ball.update();
+
+      // A flight home would deal Q's pass-through damage to everything in
+      // between: a free line of damage for walking backwards.
+      expect(victim.stats.health.value, 'the recall hurt somebody').toBe(before);
+    });
+
+    it('leaves a Ball an ally is carrying alone, however far she walks', () => {
+      const game = createGame();
+      const owner = unit(game, 0, 'blue');
+      const ally = unit(game, 2_000, 'blue');
+      game.setPlayer(owner);
+      indexObjects(game, [owner, ally]);
+
+      const ball = ballFor(owner);
+      ball.carrier = ally;
+      ball.update();
+
+      // She sent it there on purpose. Only a *placed* Ball is leashed.
+      expect(ball.carrier).toBe(ally);
+    });
+
+    it('reports how stretched the tether is, which is what the drawing reads', () => {
+      const game = createGame();
+      const owner = unit(game, 0, 'blue');
+      game.setPlayer(owner);
+      indexObjects(game, [owner]);
+
+      const ball = placed(game, owner, LEASH_RANGE / 2);
+      expect(ball.leashStrain()).toBeCloseTo(0.5, 5);
+
+      ball.carrier = owner;
+      expect(ball.leashStrain(), 'a carried Ball has nothing to stretch').toBe(0);
+    });
   });
 
   it('leaves the world when Orianna dies, instead of drawing on her corpse', () => {

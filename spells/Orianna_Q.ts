@@ -29,11 +29,22 @@ const SPELL_EFFECT_Z_INDEX = api.layers.SPELL_EFFECT_Z_INDEX;
  * damage: every enemy the sphere sweeps through takes `BALL_PASS_DAMAGE` once
  * per flight. Q ends a flight *placed*; E ends one *carried* by the ally.
  *
+ * The leash is here, and it was not always. It used to be dropped on the
+ * grounds that "a Ball that teleports home mid-fight is one more invisible
+ * rule for a player to lose a duel to" — which was right about the danger and
+ * wrong about the cure. Without one, walking away from a placed Ball left
+ * Orianna with no abilities at all and nothing on screen to say why: W, E and
+ * R all fire *from the Ball*, so at 2000px away every button she owns was a
+ * mana cost and a cooldown spent somewhere she could not see. That is a worse
+ * invisible rule than the leash.
+ *
+ * So the leash is drawn rather than merely enforced: a tether runs from
+ * Orianna to the Ball the whole time it is away from her, and it tightens and
+ * reddens as she nears the limit. The snap is the last frame of something the
+ * player has been watching for two seconds.
+ *
  * Dropped from the wiki record deliberately:
- *   - the leash (the real Ball snaps back to Orianna when she walks too far
- *     from it, and pays a Shockwave cooldown for it). Nothing here needs a
- *     tether to stay legible, and a Ball that teleports home mid-fight is one
- *     more invisible rule for a player to lose a duel to;
+ *   - the leash's Shockwave cooldown cost (the real one charges her for it);
  *   - Q's 150-unit minimum throw, its "reduced to 70% past the first target"
  *     falloff, and the innate's 0.01s global cooldown — wiki minutiae that a
  *     ~100 point health pool cannot express;
@@ -69,6 +80,18 @@ const BOB_HEIGHT = 5;
 
 const SPARK_COUNT = 5;
 
+/**
+ * How far Orianna may get from her Ball before it comes back to her.
+ *
+ * Comfortably past Q's own reach (`MAX_REACH`), so placing the Ball at maximum
+ * range and standing still never snaps it — the leash is about walking away
+ * from it, not about throwing it far.
+ */
+export const LEASH_RANGE = 720;
+
+/** Where the tether starts warning: a share of the leash, not a second number. */
+const LEASH_WARN_FROM = 0.65;
+
 
 /**
  * One Ball per Orianna, keyed on her.
@@ -100,7 +123,7 @@ export default class Orianna_Q extends Spell {
   targetingMode = 'POINT' as const;
   image = api.asset('spell_orianna_q');
   name = 'Lệnh: Tấn Công (Orianna_Q)';
-  description = `Ra lệnh cho Quả Cầu bay tới vị trí chỉ định và <span class="buff">ở lại đó</span>, gây <span class="damage magic">${BALL_PASS_DAMAGE} sát thương phép</span> lên mọi kẻ địch nó xuyên qua trên đường bay. Tầm ra lệnh <span class="buff">${MAX_REACH}</span>.`;
+  description = `Ra lệnh cho Quả Cầu bay tới vị trí chỉ định và <span class="buff">ở lại đó</span>, gây <span class="damage magic">${BALL_PASS_DAMAGE} sát thương phép</span> lên mọi kẻ địch nó xuyên qua trên đường bay. Tầm ra lệnh <span class="buff">${MAX_REACH}</span>. Nếu Orianna đi xa Quả Cầu quá <span class="buff">${LEASH_RANGE}px</span>, nó <span class="buff">tự quay về bên cô</span> — sợi dây nối giữa hai bên sẽ căng dần và chuyển đỏ trước khi đứt.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
   range = MAX_REACH;
@@ -224,7 +247,15 @@ export class Orianna_Ball extends SpellObject {
       return;
     }
 
-    if (this.carrier) {
+    if (!this.carrier) {
+      // Placed, and she has walked out of the tether: it comes home. Only a
+      // *placed* Ball is leashed — one an ally is carrying is somewhere she
+      // chose to send it and is meant to stay there.
+      if (this.leashStrain() >= 1) this.recall();
+      return;
+    }
+
+    {
       // Whoever was carrying it fell over: the Ball keeps their last ground.
       if (this.carrier.isDead || this.carrier.toRemove) {
         this.carrier = null;
@@ -236,6 +267,36 @@ export class Orianna_Ball extends SpellObject {
         this.carrier.position.y + sin(this.orbitAngle) * BALL_ORBIT_RADIUS
       );
     }
+  }
+
+  /**
+   * How stretched the tether is, 0 at Orianna's feet and 1 at the limit.
+   *
+   * 0 whenever there is nothing to stretch — carried, flying, or riding
+   * Orianna herself — so both the recall and the drawing can ask one question.
+   */
+  leashStrain(): number {
+    if (this.isFlying || this.carrier) return 0;
+    return Math.min(1, this.position.dist(this.owner.position) / LEASH_RANGE);
+  }
+
+  /**
+   * Home, at once and without a flight.
+   *
+   * Not a `beginFlight` back to her: a flight sweeps and damages, so a leash
+   * snap would deal Q's pass-through damage to everything between them — a
+   * free line of damage for walking backwards. The real ability returns the
+   * Ball instantly for the same reason.
+   */
+  private recall(): void {
+    this.flightTo = null;
+    this.flightAnchor = null;
+    this.onArrive = null;
+    this.flightHits.clear();
+    this.carrier = this.owner;
+    this.orbitAngle = 0;
+    this.position.set(this.owner.position.x + BALL_ORBIT_RADIUS, this.owner.position.y);
+    this.game.objectManager.addObject(new Orianna_Ball_Recall(this.owner, this.position.x, this.position.y));
   }
 
   private flyStep(): void {
@@ -318,6 +379,10 @@ export class Orianna_Ball extends SpellObject {
   }
 
   draw(): void {
+    // The tether first, under the Ball, so the sphere is never drawn over by
+    // its own leash.
+    this.drawTether();
+
     // Clockwork, not a fireball: a brass core inside two counter-turning rings,
     // with a shell that only closes up while the Ball is standing still.
     const bob = this.isPlaced ? sin(this.age / 260) * BOB_HEIGHT : 0;
@@ -389,8 +454,106 @@ export class Orianna_Ball extends SpellObject {
     pop();
   }
 
+  /**
+   * The leash, drawn.
+   *
+   * The whole objection to having a leash at all was that a Ball teleporting
+   * home mid-fight is an invisible rule. So it is not invisible: a slack line
+   * of clockwork dashes runs from Orianna to a placed Ball at all times, and
+   * past `LEASH_WARN_FROM` it straightens, thickens and turns from brass to
+   * red. By the time it snaps the player has been watching it tighten.
+   *
+   * Dashes rather than a solid line because a solid one reads as a *beam* —
+   * something that does damage — and this does nothing at all.
+   */
+  private drawTether(): void {
+    const strain = this.leashStrain();
+    if (strain <= 0) return;
+
+    const warn = Math.max(0, (strain - LEASH_WARN_FROM) / (1 - LEASH_WARN_FROM));
+    const from = this.owner.position;
+    const dx = this.position.x - from.x;
+    const dy = this.position.y - from.y;
+    const span = Math.hypot(dx, dy) || 1;
+    // Slack while there is room to walk, pulled straight as it runs out.
+    const sag = (1 - strain) * 26;
+
+    push();
+    // brass at rest, red at the limit
+    stroke(
+      215 + 40 * warn,
+      190 - 120 * warn,
+      130 - 90 * warn,
+      70 + 150 * strain
+    );
+    strokeWeight(1 + 2.5 * warn);
+
+    const steps = 10;
+    for (let i = 0; i < steps; i += 2) {
+      const a = i / steps;
+      const b = (i + 1) / steps;
+      // a parabola whose belly is `sag`, hung off the perpendicular
+      const nx = -dy / span;
+      const ny = dx / span;
+      const bow = (t: number) => 4 * sag * t * (1 - t);
+      line(
+        from.x + dx * a + nx * bow(a),
+        from.y + dy * a + ny * bow(a),
+        from.x + dx * b + nx * bow(b),
+        from.y + dy * b + ny * bow(b)
+      );
+    }
+    pop();
+  }
+
   getDisplayBoundingBox() {
     // wide enough for the sparks and the glow, not just the sphere
     return this.squareDisplayBoundingBox(BALL_RADIUS * 6);
+  }
+}
+
+
+/**
+ * The snap: a ring collapsing onto Orianna as the Ball arrives.
+ *
+ * Short and bright rather than pretty. Its whole job is to answer "where did
+ * my Ball go" in the frame it went, for a player whose eyes were on the fight
+ * and not on the tether.
+ */
+export class Orianna_Ball_Recall extends SpellObject {
+  lifeTime = 260;
+  age = 0;
+
+  constructor(owner: AttackableUnit, x: number, y: number) {
+    super(owner);
+    this.position = createVector(x, y);
+  }
+
+  update(): void {
+    this.age += deltaTime;
+    if (this.age >= this.lifeTime) this.toRemove = true;
+  }
+
+  draw(): void {
+    const t = constrain(this.age / this.lifeTime, 0, 1);
+    const fade = 1 - t;
+    // inward, not outward: this is a return, and an expanding ring would read
+    // as the Ball going off rather than coming home
+    const r = 70 * (1 - t) + BALL_RADIUS;
+
+    push();
+    translate(this.position.x, this.position.y);
+    noFill();
+    stroke(215, 190, 130, 230 * fade);
+    strokeWeight(3 * fade + 1);
+    circle(0, 0, r * 2);
+    stroke(205, 245, 255, 190 * fade);
+    strokeWeight(1.5);
+    circle(0, 0, r * 1.5);
+    pop();
+  }
+
+  getDisplayBoundingBox() {
+    return this.squareDisplayBoundingBox(180);
   }
 }

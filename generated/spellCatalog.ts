@@ -1446,7 +1446,7 @@ export const spellCatalog = {
   },
   "Orianna_Q": {
     name: "Lệnh: Tấn Công (Orianna_Q)",
-    description: "Ra lệnh cho Quả Cầu bay tới vị trí chỉ định và <span class=\"buff\">ở lại đó</span>, gây <span class=\"damage magic\">14 sát thương phép</span> lên mọi kẻ địch nó xuyên qua trên đường bay. Tầm ra lệnh <span class=\"buff\">420</span>.",
+    description: "Ra lệnh cho Quả Cầu bay tới vị trí chỉ định và <span class=\"buff\">ở lại đó</span>, gây <span class=\"damage magic\">14 sát thương phép</span> lên mọi kẻ địch nó xuyên qua trên đường bay. Tầm ra lệnh <span class=\"buff\">420</span>. Nếu Orianna đi xa Quả Cầu quá <span class=\"buff\">720px</span>, nó <span class=\"buff\">tự quay về bên cô</span> — sợi dây nối giữa hai bên sẽ căng dần và chuyển đỏ trước khi đứt.",
     iconKey: "spell_orianna_q",
     coolDownMs: 5000,
     manaCost: 25,
@@ -1470,7 +1470,7 @@ export const spellCatalog = {
   },
   "Pantheon_E": {
     name: "Tiến Công Vũ Bão (Pantheon_E)",
-    description: "Cắm khiên về hướng chỉ định trong <span class=\"time\">1.6 giây</span>: nhận <span class=\"buff\">Khiên 60</span> và liên tục đâm giáo <span class=\"damage physical\">6 sát thương vật lý</span> mỗi nhịp cho kẻ địch phía trước",
+    description: "Cắm khiên về hướng chỉ định trong <span class=\"time\">1.6 giây</span>: <span class=\"buff\">chặn sạch mọi sát thương bay tới từ phía đó</span> — đòn đánh, chiêu thức, đạn, không giới hạn số lượng — nhưng <span class=\"buff\">hoàn toàn hở lưng</span>. Trong lúc đó Pantheon liên tục đâm giáo gây <span class=\"damage physical\">6 sát thương vật lý</span> mỗi <span class=\"time\">0.4 giây</span> cho kẻ địch trong nón phía trước",
     iconKey: "spell_pantheon_e",
     coolDownMs: 10000,
     manaCost: 35,
