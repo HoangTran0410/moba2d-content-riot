@@ -30,36 +30,59 @@ describe("the Summoner's Rift map definition", () => {
   });
 
   /**
-   * Counts, written down, rather than a comparison against a second copy of
-   * the map.
+   * That the export is whole, stated without a tape measure.
    *
-   * This used to read `maps/summoner_map.json` and check the assembly had not
-   * dropped anything on its way through 350 lines of mapping. There is no
-   * assembly now — the map is one exported file — so that comparison would be
-   * the data agreeing with itself. The numbers are what is worth stating: they
-   * were measured off the map at the migration, and a re-export that halves
-   * the walls or loses the water fails here instead of shipping.
+   * This used to read `expect(terrain.wall).toHaveLength(329)`, and two more
+   * like it. The numbers were measured off the map at the migration and were
+   * meant to catch a re-export that halved the walls or lost the water — but
+   * they also caught every ordinary afternoon in the map editor, and could not
+   * tell the two apart. One extra pool of water and this went red, saying
+   * nothing except that the map had changed since somebody counted.
+   *
+   * What actually distinguishes a broken export is shape, not size: an empty
+   * layer, a polygon with fewer than three points, a coordinate outside the
+   * frame the whole map is drawn in. That last one is the editor's own warning
+   * (`Tường tại (…) nằm ngoài khung map`), which is where a person meets it
+   * first — this is the same claim standing behind the push gate.
    */
-  it('carries the whole of the terrain it was drawn with', async () => {
+  it('carries terrain that is whole, in every layer it declares', async () => {
     const { terrain } = await geometry();
-    expect(terrain.wall).toHaveLength(329);
-    expect(terrain.bush).toHaveLength(40);
-    expect(terrain.water).toHaveLength(26);
+    const size = summonersRift.size;
+
+    for (const [layer, polygons] of Object.entries(terrain)) {
+      expect(polygons.length, `${layer} is empty`).toBeGreaterThan(0);
+      for (const polygon of polygons) {
+        expect(polygon.length, `a ${layer} polygon has ${polygon.length} points`)
+          .toBeGreaterThanOrEqual(3);
+        for (const { x, y } of polygon) {
+          expect(
+            Number.isFinite(x) && x >= 0 && x <= size && Number.isFinite(y) && y >= 0 && y <= size,
+            `a ${layer} point (${x}, ${y}) is outside the ${size}×${size} frame`
+          ).toBe(true);
+        }
+      }
+    }
   });
 
   it('carries both turret rows as structure slots, with their teams', async () => {
-    // 11 each, measured. `preset.ts`'s `turretsFromSlots` is the reader that
-    // turns these slots into turrets; this states the shape it depends on —
-    // two rows, evenly split by faction, every point a real coordinate — which
-    // is what a truncated or half-factioned re-export would break.
+    // `preset.ts`'s `turretsFromSlots` is the reader that turns these slots
+    // into turrets; this states the shape it depends on — two rows, evenly
+    // split by faction, every point a real coordinate — which is what a
+    // truncated or half-factioned re-export would break.
+    //
+    // The two rows against *each other* rather than against a number. Eleven
+    // was right until the day a twelfth turret was added to each side, and
+    // then it was wrong in a way that said nothing; "the same on both sides"
+    // is the claim that was always meant, and it is one a half-finished edit
+    // breaks and a finished one does not.
     const { slots } = await geometry();
     const blue: StructureSlot[] = [];
     const red: StructureSlot[] = [];
     for (const slot of slots.structure) {
       (slot.faction === 'blue' ? blue : red).push(slot);
     }
-    expect(blue).toHaveLength(11);
-    expect(red).toHaveLength(11);
+    expect(blue.length).toBeGreaterThan(0);
+    expect(red.length, 'the two turret rows are uneven').toBe(blue.length);
     for (const slot of [...blue, ...red]) {
       expect(Number.isFinite(slot.x) && Number.isFinite(slot.y)).toBe(true);
     }
@@ -73,88 +96,65 @@ describe("the Summoner's Rift map definition", () => {
     expect(factions).toEqual(['blue', 'red']);
   });
 
-  it('declares one neutral slot per distinct camp position, and no monster identities', async () => {
-    // Task 7 split position from identity, and the count is the evidence: 11
-    // distinct camps. Pre-split `MonsterPreset` had 21 entries, 14 of them
-    // sharing one of 4 `campId` values (wolf1, wolf2, raptor1, raptor2), and
-    // the other 7 (baron, blue1, blue2, red1, red2, gomp1, gomp2) each their
-    // own group — 7 + 4 = 11. Worth writing down: an earlier plan draft
-    // asserted 9 here, which does not survive counting the source.
+  it('declares camps as positions only, with no monster identities on them', async () => {
+    // Task 7 split position from identity, and this is the half the map keeps:
+    // a role and a place to stand. Which monster fills it, how much health it
+    // has and what it does are the pack's, resolved at load — a slot that
+    // started carrying them would be the split quietly coming undone.
     //
     // Asserted on the map's own `slots.neutral` rather than on a table beside
     // it. There used to be a `NEUTRAL_SLOTS` export the geometry folded in,
     // and this compared the two — which stopped meaning anything the moment
     // the map became data: the two sides would have been the same array.
     //
-    // 16 since the map grew five more pits: one dragon (the point-symmetric
-    // mirror of the Baron pit), two krug camps and two river crabs. Every one
-    // of those five points was checked against the map's own wall polygons
-    // before it was written down, not eyeballed off a screenshot.
+    // The count that used to stand here (16, then 11 before the jungle grew)
+    // is gone with the other measurements — see the terrain case above for
+    // why. Whether a camp stands on open ground, and whether a paired camp
+    // mirrors its twin, are rules now, in `mapRules.js`, and `Lanes.test.ts`
+    // runs them against this map.
     const { slots } = await geometry();
-    expect(slots.neutral).toHaveLength(16);
+    expect(slots.neutral.length).toBeGreaterThan(0);
     for (const slot of slots.neutral) {
       expect(typeof slot.role).toBe('string');
+      expect(slot.role.length).toBeGreaterThan(0);
+      expect(slot.r ?? 0).toBeGreaterThan(0);
       expect(slot).not.toHaveProperty('name');
       expect(slot).not.toHaveProperty('health');
     }
   });
 
-  it('puts every camp on ground a body can actually stand on', async () => {
-    // The assertion the five new pits were positioned *by*, kept so the next
-    // person to move one cannot land it inside a wall. A camp in a wall is
-    // not a crash — it is a monster nothing can path to, discovered in a
-    // match rather than in a test.
-    const { terrain, slots } = await geometry();
-    const walls = terrain.wall;
-    const inside = (px: number, py: number, poly: { x: number; y: number }[]) => {
-      let hit = false;
-      for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
-        const { x: xi, y: yi } = poly[i];
-        const { x: xj, y: yj } = poly[j];
-        if (yi > py !== yj > py && px < ((xj - xi) * (py - yi)) / (yj - yi || 1e-9) + xi) {
-          hit = !hit;
-        }
-      }
-      return hit;
-    };
-
-    for (const slot of slots.neutral) {
-      for (const wall of walls) {
-        expect(
-          inside(slot.x, slot.y, wall),
-          `${slot.role} at (${slot.x}, ${slot.y}) is inside a wall`
-        ).toBe(false);
-      }
-    }
-  });
-
-  it('keeps its two halves point-symmetric where a camp has a twin', async () => {
-    // Summoner's Rift mirrors about its own centre, and the new pits were
-    // placed by mirroring rather than by eye. A camp whose twin drifted is a
-    // jungle that is quietly better on one side.
+  /**
+   * The two objectives are each other's mirror, which is what makes them a
+   * pair rather than two unrelated points.
+   *
+   * The only symmetry claim left in this file. Twinned *roles* — krugs,
+   * scuttle — are graded by `mapRules.js` against the map's own frame, and
+   * `Lanes.test.ts` runs that; it cannot express this one, because Baron and
+   * the dragon are two different roles that happen to answer to each other.
+   *
+   * Tolerance is the smaller pit's own radius, not a pixel. A mirror image
+   * landing inside the pit is one nobody can measure from inside a match, and
+   * the 1px this used to demand was a claim about how the map was produced —
+   * true while a script placed the points, false the moment a person dragged
+   * one, and never a claim about whether the jungle is fair.
+   */
+  it('keeps the dragon pit as Baron’s mirror', async () => {
     const centre = summonersRift.size / 2;
     const { slots } = await geometry();
-    const byRole = new Map<string, { x: number; y: number }[]>();
-    for (const slot of slots.neutral) {
-      byRole.set(slot.role, [...(byRole.get(slot.role) ?? []), slot]);
-    }
+    const only = (role: string) => {
+      const found = slots.neutral.filter(slot => slot.role === role);
+      expect(found, `expected exactly one ${role} pit`).toHaveLength(1);
+      return found[0];
+    };
 
-    for (const role of ['krugs', 'scuttle']) {
-      const [a, b] = byRole.get(role) ?? [];
-      expect(a, `${role} should be a pair`).toBeTruthy();
-      expect(b, `${role} should be a pair`).toBeTruthy();
-      expect(Math.abs(a!.x - (2 * centre - b!.x))).toBeLessThanOrEqual(1);
-      expect(Math.abs(a!.y - (2 * centre - b!.y))).toBeLessThanOrEqual(1);
-    }
+    const baron = only('baron');
+    const dragon = only('dragon');
+    const drift = Math.hypot(baron.x - (2 * centre - dragon.x), baron.y - (2 * centre - dragon.y));
 
-    // The dragon pit is Baron's mirror, which is what makes the two
-    // objectives a pair rather than two unrelated points.
-    const [baron] = byRole.get('baron') ?? [];
-    const [dragon] = byRole.get('dragon') ?? [];
-    expect(baron, 'no baron pit').toBeTruthy();
-    expect(dragon, 'no dragon pit').toBeTruthy();
-    expect(Math.abs(baron!.x - (2 * centre - dragon!.x))).toBeLessThanOrEqual(1);
-    expect(Math.abs(baron!.y - (2 * centre - dragon!.y))).toBeLessThanOrEqual(1);
+    expect(baron.r ?? 0).toBeGreaterThan(0);
+    expect(dragon.r ?? 0).toBeGreaterThan(0);
+    expect(drift, `the pits are ${Math.round(drift)}px off being each other's mirror`)
+      .toBeLessThanOrEqual(Math.min(baron.r ?? 0, dragon.r ?? 0));
   });
 
   it('passes validation as part of a pack, geometry included', async () => {

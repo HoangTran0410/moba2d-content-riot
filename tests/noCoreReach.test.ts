@@ -84,6 +84,18 @@ const ALLOWED_CORE_SUBPATHS = new Set([
   // two constants (`INVENTORY_SIZE`, `MAX_COOLDOWN_REDUCTION`) it refuses to
   // let a pack copy.
   '@moba2d/core/testing/items',
+  // The shared map rules, published the same way and for the same reason. The
+  // implementation is the map editor's own plain JavaScript
+  // (`public/map-editor/js/mapRules.js`) and the only other caller is that
+  // editor, so what a pack gets here is literally the check the tool it draws
+  // maps in already ran — which is the whole point: this gate and that tool
+  // cannot disagree about whether a map is shippable.
+  //
+  // Not `@moba2d/core/seams`, where the same functions are also published.
+  // That barrel carries core's source scanners and its own boundary checker,
+  // and a pack has no business reaching into either; `tests/maps/*.test.ts`
+  // imported it for one commit and this rule was right to refuse.
+  '@moba2d/core/testing/maps',
   // The two build helpers core ships for packs: the asset-manifest generator
   // (this pack used to carry its own copy) and the WebP re-encode plugin.
   // Neither is ever part of `pack.js` — one is a bin plus the module behind
@@ -314,7 +326,12 @@ describe("the pack's tests speak only published core surfaces", () => {
     // provenance ledger re-hashed offline. It reads `node:crypto`, `node:fs`
     // and `../generated/assetManifest` — the same shape of import as the one
     // above, and core not at all.
-    expect(files.length).toBe(100);
+    //
+    // 101, not 100: `tests/maps/mapRules.test.ts`, which runs core's own map
+    // rules against every map this pack ships. It reaches core through
+    // `@moba2d/core/testing/maps` and `@moba2d/core/content/types`, both
+    // allowed, so the population moves and the offender count does not.
+    expect(files.length).toBe(101);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

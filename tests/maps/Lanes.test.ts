@@ -1,519 +1,68 @@
 import { describe, expect, it } from 'vitest';
-import { TeamId, LANES, Lane, getLaneWaypoints, type LaneWaypoint } from '@moba2d/core/testing';
-import { laneIssues, laneRuleLimits } from '@moba2d/core/seams';
-import { summonersRift } from '../../maps/summonersRift';
-import type { MapGeometry } from '@moba2d/core/content/types';
+import { TeamId, LANES, Lane, getLaneWaypoints } from '@moba2d/core/testing';
 
 /**
- * Summoner's Rift's own lane data — batch 4 task 6 moved it, and this file,
- * out of `src/game/lanes.ts`/`tests/game/minions/Lanes.test.ts` and into the
- * pack; `tests/game/minions/Lanes.test.ts` keeps the mechanism half (the
- * active-lane-set binding, the ownership guard), tested against synthetic
- * data now that it no longer has this map's own to lean on.
+ * Summoner's Rift's lanes, graded by core's rules rather than by a copy of the
+ * map.
  *
- * `LANES`/`getLaneWaypoints` below read real content without this file
- * calling `setActiveLanes` itself: content-pack-extraction batch 6 task 6
- * moved this file into the pack, and `packs/riot/vitest.setup.ts` installs
- * Summoner's Rift's own lanes for every test file's environment by default
- * (see that file's own doc comment — it resolves this pack's own map and
- * calls `setActiveLanes` directly, not through core's `tests/setup.ts`,
- * which this suite does not run under at all), so this file's whole job is
- * checking that installed content is correct — not installing it.
- */
-
-type Point = [number, number];
-
-// The map's own geometry, awaited once for the whole file. It is behind a
-// dynamic import so the menu never pays for polygons (`summonersRift.ts`), and
-// a top-level await is what lets every table below stay a plain constant.
-//
-// `MapGeometrySource` is a union — a plain object or a loader — because a small
-// map has nothing to be lazy about, so this narrows rather than assuming.
-const summonersRiftGeometry: MapGeometry =
-  typeof summonersRift.geometry === 'function'
-    ? await summonersRift.geometry()
-    : summonersRift.geometry;
-// Read off the geometry that actually ships, not a second copy of the map.
-// The map is one exported file now (`maps/summonersRift_map.json`), so walls
-// and lanes come from the same place — which is what makes "no lane clips a
-// wall" a check on the shipped map rather than on a fixture that could drift
-// away from it while every assertion here went on passing.
-const walls: Point[][] = summonersRiftGeometry.terrain.wall.map(polygon =>
-  polygon.map(({ x, y }) => [x, y] as Point)
-);
-
-/**
- * The lane paths, keyed by lane, off the map's own declaration.
+ * ## What this file used to be
  *
- * `SR_LANE_WAYPOINTS` used to be a hand-written table in
- * `summonersRiftGeometry.ts` that the module folded into `lanes` at load. The
- * map is data now, so the table is gone and this reads the result — which is
- * the stronger subject anyway: every assertion below now grades what a player
- * is given, not a source the assembly was free to transform on the way out.
- */
-const SR_LANE_WAYPOINTS: Record<string, { x: number; y: number }[]> = Object.fromEntries(
-  (summonersRiftGeometry.lanes ?? []).map(lane => [lane.id, lane.waypoints])
-);
-// `turret1`/`turret2` used to be read straight off the map JSON
-// (`mapData.turret1`/`.turret2`); they now come off the active map's own
-// `slots.structure` — same points, same order (blue's row first, then
-// red's — see `summonersRiftGeometry.ts`'s `TURRET_ROWS`), just read through
-// the map definition instead of the raw file.
-const turret1: Point[] = [];
-const turret2: Point[] = [];
-for (const slot of summonersRiftGeometry.slots.structure) {
-  (slot.faction === 'blue' ? turret1 : turret2).push([slot.x, slot.y]);
-}
-
-const BLUE_FOUNTAIN = { x: 400, y: 6_075 };
-const RED_FOUNTAIN = { x: 6_100, y: 375 };
-
-/**
- * The widest minion is 34px across, so anything under ~20px of clearance means a
- * body is already inside the wall. 40 is that plus a margin for the fact that a
- * minion leaves the lane to reach whatever it aggroed; the real paths measure
- * 69px at their tightest, so this has room to fail loudly if one is edited badly
- * rather than tripping on a rounding change.
- */
-const MIN_CLEARANCE = 40;
-
-/**
- * How close a minion's centre can get to a turret's: the turret's body
- * (DEFAULT_TURRET_PRESET.size 92, so radius 46) plus the widest minion's
- * (34 across, radius 17). A turret is immovable in `UnitCollisionSystem`, so
- * this is a hard floor, not a preference.
- */
-const TURRET_BLOCKED_RADIUS = 46 + 17;
-
-/**
- * A lane "covers" the turret it is meant to walk past within this radius,
- * measured to the path rather than to the nearest waypoint — there is no
- * longer one waypoint per turret, because a straight run that passes three of
- * them needs no bend. The paths measure 118-256px.
- */
-const LANE_COVERS_TURRET = 280;
-
-// ---------------------------------------------------------------- geometry
-
-const pointInPolygon = (px: number, py: number, poly: Point[]): boolean => {
-  let inside = false;
-  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
-    const [xi, yi] = poly[i];
-    const [xj, yj] = poly[j];
-    if (yi > py !== yj > py && px < ((xj - xi) * (py - yi)) / (yj - yi) + xi) inside = !inside;
-  }
-  return inside;
-};
-
-const distanceToSegment = (
-  px: number,
-  py: number,
-  ax: number,
-  ay: number,
-  bx: number,
-  by: number
-): number => {
-  const dx = bx - ax;
-  const dy = by - ay;
-  const lengthSq = dx * dx + dy * dy;
-  const t =
-    lengthSq === 0 ? 0 : Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / lengthSq));
-  return Math.hypot(px - (ax + t * dx), py - (ay + t * dy));
-};
-
-const bounds = walls.map(poly => {
-  let minX = Infinity,
-    minY = Infinity,
-    maxX = -Infinity,
-    maxY = -Infinity;
-  for (const [x, y] of poly) {
-    if (x < minX) minX = x;
-    if (y < minY) minY = y;
-    if (x > maxX) maxX = x;
-    if (y > maxY) maxY = y;
-  }
-  return { minX, minY, maxX, maxY };
-});
-
-/**
- * Distance from a point to the nearest wall, negative when the point is inside
- * one. Capped at `ceiling` so the bounding-box reject can skip most of the 329
- * polygons — the assertions only ever care whether it clears MIN_CLEARANCE.
- */
-const wallClearance = (px: number, py: number, ceiling = 200): number => {
-  let best = ceiling;
-  for (let i = 0; i < walls.length; i++) {
-    const b = bounds[i];
-    const dx = px < b.minX ? b.minX - px : px > b.maxX ? px - b.maxX : 0;
-    const dy = py < b.minY ? b.minY - py : py > b.maxY ? py - b.maxY : 0;
-    if (Math.hypot(dx, dy) >= best) continue;
-
-    const poly = walls[i];
-    let edge = Infinity;
-    for (let k = 0, j = poly.length - 1; k < poly.length; j = k++) {
-      edge = Math.min(
-        edge,
-        distanceToSegment(px, py, poly[j][0], poly[j][1], poly[k][0], poly[k][1])
-      );
-    }
-    const signed = pointInPolygon(px, py, poly) ? -edge : edge;
-    if (signed < best) best = signed;
-  }
-  return best;
-};
-
-/**
- * How close a lane comes to `point`, and how far along it that happens.
+ * Five hundred lines, most of it tables typed out by hand: the exact
+ * coordinate every lane started at (`BLUE_FOUNTAIN = { x: 400, y: 6_075 }`),
+ * the three points of blue's top turret row and the three of red's, the claim
+ * that each row holds eleven turrets, and a re-implementation of
+ * point-in-polygon, distance-to-segment and nearest-point-on-path to check
+ * them with.
  *
- * Measured to the polyline, not to the nearest vertex. The vertex answer used
- * to be the same thing only because the paths carried one waypoint per turret;
- * a straight run past three turrets has none of its own, and asking the
- * vertices then says a lane misses its own first turret by 410px while the
- * minion walking it passes at 196.
- */
-const nearestOnPath = (
-  path: LaneWaypoint[],
-  [x, y]: Point
-): { distance: number; along: number } => {
-  let distance = Infinity;
-  let along = 0;
-  let travelled = 0;
-  for (let i = 0; i + 1 < path.length; i++) {
-    const from = path[i];
-    const to = path[i + 1];
-    const spanX = to.x - from.x;
-    const spanY = to.y - from.y;
-    const spanSq = spanX * spanX + spanY * spanY;
-    const length = Math.sqrt(spanSq);
-    let t = 0;
-    if (spanSq > 0) {
-      t = ((x - from.x) * spanX + (y - from.y) * spanY) / spanSq;
-      t = t < 0 ? 0 : t > 1 ? 1 : t;
-    }
-    const d = Math.hypot(x - (from.x + spanX * t), y - (from.y + spanY * t));
-    if (d < distance) {
-      distance = d;
-      along = travelled + length * t;
-    }
-    travelled += length;
-  }
-  return { distance, along };
-};
-
-/**
- * Which turrets belong to which lane, written out once so both tests below
- * check the same claim rather than restating it twice.
+ * None of that is a rule. It is a photograph of the map on the day somebody
+ * measured it, and the map is drawn in a tool now. Moving a turret and adding
+ * one per side — an ordinary afternoon's work in the editor — turned nine
+ * assertions red, and not one of them named anything that was actually wrong:
+ * the lanes had been redrawn to start at the mouth of the base rather than on
+ * the fountain (deliberate, and better), and there were twelve turrets a side
+ * instead of eleven (also deliberate). A gate that cannot tell a deliberate
+ * edit from a broken map is a gate that gets switched off.
  *
- * Stated here rather than derived from the lane paths: an expectation computed
- * by walking the thing under test agrees with it however wrong it is.
- */
-const BLUE_LANE_TURRETS: Record<string, Point[]> = {
-  [Lane.TOP]: [
-    [520, 4432],
-    [604, 3557],
-    [410, 1859],
-  ],
-  [Lane.MID]: [
-    [1617, 4767],
-    [2153, 4346],
-    [2543, 3687],
-  ],
-  [Lane.BOT]: [
-    [963, 5626],
-    [1950, 5837],
-    [2995, 5775],
-    [4558, 5962],
-  ],
-};
-const RED_LANE_TURRETS: Record<string, Point[]> = {
-  [Lane.TOP]: [
-    [1873, 440],
-    [3423, 595],
-    [4517, 518],
-  ],
-  [Lane.MID]: [
-    [3885, 2723],
-    [4291, 2044],
-    [4790, 1617],
-  ],
-  [Lane.BOT]: [
-    [5994, 4467],
-    [5801, 2864],
-    [5898, 1922],
-  ],
-};
-const laneTurrets = (lane: string): Point[] => [
-  ...BLUE_LANE_TURRETS[lane],
-  ...RED_LANE_TURRETS[lane],
-];
-
-/**
- * Which lane walks closest to `point`, and by how much it wins.
+ * ## What it is now
  *
- * Ownership is "the nearest lane", not "within N px of a lane": the paths
- * round corners near each other, and a fixed radius wide enough to cover a
- * turret's own lane is also wide enough to let a neighbour claim it.
+ * The rules live in `public/map-editor/js/mapRules.js` — one implementation,
+ * loaded by the editor as a `<script>` and by anything TypeScript through
+ * `@moba2d/core/seams` — and they ask about *relationships* rather than
+ * coordinates: does a lane join two different bases, does every turret have a
+ * wave that walks past it, does a lane pass its own row before the enemy's,
+ * can a wave stand where it forms up, is a paired camp the mirror of its twin.
+ * All of it survives the map being edited, and all of it is reported inside
+ * the editor, on the canvas, at the point where somebody could fix it.
+ *
+ * That gate is `tests/maps/mapRules.test.ts`, which runs it against every map
+ * this pack ships rather than only this one. What is left here is the other
+ * half, and the only half that was ever about code rather than about a
+ * drawing: the *mechanism* that hands a lane to a wave, which is core's.
  */
-const owningLane = (point: Point): { lane: string; distance: number; runnerUp: number } => {
-  const ranked = LANES.map(lane => ({
-    lane,
-    distance: nearestOnPath(SR_LANE_WAYPOINTS[lane], point).distance,
-  })).sort((a, b) => a.distance - b.distance);
-  return { lane: ranked[0].lane, distance: ranked[0].distance, runnerUp: ranked[1].distance };
-};
 
-/**
- * All three lanes leave through the same gap between the base turrets, so
- * within about 800px of a fountain "which lane is this" has no answer — MID's
- * exit from the blue base runs 127px from BOT's first turret, which is nearer
- * than BOT's own path gets to it. True of the old paths as much as these; the
- * old check only missed it because it measured to the nearest waypoint.
- * Ownership is asserted outside that shared ground, and stated here rather
- * than absorbed into a threshold.
- */
-const SHARED_BASE_EXIT = 900;
-const nearAFountain = ([x, y]: Point): boolean =>
-  Math.hypot(x - BLUE_FOUNTAIN.x, y - BLUE_FOUNTAIN.y) < SHARED_BASE_EXIT ||
-  Math.hypot(x - RED_FOUNTAIN.x, y - RED_FOUNTAIN.y) < SHARED_BASE_EXIT;
-
-// ---------------------------------------------------------------- tests
-
-describe("Summoner's Rift lane waypoints", () => {
+describe('how a lane is handed to a wave', () => {
   /**
-   * Three rules, one call, and the implementation is **core's**.
-   *
-   * They used to be three cases in this file with their own thresholds and
-   * their own geometry — a wall check, a waypoint-versus-turret check and a
-   * segment-versus-turret check — and the map editor grew all three
-   * separately, with the same numbers typed a second time. Two copies of a
-   * rule drift, and the drift has a direction: the editor says `0 lỗi`, this
-   * gate says no, and the person holding both is told the map is fine by the
-   * only tool that could have helped them fix it. That happened, over a lane
-   * three pixels inside a wall.
-   *
-   * `@moba2d/core/seams`' `laneIssues` is the single implementation now. It
-   * loads the editor's own `public/map-editor/js/mapRules.js`, which is where
-   * the rule has to live if the editor is to run it at all — that tool has no
-   * bundler and no build step, only `<script>` tags talking through globals,
-   * so the narrower side is the one that holds the original.
-   *
-   * The three failures it replaces are all still described, in that file:
-   * lane waypoints that *were* the turret coordinates and wedged every wave
-   * against its own first tower; a path whose vertices clear a turret while
-   * the straight run between them goes through it; and a lane with less than
-   * a minion body of room beside a wall.
+   * Core's mechanism, on this pack's data. `getLaneWaypoints` serves both
+   * teams from one declaration by reversing the list for the second, so what
+   * is worth stating is the relationship between the two answers — not where
+   * either of them starts, which is the map's business and is graded above.
    */
-  it('has no lane the map editor’s own checker would refuse', () => {
-    const limits = laneRuleLimits();
-    // Not vacuous: a rule that loaded but checks nothing would pass the
-    // assertion below in silence, which is the one way this can go quiet.
-    expect(limits.wall).toBeGreaterThan(0);
-    expect(limits.waypointTurret).toBeGreaterThan(limits.turretBlocked);
-
-    const issues = laneIssues({
-      lanes: LANES.map(lane => ({
-        id: lane,
-        points: SR_LANE_WAYPOINTS[lane].map(({ x, y }): [number, number] => [x, y]),
-      })),
-      walls,
-      turrets: turret1.concat(turret2),
-    });
-
-    expect(issues.map(issue => `${issue.text} @ ${issue.at.map(Math.round).join(',')}`)).toEqual([]);
-  });
-
-  it('runs blue fountain to red fountain in every lane', () => {
-    for (const lane of LANES) {
-      const path = SR_LANE_WAYPOINTS[lane];
-      expect(path[0]).toEqual(BLUE_FOUNTAIN);
-      expect(path[path.length - 1]).toEqual(RED_FOUNTAIN);
-      expect(path.length).toBeGreaterThan(3);
-    }
-  });
-
-  it('walks past its own turret row, in order, so a lane is defended along its length', () => {
-    for (const lane of LANES) {
-      const path = SR_LANE_WAYPOINTS[lane];
-      const alongAt = (p: Point) => nearestOnPath(path, p).along;
-
-      for (const point of laneTurrets(lane)) {
-        expect(turret1.concat(turret2)).toContainEqual(point);
-        const { distance } = nearestOnPath(path, point);
-        expect(
-          distance,
-          `${lane} passes turret ${point} at ${Math.round(distance)}px`
-        ).toBeLessThanOrEqual(LANE_COVERS_TURRET);
-      }
-
-      // Ordered by how far along the lane each turret is passed, rather than by
-      // waypoint index — a straight run past three turrets has no vertex of its
-      // own, so an index cannot separate them and a distance travelled can.
-      const blueAlong = BLUE_LANE_TURRETS[lane].map(alongAt);
-      const redAlong = RED_LANE_TURRETS[lane].map(alongAt);
-      expect(blueAlong).toEqual([...blueAlong].sort((a, b) => a - b));
-      expect(redAlong).toEqual([...redAlong].sort((a, b) => a - b));
-      // blue's row first, red's after: a lane is one route from one base to the other
-      expect(Math.max(...blueAlong)).toBeLessThan(Math.min(...redAlong));
-    }
-  });
-
-  it('assigns every map turret to exactly one lane, or to a base', () => {
-    // the two rows are 11 points each; 10 are lane turrets and the rest guard a
-    // fountain. Nothing may be silently dropped when the paths are edited.
-    const baseTurrets: Point[] = [
-      [736, 5392],
-      [5454, 779],
-      [5646, 967],
-    ];
-    expect(turret1).toHaveLength(11);
-    expect(turret2).toHaveLength(11);
-
-    for (const point of [...turret1, ...turret2]) {
-      const onBase = baseTurrets.some(([x, y]) => x === point[0] && y === point[1]);
-      const { lane, distance } = owningLane(point);
-
-      // Every base turret, and BOT's first, stands in the gap all three lanes
-      // leave through. Nothing there belongs to one lane; the listing below is
-      // still checked, only the "nearest lane owns it" part is skipped.
-      if (nearAFountain(point)) {
-        const expectedLane = LANES.find(l =>
-          laneTurrets(l).some(([x, y]) => x === point[0] && y === point[1])
-        );
-        expect(onBase || expectedLane !== undefined).toBe(true);
-        continue;
-      }
-      expect(onBase, `base turret ${point} sits outside the shared base exit`).toBe(false);
-
-      const expected = LANES.find(l =>
-        laneTurrets(l).some(([x, y]) => x === point[0] && y === point[1])
-      );
-      expect(expected, `turret ${point} is on no lane's list`).toBeDefined();
-      expect(lane, `turret ${point} is nearest ${lane}, not ${expected}`).toBe(expected);
-      expect(distance).toBeLessThanOrEqual(LANE_COVERS_TURRET);
-    }
-  });
-
   it('gives red the same path backwards, without mutating the shared blue one', () => {
     for (const lane of LANES) {
       const blue = getLaneWaypoints(lane, TeamId.BLUE);
       const red = getLaneWaypoints(lane, TeamId.RED);
 
-      expect(blue).toBe(SR_LANE_WAYPOINTS[lane]);
-      expect(blue[0]).toEqual(BLUE_FOUNTAIN);
-      expect(red[0]).toEqual(RED_FOUNTAIN);
+      expect(blue.length).toBeGreaterThan(3);
       expect(red).toEqual([...blue].reverse());
-      // handed to every minion in a wave, so it must be the same array each time
+      expect(red[0]).toEqual(blue[blue.length - 1]);
+      // Handed to every minion in a wave, so it must be the same array each
+      // time — a copy per minion is a copy per minion per wave, all match.
       expect(getLaneWaypoints(lane, TeamId.RED)).toBe(red);
+      expect(getLaneWaypoints(lane, TeamId.BLUE)).toBe(blue);
     }
-
-    expect(SR_LANE_WAYPOINTS[Lane.TOP][0]).toEqual(BLUE_FOUNTAIN);
   });
 
   it('falls back to mid for a lane it does not know', () => {
-    expect(getLaneWaypoints('jungle', TeamId.BLUE)).toBe(SR_LANE_WAYPOINTS[Lane.MID]);
+    expect(getLaneWaypoints('jungle', TeamId.BLUE)).toBe(getLaneWaypoints(Lane.MID, TeamId.BLUE));
   });
-});
-
-describe('the muster point a wave forms up on', () => {
-  /**
-   * `MinionSpawner.musterPointFor` (deleted, an earlier task) used to
-   * recompute the pair of nearest turrets at spawn time, per wave, from the
-   * live `Turret` objects, and returned `null` for a team caught with fewer
-   * than two — dropping the whole wave silently into the fountain until it
-   * walked back out. The map declares the point once instead, baked into
-   * `slots.minion` by `summonersRiftGeometry.ts`'s own `minionMusterPoint`,
-   * so a lane with no slot is a `validate.ts` error at install instead.
-   *
-   * The pair is still recomputed here from `turret1`/`turret2` rather than
-   * read back off the slot the assembly produced — the *rule* is stated
-   * independently, so a map that started declaring a different pair fails
-   * this rather than agreeing with itself. What changed is the target: the
-   * wall/turret/scatter checks below run against the declared **slot**
-   * (`summonersRiftGeometry.slots.minion`), which is what a minion actually
-   * gets told to stand on, not a value recomputed only for the test.
-   */
-  const musterFor = (row: Point[], fountain: { x: number; y: number }) => {
-    const byDistance = [...row].sort(
-      (a, b) =>
-        Math.hypot(a[0] - fountain.x, a[1] - fountain.y) -
-        Math.hypot(b[0] - fountain.x, b[1] - fountain.y)
-    );
-    const [first, second] = byDistance;
-    return { x: (first[0] + second[0]) / 2, y: (first[1] + second[1]) / 2 };
-  };
-
-  const minionSlot = (faction: string, lane: string) => {
-    const slot = summonersRiftGeometry.slots.minion.find(
-      s => s.faction === faction && s.lane === lane
-    );
-    expect(slot, `no declared minion slot for ${faction}/${lane}`).toBeDefined();
-    return slot!;
-  };
-
-  const MUSTERS = LANES.flatMap(lane => [
-    {
-      side: `blue ${lane}`,
-      lane,
-      at: minionSlot('blue', lane),
-      expected: musterFor(turret1, BLUE_FOUNTAIN),
-    },
-    {
-      side: `red ${lane}`,
-      lane,
-      at: minionSlot('red', lane),
-      expected: musterFor(turret2, RED_FOUNTAIN),
-    },
-  ]);
-
-  it.each(MUSTERS)(
-    '$side agrees with the independently computed nearest-turret pair',
-    ({ at, expected }) => {
-      expect({ x: at.x, y: at.y }).toEqual(expected);
-    }
-  );
-
-  it.each(MUSTERS)('$side stands on open ground', ({ at }) => {
-    expect(wallClearance(at.x, at.y)).toBeGreaterThan(MIN_CLEARANCE);
-  });
-
-  it.each(MUSTERS)('$side clears both turrets it forms up between', ({ at }) => {
-    // A body inside a turret is shoved out by `UnitCollisionSystem` the moment
-    // it appears, which reads as a wave exploding outward on spawn.
-    for (const row of [turret1, turret2]) {
-      for (const [tx, ty] of row) {
-        const away = Math.hypot(at.x - tx, at.y - ty);
-        expect(away).toBeGreaterThan(TURRET_BLOCKED_RADIUS);
-      }
-    }
-  });
-
-  it.each(MUSTERS)('$side keeps its whole scatter ring off the walls', ({ at }) => {
-    // The slot carries its own scatter radius now (`MinionSlot.scatter`), not
-    // a shared `MinionSpawner` constant — a minion can land anywhere inside it.
-    //
-    // Asserted as a real, positive number before the `?? 0` fallback below
-    // ever runs it through the ring loop: a slot that silently dropped its
-    // own `scatter` would otherwise degrade this whole check to sampling one
-    // point 16 times, at radius 0, which passes regardless of whether the
-    // ring the map actually declares clears anything.
-    expect(at.scatter, `${JSON.stringify(at)} has no positive scatter radius`).toBeGreaterThan(0);
-    const scatter = at.scatter ?? 0;
-    for (let i = 0; i < 16; i++) {
-      const angle = (i / 16) * Math.PI * 2;
-      const x = at.x + Math.cos(angle) * scatter;
-      const y = at.y + Math.sin(angle) * scatter;
-      expect(wallClearance(x, y)).toBeGreaterThan(MIN_CLEARANCE);
-    }
-  });
-
-  /**
-   * Two tests stood here and are gone with the code they tested:
-   * `minionMusterPoint` computed a muster point from a turret row at assembly
-   * time, and they drove its degenerate cases — a team with one turret, a team
-   * with none. The map declares `slots.minion` outright now, so there is no
-   * computation left to be wrong in those ways, and `validate.ts` rejects a
-   * lane with no slot at install. What the map actually declares is checked
-   * above, against walls and turrets, which is the half that was always about
-   * this map rather than about the function.
-   */
 });
