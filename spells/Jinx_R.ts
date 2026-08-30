@@ -82,7 +82,7 @@ export default class Jinx_R extends Spell {
     `Phóng một quả tên lửa <span class="buff">bay khắp bản đồ</span>, chỉ nổ khi trúng` +
     ` <span class="damage">tướng địch</span> (đi xuyên qua lính). Bay càng xa càng nhanh và càng mạnh:` +
     ` sát thương từ <span class="damage">${MIN_TRAVEL_SCALE * 100}%</span> tới` +
-    ` <span class="damage">100%</span> của <span class="damage">${BASE_DAMAGE}</span> theo quãng đường,` +
+    ` <span class="damage">100%</span> của <span class="damage physical">${BASE_DAMAGE}</span> theo quãng đường,` +
     ` cộng thêm tới <span class="damage physical">${MAX_MISSING_HEALTH_BONUS} sát thương vật lý</span> theo lượng máu mục tiêu đã mất.` +
     ` Nổ trong bán kính <span>${BLAST_RADIUS}px</span>`;
   coolDown = 10000;

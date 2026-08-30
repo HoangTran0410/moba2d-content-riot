@@ -14,7 +14,7 @@ export default class Ignite extends Spell {
   image = api.asset('spell_ignite');
   name = 'Thiêu Đốt (Ignite)';
   description =
-    'Thiêu đốt kẻ địch gần nhất trong phạm vi <span>350px</span>, gây <span class="damage">6 sát thương</span> mỗi <span class="time">0.5 giây</span> trong <span class="time">5 giây</span> (tổng <span class="damage">60 sát thương</span>)';
+    'Thiêu đốt kẻ địch gần nhất trong phạm vi <span>350px</span>, gây <span class="damage true">6 sát thương chuẩn</span> mỗi <span class="time">0.5 giây</span> trong <span class="time">5 giây</span> (tổng <span class="damage true">60 sát thương chuẩn</span>)';
   coolDown = 6000;
 
   range = 350;
@@ -35,6 +35,11 @@ export default class Ignite extends Spell {
     burn.image = this.image;
     burn.damagePerTick = this.damagePerTick;
     burn.tickInterval = this.tickInterval;
+    // True damage, which is what this summoner spell deals in the game it comes
+    // from and the whole reason anyone takes it into a lane. `DamageOverTime`
+    // defaults to magic — reasonable for a poison and wrong for an execute —
+    // and a burn that resistances stop is not the spell people think they cast.
+    burn.damageType = 'TRUE';
     target.addBuff(burn);
 
     // the burn itself is well telegraphed, but nothing showed WHO cast it or on

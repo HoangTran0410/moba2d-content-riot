@@ -35,7 +35,7 @@ export default class Fizz_Q extends Spell {
   name = 'Đâm Lao (Fizz_Q)';
   description =
     `Lướt xuyên qua kẻ địch gần nhất trong <span>${RANGE}px</span>, gây` +
-    ` <span class="damage">${DAMAGE} sát thương</span> và dừng lại phía sau lưng chúng`;
+    ` <span class="damage magic">${DAMAGE} sát thương phép</span> và dừng lại phía sau lưng chúng`;
   coolDown = 6000;
   manaCost = 25;
 

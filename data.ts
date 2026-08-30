@@ -966,7 +966,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1450,
     buildsFrom: ['recurve_bow', 'null_magic_mantle'],
     description:
-      'Nội tại: đòn đánh gây thêm <span class="damage">4 sát thương phép</span> và tăng tốc chạy trong chốc lát.',
+      'Nội tại: đòn đánh gây thêm <span class="damage magic">4 sát thương phép</span> và tăng tốc chạy trong chốc lát.',
     stats: { attackSpeed: 0.3, magicResist: 32, abilityPower: 1 },
     passive: 'Item_WitsEnd',
   },
@@ -978,7 +978,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     buildsFrom: ['recurve_bow', 'long_sword', 'long_sword'],
     description:
       'Nội tại: mỗi đòn thứ <span class="buff">3</span> liên tiếp lên cùng một mục tiêu gây thêm ' +
-      '<span class="damage">12 sát thương vật lý</span>.',
+      '<span class="damage physical">12 sát thương vật lý</span>.',
     stats: { attackDamage: 14, attackSpeed: 0.3 },
     passive: 'Item_Kraken',
   },
@@ -988,7 +988,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     icon: 'item_nashors_tooth',
     cost: 1450,
     buildsFrom: ['recurve_bow'],
-    description: 'Nội tại: đòn đánh gây thêm <span class="damage">7 sát thương phép</span>.',
+    description: 'Nội tại: đòn đánh gây thêm <span class="damage magic">7 sát thương phép</span>.',
     stats: { attackSpeed: 0.4, abilityPower: 1.4 },
     passive: 'Item_Nashor',
   },
@@ -1034,7 +1034,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1500,
     buildsFrom: ['sheen', 'boots'],
     description:
-      'Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm <span class="damage">18 sát thương phép</span>.',
+      'Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm <span class="damage magic">18 sát thương phép</span>.',
     stats: { speed: 0.4, maxMana: 20, abilityPower: 1.6 },
     passive: 'Item_LichBane',
   },
@@ -1101,7 +1101,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     buildsFrom: ['recurve_bow', 'long_sword'],
     description:
       'Nội tại: mỗi đòn đánh tích điện; khi tích đầy, đòn kế tiếp phóng tia sét gây ' +
-      '<span class="damage">16 sát thương phép</span> lên mục tiêu và lan sang <span class="buff">3</span> kẻ địch gần đó.',
+      '<span class="damage magic">16 sát thương phép</span> lên mục tiêu và lan sang <span class="buff">3</span> kẻ địch gần đó.',
     stats: { attackDamage: 10, attackSpeed: 0.35 },
     passive: 'Item_StatikkShiv',
   },
@@ -1113,7 +1113,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     buildsFrom: ['cloth_armor', 'ruby_crystal'],
     description:
       'Nội tại: di chuyển tích lực, tối đa tăng thêm <span class="buff">30%</span> tốc chạy; đòn đánh kế tiếp ' +
-      'xả toàn bộ lực, gây tới <span class="damage">20 sát thương vật lý</span> và làm chậm <span class="buff">50%</span> khi tích đầy.',
+      'xả toàn bộ lực, gây tới <span class="damage physical">20 sát thương vật lý</span> và làm chậm <span class="buff">50%</span> khi tích đầy.',
     stats: { armor: 30, maxHealth: 50, speed: 0.2 },
     passive: 'Item_DeadMansPlate',
   },
@@ -1152,7 +1152,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1500,
     buildsFrom: ['ruby_crystal', 'null_magic_mantle'],
     description:
-      'Kích hoạt: bắn ra một luồng băng gây <span class="damage">30 sát thương phép</span> và trói <span class="time">1.2 giây</span> mọi kẻ địch trúng đòn.',
+      'Kích hoạt: bắn ra một luồng băng gây <span class="damage magic">30 sát thương phép</span> và trói <span class="time">1.2 giây</span> mọi kẻ địch trúng đòn.',
     stats: {
       maxHealth: 45,
       magicResist: 35,

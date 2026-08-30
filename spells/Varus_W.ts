@@ -54,7 +54,7 @@ export default class Varus_W extends Spell {
   name = 'Tên Độc (Varus_W)';
   description =
     `Trong <span class="time">${DURATION / 1000} giây</span>, mỗi đòn đánh thường bám thêm` +
-    ` <span class="damage">${BLIGHT_PER_TICK} sát thương mỗi nhịp</span> trong` +
+    ` <span class="damage magic">${BLIGHT_PER_TICK} sát thương phép mỗi nhịp</span> trong` +
     ` <span class="time">${BLIGHT_DURATION / 1000} giây</span>, kèm <span class="buff">+15% tốc độ đánh</span>`;
   coolDown = 10000;
   manaCost = 25;

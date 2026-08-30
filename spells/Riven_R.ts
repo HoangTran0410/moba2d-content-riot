@@ -74,7 +74,7 @@ export default class Riven_R extends Spell {
     `<span class="damage">+${Math.round(R_DAMAGE_AMP * 100)}% sát thương</span> và mọi nhát Q ` +
     `mang một lưỡi năng lượng dài. Bấm lại để phóng Kiếm Phong hình nón dài ${R_LENGTH}, ` +
     `gây <span class="damage physical">${R_DAMAGE} sát thương vật lý</span>, tăng dần tới ` +
-    `<span class="damage">${R_DAMAGE_MAX}</span> khi mục tiêu còn dưới ` +
+    `<span class="damage physical">${R_DAMAGE_MAX}</span> khi mục tiêu còn dưới ` +
     `${Math.round(R_EXECUTE_THRESHOLD * 100)}% máu.`;
   coolDown = 10_000;
   manaCost = 100;

@@ -48,7 +48,7 @@ export default class Vayne_R extends Spell {
   image = api.asset('spell_vayne_r');
   name = 'Giờ Khắc Cuối Cùng (Vayne_R)';
   description = `Trong ${VAYNE_R_DURATION_MS / 1000} giây, Vayne nhận
-    <span class="damage">+${VAYNE_R_AD} sát thương đánh thường</span>, hồi chiêu Nhào Lộn giảm
+    <span class="buff">+${VAYNE_R_AD} sát thương đánh thường</span>, hồi chiêu Nhào Lộn giảm
     một nửa, và mỗi lần Nhào Lộn khiến cô tàng hình ${VAYNE_R_STEALTH_MS / 1000} giây.`;
   coolDown = 10_000;
   manaCost = 100;

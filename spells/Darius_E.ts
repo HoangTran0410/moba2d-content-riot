@@ -51,7 +51,7 @@ export default class Darius_E extends Spell {
   name = 'Bắt Giữ (Darius_E)';
   description =
     `Quét rìu thành hình quạt xa <span>${CONE_RANGE}px</span>, gây` +
-    ` <span class="damage">${DAMAGE} sát thương</span>, cộng một cấp <span class="damage">Chảy Máu</span>` +
+    ` <span class="damage physical">${DAMAGE} sát thương vật lý</span>, cộng một cấp <span class="damage">Chảy Máu</span>` +
     ` và <span class="buff">kéo</span> mọi kẻ địch trúng chiêu về sát người.` +
     ` Khi tiếp đất chúng bị <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span>` +
     ` trong <span class="time">${SLOW_MS / 1000} giây</span>`;
@@ -89,7 +89,7 @@ export default class Darius_E extends Spell {
 
     for (const victim of candidates) {
       if (!this.insideCone(victim, heading)) continue;
-      victim.takeDamage(DAMAGE, this.owner, 'MAGIC');
+      victim.takeDamage(DAMAGE, this.owner, 'PHYSICAL');
       applyHemorrhage(this.owner, victim);
       this.hook(victim);
       sweep.caught.push(victim);

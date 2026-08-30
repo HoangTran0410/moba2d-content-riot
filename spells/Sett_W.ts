@@ -62,8 +62,8 @@ export default class Sett_W extends Spell {
     `Sau 3 giây không nhận sát thương, Nộ Khí mới bắt đầu suy giảm. ` +
     `Khi kích hoạt chiêu, Sett lập tức nhận lá chắn bằng toàn bộ Nộ Khí trong 3 giây ` +
     `và tung đòn đánh hình cánh quạt ${SETT_W_CONE_DEG}° tầm ${SETT_W_LENGTH} gây ` +
-    `<span class="damage">${SETT_W_BASE} sát thương</span> cộng ` +
-    `${Math.round(SETT_W_GRIT_SCALE * 100)}% Nộ Khí (dải trung tâm gây sát thương chuẩn).`;
+    `<span class="damage magic">${SETT_W_BASE} sát thương phép</span> cộng ` +
+    `${Math.round(SETT_W_GRIT_SCALE * 100)}% Nộ Khí (dải trung tâm gây <span class="damage true">sát thương chuẩn</span>).`;
   coolDown = 10_000;
   manaCost = 40;
   range = SETT_W_LENGTH;

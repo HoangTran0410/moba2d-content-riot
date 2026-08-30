@@ -75,7 +75,7 @@ export default class Pyke_R extends Spell implements ExecuteSpell {
     } giây</span> đâm lên từ dưới đất.` +
     ` Kẻ địch còn dưới <span class="buff">${EXECUTE_THRESHOLD} máu hiệu dụng</span> (tính cả khiên) bị` +
     ` <span class="damage">hành quyết ngay lập tức</span>; số còn lại chỉ nhận` +
-    ` <span class="damage">${STRIKE_DAMAGE} sát thương phép</span>.` +
+    ` <span class="damage magic">${STRIKE_DAMAGE} sát thương phép</span>.` +
     ` Nếu nhát đâm kết liễu mục tiêu, chiêu cuối <span class="buff">hồi ngay lập tức</span>`;
   coolDown = R_COOLDOWN_MS;
   manaCost = R_MANA_COST;

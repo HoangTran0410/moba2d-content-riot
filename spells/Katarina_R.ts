@@ -29,9 +29,9 @@ export default class Katarina_R extends Spell {
   image = api.asset('spell_katarina_r');
   name = 'Bông Sen Tử Thần (Katarina_R)';
   description = `Xoay tròn liên tục trong ${KATARINA_R_DURATION_MS / 1000} giây, phóng bão dao ra mọi hướng:
-    <span class="damage">${KATARINA_R_TICK_DAMAGE} sát thương</span> mỗi
+    <span class="damage magic">${KATARINA_R_TICK_DAMAGE} sát thương phép</span> mỗi
     ${KATARINA_R_TICK_MS / 1000} giây cho tối đa 3 kẻ địch trong vùng ${KATARINA_R_RADIUS}
-    (tổng cộng <span class="damage">${KATARINA_R_TICK_COUNT * KATARINA_R_TICK_DAMAGE}</span>).
+    (tổng cộng <span class="damage magic">${KATARINA_R_TICK_COUNT * KATARINA_R_TICK_DAMAGE}</span>).
     Bị choáng hoặc di chuyển sẽ ngắt kênh niệm.`;
   coolDown = 10_000;
   manaCost = 0;

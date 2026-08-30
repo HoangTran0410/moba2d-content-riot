@@ -21,7 +21,7 @@ export default class Cassiopeia_W extends Spell {
   image = api.asset('spell_cassiopeia_w');
   name = 'Chướng Khí (Cassiopeia_W)';
   description =
-    'Phun ra một đám mây độc tồn tại <span class="time">5 giây</span>. Kẻ địch bên trong nhiễm độc, mất <span class="damage">2 sát thương</span> mỗi <span class="time">0.4 giây</span>, bị <span class="buff">Làm Chậm</span> (giảm dần từ 50% theo thời gian tồn tại của bãi độc) và bị <span class="buff">Ghìm</span> — vẫn đi được nhưng không thể dùng kỹ năng lướt hay dịch chuyển để thoát ra';
+    'Phun ra một đám mây độc tồn tại <span class="time">5 giây</span>. Kẻ địch bên trong nhiễm độc, mất <span class="damage magic">2 sát thương phép</span> mỗi <span class="time">0.4 giây</span>, bị <span class="buff">Làm Chậm</span> (giảm dần từ 50% theo thời gian tồn tại của bãi độc) và bị <span class="buff">Ghìm</span> — vẫn đi được nhưng không thể dùng kỹ năng lướt hay dịch chuyển để thoát ra';
   coolDown = 10000;
   manaCost = 40;
 

@@ -18,7 +18,7 @@ export default class Blitzcrank_Q extends Spell {
   name = 'Bàn Tay Hỏa Tiễn (Blitzcrank_Q)';
   image = api.asset('spell_blitzcrank_q');
   description =
-    'Bắn bàn tay theo hướng chỉ định, <span class="buff">Kéo</span> kẻ địch đầu tiên trúng phải về phía bạn, gây <span class="damage">20 sát thương</span> và <span class="buff">Làm Choáng</span> chúng trong <span class="time">0.5 giây</span>';
+    'Bắn bàn tay theo hướng chỉ định, <span class="buff">Kéo</span> kẻ địch đầu tiên trúng phải về phía bạn, gây <span class="damage magic">20 sát thương phép</span> và <span class="buff">Làm Choáng</span> chúng trong <span class="time">0.5 giây</span>';
   coolDown = 5000;
   manaCost = 20;
 

@@ -23,7 +23,7 @@ export default class Fizz_W extends Spell {
   name = 'Đinh Ba Hải Thạch (Fizz_W)';
   description =
     `Trong <span class="time">${DURATION / 1000} giây</span>, mỗi đòn đánh thường gây thêm` +
-    ` <span class="damage">${BLEED_PER_TICK} sát thương mỗi nhịp</span> trong` +
+    ` <span class="damage magic">${BLEED_PER_TICK} sát thương phép mỗi nhịp</span> trong` +
     ` <span class="time">${BLEED_DURATION / 1000} giây</span>, kèm <span class="buff">+20% tốc độ đánh</span>`;
   coolDown = 10000;
   manaCost = 25;

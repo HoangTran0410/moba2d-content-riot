@@ -38,7 +38,7 @@ export default class Ahri_E extends Spell {
   image = api.asset('spell_ahri_e');
   name = 'Hôn Gió (Ahri_E)';
   description =
-    'Hôn gió theo hướng chỉ định, gây <span class="damage">15 sát thương</span> và <span class="buff">Mê Hoặc</span> kẻ địch trong <span class="time">1.5 giây</span>';
+    'Hôn gió theo hướng chỉ định, gây <span class="damage magic">15 sát thương phép</span> và <span class="buff">Mê Hoặc</span> kẻ địch trong <span class="time">1.5 giây</span>';
   coolDown = 5000;
   manaCost = 20;
 

@@ -280,9 +280,26 @@ export const claimsIn = source => CLAIMS.filter(([re]) => re.test(source)).map((
  * so that `--check` keeps holding the file to it and the next person reads why.
  */
 export const DECIDED = {
+  // Damage that rides a basic attack. Upstream prints no type because the
+  // attack already has one; this pack implements each as its own projectile
+  // with its own `takeDamage`, so the type has to be written down.
   Ashe_Q: { type: "PHYSICAL", why: "empowers her attacks; upstream names no type because an attack has one" },
   Twitch_R: { type: "PHYSICAL", why: "his arrows are attacks; same reason Ashe Q names no type" },
+
+  // Upstream is explicit and this pack's own Vietnamese was the wrong half.
   Pyke_E: { type: "PHYSICAL", why: "upstream is explicit; this pack's own tooltip said phép and was corrected" },
+
+  // Upstream prints two types because the ability lands two hits, and this
+  // pack implements one of them. Which one is a reading of our own code, not
+  // of the tooltip, which is exactly why the script refuses to guess it.
+  Fizz_Q: { type: "MAGIC", why: "upstream is a basic attack plus its own magic damage; this pack lands only the second" },
+  Pantheon_R: { type: "MAGIC", why: "upstream is a physical spear then a magic meteor; this pack lands the meteor" },
+  Katarina_R: { type: "MAGIC", why: "each dagger is magic damage carrying an attack-damage ratio; the school is magic" },
+  Syndra_W: { type: "MAGIC", why: "the second type upstream names belongs to a clause about what she throws, not the throw" },
+
+  // Upstream prints no type at all, for two different reasons.
+  Blitzcrank_Q: { type: "MAGIC", why: "tooltip says only \"sát thương\"; the ability is magic upstream and so is the rest of the kit" },
+  Darius_E: { type: "PHYSICAL", why: "upstream deals no damage whatever — this pack invented it, on a champion whose kit is entirely physical" },
 };
 
 /**
@@ -301,6 +318,9 @@ const TYPE_CLASS = { PHYSICAL: 'physical', MAGIC: 'magic', TRUE: 'true' };
 const NAMES_TYPE = /sát thương\s+(vật lý|phép|chuẩn)/i;
 /** A span carrying an actual damage figure, as opposed to emphasised prose. */
 const IS_FIGURE = /sát thương/i;
+/** A bare figure: the noun is in the sentence, not in the span. */
+const OPENS_WITH_NUMBER = /^\s*(?:\$\{[^}]*\}|\d)/;
+
 /** Crit is a figure with a noun already attached; "sát thương vật lý chí mạng" is not Vietnamese. */
 const IS_CRIT = /sát thương\s+chí mạng/i;
 
@@ -326,7 +346,12 @@ const DAMAGE_SPAN = /<span class="damage( (?:physical|magic|true))?">([\s\S]*?)<
 const describedSource = (source, want) => {
   const refused = [];
   const next = source.replace(DAMAGE_SPAN, (whole, existingClass, inner) => {
-    if (!IS_FIGURE.test(inner)) return whole;
+    // A span carrying only a number — `<span class="damage">${PER_SPHERE}</span>`,
+    // where the noun sits in the sentence outside it — is still a damage
+    // figure and still needs the colour. Requiring the words "sát thương"
+    // *inside* the span left one ultimate printing its base in violet and its
+    // per-sphere bonus in the old red, in the same sentence.
+    if (!IS_FIGURE.test(inner) && !OPENS_WITH_NUMBER.test(inner)) return whole;
     if (inner.includes('%')) {
       refused.push(`percentage: ${inner.trim()}`);
       return whole;
@@ -365,6 +390,9 @@ const resolveType = (slug, source, upstream, sites) => {
 
   const current = [...new Set(sites.map(site => site.type))];
   if (current.length > 1) return { skip: `file already mixes ${current.join(' + ')} — hand-tuned` };
+  // No local damage call at all: nothing to retype, but the sentence in this
+  // file still needs its type. `want` is the answer and `from` is nobody.
+  if (!sites.length) return { want: found[0], from: found[0] };
 
   const want = found[0];
   const contradicting = claimsIn(source).filter(type => type !== want);
@@ -394,7 +422,13 @@ const main = async () => {
     const filePath = join(SPELL_DIR, file);
     let source = readFileSync(filePath, 'utf8');
     const sites = damageSites(source).filter(site => site.at !== null);
-    if (!sites.length) continue;
+    // **Not** `continue` on an empty site list. An ability whose damage is dealt
+    // in another file still has a description here promising it, and skipping
+    // the file left those sentences saying a bare "sát thương" while every
+    // ability around them named a type — the report that found it named a
+    // charm whose damage lands from its own missile's file.
+    if (!sites.length && !DAMAGE_SPAN.test(source)) continue;
+    DAMAGE_SPAN.lastIndex = 0;
 
     const decision = resolveType(slug, source, upstream, sites);
     if (decision.skip) {

@@ -37,7 +37,7 @@ export default class Shaco_E extends Spell {
   image = api.asset('spell_shaco_e');
   name = 'Dao Độc (Shaco_E)';
   description =
-    'Ném dao tới kẻ địch, <span class="buff">Làm Chậm 40%</span> và gây <span class="damage">15 sát thương</span>, gây thêm <span class="damage">10 sát thương</span> nếu mục tiêu <span>dưới 30% máu</span>';
+    'Ném dao tới kẻ địch, <span class="buff">Làm Chậm 40%</span> và gây <span class="damage magic">15 sát thương phép</span>, gây thêm <span class="damage magic">10 sát thương phép</span> nếu mục tiêu <span>dưới 30% máu</span>';
   coolDown = 5000;
   manaCost = 40;
 

@@ -29,7 +29,7 @@ export default class Tryndamere_Q extends Spell {
   name = 'Say Máu (Tryndamere_Q)';
   description =
     'Hồi <span class="heal">14 máu</span> cộng <span class="buff">28% lượng máu đã mất</span> ' +
-    '(tối đa <span class="damage">40</span>), đồng thời nhận tới <span class="buff">14 sát thương đánh</span> ' +
+    '(tối đa <span class="heal">40 máu</span>), đồng thời nhận tới <span class="buff">14 sát thương đánh</span> ' +
     'tùy theo lượng máu đã mất trong <span class="time">6 giây</span>.';
   coolDown = 9_000;
   // Tryndamere is manaless in his own game and stays manaless here: his whole

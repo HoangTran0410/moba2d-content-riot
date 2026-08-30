@@ -80,7 +80,7 @@ export default class Shen_Q extends Spell {
     ` trong <span class="buff">${EMPOWER_WINDOW_MS / 1000} giây</span> được cộng` +
     ` <span class="damage magic">${EMPOWERED_BONUS} sát thương phép</span> và` +
     ` <span class="buff">${BONUS_ATTACK_RANGE} tầm đánh</span>, nâng lên` +
-    ` <span class="damage">${EMPOWERED_BONUS_VS_CHAMPION}</span> nếu lưỡi kiếm có chạm trúng tướng địch.`;
+    ` <span class="damage magic">${EMPOWERED_BONUS_VS_CHAMPION}</span> nếu lưỡi kiếm có chạm trúng tướng địch.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
   range = BLADE_REACH;
@@ -215,7 +215,7 @@ export class Shen_Q_Empower extends Buff {
   description =
     `<span class="buff">${EMPOWERED_ATTACKS} đòn đánh thường</span> kế tiếp gây thêm` +
     ` <span class="damage magic">${EMPOWERED_BONUS} sát thương phép</span>` +
-    ` (<span class="damage">${EMPOWERED_BONUS_VS_CHAMPION}</span> nếu Linh Kiếm đã chạm tướng)` +
+    ` (<span class="damage magic">${EMPOWERED_BONUS_VS_CHAMPION}</span> nếu Linh Kiếm đã chạm tướng)` +
     ` và cộng <span class="buff">${BONUS_ATTACK_RANGE} tầm đánh</span>`;
   stackId = 'shen_q_empower';
   buffAddType = BuffAddType.REPLACE_EXISTING;

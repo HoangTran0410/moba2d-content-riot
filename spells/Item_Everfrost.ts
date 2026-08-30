@@ -51,7 +51,7 @@ export default class Item_Everfrost extends Spell {
   name = 'Vĩnh Sương (Item_Everfrost)';
   description =
     `Kích hoạt: bắn ra một luồng băng gây` +
-    ` <span class="damage">${EVERFROST_DAMAGE} sát thương phép</span> và` +
+    ` <span class="damage magic">${EVERFROST_DAMAGE} sát thương phép</span> và` +
     ` <span class="buff">trói ${EVERFROST_ROOT_MS / 1000} giây</span> mọi kẻ địch trúng đòn`;
   coolDown = EVERFROST_COOLDOWN_MS;
   manaCost = 0;

@@ -223,7 +223,10 @@ describe('every damage span this pack ships', () => {
     // print and should therefore have coloured.
     const untagged = shipped()
       .filter(([id]) => id.startsWith('item '))
-      .filter(([, text]) => /\d/.test(text.replace(/<span class="[a-z]+">[^<]*<\/span>/g, '')))
+      // `[a-z ]+`, with the space: a span may now carry its damage type as a
+      // second class, and a pattern that only matched one word would strip
+      // nothing from those and report seven perfectly-tagged items as untagged.
+      .filter(([, text]) => /\d/.test(text.replace(/<span class="[a-z ]+">[^<]*<\/span>/g, '')))
       .map(([id]) => id);
 
     expect(untagged).toEqual([]);

@@ -65,7 +65,7 @@ export default class Pantheon_R extends Spell {
   description =
     `Pantheon bay vút lên trời cao, <span class="buff">Không Thể Bị Chọn</span> suốt` +
     ` <span class="time">${FLIGHT_MS / 1000} giây</span>, rồi rơi như thiên thạch xuống địa điểm chỉ định` +
-    ` (xa tới <span>${MAX_RANGE}px</span>): <span class="damage">${DAMAGE} sát thương</span>` +
+    ` (xa tới <span>${MAX_RANGE}px</span>): <span class="damage magic">${DAMAGE} sát thương phép</span>` +
     ` và <span class="buff">Làm Chậm ${SLOW_PERCENT * 100}%</span> trong bán kính <span>${RADIUS}px</span>`;
   coolDown = 10000;
   manaCost = 80;

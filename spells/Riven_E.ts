@@ -32,7 +32,7 @@ export default class Riven_E extends Spell {
   name = 'Anh Dũng (Riven_E)';
   description =
     `Lao ${E_DISTANCE} theo hướng chỉ định và dựng một lớp khiên ` +
-    `<span class="damage">${E_SHIELD} điểm</span> trong ${E_SHIELD_MS / 1000} giây.`;
+    `<span class="heal">${E_SHIELD} điểm</span> trong ${E_SHIELD_MS / 1000} giây.`;
   coolDown = 8_000;
   manaCost = 20;
   range = E_DISTANCE;

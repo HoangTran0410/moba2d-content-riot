@@ -64,7 +64,7 @@ export default class Malzahar_E extends Spell {
   image = api.asset('spell_malzahar_e');
   name = 'Ám Ảnh Kinh Hoàng (Malzahar_E)';
   description =
-    `Gieo ảo ảnh vào tâm trí mục tiêu, gây <span class="damage">${DAMAGE_PER_TICK} sát thương</span>` +
+    `Gieo ảo ảnh vào tâm trí mục tiêu, gây <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span>` +
     ` mỗi <span class="time">${TICK_INTERVAL_MS / 1000} giây</span> trong` +
     ` <span class="time">${DURATION_MS / 1000} giây</span>. Nếu vật chủ chết khi còn nhiễm, ảo ảnh` +
     ` <span class="buff">lây sang kẻ địch gần nhất</span> và Malzahar hồi` +

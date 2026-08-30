@@ -38,7 +38,7 @@ export default class Garen_Q extends Spell {
   description =
     `<span class="buff">Gỡ mọi hiệu ứng làm chậm</span> và nhận <span class="buff">+${SPEED_PERCENT * 100}% tốc chạy</span>` +
     ` trong <span class="time">${SPEED_DURATION / 1000} giây</span>. Đòn đánh thường tiếp theo trong` +
-    ` <span class="time">${WINDOW_MS / 1000} giây</span> gây thêm <span class="damage">${BONUS_DAMAGE} sát thương</span>` +
+    ` <span class="time">${WINDOW_MS / 1000} giây</span> gây thêm <span class="damage physical">${BONUS_DAMAGE} sát thương vật lý</span>` +
     ` và <span class="buff">Câm Lặng</span> mục tiêu <span class="time">${SILENCE_MS / 1000} giây</span>`;
   coolDown = 8000;
   manaCost = 20;
