@@ -99,6 +99,29 @@ export const RECOVER_MS = 240;
 
 
 /**
+ * The dark backing every bright stroke in this swing is drawn over.
+ *
+ * The chop was white-on-red at 2–5px and it vanished in a fight: over a
+ * lit-up teamfight, pale strokes are indistinguishable from every other pale
+ * stroke on screen, and this is the biggest single hit in the game — the one
+ * effect a player most needs to see land. An outline is what makes a shape
+ * legible against an unknown background, which is the same reason Katarina's
+ * dagger has one.
+ */
+const INK: [number, number, number] = [16, 10, 8];
+
+/**
+ * The colour of the edge, which is the colour of the number it produces.
+ *
+ * Reckless Swing deals TRUE damage, and `DAMAGE_TEXT_COLOR.TRUE` is cyan. The
+ * cut and the figure that comes off the health bar agreeing is the cheapest
+ * legibility there is: the eye that caught the flash already knows what kind of
+ * hit it was before it reads the number.
+ */
+const EDGE: [number, number, number] = [95, 216, 245];
+
+
+/**
  * Reckless Swing, as a swing.
  *
  * Three beats the player has to be able to read, because this is a melee
@@ -113,6 +136,14 @@ export const RECOVER_MS = 240;
  * version never showed at all.
  */
 export class Olaf_E_Swing extends SpellObject {
+  /**
+   * Over the bodies, not under them.
+   *
+   * A swing that paints beneath the man it is hitting is a swing nobody sees
+   * connect — which is most of what "hard to see in a fight" meant here.
+   */
+  zIndex = api.layers.SPELL_EFFECT_Z_INDEX;
+
   target: AttackableUnit;
   age = 0;
   lifeTime = WINDUP_MS + CHOP_MS + RECOVER_MS;
@@ -181,19 +212,22 @@ export class Olaf_E_Swing extends SpellObject {
       const back = -2.1 - k * 0.55;
       push();
       rotate(back);
-      stroke(90, 70, 55, 230);
-      strokeWeight(6);
-      line(0, 0, 34, 0);
-      noStroke();
-      fill(198, 208, 220, 240);
-      // the head, cocked and catching the light
-      quad(30, -4, 46, -16, 54, 2, 34, 8);
+      this._drawAxe(1.25);
       pop();
 
-      // a thin arc showing where it will fall — the window to leave
+      // Where it will fall, and the window to leave. This was a 2px line at a
+      // quarter alpha, which is not a warning — it is a hint. A filled wedge
+      // that fills up as the clock runs down is something a victim can act on,
+      // and the ability costs Olaf health precisely so that they get to.
+      noStroke();
+      fill(EDGE[0], EDGE[1], EDGE[2], 26 + 44 * k);
+      arc(0, 0, reach * 2, reach * 2, -0.55, 0.55, PIE);
       noFill();
-      stroke(220, 80, 70, 60 + 90 * k);
-      strokeWeight(2);
+      stroke(INK[0], INK[1], INK[2], 150 + 80 * k);
+      strokeWeight(6);
+      arc(0, 0, reach * 2, reach * 2, -0.55, 0.55);
+      stroke(EDGE[0], EDGE[1], EDGE[2], 140 + 110 * k);
+      strokeWeight(2.5);
       arc(0, 0, reach * 2, reach * 2, -0.55, 0.55);
       pop();
       return;
@@ -210,24 +244,28 @@ export class Olaf_E_Swing extends SpellObject {
     const to = 0;
     const edge = from + (to - from) * swept;
 
+    const live = chop < 1 ? 1 : fade;
+    const lo = Math.min(from, edge);
+    const hi = Math.max(from, edge);
+    const span = reach * 1.7;
+
     noFill();
-    stroke(255, 250, 240, 235 * (chop < 1 ? 1 : fade));
-    strokeWeight(5 * (chop < 1 ? 1 : fade) + 1);
-    arc(0, 0, reach * 1.7, reach * 1.7, Math.min(from, edge), Math.max(from, edge));
-    stroke(210, 70, 60, 180 * (chop < 1 ? 1 : fade));
-    strokeWeight(12 * (chop < 1 ? 1 : fade) + 2);
-    arc(0, 0, reach * 1.7, reach * 1.7, Math.min(from, edge), Math.max(from, edge));
+    // dark first and widest, so the trail has an edge whatever it is over
+    stroke(INK[0], INK[1], INK[2], 210 * live);
+    strokeWeight(20 * live + 3);
+    arc(0, 0, span, span, lo, hi);
+    stroke(EDGE[0], EDGE[1], EDGE[2], 170 * live);
+    strokeWeight(13 * live + 2);
+    arc(0, 0, span, span, lo, hi);
+    stroke(255, 253, 250, 250 * live);
+    strokeWeight(5 * live + 1);
+    arc(0, 0, span, span, lo, hi);
 
     // the axe itself, riding the leading edge
     if (chop < 1) {
       push();
       rotate(edge);
-      stroke(90, 70, 55, 240);
-      strokeWeight(6);
-      line(0, 0, 34, 0);
-      noStroke();
-      fill(228, 236, 248, 250);
-      quad(30, -4, 46, -16, 54, 2, 34, 8);
+      this._drawAxe(1.35);
       pop();
     }
     pop();
@@ -237,21 +275,60 @@ export class Olaf_E_Swing extends SpellObject {
       push();
       translate(this.aim.x, this.aim.y);
       rotate(heading);
-      const flash = 1 - constrain(after / 0.3, 0, 1);
+      // The moment of contact, and it is the loudest thing here on purpose.
+      // A 34px flash on a 33-damage hit — the biggest in the game for its
+      // cooldown — was smaller than the health bar it emptied.
+      const flash = 1 - constrain(after / 0.34, 0, 1);
       if (flash > 0) {
         noStroke();
-        fill(255, 245, 235, 220 * flash);
-        circle(0, 0, 34 * (1 - flash) + 8);
+        fill(EDGE[0], EDGE[1], EDGE[2], 190 * flash);
+        circle(0, 0, 92 * (1 - flash * 0.6));
+        fill(255, 253, 250, 245 * flash);
+        circle(0, 0, 46 * (1 - flash) + 12);
       }
       // one gash, not a burst: this was an axe, not an explosion
+      stroke(INK[0], INK[1], INK[2], 230 * fade);
+      strokeWeight(13 * fade + 2);
+      line(-30, -16, 30, 16);
       stroke(190, 30, 34, 235 * fade);
       strokeWeight(7 * fade + 1);
       line(-26, -14, 26, 14);
-      stroke(255, 210, 200, 200 * fade);
+      stroke(255, 235, 228, 220 * fade);
       strokeWeight(3 * fade + 1);
       line(-22, -12, 22, 12);
       pop();
     }
+  }
+
+  /**
+   * One axe, drawn once, at whatever scale the caller wants it.
+   *
+   * It was written out twice at two different sizes and two different steel
+   * colours, so the weapon he winds up was not the weapon that came down. It is
+   * also bigger now: a 54-unit axe swung through a 170-unit arc reads as a
+   * spark, and the dark backing is what lets it read at all over a body.
+   */
+  private _drawAxe(scaleBy: number): void {
+    push();
+    scale(scaleBy);
+    // haft
+    stroke(INK[0], INK[1], INK[2], 245);
+    strokeWeight(11);
+    line(-6, 0, 40, 0);
+    stroke(104, 78, 58, 245);
+    strokeWeight(7);
+    line(-6, 0, 40, 0);
+
+    // head, with its own rim so it does not melt into the haft
+    stroke(INK[0], INK[1], INK[2], 245);
+    strokeWeight(4);
+    fill(214, 224, 238, 250);
+    quad(34, -6, 58, -22, 68, 4, 38, 12);
+    // the edge itself, in the colour of the damage it deals
+    noStroke();
+    fill(EDGE[0], EDGE[1], EDGE[2], 210);
+    quad(58, -22, 68, 4, 62, 6, 54, -18);
+    pop();
   }
 
   getDisplayBoundingBox() {

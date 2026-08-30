@@ -87,6 +87,26 @@ export const RUNES: number[][][] = [
 /**
  * Vicious Strikes.
  *
+ * ## What is drawn, and what was cut
+ *
+ * This ran six simultaneous layers for six seconds: a ring of four carved
+ * runes lighting in sequence, life-drop motes, two orbiting axes, a duration
+ * arc, a tempo beat with a flare over his body, and a ten-spiked frost star at
+ * the crossing. Every one of them was defensible alone and the sum was
+ * unreadable — a buff you cannot see past is a buff that makes the fight
+ * harder to play, which is the opposite of what a self-buff is for.
+ *
+ * What survives is what the buff *is*. The beat, because attack speed is the
+ * only half a player can act on. The drops, because they travel *inward* and
+ * that direction is the whole message of omnivamp. The axes, because they are
+ * Olaf. The duration arc, because a timed buff needs a clock.
+ *
+ * What went: the runes, which said nothing and occupied the most space; and
+ * the frost star, which contradicted the note two layers below it saying
+ * nothing about Vicious Strikes is cold. `RUNES` and `RUNE_COUNT` stay
+ * exported — the shapes are good and the next ability that wants carved staves
+ * should not redraw them — but nothing in this file paints them now.
+ *
  * This used to carry its own `ON_ATTACK_HIT` subscription to do the healing —
  * about thirty lines of subscribe/unsubscribe bookkeeping duplicated across
  * four spells. `omnivamp` is a stat now (see `Stats.ts`), so the whole ability
@@ -302,30 +322,10 @@ export class Olaf_W_Object extends SpellObject {
     push();
     translate(this.position.x, this.position.y);
 
-    // Carved staves standing in a ring, lighting one after another. They are the
-    // slow element: the axes are frantic, the runes are patient, and having both
-    // is what keeps a six-second buff from reading as one busy loop.
+    // The ring the duration arc and the tempo beat are measured against. It
+    // used to carry four carved runes lighting in sequence; see the note above
+    // the class on why they are gone.
     const runeR = r + 44;
-    const turn = ((this.age % RUNE_CYCLE_MS) / RUNE_CYCLE_MS) * RUNE_COUNT;
-    for (let i = 0; slam > 0.02 && i < RUNE_COUNT; i++) {
-      const a = (TWO_PI * i) / RUNE_COUNT - HALF_PI;
-      // a lit band sweeping round the ring, brightest on the rune it is passing.
-      // The distance has to wrap both ways or the last rune never lights.
-      const gap = Math.abs(((turn - i + RUNE_COUNT * 1.5) % RUNE_COUNT) - RUNE_COUNT / 2);
-      const lit = constrain(1 - gap, 0, 1);
-      push();
-      translate(cos(a) * runeR, sin(a) * runeR);
-      scale(9 * slam);
-      for (const [x0, y0, x1, y1] of RUNES[i]) {
-        stroke(20, 34, 46, 230);
-        strokeWeight(0.55);
-        line(x0, y0, x1, y1);
-        stroke(lerp(120, 236, lit), lerp(180, 250, lit), lerp(220, 255, lit), 140 + 110 * lit);
-        strokeWeight(0.3);
-        line(x0, y0, x1, y1);
-      }
-      pop();
-    }
 
     // The healing itself. Each mote brightens as it closes on him, so the eye
     // follows it *in* — the direction is the whole message.
@@ -369,36 +369,28 @@ export class Olaf_W_Object extends SpellObject {
       stroke(255, 160, 90, 210 * kick * kick);
       strokeWeight(5 * kick + 1);
       circle(0, 0, r * 1.6 + beat * r * 1.7);
-      // and a hot flare on his body at the top of each beat
-      noStroke();
-      fill(255, 190, 130, 150 * kick * kick * kick);
-      circle(0, 0, r * 1.5);
+      // and a hot rim at the top of each beat. A filled disc over his body,
+      // which is what this was, hides the one thing on screen the player is
+      // steering — the beat has to be readable *around* Olaf, not instead of him.
+      noFill();
+      stroke(255, 190, 130, 190 * kick * kick);
+      strokeWeight(6 * kick + 1);
+      circle(0, 0, r * 1.25);
     }
 
-    // The crossing: a frost star, not a ring — ice breaks along spikes.
+    // The crossing: one hot ring thrown off the axes touching down, and then
+    // it is over. This was a ten-spiked frost star with a white flash and a red
+    // splash under it — three shapes, in a palette this file's own duration
+    // ring already says is wrong for the ability ("nothing about Vicious
+    // Strikes is cold"). The moment deserves a mark; it did not deserve the
+    // loudest element in a six-second buff.
     if (this.age >= SLAM_MS && this.age < SLAM_MS + SHATTER_MS) {
       const t = (this.age - SLAM_MS) / SHATTER_MS;
       const fade = 1 - t;
-      const spikes = 10;
       noFill();
-      stroke(214, 242, 255, 235 * fade);
-      strokeWeight(4 * fade + 1);
-      beginShape();
-      for (let i = 0; i < spikes * 2; i++) {
-        const ang = (TWO_PI * i) / (spikes * 2);
-        const radius = i % 2 === 0 ? size * 0.8 + 150 * t : size * 0.45 + 70 * t;
-        vertex(cos(ang) * radius, sin(ang) * radius);
-      }
-      endShape(CLOSE);
-      const flash = 1 - constrain(t / 0.25, 0, 1);
-      if (flash > 0) {
-        noStroke();
-        fill(236, 250, 255, 210 * flash);
-        circle(0, 0, size * 0.9 * flash + 14);
-        // a red splash under the white, so the shatter is not purely cold
-        fill(180, 30, 32, 150 * flash);
-        circle(0, 0, size * 0.55 * flash + 8);
-      }
+      stroke(255, 150, 96, 235 * fade * fade);
+      strokeWeight(5 * fade + 1);
+      circle(0, 0, size * 0.8 + 190 * t);
     }
 
     pop();

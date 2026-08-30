@@ -342,6 +342,9 @@ describe("the pack's tests speak only published core surfaces", () => {
     // source as text and imports nothing from core at all, so it adds to the
     // population and to no other count here.
     //
+    // 110, not 109: `tests/spells/Olaf_R.test.ts` — the ultimate that was
+    // invisible for the seven seconds it lasted.
+    //
     // 109, not 108: `tests/spells/Pantheon_E.test.ts` — the aegis that was a
     // 60-point pool and is now the directional wall the ability describes.
     //
@@ -359,7 +362,7 @@ describe("the pack's tests speak only published core surfaces", () => {
     // 104, not 103: `tests/buffDescriptions.test.ts`, which checks that a buff
     // this pack invents says what it does. Like the one above it, it reads this
     // pack's own source as text and imports nothing from core.
-    expect(files.length).toBe(109);
+    expect(files.length).toBe(110);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {
