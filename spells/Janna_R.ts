@@ -66,7 +66,7 @@ export default class Janna_R extends Spell {
   image = api.asset('spell_janna_r');
   name = 'Gió Mùa (Janna_R)';
   description =
-    'Đẩy lùi kẻ địch gần đó, rồi vận sức tối đa <span class="time">3 giây</span>, hồi <span class="buff">2 máu mỗi 0.25 giây</span> cho bản thân và đồng minh trong vùng';
+    'Đẩy lùi kẻ địch gần đó, rồi vận sức tối đa <span class="time">3 giây</span>, hồi <span class="heal">2 máu</span> mỗi <span class="time">0.25 giây</span> cho bản thân và đồng minh trong vùng';
   coolDown = 10_000;
   manaCost = MANA_COST;
 

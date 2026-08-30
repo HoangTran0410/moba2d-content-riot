@@ -30,7 +30,7 @@ export default class Thresh_W extends Spell {
   description =
     `Ném chiếc đèn bay tới vị trí chỉ định; <span class="damage">khi đáp xuống</span> nó treo ở đó` +
     ` <span class="time">${DURATION / 1000} giây</span>: mọi đồng minh <span class="buff">đứng trong</span>` +
-    ` <span>${RADIUS}px</span> liên tục nhận <span class="buff">Khiên ${SHIELD_AMOUNT}</span>`;
+    ` <span>${RADIUS}px</span> liên tục nhận khiên <span class="heal">${SHIELD_AMOUNT}</span>`;
   coolDown = 10000;
   manaCost = 40;
 

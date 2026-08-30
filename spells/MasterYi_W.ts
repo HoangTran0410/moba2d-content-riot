@@ -54,8 +54,8 @@ export default class MasterYi_W extends Spell {
   name = 'Thiền (MasterYi_W)';
   description =
     `Yi ngồi thiền tối đa <span class="time">${CHANNEL_DURATION_MS / 1000} giây</span>, hồi` +
-    ` <span class="buff">${HEAL_PER_TICK} máu</span> mỗi <span class="time">${TICK_EVERY_MS / 1000} giây</span>` +
-    ` và nhận <span class="buff">Khiên ${SHIELD_AMOUNT}</span>. Di chuyển hoặc bị khống chế sẽ ngắt thiền`;
+    ` <span class="heal">${HEAL_PER_TICK} máu</span> mỗi <span class="time">${TICK_EVERY_MS / 1000} giây</span>` +
+    ` và nhận khiên <span class="heal">${SHIELD_AMOUNT}</span>. Di chuyển hoặc bị khống chế sẽ ngắt thiền`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

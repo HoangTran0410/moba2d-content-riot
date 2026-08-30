@@ -46,7 +46,7 @@ export const SHIELD_STACK_ID = 'orianna_e_shield';
 export default class Orianna_E extends Spell {
   image = api.asset('spell_orianna_e');
   name = 'Lệnh: Bảo Vệ (Orianna_E)';
-  description = `Ra lệnh cho Quả Cầu bay tới một đồng minh (kể cả chính Orianna) và <span class="buff">bám theo họ</span>, gây sát thương lên kẻ địch nó xuyên qua và tạo <span class="buff">khiên ${SHIELD_AMOUNT}</span> cho mục tiêu trong <span class="time">${SHIELD_DURATION_MS / 1000} giây</span> khi cầu tới nơi.`;
+  description = `Ra lệnh cho Quả Cầu bay tới một đồng minh (kể cả chính Orianna) và <span class="buff">bám theo họ</span>, gây sát thương lên kẻ địch nó xuyên qua và tạo khiên <span class="heal">${SHIELD_AMOUNT}</span> cho mục tiêu trong <span class="time">${SHIELD_DURATION_MS / 1000} giây</span> khi cầu tới nơi.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
   range = RANGE;

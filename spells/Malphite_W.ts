@@ -53,7 +53,7 @@ export default class Malphite_W extends Spell {
   image = api.asset('spell_malphite_w');
   name = 'Nắm Đấm Chấn Động (Malphite_W)';
   description =
-    'Malphite phình to lớp vỏ đá của mình trong <span class="time">4 giây</span>, nhận <span class="buff">Khiên hấp thụ 25 sát thương</span> và tăng kích thước cơ thể';
+    'Malphite phình to lớp vỏ đá của mình trong <span class="time">4 giây</span>, nhận khiên hấp thụ <span class="heal">25 sát thương</span> và tăng kích thước cơ thể';
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

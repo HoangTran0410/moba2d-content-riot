@@ -65,7 +65,7 @@ export default class XinZhao_R extends Spell {
   description =
     'Quét thương quanh mình gây <span class="damage">50 sát thương</span> cho mọi kẻ địch trong <span>300px</span>, ' +
     '<span class="buff">hất văng và choáng</span> những kẻ chưa bị <span class="buff">đánh dấu</span> bởi Can Trường. ' +
-    'Xin Zhao nhận <span class="buff">30 giáp ảo</span> trong <span class="time">3 giây</span>.';
+    'Xin Zhao nhận <span class="heal">30 giáp ảo</span> trong <span class="time">3 giây</span>.';
   // Ten seconds, like every other ultimate here: this game's cooldown ceiling is
   // arcade-short on purpose and `tests/game/spells/cooldowns.test.ts` holds it.
   coolDown = 10_000;

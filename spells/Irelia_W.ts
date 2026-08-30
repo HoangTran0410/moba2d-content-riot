@@ -67,7 +67,7 @@ export default class Irelia_W extends Spell {
   )}% sát thương phải chịu</span> trong lúc tích. Thả ra để quét kiếm về phía con trỏ,
     gây <span class="damage">${W_MIN_DAMAGE}</span>–<span class="damage">${W_MAX_DAMAGE} sát thương</span> tuỳ mức tích lực,
     <span class="buff">làm chậm ${Math.round(W_SLOW_PERCENT * 100)}%</span> trong
-    <span class="time">${W_SLOW_MS / 1000} giây</span> và hồi ${W_HEAL_PER_HIT} máu mỗi mục tiêu trúng.`;
+    <span class="time">${W_SLOW_MS / 1000} giây</span> và hồi <span class="heal">${W_HEAL_PER_HIT} máu</span> mỗi mục tiêu trúng.`;
   coolDown = 9_000;
   manaCost = 40;
   range = W_MAX_REACH;

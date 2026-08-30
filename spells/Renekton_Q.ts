@@ -47,8 +47,8 @@ export default class Renekton_Q extends Spell {
   name = 'Vũ Điệu Cá Sấu (Renekton_Q)';
   description =
     `Chém một vòng quanh mình trong <span>${RADIUS}px</span> gây` +
-    ` <span class="damage">${DAMAGE} sát thương</span>, <span class="buff">hồi ${HEAL_PER_UNIT} máu</span>` +
-    ` mỗi mục tiêu và <span class="buff">${HEAL_PER_CHAMPION} máu</span> mỗi tướng trúng chiêu` +
+    ` <span class="damage">${DAMAGE} sát thương</span>, hồi <span class="heal">${HEAL_PER_UNIT} máu</span>` +
+    ` mỗi mục tiêu và <span class="heal">${HEAL_PER_CHAMPION} máu</span> mỗi tướng trúng chiêu` +
     ` (tối đa ${HEAL_CAP}).` +
     ` <span class="buff">Cuồng Nộ</span>: <span>${ENRAGED_RADIUS}px</span>,` +
     ` <span class="damage">${ENRAGED_DAMAGE} sát thương</span>, hồi máu nhân đôi (tối đa ${ENRAGED_HEAL_CAP})`;

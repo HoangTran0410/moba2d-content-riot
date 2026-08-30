@@ -53,7 +53,7 @@ export default class Nocturne_W extends Spell {
   image = api.asset('spell_nocturne_w');
   name = 'Bóng Đen Bao Phủ (Nocturne_W)';
   description =
-    `Nhận <span class="buff">Khiên ${SHIELD_AMOUNT}</span>, <span class="buff">+${ATTACK_SPEED_PERCENT * 100}% tốc độ đánh</span>` +
+    `Nhận khiên <span class="heal">${SHIELD_AMOUNT}</span>, <span class="buff">+${ATTACK_SPEED_PERCENT * 100}% tốc độ đánh</span>` +
     ` và <span class="buff">hút ${OMNIVAMP * 100}% máu</span> trong <span class="time">${DURATION / 1000} giây</span>`;
   coolDown = 10000;
   manaCost = 25;

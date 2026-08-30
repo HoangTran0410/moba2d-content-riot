@@ -41,7 +41,7 @@ export default class Annie_E extends Spell {
   image = api.asset('spell_annie_e');
   name = 'Khiên Lửa (Annie_E)';
   description =
-    `Nhận <span class="buff">Khiên ${SHIELD_AMOUNT}</span> và <span class="buff">+${SPEED_PERCENT * 100}% tốc chạy</span>` +
+    `Nhận khiên <span class="heal">${SHIELD_AMOUNT}</span> và <span class="buff">+${SPEED_PERCENT * 100}% tốc chạy</span>` +
     ` trong <span class="time">${DURATION / 1000} giây</span>. <span class="buff">Mỗi lần</span> có kẻ` +
     ` gây sát thương lên Annie (kể cả khi khiên đỡ hết), kẻ đó bị đốt lại` +
     ` <span class="damage">${RETURN_DAMAGE} sát thương</span>`;

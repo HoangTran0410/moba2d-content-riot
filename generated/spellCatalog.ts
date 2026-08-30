@@ -78,7 +78,7 @@ export const spellCatalog = {
   },
   "Alistar_R": {
     name: "Bất Khuất (Alistar_R)",
-    description: "Trong <span class=\"time\">7 giây</span>: nhận <span class=\"buff\">Khiên 70</span> và <span class=\"buff\">+8 sát thương đánh thường</span>",
+    description: "Trong <span class=\"time\">7 giây</span>: nhận khiên <span class=\"heal\">70</span> và <span class=\"buff\">+8 sát thương đánh thường</span>",
     iconKey: "spell_alistar_r",
     coolDownMs: 10000,
     manaCost: 50,
@@ -158,7 +158,7 @@ export const spellCatalog = {
   },
   "Annie_E": {
     name: "Khiên Lửa (Annie_E)",
-    description: "Nhận <span class=\"buff\">Khiên 55</span> và <span class=\"buff\">+35% tốc chạy</span> trong <span class=\"time\">3 giây</span>. <span class=\"buff\">Mỗi lần</span> có kẻ gây sát thương lên Annie (kể cả khi khiên đỡ hết), kẻ đó bị đốt lại <span class=\"damage\">14 sát thương</span>",
+    description: "Nhận khiên <span class=\"heal\">55</span> và <span class=\"buff\">+35% tốc chạy</span> trong <span class=\"time\">3 giây</span>. <span class=\"buff\">Mỗi lần</span> có kẻ gây sát thương lên Annie (kể cả khi khiên đỡ hết), kẻ đó bị đốt lại <span class=\"damage\">14 sát thương</span>",
     iconKey: "spell_annie_e",
     coolDownMs: 10000,
     manaCost: 30,
@@ -606,7 +606,7 @@ export const spellCatalog = {
   },
   "Garen_W": {
     name: "Lòng Can Đảm (Garen_W)",
-    description: "Nhận <span class=\"buff\">Khiên 70</span> và <span class=\"buff\">hút 20% máu</span> từ mọi sát thương gây ra, trong <span class=\"time\">3 giây</span>",
+    description: "Nhận khiên <span class=\"heal\">70</span> và <span class=\"buff\">hút 20% máu</span> từ mọi sát thương gây ra, trong <span class=\"time\">3 giây</span>",
     iconKey: "spell_garen_w",
     coolDownMs: 9000,
     manaCost: 25,
@@ -694,7 +694,7 @@ export const spellCatalog = {
   },
   "Irelia_W": {
     name: "Vũ Điệu Thách Thức (Irelia_W)",
-    description: "Giữ phím để tích lực — <span class=\"buff\">giảm 35% sát thương phải chịu</span> trong lúc tích. Thả ra để quét kiếm về phía con trỏ,\n    gây <span class=\"damage\">14</span>–<span class=\"damage\">32 sát thương</span> tuỳ mức tích lực,\n    <span class=\"buff\">làm chậm 30%</span> trong\n    <span class=\"time\">1 giây</span> và hồi 6 máu mỗi mục tiêu trúng.",
+    description: "Giữ phím để tích lực — <span class=\"buff\">giảm 35% sát thương phải chịu</span> trong lúc tích. Thả ra để quét kiếm về phía con trỏ,\n    gây <span class=\"damage\">14</span>–<span class=\"damage\">32 sát thương</span> tuỳ mức tích lực,\n    <span class=\"buff\">làm chậm 30%</span> trong\n    <span class=\"time\">1 giây</span> và hồi <span class=\"heal\">6 máu</span> mỗi mục tiêu trúng.",
     iconKey: "spell_irelia_w",
     coolDownMs: 9000,
     manaCost: 40,
@@ -894,7 +894,7 @@ export const spellCatalog = {
   },
   "Janna_E": {
     name: "Mắt Bão (Janna_E)",
-    description: "Nội tại: khi một kỹ năng của Janna làm chậm hoặc hất tung ít nhất một tướng địch, hoàn <span class=\"buff\">20% hồi chiêu</span> của kỹ năng này (một lần mỗi chu kỳ hồi chiêu). Chủ động: khiên cho tướng đồng minh hoặc trụ, hấp thụ <span class=\"damage\">30 sát thương</span> và <span class=\"buff\">+5 sát thương đánh thường</span> trong <span class=\"time\">4 giây</span>.",
+    description: "Nội tại: khi một kỹ năng của Janna làm chậm hoặc hất tung ít nhất một tướng địch, hoàn <span class=\"buff\">20% hồi chiêu</span> của kỹ năng này (một lần mỗi chu kỳ hồi chiêu). Chủ động: khiên cho tướng đồng minh hoặc trụ, hấp thụ <span class=\"heal\">30 sát thương</span> và <span class=\"buff\">+5 sát thương đánh thường</span> trong <span class=\"time\">4 giây</span>.",
     iconKey: "spell_janna_e",
     coolDownMs: 12000,
     manaCost: 70,
@@ -910,7 +910,7 @@ export const spellCatalog = {
   },
   "Janna_R": {
     name: "Gió Mùa (Janna_R)",
-    description: "Đẩy lùi kẻ địch gần đó, rồi vận sức tối đa <span class=\"time\">3 giây</span>, hồi <span class=\"buff\">2 máu mỗi 0.25 giây</span> cho bản thân và đồng minh trong vùng",
+    description: "Đẩy lùi kẻ địch gần đó, rồi vận sức tối đa <span class=\"time\">3 giây</span>, hồi <span class=\"heal\">2 máu</span> mỗi <span class=\"time\">0.25 giây</span> cho bản thân và đồng minh trong vùng",
     iconKey: "spell_janna_r",
     coolDownMs: 10000,
     manaCost: 100,
@@ -1110,7 +1110,7 @@ export const spellCatalog = {
   },
   "LeeSin_W": {
     name: "Hộ Thể / Kiên Định (LeeSin_W)",
-    description: "Lee Sin <span class=\"buff\">Lướt</span> tới đồng minh gần nhất trong phạm vi, khi tới nơi cả hai nhận <span class=\"buff\">Lá Chắn</span> hấp thụ <span class=\"damage\">70 sát thương</span> trong <span class=\"time\">3 giây</span> (không có đồng minh thì tự khoác lá chắn tại chỗ; nếu cú lướt bị chặn thì không có lá chắn). Lướt tới đồng minh là tướng sẽ giảm một nửa thời gian hồi. Có thể tái kích hoạt trong <span class=\"time\">3 giây</span> để dùng <span class=\"buff\">Ý Chí Sắt Đá</span>: game không có đòn đánh thường nên hút máu được chuyển thành <span class=\"buff\">hồi 60 máu</span> trong <span class=\"time\">4 giây</span>",
+    description: "Lee Sin <span class=\"buff\">Lướt</span> tới đồng minh gần nhất trong phạm vi, khi tới nơi cả hai nhận lá chắn hấp thụ <span class=\"heal\">70 sát thương</span> trong <span class=\"time\">3 giây</span> (không có đồng minh thì tự khoác lá chắn tại chỗ; nếu cú lướt bị chặn thì không có lá chắn). Lướt tới đồng minh là tướng sẽ giảm một nửa thời gian hồi. Có thể tái kích hoạt trong <span class=\"time\">3 giây</span> để dùng <span class=\"buff\">Ý Chí Sắt Đá</span>: game không có đòn đánh thường nên hút máu được chuyển thành hồi <span class=\"heal\">60 máu</span> trong <span class=\"time\">4 giây</span>",
     iconKey: "spell_leesin_w",
     coolDownMs: 9000,
     manaCost: 30,
@@ -1206,7 +1206,7 @@ export const spellCatalog = {
   },
   "Malphite_W": {
     name: "Nắm Đấm Chấn Động (Malphite_W)",
-    description: "Malphite phình to lớp vỏ đá của mình trong <span class=\"time\">4 giây</span>, nhận <span class=\"buff\">Khiên hấp thụ 25 sát thương</span> và tăng kích thước cơ thể",
+    description: "Malphite phình to lớp vỏ đá của mình trong <span class=\"time\">4 giây</span>, nhận khiên hấp thụ <span class=\"heal\">25 sát thương</span> và tăng kích thước cơ thể",
     iconKey: "spell_malphite_w",
     coolDownMs: 10000,
     manaCost: 40,
@@ -1270,7 +1270,7 @@ export const spellCatalog = {
   },
   "MasterYi_W": {
     name: "Thiền (MasterYi_W)",
-    description: "Yi ngồi thiền tối đa <span class=\"time\">2 giây</span>, hồi <span class=\"buff\">4 máu</span> mỗi <span class=\"time\">0.25 giây</span> và nhận <span class=\"buff\">Khiên 25</span>. Di chuyển hoặc bị khống chế sẽ ngắt thiền",
+    description: "Yi ngồi thiền tối đa <span class=\"time\">2 giây</span>, hồi <span class=\"heal\">4 máu</span> mỗi <span class=\"time\">0.25 giây</span> và nhận khiên <span class=\"heal\">25</span>. Di chuyển hoặc bị khống chế sẽ ngắt thiền",
     iconKey: "spell_masteryi_w",
     coolDownMs: 8000,
     manaCost: 40,
@@ -1398,7 +1398,7 @@ export const spellCatalog = {
   },
   "Nocturne_W": {
     name: "Bóng Đen Bao Phủ (Nocturne_W)",
-    description: "Nhận <span class=\"buff\">Khiên 65</span>, <span class=\"buff\">+40% tốc độ đánh</span> và <span class=\"buff\">hút 25% máu</span> trong <span class=\"time\">3 giây</span>",
+    description: "Nhận khiên <span class=\"heal\">65</span>, <span class=\"buff\">+40% tốc độ đánh</span> và <span class=\"buff\">hút 25% máu</span> trong <span class=\"time\">3 giây</span>",
     iconKey: "spell_nocturne_w",
     coolDownMs: 10000,
     manaCost: 25,
@@ -1438,7 +1438,7 @@ export const spellCatalog = {
   },
   "Orianna_E": {
     name: "Lệnh: Bảo Vệ (Orianna_E)",
-    description: "Ra lệnh cho Quả Cầu bay tới một đồng minh (kể cả chính Orianna) và <span class=\"buff\">bám theo họ</span>, gây sát thương lên kẻ địch nó xuyên qua và tạo <span class=\"buff\">khiên 32</span> cho mục tiêu trong <span class=\"time\">2.5 giây</span> khi cầu tới nơi.",
+    description: "Ra lệnh cho Quả Cầu bay tới một đồng minh (kể cả chính Orianna) và <span class=\"buff\">bám theo họ</span>, gây sát thương lên kẻ địch nó xuyên qua và tạo khiên <span class=\"heal\">32</span> cho mục tiêu trong <span class=\"time\">2.5 giây</span> khi cầu tới nơi.",
     iconKey: "spell_orianna_e",
     coolDownMs: 8000,
     manaCost: 40,
@@ -1574,7 +1574,7 @@ export const spellCatalog = {
   },
   "Renekton_Q": {
     name: "Vũ Điệu Cá Sấu (Renekton_Q)",
-    description: "Chém một vòng quanh mình trong <span>190px</span> gây <span class=\"damage\">22 sát thương</span>, <span class=\"buff\">hồi 3 máu</span> mỗi mục tiêu và <span class=\"buff\">8 máu</span> mỗi tướng trúng chiêu (tối đa 15). <span class=\"buff\">Cuồng Nộ</span>: <span>235px</span>, <span class=\"damage\">32 sát thương</span>, hồi máu nhân đôi (tối đa 34)",
+    description: "Chém một vòng quanh mình trong <span>190px</span> gây <span class=\"damage\">22 sát thương</span>, hồi <span class=\"heal\">3 máu</span> mỗi mục tiêu và <span class=\"heal\">8 máu</span> mỗi tướng trúng chiêu (tối đa 15). <span class=\"buff\">Cuồng Nộ</span>: <span>235px</span>, <span class=\"damage\">32 sát thương</span>, hồi máu nhân đôi (tối đa 34)",
     iconKey: "spell_renekton_q",
     coolDownMs: 5000,
     manaCost: 25,
@@ -1710,7 +1710,7 @@ export const spellCatalog = {
   },
   "Shen_R": {
     name: "Nhất Thống (Shen_R)",
-    description: "Shen tụ khí trong <span class=\"buff\">1.6 giây</span>, nhắm vào một tướng đồng minh <span class=\"buff\">ở bất cứ đâu trên bản đồ</span>. Kênh xong, Shen dịch chuyển tới bên cạnh đồng minh; đồng minh nhận <span class=\"buff\">55 lá chắn</span> và Shen nhận <span class=\"buff\">35 lá chắn</span> trong <span class=\"buff\">3.5 giây</span>. Di chuyển sẽ ngắt kênh, và không thể tự chọn chính mình — đây là chiêu đi cứu người.",
+    description: "Shen tụ khí trong <span class=\"buff\">1.6 giây</span>, nhắm vào một tướng đồng minh <span class=\"buff\">ở bất cứ đâu trên bản đồ</span>. Kênh xong, Shen dịch chuyển tới bên cạnh đồng minh; đồng minh nhận <span class=\"heal\">55 lá chắn</span> và Shen nhận <span class=\"heal\">35 lá chắn</span> trong <span class=\"buff\">3.5 giây</span>. Di chuyển sẽ ngắt kênh, và không thể tự chọn chính mình — đây là chiêu đi cứu người.",
     iconKey: "spell_shen_r",
     coolDownMs: 10000,
     manaCost: 80,
@@ -1766,7 +1766,7 @@ export const spellCatalog = {
   },
   "Soraka_Q": {
     name: "Vẫn Tinh (Soraka_Q)",
-    description: "Gọi một vì sao rơi xuống vị trí chỉ định sau <span class=\"time\">0.45 giây</span>, gây <span class=\"damage\">24 sát thương</span> và <span class=\"buff\">Làm Chậm 30%</span> trong <span class=\"time\">1.5 giây</span>. Nếu trúng ít nhất một kẻ địch, bụi sao trở về với Soraka: <span class=\"buff\">hồi 12 máu</span> và <span class=\"buff\">+25% tốc chạy</span> trong <span class=\"time\">2.5 giây</span>.",
+    description: "Gọi một vì sao rơi xuống vị trí chỉ định sau <span class=\"time\">0.45 giây</span>, gây <span class=\"damage\">24 sát thương</span> và <span class=\"buff\">Làm Chậm 30%</span> trong <span class=\"time\">1.5 giây</span>. Nếu trúng ít nhất một kẻ địch, bụi sao trở về với Soraka: hồi <span class=\"heal\">12 máu</span> và <span class=\"buff\">+25% tốc chạy</span> trong <span class=\"time\">2.5 giây</span>.",
     iconKey: "spell_soraka_q",
     coolDownMs: 6000,
     manaCost: 25,
@@ -1774,7 +1774,7 @@ export const spellCatalog = {
   },
   "Soraka_R": {
     name: "Nguyện Ước (Soraka_R)",
-    description: "Cầu xin các vì sao: hồi <span class=\"buff\">45 máu</span> cho Soraka và toàn bộ đồng minh trên khắp bản đồ, tăng lên <span class=\"buff\">68 máu</span> với những ai đang dưới <span class=\"buff\">40% máu tối đa</span>.",
+    description: "Cầu xin các vì sao: hồi <span class=\"heal\">45 máu</span> cho Soraka và toàn bộ đồng minh trên khắp bản đồ, tăng lên <span class=\"heal\">68 máu</span> với những ai đang dưới <span class=\"buff\">40% máu tối đa</span>.",
     iconKey: "spell_soraka_r",
     coolDownMs: 10000,
     manaCost: 60,
@@ -1782,7 +1782,7 @@ export const spellCatalog = {
   },
   "Soraka_W": {
     name: "Tinh Tú Hộ Mệnh (Soraka_W)",
-    description: "Hồi <span class=\"buff\">28 máu</span> cho một đồng minh, trả bằng <span class=\"buff\">12 máu</span> của chính Soraka (chỉ còn <span class=\"buff\">4</span> khi cô đang có bụi sao từ Vẫn Tinh, và khi đó đồng minh cũng nhận được bụi sao). Không thể dùng khi Soraka còn dưới <span class=\"buff\">5% máu tối đa</span>.",
+    description: "Hồi <span class=\"heal\">28 máu</span> cho một đồng minh, trả bằng <span class=\"buff\">12 máu</span> của chính Soraka (chỉ còn <span class=\"buff\">4</span> khi cô đang có bụi sao từ Vẫn Tinh, và khi đó đồng minh cũng nhận được bụi sao). Không thể dùng khi Soraka còn dưới <span class=\"buff\">5% máu tối đa</span>.",
     iconKey: "spell_soraka_w",
     coolDownMs: 4000,
     manaCost: 15,
@@ -1886,7 +1886,7 @@ export const spellCatalog = {
   },
   "Thresh_W": {
     name: "Con Đường Tăm Tối (Thresh_W)",
-    description: "Ném chiếc đèn bay tới vị trí chỉ định; <span class=\"damage\">khi đáp xuống</span> nó treo ở đó <span class=\"time\">5 giây</span>: mọi đồng minh <span class=\"buff\">đứng trong</span> <span>200px</span> liên tục nhận <span class=\"buff\">Khiên 45</span>",
+    description: "Ném chiếc đèn bay tới vị trí chỉ định; <span class=\"damage\">khi đáp xuống</span> nó treo ở đó <span class=\"time\">5 giây</span>: mọi đồng minh <span class=\"buff\">đứng trong</span> <span>200px</span> liên tục nhận khiên <span class=\"heal\">45</span>",
     iconKey: "spell_thresh_w",
     coolDownMs: 10000,
     manaCost: 40,
@@ -1902,7 +1902,7 @@ export const spellCatalog = {
   },
   "Tryndamere_Q": {
     name: "Say Máu (Tryndamere_Q)",
-    description: "Hồi <span class=\"buff\">14 máu</span> cộng <span class=\"buff\">28% lượng máu đã mất</span> (tối đa <span class=\"damage\">40</span>), đồng thời nhận tới <span class=\"buff\">14 sát thương đánh</span> tùy theo lượng máu đã mất trong <span class=\"time\">6 giây</span>.",
+    description: "Hồi <span class=\"heal\">14 máu</span> cộng <span class=\"buff\">28% lượng máu đã mất</span> (tối đa <span class=\"damage\">40</span>), đồng thời nhận tới <span class=\"buff\">14 sát thương đánh</span> tùy theo lượng máu đã mất trong <span class=\"time\">6 giây</span>.",
     iconKey: "spell_tryndamere_q",
     coolDownMs: 9000,
     manaCost: 0,
@@ -2126,7 +2126,7 @@ export const spellCatalog = {
   },
   "Warwick_Q": {
     name: "Cắn Xé (Warwick_Q)",
-    description: "Vồ tới kẻ địch gần nhất trong phạm vi, cắn xé gây <span class=\"damage\">30 sát thương</span> và <span class=\"buff\">Hồi 15 máu</span> cho bản thân",
+    description: "Vồ tới kẻ địch gần nhất trong phạm vi, cắn xé gây <span class=\"damage\">30 sát thương</span> và hồi <span class=\"heal\">15 máu</span> cho bản thân",
     iconKey: "spell_warwick_q",
     coolDownMs: 7000,
     manaCost: 30,
@@ -2166,7 +2166,7 @@ export const spellCatalog = {
   },
   "XinZhao_R": {
     name: "Bán Nguyệt Thương (XinZhao_R)",
-    description: "Quét thương quanh mình gây <span class=\"damage\">50 sát thương</span> cho mọi kẻ địch trong <span>300px</span>, <span class=\"buff\">hất văng và choáng</span> những kẻ chưa bị <span class=\"buff\">đánh dấu</span> bởi Can Trường. Xin Zhao nhận <span class=\"buff\">30 giáp ảo</span> trong <span class=\"time\">3 giây</span>.",
+    description: "Quét thương quanh mình gây <span class=\"damage\">50 sát thương</span> cho mọi kẻ địch trong <span>300px</span>, <span class=\"buff\">hất văng và choáng</span> những kẻ chưa bị <span class=\"buff\">đánh dấu</span> bởi Can Trường. Xin Zhao nhận <span class=\"heal\">30 giáp ảo</span> trong <span class=\"time\">3 giây</span>.",
     iconKey: "spell_xinzhao_r",
     coolDownMs: 10000,
     manaCost: 100,

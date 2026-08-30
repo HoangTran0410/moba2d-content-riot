@@ -70,7 +70,7 @@ export default class Garen_W extends Spell {
   image = api.asset('spell_garen_w');
   name = 'Lòng Can Đảm (Garen_W)';
   description =
-    `Nhận <span class="buff">Khiên ${SHIELD_AMOUNT}</span> và <span class="buff">hút ${OMNIVAMP * 100}% máu</span>` +
+    `Nhận khiên <span class="heal">${SHIELD_AMOUNT}</span> và <span class="buff">hút ${OMNIVAMP * 100}% máu</span>` +
     ` từ mọi sát thương gây ra, trong <span class="time">${DURATION / 1000} giây</span>`;
   coolDown = 9000;
   manaCost = 25;
