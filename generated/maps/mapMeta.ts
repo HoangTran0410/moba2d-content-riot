@@ -11,5 +11,5 @@ export type MapMeta = Pick<MapDefinition, 'name' | 'size' | 'factions' | 'tuning
 
 export const mapMeta = {
   summonersRift: {"name":"Summoner's Rift","size":6400,"factions":[{"id":"blue"},{"id":"red"}]} as MapMeta,
-  twistedTreeline: {"name":"Summoner's Rift","size":6400,"factions":[{"id":"blue"},{"id":"red"}]} as MapMeta,
+  twistedTreeline: {"name":"Twisted Treeline","size":6400,"factions":[{"id":"blue"},{"id":"red"}]} as MapMeta,
 };
