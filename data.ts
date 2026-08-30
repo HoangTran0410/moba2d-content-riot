@@ -1606,13 +1606,23 @@ export const data: ContentPackData = {
    * state this pack raised its floor to escape. `archetypes` is the loud kind:
    * an older core's `validate.ts` does not know the key and the pack is refused.
    *
+   * `>=1.11.0` is the silent kind again, and the worst-shaped one yet: core
+   * amplifies heals and shields by the caster's ability power now, and reads a
+   * `class="heal"` span in a description as a number to rescale. Both arrived
+   * together and this pack is written against both — every shield line was
+   * reshaped so its figure leads, and every heal number was retagged. On a
+   * core that has neither, the shields are worth what the source typed, the
+   * heals are worth what they were on the first frame of the match, and the
+   * descriptions promise a bonus nothing delivers. Nothing throws; a support
+   * simply does not scale, which is the complaint this whole change answers.
+   *
    * `satisfiesCoreRange` parses `*` and `>=X.Y.Z` and nothing else, which is
    * also why this is no longer the unparseable `'^1'` it used to be.
    */
   manifest: {
     id: 'lol',
-    version: '1.0.0',
-    coreRange: '>=1.8.0',
+    version: '1.1.0',
+    coreRange: '>=1.11.0',
     assets: 'lol',
   },
   spellDisplay: displayData(),

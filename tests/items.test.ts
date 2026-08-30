@@ -337,11 +337,13 @@ describe('the item set', () => {
     // every item silently ignored. `satisfiesCoreRange` parses `*` and
     // `>=X.Y.Z` and nothing else.
     //
-    // 1.7 rather than 1.6 since six items started granting `abilityPower` or
-    // `cooldownReduction`. That one is not the silent failure above: item
-    // stats are an allow-list in core, so an older core refuses this pack
-    // outright — see `data.ts`'s own note on the floor.
-    expect(data.manifest.coreRange).toBe('>=1.8.0');
+    // Every step since is recorded in `data.ts`'s own note beside the value.
+    // The latest is 1.11: core amplifies heals and shields by ability power
+    // and rescales a `class="heal"` span, and this pack's whole support half
+    // is written against both — on an older core the shields are worth what
+    // was typed, the heals never grow, and the descriptions promise a bonus
+    // nothing delivers. Silent, like the `items` one above.
+    expect(data.manifest.coreRange).toBe('>=1.11.0');
   });
 
   /**
