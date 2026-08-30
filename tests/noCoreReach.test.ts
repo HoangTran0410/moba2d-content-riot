@@ -336,7 +336,12 @@ describe("the pack's tests speak only published core surfaces", () => {
     // and Vilemaw's kits up and holds them to each other. It reaches core
     // through `@moba2d/core/testing` and `@moba2d/core/testing/spell`, the
     // same two every other monster test here uses.
-    expect(files.length).toBe(102);
+    //
+    // 103, not 102: `tests/spells/damageTypeClaims.test.ts`, which checks that
+    // a spell promising "sát thương chuẩn" deals it. It reads this pack's own
+    // source as text and imports nothing from core at all, so it adds to the
+    // population and to no other count here.
+    expect(files.length).toBe(103);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

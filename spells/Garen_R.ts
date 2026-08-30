@@ -63,8 +63,11 @@ const LIGHT: [number, number, number] = [255, 250, 210];
  * **true damage** of `125–275 (+ 25–35% of target's missing health)` and
  * reveals them for 1 second.
  *
- * True damage has no meaning here yet (there is no armour to ignore), so the
- * part that survives the translation is the shape everyone remembers: the
+ * True damage had no meaning when this was written — there was no armour to
+ * ignore, so the type was dropped and the call took the engine's `MAGIC`
+ * default. Resistances exist now and are actually applied, so it means what
+ * it says and the call passes `'TRUE'`. What always survived the translation
+ * is the shape everyone remembers: the
  * lower the target is, the harder it hits. At full health it is a modest nuke;
  * on someone who has already lost most of their bar it is the sword out of the
  * sky. Champions only, exactly as the wiki says — you cannot execute a minion
@@ -210,7 +213,9 @@ export class Garen_R_Strike extends SpellObject {
     if (victim) {
       const max = victim.stats.maxHealth.value;
       const missing = max > 0 ? Math.max(0, max - victim.stats.health.value) : 0;
-      victim.takeDamage(BASE_DAMAGE + missing * MISSING_HEALTH_PERCENT, this.owner, 'MAGIC');
+      // Công Lý Demacia is true damage — the wiki note at the top of this
+      // file, and the reason the ability exists at all.
+      victim.takeDamage(BASE_DAMAGE + missing * MISSING_HEALTH_PERCENT, this.owner, 'TRUE');
 
       victim.addBuff(
         createReveal({

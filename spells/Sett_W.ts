@@ -173,8 +173,9 @@ export default class Sett_W extends Spell {
 
       const lateral = Math.abs(-dx * Math.sin(heading) + dy * Math.cos(heading));
       if (lateral <= SETT_W_CORE_WIDTH / 2 + pad) {
-        // True damage piercing shields along center strip
-        victim.takeDamage(damage + victim.shieldAmount, this.owner, 'MAGIC');
+        // True damage piercing shields along the centre strip — the
+        // description promises it and the call did not deal it.
+        victim.takeDamage(damage + victim.shieldAmount, this.owner, 'TRUE');
       } else {
         victim.takeDamage(damage, this.owner, 'MAGIC');
       }

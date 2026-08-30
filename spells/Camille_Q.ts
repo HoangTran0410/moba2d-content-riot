@@ -59,8 +59,9 @@ export class Camille_Q_Buff extends Buff {
       ({ attacker, victim }: any) => {
         if (attacker === this.targetUnit && victim) {
           if (this.timer >= CAMILLE_Q_CHARGE_MS) {
-            // True damage Q2
-            victim.takeDamage(CAMILLE_Q_TRUE_DAMAGE, this.targetUnit, 'MAGIC', 'Giao Thức Chuẩn Xác');
+            // Q2 is true damage — the constant has said so since it was
+            // written, and the call said `'MAGIC'`.
+            victim.takeDamage(CAMILLE_Q_TRUE_DAMAGE, this.targetUnit, 'TRUE', 'Giao Thức Chuẩn Xác');
           } else {
             // Normal Q1 bonus damage
             victim.takeDamage(CAMILLE_Q_DAMAGE, this.targetUnit, 'MAGIC', 'Giao Thức Chuẩn Xác');
