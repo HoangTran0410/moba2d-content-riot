@@ -19,6 +19,15 @@ export const BONUS_DAMAGE = 10;
 
 export const SPEED_PERCENT = 0.25;
 
+/**
+ * All of it. `Stats.tenacity` maxes at 1, and core floors every disable it
+ * shortens at `TENACITY_FLOOR_MS` (300ms) so a stun remains a stun — so this
+ * is not literal immunity, it is every disable in the game clipped to a third
+ * of a second. That is the closest this engine gets to Ragnarok's promise, and
+ * it is close enough that the promise still reads: nothing holds Olaf still.
+ */
+export const TENACITY = 1;
+
 /** One breath of the ember ring, and it is slow on purpose — see the class. */
 const PULSE_MS = 1_150;
 
@@ -34,9 +43,16 @@ const EMBER_STEP_PX = 26;
 
 
 /**
- * Ragnarok: not a stat line but an escape. It strips the crowd control already
- * on Olaf the instant it is pressed — the point of the ultimate is being the
- * one champion a stun does not stop, so it has to *undo* one.
+ * Ragnarok: not a stat line but an escape.
+ *
+ * It strips the crowd control already on Olaf the instant it is pressed — the
+ * point of the ultimate is being the one champion a stun does not stop, so it
+ * has to *undo* one. **And then it has to keep undoing them**, which is the
+ * half that was missing: stripping on cast only, a stun landing one second
+ * later held him for the remaining six seconds of his own ultimate, which is
+ * the exact situation the ability exists to deny. `docs/abilities/olaf/r.json`
+ * says he "becomes immune to disables" for the duration, not at the start of
+ * it. Core 1.16 has `tenacity`, so the duration now carries it.
  */
 export default class Olaf_R extends Spell {
   targetingMode = 'SELF' as const;
@@ -45,7 +61,8 @@ export default class Olaf_R extends Spell {
   description =
     `Gỡ bỏ <span class="buff">mọi hiệu ứng khống chế</span> đang dính, và trong` +
     ` <span class="time">${secs(DURATION)} giây</span> nhận <span class="buff">+${BONUS_DAMAGE} sát thương đánh thường</span>` +
-    ` cùng <span class="buff">+${pct(SPEED_PERCENT)}% tốc chạy</span>`;
+    ` cùng <span class="buff">+${pct(SPEED_PERCENT)}% tốc chạy</span>.` +
+    ` Trong lúc đó mọi hiệu ứng khống chế mới chỉ còn <span class="time">0.3 giây</span>`;
   coolDown = 10000;
   manaCost = 50;
 
@@ -60,6 +77,7 @@ export default class Olaf_R extends Spell {
     amp.bonuses = {
       attackDamage: { baseBonus: BONUS_DAMAGE },
       speed: { percentBaseBonus: SPEED_PERCENT },
+      tenacity: { baseBonus: TENACITY },
     };
     this.owner.addBuff(amp);
 

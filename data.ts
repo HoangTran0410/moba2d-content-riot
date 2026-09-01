@@ -155,6 +155,13 @@ const ROSTER: {
   // `'champ_*'` key.
   image: string | null;
   spells: RosterSpellId[];
+  /**
+   * A spell armed once per life rather than bound to a key — see
+   * `ChampionEntry.passive`. Separate from `spells` because that array is the
+   * kit's slot layout and a passive has no slot; `validate.ts` refuses an id
+   * that appears in both.
+   */
+  passive?: PackSpellCatalogId;
   attack?: ChampionAttack;
   /** See `ChampionEntry.summonerShelf`'s own doc comment. Set on exactly one row, below. */
   summonerShelf?: boolean;
@@ -359,6 +366,12 @@ const ROSTER: {
     attack: ATTACK.TANK,
     image: 'champ_amumu',
 
+    // The first champion `passive` in this pack. It is a field of its own and
+    // deliberately not a fifth entry in `spells` — that array is the kit's
+    // slot layout, the thing a loadout editor rearranges, and a passive has
+    // no key to press and no slot to be moved into. `validate.ts` refuses an
+    // id that appears in both.
+    passive: 'Amumu_P',
     spells: ['Amumu_Q', 'Amumu_W', 'Amumu_E', 'Amumu_R'],
   },
   {
@@ -661,6 +674,7 @@ const championEntries = (): ChampionEntry[] => {
       attack: kit.attack,
       ...(role ? { defence: DEFENCE[role] } : {}),
       spells: [...kit.spells],
+      ...(kit.passive ? { passive: kit.passive } : {}),
       recall: 'Recall',
       summonerShelf: kit.summonerShelf,
     });

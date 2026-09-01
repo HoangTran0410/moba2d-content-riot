@@ -100,6 +100,14 @@ export const spellCatalog = {
     manaCost: 20,
     specCoolDownMs: 6000,
   },
+  "Amumu_P": {
+    name: "Chạm Nguyền (Amumu_P)",
+    description: "Nội tại: đòn đánh thường nguyền rủa mục tiêu trong 3 giây, khiến mục tiêu nhận thêm <span class=\"damage magic\">10% sát thương phép</span> từ mọi nguồn",
+    iconKey: "spell_amumu_w",
+    coolDownMs: 0,
+    manaCost: 0,
+    specCoolDownMs: 0,
+  },
   "Amumu_Q": {
     name: "Quăng Dải Băng (Amumu_Q)",
     description: "Ném một dải băng về hướng chỉ định. Khi trúng kẻ địch đầu tiên, gây <span class=\"damage magic\">20 sát thương phép</span>, <span class=\"buff\">Choáng</span> chúng trong <span class=\"time\">1 giây</span> và <span class=\"buff\">Kéo</span> chính bạn tới chỗ chúng <i>(các hiệu ứng khống chế lên Amumu không ngăn được cú kéo này)</i>",
@@ -1478,7 +1486,7 @@ export const spellCatalog = {
   },
   "Olaf_R": {
     name: "Tận Thế Ragnarok (Olaf_R)",
-    description: "Gỡ bỏ <span class=\"buff\">mọi hiệu ứng khống chế</span> đang dính, và trong <span class=\"time\">7 giây</span> nhận <span class=\"buff\">+10 sát thương đánh thường</span> cùng <span class=\"buff\">+25% tốc chạy</span>",
+    description: "Gỡ bỏ <span class=\"buff\">mọi hiệu ứng khống chế</span> đang dính, và trong <span class=\"time\">7 giây</span> nhận <span class=\"buff\">+10 sát thương đánh thường</span> cùng <span class=\"buff\">+25% tốc chạy</span>. Trong lúc đó mọi hiệu ứng khống chế mới chỉ còn <span class=\"time\">0.3 giây</span>",
     iconKey: "spell_olaf_r",
     coolDownMs: 10000,
     manaCost: 50,

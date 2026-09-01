@@ -19,6 +19,7 @@ export const spellModules: Record<string, () => Promise<SpellModule>> = {
   "Alistar_R": () => import('../spells/Alistar_R'),
   "Alistar_W": () => import('../spells/Alistar_W'),
   "Amumu_E": () => import('../spells/Amumu_E'),
+  "Amumu_P": () => import('../spells/Amumu_P'),
   "Amumu_Q": () => import('../spells/Amumu_Q'),
   "Amumu_R": () => import('../spells/Amumu_R'),
   "Amumu_W": () => import('../spells/Amumu_W'),

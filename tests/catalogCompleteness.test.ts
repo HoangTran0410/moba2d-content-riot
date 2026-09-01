@@ -34,6 +34,12 @@ describe('catalogue completeness', () => {
     const referenced = new Set<string>();
     for (const champion of data.champions ?? []) {
       for (const id of champion.spells) referenced.add(id);
+      // The fourth way in, and the newest: a champion's own passive. It is
+      // reachable exactly as a kit slot is — armed by `Champion.armPassives`
+      // rather than bound to a key — but it lives in a field of its own,
+      // because `spells[]` is the slot layout a loadout editor rearranges and
+      // a passive has no slot to be moved into.
+      if (champion.passive) referenced.add(champion.passive);
     }
     // The third way in, added with the shop: `ItemDef.passive`/`ItemDef.active`
     // name a spell exactly the way a kit slot does — see `Item.ts`'s own

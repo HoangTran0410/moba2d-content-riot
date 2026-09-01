@@ -88,6 +88,7 @@ export { default as Nasus_R } from './Nasus_R';
 export { default as Amumu_W } from './Amumu_W';
 export { default as Amumu_E } from './Amumu_E';
 export { default as Amumu_R } from './Amumu_R';
+export { default as Amumu_P } from './Amumu_P';
 export { default as Twitch_W } from './Twitch_W';
 export { default as Twitch_E } from './Twitch_E';
 export { default as Twitch_R } from './Twitch_R';

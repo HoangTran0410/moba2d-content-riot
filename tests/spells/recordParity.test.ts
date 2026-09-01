@@ -14,6 +14,8 @@ import Darius_E, { Darius_E_Passive, DARIUS_E_PENETRATION } from '../../spells/D
 import Pantheon_R, { Pantheon_R_Passive, PANTHEON_R_PENETRATION } from '../../spells/Pantheon_R';
 import { Garen_E_Object, SHRED_AT_HIT, SHRED_PERCENT as GAREN_SHRED } from '../../spells/Garen_E';
 import Garen_W, { TENACITY } from '../../spells/Garen_W';
+import Olaf_R, { DURATION as OLAF_DURATION, TENACITY as OLAF_TENACITY } from '../../spells/Olaf_R';
+import Amumu_P, { AMP as AMUMU_AMP, Amumu_P_Curse, Amumu_P_CursedTouch } from '../../spells/Amumu_P';
 import { Katarina_R_Lotus, KATARINA_R_RADIUS, KATARINA_R_WOUND_PERCENT } from '../../spells/Katarina_R';
 import { Nasus_E_Object, SHRED_PERCENT as NASUS_SHRED } from '../../spells/Nasus_E';
 import { Varus_E_Object, WOUND_PERCENT as VARUS_WOUND } from '../../spells/Varus_E';
@@ -82,6 +84,62 @@ describe('the passives that were never implemented', () => {
   });
 });
 
+describe('the passive that was never written at all', () => {
+  let game: TestGame;
+  beforeEach(() => {
+    game = createGame();
+    vi.stubGlobal('deltaTime', 16);
+  });
+
+  /**
+   * `amumu/champion.json`: his attacks curse, and a cursed target "takes bonus
+   * magic damage **from all sources**". Amumu shipped with four abilities and
+   * no passive at all — `ChampionEntry.passive` existed in core and no
+   * champion in this pack had ever used it.
+   */
+  it('Amumu curses on hit, and the curse amplifies anyone’s magic damage', () => {
+    const amumu = createUnit(game, 0, 'blue');
+    const ally = createUnit(game, 20, 'blue');
+    const victim = createUnit(game, 80, 'red');
+    game.setPlayer(amumu);
+
+    expect(pressSpell(new Amumu_P(amumu))).toBe(true);
+    const armed = live(amumu).find(b => b instanceof Amumu_P_CursedTouch) as never as {
+      onHit: (hit: unknown) => void;
+    };
+    expect(armed, 'the passive armed nothing').toBeTruthy();
+
+    armed.onHit({ attacker: amumu, victim, damage: 10, ranged: false, crit: false, echo: false });
+
+    const curse = live(victim).find(b => b instanceof Amumu_P_Curse) as never as {
+      modifyIncomingDamage: (d: number, a?: unknown, t?: string) => number;
+    };
+    expect(curse, 'the swing did not curse').toBeTruthy();
+
+    // "from all sources" is the whole ability: an ally who has never heard of
+    // Amumu gets the amplification too.
+    expect(curse.modifyIncomingDamage(100, ally, 'MAGIC')).toBeCloseTo(100 * (1 + AMUMU_AMP), 6);
+    // and only magic — otherwise it is a strictly better armour shred as well
+    expect(curse.modifyIncomingDamage(100, ally, 'PHYSICAL')).toBe(100);
+  });
+
+  it('does not curse again on an echoed hit', () => {
+    // A propagated swing is somebody else's item doubling his attack, and
+    // `OnHit.ts` asks every effect to ignore one.
+    const amumu = createUnit(game, 0, 'blue');
+    const victim = createUnit(game, 80, 'red');
+    game.setPlayer(amumu);
+
+    expect(pressSpell(new Amumu_P(amumu))).toBe(true);
+    const armed = live(amumu).find(b => b instanceof Amumu_P_CursedTouch) as never as {
+      onHit: (hit: unknown) => void;
+    };
+    armed.onHit({ attacker: amumu, victim, damage: 10, ranged: false, crit: false, echo: true });
+
+    expect(live(victim).some(b => b instanceof Amumu_P_Curse)).toBe(false);
+  });
+});
+
 describe('the substitutions', () => {
   let game: TestGame;
   beforeEach(() => {
@@ -105,6 +163,27 @@ describe('the substitutions', () => {
       live(garen).some(b => (b as never as { bonuses?: Record<string, unknown> }).bonuses?.omnivamp),
       'the omnivamp stand-in is still there'
     ).toBe(false);
+  });
+
+  /**
+   * `olaf/r.json`: he "becomes immune to disables" **for the duration**, not
+   * at the moment of the press. Stripping on cast alone left a stun landing a
+   * second later holding him for the remaining six seconds of his own
+   * ultimate — the exact situation the ability exists to deny.
+   */
+  it('Olaf R keeps shrugging off crowd control after the cast, not only at it', () => {
+    const olaf = createUnit(game, 0, 'blue');
+    game.setPlayer(olaf);
+
+    expect(pressSpell(new Olaf_R(olaf))).toBe(true);
+
+    const amp = live(olaf).find(
+      b => (b as never as { bonuses?: Record<string, unknown> }).bonuses?.tenacity
+    ) as never as { bonuses: { tenacity: { baseBonus: number } }; duration: number };
+    expect(amp, 'nothing granted tenacity').toBeTruthy();
+    expect(amp.bonuses.tenacity.baseBonus).toBe(OLAF_TENACITY);
+    // The whole ultimate, not a window at the front of it.
+    expect(amp.duration).toBe(OLAF_DURATION);
   });
 
   /** `vi/w.json`: the third stack inflicts "20% armor reduction for 4 seconds". */
