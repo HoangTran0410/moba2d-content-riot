@@ -2199,13 +2199,20 @@ export const data: ContentPackData = {
    * is the only way to share the function, and a second copy is one copy away
    * from two packs disagreeing about what a seed means.
    *
+   * `>=1.18.0` is for `api.units.Minion` and the `turretPassives` slot, which
+   * `structures/Turret.ts` is written against. This one fails *quietly* on an
+   * older core rather than loudly — the slot is simply not read, and every
+   * tower on the map loses Ohmwrecker, Reinforced Armor and Warden's Eye with
+   * no error anywhere. That is exactly the case a floor exists for, and the
+   * reason it is raised for a field as much as for a class.
+   *
    * `satisfiesCoreRange` parses `*` and `>=X.Y.Z` and nothing else, which is
    * also why this is no longer the unparseable `'^1'` it used to be.
    */
   manifest: {
     id: 'lol',
     version: '1.1.0',
-    coreRange: '>=1.17.0',
+    coreRange: '>=1.18.0',
     assets: 'lol',
   },
   spellDisplay: displayData(),

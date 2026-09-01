@@ -7,6 +7,7 @@ import makeDragonAbilities from './monsters/Dragon';
 import makeKrugAbilities from './monsters/Krugs';
 import makeScuttleAbilities from './monsters/ScuttleCrab';
 import makeVilemawAbilities from './monsters/Vilemaw';
+import makeTurretPassives from './structures/Turret';
 import {
   makeBaronBlessing,
   makeBlueSentinelAbilities,
@@ -76,6 +77,11 @@ const code = (api: ContentApi): ContentPackCode => {
       scuttle: makeScuttleAbilities(api),
       vilemaw: makeVilemawAbilities(api),
     },
+    // What this pack's towers are built carrying: the source game's three
+    // named turret passives, as real buffs on the turret rather than branches
+    // inside core's `Turret`. See `./structures/Turret.ts` for why the target
+    // ladder and the defend radius are *not* here.
+    turretPassives: makeTurretPassives(api),
   };
 };
 

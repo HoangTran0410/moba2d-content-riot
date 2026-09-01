@@ -394,7 +394,10 @@ describe("the pack's tests speak only published core surfaces", () => {
     // 118, not 117: `tests/monsters/DragonRotation.test.ts`, which pins the
     // drake order to the match seed rather than to the order somebody wrote
     // the six elementals down in.
-    expect(files.length).toBe(118);
+    //
+    // 119, not 118: `tests/structures/turretPassives.test.ts`, which pins the
+    // three turret passives this pack now ships as real buffs.
+    expect(files.length).toBe(119);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

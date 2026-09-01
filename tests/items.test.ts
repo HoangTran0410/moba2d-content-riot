@@ -513,8 +513,12 @@ describe('the item set', () => {
     // `>=X.Y.Z` and nothing else.
     //
     // Every step since is recorded in `data.ts`'s own note beside the value.
-    // The latest is 1.17 — `api.utils.seededShuffle`, which `monsters/
-    // Dragon.ts` uses to draw the pit's drake order from the match seed. Like
+    // The latest is 1.18 — `api.units.Minion` and the `turretPassives` slot,
+    // which `structures/Turret.ts` needs to exist at all: on an older core the
+    // slot is ignored and every tower silently loses all three of its
+    // passives, which is the quiet half of a floor's job. Before it, 1.17 was
+    // `api.utils.seededShuffle`, which `monsters/Dragon.ts` uses to draw the
+    // pit's drake order from the match seed. Like
     // the 1.15 step it is loud rather than silent: on an older core that
     // member is `undefined` and the first drake spawn throws, so the floor is
     // what turns it into a refused install. Before it, 1.16 was the stat
@@ -528,7 +532,7 @@ describe('the item set', () => {
     // step this one is loud — the buff is read at a spell module's top level
     // and would be `undefined` on an older core — and the floor is what turns
     // that into a refused install instead of a crash on the first purchase.
-    expect(data.manifest.coreRange).toBe('>=1.17.0');
+    expect(data.manifest.coreRange).toBe('>=1.18.0');
   });
 
   /**
