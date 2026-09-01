@@ -1,6 +1,7 @@
 import { api } from '../packApi';
 import { pct, secs } from '../text';
 
+const BuffAddType = api.enums.BuffAddType
 const Spell = api.Spell;
 const Circle = api.utils.Quadtree.Circle;
 const Rectangle = api.utils.Quadtree.Rectangle;
@@ -95,6 +96,7 @@ export class Varus_E_Object extends SpellObject {
     this.sinceTick -= 400;
     enemies().forEach((enemy: any) => {
       const slow = new Slow(700, this.owner, enemy);
+      slow.buffAddType = BuffAddType.RENEW_EXISTING;
       slow.percent = SLOW_PERCENT;
       enemy.addBuff(slow);
       // "slowing enemies within and inflicting them with Grievous Wounds"
