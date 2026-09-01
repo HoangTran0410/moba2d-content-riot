@@ -214,6 +214,31 @@ describe("Warden's Eye", () => {
     expect(sneak.buffs.some(buff => buff.name === 'Lộ Diện')).toBe(true);
   });
 
+  /**
+   * The ring is the tower's own reach, deliberately — the wiki's is wider
+   * (1100 against 775). This body sits outside the guns and *inside* that
+   * wider ring, so it is the one case where the two radii disagree, and the
+   * only thing that keeps `WARDENS_EYE_RATIO` at 1 rather than drifting back
+   * to a copied wiki number.
+   */
+  it('does not light up a body it cannot shoot', () => {
+    const tower = turret();
+    const outside = Math.round(tower.attackRange + 40);
+    expect(outside, 'the case is vacuous unless the wiki ring would have covered it').toBeLessThan(
+      tower.attackRange * (1100 / 775)
+    );
+
+    const sneak = champion('solo', outside);
+    sneak.addBuff(new api.buffs.Invisible(5_000, sneak, sneak));
+    indexObjects(game as never, [tower, sneak] as never);
+
+    vi.stubGlobal('deltaTime', 300);
+    sneak.update();
+    tower.update();
+
+    expect(sneak.buffs.some(buff => buff.name === 'Lộ Diện')).toBe(false);
+  });
+
   it('leaves an ally alone', () => {
     const tower = turret();
     const friend = champion(TeamId.BLUE, 200);

@@ -20,16 +20,24 @@ import type { TurretPassive } from '@moba2d/core/content/types';
  *
  * ## Ranges are ratios, never the wiki's numbers
  *
- * The source game's turret reaches 775 units, defends an ally to 1400 and
- * reveals to 1100. This canvas is pixels and its towers reach 430. So every
- * radius below is written as *its share of the turret's own reach*, which is
- * scale-free and survives a map that widens `attackRange` — a copied 1100
- * would be a tower that sees three screens on one map and half a lane on
- * another.
+ * The source game's turret reaches 775 units and defends an ally to 1400.
+ * This canvas is pixels and its towers reach 430. So every radius below is
+ * written as *its share of the turret's own reach*, which is scale-free and
+ * survives a map that widens `attackRange` — a copied 775 would be a tower
+ * that watches three screens on one map and half a lane on another.
  */
 
-/** Wiki: 1100 reveal against a 775 reach. */
-const WARDENS_EYE_RATIO = 1100 / 775;
+/**
+ * The eye sees exactly as far as the tower shoots.
+ *
+ * The wiki's ring is wider than the reach (1100 against 775), and that is the
+ * one number here deliberately not carried over: vision the tower cannot
+ * punish is vision it hands to whoever walks the edge of it, and on a canvas
+ * this size the wider ring reached most of the way to the next tower. Revealing
+ * only what it can shoot keeps the passive readable — if you are lit up, you
+ * are already being hit.
+ */
+const WARDENS_EYE_RATIO = 1;
 /** Wiki: minions within roughly a wave's standing distance switch the floor off. */
 const REINFORCED_MINION_RATIO = 1;
 
