@@ -390,7 +390,11 @@ describe("the pack's tests speak only published core surfaces", () => {
     // rule, which lives in core because it is a fact about core and because
     // it had been ten lines in this pack while the dota pack's `npm test`
     // said nothing about it at all.
-    expect(files.length).toBe(117);
+    //
+    // 118, not 117: `tests/monsters/DragonRotation.test.ts`, which pins the
+    // drake order to the match seed rather than to the order somebody wrote
+    // the six elementals down in.
+    expect(files.length).toBe(118);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

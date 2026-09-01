@@ -363,18 +363,112 @@ export const RITE = {
  */
 const rotation = new WeakMap<object, number>();
 
-/** The drake currently in the pit. Index 6 of the cycle is the Elder. */
+/** The order each pit runs, drawn once. See `cycleFor`. */
+const cycle = new WeakMap<object, readonly Drake[]>();
+
+/**
+ * mulberry32, written out here rather than imported.
+ *
+ * The engine has the same function (`game/matchSeed.ts`), and it is not on any
+ * subpath a pack may import at runtime — nor should it be for this: what has to
+ * be true is that the *host and the client run identical code*, and both of
+ * them run this file. A pack that agreed with core's stream but not with its
+ * own opponent would have solved the wrong half.
+ */
+function seededRandom(seed: number): () => number {
+  let state = seed >>> 0;
+  return () => {
+    state = (state + 0x6d2b79f5) >>> 0;
+    let t = state;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4_294_967_296;
+  };
+}
+
+/**
+ * Fisher-Yates, not `sort(() => Math.random() - 0.5)`.
+ *
+ * That comparator was the first attempt at this and was reverted: it is not a
+ * comparator at all — it answers differently for the same pair — so the
+ * permutations are neither uniform nor reproducible, on top of being drawn from
+ * a source the two ends of a LAN match do not share.
+ */
+function shuffled(drakes: readonly Drake[], seed: number): Drake[] {
+  const out = drakes.slice();
+  const random = seededRandom(seed);
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
+/**
+ * The order this pit runs its six elementals in, decided once per match.
+ *
+ * Fire first was hardcoded, so every match opened the same way and scouting the
+ * pit told you nothing you did not already know. It is shuffled now — but from
+ * `Game.matchSeed`, never `Math.random()`, and that distinction is the whole
+ * design. A LAN client *builds* the jungle rather than receiving it, so a local
+ * draw gives the host an infernal and the client an ocean, each paying a
+ * different buff for the same kill, with nothing in the protocol able to notice.
+ * That is not hypothetical: it shipped once and was reverted for it.
+ *
+ * The pit's own coordinates are mixed in so a two-pit map does not run one
+ * order twice. They come from the map data both sides loaded, so they are as
+ * shared as the seed is.
+ *
+ * **The Elder is not shuffled.** It is the seventh drake, not one of the six —
+ * what it is *for* is that the cycle has been all the way round.
+ */
+function cycleFor(camp: object, seed?: number): readonly Drake[] {
+  const known = cycle.get(camp);
+  if (known) return known;
+  if (seed === undefined) return ROTATION;
+
+  const pit = camp as { x?: number; y?: number };
+  const mixed =
+    (seed ^ Math.imul(Math.round(pit.x ?? 0), 0x4665_1e5d) ^
+      Math.imul(Math.round(pit.y ?? 0), 0x1276_3f1f)) >>>
+    0;
+  const order: readonly Drake[] = [...shuffled(ELEMENTS, mixed), ELDER];
+  cycle.set(camp, order);
+  return order;
+}
+
+/**
+ * The order this pit is running, once something has spawned into it.
+ *
+ * Exported because "which drake is up" stopped being answerable from the
+ * source the moment it became per-match: a test, and any future scouting HUD,
+ * has to be able to ask the pit rather than read `ROTATION` and assume.
+ */
+export function dragonCycle(camp: object): readonly Drake[] {
+  return cycleFor(camp);
+}
+
+/**
+ * The drake currently in the pit. The last index of the cycle is the Elder.
+ *
+ * Reads whatever order `onSpawn` drew for this pit, and falls back to the
+ * canonical one for a pit nothing has spawned into yet — the pit ring is
+ * created inside `onSpawn`, so in a running match there is no such moment.
+ */
 export function elementFor(camp: object): Drake {
-  return ROTATION[(rotation.get(camp) ?? 0) % ROTATION.length];
+  const order = cycleFor(camp);
+  return order[(rotation.get(camp) ?? 0) % order.length];
 }
 
 function advance(camp: object): void {
-  rotation.set(camp, ((rotation.get(camp) ?? 0) + 1) % ROTATION.length);
+  const order = cycleFor(camp);
+  rotation.set(camp, ((rotation.get(camp) ?? 0) + 1) % order.length);
 }
 
-/** Test seam: put a camp's rotation back where it starts. */
+/** Test seam: put a camp's rotation *and* its drawn order back to the start. */
 export function resetDragonRotation(camp: object): void {
   rotation.delete(camp);
+  cycle.delete(camp);
 }
 
 function makeDragonBuff(api: ContentApi, drake: Drake) {
@@ -825,6 +919,10 @@ export default function makeDragonAbilities(api: ContentApi): MonsterAbility[] {
        * pit is a different creature from the last one.
        */
       onSpawn(monster) {
+        // First thing, and the only place with a `game` in hand: the order this
+        // pit will run is drawn here, from the match seed, once. Everything
+        // below reads it back through `elementFor`.
+        cycleFor(monster.camp, monster.game?.matchSeed);
         const drake = elementFor(monster.camp);
         dressFor(monster as never, drake);
         if (drake.id === ELDER.id) hardenElder(monster as never);
