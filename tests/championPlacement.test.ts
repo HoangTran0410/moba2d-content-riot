@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { MELEE_RANGE_THRESHOLD } from '@moba2d/core/testing';
+import { DEFAULT_TURRET_PRESET, MELEE_RANGE_THRESHOLD } from '@moba2d/core/testing';
 import { data } from '../pack';
 import { ATTACK, DEFENCE, recordKey, type Role } from '../data';
 import { championRecordStats } from '../generated/championRecordStats';
@@ -44,6 +44,35 @@ describe('where each champion sits inside its role', () => {
           MELEE_RANGE_THRESHOLD
         );
       }
+    }
+  });
+
+  /**
+   * **A tower out-reaches everybody, or it is scenery.**
+   *
+   * This is the one range assertion that is not about the roster at all. When
+   * the ranged roles sat at 410 and 385, placement pushed Caitlyn to 491
+   * against a turret's 430: she could take a tower down from outside it, with
+   * nothing on the map able to answer, and so could Ashe, Annie and Varus. A
+   * lane has no shape at all once that is true.
+   *
+   * Read off `DEFAULT_TURRET_PRESET` rather than a copied 430, because the
+   * number that matters is the *relationship* — a map that widens its towers
+   * should widen the room this test gives the roster, and a pack that stretches
+   * its marksmen should fail here rather than in a game.
+   *
+   * The tenth is a rail and not the tuning: the source game leaves a turret
+   * (775) reaching 19% past its longest champion (650), and this roster's
+   * longest sits at about 20% inside a tower for the same reason. Anything
+   * under a tenth is close enough to level that a step forward is free.
+   */
+  it('leaves every champion reaching less far than a tower', () => {
+    const tower = DEFAULT_TURRET_PRESET.attackRange;
+    for (const entry of playable()) {
+      expect(
+        entry.attack!.range,
+        `${entry.name} reaches ${entry.attack!.range} against a tower's ${tower}`
+      ).toBeLessThanOrEqual(tower * 0.9);
     }
   });
 

@@ -48,10 +48,37 @@ type RosterSpellId = PackSpellCatalogId | 'BasicAttack';
  * an attack the source game applies instantly) and for future rows nobody has
  * looked up yet. `tests/attackProfiles.test.ts` pins the mapping.
  */
+/**
+ * **`range` is measured against the tower, not against taste.**
+ *
+ * The three ranged roles used to reach 410 and 385, which put the roster's
+ * longest reach — Caitlyn, at 491 once placement had spread her — *past* a
+ * turret's own 430. A marksman could stand outside a tower and take it down
+ * with nothing able to answer, which is not a balance complaint: it removes
+ * the structure the whole map is built around.
+ *
+ * The band that was wrong is visible from three numbers this pack does not
+ * own. Core's `DEFAULT_CHAMPION_ATTACK.range` is **300**, its caster minion
+ * reaches **280** and its cannon **300** — everything else on the field
+ * already sat in the source game's proportion to a 430 tower, and only this
+ * table had drifted, by 37%.
+ *
+ * So the roles are placed off the tower: the source game's turret reaches 775
+ * and its longest champion 650, a ratio of **1.19**, and after placement
+ * spreads the roster the longest reach here lands at 359 against 430 — the
+ * same 1.19, arrived at from the other end. `championPlacement.test.ts` holds
+ * the invariant itself ("no champion out-ranges a tower") rather than these
+ * numbers, because the invariant is the part that must survive re-tuning.
+ *
+ * What follows from it and is *not* a bug: a caster minion (280) out-ranges
+ * Vladimir (234) and trades evenly with a mid-band mage. That is exactly the
+ * source game's own arrangement — 550 against Vladimir's 450 — and it is why
+ * a short-range mage has to walk into the wave to farm.
+ */
 export const ATTACK = {
-  MARKSMAN: { damage: 10, attacksPerSecond: 1.65, range: 410, boltUnitsPerSecond: 1200 },
-  MAGE: { damage: 12, attacksPerSecond: 1.05, range: 385, boltUnitsPerSecond: 800 },
-  SUPPORT: { damage: 10, attacksPerSecond: 1.0, range: 385, boltUnitsPerSecond: 800 },
+  MARKSMAN: { damage: 10, attacksPerSecond: 1.65, range: 300, boltUnitsPerSecond: 1200 },
+  MAGE: { damage: 12, attacksPerSecond: 1.05, range: 282, boltUnitsPerSecond: 800 },
+  SUPPORT: { damage: 10, attacksPerSecond: 1.0, range: 282, boltUnitsPerSecond: 800 },
   ASSASSIN: { damage: 15, attacksPerSecond: 1.25, range: 130 },
   BRUISER: { damage: 17, attacksPerSecond: 1.1, range: 130 },
   TANK: { damage: 15, attacksPerSecond: 0.95, range: 125 },
@@ -1304,8 +1331,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1650,
     buildsFrom: ['zeal', 'recurve_bow'],
     description:
-      'Nội tại (đánh xa): mỗi đòn đánh bắn thêm <span class="buff">2</span> tia phụ vào các kẻ địch khác ' +
-      'gần nhất, gây <span class="buff">45%</span> công và áp dụng hiệu ứng đòn đánh của bạn.',
+      'Nội tại (đánh xa): mỗi đòn đánh bắn thêm <span class="buff">2</span> tia phụ vào các kẻ địch ' +
+      'đứng cạnh mục tiêu, gây <span class="buff">45%</span> công và áp dụng hiệu ứng đòn đánh của bạn.',
     stats: { attackSpeed: 0.33, critChance: 0.12, speedPercent: 0.05, onHitDamage: 2 },
     passive: 'Item_Runaan',
   },
