@@ -42,6 +42,12 @@ import type { NeutralSlot, SlotObjectFactory } from '@moba2d/core/content/types'
  * rather than porting one. A hand-drawn map puts `role: "relic"` where it
  * wants one, and gets all of the below for free.
  *
+ * Set that point's `kind` to `'object'` while drawing it (the editor's *Loại
+ * điểm*). The relic appears either way — a point that names no kind falls back
+ * to this once no camp answers `relic` — but a point left as a camp is *drawn*
+ * as one, with a leash ring and a rotation needle belonging to a monster that
+ * is not there.
+ *
  * Drawn in code rather than from art, which is not a compromise here: the
  * relic has to read as *available* or *taken* from across a lane, and a state
  * a sprite cannot show is a state a player cannot count on.
