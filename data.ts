@@ -2233,13 +2233,22 @@ export const data: ContentPackData = {
    * no error anywhere. That is exactly the case a floor exists for, and the
    * reason it is raised for a field as much as for a class.
    *
+   * `>=1.19.0` is for `api.GameObject` and the `slotObjects` slot, which
+   * `structures/HealthRelic.ts` needs both halves of: the slot is what places
+   * the relic and the class is what it is built out of. Loud *and* quiet at
+   * once, which is new — an older core never reads the slot, so no map with a
+   * `relic` point has anything standing on it; and `api.GameObject` is
+   * `undefined` there, so the factory throws while the pack's code half is
+   * being built, before a match starts at all. Either way the floor is what
+   * turns it into a sentence.
+   *
    * `satisfiesCoreRange` parses `*` and `>=X.Y.Z` and nothing else, which is
    * also why this is no longer the unparseable `'^1'` it used to be.
    */
   manifest: {
     id: 'lol',
     version: '1.1.0',
-    coreRange: '>=1.18.0',
+    coreRange: '>=1.19.0',
     assets: 'lol',
   },
   spellDisplay: displayData(),

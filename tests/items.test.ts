@@ -513,7 +513,11 @@ describe('the item set', () => {
     // `>=X.Y.Z` and nothing else.
     //
     // Every step since is recorded in `data.ts`'s own note beside the value.
-    // The latest is 1.18 — `api.units.Minion` and the `turretPassives` slot,
+    // The latest is 1.19 — `api.GameObject` and the `slotObjects` slot, which
+    // `structures/HealthRelic.ts` needs both halves of: the slot places the
+    // relic, the class is what it is built out of, and on an older core the
+    // first is ignored and the second is `undefined` at build time. Before
+    // it, 1.18 was `api.units.Minion` and the `turretPassives` slot,
     // which `structures/Turret.ts` needs to exist at all: on an older core the
     // slot is ignored and every tower silently loses all three of its
     // passives, which is the quiet half of a floor's job. Before it, 1.17 was
@@ -532,7 +536,7 @@ describe('the item set', () => {
     // step this one is loud — the buff is read at a spell module's top level
     // and would be `undefined` on an older core — and the floor is what turns
     // that into a refused install instead of a crash on the first purchase.
-    expect(data.manifest.coreRange).toBe('>=1.18.0');
+    expect(data.manifest.coreRange).toBe('>=1.19.0');
   });
 
   /**

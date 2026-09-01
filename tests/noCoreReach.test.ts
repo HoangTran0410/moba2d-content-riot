@@ -395,9 +395,11 @@ describe("the pack's tests speak only published core surfaces", () => {
     // drake order to the match seed rather than to the order somebody wrote
     // the six elementals down in.
     //
+    // 120, not 119: `tests/structures/healthRelic.test.ts`, the first thing
+    // this pack stands on a map that is not a body to fight.
     // 119, not 118: `tests/structures/turretPassives.test.ts`, which pins the
     // three turret passives this pack now ships as real buffs.
-    expect(files.length).toBe(119);
+    expect(files.length).toBe(120);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

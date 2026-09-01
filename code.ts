@@ -7,6 +7,7 @@ import makeDragonAbilities from './monsters/Dragon';
 import makeKrugAbilities from './monsters/Krugs';
 import makeScuttleAbilities from './monsters/ScuttleCrab';
 import makeVilemawAbilities from './monsters/Vilemaw';
+import makeHealthRelic, { RELIC_ROLE } from './structures/HealthRelic';
 import makeTurretPassives from './structures/Turret';
 import {
   makeBaronBlessing,
@@ -82,6 +83,11 @@ const code = (api: ContentApi): ContentPackCode => {
     // inside core's `Turret`. See `./structures/Turret.ts` for why the target
     // ladder and the defend radius are *not* here.
     turretPassives: makeTurretPassives(api),
+    // The first thing this pack stands on the map that is not a body to
+    // fight. No map here ships a `relic` slot — the same reason Vilemaw ships
+    // without one — so this is a map's to place, and costs nothing until one
+    // does. See `./structures/HealthRelic.ts`.
+    slotObjects: { [RELIC_ROLE]: makeHealthRelic(api) },
   };
 };
 
