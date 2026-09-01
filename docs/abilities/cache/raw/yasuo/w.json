@@ -1,0 +1,43 @@
+{
+  "payload": [
+    {
+      "page": "Template:Data Yasuo/Wind Wall",
+      "response": {
+        "expanded": {
+          "expandtemplates": {
+            "wikitext": "@@name@@Wind Wall@@icon@@Wind Wall.png@@icon2@@{{{icon2}}}@@icon3@@{{{icon3}}}@@icon4@@{{{icon4}}}@@description@@<span class=\"template_sbc\">'''Active:'''</span> '''Yasuo''' raises a wall of wind in the target direction for 4 seconds that destroys all hostile non-<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Turret\">[[File:Turret icon.png|20px|link=Turret|An icon representing the keyword Turret]] [[:Turret|turret]]</span> <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Projectile\">[[File:Projectile.png|20px|link=Projectile|An icon representing the keyword Projectile]] [[:Projectile|projectiles]]</span> that collide with it and grants <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Sight\">[[File:Sight icon.png|20px|link=Sight|An icon representing the keyword Sight]] [[:Sight|sight]]</span> of its surroundings.@@description2@@The wall travels in the targeted direction over the first <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Estimated\">0.<small>6</small> seconds</span>, then drifts forward another 50 units over the remaining duration.@@description3@@{{{description3}}}@@description4@@{{{description4}}}@@description5@@{{{description5}}}@@description6@@{{{description6}}}@@leveling@@<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Wall Width:'''</span></dt><dd>320 / 390 / 460 / 530 / 600</dd></dl>@@leveling2@@{{{leveling2}}}@@leveling3@@{{{leveling3}}}@@leveling4@@{{{leveling4}}}@@leveling5@@{{{leveling5}}}@@leveling6@@{{{leveling6}}}@@range@@<span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Windwall distance (final 50 units traveled only slowly)\">0 - 350</span> • <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Sight\">[[File:Sight icon.png|20px|link=Sight|An icon representing the keyword Sight]]</span><span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Center of sight area\">450</span>@@radius@@{{{radius}}}@@effectradius@@<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Sight\">[[File:Sight icon.png|20px|link=Sight|An icon representing the keyword Sight]]</span><span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Sight area radius\">300</span>@@width@@{{{width}}}@@speed@@{{{speed}}}@@casttime@@0.<small>013</small>@@cost@@{{{cost}}}@@cooldown@@25 / 23 / 21 / 19 / 17@@targeting@@Direction@@damagetype@@@@spellshield@@@@projectile@@Special@@notes@@\n* ''Wind Wall'' grants <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Sight\">[[File:Sight icon.png|20px|link=Sight|An icon representing the keyword Sight]] [[:Sight|sight]]</span> in a small static area in front of the cast location.\n* ''Wind Wall'' starts blocking projectiles on-cast (despite not being fully formed).\n* ''Wind Wall'' travels via a missile, and thus stops upon colliding with an enemy ''Wind Wall''.\n* '''Yasuo''' can move during ''Wind Wall's'' cast time.@@"
+          }
+        },
+        "revision": {
+          "batchcomplete": true,
+          "query": {
+            "pages": [
+              {
+                "ns": 10,
+                "pageid": 1307212,
+                "revisions": [
+                  {
+                    "parentid": 3959288,
+                    "revid": 4008635,
+                    "timestamp": "2026-04-15T00:36:22Z"
+                  }
+                ],
+                "title": "Template:Data Yasuo/Wind Wall"
+              }
+            ]
+          }
+        }
+      },
+      "revisionId": 4008635,
+      "timestamp": "2026-04-15T00:36:22Z"
+    }
+  ],
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "a846d9d5674d83351219a9a8b135d1a970443d361ce796d7ef0463c4644294cb",
+    "fetchedAt": "2026-09-01T05:17:05.139Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Wind_Wall",
+    "revisionId": 4008635,
+    "sourceTimestamp": "2026-04-15T00:36:22Z"
+  }
+}

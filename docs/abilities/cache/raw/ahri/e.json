@@ -1,0 +1,43 @@
+{
+  "payload": [
+    {
+      "page": "Template:Data Ahri/Charm",
+      "response": {
+        "expanded": {
+          "expandtemplates": {
+            "wikitext": "@@name@@Charm@@icon@@Charm.png@@icon2@@{{{icon2}}}@@icon3@@{{{icon3}}}@@icon4@@{{{icon4}}}@@description@@<span class=\"template_sbc\">'''Active:'''</span> '''Ahri''' blows forth a kiss in the target direction that deals <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to the first enemy hit, <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Knockdown\">[[File:Knockdown icon.png|20px|link=Knockdown|An icon representing the keyword Knockdown]] [[:Knockdown|knocking them down]]</span> and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Charm\">[[File:Charm icon.png|20px|link=Charm|An icon representing the keyword Charm]] [[:Charm|charming]]</span> and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slowing]]</span> them by 65% for a duration.@@description2@@{{{description2}}}@@description3@@{{{description3}}}@@description4@@{{{description4}}}@@description5@@{{{description5}}}@@description6@@{{{description6}}}@@leveling@@<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>80 / 120 / 160 / 200 / 240 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 85% AP)</span></dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Disable Duration:'''</span></dt><dd>1.<small>2</small> / 1.<small>35</small> / 1.<small>5</small> / 1.<small>65</small> / 1.<small>8</small> seconds</dd></dl>@@leveling2@@{{{leveling2}}}@@leveling3@@{{{leveling3}}}@@leveling4@@{{{leveling4}}}@@leveling5@@{{{leveling5}}}@@leveling6@@{{{leveling6}}}@@range@@<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Cr\">[[File:Range center.png|20px|link=Range|An icon representing the keyword Centered range]]</span> 1000@@radius@@{{{radius}}}@@effectradius@@{{{effect radius}}}@@width@@<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Er\">[[File:Range model.png|20px|link=Range|An icon representing the keyword Edge range]]</span> 120@@speed@@1550@@casttime@@0.<small>25</small>@@cost@@60@@cooldown@@12@@targeting@@Direction@@damagetype@@Magic@@spellshield@@True@@projectile@@True@@notes@@\n* ''Charm'' is able to <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slow]]</span> targets otherwise <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow immunity\">[[File:Slow immune 2.png|20px|link=Slow_resist#Slow Immunity|An icon representing the keyword Slow-immune]] [[:Slow_resist#Slow Immunity|immune to slows]]</span> upon <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Charm\">[[File:Charm icon.png|20px|link=Charm|An icon representing the keyword Charm]] [[:Charm|charming]]</span> them.<sup><span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"This is not intended. \">(bug)</span></sup>\n* This ability's damage is calculated based on the caster's stats at the time of its application.\n* This ability will cast from wherever the caster is at the end of the cast time.@@"
+          }
+        },
+        "revision": {
+          "batchcomplete": true,
+          "query": {
+            "pages": [
+              {
+                "ns": 10,
+                "pageid": 1306095,
+                "revisions": [
+                  {
+                    "parentid": 3906503,
+                    "revid": 3909373,
+                    "timestamp": "2025-06-11T15:25:17Z"
+                  }
+                ],
+                "title": "Template:Data Ahri/Charm"
+              }
+            ]
+          }
+        }
+      },
+      "revisionId": 3909373,
+      "timestamp": "2025-06-11T15:25:17Z"
+    }
+  ],
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "e5610a17ebae7803b96660c75d7244bc6dac634246f605bb728f6d0aa225a7a0",
+    "fetchedAt": "2026-09-01T05:17:23.565Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Charm",
+    "revisionId": 3909373,
+    "sourceTimestamp": "2025-06-11T15:25:17Z"
+  }
+}

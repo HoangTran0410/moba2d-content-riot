@@ -1,0 +1,66 @@
+{
+  "asset": {
+    "key": "spell_shaco_e",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Shaco_Two-Shiv_Poison.png?5fa67",
+    "sha1": "cb2e649148217536562dcd2ec87ed648e96df0ec"
+  },
+  "champion": "Shaco",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_shaco_e",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Shaco_Two-Shiv_Poison.png?5fa67",
+        "sha1": "cb2e649148217536562dcd2ec87ed648e96df0ec"
+      },
+      "fields": {
+        "casttime": "0.25",
+        "cooldown": "8",
+        "cost": "75",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Passive:'''</span> '''Shaco's''' basic attacks <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slow]]</span> enemies for 2 seconds while ''Two-Shiv Poison'' is not on cooldown.",
+          "text": "Passive: Shaco's basic attacks slow enemies for 2 seconds while Two-Shiv Poison is not on cooldown."
+        },
+        "description2": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Shaco''' throws a dagger at the target enemy that deals <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span>, [[File:Successfully enhanced damage magic icon.png|20px|link=Damage#Successful_ability_casts]] <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Cosmetic critical strike\">increased by 50%</span> if they are <span style=\"color:\n#21B053; white-space:normal\">'''below''' 30% of their '''maximum''' health</span>, and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slows\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slows]]</span> them for 3 seconds.",
+          "text": "Active: Shaco throws a dagger at the target enemy that deals magic damage, increased by 50% if they are below 30% of their maximum health, and slows them for 3 seconds."
+        },
+        "description3": {
+          "raw": "<span class=\"template_sbc\">'''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Shaco\" data-ability=\"Backstab\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Shaco Backstab.png|20xpx|border|link=Shaco#Backstab|An icon for Shaco's ability Backstab]]</span> <span style=\"white-space:normal;\">[[Shaco#Backstab|Backstab]]</span></span> Bonus:'''</span> The dagger deals an additional <span style=\"color:\n#00B0F0; white-space:normal\"><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-useformula=\"15 + (50-15)/17*(x-1)\" data-bot-values=\"15;17.06;19.12;21.18;23.24;25.29;27.35;29.41;31.47;33.53;35.59;37.65;39.71;41.76;43.82;45.88;47.94;50;52.06;54.12\">15 – 54.<small>12</small> (based on level)</span>[[Category:Debug]]</span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 10% AP)</span> <span style=\"color:\n#00B0F0; white-space:normal\">'''bonus''' magic damage</span>, increased to <span style=\"color:\n#00B0F0; white-space:normal\"><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-useformula=\"15*1.5 + (50*1.5-15*1.5)/17*(x-1)\" data-bot-values=\"22.5;25.59;28.68;31.76;34.85;37.94;41.03;44.12;47.21;50.29;53.38;56.47;59.56;62.65;65.74;68.82;71.91;75;78.09;81.18\">22.<small>5</small> – 81.<small>18</small> (based on level)</span>[[Category:Debug]]</span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 15% AP)</span> if the target is <span style=\"color:\n#21B053; white-space:normal\">'''below''' 30% of their '''maximum''' health</span>.",
+          "text": "Backstab Bonus: The dagger deals an additional 15 – 54.12 (based on level)Category:Debug (+ 10% AP) bonus magic damage, increased to 22.5 – 81.18 (based on level)Category:Debug (+ 15% AP) if the target is below 30% of their maximum health."
+        },
+        "icon": "false",
+        "icon2": "Two-Shiv Poison.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Slow:'''</span></dt><dd>20 / 22.<small>5</small> / 25 / 27.<small>5</small> / 30%</dd></dl>",
+          "text": "Slow:20 / 22.5 / 25 / 27.5 / 30%"
+        },
+        "leveling2": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>70 / 95 / 120 / 145 / 170 <span style=\"color:orange; white-space:normal\">(+ 80% '''bonus''' AD)</span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 60% AP)</span></dd><dt><span class=\"template_lc\">'''Increased Damage:'''</span></dt><dd>105 / 142.<small>5</small> / 180 / 217.<small>5</small> / 255 <span style=\"color:orange; white-space:normal\">(+ 120% '''bonus''' AD)</span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 90% AP)</span></dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Slow:'''</span></dt><dd>20 / 22.<small>5</small> / 25 / 27.<small>5</small> / 30%</dd></dl>",
+          "text": "Magic Damage:70 / 95 / 120 / 145 / 170 (+ 80% bonus AD) (+ 60% AP)Increased Damage:105 / 142.5 / 180 / 217.5 / 255 (+ 120% bonus AD) (+ 90% AP)\nSlow:20 / 22.5 / 25 / 27.5 / 30%"
+        },
+        "name": "Two-Shiv Poison",
+        "notes": {
+          "raw": "* '''Shaco''' replicates the last attack animation he performed for ''Two-Shiv Poison's'' animation.\n\n* If the target becomes <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Untargetable\">[[File:Untargetable icon.png|20px|link=Untargetable|An icon representing the keyword Untargetable]] [[:Untargetable|untargetable]]</span>, <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Death\">[[File:Death icon.svg|20px|link=Death|An icon representing the keyword Death]] [[:Death|dies]]</span>, or is too far away or no longer in <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Sight\">[[File:Sight icon.png|20px|link=Sight|An icon representing the keyword Sight]] [[:Sight|sight]]</span> during the cast time, this ability will cancel but does not go on <span style=\"white-space:nowrap\">[[File:Cooldown icon.png|15px|link=Cooldown]]&nbsp;cooldown</span> nor pay its cost (if applicable).",
+          "text": "Shaco replicates the last attack animation he performed for Two-Shiv Poison's animation.\nIf the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on &nbsp;cooldown nor pay its cost (if applicable)."
+        },
+        "projectile": true,
+        "speed": "1500",
+        "spellshield": true,
+        "targeting": "Unit"
+      },
+      "name": "Two-Shiv Poison"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "E",
+  "source": {
+    "contentHash": "c81646739816df736a4c38b45786adc6e8f8c4210a5881a6d654c41f05e35870",
+    "fetchedAt": "2026-09-01T05:17:15.273Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Two-Shiv_Poison",
+    "revisionId": 3985833,
+    "sourceTimestamp": "2026-01-21T19:44:34Z"
+  }
+}

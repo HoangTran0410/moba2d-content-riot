@@ -1,0 +1,70 @@
+{
+  "asset": {
+    "key": "spell_ahri_w",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Ahri_Fox-Fire.png?e5c46",
+    "sha1": "9e2a48063a389444b4cd2375b0e0eaedb47e845f"
+  },
+  "champion": "Ahri",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_ahri_w",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Ahri_Fox-Fire.png?e5c46",
+        "sha1": "9e2a48063a389444b4cd2375b0e0eaedb47e845f"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "9 / 8 / 7 / 6 / 5",
+        "cost": "30",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Ahri''' gains <span style=\"white-space:nowrap\">[[File:Movement speed icon.png|15px|link=Movement speed]]&nbsp;<span style=\"color:\n#9FFF4D; white-space:normal\">40% '''bonus''' movement speed</span></span> that decays over 2 seconds and conjures three flames which orbit her clockwise for up to 2.<small>5</small> seconds.",
+          "text": "Active: Ahri gains &nbsp;40% bonus movement speed that decays over 2 seconds and conjures three flames which orbit her clockwise for up to 2.5 seconds."
+        },
+        "description2": {
+          "raw": "After 0.<small>25</small> seconds of the cast, each flame targets a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Sight\">[[File:Sight icon.png|20px|link=Sight|An icon representing the keyword Sight]] [[:Sight|visible]]</span> enemy based on priority, or after 0.<small>4</small> seconds, simply targets the closest visible enemy in range. Each flame deals <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span>, with subsequent flames against a target dealing 40% damage.",
+          "text": "After 0.25 seconds of the cast, each flame targets a visible enemy based on priority, or after 0.4 seconds, simply targets the closest visible enemy in range. Each flame deals magic damage, with subsequent flames against a target dealing 40% damage."
+        },
+        "description3": {
+          "raw": "Flames prioritize enemy champions hit by ''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Ahri\" data-ability=\"Charm\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Ahri Charm.png|20xpx|border|link=Ahri#Charm|An icon for Ahri's ability Charm]]</span> <span style=\"white-space:normal;\">[[Ahri#Charm|Charm]]</span></span>'', then enemy <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Champion\">[[File:Champion icon.png|20px|link=Champion|An icon representing the keyword Champion]] [[:Champion|champions]]</span>, then minions that would die to ''Fox-Fire's'' damage, and then the target of '''Ahri's''' last basic attack within 3 seconds.",
+          "text": "Flames prioritize enemy champions hit by Charm, then enemy champions, then minions that would die to Fox-Fire's damage, and then the target of Ahri's last basic attack within 3 seconds."
+        },
+        "description4": {
+          "raw": "''Fox-Fire's'' damage is doubled against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Minions\">[[File:Minion icon.png|20px|link=Minion|An icon representing the keyword Minion]] [[:Minion|minions]]</span> below <span style=\"white-space:nowrap\">[[File:Health icon.png|15px|link=Health]]&nbsp;<span style=\"color:\n#21B053; white-space:normal\">20% '''maximum''' health</span></span>.",
+          "text": "Fox-Fire's damage is doubled against minions below &nbsp;20% maximum health."
+        },
+        "effectradius": "150 • 550 • 725",
+        "icon": "Fox-Fire.png",
+        "leveling2": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Primary Magic Damage:'''</span></dt><dd>40 / 60 / 80 / 100 / 120 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 40% AP)</span></dd><dt><span class=\"template_lc\">'''Subsequent Magic Damage:'''</span></dt><dd>16 / 24 / 32 / 40 / 48 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 16% AP)</span></dd><dt><span class=\"template_lc\">'''Total Single-Target Damage:'''</span></dt><dd>72 / 108 / 144 / 180 / 216 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 72% AP)</span></dd></dl>",
+          "text": "Primary Magic Damage:40 / 60 / 80 / 100 / 120 (+ 40% AP)Subsequent Magic Damage:16 / 24 / 32 / 40 / 48 (+ 16% AP)Total Single-Target Damage:72 / 108 / 144 / 180 / 216 (+ 72% AP)"
+        },
+        "leveling4": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Primary Minion Damage:'''</span></dt><dd>80 / 120 / 160 / 200 / 240 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 80% AP)</span></dd><dt><span class=\"template_lc\">'''Subsequent Minion Damage:'''</span></dt><dd>32 / 48 / 64 / 80 / 96 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 32% AP)</span></dd></dl>",
+          "text": "Primary Minion Damage:80 / 120 / 160 / 200 / 240 (+ 80% AP)Subsequent Minion Damage:32 / 48 / 64 / 80 / 96 (+ 32% AP)"
+        },
+        "name": "Fox-Fire",
+        "notes": {
+          "raw": "* Each missile of ''Fox-Fire'' has its own shorter non-priority range.\n* Any unused ''Fox-Fires'' will fizzle upon death.\n* This ability's damage is calculated based on the caster's current stats and changes dynamically.",
+          "text": "Each missile of Fox-Fire has its own shorter non-priority range.\nAny unused Fox-Fires will fizzle upon death.\nThis ability's damage is calculated based on the caster's current stats and changes dynamically."
+        },
+        "projectile": true,
+        "speed": "75.92&#176; per second • 1400",
+        "spellshield": true,
+        "targeting": "Auto"
+      },
+      "name": "Fox-Fire"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "W",
+  "source": {
+    "contentHash": "8fd3b8babb1f3e3139f89c39b8a5a34f47ec08d91304c3bf91a5325585562fc4",
+    "fetchedAt": "2026-09-01T05:17:23.565Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Fox-Fire",
+    "revisionId": 4007399,
+    "sourceTimestamp": "2026-04-11T16:29:02Z"
+  }
+}

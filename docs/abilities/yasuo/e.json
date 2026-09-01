@@ -1,0 +1,72 @@
+{
+  "asset": {
+    "key": "spell_yasuo_e",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Yasuo_Sweeping_Blade.png?4701b",
+    "sha1": "0cc3a17830471ec2d73fa278c553c0329be6c1e3"
+  },
+  "champion": "Yasuo",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_yasuo_e",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Yasuo_Sweeping_Blade.png?4701b",
+        "sha1": "0cc3a17830471ec2d73fa278c553c0329be6c1e3"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "0.5 / 0.4 / 0.3 / 0.2 / 0.1",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Yasuo''' <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Dashes\">[[File:Dash.png|20px|link=Dash|An icon representing the keyword Dash]] [[:Dash|dashes]]</span> a fixed distance in the direction of the target enemy and becomes <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Ghosted\">[[File:Ghost.png|20px|link=Unit collision|An icon representing the keyword Ghosted]] [[:Unit collision|ghosted]]</span> for 2 seconds, refreshing on subsequent casts. Upon impact, he deals <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to the target and generates a stack of ''Ride the Wind'' for 5 seconds, which refreshes on subsequent hits and stacks up to 4 times.",
+          "text": "Active: Yasuo dashes a fixed distance in the direction of the target enemy and becomes ghosted for 2 seconds, refreshing on subsequent casts. Upon impact, he deals magic damage to the target and generates a stack of Ride the Wind for 5 seconds, which refreshes on subsequent hits and stacks up to 4 times."
+        },
+        "description2": {
+          "raw": "<span class=\"template_sbc\">'''Ride the Wind:'''</span> ''Sweeping Blade's'' damage is increased by 25% per stack, up to 100% at maximum stacks.",
+          "text": "Ride the Wind: Sweeping Blade's damage is increased by 25% per stack, up to 100% at maximum stacks."
+        },
+        "description3": {
+          "raw": "''Sweeping Blade'' can be cast on the same target only once every few seconds.",
+          "text": "Sweeping Blade can be cast on the same target only once every few seconds."
+        },
+        "description4": {
+          "raw": "'''''Yasuo''' will be <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Knockdown\">[[File:Knockdown icon.png|20px|link=Knockdown|An icon representing the keyword Knockdown]] [[:Knockdown|knocked down]]</span> by any <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Immobilize\">[[File:Stun icon.png|20px|link=Crowd_control#Immobilizing|An icon representing the keyword Immobilize]] [[:Crowd_control#Immobilizing|immobilizing]]</span> or <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Polymorph\">[[File:Silence icon.png|20px|link=Types of Crowd Control#Polymorph|An icon representing the keyword Polymorph]] [[:Types of Crowd Control#Polymorph|polymorphing]]</span> crowd control during the dash.''",
+          "text": "Yasuo will be knocked down by any immobilizing or polymorphing crowd control during the dash."
+        },
+        "description5": {
+          "raw": "''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Yasuo\" data-ability=\"Last Breath\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Yasuo Last Breath.png|20xpx|border|link=Yasuo#Last Breath|An icon for Yasuo's ability Last Breath]]</span> <span style=\"white-space:normal;\">[[Yasuo#Last Breath|Last Breath]]</span></span> can be cast during the dash.''",
+          "text": "Last Breath can be cast during the dash."
+        },
+        "icon": "Sweeping Blade.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>70 / 85 / 100 / 115 / 130 <span style=\"color:orange; white-space:normal\">(+ 20% '''bonus''' AD)</span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 60% AP)</span></dd></dl>",
+          "text": "Magic Damage:70 / 85 / 100 / 115 / 130 (+ 20% bonus AD) (+ 60% AP)"
+        },
+        "leveling2": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Damage per Stack:'''</span></dt><dd>17.<small>5</small> / 21.<small>25</small> / 25 / 28.<small>75</small> / 32.<small>5</small> <span style=\"color:orange; white-space:normal\">(+ 5% '''bonus''' AD)</span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 15% AP)</span></dd><dt><span class=\"template_lc\">'''Maximum Bonus Damage:'''</span></dt><dd>70 / 85 / 100 / 115 / 130 <span style=\"color:orange; white-space:normal\">(+ 20% '''bonus''' AD)</span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 60% AP)</span></dd><dt><span class=\"template_lc\">'''Total Combined Damage:'''</span></dt><dd>140 / 170 / 200 / 230 / 260 <span style=\"color:orange; white-space:normal\">(+ 40% '''bonus''' AD)</span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 120% AP)</span></dd></dl>",
+          "text": "Bonus Damage per Stack:17.5 / 21.25 / 25 / 28.75 / 32.5 (+ 5% bonus AD) (+ 15% AP)Maximum Bonus Damage:70 / 85 / 100 / 115 / 130 (+ 20% bonus AD) (+ 60% AP)Total Combined Damage:140 / 170 / 200 / 230 / 260 (+ 40% bonus AD) (+ 120% AP)"
+        },
+        "name": "Sweeping Blade",
+        "notes": {
+          "raw": "* If <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Yasuo\" data-ability=\"Steel Tempest\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Yasuo Steel Tempest.png|20xpx|border|link=Yasuo#Steel Tempest|An icon for Yasuo's ability Steel Tempest]]</span> <span style=\"white-space:normal;\">[[Yasuo#Steel Tempest|Steel Tempest]]</span></span> has been buffered, <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Yasuo\" data-ability=\"Wind Wall\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Yasuo Wind Wall.png|20xpx|border|link=Yasuo#Wind Wall|An icon for Yasuo's ability Wind Wall]]</span> <span style=\"white-space:normal;\">[[Yasuo#Wind Wall|Wind Wall]]</span></span> may also be cast during the dash.<sup><span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"This does not match expectations. \">(unexpected)</span></sup>\n* ''Sweeping Blade'' will generate 7.<small>5</small> <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Flow\">[[File:Flow resource.png|20px|link=Flow|An icon representing the keyword Flow]] [[:Flow|Flow]]</span> stacks per cast that travels the maximum distance.\n* '''Yasuo''' can use ''Sweeping Blade's'' fixed dash distance to cross walls both before and after hitting his target (provided his proximity to the wall and/or target allows it).\n* After ''Sweeping Blade'', '''Yasuo''' becomes <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Ghosted\">[[File:Ghost.png|20px|link=Unit collision|An icon representing the keyword Ghosted]] [[:Unit collision|ghosted]]</span> for a moment to prevent situations where he would face extreme cases of body block.\n* <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Sleep\">[[File:Sleep icon.png|20px|link=Types of Crowd Control#Sleep|An icon representing the keyword Sleep]] [[:Types of Crowd Control#Sleep|Sleep]]</span> does not count for knocking the dash down.<sup><span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"This is not intended. \">(bug)</span></sup>",
+          "text": "If Steel Tempest has been buffered, Wind Wall may also be cast during the dash.(unexpected)\nSweeping Blade will generate 7.5 Flow stacks per cast that travels the maximum distance.\nYasuo can use Sweeping Blade's fixed dash distance to cross walls both before and after hitting his target (provided his proximity to the wall and/or target allows it).\nAfter Sweeping Blade, Yasuo becomes ghosted for a moment to prevent situations where he would face extreme cases of body block.\nSleep does not count for knocking the dash down.(bug)"
+        },
+        "range": "475 • 625",
+        "speed": "750 + 60% movement speed",
+        "spellshield": true,
+        "targeting": "Unit"
+      },
+      "name": "Sweeping Blade"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "E",
+  "source": {
+    "contentHash": "22c68426c5a677a0a18f3e23af2cace68f6db66c024a5e72c1623928b64c3402",
+    "fetchedAt": "2026-09-01T05:17:05.139Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Sweeping_Blade",
+    "revisionId": 4008638,
+    "sourceTimestamp": "2026-04-15T00:36:53Z"
+  }
+}

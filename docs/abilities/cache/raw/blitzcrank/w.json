@@ -1,0 +1,43 @@
+{
+  "payload": [
+    {
+      "page": "Template:Data Blitzcrank/Overdrive",
+      "response": {
+        "expanded": {
+          "expandtemplates": {
+            "wikitext": "@@name@@Overdrive@@icon@@Overdrive.png@@icon2@@{{{icon2}}}@@icon3@@{{{icon3}}}@@icon4@@{{{icon4}}}@@description@@<span class=\"template_sbc\">'''Active:'''</span> '''Blitzcrank''' shifts into overdrive, gaining <span style=\"white-space:nowrap\">[[File:Attack speed icon.png|15px|link=Attack speed]]&nbsp;<span style=\"color:\n#F5EE99; white-space:normal\">'''bonus''' attack speed</span></span> for 5 seconds and <span style=\"white-space:nowrap\">[[File:Movement speed icon.png|15px|link=Movement speed]]&nbsp;<span style=\"color:\n#9FFF4D; white-space:normal\">'''bonus''' movement speed</span></span> that decays to 10% over the first 2.<small>9</small> seconds.@@description2@@When ''Overdrive'' ends, '''Blitzcrank''' is <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slowed]]</span> by 30% for 1.<small>5</small> seconds.@@description3@@{{{description3}}}@@description4@@{{{description4}}}@@description5@@{{{description5}}}@@description6@@{{{description6}}}@@leveling@@<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Attack Speed:'''</span></dt><dd>30 / 40 / 50 / 60 / 70%</dd></dl><dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Initial Bonus Movement Speed:'''</span></dt><dd>60 / 65 / 70 / 75 / 80%</dd></dl>@@leveling2@@{{{leveling2}}}@@leveling3@@{{{leveling3}}}@@leveling4@@{{{leveling4}}}@@leveling5@@{{{leveling5}}}@@leveling6@@{{{leveling6}}}@@range@@{{{range}}}@@radius@@{{{radius}}}@@effectradius@@{{{effect radius}}}@@width@@{{{width}}}@@speed@@{{{speed}}}@@casttime@@none@@cost@@75@@cooldown@@15@@targeting@@Auto@@damagetype@@magic@@spellshield@@{{{spellshield}}}@@projectile@@{{{projectile}}}@@notes@@\n* The movement speed boost's decay is linear. On the first stat update after the buff is gained, the boost does not decay.\n* The self-slow is affected by <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow resist\">[[File:Slow immune icon.png|20px|link=Slow resist|An icon representing the keyword Slow resist]] [[:Slow resist|slow resist]]</span> and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Tenacity\">[[File:Tenacity icon.png|20px|link=Tenacity|An icon representing the keyword Tenacity]] [[:Tenacity|Tenacity]]</span>.@@"
+          }
+        },
+        "revision": {
+          "batchcomplete": true,
+          "query": {
+            "pages": [
+              {
+                "ns": 10,
+                "pageid": 1306874,
+                "revisions": [
+                  {
+                    "parentid": 3884796,
+                    "revid": 3906572,
+                    "timestamp": "2025-06-06T04:36:08Z"
+                  }
+                ],
+                "title": "Template:Data Blitzcrank/Overdrive"
+              }
+            ]
+          }
+        }
+      },
+      "revisionId": 3906572,
+      "timestamp": "2025-06-06T04:36:08Z"
+    }
+  ],
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "c723a0d4f1fc01d37f9ffad5390768d4e504e44c474a207fa25141303b3b5cdc",
+    "fetchedAt": "2026-09-01T05:17:31.206Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Overdrive",
+    "revisionId": 3906572,
+    "sourceTimestamp": "2025-06-06T04:36:08Z"
+  }
+}

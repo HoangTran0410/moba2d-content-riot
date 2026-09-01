@@ -1,0 +1,116 @@
+{
+  "asset": {
+    "key": "champ_irelia",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Irelia_OriginalSquare.png?fad5e",
+    "sha1": "182f3482db26b42aa3475bd3b5f2665a3d2c6d57"
+  },
+  "champion": "Irelia",
+  "data": {
+    "adaptivetype": "Physical",
+    "alttype": "Assassin",
+    "apiname": "Irelia",
+    "be": 1575,
+    "changes": "V26.17",
+    "client_positions": [
+      "Top",
+      "Middle"
+    ],
+    "client_tags": [
+      "Mobile",
+      "Duelist",
+      "Physical"
+    ],
+    "control": 2,
+    "damage": 2,
+    "date": "2010-11-16",
+    "difficulty": 3,
+    "external_positions": [
+      "Top",
+      "Middle"
+    ],
+    "fullname": "Xan Irelia",
+    "herotype": "Fighter",
+    "id": 39,
+    "mobility": 3,
+    "patch": "V1.0.0.105",
+    "rangetype": "Melee",
+    "resource": "Mana",
+    "role": [
+      "Diver"
+    ],
+    "rp": 790,
+    "skill_e": {
+      "1": "Flawless Duet"
+    },
+    "skill_i": {
+      "1": "Ionian Fervor"
+    },
+    "skill_q": {
+      "1": "Bladesurge"
+    },
+    "skill_r": {
+      "1": "Vanguard's Edge"
+    },
+    "skill_w": {
+      "1": "Defiant Dance"
+    },
+    "skills": {
+      "1": "Ionian Fervor",
+      "2": "Bladesurge",
+      "3": "Defiant Dance",
+      "4": "Flawless Duet",
+      "5": "Vanguard's Edge"
+    },
+    "stats": {
+      "acquisition_radius": 600,
+      "ar": {
+        "hp_lvl": 12
+      },
+      "aram": {
+        "ability_haste": 20,
+        "dmg_dealt": 1.05,
+        "dmg_taken": 1
+      },
+      "arm_base": 36,
+      "arm_lvl": 4.7,
+      "as_base": 0.656,
+      "as_lvl": 2.5,
+      "as_ratio": 0.656000018119812,
+      "attack_cast_time": 0.300000011920928,
+      "attack_total_time": 1.52499997615814,
+      "dam_base": 65,
+      "dam_lvl": 3.5,
+      "hp5_base": 3.5,
+      "hp5_lvl": 0.85,
+      "hp_base": 630,
+      "hp_lvl": 115,
+      "mp5_base": 8,
+      "mp5_lvl": 0.8,
+      "mp_base": 350,
+      "mp_lvl": 50,
+      "mr_base": 30,
+      "mr_lvl": 2.05,
+      "ms": 335,
+      "ofa": {
+        "dmg_dealt": 0.97
+      },
+      "pathing_radius": 35,
+      "range": 200,
+      "selection_height": 120,
+      "selection_radius": 100
+    },
+    "style": 30,
+    "title": "The Blade Dancer",
+    "toughness": 2,
+    "utility": 2
+  },
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "a2b98642613800234bdd8a8b5443b5812050b393c31effd4d691f0a011089784",
+    "fetchedAt": "2026-09-01T05:17:49.191Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Module:ChampionData/data",
+    "revisionId": 4057479,
+    "sourceTimestamp": "2026-08-27T09:15:46Z"
+  }
+}

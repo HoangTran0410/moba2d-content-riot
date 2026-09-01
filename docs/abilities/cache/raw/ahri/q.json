@@ -1,0 +1,43 @@
+{
+  "payload": [
+    {
+      "page": "Template:Data Ahri/Orb of Deception",
+      "response": {
+        "expanded": {
+          "expandtemplates": {
+            "wikitext": "@@name@@Orb of Deception@@icon@@Orb of Deception.png@@icon2@@{{{icon2}}}@@icon3@@{{{icon3}}}@@icon4@@{{{icon4}}}@@description@@<span class=\"template_sbc\">'''Active:'''</span> '''Ahri''' sends her orb in the target direction that deals <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to enemies it passes through. Upon reaching maximum range, it returns to her to deal the same amount in <span style=\"white-space:nowrap\">[[File:Hybrid penetration icon.png|15px|link=True damage]]&nbsp;<span style=\"color:\n#F9966B; white-space:normal\">true damage</span></span> to enemies it passes through.@@description2@@''Enemies can be hit only once per pass.''@@description3@@{{{description3}}}@@description4@@{{{description4}}}@@description5@@{{{description5}}}@@description6@@{{{description6}}}@@leveling@@<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Damage Per Pass:'''</span></dt><dd>35 / 60 / 85 / 110 / 135 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 50% AP)</span></dd><dt><span class=\"template_lc\">'''Total Mixed Damage:'''</span></dt><dd>70 / 120 / 170 / 220 / 270 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 100% AP)</span></dd></dl>@@leveling2@@{{{leveling2}}}@@leveling3@@{{{leveling3}}}@@leveling4@@{{{leveling4}}}@@leveling5@@{{{leveling5}}}@@leveling6@@{{{leveling6}}}@@range@@<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Cr\">[[File:Range center.png|20px|link=Range|An icon representing the keyword Centered range]]</span> <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Without return point aoe\">900</span>@@radius@@{{{radius}}}@@effectradius@@<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Cr\">[[File:Range center.png|20px|link=Range|An icon representing the keyword Centered range]]</span> <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Circle check at return point\">100</span>@@width@@<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Er\">[[File:Range model.png|20px|link=Range|An icon representing the keyword Edge range]]</span> 200@@speed@@<span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Outgoing missile\">1550</span> • <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Returning missile, acceleration 1900\">60 - 2600</span>@@casttime@@0.<small>25</small>@@cost@@55 / 65 / 75 / 85 / 95@@cooldown@@7@@targeting@@Direction@@damagetype@@Magic True@@spellshield@@Special@@projectile@@True@@notes@@\n* ''Orb of Deception'' will hit additional units around the return point in a small circle when the orb turns around.\n** This applies both to the initial and return missile's damage, but the initial missile only deals damage if the unit was not hit by it already.\n* Each pass of the projectile can only damage an enemy once.\n* If '''Ahri''' dies while the orb is out, the orb will visually disappear but continue to deal damage and return to '''Ahri'''.<sup><span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"This is not intended. \">(bug)</span></sup>\n* This ability will cast from wherever the caster is at the end of the cast time.\n* This ability's damage is calculated based on the caster's current stats and changes dynamically.@@"
+          }
+        },
+        "revision": {
+          "batchcomplete": true,
+          "query": {
+            "pages": [
+              {
+                "ns": 10,
+                "pageid": 1306091,
+                "revisions": [
+                  {
+                    "parentid": 4000221,
+                    "revid": 4007396,
+                    "timestamp": "2026-04-11T16:27:49Z"
+                  }
+                ],
+                "title": "Template:Data Ahri/Orb of Deception"
+              }
+            ]
+          }
+        }
+      },
+      "revisionId": 4007396,
+      "timestamp": "2026-04-11T16:27:49Z"
+    }
+  ],
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "e0eda0ef88b57e1897d63dcb1b6e3a787d8497b127c2e5d438be254d10ab8a0f",
+    "fetchedAt": "2026-09-01T05:17:23.565Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Orb_of_Deception",
+    "revisionId": 4007396,
+    "sourceTimestamp": "2026-04-11T16:27:49Z"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "asset": {
+    "key": "spell_blitzcrank_r",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Blitzcrank_Static_Field.png?37a76",
+    "sha1": "b347865849e267dd616ac5440ca2775705ecbb81"
+  },
+  "champion": "Blitzcrank",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_blitzcrank_r",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Blitzcrank_Static_Field.png?37a76",
+        "sha1": "b347865849e267dd616ac5440ca2775705ecbb81"
+      },
+      "fields": {
+        "casttime": "0.25",
+        "cooldown": "60 / 50 / 40 / 30 / 20",
+        "cost": "100",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Passive:'''</span> While ''Static Field'' is not on cooldown, '''Blitzcrank's''' <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic attacks\">[[File:Basic attack cursor icon.png|20px|link=Basic attack|An icon representing the keyword Basic attack]] [[:Basic attack|basic attacks]]</span> apply a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Stack\">[[File:Stack icon.png|20px|link=Stack|An icon representing the keyword Stack]] [[:Stack|stack]]</span> to the target <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"On-hit\">[[File:On-hit icon.png|20px|link=Attack_effects#On_Hitting|An icon representing the keyword On-hit]] [[:Attack_effects#On_Hitting|on-hit]]</span>. While the target is afflicted, one stack is consumed every 1 second to strike them with lightning, dealing <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> each time.",
+          "text": "Passive: While Static Field is not on cooldown, Blitzcrank's basic attacks apply a stack to the target on-hit. While the target is afflicted, one stack is consumed every 1 second to strike them with lightning, dealing magic damage each time."
+        },
+        "description2": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Blitzcrank''' detonates a static field that destroys the damage-mitigating <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Shield\">[[File:Hybrid resistances icon.png|20px|link=Shield|An icon representing the keyword Shield]] [[:Shield|shields]]</span> of all nearby enemies, excluding the shields of <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Monsters\">[[File:Monster icon.png|20px|link=Monster|An icon representing the keyword Monster]] [[:Monster|monsters]]</span>, and then deals them <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Silence\">[[File:Silence icon.png|20px|link=Silence|An icon representing the keyword Silence]] [[:Silence|silences]]</span> them for 0.<small>5</small> seconds.",
+          "text": "Active: Blitzcrank detonates a static field that destroys the damage-mitigating shields of all nearby enemies, excluding the shields of monsters, and then deals them magic damage and silences them for 0.5 seconds."
+        },
+        "effectradius": "600",
+        "icon": "false",
+        "icon2": "Static Field.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>50 / 75 / 100 / 125 / 150 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 30 / 35 / 40 / 45 / 50% AP)</span> <span style=\"color:\n#0099CC; white-space:normal\">(+ 2% '''maximum''' mana)</span></dd></dl>",
+          "text": "Magic Damage:50 / 75 / 100 / 125 / 150 (+ 30 / 35 / 40 / 45 / 50% AP) (+ 2% maximum mana)"
+        },
+        "leveling2": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>275 / 337.<small>5</small> / 400 / 462.<small>5</small> / 525 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 100% AP)</span></dd></dl>",
+          "text": "Magic Damage:275 / 337.5 / 400 / 462.5 / 525 (+ 100% AP)"
+        },
+        "name": "Static Field",
+        "notes": {
+          "raw": "* '''Blitzcrank's''' attacks do not have to deal damage to apply the mark.\n* '''Blitzcrank's''' attacks will not apply a mark if the attack is <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Dodge\">[[File:Jax Counter Strike old.png|20px|link=Attack_effects#Parrying|An icon representing the keyword Dodge]] [[:Attack_effects#Parrying|dodged]]</span> or missed while '''Blitzcrank''' is <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Blind\">[[File:Blind icon.png|20px|link=Blind|An icon representing the keyword Blind]] [[:Blind|blinded]]</span>.\n** A mark will still be applied if the attack is <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Block\">[[File:Spirit's Refuge.png|20px|link=Attack_effects#Parrying|An icon representing the keyword Block]] [[:Attack_effects#Parrying|blocked]]</span>. \n* The mark will be consumed even if the target becomes <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Untargetable\">[[File:Untargetable icon.png|20px|link=Untargetable|An icon representing the keyword Untargetable]] [[:Untargetable|untargetable]]</span>.\n* The lightning bolts deal <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spell damage\">[[File:Disintegrate.png|20px|link=Damage|An icon representing the keyword Ability damage]] [[:Damage|spell damage]]</span> while the static field applies <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Area damage\">[[File:Mega Inferno Bomb.png|20px|link=Damage|An icon representing the keyword Area damage]] [[:Damage|area damage]]</span>.\n* This ability will cast from wherever the caster is at the end of the cast time.\n* Even if ''Static Field'' is blocked by a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spell shield\">[[File:Spell Shield.png|20px|link=Spell shield|An icon representing the keyword Spell shield]] [[:Spell shield|spell shield]]</span>, it will still destroy any existing damage <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Shield\">[[File:Hybrid resistances icon.png|20px|link=Shield|An icon representing the keyword Shield]] [[:Shield|shields]]</span> on the target.",
+          "text": "Blitzcrank's attacks do not have to deal damage to apply the mark.\nBlitzcrank's attacks will not apply a mark if the attack is dodged or missed while Blitzcrank is blinded.\n* A mark will still be applied if the attack is blocked.\nThe mark will be consumed even if the target becomes untargetable.\nThe lightning bolts deal spell damage while the static field applies area damage.\nThis ability will cast from wherever the caster is at the end of the cast time.\nEven if Static Field is blocked by a spell shield, it will still destroy any existing damage shields on the target."
+        },
+        "spellshield": true,
+        "targeting": "Auto"
+      },
+      "name": "Static Field"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "R",
+  "source": {
+    "contentHash": "baa5e32304a313e46ad411f019072c00945e9aa71d2bdd3aa52cf00d4f63219c",
+    "fetchedAt": "2026-09-01T05:17:31.206Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Static_Field",
+    "revisionId": 3956748,
+    "sourceTimestamp": "2025-10-01T09:04:05Z"
+  }
+}

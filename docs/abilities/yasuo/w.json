@@ -1,0 +1,55 @@
+{
+  "asset": {
+    "key": "spell_yasuo_w",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Yasuo_Wind_Wall.png?0ffbb",
+    "sha1": "c8d75e2bedec4c044c3f75a340d1baf998bd8d5f"
+  },
+  "champion": "Yasuo",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_yasuo_w",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Yasuo_Wind_Wall.png?0ffbb",
+        "sha1": "c8d75e2bedec4c044c3f75a340d1baf998bd8d5f"
+      },
+      "fields": {
+        "casttime": "0.013",
+        "cooldown": "25 / 23 / 21 / 19 / 17",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Yasuo''' raises a wall of wind in the target direction for 4 seconds that destroys all hostile non-<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Turret\">[[File:Turret icon.png|20px|link=Turret|An icon representing the keyword Turret]] [[:Turret|turret]]</span> <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Projectile\">[[File:Projectile.png|20px|link=Projectile|An icon representing the keyword Projectile]] [[:Projectile|projectiles]]</span> that collide with it and grants <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Sight\">[[File:Sight icon.png|20px|link=Sight|An icon representing the keyword Sight]] [[:Sight|sight]]</span> of its surroundings.",
+          "text": "Active: Yasuo raises a wall of wind in the target direction for 4 seconds that destroys all hostile non- turret projectiles that collide with it and grants sight of its surroundings."
+        },
+        "description2": {
+          "raw": "The wall travels in the targeted direction over the first <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Estimated\">0.<small>6</small> seconds</span>, then drifts forward another 50 units over the remaining duration.",
+          "text": "The wall travels in the targeted direction over the first 0.6 seconds, then drifts forward another 50 units over the remaining duration."
+        },
+        "effectradius": "300",
+        "icon": "Wind Wall.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Wall Width:'''</span></dt><dd>320 / 390 / 460 / 530 / 600</dd></dl>",
+          "text": "Wall Width:320 / 390 / 460 / 530 / 600"
+        },
+        "name": "Wind Wall",
+        "notes": {
+          "raw": "* ''Wind Wall'' grants <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Sight\">[[File:Sight icon.png|20px|link=Sight|An icon representing the keyword Sight]] [[:Sight|sight]]</span> in a small static area in front of the cast location.\n* ''Wind Wall'' starts blocking projectiles on-cast (despite not being fully formed).\n* ''Wind Wall'' travels via a missile, and thus stops upon colliding with an enemy ''Wind Wall''.\n* '''Yasuo''' can move during ''Wind Wall's'' cast time.",
+          "text": "Wind Wall grants sight in a small static area in front of the cast location.\nWind Wall starts blocking projectiles on-cast (despite not being fully formed).\nWind Wall travels via a missile, and thus stops upon colliding with an enemy Wind Wall.\nYasuo can move during Wind Wall's cast time."
+        },
+        "projectile": false,
+        "range": "0 - 350 • 450",
+        "targeting": "Direction"
+      },
+      "name": "Wind Wall"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "W",
+  "source": {
+    "contentHash": "1072522a5aa751a9129d4570db9e4b238794182d96853abad8802fe33a5c9e2c",
+    "fetchedAt": "2026-09-01T05:17:05.139Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Wind_Wall",
+    "revisionId": 4008635,
+    "sourceTimestamp": "2026-04-15T00:36:22Z"
+  }
+}

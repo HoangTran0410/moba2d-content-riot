@@ -1,0 +1,54 @@
+{
+  "asset": {
+    "key": "spell_zed_q",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Zed_Razor_Shuriken.png?dc351",
+    "sha1": "166acc89e42060021377580934549c6b0c7a333f"
+  },
+  "champion": "Zed",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_zed_q",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Zed_Razor_Shuriken.png?dc351",
+        "sha1": "166acc89e42060021377580934549c6b0c7a333f"
+      },
+      "fields": {
+        "casttime": "0.25",
+        "cooldown": "6",
+        "cost": "75 / 70 / 65 / 60 / 55",
+        "damagetype": "Physical",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Zed''' throws a shuriken in the target direction that deals <span style=\"color:\n#FF8C34; white-space:normal\">physical damage</span> to enemies hit, reduced to 60% against targets beyond the first.",
+          "text": "Active: Zed throws a shuriken in the target direction that deals physical damage to enemies hit, reduced to 60% against targets beyond the first."
+        },
+        "icon": "Razor Shuriken.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Physical Damage:'''</span></dt><dd>80 / 120 / 160 / 200 / 240 <span style=\"color:orange; white-space:normal\">(+ 100% '''bonus''' AD)</span></dd><dt><span class=\"template_lc\">'''Reduced Damage:'''</span></dt><dd>48 / 72 / 96 / 120 / 144 <span style=\"color:orange; white-space:normal\">(+ 60% '''bonus''' AD)</span></dd></dl>",
+          "text": "Physical Damage:80 / 120 / 160 / 200 / 240 (+ 100% bonus AD)Reduced Damage:48 / 72 / 96 / 120 / 144 (+ 60% bonus AD)"
+        },
+        "name": "Razor Shuriken",
+        "notes": {
+          "raw": "* ''Shurikens'' blocked by <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spell shield\">[[File:Spell Shield.png|20px|link=Spell shield|An icon representing the keyword Spell shield]] [[:Spell shield|spell shield]]</span> still count as being hit for the reduced pass-through damage.\n* ''Razor Shuriken'' is special cased to not lock out <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Zed\" data-ability=\"Living Shadow 2\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Zed Living Shadow 2.png|20xpx|border|link=Zed#Living Shadow 2|An icon for Zed's ability Living Shadow 2]]</span> <span style=\"white-space:normal;\">[[Zed#Living Shadow 2|Living Shadow's]]</span></span> recast during its cast time.\n** Other abilities are locked out and buffered to cast after ''Razor Shuriken's'' cast time, as normal.\n* If '''Zed''' buffers an attack command during ''Razor Shuriken's'' cast time the attack will perform slower than if '''Zed''' had attacked after the cast time.\n** The same does not happen if '''Zed''' recasts <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Zed\" data-ability=\"Living Shadow 2\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Zed Living Shadow 2.png|20xpx|border|link=Zed#Living Shadow 2|An icon for Zed's ability Living Shadow 2]]</span> <span style=\"white-space:normal;\">[[Zed#Living Shadow 2|Living Shadow]]</span></span> during ''Razor Shuriken's'' cast time.\n* This ability will cast from wherever the caster is at the end of the cast time.",
+          "text": "Shurikens blocked by spell shield still count as being hit for the reduced pass-through damage.\nRazor Shuriken is special cased to not lock out Living Shadow's recast during its cast time.\n* Other abilities are locked out and buffered to cast after Razor Shuriken's cast time, as normal.\nIf Zed buffers an attack command during Razor Shuriken's cast time the attack will perform slower than if Zed had attacked after the cast time.\n* The same does not happen if Zed recasts Living Shadow during Razor Shuriken's cast time.\nThis ability will cast from wherever the caster is at the end of the cast time."
+        },
+        "projectile": true,
+        "speed": "1700",
+        "spellshield": true,
+        "targeting": "Direction",
+        "width": "100"
+      },
+      "name": "Razor Shuriken"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "Q",
+  "source": {
+    "contentHash": "73c0db245fcc4e94051be2ff1e5f64c54115bafcd7f36d2b79cc54c03bf68e5c",
+    "fetchedAt": "2026-09-01T05:17:39.358Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Razor_Shuriken",
+    "revisionId": 4006897,
+    "sourceTimestamp": "2026-04-08T04:44:29Z"
+  }
+}

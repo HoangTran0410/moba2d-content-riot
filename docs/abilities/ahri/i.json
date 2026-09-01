@@ -1,0 +1,46 @@
+{
+  "asset": {
+    "key": "spell_ahri_i",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Ahri_Essence_Theft.png?42d9b",
+    "sha1": "8be0c448d2be03d99ad399b83d0ca34eb7727265"
+  },
+  "champion": "Ahri",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_ahri_i",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Ahri_Essence_Theft.png?42d9b",
+        "sha1": "8be0c448d2be03d99ad399b83d0ca34eb7727265"
+      },
+      "fields": {
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Innate:'''</span> '''Ahri''' generates a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Stack\">[[File:Stack icon.png|20px|link=Stack|An icon representing the keyword Stack]] [[:Stack|stack]]</span> of ''Essence Fragment'' whenever she kills a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Minion\">[[File:Minion icon.png|20px|link=Minion|An icon representing the keyword Minion]] [[:Minion|minion]]</span> or <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Monster\">[[File:Monster icon.png|20px|link=Monster|An icon representing the keyword Monster]] [[:Monster|monster]]</span>. At 9 stacks, she consumes them to <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Heal\">[[File:Heal power icon.svg|20px|link=Healing|An icon representing the keyword Heal]] [[:Healing|heal]]</span> herself for <span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help; color:#60E08F;\" data-start=\"35;\" data-finish=\"95;\" data-top-fill=\"18\" data-bot-values=\"35;38.53;42.06;45.59;49.12;52.65;56.18;59.71;63.24;66.76;70.29;73.82;77.35;80.88;84.41;87.94;91.47;95;98.53;102.06;105.59;109.12;112.65;116.18;119.71;123.24;126.76;130.29;133.82;137.35;140.88;144.41;147.94;151.47;155;158.53;162.06;165.59;169.12;172.65;176.18|displayMaxColumn=18\">35 – 95 (based on level)</span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 20% AP)</span>.",
+          "text": "Innate: Ahri generates a stack of Essence Fragment whenever she kills a minion or monster. At 9 stacks, she consumes them to heal herself for 35 – 95 (based on level) (+ 20% AP)."
+        },
+        "description2": {
+          "raw": "Additionally, whenever '''Ahri''' scores a champion <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Takedown\">[[File:Damage rating.png|20px|link=Takedown|An icon representing the keyword Takedown]] [[:Takedown|takedown]]</span> within 3 seconds of damaging them, she consumes their essence to heal herself for <span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help; color:#60E08F;\" data-start=\"75;\" data-finish=\"165;\" data-top-fill=\"18\" data-bot-values=\"75;80.29;85.59;90.88;96.18;101.47;106.76;112.06;117.35;122.65;127.94;133.24;138.53;143.82;149.12;154.41;159.71;165;170.29;175.59;180.88;186.18;191.47;196.76;202.06;207.35;212.65;217.94;223.24;228.53;233.82;239.12;244.41;249.71;255;260.29;265.59;270.88;276.18;281.47;286.76|displayMaxColumn=18\">75 – 165 (based on level)</span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 30% AP)</span>.",
+          "text": "Additionally, whenever Ahri scores a champion takedown within 3 seconds of damaging them, she consumes their essence to heal herself for 75 – 165 (based on level) (+ 30% AP)."
+        },
+        "icon": "Essence Theft.png",
+        "name": "Essence Theft",
+        "notes": {
+          "raw": "* No additional details.",
+          "text": "No additional details."
+        },
+        "targeting": "Passive"
+      },
+      "name": "Essence Theft"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "I",
+  "source": {
+    "contentHash": "db13f6025d6053c109c530c3058ec2cb7cec378fb6e4721468fe3c5d4f0f7333",
+    "fetchedAt": "2026-09-01T05:17:23.565Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Essence_Theft",
+    "revisionId": 4038191,
+    "sourceTimestamp": "2026-06-30T04:55:19Z"
+  }
+}

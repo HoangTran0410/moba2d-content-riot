@@ -1,0 +1,50 @@
+{
+  "asset": {
+    "key": "spell_yasuo_i",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Yasuo_Way_of_the_Wanderer.png?77f41",
+    "sha1": "2cd65afa7273148b09661a71690bddcfa4bc3931"
+  },
+  "champion": "Yasuo",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_yasuo_i",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Yasuo_Way_of_the_Wanderer.png?77f41",
+        "sha1": "2cd65afa7273148b09661a71690bddcfa4bc3931"
+      },
+      "fields": {
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Innate - Intent:'''</span> '''Yasuo's''' <span style=\"color:orangered; white-space:normal\"><span style=\"white-space:nowrap\">[[File:Critical strike chance icon.png|15px|link=Critical strike]]&nbsp;'''total''' critical strike chance</span></span> is doubled from all other sources. Additionally,<span id=\"container\" class=\"container\" style=\"cursor:help;\"><span class=\"flipText1 active\">「&nbsp;every <span style=\"color:orangered; white-space:normal\">1% critical strike chance</span> in excess of <span style=\"color:orangered; white-space:normal\">100%</span> is converted into <span style=\"white-space:nowrap\">[[File:Attack damage icon.svg|15px|link=Attack damage]]&nbsp;<span style=\"color:orange; white-space:normal\">0.<small>5</small> '''bonus''' attack damage</span></span>.&nbsp;」</span><span class=\"flipText2\">「&nbsp;every <span style=\"color:orangered; white-space:normal\">50% critical strike chance</span> in excess of <span style=\"color:orangered; white-space:normal\">100%</span> is converted into <span style=\"white-space:nowrap\">[[File:Attack damage icon.svg|15px|link=Attack damage]]&nbsp;<span style=\"color:orange; white-space:normal\">25 '''bonus''' attack damage</span></span>.&nbsp;」</span></span>",
+          "text": "Innate - Intent: Yasuo's &nbsp;total critical strike chance is doubled from all other sources. Additionally,「&nbsp;every 1% critical strike chance in excess of 100% is converted into &nbsp;0.5 bonus attack damage.&nbsp;」「&nbsp;every 50% critical strike chance in excess of 100% is converted into &nbsp;25 bonus attack damage.&nbsp;」"
+        },
+        "description2": {
+          "raw": "'''Yasuo's''' <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Critically strike\">[[File:Critical strike icon.png|20px|link=Critical strike|An icon representing the keyword Critical strike]] [[:Critical strike|critical strikes]]</span> deal only<span id=\"container\" class=\"container\" style=\"cursor:help;\"><span class=\"flipText1 active\">「&nbsp;<span style=\"color:orange; white-space:normal\">(190%&nbsp;+&nbsp;<span class=\"inline-image item-icon label-after item-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-item=\"Infinity Edge\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Infinity Edge item.png|20xpx|border|link=Infinity Edge|An icon for the item Infinity Edge]]</span> <span style=\"white-space:normal;\">[[Infinity Edge|28.<small>5</small>%]]</span></span>) AD</span> <span style=\"color:\n#FF8C34; white-space:normal\">physical damage</span>.&nbsp;」</span><span class=\"flipText2\">「&nbsp;95% of the <span style=\"white-space:nowrap\">[[File:Critical strike damage icon.png|15px|link=Critical strike]]&nbsp;<span style=\"color:\n#B4814C; white-space:normal\">critical damage</span></span> champions usually have.&nbsp;」</span></span>",
+          "text": "Yasuo's critical strikes deal only「&nbsp;(190%&nbsp;+&nbsp; 28.5%) AD physical damage.&nbsp;」「&nbsp;95% of the &nbsp;critical damage champions usually have.&nbsp;」"
+        },
+        "description3": {
+          "raw": "<span class=\"template_sbc\">'''Innate - Resolve:'''</span> '''Yasuo''' generates a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Stack\">[[File:Stack icon.png|20px|link=Stack|An icon representing the keyword Stack]] [[:Stack|stack]]</span> of <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Flow\">[[File:Flow resource.png|20px|link=Flow|An icon representing the keyword Flow]] [[:Flow|Flow]]</span> for every <span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-start=\"59;1\" data-finish=\"46;13\" data-top-fill=\"3\" data-bot-values=\"59;52.5;46\" data-top-values=\"1;7;13\">59 / 52.<small>5</small> / 46 (based on level)</span> units he travels by any means. At<span id=\"container\" class=\"container\" style=\"cursor:help;\"><span class=\"flipText1 active\">「&nbsp;100 stacks&nbsp;」</span><span class=\"flipText2\">「&nbsp;<span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-start=\"5900;1\" data-finish=\"4600;13\" data-top-fill=\"3\" data-bot-values=\"5900;5250;4600\" data-top-values=\"1;7;13\">5900 / 5250 / 4600 (based on level)</span> units traveled&nbsp;」</span></span>and upon taking damage from an enemy <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Champion\">[[File:Champion icon.png|20px|link=Champion|An icon representing the keyword Champion]] [[:Champion|champion]]</span> or <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Monster\">[[File:Monster icon.png|20px|link=Monster|An icon representing the keyword Monster]] [[:Monster|monster]]</span>, '''Yasuo''' consumes all <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Flow\">[[File:Flow resource.png|20px|link=Flow|An icon representing the keyword Flow]] [[:Flow|Flow]]</span> to grant himself a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Shield\">[[File:Hybrid resistances icon.png|20px|link=Shield|An icon representing the keyword Shield]] [[:Shield|shield]]</span> for <span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-useformula=\"125+((600-125)/17*(x-1)*(0.7025+0.0175*(x-1)))\" data-bot-values=\"125;145.12;166.21;188.29;211.34;235.37;260.38;286.36;313.32;341.26;370.18;400.08;430.96;462.81;495.64;529.45;564.24;600;636.74;674.46\">125 – 674.<small>46</small> (based on level)</span>[[Category:Debug]] that lasts for 1 second.",
+          "text": "Innate - Resolve: Yasuo generates a stack of Flow for every 59 / 52.5 / 46 (based on level) units he travels by any means. At「&nbsp;100 stacks&nbsp;」「&nbsp;5900 / 5250 / 4600 (based on level) units traveled&nbsp;」and upon taking damage from an enemy champion or monster, Yasuo consumes all Flow to grant himself a shield for 125 – 674.46 (based on level)Category:Debug that lasts for 1 second."
+        },
+        "icon": "Way of the Wanderer.png",
+        "name": "Way of the Wanderer",
+        "notes": {
+          "raw": "* '''Yasuo''' gains the shield before the damage instance; the shield will mitigate the damage that triggered it.\n* '''Yasuo''' is able to reach <span style=\"color:orangered; white-space:normal\">100% critical strike chance</span> with ''Way of the Wanderer's'' multiplier after obtaining a total of <span style=\"white-space:nowrap\">[[File:Critical strike chance icon.png|15px|link=Critical strike]]&nbsp;<span style=\"color:orangered; white-space:normal\">50% critical strike chance</span></span>.\n* '''Yasuo's''' secondary resource bar will display the amount of shield stored as an equivalent percentage to his Flow stacks. (Each Flow stack will add <span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-useformula=\"125/100+((600-125)/100/17*(x-1)*(0.7025+0.0175*(x-1)))\" data-bot-values=\"1.25;1.45;1.66;1.88;2.11;2.35;2.6;2.86;3.13;3.41;3.7;4;4.31;4.63;4.96;5.29;5.64;6;6.37;6.74\">1.<small>25</small> – 6.<small>74</small> (based on level)</span>[[Category:Debug]] to the bar)\n** Upon taking damage, the bar will display his current shield strength.",
+          "text": "Yasuo gains the shield before the damage instance; the shield will mitigate the damage that triggered it.\nYasuo is able to reach 100% critical strike chance with Way of the Wanderer's multiplier after obtaining a total of &nbsp;50% critical strike chance.\nYasuo's secondary resource bar will display the amount of shield stored as an equivalent percentage to his Flow stacks. (Each Flow stack will add 1.25 – 6.74 (based on level)Category:Debug to the bar)\n* Upon taking damage, the bar will display his current shield strength."
+        },
+        "targeting": "Passive"
+      },
+      "name": "Way of the Wanderer"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "I",
+  "source": {
+    "contentHash": "00ed15415084ccc0a1816bf230bd14c80354a417adee0f6a7ce533b54c7da48e",
+    "fetchedAt": "2026-09-01T05:17:05.139Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Way_of_the_Wanderer",
+    "revisionId": 4051866,
+    "sourceTimestamp": "2026-08-14T12:16:09Z"
+  }
+}

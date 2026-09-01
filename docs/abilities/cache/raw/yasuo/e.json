@@ -1,0 +1,43 @@
+{
+  "payload": [
+    {
+      "page": "Template:Data Yasuo/Sweeping Blade",
+      "response": {
+        "expanded": {
+          "expandtemplates": {
+            "wikitext": "@@name@@Sweeping Blade@@icon@@Sweeping Blade.png@@icon2@@{{{icon2}}}@@icon3@@{{{icon3}}}@@icon4@@{{{icon4}}}@@description@@<span class=\"template_sbc\">'''Active:'''</span> '''Yasuo''' <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Dashes\">[[File:Dash.png|20px|link=Dash|An icon representing the keyword Dash]] [[:Dash|dashes]]</span> a fixed distance in the direction of the target enemy and becomes <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Ghosted\">[[File:Ghost.png|20px|link=Unit collision|An icon representing the keyword Ghosted]] [[:Unit collision|ghosted]]</span> for 2 seconds, refreshing on subsequent casts. Upon impact, he deals <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to the target and generates a stack of ''Ride the Wind'' for 5 seconds, which refreshes on subsequent hits and stacks up to 4 times.@@description2@@<span class=\"template_sbc\">'''Ride the Wind:'''</span> ''Sweeping Blade's'' damage is increased by 25% per stack, up to 100% at maximum stacks.@@description3@@''Sweeping Blade'' can be cast on the same target only once every few seconds.@@description4@@'''''Yasuo''' will be <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Knockdown\">[[File:Knockdown icon.png|20px|link=Knockdown|An icon representing the keyword Knockdown]] [[:Knockdown|knocked down]]</span> by any <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Immobilize\">[[File:Stun icon.png|20px|link=Crowd_control#Immobilizing|An icon representing the keyword Immobilize]] [[:Crowd_control#Immobilizing|immobilizing]]</span> or <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Polymorph\">[[File:Silence icon.png|20px|link=Types of Crowd Control#Polymorph|An icon representing the keyword Polymorph]] [[:Types of Crowd Control#Polymorph|polymorphing]]</span> crowd control during the dash.''@@description5@@''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Yasuo\" data-ability=\"Last Breath\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Yasuo Last Breath.png|20xpx|border|link=Yasuo#Last Breath|An icon for Yasuo's ability Last Breath]]</span> <span style=\"white-space:normal;\">[[Yasuo#Last Breath|Last Breath]]</span></span> can be cast during the dash.''@@description6@@{{{description6}}}@@leveling@@<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>70 / 85 / 100 / 115 / 130 <span style=\"color:orange; white-space:normal\">(+ 20% '''bonus''' AD)</span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 60% AP)</span></dd></dl>@@leveling2@@<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Damage per Stack:'''</span></dt><dd>17.<small>5</small> / 21.<small>25</small> / 25 / 28.<small>75</small> / 32.<small>5</small> <span style=\"color:orange; white-space:normal\">(+ 5% '''bonus''' AD)</span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 15% AP)</span></dd><dt><span class=\"template_lc\">'''Maximum Bonus Damage:'''</span></dt><dd>70 / 85 / 100 / 115 / 130 <span style=\"color:orange; white-space:normal\">(+ 20% '''bonus''' AD)</span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 60% AP)</span></dd><dt><span class=\"template_lc\">'''Total Combined Damage:'''</span></dt><dd>140 / 170 / 200 / 230 / 260 <span style=\"color:orange; white-space:normal\">(+ 40% '''bonus''' AD)</span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 120% AP)</span></dd></dl>@@leveling3@@{{{leveling3}}}@@leveling4@@{{{leveling4}}}@@leveling5@@{{{leveling5}}}@@leveling6@@{{{leveling6}}}@@range@@<span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Dash distance\">475</span> • <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Maximum increased dash distance across terrain\">625</span>@@radius@@{{{radius}}}@@effectradius@@{{{effect radius}}}@@width@@{{{width}}}@@speed@@750 + <span style=\"color:\n#9FFF4D; white-space:normal\">60% movement speed</span>@@casttime@@none@@cost@@{{{cost}}}@@cooldown@@<span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Starts after the dash ends\">0.<small>5</small> / 0.<small>4</small> / 0.<small>3</small> / 0.<small>2</small> / 0.<small>1</small></span>@@targeting@@Unit@@damagetype@@Magic@@spellshield@@True@@projectile@@@@notes@@\n* If <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Yasuo\" data-ability=\"Steel Tempest\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Yasuo Steel Tempest.png|20xpx|border|link=Yasuo#Steel Tempest|An icon for Yasuo's ability Steel Tempest]]</span> <span style=\"white-space:normal;\">[[Yasuo#Steel Tempest|Steel Tempest]]</span></span> has been buffered, <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Yasuo\" data-ability=\"Wind Wall\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Yasuo Wind Wall.png|20xpx|border|link=Yasuo#Wind Wall|An icon for Yasuo's ability Wind Wall]]</span> <span style=\"white-space:normal;\">[[Yasuo#Wind Wall|Wind Wall]]</span></span> may also be cast during the dash.<sup><span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"This does not match expectations. \">(unexpected)</span></sup>\n* ''Sweeping Blade'' will generate 7.<small>5</small> <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Flow\">[[File:Flow resource.png|20px|link=Flow|An icon representing the keyword Flow]] [[:Flow|Flow]]</span> stacks per cast that travels the maximum distance.\n* '''Yasuo''' can use ''Sweeping Blade's'' fixed dash distance to cross walls both before and after hitting his target (provided his proximity to the wall and/or target allows it).\n* After ''Sweeping Blade'', '''Yasuo''' becomes <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Ghosted\">[[File:Ghost.png|20px|link=Unit collision|An icon representing the keyword Ghosted]] [[:Unit collision|ghosted]]</span> for a moment to prevent situations where he would face extreme cases of body block.\n* <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Sleep\">[[File:Sleep icon.png|20px|link=Types of Crowd Control#Sleep|An icon representing the keyword Sleep]] [[:Types of Crowd Control#Sleep|Sleep]]</span> does not count for knocking the dash down.<sup><span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"This is not intended. \">(bug)</span></sup>@@"
+          }
+        },
+        "revision": {
+          "batchcomplete": true,
+          "query": {
+            "pages": [
+              {
+                "ns": 10,
+                "pageid": 1307214,
+                "revisions": [
+                  {
+                    "parentid": 3971181,
+                    "revid": 4008638,
+                    "timestamp": "2026-04-15T00:36:53Z"
+                  }
+                ],
+                "title": "Template:Data Yasuo/Sweeping Blade"
+              }
+            ]
+          }
+        }
+      },
+      "revisionId": 4008638,
+      "timestamp": "2026-04-15T00:36:53Z"
+    }
+  ],
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "310bd919ada3f1875d3935a0097d15a79d01203fd7807065ca4f82be4427b13e",
+    "fetchedAt": "2026-09-01T05:17:05.139Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Sweeping_Blade",
+    "revisionId": 4008638,
+    "sourceTimestamp": "2026-04-15T00:36:53Z"
+  }
+}

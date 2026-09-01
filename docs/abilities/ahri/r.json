@@ -1,0 +1,62 @@
+{
+  "asset": {
+    "key": "spell_ahri_r",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Ahri_Spirit_Rush.png?21045",
+    "sha1": "3f917f70cb982874a76e12e422810cf4ad00b07f"
+  },
+  "champion": "Ahri",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_ahri_r",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Ahri_Spirit_Rush.png?21045",
+        "sha1": "3f917f70cb982874a76e12e422810cf4ad00b07f"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "140 / 130 / 120 / 110 / 100",
+        "cost": "100",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Ahri''' <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Dashes\">[[File:Dash.png|20px|link=Dash|An icon representing the keyword Dash]] [[:Dash|dashes]]</span> to the target location and then fires essence bolts to up to 3 nearby <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Sight\">[[File:Sight icon.png|20px|link=Sight|An icon representing the keyword Sight]] [[:Sight|visible]]</span> enemies, each dealing <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span>. <br/><br/>''Spirit Rush'' can be recast twice more within 15 seconds of the activation at no additional cost, with a 1-second <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Unaffected by ability haste\">static cooldown</span> between casts. Consuming a champion's essence with ''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Ahri\" data-ability=\"Essence Theft\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Ahri Essence Theft.png|20xpx|border|link=Ahri#Essence Theft|An icon for Ahri's ability Essence Theft]]</span> <span style=\"white-space:normal;\">[[Ahri#Essence Theft|Essence Theft]]</span></span>'' while ''Spirit Rush'' is active extends the recast duration by and up to 10 seconds, and grants an additional recast, storing up to 3 recasts at a time.",
+          "text": "Active: Ahri dashes to the target location and then fires essence bolts to up to 3 nearby visible enemies, each dealing magic damage.\nSpirit Rush can be recast twice more within 15 seconds of the activation at no additional cost, with a 1-second static cooldown between casts. Consuming a champion's essence with Essence Theft while Spirit Rush is active extends the recast duration by and up to 10 seconds, and grants an additional recast, storing up to 3 recasts at a time."
+        },
+        "description2": {
+          "raw": "<span class=\"template_sbc\">'''Recast:'''</span> '''Ahri''' mimics the first cast's effects.",
+          "text": "Recast: Ahri mimics the first cast's effects."
+        },
+        "description3": {
+          "raw": "''Spirit Rush's recast duration will persist even after using all recasts. <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Ahri\" data-ability=\"Fox-Fire\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Ahri Fox-Fire.png|20xpx|border|link=Ahri#Fox-Fire|An icon for Ahri's ability Fox-Fire]]</span> <span style=\"white-space:normal;\">[[Ahri#Fox-Fire|Fox-Fire]]</span></span> can be cast during the dash.''",
+          "text": "Spirit Rush's recast duration will persist even after using all recasts. Fox-Fire can be cast during the dash."
+        },
+        "effectradius": "600",
+        "icon": "Spirit Rush.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>75 / 100 / 125 / 150 / 175 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 35% AP)</span></dd></dl>",
+          "text": "Magic Damage:75 / 100 / 125 / 150 / 175 (+ 35% AP)"
+        },
+        "name": "Spirit Rush",
+        "notes": {
+          "raw": "* This ability always employs [[Quick cast]].\n* Each cast counts as an ability activation for the purposes of on-cast effects such as <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spellblade\">[[File:Sheen item.png|20px|link=Named item effect#Spellblade|An icon representing the keyword Spellblade]] [[:Named item effect#Spellblade|Spellblade]]</span> and triggering <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Kassadin\" data-ability=\"Force Pulse\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Kassadin Force Pulse.png|20xpx|border|link=Kassadin#Force Pulse|An icon for Kassadin's ability Force Pulse]]</span> <span style=\"white-space:normal;\">[[Kassadin#Force Pulse|Force Pulse's]]</span></span> passive.\n* There's a slight delay before a champion gains vision of the fog of war once inside it. Because of this, if '''Ahri''' dashes into it, it is possible that ''Spirit Rush'' will not target any enemy in range.\n* The bolts do not fire if '''Ahri''' dies while <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Dash\">[[File:Dash.png|20px|link=Dash|An icon representing the keyword Dash]] [[:Dash|dashing]]</span>, unless she was saved by <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Resurrection\">[[File:Revival icon.png|20px|link=Death#Ways to prevent death when reaching zero health|An icon representing the keyword Resurrection]] [[:Death#Ways to prevent death when reaching zero health|resurrection]]</span>.\n** The bolts will fire if the dash is <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Interrupt\">[[File:Silence icon.png|20px|link=Crowd control#Disruption|An icon representing the keyword Interrupt]] [[:Crowd control#Disruption|interrupted]]</span> by other means.\n* This ability's damage is calculated based on the caster's current stats and changes dynamically.",
+          "text": "This ability always employs Quick cast.\nEach cast counts as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse's passive.\nThere's a slight delay before a champion gains vision of the fog of war once inside it. Because of this, if Ahri dashes into it, it is possible that Spirit Rush will not target any enemy in range.\nThe bolts do not fire if Ahri dies while dashing, unless she was saved by resurrection.\n* The bolts will fire if the dash is interrupted by other means.\nThis ability's damage is calculated based on the caster's current stats and changes dynamically."
+        },
+        "projectile": true,
+        "speed": "1200 + 100% movement speed • 1400",
+        "spellshield": true,
+        "targeting": "Location"
+      },
+      "name": "Spirit Rush"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "R",
+  "source": {
+    "contentHash": "89b7736d581c69bb63d76bd161089264dcc7fd96db0cbfcd903da059524a43cd",
+    "fetchedAt": "2026-09-01T05:17:23.565Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush",
+    "revisionId": 4007764,
+    "sourceTimestamp": "2026-04-12T14:21:47Z"
+  }
+}

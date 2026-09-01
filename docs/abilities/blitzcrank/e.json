@@ -1,0 +1,51 @@
+{
+  "asset": {
+    "key": "spell_blitzcrank_e",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Blitzcrank_Power_Fist.png?a4fa7",
+    "sha1": "85ef87ea4121cca647ec2eee0a25e5613c8e8c43"
+  },
+  "champion": "Blitzcrank",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_blitzcrank_e",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Blitzcrank_Power_Fist.png?a4fa7",
+        "sha1": "85ef87ea4121cca647ec2eee0a25e5613c8e8c43"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "7 / 6.5 / 6 / 5.5 / 5",
+        "cost": "25",
+        "damagetype": "Physical",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Blitzcrank''' empowers their next <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic attack\">[[File:Basic attack cursor icon.png|20px|link=Basic attack|An icon representing the keyword Basic attack]] [[:Basic attack|basic attack]]</span> within 5 seconds to have an <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Uncancellable windup\">[[File:Relentless Force 2.png|20px|link=Basic attack#Uncancellable Windup|An icon representing the keyword Uncancellable windup]] [[:Basic attack#Uncancellable Windup|uncancellable windup]]</span>, deal <span style=\"color:orange; white-space:normal\">100% AD</span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 25% AP)</span> <span style=\"color:\n#FF8C34; white-space:normal\">'''bonus''' physical damage</span> and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Airborne\">[[File:Airborne icon.png|20px|link=Airborne|An icon representing the keyword Airborne]] [[:Airborne|knock up]]</span> the target for 1 second. This damage is affected by <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Critical strike\">[[File:Critical strike icon.png|20px|link=Critical strike|An icon representing the keyword Critical strike]] [[:Critical strike|critical strike]]</span> modifiers.",
+          "text": "Active: Blitzcrank empowers their next basic attack within 5 seconds to have an uncancellable windup, deal 100% AD (+ 25% AP) bonus physical damage and knock up the target for 1 second. This damage is affected by critical strike modifiers."
+        },
+        "description3": {
+          "raw": "''Power Fist <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic attack reset\">[[File:Bladework.png|20px|link=Basic attack#Attack reset|An icon representing the keyword Basic attack reset]] [[:Basic attack#Attack reset|resets]]</span> '''Blitzcrank's''' basic attack timer.''",
+          "text": "Power Fist resets Blitzcrank's basic attack timer."
+        },
+        "icon": "Power Fist.png",
+        "name": "Power Fist",
+        "notes": {
+          "raw": "* ''Power Fist'' deals <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic damage\">[[File:Basic Attack.png|20px|link=Damage|An icon representing the keyword Basic damage]] [[:Damage|basic damage]]</span>, but also triggers spell effects by also being tagged as <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spell damage\">[[File:Disintegrate.png|20px|link=Damage|An icon representing the keyword Ability damage]] [[:Damage|spell damage]]</span>.\n** This includes the <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic attack\">[[File:Basic attack cursor icon.png|20px|link=Basic attack|An icon representing the keyword Basic attack]] [[:Basic attack|basic attack]]</span> itself.\n* <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spell shield\">[[File:Spell Shield.png|20px|link=Spell shield|An icon representing the keyword Spell shield]] [[:Spell shield|Spell shield]]</span> prevents the <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Airborne\">[[File:Airborne icon.png|20px|link=Airborne|An icon representing the keyword Airborne]] [[:Airborne|knockup]]</span> and the damage, including the damage of the basic attack itself.<sup><span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"This does not match expectations. \">(unexpected)</span></sup>\n* The enhanced attack will still complete and hit the target even if they become <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Untargetable\">[[File:Untargetable icon.png|20px|link=Untargetable|An icon representing the keyword Untargetable]] [[:Untargetable|untargetable]]</span> during the <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Attack windup\">[[:Attack speed#Windup|attack's windup]]</span>.\n* The knockup does not trigger against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Structures\">[[File:Structure icon.png|20px|link=Category:Structure|An icon representing the keyword Structure]] [[:Category:Structure|structures]]</span>, [[jungle plants]], and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Wards\">[[File:Ward_icon.png|20px|link=Ward|An icon representing the keyword Ward]] [[:Ward|wards]]</span>.\n** The ''Power Fist'' buff does not get consumed if the knockup doesn't trigger, allowing '''Blitzcrank''' to repeatedly attack structures for bonus damage.<sup><span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"This does not match expectations. \">(unexpected)</span></sup>\n* The target is displaced a short distance during the <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Airborne\">[[File:Airborne icon.png|20px|link=Airborne|An icon representing the keyword Airborne]] [[:Airborne|knockup]]</span> in a random direction.",
+          "text": "Power Fist deals basic damage, but also triggers spell effects by also being tagged as spell damage.\n* This includes the basic attack itself.\nSpell shield prevents the knockup and the damage, including the damage of the basic attack itself.(unexpected)\nThe enhanced attack will still complete and hit the target even if they become untargetable during the attack's windup.\nThe knockup does not trigger against structures, jungle plants, and wards.\n* The Power Fist buff does not get consumed if the knockup doesn't trigger, allowing Blitzcrank to repeatedly attack structures for bonus damage.(unexpected)\nThe target is displaced a short distance during the knockup in a random direction."
+        },
+        "spellshield": true,
+        "targeting": "Auto"
+      },
+      "name": "Power Fist"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "E",
+  "source": {
+    "contentHash": "43392455211fe94875506c991a595aa16b7501e75fd223bd7f9da903276de289",
+    "fetchedAt": "2026-09-01T05:17:31.206Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Power_Fist",
+    "revisionId": 4041159,
+    "sourceTimestamp": "2026-07-07T22:12:37Z"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "asset": {
+    "key": "spell_irelia_q",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Irelia_Bladesurge.png?ed04b",
+    "sha1": "2afe24846c62afc80655c7940474f1445c938a3d"
+  },
+  "champion": "Irelia",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_irelia_q",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Irelia_Bladesurge.png?ed04b",
+        "sha1": "2afe24846c62afc80655c7940474f1445c938a3d"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "10 / 9 / 8 / 7 / 6",
+        "cost": "15",
+        "damagetype": "Physical",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Irelia''' <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Dashes\">[[File:Dash.png|20px|link=Dash|An icon representing the keyword Dash]] [[:Dash|dashes]]</span> 100 units through the target enemy's location, and upon collision or dash completion, she deals <span style=\"color:\n#FF8C34; white-space:normal\">physical damage</span>, applies <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"On-hit\">[[File:On-hit icon.png|20px|link=Attack_effects#On_Hitting|An icon representing the keyword On-hit]] [[:Attack_effects#On_Hitting|on-hit]]</span> effects, and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Heal\">[[File:Heal power icon.svg|20px|link=Healing|An icon representing the keyword Heal]] [[:Healing|heals]]</span> herself. ''Bladesurge'' deals <span style=\"color:\n#FF8C34; white-space:normal\"><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-start=\"50;\" data-finish=\"237;\" data-top-fill=\"18\" data-bot-values=\"50;61;72;83;94;105;116;127;138;149;160;171;182;193;204;215;226;237;248;259;270;281;292;303;314;325;336;347;358;369;380;391;402;413;424;435;446;457;468;479;490|displayMaxColumn=18\">50 – 237 (based on level)</span> '''bonus''' physical damage</span> to <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Minions\">[[File:Minion icon.png|20px|link=Minion|An icon representing the keyword Minion]] [[:Minion|minions]]</span>.",
+          "text": "Active: Irelia dashes 100 units through the target enemy's location, and upon collision or dash completion, she deals physical damage, applies on-hit effects, and heals herself. Bladesurge deals 50 – 237 (based on level) bonus physical damage to minions."
+        },
+        "description2": {
+          "raw": "''Bladesurge's'' <span style=\"white-space:nowrap\">[[File:Cooldown icon.png|15px|link=Cooldown]]&nbsp;'''current''' cooldown</span> is reduced to 0.<small>2</small> seconds upon collision of targets <span style=\"color:\n#D929D9; white-space:normal\">marked</span> as ''<span class=\"inline-image label-after\" style=\"display:inline;white-space:pre;\" data-param=\"\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Bladesurge 2.png|20xpx|border|link=Irelia/LoL#Ionian Fervor|An icon representing Irelia/LoL#Ionian Fervor]]</span> <span style=\"white-space:normal;\">[[Irelia/LoL#Ionian Fervor|Unsteady]]</span></span>'', and is <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"The check's cadence is 0.0625 seconds, or a bit less than 2 game ticks\">reset</span> if the target dies to or during ''Bladesurge's'' dash.",
+          "text": "Bladesurge's &nbsp;current cooldown is reduced to 0.2 seconds upon collision of targets marked as Unsteady, and is reset if the target dies to or during Bladesurge's dash."
+        },
+        "description3": {
+          "raw": "''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Irelia\" data-ability=\"Flawless Duet\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Irelia Flawless Duet.png|20xpx|border|link=Irelia#Flawless Duet|An icon for Irelia's ability Flawless Duet]]</span> <span style=\"white-space:normal;\">[[Irelia#Flawless Duet|Flawless Duet]]</span></span> can be cast during the dash.''",
+          "text": "Flawless Duet can be cast during the dash."
+        },
+        "icon": "Bladesurge.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Physical Damage:'''</span></dt><dd>5 / 25 / 45 / 65 / 85 <span style=\"color:orange; white-space:normal\">(+ 80% AD)</span></dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Heal:'''</span></dt><dd><span style=\"color:orange; white-space:normal\">9 / 10 / 11 / 12 / 13% AD</span></dd></dl>",
+          "text": "Physical Damage:5 / 25 / 45 / 65 / 85 (+ 80% AD)\nHeal:9 / 10 / 11 / 12 / 13% AD"
+        },
+        "name": "Bladesurge",
+        "notes": {
+          "raw": "* ''Bladesurge'' will be buffered and cast when the cooldown ends or is reset if the player attempts to cast it within 0.<small>5</small> seconds of the cooldown ending/resetting.\n* ''Bladesurge'' deals <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic damage\">[[File:Basic Attack.png|20px|link=Damage|An icon representing the keyword Basic damage]] [[:Damage|basic damage]]</span>, but also triggers spell effects by also being tagged as <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spell damage\">[[File:Disintegrate.png|20px|link=Damage|An icon representing the keyword Ability damage]] [[:Damage|spell damage]]</span>.\n* If the target dies during ''Bladesurge's'' dash, the cooldown is fully refunded and '''Irelia''' may also cast her other abilities during the dash.\n* If the target dies to ''Bladesurge'' and was also <span style=\"color:\n#D929D9; white-space:normal\">marked</span>, the cooldown is still fully refunded.\n* ''Bladesurge'' will only allow '''Irelia''' to dash through walls if there is enough space for her on the other side.\n* ''Bladesurge'' deals its damage and consumes <span style=\"color:\n#D929D9; white-space:normal\">marks</span> when '''Irelia''' collides with the target, or at the end of the dash if the target moves away.\n** ''Bladesurge'' will not deal damage if the <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Dash\">[[File:Dash.png|20px|link=Dash|An icon representing the keyword Dash]] [[:Dash|dash]]</span> is <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Interrupt\">[[File:Silence icon.png|20px|link=Crowd control#Disruption|An icon representing the keyword Interrupt]] [[:Crowd control#Disruption|interrupted]]</span> beforehand.\n*** The damage will be dealt if the target is in collision range when the dash is interrupted however.\n*** <span class=\"inline-image label-after spell-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-spell=\"Flash\" data-game=\"lol\"><span class=\"border icon-20\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Flash.png|20xpx|border|link=Flash|An icon representing Flash]]</span> <span style=\"white-space:normal;\">[[Flash]]</span></span> will interrupt the <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Dash\">[[File:Dash.png|20px|link=Dash|An icon representing the keyword Dash]] [[:Dash|dash]]</span> but '''Irelia''' will still collide with and deal damage to her target if the blink leaves her in contact with it at the new location.\n** '''Irelia''' will complete her remaining dash distance even if the damage is dealt earlier.\n** If the target is <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Untargetable\">[[File:Untargetable icon.png|20px|link=Untargetable|An icon representing the keyword Untargetable]] [[:Untargetable|untargetable]]</span>, ''Bladesurge'' will instead deals its damage at the end of the dash, rather than on collision.\n* '''Irelia''' will automatically be ordered to [[Basic attack#Acquisition|acquire]] and attack ''Bladesurge's'' target as soon as the dash completes. \n** If a different target than ''Bladesurge's'' is selected during the dash, she will [[Basic attack#Acquisition|acquire]] that different target instead.",
+          "text": "Bladesurge will be buffered and cast when the cooldown ends or is reset if the player attempts to cast it within 0.5 seconds of the cooldown ending/resetting.\nBladesurge deals basic damage, but also triggers spell effects by also being tagged as spell damage.\nIf the target dies during Bladesurge's dash, the cooldown is fully refunded and Irelia may also cast her other abilities during the dash.\nIf the target dies to Bladesurge and was also marked, the cooldown is still fully refunded.\nBladesurge will only allow Irelia to dash through walls if there is enough space for her on the other side.\nBladesurge deals its damage and consumes marks when Irelia collides with the target, or at the end of the dash if the target moves away.\n* Bladesurge will not deal damage if the dash is interrupted beforehand.\n** The damage will be dealt if the target is in collision range when the dash is interrupted however.\n** Flash will interrupt the dash but Irelia will still collide with and deal damage to her target if the blink leaves her in contact with it at the new location.\n* Irelia will complete her remaining dash distance even if the damage is dealt earlier.\n* If the target is untargetable, Bladesurge will instead deals its damage at the end of the dash, rather than on collision.\nIrelia will automatically be ordered to acquire and attack Bladesurge's target as soon as the dash completes.\n* If a different target than Bladesurge's is selected during the dash, she will acquire that different target instead."
+        },
+        "speed": "1400 + 100% movement speed",
+        "spellshield": true,
+        "targeting": "Unit"
+      },
+      "name": "Bladesurge"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "Q",
+  "source": {
+    "contentHash": "f0df558c6491948fcd0d98edaf9e856da959abc214d46cea392e2ec3a85d6237",
+    "fetchedAt": "2026-09-01T05:17:49.191Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Bladesurge",
+    "revisionId": 4057466,
+    "sourceTimestamp": "2026-08-27T09:09:37Z"
+  }
+}

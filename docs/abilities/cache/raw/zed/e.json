@@ -1,0 +1,43 @@
+{
+  "payload": [
+    {
+      "page": "Template:Data Zed/Shadow Slash",
+      "response": {
+        "expanded": {
+          "expandtemplates": {
+            "wikitext": "@@name@@Shadow Slash@@icon@@Shadow Slash.png@@icon2@@{{{icon2}}}@@icon3@@{{{icon3}}}@@icon4@@{{{icon4}}}@@description@@<span class=\"template_sbc\">'''Active:'''</span> '''Zed''' slashes to deal <span style=\"color:\n#FF8C34; white-space:normal\">physical damage</span> to nearby enemies.@@description2@@Enemies hit by a [[File:Zed's Shadow.png|20px|border|link=]] ''Shadow's'' slash are <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slowed]]</span> for 1.<small>5</small> seconds, with <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"See notes\">multiple slashes</span> dealing no additional damage but the slow's effectiveness being increased by 50%.@@description3@@''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Zed\" data-ability=\"Living Shadow\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Zed Living Shadow.png|20xpx|border|link=Zed#Living Shadow|An icon for Zed's ability Living Shadow]]</span> <span style=\"white-space:normal;\">[[Zed#Living Shadow|Living Shadow's]]</span></span>'' <span style=\"white-space:nowrap\">[[File:Cooldown icon.png|15px|link=Cooldown]]&nbsp;'''current''' cooldown</span> is reduced by 3 seconds for each enemy <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Champion\">[[File:Champion icon.png|20px|link=Champion|An icon representing the keyword Champion]] [[:Champion|champion]]</span> hit by '''Zed's''' slash.@@description4@@{{{description4}}}@@description5@@{{{description5}}}@@description6@@{{{description6}}}@@leveling@@<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Physical Damage:'''</span></dt><dd>70 / 92.<small>5</small> / 115 / 137.<small>5</small> / 160 <span style=\"color:orange; white-space:normal\">(+ 70% '''bonus''' AD)</span></dd></dl>@@leveling2@@<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Slow:'''</span></dt><dd>20 / 25 / 30 / 35 / 40%</dd><dt><span class=\"template_lc\">'''Enhanced Slow:'''</span></dt><dd>30 / 37.<small>5</small> / 45 / 52.<small>5</small> / 60%</dd></dl>@@leveling3@@{{{leveling3}}}@@leveling4@@{{{leveling4}}}@@leveling5@@{{{leveling5}}}@@leveling6@@{{{leveling6}}}@@range@@{{{range}}}@@radius@@{{{radius}}}@@effectradius@@<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Cr\">[[File:Range center.png|20px|link=Range|An icon representing the keyword Centered range]]</span> <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Slash radius from Zed\">315</span> • <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Slash radius from Shadows\">290</span>@@width@@{{{width}}}@@speed@@{{{speed}}}@@casttime@@none@@cost@@40@@cooldown@@5 / 4.<small>5</small> / 4 / 3.<small>5</small> / 3@@targeting@@Auto@@damagetype@@Physical@@spellshield@@special@@projectile@@@@notes@@\n* An enemy counts as being hit by ''multiple'' slashes at once when they are hit by a ''Shadow Slash'' from '''Zed''' and at least one of his ''Shadows'', or two of his ''Shadows''. In any case, a target can only be damaged by one slash per cast of ''Shadow Slash''.\n** The enhanced slow strength is applied as long as the enemy is hit by at least two slashes, even if '''Zed's''' slash is one of them despite him not being able to apply the base slow himself.\n*** Slashes beyond the second have no additional effect on the target; a third slash against an enemy does not deal damage nor increase the slow's strength (slow effectiveness is capped at 150% of the base strength).\n* <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spell shield\">[[File:Spell Shield.png|20px|link=Spell shield|An icon representing the keyword Spell shield]] [[:Spell shield|Spell shield]]</span> will only block one ''Shadow Slash'' even if multiple of them hit at the same time, prioritizing blocking the slash from '''Zed's''' [[File:Zed's Shadow.png|20px|border|link=]] ''Shadow''.\n** The damage from at least one slash will always be blocked but still counts for preventing other slashes from applying the damage (other slashes are considered to be ''additional'' slashes which are not eligible for dealing the damage).\n** The slow will be blocked if hit by '''Zed's''' slash and a ''Shadow's'' slash, due to the latter slash being blocked.\n** The slow will be applied at base strength if hit by the slashes of two ''Shadows'', due to at least one slash from a ''Shadow'' successfully hitting the target with the other slash being blocked (thus preventing the slow from being enhanced).\n** The slow will be applied at enhanced strength if hit by the slashes of '''Zed''' and two of his ''Shadows'', due at least two of the slashes successfully hitting the target (in this case, the slashes from '''Zed''' and one of the [[File:Zed's Shadow.png|20px|border|link=]] ''Shadows'').\n* ''Shadow Slash'' does not interrupt attack, movement, or cast commands.@@"
+          }
+        },
+        "revision": {
+          "batchcomplete": true,
+          "query": {
+            "pages": [
+              {
+                "ns": 10,
+                "pageid": 1308548,
+                "revisions": [
+                  {
+                    "parentid": 4008657,
+                    "revid": 4016889,
+                    "timestamp": "2026-05-13T12:13:18Z"
+                  }
+                ],
+                "title": "Template:Data Zed/Shadow Slash"
+              }
+            ]
+          }
+        }
+      },
+      "revisionId": 4016889,
+      "timestamp": "2026-05-13T12:13:18Z"
+    }
+  ],
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "fdd222dab08a93202bc2adfee498beb00ad7aca8c0ce8d3ca0555e2906aa0d24",
+    "fetchedAt": "2026-09-01T05:17:39.358Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Shadow_Slash",
+    "revisionId": 4016889,
+    "sourceTimestamp": "2026-05-13T12:13:18Z"
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "asset": {
+    "key": "champ_yasuo",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Yasuo_OriginalSquare.png?efb3b",
+    "sha1": "8ff250efe52ba4aa7158eca354b7fb15576f6a84"
+  },
+  "champion": "Yasuo",
+  "data": {
+    "adaptivetype": "Physical",
+    "alttype": "Assassin",
+    "apiname": "Yasuo",
+    "be": 675,
+    "changes": "V26.17",
+    "client_positions": [
+      "Top",
+      "Middle",
+      "Bottom"
+    ],
+    "client_tags": [
+      "Duelist",
+      "Mobile",
+      "Physical"
+    ],
+    "control": 2,
+    "damage": 3,
+    "date": "2013-12-13",
+    "difficulty": 3,
+    "external_positions": [
+      "Top",
+      "Middle",
+      "Bottom"
+    ],
+    "herotype": "Fighter",
+    "id": 157,
+    "mobility": 3,
+    "patch": "V3.15",
+    "rangetype": "Melee",
+    "resource": "Flow",
+    "role": [
+      "Skirmisher"
+    ],
+    "rp": 585,
+    "skill_e": {
+      "1": "Sweeping Blade"
+    },
+    "skill_i": {
+      "1": "Way of the Wanderer"
+    },
+    "skill_q": {
+      "1": "Steel Tempest",
+      "2": "Steel Tempest 2",
+      "3": "Steel Tempest 3"
+    },
+    "skill_r": {
+      "1": "Last Breath"
+    },
+    "skill_w": {
+      "1": "Wind Wall"
+    },
+    "skills": {
+      "1": "Way of the Wanderer",
+      "2": "Steel Tempest",
+      "3": "Wind Wall",
+      "4": "Sweeping Blade",
+      "5": "Last Breath"
+    },
+    "stats": {
+      "acquisition_radius": 400,
+      "aram": {
+        "total_as": 1.025
+      },
+      "arm_base": 32,
+      "arm_lvl": 4.6,
+      "as_base": 0.697,
+      "as_lvl": 3.5,
+      "as_ratio": 0.6700000166893,
+      "attack_delay_offset": -0.0799999982118606,
+      "crit_mod": 0.95,
+      "dam_base": 60,
+      "dam_lvl": 2.5,
+      "hp5_base": 6.5,
+      "hp5_lvl": 0.9,
+      "hp_base": 590,
+      "hp_lvl": 110,
+      "mp5_base": 0,
+      "mp5_lvl": 0,
+      "mp_base": 100,
+      "mp_lvl": 0,
+      "mr_base": 32,
+      "mr_lvl": 2.05,
+      "ms": 345,
+      "pathing_radius": 32,
+      "range": 175,
+      "selection_height": 180,
+      "selection_radius": 120,
+      "urf": {
+        "dmg_taken": 0.9
+      }
+    },
+    "style": 20,
+    "title": "The Unforgiven",
+    "toughness": 1,
+    "utility": 2
+  },
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "4fa5ed59465f9ffd85b342ac95557ad74f051de739f6662ff3e00dd4351dd912",
+    "fetchedAt": "2026-09-01T05:17:05.139Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Module:ChampionData/data",
+    "revisionId": 4057479,
+    "sourceTimestamp": "2026-08-27T09:15:46Z"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "asset": {
+    "key": "spell_ahri_q",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Ahri_Orb_of_Deception.png?e9418",
+    "sha1": "c431e30dbe144daf33b3c302f06ab925bc816158"
+  },
+  "champion": "Ahri",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_ahri_q",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Ahri_Orb_of_Deception.png?e9418",
+        "sha1": "c431e30dbe144daf33b3c302f06ab925bc816158"
+      },
+      "fields": {
+        "casttime": "0.25",
+        "cooldown": "7",
+        "cost": "55 / 65 / 75 / 85 / 95",
+        "damagetype": "Magic True",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Ahri''' sends her orb in the target direction that deals <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to enemies it passes through. Upon reaching maximum range, it returns to her to deal the same amount in <span style=\"white-space:nowrap\">[[File:Hybrid penetration icon.png|15px|link=True damage]]&nbsp;<span style=\"color:\n#F9966B; white-space:normal\">true damage</span></span> to enemies it passes through.",
+          "text": "Active: Ahri sends her orb in the target direction that deals magic damage to enemies it passes through. Upon reaching maximum range, it returns to her to deal the same amount in &nbsp;true damage to enemies it passes through."
+        },
+        "description2": {
+          "raw": "''Enemies can be hit only once per pass.''",
+          "text": "Enemies can be hit only once per pass."
+        },
+        "effectradius": "100",
+        "icon": "Orb of Deception.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Damage Per Pass:'''</span></dt><dd>35 / 60 / 85 / 110 / 135 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 50% AP)</span></dd><dt><span class=\"template_lc\">'''Total Mixed Damage:'''</span></dt><dd>70 / 120 / 170 / 220 / 270 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 100% AP)</span></dd></dl>",
+          "text": "Damage Per Pass:35 / 60 / 85 / 110 / 135 (+ 50% AP)Total Mixed Damage:70 / 120 / 170 / 220 / 270 (+ 100% AP)"
+        },
+        "name": "Orb of Deception",
+        "notes": {
+          "raw": "* ''Orb of Deception'' will hit additional units around the return point in a small circle when the orb turns around.\n** This applies both to the initial and return missile's damage, but the initial missile only deals damage if the unit was not hit by it already.\n* Each pass of the projectile can only damage an enemy once.\n* If '''Ahri''' dies while the orb is out, the orb will visually disappear but continue to deal damage and return to '''Ahri'''.<sup><span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"This is not intended. \">(bug)</span></sup>\n* This ability will cast from wherever the caster is at the end of the cast time.\n* This ability's damage is calculated based on the caster's current stats and changes dynamically.",
+          "text": "Orb of Deception will hit additional units around the return point in a small circle when the orb turns around.\n* This applies both to the initial and return missile's damage, but the initial missile only deals damage if the unit was not hit by it already.\nEach pass of the projectile can only damage an enemy once.\nIf Ahri dies while the orb is out, the orb will visually disappear but continue to deal damage and return to Ahri.(bug)\nThis ability will cast from wherever the caster is at the end of the cast time.\nThis ability's damage is calculated based on the caster's current stats and changes dynamically."
+        },
+        "projectile": true,
+        "range": "900",
+        "speed": "1550 • 60 - 2600",
+        "spellshield": false,
+        "targeting": "Direction",
+        "width": "200"
+      },
+      "name": "Orb of Deception"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "Q",
+  "source": {
+    "contentHash": "66f2acb188a135120c30849ec49d9400453e8c439bbaf0a3c3816edff1559b2e",
+    "fetchedAt": "2026-09-01T05:17:23.565Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Orb_of_Deception",
+    "revisionId": 4007396,
+    "sourceTimestamp": "2026-04-11T16:27:49Z"
+  }
+}

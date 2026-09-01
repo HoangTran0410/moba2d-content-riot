@@ -1,0 +1,54 @@
+{
+  "asset": {
+    "key": "spell_blitzcrank_w",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Blitzcrank_Overdrive.png?9282c",
+    "sha1": "e1272f8d3eea348a8530c229e01c302616df28b3"
+  },
+  "champion": "Blitzcrank",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_blitzcrank_w",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Blitzcrank_Overdrive.png?9282c",
+        "sha1": "e1272f8d3eea348a8530c229e01c302616df28b3"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "15",
+        "cost": "75",
+        "damagetype": "magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Blitzcrank''' shifts into overdrive, gaining <span style=\"white-space:nowrap\">[[File:Attack speed icon.png|15px|link=Attack speed]]&nbsp;<span style=\"color:\n#F5EE99; white-space:normal\">'''bonus''' attack speed</span></span> for 5 seconds and <span style=\"white-space:nowrap\">[[File:Movement speed icon.png|15px|link=Movement speed]]&nbsp;<span style=\"color:\n#9FFF4D; white-space:normal\">'''bonus''' movement speed</span></span> that decays to 10% over the first 2.<small>9</small> seconds.",
+          "text": "Active: Blitzcrank shifts into overdrive, gaining &nbsp;bonus attack speed for 5 seconds and &nbsp;bonus movement speed that decays to 10% over the first 2.9 seconds."
+        },
+        "description2": {
+          "raw": "When ''Overdrive'' ends, '''Blitzcrank''' is <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slowed]]</span> by 30% for 1.<small>5</small> seconds.",
+          "text": "When Overdrive ends, Blitzcrank is slowed by 30% for 1.5 seconds."
+        },
+        "icon": "Overdrive.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Attack Speed:'''</span></dt><dd>30 / 40 / 50 / 60 / 70%</dd></dl><dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Initial Bonus Movement Speed:'''</span></dt><dd>60 / 65 / 70 / 75 / 80%</dd></dl>",
+          "text": "Bonus Attack Speed:30 / 40 / 50 / 60 / 70%Initial Bonus Movement Speed:60 / 65 / 70 / 75 / 80%"
+        },
+        "name": "Overdrive",
+        "notes": {
+          "raw": "* The movement speed boost's decay is linear. On the first stat update after the buff is gained, the boost does not decay.\n* The self-slow is affected by <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow resist\">[[File:Slow immune icon.png|20px|link=Slow resist|An icon representing the keyword Slow resist]] [[:Slow resist|slow resist]]</span> and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Tenacity\">[[File:Tenacity icon.png|20px|link=Tenacity|An icon representing the keyword Tenacity]] [[:Tenacity|Tenacity]]</span>.",
+          "text": "The movement speed boost's decay is linear. On the first stat update after the buff is gained, the boost does not decay.\nThe self-slow is affected by slow resist and Tenacity."
+        },
+        "targeting": "Auto"
+      },
+      "name": "Overdrive"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "W",
+  "source": {
+    "contentHash": "6133f7f5bb0f843e8c60a3994294c8c8c2cddbb675a0610e3db1bc456bb28dad",
+    "fetchedAt": "2026-09-01T05:17:31.206Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Overdrive",
+    "revisionId": 3906572,
+    "sourceTimestamp": "2025-06-06T04:36:08Z"
+  }
+}

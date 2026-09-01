@@ -13,7 +13,7 @@
     "typecheck": "tsc -p tsconfig.json",
     "check-unused": "moba2d-check-unused",
     "test": "vitest run",
-    "build": "npm run maps:generate && npm run assets:generate && npm run catalog:generate && vite build && moba2d-write-manifest --name=\"Liên Minh Huyền Thoại\"",
+    "build": "npm run bodies:generate && npm run maps:generate && npm run assets:generate && npm run catalog:generate && vite build && moba2d-write-manifest --name=\"Liên Minh Huyền Thoại\"",
     "manifest:write": "moba2d-write-manifest --name=\"Liên Minh Huyền Thoại\"",
     "serve": "moba2d-pack-serve",
     "check-seams": "moba2d-check-seams ./spells && moba2d-check-seams ./tests",
@@ -30,9 +30,11 @@
     "damage:check": "node scripts/wiki/sync-damage-types.mjs --check",
     "core:check": "moba2d-check-core-link",
     "postinstall": "moba2d-check-core-link --warn-only",
-    "prepare": "npm run maps:generate && npm run assets:generate && npm run catalog:generate",
+    "prepare": "npm run bodies:generate && npm run maps:generate && npm run assets:generate && npm run catalog:generate",
     "hooks:install": "git config core.hooksPath scripts/git-hooks",
-    "verify": "npm run core:check && npm run maps:check && npm run assets:check && npm run catalog:check && npm run ability:check && npm run items:check && npm run damage:check && npm run typecheck && npm run check-unused && npm run check-seams && npm run check-seams:monsters && npm run build && npm test"
+    "verify": "npm run core:check && npm run bodies:check && npm run maps:check && npm run assets:check && npm run catalog:check && npm run ability:check && npm run items:check && npm run damage:check && npm run typecheck && npm run check-unused && npm run check-seams && npm run check-seams:monsters && npm run build && npm test",
+    "bodies:generate": "node scripts/derive-bodies.mjs",
+    "bodies:check": "node scripts/derive-bodies.mjs --check"
   },
   "devDependencies": {
     "@moba2d/core": "github:moba2d-game/core#main",

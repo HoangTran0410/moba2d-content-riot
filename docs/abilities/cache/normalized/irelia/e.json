@@ -1,0 +1,68 @@
+{
+  "asset": {
+    "key": "spell_irelia_e",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Irelia_Flawless_Duet.png?0bd02",
+    "sha1": "96742e5f7033e19611846e9791d69ad2a7b24b8e"
+  },
+  "champion": "Irelia",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_irelia_e",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Irelia_Flawless_Duet.png?0bd02",
+        "sha1": "96742e5f7033e19611846e9791d69ad2a7b24b8e"
+      },
+      "fields": {
+        "casttime": "None",
+        "cooldown": "16 / 14.5 / 13 / 11.5 / 10",
+        "cost": "50",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Irelia''' sends a blade to the target location for 3.<small>5</small> seconds. ''Flawless Duet'' can be recast after 0.<small>15</small> seconds while the blade is active, and does so automatically at the end of its duration.",
+          "text": "Active: Irelia sends a blade to the target location for 3.5 seconds. Flawless Duet can be recast after 0.15 seconds while the blade is active, and does so automatically at the end of its duration."
+        },
+        "description2": {
+          "raw": "<span class=\"template_sbc\">'''Recast:'''</span> '''Irelia''' sends a second blade to the target location, or to her current position if ''Flawless Duet'' was recast automatically.",
+          "text": "Recast: Irelia sends a second blade to the target location, or to her current position if Flawless Duet was recast automatically."
+        },
+        "description3": {
+          "raw": "Once both blades have been placed, they fly toward each other regardless of distance and converge over 0.<small>25</small> seconds, afterwards dealing <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to all enemies within a line between them and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Stun\">[[File:Stun icon.png|20px|link=Stun|An icon representing the keyword Stun]] [[:Stun|stunning]]</span> them for 0.<small>75</small> seconds, during which they are <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Standard sight\">[[File:Reveal icon.png|20px|link=Sight#Standard sight|An icon representing the keyword Standard sight]] [[:Sight#Standard sight|revealed]]</span>.",
+          "text": "Once both blades have been placed, they fly toward each other regardless of distance and converge over 0.25 seconds, afterwards dealing magic damage to all enemies within a line between them and stunning them for 0.75 seconds, during which they are revealed."
+        },
+        "description4": {
+          "raw": "''Flawless Duet's recast can be used during <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Irelia\" data-ability=\"Bladesurge\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Irelia Bladesurge.png|20xpx|border|link=Irelia#Bladesurge|An icon for Irelia's ability Bladesurge]]</span> <span style=\"white-space:normal;\">[[Irelia#Bladesurge|Bladesurge]]</span></span> and the cast time of <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Irelia\" data-ability=\"Vanguard&#39;s Edge\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Irelia Vanguard's Edge.png|20xpx|border|link=Irelia#Vanguard's Edge|An icon for Irelia's ability Vanguard's Edge]]</span> <span style=\"white-space:normal;\">[[Irelia#Vanguard's Edge|Vanguard's Edge]]</span></span>, but is not used automatically while she is affected by <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Cast-inhibiting crowd control\">[[File:Silence icon.png|20px|link=Crowd_control#Disrupting|An icon representing the keyword Cast-inhibiting crowd control]] [[:Crowd_control#Disrupting|cast-inhibiting crowd control]]</span> or a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Lockout\">[[File:Lockout icon 2.png|20px|link=Terminology#Lockout|An icon representing the keyword Lockout]] [[:Terminology#Lockout|lockout]]</span> that disables abilities. Each of the blades' travel times are <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"0.25 seconds, but rounded up to the next game tick.\">0.<small>264</small> seconds</span>.''",
+          "text": "Flawless Duet's recast can be used during Bladesurge and the cast time of Vanguard's Edge, but is not used automatically while she is affected by cast-inhibiting crowd control or a lockout that disables abilities. Each of the blades' travel times are 0.264 seconds."
+        },
+        "effectradius": "Global",
+        "icon": "Flawless Duet.png",
+        "icon2": "Irelia Flawless Duet 2.png",
+        "leveling3": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>70 / 110 / 150 / 190 / 230 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 100% AP)</span></dd></dl>",
+          "text": "Magic Damage:70 / 110 / 150 / 190 / 230 (+ 100% AP)"
+        },
+        "name": "Flawless Duet",
+        "notes": {
+          "raw": "* Both casts count as an ability activation for the purposes of on-cast effects such as <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spellblade\">[[File:Sheen item.png|20px|link=Named item effect#Spellblade|An icon representing the keyword Spellblade]] [[:Named item effect#Spellblade|Spellblade]]</span> and triggering <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Kassadin\" data-ability=\"Force Pulse\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Kassadin Force Pulse.png|20xpx|border|link=Kassadin#Force Pulse|An icon for Kassadin's ability Force Pulse]]</span> <span style=\"white-space:normal;\">[[Kassadin#Force Pulse|Force Pulse's]]</span></span> passive.\n** If the ability is not manually recasted, the secondary effect will trigger and it will be considered as an ability activation. This is the only ability with this interaction in the game.\n* ''Flawless Duet'' will recast automatically at its end during <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Irelia\" data-ability=\"Defiant Dance\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Irelia Defiant Dance.png|20xpx|border|link=Irelia#Defiant Dance|An icon for Irelia's ability Defiant Dance]]</span> <span style=\"white-space:normal;\">[[Irelia#Defiant Dance|Defiant Dance]]</span></span> despite being disabled.\n* ''Flawless Duet'' will also recast automatically upon entering <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Resurrection\">[[File:Revival icon.png|20px|link=Death#Ways to prevent death when reaching zero health|An icon representing the keyword Resurrection]] [[:Death#Ways to prevent death when reaching zero health|resurrection]]</span>.\n* The outgoing blades will stop flight upon touching <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Projectile\">[[File:Projectile.png|20px|link=Projectile|An icon representing the keyword Projectile]] [[:Projectile|projectile]]</span> blocking effects. The converging blades will instead be destroyed upon contact with such effects.\n** The blades will not stun nor deal damage if they fail to converge (i.e <span class=\"champion-ability-icon\"><span class=\"inline-image label-after champion-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Yasuo\" data-skin=\"Original\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Yasuo OriginalSquare.png|20xpx|border|link=Yasuo|An icon representing Yasuo]]</span> <span style=\"white-space:normal;\">[[Yasuo|Yasuo's]]</span></span> <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Yasuo\" data-ability=\"Wind Wall\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Yasuo Wind Wall.png|20xpx|border|link=Yasuo#Wind Wall|An icon for Yasuo's ability Wind Wall]]</span> <span style=\"white-space:normal;\">[[Yasuo#Wind Wall|Wind Wall]]</span></span></span>).\n* Both of ''Flawless Duet's'' casts will be buffered and cast when their cooldowns end if the player attempts to cast each within 0.<small>3</small> seconds of their cooldown ending.",
+          "text": "Both casts count as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse's passive.\n* If the ability is not manually recasted, the secondary effect will trigger and it will be considered as an ability activation. This is the only ability with this interaction in the game.\nFlawless Duet will recast automatically at its end during Defiant Dance despite being disabled.\nFlawless Duet will also recast automatically upon entering resurrection.\nThe outgoing blades will stop flight upon touching projectile blocking effects. The converging blades will instead be destroyed upon contact with such effects.\n* The blades will not stun nor deal damage if they fail to converge (i.e Yasuo's Wind Wall).\nBoth of Flawless Duet's casts will be buffered and cast when their cooldowns end if the player attempts to cast each within 0.3 seconds of their cooldown ending."
+        },
+        "projectile": true,
+        "speed": "2000 • Distance&nbsp;&divide;&nbsp;0.1 s",
+        "spellshield": true,
+        "targeting": "Location",
+        "width": "140"
+      },
+      "name": "Flawless Duet"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "E",
+  "source": {
+    "contentHash": "e9a3806187e991570ac3d867ed610d84e14e1ff402f35f8bfaec146beefe9030",
+    "fetchedAt": "2026-09-01T05:17:49.191Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Flawless_Duet",
+    "revisionId": 4021834,
+    "sourceTimestamp": "2026-05-21T16:27:19Z"
+  }
+}

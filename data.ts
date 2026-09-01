@@ -1,5 +1,6 @@
 import type {
   ChampionAttack,
+  ChampionDefence,
   ChampionEntry,
   ContentPackData,
   ItemDef,
@@ -8,6 +9,10 @@ import type {
 } from '@moba2d/core/content/ContentPack';
 import type { SpellCatalogId as PackSpellCatalogId } from './generated/spellCatalog';
 import { spellCatalog } from './generated/spellCatalog';
+import {
+  championRecordStats,
+  type ChampionRecordStats,
+} from './generated/championRecordStats';
 import { summonersRift } from './maps/summonersRift';
 import { twistedTreeline } from './maps/twistedTreeline';
 
@@ -685,6 +690,163 @@ const ROSTER: {
  * `preset.ts`'s `planLoadout` still looks a stored loadout up by name. This
  * pack changing shape must never change what that string resolves to.
  */
+/**
+ * **Where a champion sits inside its role.**
+ *
+ * Six role profiles gave sixty-nine champions six bodies, which is a roster
+ * where Caitlyn out-ranges Vladimir by twenty-five pixels and Tryndamere is
+ * exactly as tough as Riven. The source game's own numbers for all of them are
+ * already in this repository — `npm run ability:import` has been pulling them
+ * the whole time and nothing read them — so this is placement, not invention.
+ *
+ * ## Why it modulates the role instead of replacing it
+ *
+ * The obvious move is to copy the record's numbers onto the champion, and it
+ * is measurably wrong. Across the 67 records here the source game's spread is
+ * *narrower* than this pack's own: base health 1.27x against this roster's
+ * 1.76x, magic resist 1.27x against 3.0x, move speed 1.09x. Their variety
+ * lives in eighteen levels of per-level growth and in six-item builds, and
+ * this game has neither — so importing the level-1 slice would make every
+ * champion **more** alike, not less.
+ *
+ * What transfers is the *ordering*: which mage is the tanky one, which
+ * marksman reaches furthest. So each stat is scaled by the champion's share of
+ * its own role's mean, which leaves every role's mean exactly where the
+ * designer put it and spreads the champions inside it.
+ *
+ * ## The clamp
+ *
+ * A record is upstream data this pack does not control; a re-import that
+ * changed a number by an order of magnitude would otherwise silently ship a
+ * champion with a 900-pixel reach. The band is wide enough that no current
+ * record comes near it, which is the point — it is a rail, not a tuning knob.
+ *
+ * ## What is deliberately *not* placed
+ *
+ * `boltUnitsPerSecond` — a third of the roster overrides it by hand with the
+ * wiki's own missile speeds at half scale, and that is per-champion tuning
+ * somebody already did. And `speed`: the source game spreads move speed 1.09x
+ * across the whole roster, so placing it would be arithmetic that changes
+ * nothing a player could feel.
+ */
+const PLACEMENT_CLAMP = { min: 0.75, max: 1.3 } as const;
+
+/**
+ * The line core draws between a swing and a bolt, restated.
+ *
+ * `combat/BasicAttack.ts`'s `MELEE_RANGE_THRESHOLD` is 140: at or under it an
+ * attack is a swing, over it core delivers a *projectile* and reads
+ * `boltUnitsPerSecond` for its flight. So this is not a matter of taste — a
+ * melee champion placed at 153 stops being melee, and fires a missile with no
+ * speed. `attackProfiles.test.ts` caught precisely that on the first run of
+ * this placement, with Garen, Darius, Trundle and Yasuo over the line.
+ *
+ * Restated rather than imported because this is the data half of the pack: it
+ * must stay reachable from a menu screen without dragging the match into that
+ * chunk (`itemStats.ts` in core makes the same argument about itself). The
+ * copy is two below the real threshold so a rounding step cannot land on it,
+ * and `attackProfiles.test.ts` is what stops the two drifting apart.
+ */
+const MELEE_RANGE_CEILING = 138;
+
+/**
+ * How a roster row finds its record, tolerating case and punctuation drift.
+ *
+ * Exported because a test has to ask the same question — "does this champion
+ * have a record?" — and asking it a second way is how `Leblanc` here and
+ * `LeBlanc` in the wiki data quietly become two champions, one of them placed
+ * and one of them not.
+ */
+export const recordKey = (name: string): string => name.toLowerCase().replace(/[^a-z]/g, '');
+
+const RECORD_BY_NAME = new Map(
+  Object.entries(championRecordStats).map(([name, stats]) => [recordKey(name), stats] as const)
+);
+
+const recordFor = (name: string): ChampionRecordStats | undefined =>
+  RECORD_BY_NAME.get(recordKey(name));
+
+/** Every role's mean of one record field, over the champions actually in that role. */
+const roleMeans = (): Map<Role, ChampionRecordStats> => {
+  const totals = new Map<Role, { sum: ChampionRecordStats; count: number }>();
+  for (const kit of ROSTER) {
+    const role = kit.attack ? roleOfAttack(kit.attack) : undefined;
+    const record = recordFor(kit.name);
+    if (!role || !record) continue;
+    const entry = totals.get(role) ?? {
+      sum: { hp: 0, armor: 0, magicResist: 0, damage: 0, attackSpeed: 0, range: 0 },
+      count: 0,
+    };
+    for (const key of Object.keys(entry.sum) as (keyof ChampionRecordStats)[]) {
+      entry.sum[key] += record[key];
+    }
+    entry.count += 1;
+    totals.set(role, entry);
+  }
+
+  const means = new Map<Role, ChampionRecordStats>();
+  for (const [role, { sum, count }] of totals) {
+    const mean = { ...sum };
+    for (const key of Object.keys(mean) as (keyof ChampionRecordStats)[]) mean[key] = sum[key] / count;
+    means.set(role, mean);
+  }
+  return means;
+};
+
+const MEANS = roleMeans();
+
+/** This champion's share of its role's mean on one axis, railed. */
+const share = (record: ChampionRecordStats, mean: ChampionRecordStats, key: keyof ChampionRecordStats): number => {
+  const reference = mean[key];
+  if (!Number.isFinite(reference) || reference <= 0) return 1;
+  const ratio = record[key] / reference;
+  return Math.min(PLACEMENT_CLAMP.max, Math.max(PLACEMENT_CLAMP.min, ratio));
+};
+
+/**
+ * The role's attack profile, moved to where this champion sits inside it.
+ *
+ * Everything the row itself set is kept — a hand-tuned `boltUnitsPerSecond`
+ * survives — and only the three fields a role *is* are placed. Those three are
+ * also what `roleOfAttack` matches on, so this must never be written back into
+ * `ROSTER`: the role has to be read off the untouched profile first, or every
+ * champion becomes bodiless. `roleProfiles.test.ts` caught exactly that once.
+ */
+export const placedAttack = (name: string, role: Role | undefined, attack: ChampionAttack): ChampionAttack => {
+  const record = role ? recordFor(name) : undefined;
+  const mean = role ? MEANS.get(role) : undefined;
+  if (!record || !mean) return attack;
+  // A melee role stays melee. The source game's own melee reach spans 125 to
+  // 175, which is wider than the gap this engine leaves between a swing and a
+  // bolt, so the longest-reaching bruisers pile up at the ceiling rather than
+  // crossing it. Ties there are the honest outcome: past that line they would
+  // not be the same champion.
+  const placedRange = Math.round(attack.range * share(record, mean, 'range'));
+  const melee = attack.range <= MELEE_RANGE_CEILING;
+
+  return {
+    ...attack,
+    damage: Math.round(attack.damage * share(record, mean, 'damage')),
+    attacksPerSecond: Math.round(attack.attacksPerSecond * share(record, mean, 'attackSpeed') * 100) / 100,
+    range: melee ? Math.min(placedRange, MELEE_RANGE_CEILING) : placedRange,
+  };
+};
+
+/** The role's durability profile, moved the same way. */
+export const placedDefence = (name: string, role: Role): ChampionDefence => {
+  const base = DEFENCE[role];
+  const record = recordFor(name);
+  const mean = MEANS.get(role);
+  if (!record || !mean) return base;
+  return {
+    ...base,
+    health: Math.round(base.health * share(record, mean, 'hp')),
+    armor: Math.round(base.armor * share(record, mean, 'armor')),
+    magicResist: Math.round(base.magicResist * share(record, mean, 'magicResist')),
+  };
+};
+
+
 const championEntries = (): ChampionEntry[] => {
   const out: ChampionEntry[] = [];
   for (const kit of ROSTER) {
@@ -701,8 +863,8 @@ const championEntries = (): ChampionEntry[] => {
       name: kit.name,
       image: kit.image,
       playable,
-      attack: kit.attack,
-      ...(role ? { defence: DEFENCE[role] } : {}),
+      attack: kit.attack ? placedAttack(kit.name, role, kit.attack) : kit.attack,
+      ...(role ? { defence: placedDefence(kit.name, role) } : {}),
       spells: [...kit.spells],
       ...(kit.passive ? { passive: kit.passive } : {}),
       recall: 'Recall',

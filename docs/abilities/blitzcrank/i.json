@@ -1,0 +1,64 @@
+{
+  "asset": {
+    "key": "spell_blitzcrank_i",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Blitzcrank_Mana_Barrier.png?1d06f",
+    "sha1": "33c54c4488b08f289abe2364a5e06bac51c03542"
+  },
+  "champion": "Blitzcrank",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_blitzcrank_i",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Blitzcrank_Mana_Barrier.png?1d06f",
+        "sha1": "33c54c4488b08f289abe2364a5e06bac51c03542"
+      },
+      "fields": {
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Innate:'''</span> Periodically, when damaged to <span style=\"color:\n#21B053; white-space:normal\"><span style=\"white-space:nowrap\">[[File:Health icon.png|15px|link=Health]]&nbsp;30% '''maximum''' health</span></span>, '''Blitzcrank''' generates a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Shield\">[[File:Hybrid resistances icon.png|20px|link=Shield|An icon representing the keyword Shield]] [[:Shield|shield]]</span> equal to <span style=\"white-space:nowrap\">[[File:Mana icon.svg|15px|link=Mana]]&nbsp;<span style=\"color:\n#0099CC; white-space:normal\">35% of '''maximum''' mana</span></span>, lasting for up to 10 seconds.",
+          "text": "Innate: Periodically, when damaged to &nbsp;30% maximum health, Blitzcrank generates a shield equal to &nbsp;35% of maximum mana, lasting for up to 10 seconds."
+        },
+        "icon": "Mana Barrier.png",
+        "name": "Mana Barrier",
+        "notes": {
+          "raw": "* The shield will absorb the portion of incoming damage that would reduce health past 30%.\n* ''Mana Barrier's'' interactions with other <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Shield\">[[File:Hybrid resistances icon.png|20px|link=Shield|An icon representing the keyword Shield]] [[:Shield|shield]]</span> effects that trigger before taking damage that would reduce below 30% health:\n** ''Mana Barrier'' will trigger simultaneously with the [[Named item effect#Lifeline|Lifeline]] effect from <span class=\"inline-image item-icon label-after item-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-item=\"Hexdrinker\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Hexdrinker item.png|20xpx|border|link=Hexdrinker|An icon for the item Hexdrinker]]</span> <span style=\"white-space:normal;\">[[Hexdrinker]]</span></span>, <span class=\"inline-image item-icon label-after item-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-item=\"Maw of Malmortius\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Maw of Malmortius item.png|20xpx|border|link=Maw of Malmortius|An icon for the item Maw of Malmortius]]</span> <span style=\"white-space:normal;\">[[Maw of Malmortius]]</span></span>, or <span class=\"inline-image item-icon label-after item-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-item=\"Immortal Shieldbow\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Immortal Shieldbow item.png|20xpx|border|link=Immortal Shieldbow|An icon for the item Immortal Shieldbow]]</span> <span style=\"white-space:normal;\">[[Immortal Shieldbow]]</span></span> if '''Blitzcrank''' takes damage while above 30% health, and trigger before them when the damage is taken while below 30% health.\n*** ''Mana Barrier'' will always trigger simultaneously with the [[Named item effect#Lifeline|Lifeline]] effect from <span class=\"inline-image item-icon label-after item-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-item=\"Sterak&#39;s Gage\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Sterak's Gage item.png|20xpx|border|link=Sterak's Gage|An icon for the item Sterak's Gage]]</span> <span style=\"white-space:normal;\">[[Sterak's Gage]]</span></span> if '''Blitzcrank''' takes damage while above or below 30% health.",
+          "text": "The shield will absorb the portion of incoming damage that would reduce health past 30%.\nMana Barrier's interactions with other shield effects that trigger before taking damage that would reduce below 30% health:\n* Mana Barrier will trigger simultaneously with the Lifeline effect from Hexdrinker, Maw of Malmortius, or Immortal Shieldbow if Blitzcrank takes damage while above 30% health, and trigger before them when the damage is taken while below 30% health.\n** Mana Barrier will always trigger simultaneously with the Lifeline effect from Sterak's Gage if Blitzcrank takes damage while above or below 30% health."
+        },
+        "targeting": "Passive"
+      },
+      "name": "Mana Barrier"
+    },
+    {
+      "asset": {
+        "key": "spell_blitzcrank_i2",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Blitzcrank_Mana_Barrier.png?1d06f",
+        "sha1": "33c54c4488b08f289abe2364a5e06bac51c03542"
+      },
+      "fields": {
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Innate:'''</span> Periodically, when damaged to <span style=\"color:\n#21B053; white-space:normal\"><span style=\"white-space:nowrap\">[[File:Health icon.png|15px|link=Health]]&nbsp;30% '''maximum''' health</span></span>, '''Blitzcrank''' generates a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Shield\">[[File:Hybrid resistances icon.png|20px|link=Shield|An icon representing the keyword Shield]] [[:Shield|shield]]</span> equal to <span style=\"white-space:nowrap\">[[File:Mana icon.svg|15px|link=Mana]]&nbsp;<span style=\"color:\n#0099CC; white-space:normal\">35% of '''maximum''' mana</span></span>, lasting for up to 10 seconds.",
+          "text": "Innate: Periodically, when damaged to &nbsp;30% maximum health, Blitzcrank generates a shield equal to &nbsp;35% of maximum mana, lasting for up to 10 seconds."
+        },
+        "icon": "Mana Barrier.png",
+        "name": "Mana Barrier",
+        "notes": {
+          "raw": "* The shield will absorb the portion of incoming damage that would reduce health past 30%.\n* ''Mana Barrier's'' interactions with other <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Shield\">[[File:Hybrid resistances icon.png|20px|link=Shield|An icon representing the keyword Shield]] [[:Shield|shield]]</span> effects that trigger before taking damage that would reduce below 30% health:\n** ''Mana Barrier'' will trigger simultaneously with the [[Named item effect#Lifeline|Lifeline]] effect from <span class=\"inline-image item-icon label-after item-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-item=\"Hexdrinker\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Hexdrinker item.png|20xpx|border|link=Hexdrinker|An icon for the item Hexdrinker]]</span> <span style=\"white-space:normal;\">[[Hexdrinker]]</span></span>, <span class=\"inline-image item-icon label-after item-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-item=\"Maw of Malmortius\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Maw of Malmortius item.png|20xpx|border|link=Maw of Malmortius|An icon for the item Maw of Malmortius]]</span> <span style=\"white-space:normal;\">[[Maw of Malmortius]]</span></span>, or <span class=\"inline-image item-icon label-after item-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-item=\"Immortal Shieldbow\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Immortal Shieldbow item.png|20xpx|border|link=Immortal Shieldbow|An icon for the item Immortal Shieldbow]]</span> <span style=\"white-space:normal;\">[[Immortal Shieldbow]]</span></span> if '''Blitzcrank''' takes damage while above 30% health, and trigger before them when the damage is taken while below 30% health.\n*** ''Mana Barrier'' will always trigger simultaneously with the [[Named item effect#Lifeline|Lifeline]] effect from <span class=\"inline-image item-icon label-after item-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-item=\"Sterak&#39;s Gage\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Sterak's Gage item.png|20xpx|border|link=Sterak's Gage|An icon for the item Sterak's Gage]]</span> <span style=\"white-space:normal;\">[[Sterak's Gage]]</span></span> if '''Blitzcrank''' takes damage while above or below 30% health.",
+          "text": "The shield will absorb the portion of incoming damage that would reduce health past 30%.\nMana Barrier's interactions with other shield effects that trigger before taking damage that would reduce below 30% health:\n* Mana Barrier will trigger simultaneously with the Lifeline effect from Hexdrinker, Maw of Malmortius, or Immortal Shieldbow if Blitzcrank takes damage while above 30% health, and trigger before them when the damage is taken while below 30% health.\n** Mana Barrier will always trigger simultaneously with the Lifeline effect from Sterak's Gage if Blitzcrank takes damage while above or below 30% health."
+        },
+        "targeting": "Passive"
+      },
+      "name": "Mana Barrier 2"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "I",
+  "source": {
+    "contentHash": "a2be24dd5a3034bad9b520abbf441a45442d819a910c7b3db7af7381764726b7",
+    "fetchedAt": "2026-09-01T05:17:31.206Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Mana_Barrier",
+    "revisionId": 3908089,
+    "sourceTimestamp": "2025-06-08T06:17:57Z"
+  }
+}

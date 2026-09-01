@@ -1,0 +1,126 @@
+{
+  "asset": {
+    "key": "spell_shaco_r",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Shaco_Hallucinate.png?3222c",
+    "sha1": "86c20e6e77373ca295c7c6ddfab142caf5423f7c"
+  },
+  "champion": "Shaco",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_shaco_r",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Shaco_Hallucinate.png?3222c",
+        "sha1": "86c20e6e77373ca295c7c6ddfab142caf5423f7c"
+      },
+      "fields": {
+        "casttime": "0.25",
+        "cooldown": "100 / 95 / 90 / 85 / 80",
+        "cost": "100",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Shaco''' <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Vanish\">[[File:Hallucinate.png|20px|link=Untargetability#Vanish|An icon representing the keyword Vanish]] [[:Untargetability#Vanish|vanishes]]</span> for 0.<small>5</small> seconds and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Blinks\">[[File:Flash.png|20px|link=Blink|An icon representing the keyword Blink]] [[:Blink|blinks]]</span> in the <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"150 units\">target direction</span> while creating a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Clone\">[[File:Shaco Hallucinate 2.png|20px|link=Champion_summoned_units#decoys|An icon representing the keyword Clone]] [[:Champion_summoned_units#decoys|clone]]</span> of himself that is summoned in the <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"150 units\">opposite direction</span>, remaining within <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"1125 units\">control range</span> of him as a controllable <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Clone\">[[File:Shaco Hallucinate 2.png|20px|link=Champion_summoned_units#decoys|An icon representing the keyword Clone]] [[:Champion_summoned_units#decoys|clone]]</span> for up to 18 seconds. <br/><br/>''Hallucinate'' can be recast at any time while the clone is alive, and can be used while affected by <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Cast-inhibiting crowd control\">[[File:Silence icon.png|20px|link=Crowd_control#Disrupting|An icon representing the keyword Cast-inhibiting crowd control]] [[:Crowd_control#Disrupting|cast-inhibiting crowd control]]</span>.",
+          "text": "Active: Shaco vanishes for 0.5 seconds and blinks in the target direction while creating a clone of himself that is summoned in the opposite direction, remaining within control range of him as a controllable clone for up to 18 seconds.\nHallucinate can be recast at any time while the clone is alive, and can be used while affected by cast-inhibiting crowd control."
+        },
+        "description2": {
+          "raw": "<span class=\"template_sbc\">'''Recast:'''</span> '''Shaco''' commands the <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Clone\">[[File:Shaco Hallucinate 2.png|20px|link=Champion_summoned_units#decoys|An icon representing the keyword Clone]] [[:Champion_summoned_units#decoys|clone]]</span> to move to the target location.",
+          "text": "Recast: Shaco commands the clone to move to the target location."
+        },
+        "description3": {
+          "raw": "The clone will explode upon dying or expiring to deal <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to nearby enemies and deploy three ''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Shaco\" data-ability=\"Jack in the Box\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Shaco Jack in the Box.png|20xpx|border|link=Shaco#Jack in the Box|An icon for Shaco's ability Jack in the Box]]</span> <span style=\"white-space:normal;\">[[Shaco#Jack in the Box|mini-boxes]]</span></span>'' that activate instantly, <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Fearing\">[[File:Flee icon.png|20px|link=Flee|An icon representing the keyword Flee]] [[:Flee|fearing]]</span> nearby enemies for 1 second, increased to 2.<small>2</small> seconds against non-champions, and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Root\">[[File:Root icon.png|20px|link=Root|An icon representing the keyword Root]] [[:Root|rooting]]</span> them for 0.<small>5</small> seconds, increased to <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Estimated\">0.<small>6</small> seconds</span> against monsters and <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Estimated\">1 second</span> against minions. After a 0.<small>15</small>-second delay of the ''boxes' '' activation, enemies hit also have their <span style=\"color:\n#9FFF4D; white-space:normal\">movement speed</span> reduced. Enemy champions have their <span style=\"color:\n#9FFF4D; white-space:normal\">movement speed</span> set to a <span style=\"color:\n#9FFF4D; white-space:normal\">static 100</span>, while non-champions are set to a <span style=\"color:\n#9FFF4D; white-space:normal\">static 60</span>. The <span style=\"color:\n#9FFF4D; white-space:normal\">movement speed</span> reduction lasts for the same duration as the fear plus 0.<small>3</small> seconds.",
+          "text": "The clone will explode upon dying or expiring to deal magic damage to nearby enemies and deploy three mini-boxes that activate instantly, fearing nearby enemies for 1 second, increased to 2.2 seconds against non-champions, and rooting them for 0.5 seconds, increased to 0.6 seconds against monsters and 1 second against minions. After a 0.15-second delay of the boxes' activation, enemies hit also have their movement speed reduced. Enemy champions have their movement speed set to a static 100, while non-champions are set to a static 60. The movement speed reduction lasts for the same duration as the fear plus 0.3 seconds."
+        },
+        "description4": {
+          "raw": "The ''boxes'' possess ''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Shaco\" data-ability=\"Jack in the Box\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Shaco Jack in the Box.png|20xpx|border|link=Shaco#Jack in the Box|An icon for Shaco's ability Jack in the Box]]</span> <span style=\"white-space:normal;\">[[Shaco#Jack in the Box|Jack in the Box's]]</span></span>'' effects, except they have a doubled, but shared <span style=\"white-space:nowrap\">[[File:Health icon.png|15px|link=Health]]&nbsp;<span style=\"color:\n#21B053; white-space:normal\">health</span></span>, and deal <span style=\"color:\n#00B0F0; white-space:normal\">'''modified''' magic damage</span> with each attack, increased when attacking a single unit. They are also <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Invulnerable\">[[File:Cosmic Radiance.png|20px|link=Invulnerability|An icon representing the keyword Invulnerability]] [[:Invulnerability|invulnerable]]</span> for <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"estimated\">0.<small>5</small></span> seconds after deployment.",
+          "text": "The boxes possess Jack in the Box's effects, except they have a doubled, but shared &nbsp;health, and deal modified magic damage with each attack, increased when attacking a single unit. They are also invulnerable for 0.5 seconds after deployment."
+        },
+        "description5": {
+          "raw": "''See [[Shaco#Pets|Pets]] for more details about '''Shaco's''' clone.''",
+          "text": "See Pets for more details about Shaco's clone."
+        },
+        "effectradius": "250",
+        "icon": "Hallucinate.png",
+        "icon2": "Hallucinate 2.png",
+        "leveling3": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>150 / 187.<small>5</small> / 225 / 262.<small>5</small> / 300 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 70% AP)</span></dd></dl>",
+          "text": "Magic Damage:150 / 187.5 / 225 / 262.5 / 300 (+ 70% AP)"
+        },
+        "leveling4": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Modified Magic Damage:'''</span></dt><dd>10 / 15 / 20 / 25 / 30 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 10% AP)</span></dd><dt><span class=\"template_lc\">'''Increased Modified Damage:'''</span></dt><dd>25 / 37.<small>5</small> / 50 / 62.<small>5</small> / 75 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 15% AP)</span></dd></dl>",
+          "text": "Modified Magic Damage:10 / 15 / 20 / 25 / 30 (+ 10% AP)Increased Modified Damage:25 / 37.5 / 50 / 62.5 / 75 (+ 15% AP)"
+        },
+        "name": "Hallucinate",
+        "notes": {
+          "raw": "* If the explosion hits at least one minion, the ''boxes'' will fear all enemies regardless of their unit type for 2.<small>2</small> seconds, causing enemy champions to be feared for the non-champion fear duration.<sup><span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"This is not intended. \">(bug)</span></sup>\n* The root and fear are applied at the same time. The target cannot be forced to move by the fear during the root.\n** The target is however allowed to move despite being rooted for the first 0.<small>15</small> seconds of the root. They can be forced to move by the fear during this time.\n* '''Shaco''' and the ''Hallucination'' will face each other the moment of their appearance.\n* The explosion and the ''boxes'' apply <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Area damage\">[[File:Mega Inferno Bomb.png|20px|link=Damage|An icon representing the keyword Area damage]] [[:Damage|area damage]]</span>, while the clone deals <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic damage\">[[File:Basic Attack.png|20px|link=Damage|An icon representing the keyword Basic damage]] [[:Damage|basic damage]]</span>.\n* ''Hallucinate'' will cast from wherever '''Shaco''' is at the end of the cast time.\n* When '''Shaco''' dies, the clone will automatically target the closest visible enemy champion within 1500 units.\n* The clone will always spawn in the opposite direction of the cursor.\n** If ''Deceive'' and ''Hallucinate'' are used in quick succession, the clone will spawn in the direction of the cursor instead.",
+          "text": "If the explosion hits at least one minion, the boxes will fear all enemies regardless of their unit type for 2.2 seconds, causing enemy champions to be feared for the non-champion fear duration.(bug)\nThe root and fear are applied at the same time. The target cannot be forced to move by the fear during the root.\n* The target is however allowed to move despite being rooted for the first 0.15 seconds of the root. They can be forced to move by the fear during this time.\nShaco and the Hallucination will face each other the moment of their appearance.\nThe explosion and the boxes apply area damage, while the clone deals basic damage.\nHallucinate will cast from wherever Shaco is at the end of the cast time.\nWhen Shaco dies, the clone will automatically target the closest visible enemy champion within 1500 units.\nThe clone will always spawn in the opposite direction of the cursor.\n* If Deceive and Hallucinate are used in quick succession, the clone will spawn in the direction of the cursor instead."
+        },
+        "spellshield": true,
+        "targeting": "Direction / Location"
+      },
+      "name": "Hallucinate"
+    },
+    {
+      "asset": {
+        "key": "spell_shaco_r2",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Shaco_Hallucinate.png?3222c",
+        "sha1": "86c20e6e77373ca295c7c6ddfab142caf5423f7c"
+      },
+      "fields": {
+        "casttime": "0.25",
+        "cooldown": "100 / 95 / 90 / 85 / 80",
+        "cost": "100",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Shaco''' <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Vanish\">[[File:Hallucinate.png|20px|link=Untargetability#Vanish|An icon representing the keyword Vanish]] [[:Untargetability#Vanish|vanishes]]</span> for 0.<small>5</small> seconds and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Blinks\">[[File:Flash.png|20px|link=Blink|An icon representing the keyword Blink]] [[:Blink|blinks]]</span> in the <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"150 units\">target direction</span> while creating a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Clone\">[[File:Shaco Hallucinate 2.png|20px|link=Champion_summoned_units#decoys|An icon representing the keyword Clone]] [[:Champion_summoned_units#decoys|clone]]</span> of himself that is summoned in the <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"150 units\">opposite direction</span>, remaining within <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"1125 units\">control range</span> of him as a controllable <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Clone\">[[File:Shaco Hallucinate 2.png|20px|link=Champion_summoned_units#decoys|An icon representing the keyword Clone]] [[:Champion_summoned_units#decoys|clone]]</span> for up to 18 seconds. <br/><br/>''Hallucinate'' can be recast at any time while the clone is alive, and can be used while affected by <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Cast-inhibiting crowd control\">[[File:Silence icon.png|20px|link=Crowd_control#Disrupting|An icon representing the keyword Cast-inhibiting crowd control]] [[:Crowd_control#Disrupting|cast-inhibiting crowd control]]</span>.",
+          "text": "Active: Shaco vanishes for 0.5 seconds and blinks in the target direction while creating a clone of himself that is summoned in the opposite direction, remaining within control range of him as a controllable clone for up to 18 seconds.\nHallucinate can be recast at any time while the clone is alive, and can be used while affected by cast-inhibiting crowd control."
+        },
+        "description2": {
+          "raw": "<span class=\"template_sbc\">'''Recast:'''</span> '''Shaco''' commands the <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Clone\">[[File:Shaco Hallucinate 2.png|20px|link=Champion_summoned_units#decoys|An icon representing the keyword Clone]] [[:Champion_summoned_units#decoys|clone]]</span> to move to the target location.",
+          "text": "Recast: Shaco commands the clone to move to the target location."
+        },
+        "description3": {
+          "raw": "The clone will explode upon dying or expiring to deal <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to nearby enemies and deploy three ''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Shaco\" data-ability=\"Jack in the Box\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Shaco Jack in the Box.png|20xpx|border|link=Shaco#Jack in the Box|An icon for Shaco's ability Jack in the Box]]</span> <span style=\"white-space:normal;\">[[Shaco#Jack in the Box|mini-boxes]]</span></span>'' that activate instantly, <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Fearing\">[[File:Flee icon.png|20px|link=Flee|An icon representing the keyword Flee]] [[:Flee|fearing]]</span> nearby enemies for 1 second, increased to 2.<small>2</small> seconds against non-champions, and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Root\">[[File:Root icon.png|20px|link=Root|An icon representing the keyword Root]] [[:Root|rooting]]</span> them for 0.<small>5</small> seconds, increased to <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Estimated\">0.<small>6</small> seconds</span> against monsters and <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Estimated\">1 second</span> against minions. After a 0.<small>15</small>-second delay of the ''boxes' '' activation, enemies hit also have their <span style=\"color:\n#9FFF4D; white-space:normal\">movement speed</span> reduced. Enemy champions have their <span style=\"color:\n#9FFF4D; white-space:normal\">movement speed</span> set to a <span style=\"color:\n#9FFF4D; white-space:normal\">static 100</span>, while non-champions are set to a <span style=\"color:\n#9FFF4D; white-space:normal\">static 60</span>. The <span style=\"color:\n#9FFF4D; white-space:normal\">movement speed</span> reduction lasts for the same duration as the fear plus 0.<small>3</small> seconds.",
+          "text": "The clone will explode upon dying or expiring to deal magic damage to nearby enemies and deploy three mini-boxes that activate instantly, fearing nearby enemies for 1 second, increased to 2.2 seconds against non-champions, and rooting them for 0.5 seconds, increased to 0.6 seconds against monsters and 1 second against minions. After a 0.15-second delay of the boxes' activation, enemies hit also have their movement speed reduced. Enemy champions have their movement speed set to a static 100, while non-champions are set to a static 60. The movement speed reduction lasts for the same duration as the fear plus 0.3 seconds."
+        },
+        "description4": {
+          "raw": "The ''boxes'' possess ''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Shaco\" data-ability=\"Jack in the Box\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Shaco Jack in the Box.png|20xpx|border|link=Shaco#Jack in the Box|An icon for Shaco's ability Jack in the Box]]</span> <span style=\"white-space:normal;\">[[Shaco#Jack in the Box|Jack in the Box's]]</span></span>'' effects, except they have a doubled, but shared <span style=\"white-space:nowrap\">[[File:Health icon.png|15px|link=Health]]&nbsp;<span style=\"color:\n#21B053; white-space:normal\">health</span></span>, and deal <span style=\"color:\n#00B0F0; white-space:normal\">'''modified''' magic damage</span> with each attack, increased when attacking a single unit. They are also <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Invulnerable\">[[File:Cosmic Radiance.png|20px|link=Invulnerability|An icon representing the keyword Invulnerability]] [[:Invulnerability|invulnerable]]</span> for <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"estimated\">0.<small>5</small></span> seconds after deployment.",
+          "text": "The boxes possess Jack in the Box's effects, except they have a doubled, but shared &nbsp;health, and deal modified magic damage with each attack, increased when attacking a single unit. They are also invulnerable for 0.5 seconds after deployment."
+        },
+        "description5": {
+          "raw": "''See [[Shaco#Pets|Pets]] for more details about '''Shaco's''' clone.''",
+          "text": "See Pets for more details about Shaco's clone."
+        },
+        "effectradius": "250",
+        "icon": "Hallucinate.png",
+        "icon2": "Hallucinate 2.png",
+        "leveling3": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>150 / 187.<small>5</small> / 225 / 262.<small>5</small> / 300 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 70% AP)</span></dd></dl>",
+          "text": "Magic Damage:150 / 187.5 / 225 / 262.5 / 300 (+ 70% AP)"
+        },
+        "leveling4": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Modified Magic Damage:'''</span></dt><dd>10 / 15 / 20 / 25 / 30 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 10% AP)</span></dd><dt><span class=\"template_lc\">'''Increased Modified Damage:'''</span></dt><dd>25 / 37.<small>5</small> / 50 / 62.<small>5</small> / 75 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 15% AP)</span></dd></dl>",
+          "text": "Modified Magic Damage:10 / 15 / 20 / 25 / 30 (+ 10% AP)Increased Modified Damage:25 / 37.5 / 50 / 62.5 / 75 (+ 15% AP)"
+        },
+        "name": "Hallucinate",
+        "notes": {
+          "raw": "* If the explosion hits at least one minion, the ''boxes'' will fear all enemies regardless of their unit type for 2.<small>2</small> seconds, causing enemy champions to be feared for the non-champion fear duration.<sup><span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"This is not intended. \">(bug)</span></sup>\n* The root and fear are applied at the same time. The target cannot be forced to move by the fear during the root.\n** The target is however allowed to move despite being rooted for the first 0.<small>15</small> seconds of the root. They can be forced to move by the fear during this time.\n* '''Shaco''' and the ''Hallucination'' will face each other the moment of their appearance.\n* The explosion and the ''boxes'' apply <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Area damage\">[[File:Mega Inferno Bomb.png|20px|link=Damage|An icon representing the keyword Area damage]] [[:Damage|area damage]]</span>, while the clone deals <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic damage\">[[File:Basic Attack.png|20px|link=Damage|An icon representing the keyword Basic damage]] [[:Damage|basic damage]]</span>.\n* ''Hallucinate'' will cast from wherever '''Shaco''' is at the end of the cast time.\n* When '''Shaco''' dies, the clone will automatically target the closest visible enemy champion within 1500 units.\n* The clone will always spawn in the opposite direction of the cursor.\n** If ''Deceive'' and ''Hallucinate'' are used in quick succession, the clone will spawn in the direction of the cursor instead.",
+          "text": "If the explosion hits at least one minion, the boxes will fear all enemies regardless of their unit type for 2.2 seconds, causing enemy champions to be feared for the non-champion fear duration.(bug)\nThe root and fear are applied at the same time. The target cannot be forced to move by the fear during the root.\n* The target is however allowed to move despite being rooted for the first 0.15 seconds of the root. They can be forced to move by the fear during this time.\nShaco and the Hallucination will face each other the moment of their appearance.\nThe explosion and the boxes apply area damage, while the clone deals basic damage.\nHallucinate will cast from wherever Shaco is at the end of the cast time.\nWhen Shaco dies, the clone will automatically target the closest visible enemy champion within 1500 units.\nThe clone will always spawn in the opposite direction of the cursor.\n* If Deceive and Hallucinate are used in quick succession, the clone will spawn in the direction of the cursor instead."
+        },
+        "spellshield": true,
+        "targeting": "Direction / Location"
+      },
+      "name": "Hallucinate 2"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "R",
+  "source": {
+    "contentHash": "39b3a0f7fa8deb829462e7a33372c42b27d1b3241ebba955f01b35ddb6407687",
+    "fetchedAt": "2026-09-01T05:17:15.273Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Hallucinate",
+    "revisionId": 4013796,
+    "sourceTimestamp": "2026-04-30T07:59:32Z"
+  }
+}

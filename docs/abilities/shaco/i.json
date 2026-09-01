@@ -1,0 +1,48 @@
+{
+  "asset": {
+    "key": "spell_shaco_i",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Shaco_Backstab.png?d6195",
+    "sha1": "5640430e27088c067445ffb5f17120f7cf23cbc7"
+  },
+  "champion": "Shaco",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_shaco_i",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Shaco_Backstab.png?d6195",
+        "sha1": "5640430e27088c067445ffb5f17120f7cf23cbc7"
+      },
+      "fields": {
+        "damagetype": "Physical",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Innate:'''</span> '''Shaco's''' <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic attacks\">[[File:Basic attack cursor icon.png|20px|link=Basic attack|An icon representing the keyword Basic attack]] [[:Basic attack|basic attacks]]</span> are empowered to deal <span style=\"color:\n#FF8C34; white-space:normal\"><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-useformula=\"20 + (35-25)/17*(x-1)\" data-bot-values=\"20;20.59;21.18;21.76;22.35;22.94;23.53;24.12;24.71;25.29;25.88;26.47;27.06;27.65;28.24;28.82;29.41;30;30.59;31.18\">20 – 31.<small>18</small> (based on level)</span>[[Category:Debug]]</span> <span style=\"color:orange; white-space:normal\">(+ 20% '''bonus''' AD)</span> <span style=\"color:\n#FF8C34; white-space:normal\">'''bonus''' physical damage</span> when hitting an enemy from behind. This damage is affected by <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Critical strike\">[[File:Critical strike icon.png|20px|link=Critical strike|An icon representing the keyword Critical strike]] [[:Critical strike|critical strike]]</span> modifiers.",
+          "text": "Innate: Shaco's basic attacks are empowered to deal 20 – 31.18 (based on level)Category:Debug (+ 20% bonus AD) bonus physical damage when hitting an enemy from behind. This damage is affected by critical strike modifiers."
+        },
+        "description2": {
+          "raw": "''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Shaco\" data-ability=\"Deceive\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Shaco Deceive.png|20xpx|border|link=Shaco#Deceive|An icon for Shaco's ability Deceive]]</span> <span style=\"white-space:normal;\">[[Shaco#Deceive|Deceive]]</span></span>'' and ''<span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Shaco\" data-ability=\"Two-Shiv Poison\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Shaco Two-Shiv Poison.png|20xpx|border|link=Shaco#Two-Shiv Poison|An icon for Shaco's ability Two-Shiv Poison]]</span> <span style=\"white-space:normal;\">[[Shaco#Two-Shiv Poison|Two-Shiv Poison]]</span></span>'' have additional effects when they hit an enemy from behind.",
+          "text": "Deceive and Two-Shiv Poison have additional effects when they hit an enemy from behind."
+        },
+        "icon": "Backstab.png",
+        "name": "Backstab",
+        "notes": {
+          "raw": "* ''Backstab's'' bonus damage adds to the damage instance of the original basic attack.\n* The attacks do not deal the '''bonus''' damage against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Structures\">[[File:Structure icon.png|20px|link=Category:Structure|An icon representing the keyword Structure]] [[:Category:Structure|structures]]</span>.",
+          "text": "Backstab's bonus damage adds to the damage instance of the original basic attack.\nThe attacks do not deal the bonus damage against structures."
+        },
+        "spellshield": false,
+        "targeting": "Passive"
+      },
+      "name": "Backstab"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "I",
+  "source": {
+    "contentHash": "4a9807ece091a8b4aa705a2066b7ee0e151e0aa59edae496f39899fe777b7a5a",
+    "fetchedAt": "2026-09-01T05:17:15.273Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Backstab",
+    "revisionId": 3985836,
+    "sourceTimestamp": "2026-01-21T19:49:46Z"
+  }
+}
