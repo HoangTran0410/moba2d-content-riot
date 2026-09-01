@@ -4,11 +4,25 @@ import type { NeutralSlot, SlotObjectFactory } from '@moba2d/core/content/types'
 /**
  * Cổ Vật Hồi Máu — the source game's Health Relic, off the bridge map.
  *
- * A relic stands on a point of the map. A champion who walks over it takes it,
- * and what is left behind is a pool of healing that anything on that
- * champion's side can stand in — so the relic is not a pickup you take *from*
- * your team, it is a pickup you take *for* it. Then it is gone, and it comes
- * back on a clock everyone can count.
+ * A relic stands on a pad. A champion who walks over it takes it and is healed
+ * on the spot; two and a half seconds later a **beam of light strikes the pad**
+ * and heals every champion standing around it — *both teams*. Then the pad is
+ * empty, and the relic is back ninety seconds after the beam.
+ *
+ * ## The half that makes it interesting, and that a "healing pickup" loses
+ *
+ * The beam does not ask whose side you are on. That is the whole object: the
+ * relic is not a heal you collect, it is a **fight you start**, and a team that
+ * takes one while the enemy is standing on top of it has healed the enemy more
+ * than itself. Written as an allied-only pool it would be a strictly good thing
+ * to walk over, which is the one shape the source game deliberately did not
+ * give it.
+ *
+ * The second half is *how much*: a share of what is **missing**, not of the
+ * pool. So it is worth most to whoever is hurt worst, worth nothing to somebody
+ * standing there at full health, and — this is the part a share-of-maximum
+ * cannot do — it is worth the same to a tank and to a marksman who have each
+ * lost half of themselves.
  *
  * ## Why it is a slot object and not a camp
  *
@@ -45,35 +59,41 @@ export const RELIC_ROLE = 'relic';
  */
 export const RELIC_PICKUP_RADIUS = 90;
 
-/**
- * The beat between the touch and the pool — the relic breaks open before
- * anything is healed.
- *
- * It is what makes the relic a *decision* rather than a pickup: a second is
- * long enough to walk in, take it, and have somebody arrive to share it, and
- * long enough that taking one while running past heals almost nobody.
- */
-export const RELIC_BLOOM_MS = 900;
-
-/** How long the pool lasts, and how often it pays. */
-export const RELIC_ZONE_MS = 4_000;
-export const RELIC_ZONE_TICK_MS = 500;
-export const RELIC_ZONE_RADIUS = 220;
+/** What the champion who took it gets at once: this share of what it is missing. */
+export const RELIC_PICKUP_MISSING_SHARE = 0.08;
 
 /**
- * What one tick restores, as a share of the body's own maximum.
+ * The wiki's two and a half seconds between the pickup and the beam.
  *
- * A share rather than a flat number, and the reason is this pack's own roster:
- * a tank carries twice a marksman's pool and four times a minion's, and a flat
- * relic would be a full heal for the wave and a rounding error for the tank.
- * Eight ticks over four seconds, so a body that stands in the whole pool gets
- * a fifth of itself back.
+ * It is the whole decision the relic asks for. Long enough to take one and
+ * have an ally arrive to share it; long enough that taking one with the enemy
+ * team standing on the pad heals them twice what it heals you.
  */
-export const RELIC_HEAL_SHARE = 0.025;
-export const RELIC_MANA_SHARE = 0.025;
+export const RELIC_BEAM_DELAY_MS = 2_500;
 
-/** How long until it is back. Long enough to be worth walking to. */
-export const RELIC_RESPAWN_MS = 60_000;
+/** And what the beam gives everyone under it, of what each of them is missing. */
+export const RELIC_BEAM_MISSING_SHARE = 0.16;
+
+/**
+ * The beam's reach: the wiki's 850 units at the half scale this pack already
+ * converts the source game's distances by (`data.ts`, `boltUnitsPerSecond`;
+ * `Item_Runaan.ts`, `SIDE_BOLT_SPREAD`).
+ *
+ * It is deliberately large — larger than a turret's reach. A radius you have
+ * to stand *on* would make the relic a pickup again; at this size the question
+ * is who is standing in the lane when it goes off, which is the question the
+ * object exists to ask.
+ */
+export const RELIC_BEAM_RADIUS = 425;
+
+/** How long the strike is on screen after it has already paid. */
+export const RELIC_BEAM_FADE_MS = 600;
+
+/**
+ * The wiki's ninety seconds, and it runs **from the beam**, not from the
+ * pickup — so a relic is gone for the delay plus the wait.
+ */
+export const RELIC_RESPAWN_MS = 90_000;
 
 /** Pale healing green, and the stone it sits on. */
 const RELIC_GLOW: [number, number, number] = [126, 232, 168];
@@ -81,19 +101,40 @@ const RELIC_STONE: [number, number, number] = [96, 108, 122];
 
 /** Structural: what the relic needs of a body it heals. */
 interface Healable {
-  teamId?: string;
   isDead?: boolean;
   toRemove?: boolean;
-  position: { x: number; y: number };
-  stats: { maxHealth: { value: number }; maxMana?: { value: number } };
+  stats: {
+    health: { value: number };
+    maxHealth: { value: number };
+    mana?: { value: number };
+    maxMana?: { value: number };
+  };
   takeHeal(amount: number, source: unknown): void;
   restoreMana?(amount: number): void;
 }
 
+/**
+ * One body's share of a relic, paid.
+ *
+ * Through `takeHeal`, never `stats.health.baseValue`: everything that argues
+ * with healing — a wound, a healing-received buff — lives on that seam, and a
+ * relic that put the points back by hand would be the one heal in the game no
+ * counter-play reaches. The wiki says the same thing from the other end: the
+ * restore *"counts as self-healing and is affected by healing modifiers"*,
+ * which is also why the body is handed itself as the source.
+ */
+const restore = (unit: Healable, share: number): void => {
+  const missingHealth = unit.stats.maxHealth.value - unit.stats.health.value;
+  if (missingHealth > 0) unit.takeHeal(Math.round(missingHealth * share), unit);
+
+  const pool = unit.stats.maxMana?.value ?? 0;
+  const missingMana = pool - (unit.stats.mana?.value ?? 0);
+  if (pool > 0 && missingMana > 0) unit.restoreMana?.(Math.round(missingMana * share));
+};
+
 export default function makeHealthRelic(api: ContentApi): SlotObjectFactory {
   const GameObject = api.GameObject;
   const Champion = api.units.Champion;
-  const AttackableUnit = api.units.AttackableUnit;
   const filters = api.combat.PredefinedFilters;
   const Circle = api.utils.Quadtree.Circle;
   const { GROUND_Z_INDEX } = api.layers;
@@ -102,103 +143,96 @@ export default function makeHealthRelic(api: ContentApi): SlotObjectFactory {
   type RelicWorld = NonNullable<ConstructorParameters<typeof GameObject>[0]>['game'];
 
   /**
-   * The pool the relic leaves behind. Its own object rather than a phase of
-   * the relic: the relic is back on its stone long before the last tick, and
-   * an effect that reaches this far past its source is a world object, not
-   * something drawn out of one (`docs/VFX_STANDARD.md`).
+   * The beam the relic calls down. Its own object rather than a phase of the
+   * relic: it lands after the relic has already gone dark, and an effect that
+   * reaches this far past its source is a world object rather than something
+   * drawn out of one (`docs/VFX_STANDARD.md`).
    */
-  class HealthRelicZone extends GameObject {
+  class HealthRelicBeam extends GameObject {
     zIndex = GROUND_Z_INDEX;
     private age = 0;
-    /**
-     * Armed, so the pool pays on the frame it opens rather than half a second
-     * later. A champion who walked in to take the relic is already standing in
-     * what it left, and a pool that makes them wait for its first tick is a
-     * pool that heals them seven times instead of eight.
-     */
-    private sinceTick = RELIC_ZONE_TICK_MS;
+    private struck = false;
 
-    constructor(
-      game: RelicWorld,
-      x: number,
-      y: number,
-      /** Whose side drinks from it — the champion who took the relic. */
-      private readonly forTeam: string,
-      /** Credited with the healing, so the recap names a champion. */
-      private readonly taker: unknown
-    ) {
+    constructor(game: RelicWorld, x: number, y: number) {
       super({ game, position: createVector(x, y) });
     }
 
     update(): void {
       this.age += deltaTime;
-      if (this.age >= RELIC_ZONE_MS) {
-        this.toRemove = true;
+      if (!this.struck) {
+        if (this.age < RELIC_BEAM_DELAY_MS) return;
+        this.struck = true;
+        this.strike();
         return;
       }
+      if (this.age >= RELIC_BEAM_DELAY_MS + RELIC_BEAM_FADE_MS) this.toRemove = true;
+    }
 
-      this.sinceTick += deltaTime;
-      if (this.sinceTick < RELIC_ZONE_TICK_MS) return;
-      this.sinceTick -= RELIC_ZONE_TICK_MS;
-
-      const inside = this.game?.objectManager.queryObjects({
-        area: new Circle({
-          x: this.position.x,
-          y: this.position.y,
-          r: RELIC_ZONE_RADIUS,
-        }),
-        filters: [filters.type(AttackableUnit), filters.excludeDead],
+    /** Once, for everyone under it. */
+    private strike(): void {
+      const caught = this.game?.objectManager.queryObjects({
+        area: new Circle({ x: this.position.x, y: this.position.y, r: RELIC_BEAM_RADIUS }),
+        // Champions, both teams. Not `AttackableUnit`: the source game's beam
+        // is champions only, and a beam that also topped up the wave would
+        // make taking a relic a way to stall a push.
+        filters: [filters.type(Champion), filters.excludeDead],
       }) as unknown as Healable[] | undefined;
 
-      for (const unit of inside ?? []) {
-        if (unit.teamId !== this.forTeam || unit.toRemove) continue;
-        // Through `takeHeal`, never `stats.health.baseValue`: everything that
-        // argues with healing — a wound, a healing-received buff — lives on
-        // that seam, and a relic that put the points back by hand would be
-        // the one heal in the game no counter-play reaches.
-        unit.takeHeal(Math.round(unit.stats.maxHealth.value * RELIC_HEAL_SHARE), this.taker);
-        const pool = unit.stats.maxMana?.value ?? 0;
-        if (pool > 0) unit.restoreMana?.(Math.round(pool * RELIC_MANA_SHARE));
+      for (const unit of caught ?? []) {
+        if (unit.toRemove) continue;
+        restore(unit, RELIC_BEAM_MISSING_SHARE);
       }
     }
 
     draw(): void {
-      const life = this.age / RELIC_ZONE_MS;
-      // Blooms open over the first fifth, then holds and fades.
-      const spread = Math.min(1, life * 5);
-      const fade = 1 - Math.max(0, (life - 0.6) / 0.4);
-      const radius = RELIC_ZONE_RADIUS * spread;
       const [r, g, b] = RELIC_GLOW;
-
       push();
       noStroke();
-      fill(r, g, b, 34 * fade);
-      circle(this.position.x, this.position.y, radius * 2);
+
+      if (!this.struck) {
+        // The gather: a ring closing on the pad, so everybody standing near it
+        // can see the beam coming and decide whether to be there.
+        const charge = Math.min(1, this.age / RELIC_BEAM_DELAY_MS);
+        const radius = RELIC_BEAM_RADIUS * (1 - charge * 0.85);
+        noFill();
+        stroke(r, g, b, 120);
+        strokeWeight(2);
+        circle(this.position.x, this.position.y, radius * 2);
+        stroke(r, g, b, 60);
+        strokeWeight(1);
+        circle(this.position.x, this.position.y, RELIC_BEAM_RADIUS * 2);
+        pop();
+        return;
+      }
+
+      const fade = 1 - Math.min(1, (this.age - RELIC_BEAM_DELAY_MS) / RELIC_BEAM_FADE_MS);
+      fill(r, g, b, 60 * fade);
+      circle(this.position.x, this.position.y, RELIC_BEAM_RADIUS * 2);
       noFill();
-      stroke(r, g, b, 150 * fade);
-      strokeWeight(2);
-      circle(this.position.x, this.position.y, radius * 2);
-      // An inner ring that keeps breathing, so a pool that is still paying
-      // never looks like one that has already finished.
-      stroke(r, g, b, 90 * fade);
-      strokeWeight(1);
-      circle(this.position.x, this.position.y, radius * (1.1 + 0.5 * Math.sin(this.age / 260)));
+      stroke(r, g, b, 220 * fade);
+      strokeWeight(3);
+      circle(this.position.x, this.position.y, RELIC_BEAM_RADIUS * 2);
+      // The column itself, painted as a bright core on the pad — the map is
+      // seen from above, so a beam is a spot of light, not a shaft.
+      noStroke();
+      fill(255, 255, 255, 210 * fade);
+      circle(this.position.x, this.position.y, 70 * fade + 20);
       pop();
     }
 
     getDisplayBoundingBox() {
-      return this.squareDisplayBoundingBox(RELIC_ZONE_RADIUS * 2 + 40);
+      return this.squareDisplayBoundingBox(RELIC_BEAM_RADIUS * 2 + 40);
     }
   }
 
   /**
-   * The relic itself: it never leaves the world, it is only *ready* or not.
+   * The relic itself: it never leaves the world, it is only *there* or not.
    * One object for the whole match rather than one spawned per cycle, so the
    * respawn clock cannot be lost by an object that removed itself.
    */
   class HealthRelic extends GameObject {
     zIndex = GROUND_Z_INDEX;
-    /** Structures stay drawn once seen, and a relic is furniture. */
+    /** Structures stay drawn once seen, and a pad is furniture. */
     alwaysVisible = true;
 
     private age = 0;
@@ -224,24 +258,21 @@ export default function makeHealthRelic(api: ContentApi): SlotObjectFactory {
       const taker = this.championOnIt();
       if (!taker) return;
 
-      this.cooling = RELIC_RESPAWN_MS;
+      // The wiki's ninety seconds run from the strike, not from the pickup, so
+      // the pad is dark for the delay on top of the wait.
+      this.cooling = RELIC_BEAM_DELAY_MS + RELIC_RESPAWN_MS;
+      restore(taker, RELIC_PICKUP_MISSING_SHARE);
       this.game?.objectManager.addObject?.(
-        new HealthRelicZone(
-          this.game,
-          this.position.x,
-          this.position.y,
-          String((taker as { teamId?: string }).teamId ?? ''),
-          taker
-        )
+        new HealthRelicBeam(this.game, this.position.x, this.position.y)
       );
     }
 
     /** Whoever is standing on it, or nothing. */
-    private championOnIt(): unknown {
+    private championOnIt(): Healable | null {
       const found = this.game?.objectManager.queryObjects({
         area: new Circle({ x: this.position.x, y: this.position.y, r: this.pickupRadius }),
         filters: [filters.type(Champion), filters.excludeDead],
-      });
+      }) as unknown as Healable[] | undefined;
       return found?.[0] ?? null;
     }
 
@@ -249,8 +280,8 @@ export default function makeHealthRelic(api: ContentApi): SlotObjectFactory {
       const [sr, sg, sb] = RELIC_STONE;
       push();
       noStroke();
-      // The stone stays whether the relic is on it or not, which is what makes
-      // an empty socket readable as "this one is coming back".
+      // The pad stays whether the relic is on it or not, which is what makes
+      // an empty one readable as "this is coming back".
       fill(sr, sg, sb, 190);
       circle(this.position.x, this.position.y, 46);
       fill(sr + 20, sg + 20, sb + 20, 150);
@@ -259,7 +290,8 @@ export default function makeHealthRelic(api: ContentApi): SlotObjectFactory {
       if (this.cooling > 0) {
         // How much of the wait is done, drawn as a filling arc rather than a
         // number: it is read from across a lane, not looked at.
-        const done = 1 - this.cooling / RELIC_RESPAWN_MS;
+        const wait = RELIC_BEAM_DELAY_MS + RELIC_RESPAWN_MS;
+        const done = 1 - this.cooling / wait;
         noFill();
         stroke(sr + 60, sg + 60, sb + 60, 170);
         strokeWeight(3);

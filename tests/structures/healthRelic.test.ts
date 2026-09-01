@@ -8,23 +8,29 @@ import {
   type TestGame,
 } from '@moba2d/core/testing/spell';
 import makeHealthRelic, {
-  RELIC_HEAL_SHARE,
+  RELIC_BEAM_DELAY_MS,
+  RELIC_BEAM_MISSING_SHARE,
+  RELIC_BEAM_RADIUS,
+  RELIC_PICKUP_MISSING_SHARE,
   RELIC_PICKUP_RADIUS,
   RELIC_RESPAWN_MS,
-  RELIC_ZONE_MS,
-  RELIC_ZONE_RADIUS,
-  RELIC_ZONE_TICK_MS,
 } from '../../structures/HealthRelic';
 
 /**
- * **Cổ Vật Hồi Máu**, and the four things about it that are invisible from the
- * file.
+ * **Cổ Vật Hồi Máu**, and the things about it that are invisible from the file.
  *
  * It is the first thing this pack stands on the map that is not a body to
- * fight, so every claim here is about a seam rather than a number: that a
- * champion *walking over* it is what takes it, that what it leaves is for that
- * champion's whole side, that it heals through the door a wound can reach, and
- * that it goes away and comes back rather than paying for ever.
+ * fight, so most of what is asserted here is a seam rather than a number: that
+ * a champion *walking over* it is what takes it, that the beam it calls down
+ * does not ask whose side you are on, that it pays a share of what is
+ * **missing**, that it heals through the door a wound can reach, and that it
+ * goes away and comes back rather than paying for ever.
+ *
+ * The load-bearing one is the second. An allied-only heal is what this file
+ * shipped first and what a "healing pickup" naturally becomes, and it is the
+ * one shape the source game deliberately did not give the relic: the beam
+ * heals **every champion under it, both teams**, which is what makes taking
+ * one a fight rather than a collection.
  */
 
 const api = buildTestApi();
@@ -32,20 +38,32 @@ const makeRelic = makeHealthRelic(api);
 
 let game: TestGame;
 
-/** The relic, on the origin, built the way `Game.spawnJungle` builds one. */
+/** The relic, built the way `Game.spawnJungle` builds one. */
 const relicAt = (x = 0, y = 0, r = 0) =>
   makeRelic({ role: 'relic', x, y, r }, game as never) as unknown as {
     update(): void;
-    draw(): void;
   };
 
 /**
  * A real `Champion`, because "a champion walks over it" is the rule and the
  * shared `createUnit` fixture builds a bare `AttackableUnit` — a minion is not
- * supposed to be able to take one.
+ * supposed to be able to take one, nor to drink from the beam.
  */
-const champion = (teamId: string, x: number) =>
-  new api.units.Champion({ game, teamId, position: createVector(x, 0) } as never);
+const champion = (teamId: string, x: number, hurt = false) => {
+  const unit = new api.units.Champion({
+    game,
+    teamId,
+    position: createVector(x, 0),
+  } as never) as ReturnType<typeof createUnit>;
+  if (hurt) {
+    unit.stats.maxHealth.baseValue = 1_000;
+    unit.stats.health.baseValue = 200;
+  }
+  return unit;
+};
+
+/** What the beam owes a body that is missing `missing` points. */
+const beamHeal = (missing: number) => Math.round(missing * RELIC_BEAM_MISSING_SHARE);
 
 const capture = () => {
   const built: { update(): void; toRemove: boolean }[] = [];
@@ -66,10 +84,10 @@ beforeEach(() => {
   installSketchMathGlobals();
   vi.stubGlobal('deltaTime', 100);
   game = createGame() as TestGame;
-  // `AttackableUnit.isAllied` asks the world who the player is, and every
-  // heal below goes through a unit method that reads it. Parked far off the
-  // map and never indexed, so it is in no query here.
-  game.setPlayer(createUnit(game, -5_000, TeamId.BLUE));
+  // `AttackableUnit.isAllied` asks the world who the player is, and every heal
+  // below goes through a unit method that reads it. Parked far off the map and
+  // never indexed, so it is in no query here.
+  game.setPlayer(champion(TeamId.BLUE, -5_000));
 });
 
 afterEach(() => {
@@ -78,10 +96,9 @@ afterEach(() => {
 });
 
 describe('taking the relic', () => {
-  it('is a champion walking over it, and it leaves a pool behind', () => {
+  it('is a champion walking over it, and it calls down a beam', () => {
     const relic = relicAt();
-    const taker = champion(TeamId.BLUE, 30);
-    indexObjects(game as never, [taker] as never);
+    indexObjects(game as never, [champion(TeamId.BLUE, 30)] as never);
     const built = capture();
 
     relic.update();
@@ -91,8 +108,7 @@ describe('taking the relic', () => {
 
   it('is not taken by a body standing just outside it', () => {
     const relic = relicAt();
-    const passerby = champion(TeamId.BLUE, RELIC_PICKUP_RADIUS + 60);
-    indexObjects(game as never, [passerby] as never);
+    indexObjects(game as never, [champion(TeamId.BLUE, RELIC_PICKUP_RADIUS + 60)] as never);
     const built = capture();
 
     relic.update();
@@ -102,14 +118,13 @@ describe('taking the relic', () => {
 
   /**
    * A slot carries its own `r` and the map drew that circle for a reason, so a
-   * relic on a wide slot is takeable from the edge of it. The constant is only
+   * relic on a wide pad is takeable from the edge of it. The constant is only
    * the floor, for a slot drawn as a point.
    */
   it('is takeable from anywhere inside a slot drawn wider than the floor', () => {
     const wide = RELIC_PICKUP_RADIUS + 200;
     const relic = relicAt(0, 0, wide);
-    const taker = champion(TeamId.BLUE, wide - 20);
-    indexObjects(game as never, [taker] as never);
+    indexObjects(game as never, [champion(TeamId.BLUE, wide - 20)] as never);
     const built = capture();
 
     relic.update();
@@ -117,20 +132,32 @@ describe('taking the relic', () => {
     expect(built).toHaveLength(1);
   });
 
+  /** The taker is paid at once, and less than the beam pays. */
+  it('heals whoever took it immediately, and by less than the beam will', () => {
+    const relic = relicAt();
+    const taker = champion(TeamId.BLUE, 30, true);
+    indexObjects(game as never, [taker] as never);
+    capture();
+
+    relic.update();
+
+    expect(taker.stats.health.value).toBe(200 + Math.round(800 * RELIC_PICKUP_MISSING_SHARE));
+    expect(RELIC_PICKUP_MISSING_SHARE).toBeLessThan(RELIC_BEAM_MISSING_SHARE);
+  });
+
   /**
    * And then it is gone. Before this the relic re-fired every frame a champion
    * stood on it, which is not a pickup — it is a fountain.
    */
-  it('goes away and comes back on its own clock', () => {
+  it('goes dark and comes back on its own clock', () => {
     const relic = relicAt();
-    const taker = champion(TeamId.BLUE, 30);
-    indexObjects(game as never, [taker] as never);
+    indexObjects(game as never, [champion(TeamId.BLUE, 30)] as never);
     const built = capture();
 
     relic.update();
     expect(built).toHaveLength(1);
 
-    run(relic, RELIC_RESPAWN_MS - 1_000);
+    run(relic, RELIC_BEAM_DELAY_MS + RELIC_RESPAWN_MS - 1_000);
     expect(built).toHaveLength(1);
 
     run(relic, 2_000);
@@ -138,91 +165,150 @@ describe('taking the relic', () => {
   });
 });
 
-describe('the pool it leaves', () => {
-  /** Takes the relic and hands back what it dropped. */
-  const poolFrom = (takerTeam: string = TeamId.BLUE) => {
+describe('the beam it calls down', () => {
+  /** Takes the relic and hands back the beam it dropped. */
+  const beamFrom = (takerTeam: string = TeamId.BLUE) => {
     const relic = relicAt();
     const taker = champion(takerTeam, 30);
     indexObjects(game as never, [taker] as never);
     const built = capture();
     relic.update();
     vi.restoreAllMocks();
-    return { pool: built[0], taker };
+    return { beam: built[0], taker };
   };
 
-  const wounded = (x: number, teamId: string) => {
-    const unit = createUnit(game, x, teamId);
-    unit.stats.maxHealth.baseValue = 1_000;
-    unit.stats.health.baseValue = 200;
-    return unit;
-  };
+  /** Long enough for the strike, and no longer. */
+  const strike = (beam: { update(): void }) => run(beam, RELIC_BEAM_DELAY_MS + 100);
 
-  it('heals the taker’s whole side, not only the taker', () => {
-    const { pool, taker } = poolFrom();
-    const ally = wounded(120, TeamId.BLUE);
-    taker.stats.maxHealth.baseValue = 1_000;
-    taker.stats.health.baseValue = 200;
-    indexObjects(game as never, [taker, ally] as never);
+  it('waits before it lands, so taking one is a decision and not a pickup', () => {
+    const { beam } = beamFrom();
+    const ally = champion(TeamId.BLUE, 120, true);
+    indexObjects(game as never, [ally] as never);
 
-    run(pool, 100); // the pool pays on the frame it opens
+    run(beam, RELIC_BEAM_DELAY_MS - 500);
+    expect(ally.stats.health.value).toBe(200);
 
-    // A share of each body's own maximum, which is the point of a share: the
-    // ally and the taker are different sizes in this pack's roster.
-    expect(ally.stats.health.value).toBe(200 + Math.round(1_000 * RELIC_HEAL_SHARE));
-    expect(taker.stats.health.value).toBeGreaterThan(200);
+    run(beam, 1_000);
+    expect(ally.stats.health.value).toBe(200 + beamHeal(800));
   });
 
-  it('leaves the other side standing in it with nothing', () => {
-    const { pool } = poolFrom();
-    const enemy = wounded(120, TeamId.RED);
-    indexObjects(game as never, [enemy] as never);
+  /**
+   * **The one that matters.** The source game's beam does not ask whose side
+   * you are on, and an enemy standing on the pad drinks exactly as deeply —
+   * which is what makes taking a relic under a fight a real mistake.
+   */
+  it('heals the enemy standing in it too, not only the taker’s side', () => {
+    const { beam } = beamFrom(TeamId.BLUE);
+    const ally = champion(TeamId.BLUE, 120, true);
+    const enemy = champion(TeamId.RED, 200, true);
+    indexObjects(game as never, [ally, enemy] as never);
 
-    run(pool, 100); // the pool pays on the frame it opens
+    strike(beam);
 
-    expect(enemy.stats.health.value).toBe(200);
+    expect(enemy.stats.health.value).toBe(200 + beamHeal(800));
+    expect(enemy.stats.health.value).toBe(ally.stats.health.value);
+  });
+
+  /**
+   * A share of what is **missing**, not of the pool. It is worth nothing to
+   * somebody standing there at full health, and worth the same to a tank and
+   * to a marksman who have each lost half of themselves — which a share of the
+   * maximum cannot do.
+   */
+  it('pays a share of what each body is missing', () => {
+    const { beam } = beamFrom();
+    const scratched = champion(TeamId.BLUE, 100, true);
+    scratched.stats.health.baseValue = 900;
+    const broken = champion(TeamId.BLUE, 160, true);
+    const whole = champion(TeamId.BLUE, 220, true);
+    whole.stats.health.baseValue = 1_000;
+    indexObjects(game as never, [scratched, broken, whole] as never);
+
+    strike(beam);
+
+    expect(broken.stats.health.value).toBe(200 + beamHeal(800));
+    expect(scratched.stats.health.value).toBe(900 + beamHeal(100));
+    expect(whole.stats.health.value).toBe(1_000);
   });
 
   it('does not reach a body standing outside it', () => {
-    const { pool } = poolFrom();
-    const far = wounded(RELIC_ZONE_RADIUS + 200, TeamId.BLUE);
+    const { beam } = beamFrom();
+    const far = champion(TeamId.BLUE, RELIC_BEAM_RADIUS + 300, true);
     indexObjects(game as never, [far] as never);
 
-    run(pool, 100); // the pool pays on the frame it opens
+    strike(beam);
 
     expect(far.stats.health.value).toBe(200);
   });
 
   /**
+   * Champions only, which is the source game's own rule and not an oversight:
+   * a beam that also topped up the wave would make taking a relic a way to
+   * stall a push.
+   */
+  it('leaves the wave alone', () => {
+    const { beam } = beamFrom();
+    const minion = createUnit(game, 120, TeamId.BLUE);
+    minion.stats.maxHealth.baseValue = 1_000;
+    minion.stats.health.baseValue = 200;
+    indexObjects(game as never, [minion] as never);
+
+    strike(beam);
+
+    expect(minion.stats.health.value).toBe(200);
+  });
+
+  /**
    * Through `takeHeal`, never `stats.health.baseValue`. A relic that put the
    * points back by hand would heal exactly the same and be the one heal in the
-   * game that no Vết Thương Sâu in the shop can argue with — invisibly.
+   * game that no Vết Thương Sâu in the shop can argue with — invisibly. The
+   * wiki says it from the other end: the restore *"counts as self-healing and
+   * is affected by healing modifiers."*
    */
   it('heals through the door a wound can reach', () => {
-    const { pool } = poolFrom();
-    const cut = wounded(120, TeamId.BLUE);
-    const enemy = createUnit(game, 400, TeamId.RED);
+    const { beam } = beamFrom();
+    const cut = champion(TeamId.BLUE, 120, true);
+    const enemy = champion(TeamId.RED, 3_000);
     const wound = new api.buffs.HealCut(10_000, enemy, cut);
     wound.healCut = 0.5;
     cut.addBuff(wound);
-    indexObjects(game as never, [cut, enemy] as never);
+    indexObjects(game as never, [cut] as never);
 
-    run(pool, 100); // the pool pays on the frame it opens
+    strike(beam);
 
-    const full = Math.round(1_000 * RELIC_HEAL_SHARE);
-    expect(cut.stats.health.value - 200).toBeLessThan(full);
+    expect(cut.stats.health.value - 200).toBeLessThan(beamHeal(800));
     expect(cut.stats.health.value).toBeGreaterThan(200);
   });
 
-  it('pays once per tick, and stops when it is spent', () => {
-    const { pool } = poolFrom();
-    const ally = wounded(120, TeamId.BLUE);
+  it('strikes once and is gone, rather than paying every frame', () => {
+    const { beam } = beamFrom();
+    const ally = champion(TeamId.BLUE, 120, true);
     indexObjects(game as never, [ally] as never);
 
-    run(pool, RELIC_ZONE_MS + 1_000);
+    run(beam, RELIC_BEAM_DELAY_MS + 5_000);
 
-    const perTick = Math.round(1_000 * RELIC_HEAL_SHARE);
-    const ticks = Math.floor(RELIC_ZONE_MS / RELIC_ZONE_TICK_MS);
-    expect(ally.stats.health.value).toBe(200 + perTick * ticks);
-    expect(pool.toRemove).toBe(true);
+    expect(ally.stats.health.value).toBe(200 + beamHeal(800));
+    expect((beam as unknown as { toRemove: boolean }).toRemove).toBe(true);
+  });
+
+  /**
+   * The same share, off missing mana. Asserted through `restoreMana` — the
+   * granting door — rather than by reading the pool, because naming the pool
+   * is what the `mana-spend` seam refuses: a test that reads it is one edit
+   * away from a *spell* that writes it, and that is the seam's whole point.
+   * The pool is widened rather than drained for the same reason.
+   */
+  it('refills mana the same way, off what is missing', () => {
+    const { beam } = beamFrom();
+    const mage = champion(TeamId.BLUE, 120, true);
+    // A champion starts full, so the missing half comes from raising the roof:
+    // 1000 max over core's own 500 starting pool.
+    mage.stats.maxMana.baseValue = 1_000;
+    const restored = vi.spyOn(mage, 'restoreMana');
+    indexObjects(game as never, [mage] as never);
+
+    strike(beam);
+
+    expect(restored).toHaveBeenCalledWith(beamHeal(500));
   });
 });
