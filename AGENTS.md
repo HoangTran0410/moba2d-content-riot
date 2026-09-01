@@ -106,6 +106,18 @@ bare specifier nothing resolves in the browser. The engine *arrives* through
 `packApi.ts`: `export default class X extends api.Spell {}`. `import type`
 is fine; the compiler erases it.
 
+**`import … from '@/game/…'` compiles, and it is still forbidden.** TypeScript
+cannot catch this one and never will: `tsconfig.json` has to publish core's own
+`@/*` alias, because core ships as *unbundled source* and each of its exported
+entry points imports its neighbours that way (seventy-two such imports in
+`ContentApi.ts` alone). `paths` is a program-wide mapping with no notion of
+which file is asking, so an alias that must resolve for core's files resolves
+for this pack's too — `npm run typecheck` exits 0 and the editor underlines
+nothing. What catches it is `check-seams` (`pack-core-boundary`) and, since it
+is the command you actually run while writing, `npm test`
+(`tests/noCoreReach.test.ts`). Everything the engine offers is on `api`:
+`const BuffAddType = api.enums.BuffAddType`.
+
 **A gitignored lockfile still pins.** `package-lock.json` is untracked here
 but real on disk: `npm install` resolves `@moba2d/core`'s git dependency to
 whatever commit the *local* lockfile recorded, however old — one checkout sat

@@ -1,7 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
-import { scanImports, stripComments } from '@moba2d/core/seams';
+import {
+  checkPackCoreBoundary,
+  scanImports,
+  scannedSeamFiles,
+  stripComments,
+} from '@moba2d/core/seams';
 
 /**
  * Closes the class of mistake Task 5 spent its whole budget fixing by hand:
@@ -385,5 +390,49 @@ describe("the pack's tests speak only published core surfaces", () => {
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {
     const offenders = files.flatMap(checkFile);
     expect(offenders).toEqual([]);
+  });
+});
+
+/**
+ * **The `@/...` half, which TypeScript structurally cannot see.**
+ *
+ * A pack reaches core through the injected `ContentApi` and core's declared
+ * subpaths, and nowhere else — but this pack's `tsconfig.json` must publish
+ * core's own `@/*` alias, because core ships as *unbundled source* and every
+ * one of its exported entry points imports its neighbours that way (there are
+ * seventy-two such imports in `ContentApi.ts` alone). `paths` is a
+ * program-wide mapping with no notion of which file is asking, so an alias
+ * that has to resolve for core's files resolves for this pack's files too.
+ * Measured rather than assumed: with
+ * `import BuffAddType from '@/game/enums/BuffAddType'` planted in a spell,
+ * `npm run typecheck` exits 0 and the editor underlines nothing.
+ *
+ * `check-seams` does catch it — `pack-core-boundary` is exactly this rule —
+ * but that is not the command anyone runs while writing a spell, so the first
+ * time you hear about it is the gate. This runs the engine's own checker over
+ * the whole package so `npm test` says it too, in the seconds after typing it.
+ *
+ * Calling core's checker rather than re-deriving the rule is the point: a
+ * second implementation here would be a second thing to keep in step, and the
+ * one it drifted from is the one CI believes.
+ */
+describe('no file in this pack names a core internal', () => {
+  /**
+   * Counted through the engine's own walker, not this file's. The local
+   * `walk()` above is written for `tests/` and follows every directory it
+   * finds — pointed at the package root it descends the `@moba2d/core` <->
+   * `@moba2d/content-lol` workspace symlink loop until the path is too long
+   * for `stat`. `walkTsFiles` skips `node_modules` and does not follow a
+   * symlinked directory, which is the reason the seam machinery has a walker
+   * of its own.
+   */
+  it('has files to check, or this case proves nothing', () => {
+    expect(scannedSeamFiles(PACK_ROOT).length).toBeGreaterThan(100);
+  });
+
+  it('reaches core only through the api and core’s declared subpaths', () => {
+    const violations = checkPackCoreBoundary(PACK_ROOT);
+    const report = violations.map(v => `${v.file}: ${v.message}`).join('\n');
+    expect(report, report).toBe('');
   });
 });
