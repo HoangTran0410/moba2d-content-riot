@@ -290,6 +290,13 @@ export { default as TwistedFate_R } from './TwistedFate_R';
 // `displayData()` deliberately leaves them out of `spellDisplay` so a
 // `'random'` loadout slot can never deal Zhonya's active as somebody's Q.
 export { default as Item_Thornmail } from './Item_Thornmail';
+export { default as Item_GrievousStrike } from './Item_GrievousStrike';
+export { default as Item_GrievousMagic } from './Item_GrievousMagic';
+export { default as Item_BrambleVest } from './Item_BrambleVest';
+export { default as Item_Rabadon } from './Item_Rabadon';
+export { default as Item_Steraks } from './Item_Steraks';
+export { default as Item_FrozenHeart } from './Item_FrozenHeart';
+export { default as Item_SerpentsFang } from './Item_SerpentsFang';
 export { default as Item_Zhonyas } from './Item_Zhonyas';
 export { default as Item_Ghostblade } from './Item_Ghostblade';
 export { default as Item_Quicksilver } from './Item_Quicksilver';

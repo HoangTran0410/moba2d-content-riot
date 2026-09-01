@@ -90,32 +90,54 @@ describe('the target the whole pass was tuned to', () => {
    * The marksman that motivated all of this: every crit and attack-speed item
    * the shop sells, on the role built to use them.
    */
+  const CARRY_BUILD = [
+    'infinity_edge',
+    'kraken_slayer',
+    'runaans_hurricane',
+    'blade_of_the_ruined_king',
+    // Was Lưỡi Hái Linh Hồn. The shop sells armour penetration now (core
+    // 1.14), and a marksman walking into six tank items without any is not
+    // "the role built to use them" any more — it is a build that declines the
+    // one answer the shop added for exactly this fight.
+    'lord_dominiks_regards',
+    'guinsoos_rageblade',
+  ];
+
+  const carryGrants = (key: string): number =>
+    CARRY_BUILD.reduce((sum, id) => sum + ((data.items?.[id]?.stats as never)?.[key] ?? 0), 0);
+
+  /** What the carry's build leaves of a tank's armour. */
+  const carryPenetration = (): number => Math.min(1, carryGrants('armorPenetration'));
+
   const carryDps = (): number => {
-    const build = [
-      'infinity_edge',
-      'kraken_slayer',
-      'runaans_hurricane',
-      'blade_of_the_ruined_king',
-      'essence_reaver',
-      'guinsoos_rageblade',
-    ];
+    const build = CARRY_BUILD;
     const grants = (key: string): number =>
       build.reduce((sum, id) => sum + ((data.items?.[id]?.stats as never)?.[key] ?? 0), 0);
 
     const damage = ATTACK.MARKSMAN.damage + grants('attackDamage');
-    // `MAX_ATTACK_SPEED` in core.
-    const rate = Math.min(3, ATTACK.MARKSMAN.attacksPerSecond + grants('attackSpeed'));
+    // A share of the role's own base rate now, not swings a second added to it
+    // — core's `PERCENT_OF_BASE`. `MAX_ATTACK_SPEED` is still the read clamp.
+    const rate = Math.min(3, ATTACK.MARKSMAN.attacksPerSecond * (1 + grants('attackSpeed')));
     const crit = Math.min(1, grants('critChance'));
     return damage * rate * (1 + crit * (0.75 + grants('critDamage')));
   };
 
+  /**
+   * The armour the carry actually has to chew through: penetration is a
+   * *share* of the number, so it is taken off before the curve rather than
+   * after it — `combat/Mitigation.ts` does the same, and doing it after would
+   * make a share of a mitigation multiplier, which is not a thing.
+   */
+  const tankArmorFacingCarry = (): number =>
+    (DEFENCE.TANK.armor + bestSix('armor')) * (1 - carryPenetration());
+
   it('lets a full tank build hold a full marksman build for four to five seconds', () => {
     const health = DEFENCE.TANK.health + bestSix('maxHealth');
-    const armor = DEFENCE.TANK.armor + bestSix('armor');
+    const armor = tankArmorFacingCarry();
     const effective = health / mitigated(armor);
     const seconds = effective / carryDps();
 
-    expect(seconds, `${seconds.toFixed(1)}s — ${health} health behind ${armor} armour`)
+    expect(seconds, `${seconds.toFixed(1)}s — ${health} health behind ${armor.toFixed(0)} armour`)
       .toBeGreaterThanOrEqual(3.5);
     expect(seconds).toBeLessThanOrEqual(6);
   });
@@ -124,8 +146,7 @@ describe('the target the whole pass was tuned to', () => {
     // The target is a tank that can open a fight, not one that has to be
     // ignored. Focus fire has to stay the right answer.
     const health = DEFENCE.TANK.health + bestSix('maxHealth');
-    const armor = DEFENCE.TANK.armor + bestSix('armor');
-    const seconds = health / mitigated(armor) / (carryDps() * 2);
+    const seconds = health / mitigated(tankArmorFacingCarry()) / (carryDps() * 2);
 
     expect(seconds).toBeLessThan(3);
   });

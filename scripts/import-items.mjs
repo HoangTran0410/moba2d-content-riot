@@ -115,6 +115,40 @@ export const ITEMS = [
   { local: 'shurelyas_battlesong', riot: 2065 },
   { local: 'everfrost', riot: 6656 },
   { local: 'dead_mans_plate', riot: 3742 },
+  // The sustain shelf and its counter. Data Dragon 16.16.1 files the wound
+  // items under the ids League's own tooltips call "Vết Thương Sâu" — the
+  // phrase this pack's descriptions use, and the reason these six sit
+  // together: they are one mechanic sold to three different builds.
+  { local: 'vampiric_scepter', riot: 1053 },
+  { local: 'bloodthirster', riot: 3072 },
+  { local: 'deaths_dance', riot: 6333 },
+  { local: 'amplifying_tome', riot: 1052 },
+  { local: 'hextech_alternator', riot: 3145 },
+  { local: 'riftmaker', riot: 4633 },
+  { local: 'abyssal_mask', riot: 8020 },
+  { local: 'executioners_calling', riot: 3123 },
+  { local: 'mortal_reminder', riot: 3033 },
+  { local: 'chempunk_chainsword', riot: 6609 },
+  { local: 'bramble_vest', riot: 3076 },
+  { local: 'oblivion_orb', riot: 3916 },
+  { local: 'morellonomicon', riot: 3165 },
+  // Penetration, tenacity and heal power — the three stats core grew in 1.14,
+  // and the items that are the only reason to grow them. Same story as the
+  // wound shelf above: the shop sold the wall and nothing that got through it.
+  { local: 'last_whisper', riot: 3035 },
+  { local: 'lord_dominiks_regards', riot: 3036 },
+  { local: 'blighting_jewel', riot: 4630 },
+  { local: 'void_staff', riot: 3135 },
+  { local: 'plated_steelcaps', riot: 3047 },
+  { local: 'mercurys_treads', riot: 3111 },
+  { local: 'ionian_boots_of_lucidity', riot: 3158 },
+  { local: 'rabadons_deathcap', riot: 3089 },
+  { local: 'steraks_gage', riot: 3053 },
+  { local: 'spirit_visage', riot: 3065 },
+  { local: 'frozen_heart', riot: 3110 },
+  // The fourth counter (core 1.15): shields granted *after* the hit are worth
+  // less. Renekton's W already strips what is up; this punishes the re-cast.
+  { local: 'serpents_fang', riot: 6695 },
 ];
 
 const sha256 = buffer => createHash('sha256').update(buffer).digest('hex');

@@ -14,11 +14,11 @@ import { data } from '../pack';
  *     swing = (attackDamage + onHitDamage), crits multiply the swing by the
  *     `critDamage` stat (base 1.75 in core — `CRIT_MULTIPLIER` — plus item
  *     points), `attacksPerSecond` *is* the `attackSpeed` stat;
- *   - the ability build's throughput multiplier is `(1 + ΣAP) / (1 − ΣCDR)`:
+ *   - the ability build's throughput multiplier is `(1 + ΣAP) × (1 + Σhaste/100)`:
  *     `Amplification.ts` multiplies every ability hit by `1 + abilityPower`,
  *     and a rotation's cadence is its cooldowns, which `Spell.reducedCooldown`
- *     shortens by the `cooldownReduction` sum (capped at 0.6 in core; this
- *     shop sells well under it, `items.test.ts` holds that).
+ *     shortens through `100 / (100 + haste)` — so casts per second is linear
+ *     in the stat, with no cap for the model to clamp against.
  *
  * Both are stats-only floors: Sheen-line spellblades, Kraken/Guinsoo procs
  * and the other coded passives all favour the attack path further, and item
@@ -41,19 +41,20 @@ type ItemStats = {
   critDamage?: number;
   onHitDamage?: number;
   abilityPower?: number;
-  cooldownReduction?: number;
+  abilityHaste?: number;
 };
 type ItemDef = { id: string; name: string; cost: number; stats?: ItemStats };
 
 const items: ItemDef[] = Object.values(data.items ?? {}) as ItemDef[];
 
-/** Core's `CRIT_MULTIPLIER` (`Stats.ts`), restated the way `items.test.ts` restates the CDR cap — the pack cannot value-import core. */
+/** Core's `CRIT_MULTIPLIER` (`Stats.ts`), restated — the pack cannot value-import core. */
 const CRIT_BASE = 1.75;
-const CDR_CAP = 0.6;
 
 /** The pack's own MARKSMAN tuning (`data.ts`'s role table). */
 const BASE_AD = 10;
 const BASE_APS = 1.65;
+/** Core's `MAX_ATTACK_SPEED`, restated for the same reason `CRIT_BASE` is. */
+const MAX_APS = 3;
 
 const sum = (build: ItemDef[], key: keyof ItemStats): number =>
   build.reduce((total, item) => total + (item.stats?.[key] ?? 0), 0);
@@ -62,11 +63,22 @@ const autoDps = (build: ItemDef[]): number => {
   const swing = BASE_AD + sum(build, 'attackDamage') + sum(build, 'onHitDamage');
   const chance = Math.min(1, sum(build, 'critChance'));
   const expectedCrit = 1 + chance * (CRIT_BASE + sum(build, 'critDamage') - 1);
-  return swing * expectedCrit * (BASE_APS + sum(build, 'attackSpeed'));
+  // Attack speed is a **share of the base rate** (core's `PERCENT_OF_BASE`),
+  // pooled additively and multiplying it once — so `0.25` on an item is +25%,
+  // not a quarter of a swing a second, and the marksman's own 1.65 is what it
+  // is a quarter of. `MAX_ATTACK_SPEED` is core's read clamp on the total.
+  const rate = Math.min(MAX_APS, BASE_APS * (1 + sum(build, 'attackSpeed')));
+  return swing * expectedCrit * rate;
 };
 
+/**
+ * Casts per second is linear in haste (`1 + h/100`), which is the whole reason
+ * core moved off the old fraction: under `1/(1-r)` the model had to clamp at a
+ * cap, and every point near it was worth more than the last. Nothing is clamped
+ * here now — the curve cannot run away.
+ */
 const kitMultiplier = (build: ItemDef[]): number =>
-  (1 + sum(build, 'abilityPower')) / (1 - Math.min(CDR_CAP, sum(build, 'cooldownReduction')));
+  (1 + sum(build, 'abilityPower')) * (1 + sum(build, 'abilityHaste') / 100);
 
 /**
  * The best six for `score`, exhaustively. Only items granting a stat the
@@ -105,7 +117,7 @@ describe('gold-for-gold, the two builds this shop sells', () => {
     ['attackDamage', 'attackSpeed', 'critChance', 'critDamage', 'onHitDamage'],
     autoDps
   );
-  const ability = bestSix(['abilityPower', 'cooldownReduction'], kitMultiplier);
+  const ability = bestSix(['abilityPower', 'abilityHaste'], kitMultiplier);
 
   const attackMultiplier = attack.score / (BASE_AD * BASE_APS);
   const abilityMultiplier = ability.score;

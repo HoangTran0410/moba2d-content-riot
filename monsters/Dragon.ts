@@ -187,7 +187,7 @@ export const ELEMENTS: readonly Drake[] = [
     attackStyle: 'ranged',
     attackColor: [150, 245, 230],
     attackInterval: 1_400,
-    bonuses: { cooldownReduction: { flatBonus: 0.12 }, attackSpeed: { flatBonus: 0.18 } },
+    bonuses: { abilityHaste: { flatBonus: 15 }, attackSpeed: { percentBaseBonus: 0.15 } },
   },
   {
     id: 'chemtech',
@@ -911,6 +911,10 @@ export default function makeDragonAbilities(api: ContentApi): MonsterAbility[] {
               monster as never
             );
             frenzy.stackId = 'chemtech-frenzy';
+            // Points, not a share: a monster's swing rhythm is
+            // `attackInterval` and its `stats.attackSpeed` base is 0, so a
+            // percentage of it would be a frenzy that does nothing. The
+            // *blessings* above land on champions and are shares.
             frenzy.bonuses = { attackSpeed: { flatBonus: RITE.chemtech.attackSpeedBonus } };
             monster.addBuff(frenzy as never);
             return;

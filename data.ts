@@ -749,12 +749,19 @@ const displayData = (): Record<string, SpellDisplayData> => {
  * `stats` keys are core's `ITEM_STAT_KEYS` allow-list and nothing else;
  * `validate.ts` refuses the whole pack over a key that is not on it. Two of
  * them mean something a reader is likely to guess wrong, so they are worth
- * stating once here rather than in six descriptions: `attackSpeed` is
- * *attacks per second* and every item grant lands on `flatBonus`, so
- * `attackSpeed: 0.3` is +0.3 swings a second on a base of 1.1 — not +30%; and
- * `healthRegen` is applied per frame (`Stats.update`, base 0.06), so
- * `healthRegen: 0.25` is roughly four times the regeneration a champion has
- * for free.
+ * stating once here rather than in six descriptions: `attackSpeed` is a
+ * **share of the wearer's own base rate**, so `attackSpeed: 0.3` is +30% —
+ * worth more swings to Vayne on 1.65 than to Sona on 0.7, which is the point
+ * of granting it that way; and `healthRegen` is applied per frame
+ * (`Stats.update`, base 0.06), so `healthRegen: 0.25` is roughly four times
+ * the regeneration a champion has for free.
+ *
+ * Movement speed comes in both flavours, as it does in the source game.
+ * `speed: 0.45` is flat, on a base of 3, and belongs to boots. `speedPercent:
+ * 0.05` multiplies the total *after* the boots, and belongs to the items a
+ * player buys fourth — Tam Hợp Kiếm and Giáp Người Chết here, both 5% on the
+ * wiki. Writing the flat one where the percent belongs is not an error
+ * anywhere: it is an item that quietly stops scaling with the build.
  *
  * **A component with no passive and no active is legal and is the point.**
  * `ItemDef`'s own doc comment says so: a pack that could not express an inert
@@ -831,7 +838,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     name: 'Cung Gỗ',
     icon: 'item_recurve_bow',
     cost: 500,
-    stats: { attackSpeed: 0.25 },
+    stats: { attackSpeed: 0.15 },
   },
   sheen: {
     id: 'sheen',
@@ -861,7 +868,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     icon: 'item_berserkers_greaves',
     cost: 900,
     buildsFrom: ['boots', 'recurve_bow'],
-    stats: { speed: 0.45, attackSpeed: 0.3 },
+    stats: { speed: 0.45, attackSpeed: 0.18 },
   },
   warmogs_armor: {
     id: 'warmogs_armor',
@@ -880,9 +887,14 @@ const itemEntries = (): Record<string, ItemDef> => ({
     name: 'Giáp Gai',
     icon: 'item_thornmail',
     cost: 1100,
-    buildsFrom: ['cloth_armor', 'cloth_armor'],
+    // Áo Choàng Gai + Giáp Lụa, since the wound shelf arrived: the old recipe
+    // was two Giáp Lụa, and a tank who bought the wound component then had
+    // nowhere to put it. `Item_Thornmail` arms the component's wound as well
+    // as the spikes, so combining loses nothing.
+    buildsFrom: ['bramble_vest', 'cloth_armor'],
     description:
-      'Nội tại: phản <span class="buff">25%</span> sát thương nhận vào về kẻ đã gây ra nó.',
+      'Nội tại: phản <span class="buff">25%</span> sát thương nhận vào về kẻ đã gây ra nó, và đặt ' +
+      'Vết Thương Sâu <span class="buff">40%</span> lên chúng trong <span class="time">3 giây</span>.',
     stats: { armor: 45 },
     passive: 'Item_Thornmail',
   },
@@ -913,10 +925,10 @@ const itemEntries = (): Record<string, ItemDef> => ({
     id: 'blade_of_the_ruined_king',
     name: 'Gươm Suy Vong',
     icon: 'item_blade_of_the_ruined_king',
-    cost: 1200,
+    cost: 1400,
     buildsFrom: ['recurve_bow', 'long_sword'],
     description: 'Nội tại: đòn đánh gây thêm <span class="buff">5%</span> máu hiện tại của mục tiêu.',
-    stats: { attackDamage: 10, attackSpeed: 0.25, omnivamp: 0.12 },
+    stats: { attackDamage: 10, attackSpeed: 0.15, omnivamp: 0.1 },
     passive: 'Item_RuinedKing',
   },
   zhonyas_hourglass: {
@@ -956,7 +968,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     description:
       'Nội tại: mỗi đòn đánh tăng thêm tốc đánh, cộng dồn <span class="buff">6</span> lần; khi tích đủ, ' +
       'mỗi đòn thứ <span class="buff">3</span> kích hoạt các hiệu ứng đòn đánh <span class="buff">2</span> lần.',
-    stats: { attackDamage: 8, attackSpeed: 0.35 },
+    stats: { attackDamage: 8, attackSpeed: 0.21 },
     passive: 'Item_Guinsoo',
   },
   wits_end: {
@@ -967,7 +979,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     buildsFrom: ['recurve_bow', 'null_magic_mantle'],
     description:
       'Nội tại: đòn đánh gây thêm <span class="damage magic">4 sát thương phép</span> và tăng tốc chạy trong chốc lát.',
-    stats: { attackSpeed: 0.3, magicResist: 32, abilityPower: 1 },
+    stats: { attackSpeed: 0.18, magicResist: 26, abilityPower: 1 },
     passive: 'Item_WitsEnd',
   },
   kraken_slayer: {
@@ -979,7 +991,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     description:
       'Nội tại: mỗi đòn thứ <span class="buff">3</span> liên tiếp lên cùng một mục tiêu gây thêm ' +
       '<span class="damage physical">12 sát thương vật lý</span>.',
-    stats: { attackDamage: 14, attackSpeed: 0.3 },
+    stats: { attackDamage: 14, attackSpeed: 0.18 },
     passive: 'Item_Kraken',
   },
   nashors_tooth: {
@@ -989,7 +1001,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1450,
     buildsFrom: ['recurve_bow'],
     description: 'Nội tại: đòn đánh gây thêm <span class="damage magic">7 sát thương phép</span>.',
-    stats: { attackSpeed: 0.4, abilityPower: 1.4 },
+    stats: { attackSpeed: 0.24, abilityPower: 1.4 },
     passive: 'Item_Nashor',
   },
   trinity_force: {
@@ -1000,7 +1012,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     buildsFrom: ['sheen', 'long_sword', 'recurve_bow'],
     description:
       'Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm <span class="buff">100%</span> công cơ bản.',
-    stats: { attackDamage: 10, attackSpeed: 0.3, maxMana: 20, speed: 0.15 },
+    stats: { attackDamage: 10, attackSpeed: 0.18, maxMana: 20, speedPercent: 0.05 },
     passive: 'Item_TrinityForce',
   },
   divine_sunderer: {
@@ -1070,7 +1082,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     description:
       'Nội tại (đánh xa): mỗi đòn đánh bắn thêm <span class="buff">2</span> tia phụ vào các kẻ địch khác ' +
       'gần nhất, gây <span class="buff">45%</span> công và áp dụng hiệu ứng đòn đánh của bạn.',
-    stats: { attackSpeed: 0.55 },
+    stats: { attackSpeed: 0.33 },
     passive: 'Item_Runaan',
   },
   dusk_and_dawn: {
@@ -1102,7 +1114,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     description:
       'Nội tại: mỗi đòn đánh tích điện; khi tích đầy, đòn kế tiếp phóng tia sét gây ' +
       '<span class="damage magic">16 sát thương phép</span> lên mục tiêu và lan sang <span class="buff">3</span> kẻ địch gần đó.',
-    stats: { attackDamage: 10, attackSpeed: 0.35 },
+    stats: { attackDamage: 10, attackSpeed: 0.21 },
     passive: 'Item_StatikkShiv',
   },
   dead_mans_plate: {
@@ -1114,34 +1126,34 @@ const itemEntries = (): Record<string, ItemDef> => ({
     description:
       'Nội tại: di chuyển tích lực, tối đa tăng thêm <span class="buff">30%</span> tốc chạy; đòn đánh kế tiếp ' +
       'xả toàn bộ lực, gây tới <span class="damage physical">20 sát thương vật lý</span> và làm chậm <span class="buff">50%</span> khi tích đầy.',
-    stats: { armor: 30, maxHealth: 50, speed: 0.2 },
+    stats: { armor: 30, maxHealth: 50, speedPercent: 0.05 },
     passive: 'Item_DeadMansPlate',
   },
   locket_of_the_iron_solari: {
     id: 'locket_of_the_iron_solari',
     name: 'Vòng Sắt Mặt Trời',
     icon: 'item_locket_of_the_iron_solari',
-    cost: 1300,
+    cost: 1450,
     buildsFrom: ['cloth_armor', 'null_magic_mantle'],
     description:
       'Kích hoạt: tạo khiên <span class="buff">30</span> cho bản thân và các đồng minh xung quanh trong <span class="time">2.5 giây</span>.',
-    stats: { armor: 25, magicResist: 40, maxHealth: 40 },
+    stats: { armor: 25, magicResist: 32, maxHealth: 40 },
     active: 'Item_Locket',
   },
   shurelyas_battlesong: {
     id: 'shurelyas_battlesong',
     name: 'Khúc Ca Shurelya',
     icon: 'item_shurelyas_battlesong',
-    cost: 1400,
+    cost: 1500,
     buildsFrom: ['boots', 'ruby_crystal'],
     description:
       'Kích hoạt: tăng <span class="buff">35%</span> tốc chạy cho bản thân và các đồng minh xung quanh trong <span class="time">3 giây</span>.',
     stats: {
       speed: 0.45,
-      maxHealth: 40,
-      maxMana: 30,
-      abilityPower: 1,
-      cooldownReduction: 0.15,
+      maxHealth: 25,
+      maxMana: 20,
+      abilityPower: 0.8,
+      abilityHaste: 20,
     },
     active: 'Item_Shurelya',
   },
@@ -1149,18 +1161,294 @@ const itemEntries = (): Record<string, ItemDef> => ({
     id: 'everfrost',
     name: 'Vĩnh Sương',
     icon: 'item_everfrost',
-    cost: 1500,
+    cost: 1600,
     buildsFrom: ['ruby_crystal', 'null_magic_mantle'],
     description:
       'Kích hoạt: bắn ra một luồng băng gây <span class="damage magic">30 sát thương phép</span> và trói <span class="time">1.2 giây</span> mọi kẻ địch trúng đòn.',
     stats: {
-      maxHealth: 45,
-      magicResist: 35,
-      maxMana: 40,
+      maxHealth: 35,
+      magicResist: 25,
+      maxMana: 25,
       abilityPower: 1.4,
-      cooldownReduction: 0.1,
+      abilityHaste: 15,
     },
     active: 'Item_Everfrost',
+  },
+
+  // ---- Sustain, and the counter to it ----------------------------------
+  // Two shelves that only make sense together. Core carries three vamp stats
+  // split by damage *type* (`combat/Vamp.ts`) — `lifesteal` out of physical
+  // and true, `spellVamp` out of magic, `omnivamp` out of all three — and
+  // until now this shop sold only the third, on two items, as a garnish. A
+  // player who wanted to build sustain could not, and a player being outlived
+  // by one who had could do nothing about it.
+  //
+  // So: one component per vamp stat, and a wound that answers all of them.
+  // `HealCut` (core 1.13) cuts every heal *and* health regeneration, which is
+  // what makes 650 gold of Áo Choàng Gai a real answer to Giáp Máu Warmog and
+  // to a jungler healing between camps — see `Item_GrievousStrike.ts` for why
+  // three items share one passive and why the split is by damage type.
+  vampiric_scepter: {
+    id: 'vampiric_scepter',
+    name: 'Huyết Trượng',
+    icon: 'item_vampiric_scepter',
+    cost: 550,
+    stats: { attackDamage: 5, lifesteal: 0.1 },
+  },
+  bloodthirster: {
+    id: 'bloodthirster',
+    name: 'Huyết Kiếm',
+    icon: 'item_bloodthirster',
+    cost: 1450,
+    buildsFrom: ['vampiric_scepter', 'long_sword'],
+    stats: { attackDamage: 18, lifesteal: 0.2 },
+  },
+  deaths_dance: {
+    id: 'deaths_dance',
+    name: 'Vũ Điệu Tử Thần',
+    icon: 'item_deaths_dance',
+    cost: 1400,
+    buildsFrom: ['long_sword', 'cloth_armor'],
+    stats: { attackDamage: 14, armor: 25, omnivamp: 0.08 },
+  },
+  amplifying_tome: {
+    id: 'amplifying_tome',
+    name: 'Sách Cũ',
+    icon: 'item_amplifying_tome',
+    cost: 400,
+    // The shop's first ability-power *component*. Every mage item above builds
+    // out of Thủy Kiếm, Giày or a resistance, which priced the whole branch
+    // like a splash of something else.
+    stats: { abilityPower: 0.5 },
+  },
+  hextech_alternator: {
+    id: 'hextech_alternator',
+    name: 'Máy Chuyển Pha Hextech',
+    icon: 'item_hextech_alternator',
+    cost: 900,
+    buildsFrom: ['amplifying_tome', 'amplifying_tome'],
+    stats: { abilityPower: 1, maxMana: 15 },
+  },
+  riftmaker: {
+    id: 'riftmaker',
+    name: 'Quyền Trượng Ác Thần',
+    icon: 'item_riftmaker',
+    cost: 1550,
+    buildsFrom: ['amplifying_tome', 'ruby_crystal'],
+    stats: { abilityPower: 1.2, maxHealth: 45, spellVamp: 0.15 },
+  },
+  abyssal_mask: {
+    id: 'abyssal_mask',
+    name: 'Mặt Nạ Vực Thẳm',
+    icon: 'item_abyssal_mask',
+    cost: 1400,
+    buildsFrom: ['null_magic_mantle', 'ruby_crystal'],
+    stats: { maxHealth: 45, magicResist: 28, abilityPower: 0.6 },
+  },
+  executioners_calling: {
+    id: 'executioners_calling',
+    name: 'Gươm Đồ Tể',
+    icon: 'item_executioners_calling',
+    cost: 600,
+    description:
+      'Nội tại: sát thương vật lý bạn gây ra đặt Vết Thương Sâu, giảm <span class="buff">40%</span> ' +
+      'mọi hiệu ứng hồi máu của mục tiêu trong <span class="time">3 giây</span>.',
+    stats: { attackDamage: 8 },
+    passive: 'Item_GrievousStrike',
+  },
+  mortal_reminder: {
+    id: 'mortal_reminder',
+    name: 'Lời Nhắc Tử Vong',
+    icon: 'item_mortal_reminder',
+    cost: 1450,
+    buildsFrom: ['executioners_calling', 'long_sword'],
+    description:
+      'Nội tại: sát thương vật lý bạn gây ra đặt Vết Thương Sâu, giảm <span class="buff">40%</span> ' +
+      'mọi hiệu ứng hồi máu của mục tiêu trong <span class="time">3 giây</span>.',
+    stats: { attackDamage: 20, critChance: 0.15 },
+    passive: 'Item_GrievousStrike',
+  },
+  chempunk_chainsword: {
+    id: 'chempunk_chainsword',
+    name: 'Cưa Xích Hóa Kỹ',
+    icon: 'item_chempunk_chainsword',
+    cost: 1450,
+    buildsFrom: ['executioners_calling', 'ruby_crystal'],
+    description:
+      'Nội tại: sát thương vật lý bạn gây ra đặt Vết Thương Sâu, giảm <span class="buff">40%</span> ' +
+      'mọi hiệu ứng hồi máu của mục tiêu trong <span class="time">3 giây</span>.',
+    stats: { attackDamage: 14, maxHealth: 45 },
+    passive: 'Item_GrievousStrike',
+  },
+  bramble_vest: {
+    id: 'bramble_vest',
+    name: 'Áo Choàng Gai',
+    icon: 'item_bramble_vest',
+    cost: 650,
+    description:
+      'Nội tại: kẻ đánh trúng bạn dính Vết Thương Sâu, giảm <span class="buff">40%</span> mọi hiệu ứng ' +
+      'hồi máu của chúng trong <span class="time">3 giây</span>.',
+    stats: { armor: 20 },
+    passive: 'Item_BrambleVest',
+  },
+  oblivion_orb: {
+    id: 'oblivion_orb',
+    name: 'Ngọc Quên Lãng',
+    icon: 'item_oblivion_orb',
+    cost: 700,
+    description:
+      'Nội tại: sát thương phép bạn gây ra đặt Vết Thương Sâu, giảm <span class="buff">40%</span> ' +
+      'mọi hiệu ứng hồi máu của mục tiêu trong <span class="time">3 giây</span>.',
+    stats: { abilityPower: 0.6 },
+    passive: 'Item_GrievousMagic',
+  },
+  morellonomicon: {
+    id: 'morellonomicon',
+    name: 'Quỷ Thư Morello',
+    icon: 'item_morellonomicon',
+    cost: 1500,
+    buildsFrom: ['oblivion_orb', 'ruby_crystal'],
+    description:
+      'Nội tại: sát thương phép bạn gây ra đặt Vết Thương Sâu, giảm <span class="buff">40%</span> ' +
+      'mọi hiệu ứng hồi máu của mục tiêu trong <span class="time">3 giây</span>.',
+    stats: { abilityPower: 1.1, maxHealth: 45 },
+    passive: 'Item_GrievousMagic',
+  },
+
+  // ---- Xuyên kháng, kháng hiệu ứng, và cái mũ ---------------------------
+  // Core 1.14's four new stats, and the items that are the reason to have
+  // them. The shape is the wound shelf's again: this shop sold 45 armour on
+  // one item and 40 magic resist on another with nothing that could get
+  // through either, so stacking a resistance had no counter-play but to stop
+  // fighting. `armorPenetration`/`magicPenetration` are **shares**, not
+  // points — a flat "ignores 18 armour" means everything against Giáp Lụa and
+  // nothing against the next pack's tuning.
+  //
+  // `tenacity` is the same idea one axis over (crowd control instead of
+  // damage) and `healingReceived` is the mirror of Vết Thương Sâu: a sustain build
+  // that can be shut off by one 600-gold component and has nothing to answer
+  // with is not a build, it is a trap.
+  last_whisper: {
+    id: 'last_whisper',
+    name: 'Cung Xanh',
+    icon: 'item_last_whisper',
+    cost: 700,
+    description:
+      'Nội tại: sát thương vật lý bỏ qua <span class="buff">15%</span> giáp của mục tiêu.',
+    stats: { attackDamage: 8, armorPenetration: 0.15 },
+  },
+  lord_dominiks_regards: {
+    id: 'lord_dominiks_regards',
+    name: 'Nỏ Thần Dominik',
+    icon: 'item_lord_dominiks_regards',
+    cost: 1500,
+    buildsFrom: ['last_whisper', 'long_sword'],
+    description:
+      'Nội tại: sát thương vật lý bỏ qua <span class="buff">35%</span> giáp của mục tiêu.',
+    stats: { attackDamage: 16, armorPenetration: 0.35 },
+  },
+  blighting_jewel: {
+    id: 'blighting_jewel',
+    name: 'Đá Hắc Hóa',
+    icon: 'item_blighting_jewel',
+    cost: 650,
+    description:
+      'Nội tại: sát thương phép bỏ qua <span class="buff">18%</span> kháng phép của mục tiêu.',
+    stats: { abilityPower: 0.5, magicPenetration: 0.18 },
+  },
+  void_staff: {
+    id: 'void_staff',
+    name: 'Trượng Hư Vô',
+    icon: 'item_void_staff',
+    cost: 1550,
+    buildsFrom: ['blighting_jewel', 'amplifying_tome'],
+    description:
+      'Nội tại: sát thương phép bỏ qua <span class="buff">35%</span> kháng phép của mục tiêu.',
+    stats: { abilityPower: 1.2, magicPenetration: 0.35 },
+  },
+  plated_steelcaps: {
+    id: 'plated_steelcaps',
+    name: 'Giày Thép Gai',
+    icon: 'item_plated_steelcaps',
+    cost: 900,
+    buildsFrom: ['boots', 'cloth_armor'],
+    stats: { speed: 0.45, armor: 30 },
+  },
+  mercurys_treads: {
+    id: 'mercurys_treads',
+    name: 'Giày Thủy Ngân',
+    icon: 'item_mercurys_treads',
+    cost: 1000,
+    buildsFrom: ['boots', 'null_magic_mantle'],
+    description:
+      'Nội tại: rút ngắn <span class="buff">25%</span> thời gian các hiệu ứng khống chế ' +
+      '(choáng, trói, câm lặng…) mà kẻ địch gây ra. Không tính hất tung và làm chậm.',
+    stats: { speed: 0.45, magicResist: 25, tenacity: 0.25 },
+  },
+  ionian_boots_of_lucidity: {
+    id: 'ionian_boots_of_lucidity',
+    name: 'Giày Khai Sáng Ionia',
+    icon: 'item_ionian_boots_of_lucidity',
+    cost: 900,
+    buildsFrom: ['boots'],
+    stats: { speed: 0.45, abilityHaste: 25 },
+  },
+  rabadons_deathcap: {
+    id: 'rabadons_deathcap',
+    name: 'Mũ Phù Thủy Rabadon',
+    icon: 'item_rabadons_deathcap',
+    cost: 1700,
+    buildsFrom: ['amplifying_tome', 'amplifying_tome'],
+    description:
+      'Nội tại: tăng thêm <span class="buff">25%</span> tổng sức mạnh phép của bạn — tính cả phần ' +
+      'các món khác đang cộng.',
+    stats: { abilityPower: 1.5 },
+    passive: 'Item_Rabadon',
+  },
+  steraks_gage: {
+    id: 'steraks_gage',
+    name: 'Móng Vuốt Sterak',
+    icon: 'item_steraks_gage',
+    cost: 1500,
+    buildsFrom: ['ruby_crystal', 'long_sword'],
+    description:
+      'Nội tại: khi máu rơi xuống dưới <span class="buff">35%</span>, nhận lá chắn bằng ' +
+      '<span class="buff">30%</span> máu tối đa trong <span class="time">4 giây</span>; ' +
+      'hồi lại sau <span class="time">45 giây</span>.',
+    stats: { maxHealth: 55, attackDamage: 8 },
+    passive: 'Item_Steraks',
+  },
+  spirit_visage: {
+    id: 'spirit_visage',
+    name: 'Giáp Tâm Linh',
+    icon: 'item_spirit_visage',
+    cost: 1600,
+    buildsFrom: ['null_magic_mantle', 'ruby_crystal'],
+    stats: { maxHealth: 45, magicResist: 28, healthRegen: 0.04, healingReceived: 0.2 },
+  },
+  serpents_fang: {
+    id: 'serpents_fang',
+    name: 'Kiếm Ác Xà',
+    icon: 'item_serpents_fang',
+    cost: 1300,
+    buildsFrom: ['long_sword', 'long_sword'],
+    description:
+      'Nội tại: sát thương vật lý bạn gây ra làm Rạn Khiên — lá chắn mục tiêu nhận được trong ' +
+      '<span class="time">3 giây</span> sau đó chỉ còn <span class="buff">50%</span> giá trị. ' +
+      'Không ảnh hưởng lá chắn đang có sẵn.',
+    stats: { attackDamage: 16, armorPenetration: 0.12 },
+    passive: 'Item_SerpentsFang',
+  },
+  frozen_heart: {
+    id: 'frozen_heart',
+    name: 'Tim Băng',
+    icon: 'item_frozen_heart',
+    cost: 1500,
+    buildsFrom: ['cloth_armor', 'cloth_armor'],
+    description:
+      'Nội tại: kẻ địch đứng gần bị giảm <span class="buff">20%</span> tốc đánh.',
+    stats: { armor: 45, maxMana: 25, abilityHaste: 15 },
+    passive: 'Item_FrozenHeart',
   },
 });
 
@@ -1600,7 +1888,8 @@ export const data: ContentPackData = {
    * but gold — the buff row just never appears, and nothing says why.
    *
    * `>=1.7.0` was for the two item stats that make abilities scale with a
-   * build: `abilityPower` and `cooldownReduction`. Six items below grant them.
+   * build: `abilityPower` and `abilityHaste` (`cooldownReduction` until core
+   * 1.16 turned the fraction into points). Six items below grant them.
    * This one is the *loud* failure rather than the silent kind — core's
    * `ITEM_STAT_KEYS` is an allow-list and `validate.ts` refuses a pack naming
    * a key that is not on it, so an older core rejects this pack outright
@@ -1624,13 +1913,39 @@ export const data: ContentPackData = {
    * descriptions promise a bonus nothing delivers. Nothing throws; a support
    * simply does not scale, which is the complaint this whole change answers.
    *
+   * `>=1.16.0` is the stat rename that came with ability haste:
+   * `cooldownReduction` (a capped fraction) became `abilityHaste` (points),
+   * and `healPower` became `healingReceived`. Loud at install — `validate.ts`
+   * refuses a stats key it does not know — which is exactly how this pack found
+   * out it had missed one during the migration.
+   *
+   * `>=1.15.0` was `api.buffs.ShieldCut` and the seam behind it
+   * (`combat/Shielding.ts`, read by `Shield.onCreate`). Loud like 1.13's: the
+   * buff is read at a spell module's top level, so on an older core Kiếm Ác Xà
+   * constructs its passive from `undefined` the first time somebody buys it.
+   *
+   * `>=1.14.0` was the same story one shelf earlier: `armorPenetration`,
+   * `magicPenetration`, `tenacity` and `healingReceived` are core's, they are on
+   * `ITEM_STAT_KEYS` only from that version, and `validate.ts` refuses a pack
+   * naming a stat key it does not know — so this one is loud at install, like
+   * the 1.7 step, rather than silent.
+   *
+   * `>=1.13.0` was for the wound shelf: `api.buffs.HealCut` and the
+   * `Buff.onDamageDealt` hook the two attacker-side passives hang on, both
+   * added in that contract. This one fails *loudly* and early — `HealCut` is
+   * read at module scope (`const HealCut = api.buffs.HealCut`) and the hook is
+   * an override of a method an older `Buff` does not declare, so on an old
+   * core the passive is constructed from `undefined` the first time somebody
+   * buys Gươm Đồ Tể. The floor turns that into a refused install with a
+   * sentence in it.
+   *
    * `satisfiesCoreRange` parses `*` and `>=X.Y.Z` and nothing else, which is
    * also why this is no longer the unparseable `'^1'` it used to be.
    */
   manifest: {
     id: 'lol',
     version: '1.1.0',
-    coreRange: '>=1.11.0',
+    coreRange: '>=1.16.0',
     assets: 'lol',
   },
   spellDisplay: displayData(),

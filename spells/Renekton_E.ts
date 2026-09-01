@@ -59,7 +59,7 @@ export default class Renekton_E extends Spell {
     ` <span class="time">${secs(RECAST_WINDOW_MS)} giây</span>.` +
     ` <span class="buff">Cuồng Nộ</span>: lần lướt thứ hai gây thêm` +
     ` <span class="damage physical">${ENRAGED_BONUS_DAMAGE} sát thương vật lý</span> và` +
-    ` <span class="damage">giảm ${pct(SHRED_PERCENT)}% Sát thương</span> của mục tiêu` +
+    ` <span class="buff">giảm ${pct(SHRED_PERCENT)}% giáp</span> của mục tiêu` +
     ` trong <span class="time">${secs(SHRED_MS)} giây</span>`;
   coolDown = 9_000;
   manaCost = 30;
@@ -165,13 +165,27 @@ export default class Renekton_E extends Spell {
     this.owner.addBuff(dash);
   }
 
-  /** Enraged Dice leaves them hitting softer for a while. */
+  /**
+   * Enraged Dice tears the armour off, which is what the buff has always been
+   * *called* — `docs/abilities/renekton/e.json` says "inflicts armor reduction
+   * to enemies hit for 4 seconds", and the name on the bar has said Rách Giáp
+   * since it shipped. What it actually did was take a quarter off their
+   * **attack damage**: a different stat, on a different victim (it hurt a
+   * marksman and did nothing to a tank), with nothing testing it and a tooltip
+   * that said "sát thương" while the icon said armour.
+   *
+   * `percentBonus`, not `percentBaseBonus`: the outer factor of the stat
+   * formula covers base *and* items, and armour reduction that skipped
+   * everything the target bought would do almost nothing to the only build
+   * worth using it on. (The old attack-damage version used the inner slot and
+   * so ignored item damage too, which is the same mistake one stat over.)
+   */
   private shred(victim: AttackableUnit): void {
     const shred = new StatAmp(SHRED_MS, this.owner, victim);
     shred.stackId = SHRED_STACK_ID;
     shred.image = this.image;
     shred.name = 'Rách Giáp';
-    shred.bonuses = { attackDamage: { percentBaseBonus: -SHRED_PERCENT } };
+    shred.bonuses = { armor: { percentBonus: -SHRED_PERCENT } };
     victim.addBuff(shred);
   }
 

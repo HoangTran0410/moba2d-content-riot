@@ -1,3 +1,4 @@
+import type { AttackableUnit } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 import { pct, secs } from '../text';
 
@@ -7,6 +8,46 @@ const SpellObject = api.SpellObject;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
 
 export const DURATION = 9000;
+
+/**
+ * The tag Poison Trail reads to know the ultimate is up.
+ *
+ * `docs/abilities/singed/r.json`: "During this time, Poison Trail additionally
+ * applies Grievous Wounds". The poison is Q's, so the two have to agree on one
+ * string — exported here, imported there, never typed twice.
+ */
+export const SINGED_R_STACK_ID = 'singed_r';
+
+/**
+ * What the poison takes off a heal while the potion is up, and for how long.
+ *
+ * Declared here rather than in `Singed_Q.ts` even though the poison is Q's:
+ * the wound is *this* ability's contribution, and Q already imports from here
+ * for `isInsanityPotionUp`. Putting them the other way round would make the
+ * two files import each other, and a cycle between modules that both declare
+ * spell classes is a load-order bug waiting for the day one of them grows a
+ * top-level `api` read.
+ */
+export const POISON_WOUND_PERCENT = 0.4;
+
+export const POISON_WOUND_MS = 1_000;
+
+/**
+ * Is Insanity Potion up on this unit?
+ *
+ * A stack-id walk rather than `hasBuff(SomeClass)`, for the reason
+ * `Renekton_R.isEnraged` is written the same way: the ultimate hangs a plain
+ * `StatAmp`, and `hasBuff(StatAmp)` would answer true for *any* stat buff in
+ * the game — a Singed under a friendly speed shrine would poison as though his
+ * ultimate were running.
+ */
+export function isInsanityPotionUp(unit: AttackableUnit | null | undefined): boolean {
+  if (!unit) return false;
+  for (const buff of unit.buffs) {
+    if (buff.stackId === SINGED_R_STACK_ID && !buff.toRemove) return true;
+  }
+  return false;
+}
 
 export const BONUS_HEALTH = 50;
 
@@ -43,13 +84,14 @@ export default class Singed_R extends Spell {
   description =
     `Uống thuốc trong <span class="time">${secs(DURATION)} giây</span>:` +
     ` <span class="buff">+${BONUS_HEALTH} máu tối đa</span>, <span class="buff">+${pct(SPEED_PERCENT)}% tốc chạy</span>` +
-    ` và <span class="buff">+6 sát thương đánh thường</span>`;
+    ` và <span class="buff">+6 sát thương đánh thường</span>.` +
+    ` Trong lúc đó, vệt độc còn đặt <span class="buff">Vết Thương Sâu ${pct(POISON_WOUND_PERCENT)}%</span> lên kẻ dính độc`;
   coolDown = 10000;
   manaCost = 50;
 
   onSpellCast() {
     const amp = new StatAmp(DURATION, this.owner, this.owner);
-    amp.stackId = 'singed_r';
+    amp.stackId = SINGED_R_STACK_ID;
     amp.image = this.image;
     amp.name = 'Thuốc Điên';
     amp.bonuses = {

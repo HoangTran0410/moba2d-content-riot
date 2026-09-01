@@ -10,7 +10,7 @@ import { assetManifest } from '../generated/assetManifest';
 const api = buildTestApi();
 
 /**
- * The shop this pack ships: thirty-three items, twenty-four spells behind them, and the
+ * The shop this pack ships: fifty-eight items, thirty-one spells behind them, and the
  * one thing about them that is easy to get wrong in a way nothing complains
  * about.
  *
@@ -28,7 +28,7 @@ const api = buildTestApi();
  * rather than four spells that do not exist.
  */
 
-/** The twenty-four, by name. Not derived from a prefix the code under test also uses. */
+/** The thirty-one, by name. Not derived from a prefix the code under test also uses. */
 const ITEM_SPELL_IDS = [
   'Item_Thornmail',
   'Item_Zhonyas',
@@ -54,6 +54,17 @@ const ITEM_SPELL_IDS = [
   'Item_Locket',
   'Item_Shurelya',
   'Item_Everfrost',
+  // The wound shelf. Three passives, six items: one spell per *trigger*, not
+  // one per item — see `spells/Item_GrievousStrike.ts` for why.
+  'Item_GrievousStrike',
+  'Item_GrievousMagic',
+  'Item_BrambleVest',
+  // Core 1.14's shelf: the hat that multiplies, the shield that waits for a
+  // threshold, and the shop's one aura.
+  'Item_Rabadon',
+  'Item_Steraks',
+  'Item_FrozenHeart',
+  'Item_SerpentsFang',
 ] as const;
 
 /**
@@ -93,11 +104,11 @@ const SPEC: Record<
   null_magic_mantle: { name: 'Áo Vải', cost: 400, stats: { magicResist: 22 } },
   ruby_crystal: { name: 'Hồng Ngọc', cost: 400, stats: { maxHealth: 25 } },
   boots: { name: 'Giày', cost: 300, stats: { speed: 0.35 } },
-  recurve_bow: { name: 'Cung Gỗ', cost: 500, stats: { attackSpeed: 0.25 } },
+  recurve_bow: { name: 'Cung Gỗ', cost: 500, stats: { attackSpeed: 0.15 } },
   berserkers_greaves: {
     name: 'Giày Cuồng Nộ',
     cost: 900,
-    stats: { speed: 0.45, attackSpeed: 0.3 },
+    stats: { speed: 0.45, attackSpeed: 0.18 },
     buildsFrom: ['boots', 'recurve_bow'],
   },
   warmogs_armor: {
@@ -106,7 +117,7 @@ const SPEC: Record<
     stats: { maxHealth: 70, healthRegen: 0.05 },
     buildsFrom: ['ruby_crystal', 'ruby_crystal'],
   },
-  thornmail: { name: 'Giáp Gai', cost: 1100, stats: { armor: 45 }, passive: 'Item_Thornmail', buildsFrom: ['cloth_armor', 'cloth_armor'] },
+  thornmail: { name: 'Giáp Gai', cost: 1100, stats: { armor: 45 }, passive: 'Item_Thornmail', buildsFrom: ['bramble_vest', 'cloth_armor'] },
   infinity_edge: {
     name: 'Vô Cực Kiếm',
     cost: 1300,
@@ -122,8 +133,8 @@ const SPEC: Record<
   },
   blade_of_the_ruined_king: {
     name: 'Gươm Suy Vong',
-    cost: 1200,
-    stats: { attackDamage: 10, attackSpeed: 0.25, omnivamp: 0.12 },
+    cost: 1400,
+    stats: { attackDamage: 10, attackSpeed: 0.15, omnivamp: 0.1 },
     passive: 'Item_RuinedKing',
     buildsFrom: ['recurve_bow', 'long_sword'],
   },
@@ -132,35 +143,35 @@ const SPEC: Record<
   guinsoos_rageblade: {
     name: 'Cuồng Đao Guinsoo',
     cost: 1400,
-    stats: { attackDamage: 8, attackSpeed: 0.35 },
+    stats: { attackDamage: 8, attackSpeed: 0.21 },
     passive: 'Item_Guinsoo',
     buildsFrom: ['recurve_bow', 'long_sword'],
   },
   wits_end: {
     name: 'Đao Tím',
     cost: 1450,
-    stats: { attackSpeed: 0.3, magicResist: 32, abilityPower: 1 },
+    stats: { attackSpeed: 0.18, magicResist: 26, abilityPower: 1 },
     passive: 'Item_WitsEnd',
     buildsFrom: ['recurve_bow', 'null_magic_mantle'],
   },
   kraken_slayer: {
     name: 'Móc Diệt Thủy Quái',
     cost: 1500,
-    stats: { attackDamage: 14, attackSpeed: 0.3 },
+    stats: { attackDamage: 14, attackSpeed: 0.18 },
     passive: 'Item_Kraken',
     buildsFrom: ['recurve_bow', 'long_sword', 'long_sword'],
   },
   nashors_tooth: {
     name: 'Nanh Nashor',
     cost: 1450,
-    stats: { attackSpeed: 0.4, abilityPower: 1.4 },
+    stats: { attackSpeed: 0.24, abilityPower: 1.4 },
     passive: 'Item_Nashor',
     buildsFrom: ['recurve_bow'],
   },
   trinity_force: {
     name: 'Tam Hợp Kiếm',
     cost: 1700,
-    stats: { attackDamage: 10, attackSpeed: 0.3, maxMana: 20, speed: 0.15 },
+    stats: { attackDamage: 10, attackSpeed: 0.18, maxMana: 20, speedPercent: 0.05 },
     passive: 'Item_TrinityForce',
     buildsFrom: ['sheen', 'long_sword', 'recurve_bow'],
   },
@@ -202,7 +213,7 @@ const SPEC: Record<
   runaans_hurricane: {
     name: 'Cuồng Cung Runaan',
     cost: 1400,
-    stats: { attackSpeed: 0.55 },
+    stats: { attackSpeed: 0.33 },
     passive: 'Item_Runaan',
     buildsFrom: ['recurve_bow', 'recurve_bow'],
   },
@@ -230,46 +241,191 @@ const SPEC: Record<
   statikk_shiv: {
     name: 'Móc Sét Statikk',
     cost: 1300,
-    stats: { attackDamage: 10, attackSpeed: 0.35 },
+    stats: { attackDamage: 10, attackSpeed: 0.21 },
     passive: 'Item_StatikkShiv',
     buildsFrom: ['recurve_bow', 'long_sword'],
   },
   dead_mans_plate: {
     name: 'Giáp Người Chết',
     cost: 1200,
-    stats: { armor: 30, maxHealth: 50, speed: 0.2 },
+    stats: { armor: 30, maxHealth: 50, speedPercent: 0.05 },
     passive: 'Item_DeadMansPlate',
     buildsFrom: ['cloth_armor', 'ruby_crystal'],
   },
   locket_of_the_iron_solari: {
     name: 'Vòng Sắt Mặt Trời',
-    cost: 1300,
-    stats: { armor: 25, magicResist: 40, maxHealth: 40 },
+    cost: 1450,
+    stats: { armor: 25, magicResist: 32, maxHealth: 40 },
     active: 'Item_Locket',
     buildsFrom: ['cloth_armor', 'null_magic_mantle'],
   },
   shurelyas_battlesong: {
     name: 'Khúc Ca Shurelya',
-    cost: 1400,
+    cost: 1500,
     stats: {
       speed: 0.45,
-      maxHealth: 40,
-      maxMana: 30,
-      abilityPower: 1,
-      cooldownReduction: 0.15,
+      maxHealth: 25,
+      maxMana: 20,
+      abilityPower: 0.8,
+      abilityHaste: 20,
     },
     active: 'Item_Shurelya',
     buildsFrom: ['boots', 'ruby_crystal'],
   },
+  vampiric_scepter: { name: 'Huyết Trượng', cost: 550, stats: { attackDamage: 5, lifesteal: 0.1 } },
+  bloodthirster: {
+    name: 'Huyết Kiếm',
+    cost: 1450,
+    stats: { attackDamage: 18, lifesteal: 0.2 },
+    buildsFrom: ['vampiric_scepter', 'long_sword'],
+  },
+  deaths_dance: {
+    name: 'Vũ Điệu Tử Thần',
+    cost: 1400,
+    stats: { attackDamage: 14, armor: 25, omnivamp: 0.08 },
+    buildsFrom: ['long_sword', 'cloth_armor'],
+  },
+  amplifying_tome: { name: 'Sách Cũ', cost: 400, stats: { abilityPower: 0.5 } },
+  hextech_alternator: {
+    name: 'Máy Chuyển Pha Hextech',
+    cost: 900,
+    stats: { abilityPower: 1, maxMana: 15 },
+    buildsFrom: ['amplifying_tome', 'amplifying_tome'],
+  },
+  riftmaker: {
+    name: 'Quyền Trượng Ác Thần',
+    cost: 1550,
+    stats: { abilityPower: 1.2, maxHealth: 45, spellVamp: 0.15 },
+    buildsFrom: ['amplifying_tome', 'ruby_crystal'],
+  },
+  abyssal_mask: {
+    name: 'Mặt Nạ Vực Thẳm',
+    cost: 1400,
+    stats: { maxHealth: 45, magicResist: 28, abilityPower: 0.6 },
+    buildsFrom: ['null_magic_mantle', 'ruby_crystal'],
+  },
+  executioners_calling: {
+    name: 'Gươm Đồ Tể',
+    cost: 600,
+    stats: { attackDamage: 8 },
+    passive: 'Item_GrievousStrike',
+  },
+  mortal_reminder: {
+    name: 'Lời Nhắc Tử Vong',
+    cost: 1450,
+    stats: { attackDamage: 20, critChance: 0.15 },
+    passive: 'Item_GrievousStrike',
+    buildsFrom: ['executioners_calling', 'long_sword'],
+  },
+  chempunk_chainsword: {
+    name: 'Cưa Xích Hóa Kỹ',
+    cost: 1450,
+    stats: { attackDamage: 14, maxHealth: 45 },
+    passive: 'Item_GrievousStrike',
+    buildsFrom: ['executioners_calling', 'ruby_crystal'],
+  },
+  bramble_vest: {
+    name: 'Áo Choàng Gai',
+    cost: 650,
+    stats: { armor: 20 },
+    passive: 'Item_BrambleVest',
+  },
+  oblivion_orb: {
+    name: 'Ngọc Quên Lãng',
+    cost: 700,
+    stats: { abilityPower: 0.6 },
+    passive: 'Item_GrievousMagic',
+  },
+  morellonomicon: {
+    name: 'Quỷ Thư Morello',
+    cost: 1500,
+    stats: { abilityPower: 1.1, maxHealth: 45 },
+    passive: 'Item_GrievousMagic',
+    buildsFrom: ['oblivion_orb', 'ruby_crystal'],
+  },
+  last_whisper: {
+    name: 'Cung Xanh',
+    cost: 700,
+    stats: { attackDamage: 8, armorPenetration: 0.15 },
+  },
+  lord_dominiks_regards: {
+    name: 'Nỏ Thần Dominik',
+    cost: 1500,
+    stats: { attackDamage: 16, armorPenetration: 0.35 },
+    buildsFrom: ['last_whisper', 'long_sword'],
+  },
+  blighting_jewel: {
+    name: 'Đá Hắc Hóa',
+    cost: 650,
+    stats: { abilityPower: 0.5, magicPenetration: 0.18 },
+  },
+  void_staff: {
+    name: 'Trượng Hư Vô',
+    cost: 1550,
+    stats: { abilityPower: 1.2, magicPenetration: 0.35 },
+    buildsFrom: ['blighting_jewel', 'amplifying_tome'],
+  },
+  plated_steelcaps: {
+    name: 'Giày Thép Gai',
+    cost: 900,
+    stats: { speed: 0.45, armor: 30 },
+    buildsFrom: ['boots', 'cloth_armor'],
+  },
+  mercurys_treads: {
+    name: 'Giày Thủy Ngân',
+    cost: 1000,
+    stats: { speed: 0.45, magicResist: 25, tenacity: 0.25 },
+    buildsFrom: ['boots', 'null_magic_mantle'],
+  },
+  ionian_boots_of_lucidity: {
+    name: 'Giày Khai Sáng Ionia',
+    cost: 900,
+    stats: { speed: 0.45, abilityHaste: 25 },
+    buildsFrom: ['boots'],
+  },
+  rabadons_deathcap: {
+    name: 'Mũ Phù Thủy Rabadon',
+    cost: 1700,
+    stats: { abilityPower: 1.5 },
+    passive: 'Item_Rabadon',
+    buildsFrom: ['amplifying_tome', 'amplifying_tome'],
+  },
+  steraks_gage: {
+    name: 'Móng Vuốt Sterak',
+    cost: 1500,
+    stats: { maxHealth: 55, attackDamage: 8 },
+    passive: 'Item_Steraks',
+    buildsFrom: ['ruby_crystal', 'long_sword'],
+  },
+  spirit_visage: {
+    name: 'Giáp Tâm Linh',
+    cost: 1600,
+    stats: { maxHealth: 45, magicResist: 28, healthRegen: 0.04, healingReceived: 0.2 },
+    buildsFrom: ['null_magic_mantle', 'ruby_crystal'],
+  },
+  serpents_fang: {
+    name: 'Kiếm Ác Xà',
+    cost: 1300,
+    stats: { attackDamage: 16, armorPenetration: 0.12 },
+    passive: 'Item_SerpentsFang',
+    buildsFrom: ['long_sword', 'long_sword'],
+  },
+  frozen_heart: {
+    name: 'Tim Băng',
+    cost: 1500,
+    stats: { armor: 45, maxMana: 25, abilityHaste: 15 },
+    passive: 'Item_FrozenHeart',
+    buildsFrom: ['cloth_armor', 'cloth_armor'],
+  },
   everfrost: {
     name: 'Vĩnh Sương',
-    cost: 1500,
+    cost: 1600,
     stats: {
-      maxHealth: 45,
-      magicResist: 35,
-      maxMana: 40,
+      maxHealth: 35,
+      magicResist: 25,
+      maxMana: 25,
       abilityPower: 1.4,
-      cooldownReduction: 0.1,
+      abilityHaste: 15,
     },
     active: 'Item_Everfrost',
     buildsFrom: ['ruby_crystal', 'null_magic_mantle'],
@@ -305,7 +461,7 @@ describe('no Item_ spell leaks into spellDisplay', () => {
 describe('the item set', () => {
   const items = data.items ?? {};
 
-  it('ships exactly the thirty-three specified, keyed by their own id', () => {
+  it('ships exactly the fifty-eight specified, keyed by their own id', () => {
     expect(Object.keys(items).sort()).toEqual(Object.keys(SPEC).sort());
   });
 
@@ -322,7 +478,7 @@ describe('the item set', () => {
     }
   });
 
-  it('reaches its spells only through passive/active, and only the twenty-four', () => {
+  it('reaches its spells only through passive/active, and only the thirty-one', () => {
     const named = new Set<string>();
     for (const def of Object.values(items)) {
       if (def.passive) named.add(def.passive);
@@ -338,12 +494,16 @@ describe('the item set', () => {
     // `>=X.Y.Z` and nothing else.
     //
     // Every step since is recorded in `data.ts`'s own note beside the value.
-    // The latest is 1.11: core amplifies heals and shields by ability power
-    // and rescales a `class="heal"` span, and this pack's whole support half
-    // is written against both — on an older core the shields are worth what
-    // was typed, the heals never grow, and the descriptions promise a bonus
-    // nothing delivers. Silent, like the `items` one above.
-    expect(data.manifest.coreRange).toBe('>=1.11.0');
+    // The latest is 1.15 — `api.buffs.ShieldCut`, which Kiếm Ác Xà reads at
+    // module scope. Before it, 1.14 added `armorPenetration`,
+    // `magicPenetration`, `tenacity` and `healingReceived` to core's
+    // `ITEM_STAT_KEYS`, which `validate.ts` refuses a pack for naming before
+    // they exist. The step before that was 1.13: `api.buffs.HealCut` and the `Buff.onDamageDealt`
+    // hook, which the wound shelf below is entirely built on. Unlike the 1.11
+    // step this one is loud — the buff is read at a spell module's top level
+    // and would be `undefined` on an older core — and the floor is what turns
+    // that into a refused install instead of a crash on the first purchase.
+    expect(data.manifest.coreRange).toBe('>=1.16.0');
   });
 
   /**
@@ -383,14 +543,19 @@ describe('the item set', () => {
     expect(bestSix).toBeLessThanOrEqual(9);
   });
 
-  it('sells cooldown reduction at all', () => {
-    // The ceiling — that the whole shop cannot reach `MAX_COOLDOWN_REDUCTION`,
-    // which would be a shop selling a key that can be held down — is core's
-    // own rule and lives in `describeItemShop`. What is this pack's is that
-    // the stat is *for sale*: three of its ability items lean on it, and a
-    // shop with none would leave them scaling on one axis.
-    const sources = Object.values(items).filter(def => (def.stats?.cooldownReduction ?? 0) > 0);
-    expect(sources.length).toBeGreaterThanOrEqual(1);
+  it('sells ability haste at all, and in a band a kit can feel', () => {
+    // That haste is written in points rather than as the old fraction, and
+    // that the whole shop cannot reach core's runaway rail, are core's rules
+    // and live in `describeItemShop`. What is this pack's is that the stat is
+    // *for sale* and that the amounts mean something: four items lean on it,
+    // and a shop selling 3 haste a time would be scaling on one axis while
+    // pretending otherwise.
+    const sources = Object.values(items)
+      .map(def => def.stats?.abilityHaste ?? 0)
+      .filter(amount => amount > 0);
+
+    expect(sources.length).toBeGreaterThanOrEqual(3);
+    for (const amount of sources) expect(amount).toBeGreaterThanOrEqual(10);
   });
 
   it("survives core's own validation, stat allow-list included", () => {
@@ -413,7 +578,7 @@ describe('the item set', () => {
     const registry = new PackRegistry();
     registry.install(pack);
 
-    expect(registry.items()).toHaveLength(33);
+    expect(registry.items()).toHaveLength(58);
     const thornmail = registry.item('lol:thornmail');
     expect(thornmail?.passive).toBe('lol:Item_Thornmail');
     expect(thornmail?.icon).toBe('lol:item_thornmail');
@@ -451,6 +616,13 @@ describe('the build paths', () => {
     'recurve_bow',
     'sheen',
     'tiamat',
+    'vampiric_scepter',
+    'amplifying_tome',
+    'executioners_calling',
+    'bramble_vest',
+    'oblivion_orb',
+    'last_whisper',
+    'blighting_jewel',
   ];
 
   const finished = Object.values(items).filter(def => !COMPONENTS.includes(def.id));

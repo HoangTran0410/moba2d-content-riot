@@ -30,7 +30,8 @@ export const ATTACKS_PER_EMPOWER = 4;
 export const BONUS_DAMAGE = 16;
 
 /** Flat attacks per second, permanently. */
-export const BONUS_ATTACK_SPEED = 0.2;
+/** A share of his own base rate, not swings a second — see `Stats.attackSpeed`. */
+export const BONUS_ATTACK_SPEED = 0.25;
 
 export const DECK_STACK_ID = 'twistedfate_e_deck';
 
@@ -74,7 +75,7 @@ export default class TwistedFate_E extends Spell {
     haste.buffAddType = BuffAddType.REPLACE_EXISTING;
     // Nothing to count and nothing to time: it stays off the buff row.
     haste.hudVisible = false;
-    haste.bonuses = { attackSpeed: { flatBonus: BONUS_ATTACK_SPEED } };
+    haste.bonuses = { attackSpeed: { percentBaseBonus: BONUS_ATTACK_SPEED } };
     this.owner.addBuff(haste);
   }
 }

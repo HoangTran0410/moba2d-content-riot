@@ -12,7 +12,7 @@ import { DAMAGE as Q_DAMAGE, ENRAGED_DAMAGE as Q_ENRAGED_DAMAGE, ENRAGED_RADIUS,
 import Renekton_Q from '../../spells/Renekton_Q';
 import { DAMAGE_PER_STRIKE, ENRAGED_STRIKES, STRIKES } from '../../spells/Renekton_W';
 import Renekton_W from '../../spells/Renekton_W';
-import { DAMAGE as E_DAMAGE } from '../../spells/Renekton_E';
+import { DAMAGE as E_DAMAGE, SHRED_PERCENT } from '../../spells/Renekton_E';
 import Renekton_E from '../../spells/Renekton_E';
 import { isEnraged } from '../../spells/Renekton_R';
 import Renekton_R from '../../spells/Renekton_R';
@@ -119,6 +119,54 @@ describe('Renekton W spends itself on the next landed attack', () => {
     const { victim, dealt } = bite(true, true);
     expect(dealt).toBe(DAMAGE_PER_STRIKE * ENRAGED_STRIKES);
     expect(victim.buffs.some(buff => buff instanceof Shield && !buff.toRemove)).toBe(false);
+  });
+});
+
+/**
+ * Dice's armour tear, which for a long time tore something else.
+ *
+ * The buff has always been called Rách Giáp and
+ * `docs/abilities/renekton/e.json` has always said "inflicts armor reduction",
+ * but what it applied was `attackDamage: { percentBaseBonus: -0.25 }` — a
+ * different stat, hurting a marksman and doing nothing to the tank the ability
+ * is for, with no test to notice. Both halves are asserted here: the stat that
+ * moves and the stat that must not.
+ */
+describe('Reign of Anger reaches Dice', () => {
+  it('tears a quarter off the armour of what the recast hits, and nothing else', () => {
+    const game = createGame();
+    const renekton = champion(game, 0, 0, 'blue');
+    const victim = champion(game, 60, 0, 'red');
+    victim.stats.armor.baseValue = 40;
+    victim.stats.attackDamage.baseValue = 20;
+    game.objectManager.queryObjects = vi.fn(() => [victim]) as never;
+    enrage(renekton);
+
+    const spell = new Renekton_E(renekton);
+    spell.onActivate(context(renekton));
+    (renekton.buffs.find(buff => buff instanceof Dash) as Dash).onDashUpdate!();
+    spell.onRecast(context(renekton));
+    const dice = renekton.buffs.filter(buff => buff instanceof Dash).at(-1) as Dash;
+    dice.onDashUpdate!();
+
+    expect(victim.stats.armor.value).toBeCloseTo(40 * (1 - SHRED_PERCENT), 6);
+    expect(victim.stats.attackDamage.value, 'Dice took attack damage instead').toBe(20);
+  });
+
+  it('leaves armour alone when Reign of Anger is not up', () => {
+    const game = createGame();
+    const renekton = champion(game, 0, 0, 'blue');
+    const victim = champion(game, 60, 0, 'red');
+    victim.stats.armor.baseValue = 40;
+    game.objectManager.queryObjects = vi.fn(() => [victim]) as never;
+
+    const spell = new Renekton_E(renekton);
+    spell.onActivate(context(renekton));
+    (renekton.buffs.find(buff => buff instanceof Dash) as Dash).onDashUpdate!();
+    spell.onRecast(context(renekton));
+    (renekton.buffs.filter(buff => buff instanceof Dash).at(-1) as Dash).onDashUpdate!();
+
+    expect(victim.stats.armor.value).toBe(40);
   });
 });
 

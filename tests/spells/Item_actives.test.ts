@@ -233,7 +233,10 @@ describe('the shop item spells', () => {
     it('is permanent — ten minutes of match time does not age it out', () => {
       const holder = createUnit(game, 0);
       pressSpell(new Item_Thornmail(holder));
-      const reflect = live(holder)[0];
+      // By class, not by index: the item hangs a wound beside the spikes now
+      // (it builds out of Áo Choàng Gai), and an index would quietly start
+      // ageing the wrong one of the two.
+      const reflect = live(holder).find(buff => buff instanceof DamageReflect) as AnyBuff;
 
       expect(reflect.duration).toBe(0);
       vi.stubGlobal('deltaTime', 1_000);
@@ -252,10 +255,15 @@ describe('the shop item spells', () => {
       fromAnAbility.percent = 0.8;
       holder.addBuff(fromAnAbility);
 
-      expect(live(holder)).toHaveLength(2);
-      const item = live(holder)[0] as InstanceType<typeof DamageReflect>;
-      expect(item.stackId).toBe(REFLECT_STACK_ID);
+      // Three: the spikes, the wound the item inherited from Áo Choàng Gai,
+      // and the ability's own reflect.
+      expect(live(holder)).toHaveLength(3);
+      const item = live(holder).find(
+        buff => buff.stackId === REFLECT_STACK_ID
+      ) as InstanceType<typeof DamageReflect>;
+      expect(item, 'the item’s own reflect was evicted').toBeTruthy();
       expect(item.percent).toBe(REFLECT_PERCENT);
+      expect(live(holder).some(buff => buff.stackId === 'rammus_w_reflect')).toBe(true);
     });
   });
 

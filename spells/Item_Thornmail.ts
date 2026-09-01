@@ -1,6 +1,12 @@
 import type { CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
-import { pct } from '../text';
+import { pct, secs } from '../text';
+import {
+  Item_BrambleVest_Wound,
+  WOUND_MS,
+  WOUND_PERCENT,
+  WOUND_STACK_ID,
+} from './Item_BrambleVest';
 
 const Spell = api.Spell;
 const DamageReflect = api.buffs.DamageReflect;
@@ -58,7 +64,8 @@ export default class Item_Thornmail extends Spell {
   name = 'Giáp Gai (Item_Thornmail)';
   description =
     `Nội tại: phản <span class="buff">${pct(REFLECT_PERCENT)}% sát thương</span> nhận vào` +
-    ' về kẻ đã gây ra nó (tính trên đòn đánh gốc, trước khi khiên đỡ)';
+    ' về kẻ đã gây ra nó (tính trên đòn đánh gốc, trước khi khiên đỡ), và đặt Vết Thương Sâu' +
+    ` giảm ${pct(WOUND_PERCENT)}% lượng hồi máu của chúng trong ${secs(WOUND_MS)} giây`;
   coolDown = 0;
   manaCost = 0;
 
@@ -73,6 +80,17 @@ export default class Item_Thornmail extends Spell {
   }
 
   onSpellCast() {
+    // Giáp Gai builds out of Áo Choàng Gai, so it has to keep what that
+    // component did: combining swaps the parts' whole contribution for the
+    // finished item's, and an upgrade that quietly drops the wound would
+    // charge 450 gold to lose the reason a tank bought the part.
+    const wound = new Item_BrambleVest_Wound(0, this.owner, this.owner);
+    wound.stackId = WOUND_STACK_ID;
+    wound.image = this.image;
+    wound.hudVisible = false;
+    wound.sourceSpell = this;
+    this.owner.addBuff(wound);
+
     const reflect = new DamageReflect(0, this.owner, this.owner);
     reflect.stackId = REFLECT_STACK_ID;
     reflect.percent = REFLECT_PERCENT;

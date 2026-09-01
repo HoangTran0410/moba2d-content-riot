@@ -10,7 +10,7 @@ import {
 } from '@moba2d/core/testing/spell';
 import { Q_MAX_CHARGE_MS, Q_MAX_DAMAGE, Q_MAX_DISTANCE, Q_MIN_DAMAGE, Q_MIN_DISTANCE, viQDamage, viQDashDistance } from '../../spells/Vi_Q';
 import Vi_Q from '../../spells/Vi_Q';
-import { W_PROC, W_STACKS } from '../../spells/Vi_W';
+import { W_ATTACK_SPEED, W_PROC, W_STACKS } from '../../spells/Vi_W';
 import Vi_W from '../../spells/Vi_W';
 import { E_CHARGES, E_DAMAGE } from '../../spells/Vi_E';
 import Vi_E from '../../spells/Vi_E';
@@ -147,11 +147,14 @@ describe('Vi spells', () => {
 
   it("W's proc resets that victim's counter and hastes Vi", () => {
     const victim = unit(game, 60, 'red');
+    // W's haste is a share of her own rate now, not swings a second added to
+    // it, so the probe needs a rate to take a share of.
+    owner.stats.attackSpeed.baseValue = 1.2;
     const w = new Vi_W(owner);
     w.onSpellCast();
 
     for (let i = 0; i < W_STACKS; i++) swing(victim);
-    expect(owner.stats.attackSpeed.value).toBeCloseTo(0.5, 5);
+    expect(owner.stats.attackSpeed.value).toBeCloseTo(1.2 * (1 + W_ATTACK_SPEED), 5);
 
     swing(victim);
     swing(victim);

@@ -1,5 +1,5 @@
 import { api } from '../packApi';
-import { secs } from '../text';
+import { pct, secs } from '../text';
 
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
@@ -7,6 +7,7 @@ const Spell = api.Spell;
 const AoePulse = api.AoePulse;
 const Pet = api.units.Pet;
 const DamageOverTime = api.buffs.DamageOverTime;
+const StatAmp = api.buffs.StatAmp;
 
 
 
@@ -32,6 +33,17 @@ export const AURA_DAMAGE_PER_TICK = 3;
 /** Tongues of flame drawn around the burn radius. Cosmetic only. */
 export const AURA_TONGUES = 14;
 
+/**
+ * The share of the victim's resistance this ability's **passive** ignores.
+ *
+ * `annie/r.json: "Passive: Annie gains magic penetration."` — a passive of the ability, so it is on from the moment the
+ * spell exists rather than when it is cast. Core had no penetration stat when
+ * this file was written, so the line was simply not implemented; it is a
+ * *share* rather than points, because a flat "ignores N" means everything
+ * against one map's tuning and nothing against another's.
+ */
+export const ANNIE_R_PENETRATION = 0.2;
+
 
 /**
  * Summon: Tibbers.
@@ -46,16 +58,27 @@ export const AURA_TONGUES = 14;
  * directs him to a point. The recast is `checkCastCondition` returning false
  * while he is alive — the same shape Shaco's clone uses to be steered.
  */
+/** Annie's always-on share of the resistance in front of them. */
+export class Annie_R_Passive extends StatAmp {
+  name = 'Lửa Xuyên Thấu';
+  stackId = 'annie_r_passive';
+  // The inventory row and the ability icon already say this is on; a
+  // permanent entry on the buff bar says it again every frame.
+  hudVisible = false;
+  bonuses = { magicPenetration: { flatBonus: ANNIE_R_PENETRATION } };
+}
+
 export default class Annie_R extends Spell {
   targetingMode = 'POINT' as const;
   image = api.asset('spell_annie_r');
   name = 'Triệu Hồi: Tibbers (Annie_R)';
-  description =
+  description = 
     `Triệu hồi Tibbers tại vị trí chỉ định trong <span class="time">${secs(TIBBERS_LIFETIME_MS)} giây</span>:` +
     ` vụ lửa xuất hiện gây <span class="damage magic">${SUMMON_DAMAGE} sát thương phép</span> trong <span>${SUMMON_RADIUS}px</span>.` +
     ` Tibbers có <span class="buff">${TIBBERS_HEALTH} máu</span>, tự đánh kẻ địch gần nhất và thiêu` +
     ` <span class="damage magic">${AURA_DAMAGE_PER_TICK} sát thương phép</span> mỗi nhịp quanh mình.` +
-    ` <span class="buff">Bấm lại</span> để điều Tibbers tới vị trí mới`;
+    ` <span class="buff">Bấm lại</span> để điều Tibbers tới vị trí mới` +
+    ` Nội tại: <span class="buff">bỏ qua ${pct(ANNIE_R_PENETRATION)}% xuyên kháng phép</span> của mục tiêu.`;
   coolDown = 10000;
   manaCost = 100;
 
@@ -73,10 +96,18 @@ export default class Annie_R extends Spell {
   }
 
   onUpdate() {
+    this.maintainPassive();
     if (!this.tibbers?.toRemove) return;
     // He is gone: the key goes back to being a summon, on its real cooldown.
     this.tibbers = null;
     this.currentCooldown = this.reducedCooldown(this.coolDown);
+  }
+
+  /** Always on, like the record says: armed once and left alone. */
+  private maintainPassive(): void {
+    if (!this.owner || this.owner.isDead) return;
+    if (this.owner.hasBuff(Annie_R_Passive)) return;
+    this.owner.addBuff(new Annie_R_Passive(Infinity, this.owner, this.owner));
   }
 
   onSpellCast() {

@@ -29,6 +29,7 @@ const BuffAddType = api.enums.BuffAddType;
  */
 
 /** Attack speed per rage stack (attacks per second, flat). */
+/** A *share* of the wearer's base rate per stack — 8%, the source game's own number. */
 export const RAGE_ATTACK_SPEED_PER_STACK = 0.08;
 
 /** How many stacks the blade holds at once. */
@@ -67,7 +68,7 @@ export class Item_Guinsoo_Rage extends Buff {
     stack.stackId = RAGE_STACK_ID;
     stack.buffAddType = BuffAddType.STACKS_AND_OVERLAPS;
     stack.maxStacks = RAGE_MAX_STACKS;
-    stack.bonuses = { attackSpeed: { flatBonus: RAGE_ATTACK_SPEED_PER_STACK } };
+    stack.bonuses = { attackSpeed: { percentBaseBonus: RAGE_ATTACK_SPEED_PER_STACK } };
     stack.image = this.image;
     stack.singleRepresentativeDraw = true;
     wearer.addBuff(stack);

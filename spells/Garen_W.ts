@@ -10,7 +10,10 @@ export const DURATION = 3000;
 
 export const SHIELD_AMOUNT = 70;
 
-export const OMNIVAMP = 0.2;
+/** Share taken off the crowd control aimed at him, and the window it covers. */
+export const TENACITY = 0.6;
+
+export const TENACITY_MS = 750;
 
 
 /** How long the plates take to fly in and lock. Short — this is a panic button. */
@@ -71,8 +74,10 @@ export default class Garen_W extends Spell {
   image = api.asset('spell_garen_w');
   name = 'Lòng Can Đảm (Garen_W)';
   description =
-    `Nhận khiên <span class="heal">${SHIELD_AMOUNT}</span> và <span class="buff">hút ${pct(OMNIVAMP)}% máu</span>` +
-    ` từ mọi sát thương gây ra, trong <span class="time">${secs(DURATION)} giây</span>`;
+    `Nhận khiên <span class="heal">${SHIELD_AMOUNT}</span> trong ` +
+    `<span class="time">${secs(DURATION)} giây</span>, và ` +
+    `<span class="buff">kháng ${pct(TENACITY)}% hiệu ứng khống chế</span> trong ` +
+    `<span class="time">${secs(TENACITY_MS)} giây</span> đầu`;
   coolDown = 9000;
   manaCost = 25;
 
@@ -83,10 +88,15 @@ export default class Garen_W extends Spell {
     shield.color = [230, 220, 170];
     this.owner.addBuff(shield);
 
-    const amp = new StatAmp(DURATION, this.owner, this.owner);
-    amp.stackId = 'garen_w_vamp';
+    // `docs/abilities/garen/w.json`: the first 0.75s grants "a shield and 60%
+    // tenacity". The omnivamp that used to stand here was a substitute chosen
+    // when core had no tenacity stat — it has one now, and a damage-reduction
+    // cooldown that also shortens the crowd control aimed at it is a different
+    // button from one that heals off hitting people.
+    const amp = new StatAmp(TENACITY_MS, this.owner, this.owner);
+    amp.stackId = 'garen_w_tenacity';
     amp.name = 'Dũng Khí';
-    amp.bonuses = { omnivamp: { baseBonus: OMNIVAMP } };
+    amp.bonuses = { tenacity: { baseBonus: TENACITY } };
     this.owner.addBuff(amp);
 
     // Three seconds is short enough that the enemy has to *see* it to respect

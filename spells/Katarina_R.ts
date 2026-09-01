@@ -4,6 +4,8 @@ import { KATARINA_BLOOD, KATARINA_DAGGER_LENGTH, KATARINA_STEEL, drawKatarinaDag
 import { api } from '../packApi';
 import { secs } from '../text';
 
+const HealCut = api.buffs.HealCut;
+
 const SpellForm = api.enums.SpellForm;
 
 const effectiveRange = api.combat.Reach.effectiveRange;
@@ -20,6 +22,11 @@ export const KATARINA_R_RADIUS = 350;
 export const KATARINA_R_TICK_MS = 166;
 
 export const KATARINA_R_TICK_DAMAGE = 8;
+
+/** Every dagger wounds: what it takes off the target's healing, and for how long. */
+export const KATARINA_R_WOUND_PERCENT = 0.4;
+
+export const KATARINA_R_WOUND_MS = 3_000;
 
 export const KATARINA_R_TICK_COUNT = Math.floor(KATARINA_R_DURATION_MS / KATARINA_R_TICK_MS);
 
@@ -159,6 +166,12 @@ export class Katarina_R_Lotus extends SpellObject {
 
     for (const victim of targets) {
       victim.takeDamage(KATARINA_R_TICK_DAMAGE, this.owner, 'MAGIC');
+      // Each dagger "inflicts Grievous Wounds on the target for 3 seconds"
+      // (`docs/abilities/katarina/r.json`) — the whole reason the ultimate is
+      // the answer to a healer rather than only a damage channel.
+      const wound = new HealCut(KATARINA_R_WOUND_MS, this.owner, victim);
+      wound.healCut = KATARINA_R_WOUND_PERCENT;
+      victim.addBuff(wound);
       this.game.objectManager.addObject(
         new Katarina_Blade_Impact(this.owner, victim.position.x, victim.position.y, 35)
       );

@@ -287,6 +287,10 @@ describe('Cuồng Đao Guinsoo', () => {
 
   it('builds rage per swing, up to the cap', () => {
     const w = world();
+    // A base to take a share of: rage grants `percentBaseBonus` now, the way
+    // every attack-speed source does, and a share of the fixture's default 0
+    // would be nothing however many stacks were counted.
+    w.attacker.stats.attackSpeed.baseValue = 1.2;
     w.attacker.addBuff(new Item_Guinsoo_Rage(0, w.attacker, w.attacker));
 
     const attackSpeedBefore = w.attacker.stats.attackSpeed.value;

@@ -1,10 +1,12 @@
 import type { TrailSystem } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct, secs } from '../text';
 
 const VectorUtils = api.utils.VectorUtils;
 const Spell = api.Spell;
 const Dash = api.buffs.Dash;
 const Airborne = api.buffs.Airborne;
+const StatAmp = api.buffs.StatAmp;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const CollideUtils = api.utils.CollideUtils;
 const Circle = api.utils.Quadtree.Circle;
@@ -20,6 +22,12 @@ export const JARVAN_Q_KNOCKUP_MS = 750;
 
 export const JARVAN_Q_DASH_HIT_RADIUS = 90;
 
+/** Share of the target's armour the lance tears off. */
+export const JARVAN_Q_SHRED = 0.2;
+
+/** How long the tear lasts, from the record. */
+export const JARVAN_Q_SHRED_MS = 3_000;
+
 /** How close the spear line has to pass a flag for the combo to latch. */
 export const JARVAN_Q_FLAG_SNAP = 60;
 
@@ -29,7 +37,8 @@ export default class JarvanIV_Q extends Spell {
   image = api.asset('spell_jarvaniv_q');
   name = 'Giáng Long Kích (JarvanIV_Q)';
   description =
-    'Đâm giáo theo hướng chỉ định gây <span class="damage physical">25 sát thương vật lý</span>. Nếu giáo chạm vào <span class="buff">Hoàng Kim Kỳ (E)</span>, Jarvan IV sẽ <span class="buff">Lướt</span> tới lá cờ và <span class="buff">Hất Tung</span> kẻ địch trên đường lướt.';
+    'Đâm giáo theo hướng chỉ định gây <span class="damage physical">25 sát thương vật lý</span>. Nếu giáo chạm vào <span class="buff">Hoàng Kim Kỳ (E)</span>, Jarvan IV sẽ <span class="buff">Lướt</span> tới lá cờ và <span class="buff">Hất Tung</span> kẻ địch trên đường lướt.' +
+    ` Kẻ trúng giáo bị <span class="buff">giảm ${pct(JARVAN_Q_SHRED)}% giáp</span> trong <span class="time">${secs(JARVAN_Q_SHRED_MS)} giây</span>.`;
   coolDown = 8000;
   manaCost = 45;
   range = 450;
@@ -118,6 +127,16 @@ export default class JarvanIV_Q extends Spell {
           hitTargets.add(enemy);
           enemy.takeDamage(JARVAN_Q_DAMAGE, this.owner, 'PHYSICAL');
           enemy.addBuff(new Airborne(JARVAN_Q_KNOCKUP_MS, this.owner, enemy));
+          // `docs/abilities/jarvaniv/q.json`: the lance "inflict[s] them with
+          // armor reduction for 3 seconds". `percentBonus` is the outer factor,
+          // so it takes its share of the armour they *bought* as well as the
+          // armour they were born with — see `Renekton_E`, which had the same
+          // sentence in its record and shredded attack damage instead.
+          const torn = new StatAmp(JARVAN_Q_SHRED_MS, this.owner, enemy);
+          torn.name = 'Rách Giáp';
+          torn.stackId = 'jarvan_q_shred';
+          torn.bonuses = { armor: { percentBonus: -JARVAN_Q_SHRED } };
+          enemy.addBuff(torn);
           charge.impactAt(enemy.position.x, enemy.position.y);
         }
       }

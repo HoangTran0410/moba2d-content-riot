@@ -10,6 +10,7 @@ const Rectangle = api.utils.Quadtree.Rectangle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const Slow = api.buffs.Slow;
+const StatAmp = api.buffs.StatAmp;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
 
 
@@ -46,6 +47,17 @@ export const SLOW_PERCENT = 0.6;
 
 export const SLOW_DURATION = 2000;
 
+/**
+ * The share of the victim's resistance this ability's **passive** ignores.
+ *
+ * `pantheon/r.json: "Passive: Pantheon gains armor penetration."` — a passive of the ability, so it is on from the moment the
+ * spell exists rather than when it is cast. Core had no penetration stat when
+ * this file was written, so the line was simply not implemented; it is a
+ * *share* rather than points, because a flat "ignores N" means everything
+ * against one map's tuning and nothing against another's.
+ */
+export const PANTHEON_R_PENETRATION = 0.2;
+
 
 /**
  * Grand Starfall — "Trời Sập".
@@ -59,15 +71,26 @@ export const SLOW_DURATION = 2000;
  * ground from the frame he presses it, and 1.4s is long enough to walk out of
  * it (see the combat notes in CLAUDE.md — dangerous, never unavoidable).
  */
+/** Pantheon's always-on share of the resistance in front of them. */
+export class Pantheon_R_Passive extends StatAmp {
+  name = 'Giáo Xuyên Giáp';
+  stackId = 'pantheon_r_passive';
+  // The inventory row and the ability icon already say this is on; a
+  // permanent entry on the buff bar says it again every frame.
+  hudVisible = false;
+  bonuses = { armorPenetration: { flatBonus: PANTHEON_R_PENETRATION } };
+}
+
 export default class Pantheon_R extends Spell {
   targetingMode = 'POINT' as const;
   image = api.asset('spell_pantheon_r');
   name = 'Trời Sập (Pantheon_R)';
-  description =
+  description = 
     `Pantheon bay vút lên trời cao, <span class="buff">Không Thể Bị Chọn</span> suốt` +
     ` <span class="time">${secs(FLIGHT_MS)} giây</span>, rồi rơi như thiên thạch xuống địa điểm chỉ định` +
     ` (xa tới <span>${MAX_RANGE}px</span>): <span class="damage magic">${DAMAGE} sát thương phép</span>` +
-    ` và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> trong bán kính <span>${RADIUS}px</span>`;
+    ` và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> trong bán kính <span>${RADIUS}px</span>` +
+    ` Nội tại: <span class="buff">bỏ qua ${pct(PANTHEON_R_PENETRATION)}% xuyên giáp</span> của mục tiêu.`;
   coolDown = 10000;
   manaCost = 80;
 
@@ -76,6 +99,17 @@ export default class Pantheon_R extends Spell {
   /** Grounded means grounded: he cannot leave the map, so the cast is refused. */
   checkCastCondition() {
     return !this.owner.grounded;
+  }
+
+  onUpdate(): void {
+    this.maintainPassive();
+  }
+
+  /** Always on, like the record says: armed once and left alone. */
+  private maintainPassive(): void {
+    if (!this.owner || this.owner.isDead) return;
+    if (this.owner.hasBuff(Pantheon_R_Passive)) return;
+    this.owner.addBuff(new Pantheon_R_Passive(Infinity, this.owner, this.owner));
   }
 
   onSpellCast() {

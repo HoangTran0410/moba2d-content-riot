@@ -1,9 +1,10 @@
 import { api } from '../packApi';
-import { secs } from '../text';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Disarm = api.buffs.Disarm;
 const Phasing = api.buffs.Phasing;
+const StatAmp = api.buffs.StatAmp;
 const Circle = api.utils.Quadtree.Circle;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const PredefinedFilters = api.combat.PredefinedFilters;
@@ -16,6 +17,13 @@ export const DURATION = 3000;
 export const HITS = 7;
 
 export const DAMAGE_PER_HIT = 7;
+
+/** Which hit of the spin starts tearing armour, and what it takes for how long. */
+export const SHRED_AT_HIT = 6;
+
+export const SHRED_PERCENT = 0.25;
+
+export const SHRED_MS = 6_000;
 
 
 /**
@@ -34,7 +42,9 @@ export default class Garen_E extends Spell {
     `Xoay kiếm quanh mình <span class="time">${secs(DURATION)} giây</span>, chém` +
     ` <span>${HITS} lần</span> × <span class="damage physical">${DAMAGE_PER_HIT} sát thương vật lý</span> cho kẻ địch trong` +
     ` <span>${RADIUS}px</span>. Trong lúc xoay, Garen <span class="buff">đi xuyên qua kẻ địch</span> nhưng` +
-    ` <span class="damage">không thể đánh thường</span>`;
+    ` <span class="damage">không thể đánh thường</span>. Tướng địch trúng đủ` +
+    ` <span class="buff">${SHRED_AT_HIT} nhát</span> bị <span class="buff">giảm ${pct(SHRED_PERCENT)}% giáp</span>` +
+    ` trong <span class="time">${secs(SHRED_MS)} giây</span>`;
   coolDown = 9000;
   manaCost = 30;
 
@@ -91,7 +101,22 @@ export class Garen_E_Object extends SpellObject {
       area: new Circle({ x: this.position.x, y: this.position.y, r: this.radius }),
       filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
     });
-    enemies.forEach((enemy: any) => enemy.takeDamage(DAMAGE_PER_HIT, this.owner, 'PHYSICAL'));
+    enemies.forEach((enemy: any) => {
+      enemy.takeDamage(DAMAGE_PER_HIT, this.owner, 'PHYSICAL');
+      // "Enemy champions hit 6 times by Judgment are inflicted with 25% armor
+      // reduction for 6 seconds" (`docs/abilities/garen/e.json`). The count is
+      // this spin's own `hitsLanded` rather than a per-victim tally: a body
+      // that stood in the whole spin took every hit of it, and one that walked
+      // out took fewer *and* is no longer here to be shredded. That is a
+      // simplification of the record's per-champion count, and the honest
+      // place to say so is here.
+      if (this.hitsLanded < SHRED_AT_HIT) return;
+      const torn = new StatAmp(SHRED_MS, this.owner, enemy);
+      torn.name = 'Rách Giáp';
+      torn.stackId = 'garen_e_shred';
+      torn.bonuses = { armor: { percentBonus: -SHRED_PERCENT } };
+      enemy.addBuff(torn);
+    });
   }
 
   /** One turn every 260ms. Fast enough to blur, slow enough to read as a sword. */

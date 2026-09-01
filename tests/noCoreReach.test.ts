@@ -342,6 +342,23 @@ describe("the pack's tests speak only published core surfaces", () => {
     // source as text and imports nothing from core at all, so it adds to the
     // population and to no other count here.
     //
+    // 114, not 113: `tests/spells/Janna_R.camp.test.ts` — Monsoon against a
+    // real camp, kept out of `Janna_R.test.ts` because that file mocks the VFX
+    // surface and this one wants a plain world.
+    //
+    // 113, not 112: `tests/spells/recordParity.test.ts`, the one place that
+    // checks an ability against the wiki record it was imported from. Same two
+    // published surfaces as every other spell test here.
+    //
+    // 112, not 111: `tests/spells/Item_capstones.test.ts`, which drives Mũ
+    // Phù Thủy Rabadon, Móng Vuốt Sterak and Tim Băng. Same two published
+    // surfaces as every other spell test here.
+    //
+    // 111, not 110: `tests/spells/Item_wounds.test.ts`, which drives the three
+    // Vết Thương Sâu passives. It reaches core through `@moba2d/core/testing`
+    // and `@moba2d/core/testing/spell` like every other spell test here, and
+    // names `api.buffs.HealCut` — core's own published surface, not a reach.
+    //
     // 110, not 109: `tests/spells/Olaf_R.test.ts` — the ultimate that was
     // invisible for the seven seconds it lasted.
     //
@@ -362,7 +379,7 @@ describe("the pack's tests speak only published core surfaces", () => {
     // 104, not 103: `tests/buffDescriptions.test.ts`, which checks that a buff
     // this pack invents says what it does. Like the one above it, it reads this
     // pack's own source as text and imports nothing from core.
-    expect(files.length).toBe(110);
+    expect(files.length).toBe(114);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

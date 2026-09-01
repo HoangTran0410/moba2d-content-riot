@@ -12,6 +12,7 @@ const Spell = api.Spell;
 const Airborne = api.buffs.Airborne;
 const Dash = api.buffs.Dash;
 const Slow = api.buffs.Slow;
+const StatAmp = api.buffs.StatAmp;
 const SpellObject = api.SpellObject;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
 
@@ -47,15 +48,26 @@ export const SLOW_MS = 1_000;
  * work on it. Writing `victim.position` directly would haul a champion who had
  * just been made immune to exactly this.
  */
+/** Darius's always-on share of the resistance in front of them. */
+export class Darius_E_Passive extends StatAmp {
+  name = 'Rìu Xuyên Giáp';
+  stackId = 'darius_e_passive';
+  // The inventory row and the ability icon already say this is on; a
+  // permanent entry on the buff bar says it again every frame.
+  hudVisible = false;
+  bonuses = { armorPenetration: { flatBonus: DARIUS_E_PENETRATION } };
+}
+
 export default class Darius_E extends Spell {
   image = api.asset('spell_darius_e');
   name = 'Bắt Giữ (Darius_E)';
-  description =
+  description = 
     `Quét rìu thành hình quạt xa <span>${CONE_RANGE}px</span>, gây` +
     ` <span class="damage physical">${DAMAGE} sát thương vật lý</span>, cộng một cấp <span class="damage">Chảy Máu</span>` +
     ` và <span class="buff">kéo</span> mọi kẻ địch trúng chiêu về sát người.` +
     ` Khi tiếp đất chúng bị <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span>` +
-    ` trong <span class="time">${secs(SLOW_MS)} giây</span>`;
+    ` trong <span class="time">${secs(SLOW_MS)} giây</span>` +
+    ` Nội tại: <span class="buff">bỏ qua ${pct(DARIUS_E_PENETRATION)}% xuyên giáp</span> của mục tiêu.`;
   coolDown = 9_000;
   manaCost = 45;
 
@@ -69,6 +81,17 @@ export default class Darius_E extends Spell {
       resource: { commitAt: 'start', refundOn: [] },
       cooldown: { startAt: 'release', durationMs: this.coolDown },
     };
+  }
+
+  onUpdate(): void {
+    this.maintainPassive();
+  }
+
+  /** Always on, like the record says: armed once and left alone. */
+  private maintainPassive(): void {
+    if (!this.owner || this.owner.isDead) return;
+    if (this.owner.hasBuff(Darius_E_Passive)) return;
+    this.owner.addBuff(new Darius_E_Passive(Infinity, this.owner, this.owner));
   }
 
   onSpellCast(context: CastContext): void {
@@ -172,6 +195,17 @@ export default class Darius_E extends Spell {
  * carry the rest.
  */
 export const SWEEP_LIFETIME_MS = 700;
+
+/**
+ * The share of the victim's resistance this ability's **passive** ignores.
+ *
+ * `darius/e.json: "Passive: Darius gains armor penetration."` — a passive of the ability, so it is on from the moment the
+ * spell exists rather than when it is cast. Core had no penetration stat when
+ * this file was written, so the line was simply not implemented; it is a
+ * *share* rather than points, because a flat "ignores N" means everything
+ * against one map's tuning and nothing against another's.
+ */
+export const DARIUS_E_PENETRATION = 0.2;
 
 /** How much of that life is the reach out; the rest is the haul back in. */
 const REACH_FRACTION = 0.32;

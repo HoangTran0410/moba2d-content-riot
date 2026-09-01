@@ -396,6 +396,9 @@ describe('TwistedFate E — Tráo Bài', () => {
   it('arms a counting deck the HUD can read and a silent attack-speed bonus', () => {
     const twistedFate = unit(100, 100, 'blue');
     game.setPlayer(twistedFate);
+    // Stacked Deck is a *share* of his own rate now, so the probe needs a rate
+    // to be a share of — the fixture leaves champions at 0.
+    twistedFate.stats.attackSpeed.baseValue = 1.1;
     const before = twistedFate.stats.attackSpeed.value;
 
     const spell = new TwistedFate_E(twistedFate);
@@ -416,7 +419,7 @@ describe('TwistedFate E — Tráo Bài', () => {
     expect(haste).toBeTruthy();
     expect(haste!.hudVisible).toBe(false);
     expect(haste!.duration).toBe(0);
-    expect(twistedFate.stats.attackSpeed.value - before).toBeCloseTo(BONUS_ATTACK_SPEED, 5);
+    expect(twistedFate.stats.attackSpeed.value - before).toBeCloseTo(1.1 * BONUS_ATTACK_SPEED, 5);
   });
 
   it('every fourth basic attack carries the bonus, and the count resets', () => {

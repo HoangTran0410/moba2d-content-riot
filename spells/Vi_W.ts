@@ -3,7 +3,6 @@ import { api } from '../packApi';
 import { pct, secs } from '../text';
 
 const EventType = api.enums.EventType;
-const Slow = api.buffs.Slow;
 const StatAmp = api.buffs.StatAmp;
 const Spell = api.Spell;
 const Buff = api.buffs.Buff;
@@ -16,9 +15,10 @@ export const W_STACKS = 3;
 
 export const W_PROC = 16;
 
-export const W_SLOW = 0.2;
+/** Share of armour the third stack tears off, and for how long. */
+export const W_SHRED = 0.2;
 
-export const W_SLOW_MS = 2_000;
+export const W_SHRED_MS = 4_000;
 
 export const W_ATTACK_SPEED = 0.5;
 
@@ -45,7 +45,7 @@ export default class Vi_W extends Spell {
   name = 'Cú Đấm Phá Giáp (Vi_W)';
   description = `Kích hoạt tăng <b>50% tốc đánh</b> trong ${secs(W_DURATION_MS)} giây. Mỗi ${W_STACKS} đòn đánh thường vào
     <b>cùng một mục tiêu</b> gây thêm <span class="damage physical">${W_PROC} sát thương vật lý</span> và
-    làm chậm ${pct(W_SLOW)}% trong ${secs(W_SLOW_MS)} giây.`;
+    giảm ${pct(W_SHRED)}% giáp trong ${secs(W_SHRED_MS)} giây.`;
   coolDown = 10_000;
   manaCost = 20;
 
@@ -63,7 +63,7 @@ export default class Vi_W extends Spell {
     this.owner.addBuff(opened);
 
     const haste = new StatAmp(W_DURATION_MS, this.owner, this.owner);
-    haste.bonuses = { attackSpeed: { baseBonus: 0.5 } };
+    haste.bonuses = { attackSpeed: { percentBaseBonus: W_ATTACK_SPEED } };
     haste.stackId = 'vi_w_haste';
     this.owner.addBuff(haste);
 
@@ -91,13 +91,19 @@ export default class Vi_W extends Spell {
   private breakArmour(victim: AttackableUnit): void {
     victim.takeDamage(W_PROC, this.owner, 'PHYSICAL');
 
-    const held = new Slow(W_SLOW_MS, this.owner, victim);
-    held.percent = W_SLOW;
-    held.stackId = 'vi_w_armour_break';
-    victim.addBuff(held);
+    // Denting Blows breaks *armour*, and the buff was already called that:
+    // `docs/abilities/vi/w.json` says the third stack inflicts "20% armor
+    // reduction for 4 seconds", while this applied a movement slow — a
+    // different effect on a different axis, and one that made a tank's own
+    // stacking of armour the counter to an ability named for tearing it.
+    const torn = new StatAmp(W_SHRED_MS, this.owner, victim);
+    torn.name = 'Rách Giáp';
+    torn.stackId = 'vi_w_armour_break';
+    torn.bonuses = { armor: { percentBonus: -W_SHRED } };
+    victim.addBuff(torn);
 
     const haste = new StatAmp(W_HASTE_MS, this.owner, this.owner);
-    haste.bonuses = { attackSpeed: { baseBonus: W_ATTACK_SPEED } };
+    haste.bonuses = { attackSpeed: { percentBaseBonus: W_ATTACK_SPEED } };
     haste.stackId = 'vi_w_haste';
     this.owner.addBuff(haste);
 
@@ -152,8 +158,8 @@ export class Vi_W_Buff extends Buff {
   description =
     `Mỗi <span class="buff">${W_STACKS} đòn đánh</span> lên cùng một mục tiêu gây thêm ` +
     `<span class="damage physical">${W_PROC} sát thương vật lý</span> và ` +
-    `<span class="buff">Làm Chậm ${pct(W_SLOW)}%</span> trong ` +
-    `<span class="time">${secs(W_SLOW_MS)} giây</span>.`;
+    `<span class="buff">giảm ${pct(W_SHRED)}% giáp</span> trong ` +
+    `<span class="time">${secs(W_SHRED_MS)} giây</span>.`;
   image = api.asset('spell_vi_w');
 }
 

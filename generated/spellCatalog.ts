@@ -174,7 +174,7 @@ export const spellCatalog = {
   },
   "Annie_R": {
     name: "Triệu Hồi: Tibbers (Annie_R)",
-    description: "Triệu hồi Tibbers tại vị trí chỉ định trong <span class=\"time\">20 giây</span>: vụ lửa xuất hiện gây <span class=\"damage magic\">34 sát thương phép</span> trong <span>200px</span>. Tibbers có <span class=\"buff\">180 máu</span>, tự đánh kẻ địch gần nhất và thiêu <span class=\"damage magic\">3 sát thương phép</span> mỗi nhịp quanh mình. <span class=\"buff\">Bấm lại</span> để điều Tibbers tới vị trí mới",
+    description: "Triệu hồi Tibbers tại vị trí chỉ định trong <span class=\"time\">20 giây</span>: vụ lửa xuất hiện gây <span class=\"damage magic\">34 sát thương phép</span> trong <span>200px</span>. Tibbers có <span class=\"buff\">180 máu</span>, tự đánh kẻ địch gần nhất và thiêu <span class=\"damage magic\">3 sát thương phép</span> mỗi nhịp quanh mình. <span class=\"buff\">Bấm lại</span> để điều Tibbers tới vị trí mới Nội tại: <span class=\"buff\">bỏ qua 20% xuyên kháng phép</span> của mục tiêu.",
     iconKey: "spell_annie_r",
     coolDownMs: 10000,
     manaCost: 100,
@@ -414,7 +414,7 @@ export const spellCatalog = {
   },
   "Darius_E": {
     name: "Bắt Giữ (Darius_E)",
-    description: "Quét rìu thành hình quạt xa <span>300px</span>, gây <span class=\"damage physical\">15 sát thương vật lý</span>, cộng một cấp <span class=\"damage\">Chảy Máu</span> và <span class=\"buff\">kéo</span> mọi kẻ địch trúng chiêu về sát người. Khi tiếp đất chúng bị <span class=\"buff\">Làm Chậm 40%</span> trong <span class=\"time\">1 giây</span>",
+    description: "Quét rìu thành hình quạt xa <span>300px</span>, gây <span class=\"damage physical\">15 sát thương vật lý</span>, cộng một cấp <span class=\"damage\">Chảy Máu</span> và <span class=\"buff\">kéo</span> mọi kẻ địch trúng chiêu về sát người. Khi tiếp đất chúng bị <span class=\"buff\">Làm Chậm 40%</span> trong <span class=\"time\">1 giây</span> Nội tại: <span class=\"buff\">bỏ qua 20% xuyên giáp</span> của mục tiêu.",
     iconKey: "spell_darius_e",
     coolDownMs: 9000,
     manaCost: 45,
@@ -582,7 +582,7 @@ export const spellCatalog = {
   },
   "Garen_E": {
     name: "Phán Quyết (Garen_E)",
-    description: "Xoay kiếm quanh mình <span class=\"time\">3 giây</span>, chém <span>7 lần</span> × <span class=\"damage physical\">7 sát thương vật lý</span> cho kẻ địch trong <span>180px</span>. Trong lúc xoay, Garen <span class=\"buff\">đi xuyên qua kẻ địch</span> nhưng <span class=\"damage\">không thể đánh thường</span>",
+    description: "Xoay kiếm quanh mình <span class=\"time\">3 giây</span>, chém <span>7 lần</span> × <span class=\"damage physical\">7 sát thương vật lý</span> cho kẻ địch trong <span>180px</span>. Trong lúc xoay, Garen <span class=\"buff\">đi xuyên qua kẻ địch</span> nhưng <span class=\"damage\">không thể đánh thường</span>. Tướng địch trúng đủ <span class=\"buff\">6 nhát</span> bị <span class=\"buff\">giảm 25% giáp</span> trong <span class=\"time\">6 giây</span>",
     iconKey: "spell_garen_e",
     coolDownMs: 9000,
     manaCost: 30,
@@ -606,7 +606,7 @@ export const spellCatalog = {
   },
   "Garen_W": {
     name: "Lòng Can Đảm (Garen_W)",
-    description: "Nhận khiên <span class=\"heal\">70</span> và <span class=\"buff\">hút 20% máu</span> từ mọi sát thương gây ra, trong <span class=\"time\">3 giây</span>",
+    description: "Nhận khiên <span class=\"heal\">70</span> trong <span class=\"time\">3 giây</span>, và <span class=\"buff\">kháng 60% hiệu ứng khống chế</span> trong <span class=\"time\">0.8 giây</span> đầu",
     iconKey: "spell_garen_w",
     coolDownMs: 9000,
     manaCost: 25,
@@ -700,6 +700,14 @@ export const spellCatalog = {
     manaCost: 40,
     specCoolDownMs: 9000,
   },
+  "Item_BrambleVest": {
+    name: "Áo Choàng Gai (Item_BrambleVest)",
+    description: "Nội tại: kẻ đánh trúng bạn dính Vết Thương Sâu, giảm 40% lượng hồi máu của chúng trong 3 giây",
+    iconKey: "item_bramble_vest",
+    coolDownMs: 0,
+    manaCost: 0,
+    specCoolDownMs: 0,
+  },
   "Item_DeadMansPlate": {
     name: "Giáp Người Chết (Item_DeadMansPlate)",
     description: "Nội tại: di chuyển tích lực, tối đa tăng 30% tốc chạy; đòn đánh kế tiếp xả toàn bộ lực, gây tới 20 sát thương vật lý và làm chậm 50% khi tích đầy",
@@ -740,6 +748,14 @@ export const spellCatalog = {
     manaCost: 0,
     specCoolDownMs: 40000,
   },
+  "Item_FrozenHeart": {
+    name: "Tim Băng (Item_FrozenHeart)",
+    description: "Nội tại: kẻ địch đứng gần bị giảm 20% tốc đánh",
+    iconKey: "item_frozen_heart",
+    coolDownMs: 0,
+    manaCost: 0,
+    specCoolDownMs: 0,
+  },
   "Item_Ghostblade": {
     name: "Kiếm Ma Youmuu (Item_Ghostblade)",
     description: "<span class=\"buff\">Tăng tốc 40%</span> trong <span class=\"time\">5 giây</span>",
@@ -747,6 +763,22 @@ export const spellCatalog = {
     coolDownMs: 45000,
     manaCost: 0,
     specCoolDownMs: 45000,
+  },
+  "Item_GrievousMagic": {
+    name: "Ngọc Quên Lãng (Item_GrievousMagic)",
+    description: "Nội tại: sát thương phép gây ra đặt Vết Thương Sâu, giảm 40% lượng hồi máu của mục tiêu trong 3 giây",
+    iconKey: "item_oblivion_orb",
+    coolDownMs: 0,
+    manaCost: 0,
+    specCoolDownMs: 0,
+  },
+  "Item_GrievousStrike": {
+    name: "Gươm Đồ Tể (Item_GrievousStrike)",
+    description: "Nội tại: sát thương vật lý gây ra đặt Vết Thương Sâu, giảm 40% lượng hồi máu của mục tiêu trong 3 giây",
+    iconKey: "item_executioners_calling",
+    coolDownMs: 0,
+    manaCost: 0,
+    specCoolDownMs: 0,
   },
   "Item_Guinsoo": {
     name: "Cuồng Đao Guinsoo (Item_Guinsoo)",
@@ -796,6 +828,14 @@ export const spellCatalog = {
     manaCost: 0,
     specCoolDownMs: 90000,
   },
+  "Item_Rabadon": {
+    name: "Mũ Phù Thủy Rabadon (Item_Rabadon)",
+    description: "Nội tại: tăng thêm 25% tổng sức mạnh phép của bạn",
+    iconKey: "item_rabadons_deathcap",
+    coolDownMs: 0,
+    manaCost: 0,
+    specCoolDownMs: 0,
+  },
   "Item_RavenousHydra": {
     name: "Rìu Mãng Xà (Item_RavenousHydra)",
     description: "Nội tại: đòn đánh gây thêm sát thương vật lý bằng 60% công lên các kẻ địch khác trong 100 đơn vị quanh mục tiêu",
@@ -816,6 +856,14 @@ export const spellCatalog = {
     name: "Cuồng Cung Runaan (Item_Runaan)",
     description: "Nội tại (chỉ tướng đánh xa): mỗi đòn đánh bắn thêm 2 tia phụ vào các kẻ địch khác gần nhất, gây 45% công và áp dụng hiệu ứng đòn đánh của bạn",
     iconKey: "item_runaans_hurricane",
+    coolDownMs: 0,
+    manaCost: 0,
+    specCoolDownMs: 0,
+  },
+  "Item_SerpentsFang": {
+    name: "Kiếm Ác Xà (Item_SerpentsFang)",
+    description: "Nội tại: sát thương vật lý gây ra làm Rạn Khiên — lá chắn mục tiêu nhận được trong 3 giây sau đó chỉ còn 50% giá trị",
+    iconKey: "item_serpents_fang",
     coolDownMs: 0,
     manaCost: 0,
     specCoolDownMs: 0,
@@ -844,9 +892,17 @@ export const spellCatalog = {
     manaCost: 0,
     specCoolDownMs: 0,
   },
+  "Item_Steraks": {
+    name: "Móng Vuốt Sterak (Item_Steraks)",
+    description: "Nội tại: khi máu rơi xuống dưới 35%, nhận lá chắn bằng 30% máu tối đa trong 4 giây (hồi lại sau 45 giây)",
+    iconKey: "item_steraks_gage",
+    coolDownMs: 0,
+    manaCost: 0,
+    specCoolDownMs: 0,
+  },
   "Item_Thornmail": {
     name: "Giáp Gai (Item_Thornmail)",
-    description: "Nội tại: phản <span class=\"buff\">25% sát thương</span> nhận vào về kẻ đã gây ra nó (tính trên đòn đánh gốc, trước khi khiên đỡ)",
+    description: "Nội tại: phản <span class=\"buff\">25% sát thương</span> nhận vào về kẻ đã gây ra nó (tính trên đòn đánh gốc, trước khi khiên đỡ), và đặt Vết Thương Sâu giảm 40% lượng hồi máu của chúng trong 3 giây",
     iconKey: "item_thornmail",
     coolDownMs: 0,
     manaCost: 0,
@@ -934,7 +990,7 @@ export const spellCatalog = {
   },
   "JarvanIV_Q": {
     name: "Giáng Long Kích (JarvanIV_Q)",
-    description: "Đâm giáo theo hướng chỉ định gây <span class=\"damage physical\">25 sát thương vật lý</span>. Nếu giáo chạm vào <span class=\"buff\">Hoàng Kim Kỳ (E)</span>, Jarvan IV sẽ <span class=\"buff\">Lướt</span> tới lá cờ và <span class=\"buff\">Hất Tung</span> kẻ địch trên đường lướt.",
+    description: "Đâm giáo theo hướng chỉ định gây <span class=\"damage physical\">25 sát thương vật lý</span>. Nếu giáo chạm vào <span class=\"buff\">Hoàng Kim Kỳ (E)</span>, Jarvan IV sẽ <span class=\"buff\">Lướt</span> tới lá cờ và <span class=\"buff\">Hất Tung</span> kẻ địch trên đường lướt. Kẻ trúng giáo bị <span class=\"buff\">giảm 20% giáp</span> trong <span class=\"time\">3 giây</span>.",
     iconKey: "spell_jarvaniv_q",
     coolDownMs: 8000,
     manaCost: 45,
@@ -1310,7 +1366,7 @@ export const spellCatalog = {
   },
   "Nasus_E": {
     name: "Lửa Tâm Linh (Nasus_E)",
-    description: "Gọi một vùng lửa bán kính <span>170px</span> tồn tại <span class=\"time\">4 giây</span>, gây <span class=\"damage magic\">4 sát thương phép</span> mỗi <span class=\"time\">0.5 giây</span> cho kẻ địch đứng trong đó",
+    description: "Gọi một vùng lửa bán kính <span>170px</span> tồn tại <span class=\"time\">4 giây</span>, gây <span class=\"damage magic\">4 sát thương phép</span> mỗi <span class=\"time\">0.5 giây</span> cho kẻ địch đứng trong đó và <span class=\"buff\">giảm 20% giáp</span> của chúng (còn <span class=\"time\">1 giây</span> sau khi rời vùng lửa)",
     iconKey: "spell_nasus_e",
     coolDownMs: 10000,
     manaCost: 30,
@@ -1486,7 +1542,7 @@ export const spellCatalog = {
   },
   "Pantheon_R": {
     name: "Trời Sập (Pantheon_R)",
-    description: "Pantheon bay vút lên trời cao, <span class=\"buff\">Không Thể Bị Chọn</span> suốt <span class=\"time\">1.4 giây</span>, rồi rơi như thiên thạch xuống địa điểm chỉ định (xa tới <span>900px</span>): <span class=\"damage magic\">55 sát thương phép</span> và <span class=\"buff\">Làm Chậm 60%</span> trong bán kính <span>240px</span>",
+    description: "Pantheon bay vút lên trời cao, <span class=\"buff\">Không Thể Bị Chọn</span> suốt <span class=\"time\">1.4 giây</span>, rồi rơi như thiên thạch xuống địa điểm chỉ định (xa tới <span>900px</span>): <span class=\"damage magic\">55 sát thương phép</span> và <span class=\"buff\">Làm Chậm 60%</span> trong bán kính <span>240px</span> Nội tại: <span class=\"buff\">bỏ qua 20% xuyên giáp</span> của mục tiêu.",
     iconKey: "spell_pantheon_r",
     coolDownMs: 10000,
     manaCost: 80,
@@ -1566,7 +1622,7 @@ export const spellCatalog = {
   },
   "Renekton_E": {
     name: "Cắt và Xắt (Renekton_E)",
-    description: "Lướt <span>250px</span> theo hướng chỉ định, gây <span class=\"damage physical\">24 sát thương vật lý</span> cho mọi kẻ địch trên đường (mỗi mục tiêu chỉ trúng một lần). Nếu trúng ít nhất một kẻ địch, có thể <span class=\"buff\">lướt lần hai</span> trong <span class=\"time\">4 giây</span>. <span class=\"buff\">Cuồng Nộ</span>: lần lướt thứ hai gây thêm <span class=\"damage physical\">12 sát thương vật lý</span> và <span class=\"damage\">giảm 25% Sát thương</span> của mục tiêu trong <span class=\"time\">4 giây</span>",
+    description: "Lướt <span>250px</span> theo hướng chỉ định, gây <span class=\"damage physical\">24 sát thương vật lý</span> cho mọi kẻ địch trên đường (mỗi mục tiêu chỉ trúng một lần). Nếu trúng ít nhất một kẻ địch, có thể <span class=\"buff\">lướt lần hai</span> trong <span class=\"time\">4 giây</span>. <span class=\"buff\">Cuồng Nộ</span>: lần lướt thứ hai gây thêm <span class=\"damage physical\">12 sát thương vật lý</span> và <span class=\"buff\">giảm 25% giáp</span> của mục tiêu trong <span class=\"time\">4 giây</span>",
     iconKey: "spell_renekton_e",
     coolDownMs: 9000,
     manaCost: 30,
@@ -1742,7 +1798,7 @@ export const spellCatalog = {
   },
   "Singed_R": {
     name: "Thuốc Hóa Điên (Singed_R)",
-    description: "Uống thuốc trong <span class=\"time\">9 giây</span>: <span class=\"buff\">+50 máu tối đa</span>, <span class=\"buff\">+30% tốc chạy</span> và <span class=\"buff\">+6 sát thương đánh thường</span>",
+    description: "Uống thuốc trong <span class=\"time\">9 giây</span>: <span class=\"buff\">+50 máu tối đa</span>, <span class=\"buff\">+30% tốc chạy</span> và <span class=\"buff\">+6 sát thương đánh thường</span>. Trong lúc đó, vệt độc còn đặt <span class=\"buff\">Vết Thương Sâu 40%</span> lên kẻ dính độc",
     iconKey: "spell_singed_r",
     coolDownMs: 10000,
     manaCost: 50,
@@ -1926,7 +1982,7 @@ export const spellCatalog = {
   },
   "TwistedFate_E": {
     name: "Tráo Bài (TwistedFate_E)",
-    description: "Nội tại: cộng vĩnh viễn <span class=\"buff\">0.2 tốc độ đánh</span>. Cứ mỗi <span class=\"buff\">4 đòn đánh thường</span>, đòn thứ 4 gây thêm <span class=\"damage magic\">16 sát thương phép</span>",
+    description: "Nội tại: cộng vĩnh viễn <span class=\"buff\">0.25 tốc độ đánh</span>. Cứ mỗi <span class=\"buff\">4 đòn đánh thường</span>, đòn thứ 4 gây thêm <span class=\"damage magic\">16 sát thương phép</span>",
     iconKey: "spell_twistedfate_e",
     coolDownMs: 0,
     manaCost: 0,
@@ -1990,7 +2046,7 @@ export const spellCatalog = {
   },
   "Varus_E": {
     name: "Mưa Tên (Varus_E)",
-    description: "Bắn một loạt tên xuống vị trí chỉ định: <span class=\"damage physical\">24 sát thương vật lý</span> khi chạm đất, sau đó vùng đất bị <span class=\"buff\">Làm Chậm 45%</span> trong <span class=\"time\">3 giây</span>",
+    description: "Bắn một loạt tên xuống vị trí chỉ định: <span class=\"damage physical\">24 sát thương vật lý</span> khi chạm đất, sau đó vùng đất bị <span class=\"buff\">Làm Chậm 45%</span> trong <span class=\"time\">3 giây</span> và dính <span class=\"buff\">Vết Thương Sâu 40%</span>",
     iconKey: "spell_varus_e",
     coolDownMs: 9000,
     manaCost: 30,
@@ -2110,7 +2166,7 @@ export const spellCatalog = {
   },
   "Vi_W": {
     name: "Cú Đấm Phá Giáp (Vi_W)",
-    description: "Kích hoạt tăng <b>50% tốc đánh</b> trong 8 giây. Mỗi 3 đòn đánh thường vào\n    <b>cùng một mục tiêu</b> gây thêm <span class=\"damage physical\">16 sát thương vật lý</span> và\n    làm chậm 20% trong 2 giây.",
+    description: "Kích hoạt tăng <b>50% tốc đánh</b> trong 8 giây. Mỗi 3 đòn đánh thường vào\n    <b>cùng một mục tiêu</b> gây thêm <span class=\"damage physical\">16 sát thương vật lý</span> và\n    giảm 20% giáp trong 4 giây.",
     iconKey: "spell_vi_w",
     coolDownMs: 10000,
     manaCost: 20,

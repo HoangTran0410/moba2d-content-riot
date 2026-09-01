@@ -7,6 +7,7 @@ const Rectangle = api.utils.Quadtree.Rectangle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const Slow = api.buffs.Slow;
+const HealCut = api.buffs.HealCut;
 
 export const MAX_RANGE = 500;
 
@@ -17,6 +18,11 @@ export const IMPACT_DAMAGE = 24;
 export const DURATION = 3000;
 
 export const SLOW_PERCENT = 0.45;
+
+/** The desecration: what it takes off every heal, and for how long after the tick. */
+export const WOUND_PERCENT = 0.4;
+
+export const WOUND_MS = 3_000;
 
 export const FALL_TIME = 400;
 
@@ -29,7 +35,8 @@ export default class Varus_E extends Spell {
   description =
     `Bắn một loạt tên xuống vị trí chỉ định: <span class="damage physical">${IMPACT_DAMAGE} sát thương vật lý</span> khi chạm đất,` +
     ` sau đó vùng đất bị <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> trong` +
-    ` <span class="time">${secs(DURATION)} giây</span>`;
+    ` <span class="time">${secs(DURATION)} giây</span> và dính` +
+    ` <span class="buff">Vết Thương Sâu ${pct(WOUND_PERCENT)}%</span>`;
   coolDown = 9000;
   manaCost = 30;
 
@@ -90,6 +97,13 @@ export class Varus_E_Object extends SpellObject {
       const slow = new Slow(700, this.owner, enemy);
       slow.percent = SLOW_PERCENT;
       enemy.addBuff(slow);
+      // "slowing enemies within and inflicting them with Grievous Wounds"
+      // (`docs/abilities/varus/e.json`). The slow was implemented and the
+      // wound was not, because core had no such thing until 1.13 — it does
+      // now, and this is the ability the source game gives it to.
+      const wound = new HealCut(WOUND_MS, this.owner, enemy);
+      wound.healCut = WOUND_PERCENT;
+      enemy.addBuff(wound);
     });
   }
 

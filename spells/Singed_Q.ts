@@ -1,5 +1,6 @@
 import { api } from '../packApi';
 import { secs } from '../text';
+import { isInsanityPotionUp, POISON_WOUND_MS, POISON_WOUND_PERCENT } from './Singed_R';
 
 const Spell = api.Spell;
 const Rectangle = api.utils.Quadtree.Rectangle;
@@ -7,6 +8,7 @@ const SpellObject = api.SpellObject;
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const DamageOverTime = api.buffs.DamageOverTime;
+const HealCut = api.buffs.HealCut;
 
 export const DURATION = 6000;
 
@@ -97,6 +99,15 @@ export class Singed_Q_Cloud extends SpellObject {
       poison.flameColor = [200, 140, 255];
       poison.emberColor = [70, 30, 120];
       enemy.addBuff(poison);
+
+      // Insanity Potion turns the trail from damage into an answer to a
+      // healer: while it is up, the poison wounds as well as burns
+      // (`docs/abilities/singed/r.json`). Refreshed by every drop, so it lasts
+      // as long as they keep standing in the gas and a beat past the last one.
+      if (!isInsanityPotionUp(this.owner)) return;
+      const wound = new HealCut(POISON_WOUND_MS, this.owner, enemy);
+      wound.healCut = POISON_WOUND_PERCENT;
+      enemy.addBuff(wound);
     });
   }
 

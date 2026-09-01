@@ -75,7 +75,7 @@ export default class Sett_Q extends Spell {
     if (this.amp && !this.amp.toRemove) this.amp.deactivateBuff();
     const amp = new StatAmp(SETT_Q_WINDOW_MS, this.owner, this.owner);
     amp.stackId = 'sett_q_iron_fists';
-    amp.bonuses = { attackSpeed: { baseBonus: SETT_Q_ATTACK_SPEED } };
+    amp.bonuses = { attackSpeed: { percentBaseBonus: SETT_Q_ATTACK_SPEED } };
     this.owner.addBuff(amp);
     this.amp = amp;
 
