@@ -902,7 +902,7 @@ export const spellCatalog = {
   },
   "Item_Runaan": {
     name: "Cuồng Cung Runaan (Item_Runaan)",
-    description: "Nội tại (chỉ tướng đánh xa): mỗi đòn đánh bắn thêm 2 tia phụ vào các kẻ địch khác gần nhất, gây 45% công và áp dụng hiệu ứng đòn đánh của bạn",
+    description: "Nội tại (chỉ tướng đánh xa): mỗi đòn đánh bắn thêm 2 tia phụ vào các kẻ địch đứng cạnh mục tiêu, gây 45% công và áp dụng hiệu ứng đòn đánh của bạn",
     iconKey: "item_runaans_hurricane",
     coolDownMs: 0,
     manaCost: 0,

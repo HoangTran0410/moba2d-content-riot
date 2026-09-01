@@ -38,7 +38,11 @@ import {
   RAGE_STACK_ID,
   PHANTOM_HIT_INTERVAL,
 } from '../spells/Item_Guinsoo';
-import { Item_Runaan_Wind, SIDE_BOLT_AD_RATIO } from '../spells/Item_Runaan';
+import {
+  Item_Runaan_SideBolt,
+  Item_Runaan_Wind,
+  SIDE_BOLT_AD_RATIO,
+} from '../spells/Item_Runaan';
 import { CleaveBuff } from '../spells/Item_Tiamat';
 import { Item_DuskAndDawn_Twin } from '../spells/Item_DuskAndDawn';
 import { Item_Nashor_Fang, NASHOR_MAGIC_DAMAGE } from '../spells/Item_Nashor';
@@ -326,49 +330,185 @@ describe('Cuồng Đao Guinsoo', () => {
 });
 
 describe('Cuồng Cung Runaan', () => {
-  const withSideTargets = () => {
-    const w = world();
-    w.attacker.stats.attackRange.baseValue = 300;
-    const near = createUnit(w.game, 100, 'red');
-    const far = createUnit(w.game, 200, 'red');
-    for (const unit of [near, far]) {
+  /**
+   * Four bodies laid out so the two rules the fan has can disagree with each
+   * other, because for most of this item's life they could not: it took the
+   * two enemies nearest **the wearer**, so `behind` — a body at the wearer's
+   * feet, pointing away from everything — was a side target, and `beside`,
+   * standing on the victim, competed with it on distance from the wrong point.
+   *
+   * `queryObjects` is replaced rather than driven through the quadtree, but
+   * the replacement answers honestly about *where* it was asked: it filters by
+   * the circle the caller passed. That is the whole claim under test — the
+   * circle is on the victim — so a stub that ignored the area would make every
+   * case below vacuous.
+   */
+  const fanWorld = () => {
+    const game = createGame();
+    const attacker = createUnit(game, 0, 'blue');
+    const victim = createUnit(game, 200, 'red');
+    // 80 from the victim, and well inside the wearer's swing.
+    const beside = createUnit(game, 280, 'red');
+    // 60 from the victim: the nearest of the three that qualify.
+    const closer = createUnit(game, 140, 'red');
+    // 120 from the victim — a legal side target that loses to the other two,
+    // so the fan's own count is what keeps it out.
+    const crowd = createUnit(game, 200, 'red');
+    crowd.position.set(200, 120);
+    // At the wearer's feet and 260 from the victim: the reported bug.
+    const behind = createUnit(game, -60, 'red');
+    // 180 from the victim — inside the spread — but 380 out, past what a
+    // swing of 300 could have reached over two 55-unit bodies.
+    const outOfReach = createUnit(game, 380, 'red');
+
+    for (const unit of [attacker, victim, beside, closer, crowd, behind, outOfReach]) {
       unit.stats.maxHealth.baseValue = 200;
       unit.stats.health.baseValue = 200;
     }
-    w.game.objectManager.queryObjects = vi.fn(() => [far, near]) as never;
-    return { ...w, near, far };
+    attacker.stats.attackDamage.baseValue = 14;
+    attacker.stats.attackRange.baseValue = 300;
+
+    const others = [beside, closer, crowd, behind, outOfReach];
+    game.objectManager.queryObjects = ((options: {
+      area: { x: number; y: number; r: number };
+    }) =>
+      others.filter(
+        unit =>
+          Math.hypot(unit.position.x - options.area.x, unit.position.y - options.area.y) <=
+          options.area.r
+      )) as never;
+
+    // The fan launches missiles now, so the objects it adds are the assertion
+    // surface: nothing has been damaged at the moment of the swing. Narrowed
+    // to the item's own bolts — an on-hit that lands with them adds objects of
+    // its own, and counting those as side bolts is how "two" becomes three.
+    const bolts: Item_Runaan_SideBolt[] = [];
+    vi.spyOn(game.objectManager, 'addObject').mockImplementation(object => {
+      if (object instanceof Item_Runaan_SideBolt) bolts.push(object);
+    });
+
+    return { game, attacker, victim, beside, closer, crowd, behind, outOfReach, bolts };
   };
 
+  /** Fly every bolt to wherever it is going. */
+  const land = (bolts: Item_Runaan_SideBolt[]): void => {
+    for (const bolt of [...bolts]) {
+      for (let frame = 0; frame < 500 && !bolt.toRemove; frame++) bolt.update();
+    }
+  };
+
+  const boltDamage = Math.round(14 * SIDE_BOLT_AD_RATIO);
+
   it('fans two side bolts that carry the on-hits', () => {
-    const w = withSideTargets();
+    const w = fanWorld();
     w.attacker.addBuff(new Item_Runaan_Wind(0, w.attacker, w.attacker));
     w.attacker.addBuff(new Item_Nashor_Fang(0, w.attacker, w.attacker));
 
     swing(w);
-    // `takeDamage` rounds each instance to whole points
-    const bolt = Math.round(14 * SIDE_BOLT_AD_RATIO);
+    expect(w.bolts.length).toBe(2);
+    land(w.bolts);
+
     // each side victim: the bolt's own damage plus the carried sting
-    expect(w.near.stats.health.value).toBe(200 - bolt - NASHOR_MAGIC_DAMAGE);
-    expect(w.far.stats.health.value).toBe(200 - bolt - NASHOR_MAGIC_DAMAGE);
+    for (const side of [w.closer, w.beside]) {
+      expect(side.stats.health.value).toBe(200 - boltDamage - NASHOR_MAGIC_DAMAGE);
+    }
+    // the third body beside the victim loses on distance, and only on that
+    expect(w.crowd.stats.health.value).toBe(200);
     // the main victim: the sting once — never a bolt at the unit already hit
     expect(w.victim.stats.health.value).toBe(200 - NASHOR_MAGIC_DAMAGE);
   });
 
+  /**
+   * **One other enemy in the world**, deliberately.
+   *
+   * Both rules below are refusals, and a refusal is invisible next to a body
+   * the fan would rather have shot anyway: with three legal side targets on
+   * the board, dropping the rule outright still produces the same two bolts,
+   * because the count and the sort settle it first. The only shape that can
+   * fail is a world where the rule is the *only* thing standing between the
+   * fan and its target.
+   */
+  const loneWorld = (x: number, y = 0) => {
+    const w = fanWorld();
+    const only = createUnit(w.game, x, 'red');
+    only.position.set(x, y);
+    only.stats.maxHealth.baseValue = 200;
+    only.stats.health.baseValue = 200;
+    w.game.objectManager.queryObjects = ((options: {
+      area: { x: number; y: number; r: number };
+    }) =>
+      [only].filter(
+        unit =>
+          Math.hypot(unit.position.x - options.area.x, unit.position.y - options.area.y) <=
+          options.area.r
+      )) as never;
+    return { ...w, only };
+  };
+
+  /**
+   * The report, exactly: *"nhiều khi cả mục tiêu ở hướng đối diện của kẻ bị
+   * bắn"*. This body is 60 from the wearer and 260 from what the wearer shot,
+   * and the fan has nothing else to aim at.
+   */
+  it('fans off the victim, not off the wearer', () => {
+    const w = loneWorld(-60);
+    w.attacker.addBuff(new Item_Runaan_Wind(0, w.attacker, w.attacker));
+
+    swing(w);
+    land(w.bolts);
+
+    expect(w.bolts.length).toBe(0);
+    expect(w.only.stats.health.value).toBe(200);
+  });
+
+  /**
+   * And never past what the wearer could have hit itself: 180 from the victim,
+   * which is inside the spread, and 380 out, which a swing of 300 over two
+   * 55-unit bodies is not.
+   */
+  it('does not reach a body the swing could not have reached', () => {
+    const w = loneWorld(380);
+    w.attacker.addBuff(new Item_Runaan_Wind(0, w.attacker, w.attacker));
+
+    swing(w);
+    land(w.bolts);
+
+    expect(w.bolts.length).toBe(0);
+    expect(w.only.stats.health.value).toBe(200);
+  });
+
+  /**
+   * They are projectiles, not lines drawn after the fact. Nothing is hurt at
+   * the swing; the damage is where the bolt arrives.
+   */
+  it('lands its damage on arrival rather than at the swing', () => {
+    const w = fanWorld();
+    w.attacker.addBuff(new Item_Runaan_Wind(0, w.attacker, w.attacker));
+
+    swing(w);
+    expect(w.bolts.length).toBe(2);
+    expect(w.beside.stats.health.value).toBe(200);
+
+    land(w.bolts);
+    expect(w.beside.stats.health.value).toBe(200 - boltDamage);
+  });
+
   it('stays quiet for a melee swing', () => {
-    const w = withSideTargets();
+    const w = fanWorld();
     w.attacker.addBuff(new Item_Runaan_Wind(0, w.attacker, w.attacker));
 
     swing(w, { ranged: false });
-    expect(w.near.stats.health.value).toBe(200);
-    expect(w.far.stats.health.value).toBe(200);
+    land(w.bolts);
+    expect(w.beside.stats.health.value).toBe(200);
   });
 
   it('never fans off an echoed application', () => {
-    const w = withSideTargets();
+    const w = fanWorld();
     w.attacker.addBuff(new Item_Runaan_Wind(0, w.attacker, w.attacker));
 
     swing(w, { echo: true });
-    expect(w.near.stats.health.value).toBe(200);
+    land(w.bolts);
+    expect(w.beside.stats.health.value).toBe(200);
   });
 });
 
