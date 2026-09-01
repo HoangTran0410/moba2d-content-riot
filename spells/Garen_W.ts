@@ -64,10 +64,12 @@ function shieldHalfWidth(y: number): number {
 /**
  * Courage.
  *
- * League's version is a shield plus tenacity and lasting damage reduction.
- * There is no tenacity stat here, so the durability lands as a shield and the
- * staying power as omnivamp: Garen's whole identity is being the one who is
- * still standing at the end of the fight.
+ * League's version is a shield plus tenacity and lasting damage reduction. The
+ * durability lands as the shield and the staying power as the tenacity window
+ * below — core 1.16 has the stat, so the omnivamp that stood in for it while
+ * it did not is gone. Garen's whole identity is being the one who is still
+ * standing at the end of the fight, and shrugging off the crowd control aimed
+ * at him is a truer version of that than healing off hitting people.
  */
 export default class Garen_W extends Spell {
   targetingMode = 'SELF' as const;
@@ -100,11 +102,15 @@ export default class Garen_W extends Spell {
     this.owner.addBuff(amp);
 
     // Three seconds is short enough that the enemy has to *see* it to respect
-    // it, and a grey bar on the health bar is not seeing it. The aegis shadows
-    // the omnivamp buff, which runs the full duration whether or not the shield
-    // gets chewed through early.
+    // it, and a grey bar on the health bar is not seeing it.
+    //
+    // Anchored to the **shield**, not to the buff above it. It used to ride the
+    // omnivamp, which happened to run the full three seconds; the tenacity that
+    // replaced that runs 750ms, so the plates were vanishing five sixths of the
+    // way through a cooldown that was still protecting him. The shield is what
+    // the art depicts anyway, so the two now start and end together.
     const aegis = new Garen_W_Aegis(this.owner);
-    aegis.attachTo(this.owner, amp);
+    aegis.attachTo(this.owner, shield);
     this.game.objectManager.addObject(aegis);
   }
 }
