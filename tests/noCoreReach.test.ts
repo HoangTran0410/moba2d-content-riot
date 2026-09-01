@@ -101,6 +101,17 @@ const ALLOWED_CORE_SUBPATHS = new Set([
   // was ten lines living in one pack while the other pack's `npm test` said
   // nothing about it at all. `tests/coreBoundary.test.ts` is the caller.
   '@moba2d/core/testing/boundary',
+  // The shared bot-role sweep (`describeBotRoles`), on its own subpath for a
+  // reason worth stating: it value-imports `BotBrain` so the scores it
+  // reports come out of `scoreSpell` itself rather than a table of weights
+  // copied into a pack. That import is the whole value of the module and
+  // exactly why it must not sit in the `./testing` barrel — 84KB of engine
+  // pulled into every pack test file that wanted a champion fixture.
+  '@moba2d/core/testing/bots',
+  // The shared pace band (`describeTempo`). Cheap — it reads a catalogue and
+  // compares numbers — but published beside the others because the ceiling it
+  // enforces is a property of the engine, not of any pack that adopts it.
+  '@moba2d/core/testing/tempo',
   // The two build helpers core ships for packs: the asset-manifest generator
   // (this pack used to carry its own copy) and the WebP re-encode plugin.
   // Neither is ever part of `pack.js` — one is a bin plus the module behind
@@ -399,7 +410,12 @@ describe("the pack's tests speak only published core surfaces", () => {
     // this pack stands on a map that is not a body to fight.
     // 119, not 118: `tests/structures/turretPassives.test.ts`, which pins the
     // three turret passives this pack now ships as real buffs.
-    expect(files.length).toBe(120);
+    //
+    // 122, not 120: `tests/botRoles.test.ts` and `tests/tempo.test.ts`, the
+    // two shared sweeps core now publishes — whether a bot can reach a kit at
+    // all, and whether a cooldown leaves anyone standing around. Both are
+    // population files: the rules are core's, only the roster is this pack's.
+    expect(files.length).toBe(122);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {
