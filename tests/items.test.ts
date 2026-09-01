@@ -513,8 +513,14 @@ describe('the item set', () => {
     // `>=X.Y.Z` and nothing else.
     //
     // Every step since is recorded in `data.ts`'s own note beside the value.
-    // The latest is 1.15 — `api.buffs.ShieldCut`, which Kiếm Ác Xà reads at
-    // module scope. Before it, 1.14 added `armorPenetration`,
+    // The latest is 1.17 — `api.utils.seededShuffle`, which `monsters/
+    // Dragon.ts` uses to draw the pit's drake order from the match seed. Like
+    // the 1.15 step it is loud rather than silent: on an older core that
+    // member is `undefined` and the first drake spawn throws, so the floor is
+    // what turns it into a refused install. Before it, 1.16 was the stat
+    // model — counters, ability haste, and grants that are a share of the
+    // wearer. Before that, 1.15 was `api.buffs.ShieldCut`, which Kiếm Ác Xà
+    // reads at module scope. Before it, 1.14 added `armorPenetration`,
     // `magicPenetration`, `tenacity` and `healingReceived` to core's
     // `ITEM_STAT_KEYS`, which `validate.ts` refuses a pack for naming before
     // they exist. The step before that was 1.13: `api.buffs.HealCut` and the `Buff.onDamageDealt`
@@ -522,7 +528,7 @@ describe('the item set', () => {
     // step this one is loud — the buff is read at a spell module's top level
     // and would be `undefined` on an older core — and the floor is what turns
     // that into a refused install instead of a crash on the first purchase.
-    expect(data.manifest.coreRange).toBe('>=1.16.0');
+    expect(data.manifest.coreRange).toBe('>=1.17.0');
   });
 
   /**

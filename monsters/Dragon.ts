@@ -367,45 +367,7 @@ const rotation = new WeakMap<object, number>();
 const cycle = new WeakMap<object, readonly Drake[]>();
 
 /**
- * mulberry32, written out here rather than imported.
- *
- * The engine has the same function (`game/matchSeed.ts`), and it is not on any
- * subpath a pack may import at runtime — nor should it be for this: what has to
- * be true is that the *host and the client run identical code*, and both of
- * them run this file. A pack that agreed with core's stream but not with its
- * own opponent would have solved the wrong half.
- */
-function seededRandom(seed: number): () => number {
-  let state = seed >>> 0;
-  return () => {
-    state = (state + 0x6d2b79f5) >>> 0;
-    let t = state;
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4_294_967_296;
-  };
-}
-
-/**
- * Fisher-Yates, not `sort(() => Math.random() - 0.5)`.
- *
- * That comparator was the first attempt at this and was reverted: it is not a
- * comparator at all — it answers differently for the same pair — so the
- * permutations are neither uniform nor reproducible, on top of being drawn from
- * a source the two ends of a LAN match do not share.
- */
-function shuffled(drakes: readonly Drake[], seed: number): Drake[] {
-  const out = drakes.slice();
-  const random = seededRandom(seed);
-  for (let i = out.length - 1; i > 0; i--) {
-    const j = Math.floor(random() * (i + 1));
-    [out[i], out[j]] = [out[j], out[i]];
-  }
-  return out;
-}
-
-/**
- * The order this pit runs its six elementals in, decided once per match.
+ * Draws the order this pit will run its six elementals in, once per match.
  *
  * Fire first was hardcoded, so every match opened the same way and scouting the
  * pit told you nothing you did not already know. It is shuffled now — but from
@@ -415,6 +377,13 @@ function shuffled(drakes: readonly Drake[], seed: number): Drake[] {
  * different buff for the same kill, with nothing in the protocol able to notice.
  * That is not hypothetical: it shipped once and was reverted for it.
  *
+ * The shuffle itself comes off `api.utils` rather than being written here.
+ * A pack cannot value-import anything from core at runtime — the bundle marks
+ * core `external`, so a surviving import is a bare specifier nothing resolves
+ * in the browser — so `api` is the only way to share a function at all, and a
+ * second copy of a seeded shuffle is one copy away from two packs disagreeing
+ * about what a seed means.
+ *
  * The pit's own coordinates are mixed in so a two-pit map does not run one
  * order twice. They come from the map data both sides loaded, so they are as
  * shared as the seed is.
@@ -422,19 +391,25 @@ function shuffled(drakes: readonly Drake[], seed: number): Drake[] {
  * **The Elder is not shuffled.** It is the seventh drake, not one of the six —
  * what it is *for* is that the cycle has been all the way round.
  */
-function cycleFor(camp: object, seed?: number): readonly Drake[] {
-  const known = cycle.get(camp);
-  if (known) return known;
-  if (seed === undefined) return ROTATION;
+function seedCycle(api: ContentApi, camp: object, seed?: number): void {
+  if (cycle.has(camp) || seed === undefined) return;
 
   const pit = camp as { x?: number; y?: number };
   const mixed =
-    (seed ^ Math.imul(Math.round(pit.x ?? 0), 0x4665_1e5d) ^
+    (seed ^
+      Math.imul(Math.round(pit.x ?? 0), 0x4665_1e5d) ^
       Math.imul(Math.round(pit.y ?? 0), 0x1276_3f1f)) >>>
     0;
-  const order: readonly Drake[] = [...shuffled(ELEMENTS, mixed), ELDER];
-  cycle.set(camp, order);
-  return order;
+  cycle.set(camp, [...api.utils.seededShuffle(ELEMENTS, mixed), ELDER]);
+}
+
+/**
+ * The order this pit runs, or the written one for a pit nothing has spawned
+ * into yet — the pit ring is created inside `onSpawn`, so in a running match
+ * there is no such moment.
+ */
+function cycleFor(camp: object): readonly Drake[] {
+  return cycle.get(camp) ?? ROTATION;
 }
 
 /**
@@ -922,7 +897,7 @@ export default function makeDragonAbilities(api: ContentApi): MonsterAbility[] {
         // First thing, and the only place with a `game` in hand: the order this
         // pit will run is drawn here, from the match seed, once. Everything
         // below reads it back through `elementFor`.
-        cycleFor(monster.camp, monster.game?.matchSeed);
+        seedCycle(api, monster.camp, monster.game?.matchSeed);
         const drake = elementFor(monster.camp);
         dressFor(monster as never, drake);
         if (drake.id === ELDER.id) hardenElder(monster as never);

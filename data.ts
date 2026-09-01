@@ -2190,13 +2190,22 @@ export const data: ContentPackData = {
    * buys Gươm Đồ Tể. The floor turns that into a refused install with a
    * sentence in it.
    *
+   * `>=1.17.0` is for `api.utils.seededShuffle`, which `monsters/Dragon.ts`
+   * draws the pit's drake order with. Loud in the same way: on an older core
+   * that member is `undefined`, and the first dragon spawn of the match throws
+   * out of `onSpawn`. What makes it worth a floor at all rather than a local
+   * copy of a shuffle is that the two ends of a LAN match have to compute the
+   * *same* order — a pack cannot value-import from core at runtime, so `api`
+   * is the only way to share the function, and a second copy is one copy away
+   * from two packs disagreeing about what a seed means.
+   *
    * `satisfiesCoreRange` parses `*` and `>=X.Y.Z` and nothing else, which is
    * also why this is no longer the unparseable `'^1'` it used to be.
    */
   manifest: {
     id: 'lol',
     version: '1.1.0',
-    coreRange: '>=1.16.0',
+    coreRange: '>=1.17.0',
     assets: 'lol',
   },
   spellDisplay: displayData(),
