@@ -820,6 +820,14 @@ export const spellCatalog = {
     manaCost: 0,
     specCoolDownMs: 60000,
   },
+  "Item_Mikael": {
+    name: "Ơn Phước Mikael (Item_Mikael)",
+    description: "Kích hoạt: gỡ một hiệu ứng <span class=\"buff\">khống chế</span> khỏi đồng minh và hồi <span class=\"heal\">25</span> máu; trong <span class=\"time\">3 giây</span> sau đó mọi hiệu ứng hồi máu lên đồng minh đó mạnh hơn 35%",
+    iconKey: "item_mikaels_blessing",
+    coolDownMs: 55000,
+    manaCost: 0,
+    specCoolDownMs: 55000,
+  },
   "Item_Nashor": {
     name: "Nanh Nashor (Item_Nashor)",
     description: "Nội tại: đòn đánh gây thêm 7 sát thương phép",

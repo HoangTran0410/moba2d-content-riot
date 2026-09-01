@@ -10,7 +10,7 @@ import { assetManifest } from '../generated/assetManifest';
 const api = buildTestApi();
 
 /**
- * The shop this pack ships: fifty-eight items, thirty-one spells behind them, and the
+ * The shop this pack ships: sixty-one items, thirty-two spells behind them, and the
  * one thing about them that is easy to get wrong in a way nothing complains
  * about.
  *
@@ -28,12 +28,13 @@ const api = buildTestApi();
  * rather than four spells that do not exist.
  */
 
-/** The thirty-one, by name. Not derived from a prefix the code under test also uses. */
+/** The thirty-two, by name. Not derived from a prefix the code under test also uses. */
 const ITEM_SPELL_IDS = [
   'Item_Thornmail',
   'Item_Zhonyas',
   'Item_Ghostblade',
   'Item_Quicksilver',
+  'Item_Mikael',
   'Item_Sheen',
   'Item_TrinityForce',
   'Item_DivineSunderer',
@@ -104,11 +105,16 @@ const SPEC: Record<
   null_magic_mantle: { name: 'Áo Vải', cost: 400, stats: { magicResist: 22 } },
   ruby_crystal: { name: 'Hồng Ngọc', cost: 400, stats: { maxHealth: 25 } },
   boots: { name: 'Giày', cost: 300, stats: { speed: 0.35 } },
-  recurve_bow: { name: 'Cung Gỗ', cost: 500, stats: { attackSpeed: 0.15 } },
+  recurve_bow: { name: 'Cung Gỗ', cost: 550, stats: { attackSpeed: 0.15, onHitDamage: 1 } },
+  zeal: {
+    name: 'Cuồng Cung',
+    cost: 700,
+    stats: { attackSpeed: 0.12, critChance: 0.12, speedPercent: 0.05 },
+  },
   berserkers_greaves: {
     name: 'Giày Cuồng Nộ',
-    cost: 900,
-    stats: { speed: 0.45, attackSpeed: 0.18 },
+    cost: 950,
+    stats: { speed: 0.45, attackSpeed: 0.18, onHitDamage: 1 },
     buildsFrom: ['boots', 'recurve_bow'],
   },
   warmogs_armor: {
@@ -120,21 +126,21 @@ const SPEC: Record<
   thornmail: { name: 'Giáp Gai', cost: 1100, stats: { armor: 45 }, passive: 'Item_Thornmail', buildsFrom: ['bramble_vest', 'cloth_armor'] },
   infinity_edge: {
     name: 'Vô Cực Kiếm',
-    cost: 1300,
+    cost: 1600,
     stats: { attackDamage: 18, critChance: 0.25, critDamage: 0.2 },
     buildsFrom: ['long_sword', 'long_sword', 'long_sword'],
   },
   quicksilver_sash: {
     name: 'Khăn Giải Thuật',
     cost: 1200,
-    stats: { magicResist: 40, attackDamage: 6 },
+    stats: { magicResist: 40, attackDamage: 6, tenacity: 0.2 },
     active: 'Item_Quicksilver',
     buildsFrom: ['null_magic_mantle', 'long_sword'],
   },
   blade_of_the_ruined_king: {
     name: 'Gươm Suy Vong',
-    cost: 1400,
-    stats: { attackDamage: 10, attackSpeed: 0.15, omnivamp: 0.1 },
+    cost: 1500,
+    stats: { attackDamage: 10, attackSpeed: 0.15, omnivamp: 0.1, onHitDamage: 2 },
     passive: 'Item_RuinedKing',
     buildsFrom: ['recurve_bow', 'long_sword'],
   },
@@ -142,36 +148,36 @@ const SPEC: Record<
   tiamat: { name: 'Rìu Tiamat', cost: 550, stats: { attackDamage: 6 }, passive: 'Item_Tiamat' },
   guinsoos_rageblade: {
     name: 'Cuồng Đao Guinsoo',
-    cost: 1400,
-    stats: { attackDamage: 8, attackSpeed: 0.21 },
+    cost: 1550,
+    stats: { attackDamage: 8, attackSpeed: 0.21, onHitDamage: 2 },
     passive: 'Item_Guinsoo',
     buildsFrom: ['recurve_bow', 'long_sword'],
   },
   wits_end: {
     name: 'Đao Tím',
-    cost: 1450,
-    stats: { attackSpeed: 0.18, magicResist: 26, abilityPower: 1 },
+    cost: 1500,
+    stats: { attackSpeed: 0.18, magicResist: 26, abilityPower: 1, onHitDamage: 1 },
     passive: 'Item_WitsEnd',
     buildsFrom: ['recurve_bow', 'null_magic_mantle'],
   },
   kraken_slayer: {
     name: 'Móc Diệt Thủy Quái',
-    cost: 1500,
-    stats: { attackDamage: 14, attackSpeed: 0.18 },
+    cost: 1650,
+    stats: { attackDamage: 14, attackSpeed: 0.18, onHitDamage: 3 },
     passive: 'Item_Kraken',
     buildsFrom: ['recurve_bow', 'long_sword', 'long_sword'],
   },
   nashors_tooth: {
     name: 'Nanh Nashor',
-    cost: 1450,
-    stats: { attackSpeed: 0.24, abilityPower: 1.4 },
+    cost: 1500,
+    stats: { attackSpeed: 0.24, abilityPower: 1.4, onHitDamage: 1 },
     passive: 'Item_Nashor',
     buildsFrom: ['recurve_bow'],
   },
   trinity_force: {
     name: 'Tam Hợp Kiếm',
-    cost: 1700,
-    stats: { attackDamage: 10, attackSpeed: 0.18, maxMana: 20, speedPercent: 0.05 },
+    cost: 1800,
+    stats: { attackDamage: 10, attackSpeed: 0.18, maxMana: 20, speedPercent: 0.05, onHitDamage: 2 },
     passive: 'Item_TrinityForce',
     buildsFrom: ['sheen', 'long_sword', 'recurve_bow'],
   },
@@ -184,7 +190,7 @@ const SPEC: Record<
   },
   essence_reaver: {
     name: 'Lưỡi Hái Linh Hồn',
-    cost: 1400,
+    cost: 1500,
     stats: { attackDamage: 12, maxMana: 25, critChance: 0.15 },
     passive: 'Item_EssenceReaver',
     buildsFrom: ['sheen', 'long_sword'],
@@ -212,10 +218,10 @@ const SPEC: Record<
   },
   runaans_hurricane: {
     name: 'Cuồng Cung Runaan',
-    cost: 1400,
-    stats: { attackSpeed: 0.33 },
+    cost: 1650,
+    stats: { attackSpeed: 0.33, critChance: 0.12, speedPercent: 0.05, onHitDamage: 2 },
     passive: 'Item_Runaan',
-    buildsFrom: ['recurve_bow', 'recurve_bow'],
+    buildsFrom: ['zeal', 'recurve_bow'],
   },
   dusk_and_dawn: {
     name: 'Bình Minh & Hoàng Hôn',
@@ -240,10 +246,10 @@ const SPEC: Record<
   },
   statikk_shiv: {
     name: 'Móc Sét Statikk',
-    cost: 1300,
-    stats: { attackDamage: 10, attackSpeed: 0.21 },
+    cost: 1550,
+    stats: { attackDamage: 10, attackSpeed: 0.18, critChance: 0.15, speedPercent: 0.05 },
     passive: 'Item_StatikkShiv',
-    buildsFrom: ['recurve_bow', 'long_sword'],
+    buildsFrom: ['zeal', 'long_sword'],
   },
   dead_mans_plate: {
     name: 'Giáp Người Chết',
@@ -377,6 +383,12 @@ const SPEC: Record<
     stats: { speed: 0.45, magicResist: 25, tenacity: 0.25 },
     buildsFrom: ['boots', 'null_magic_mantle'],
   },
+  sorcerers_shoes: {
+    name: 'Giày Pháp Sư',
+    cost: 900,
+    stats: { speed: 0.45, magicPenetration: 0.18 },
+    buildsFrom: ['boots'],
+  },
   ionian_boots_of_lucidity: {
     name: 'Giày Khai Sáng Ionia',
     cost: 900,
@@ -416,6 +428,13 @@ const SPEC: Record<
     stats: { armor: 45, maxMana: 25, abilityHaste: 15 },
     passive: 'Item_FrozenHeart',
     buildsFrom: ['cloth_armor', 'cloth_armor'],
+  },
+  mikaels_blessing: {
+    name: 'Ơn Phước Mikael',
+    cost: 1400,
+    stats: { magicResist: 30, abilityHaste: 15 },
+    active: 'Item_Mikael',
+    buildsFrom: ['null_magic_mantle'],
   },
   everfrost: {
     name: 'Vĩnh Sương',
@@ -461,7 +480,7 @@ describe('no Item_ spell leaks into spellDisplay', () => {
 describe('the item set', () => {
   const items = data.items ?? {};
 
-  it('ships exactly the fifty-eight specified, keyed by their own id', () => {
+  it('ships exactly the sixty-one specified, keyed by their own id', () => {
     expect(Object.keys(items).sort()).toEqual(Object.keys(SPEC).sort());
   });
 
@@ -478,7 +497,7 @@ describe('the item set', () => {
     }
   });
 
-  it('reaches its spells only through passive/active, and only the thirty-one', () => {
+  it('reaches its spells only through passive/active, and only the thirty-two', () => {
     const named = new Set<string>();
     for (const def of Object.values(items)) {
       if (def.passive) named.add(def.passive);
@@ -578,7 +597,7 @@ describe('the item set', () => {
     const registry = new PackRegistry();
     registry.install(pack);
 
-    expect(registry.items()).toHaveLength(58);
+    expect(registry.items()).toHaveLength(61);
     const thornmail = registry.item('lol:thornmail');
     expect(thornmail?.passive).toBe('lol:Item_Thornmail');
     expect(thornmail?.icon).toBe('lol:item_thornmail');
@@ -614,6 +633,7 @@ describe('the build paths', () => {
     'ruby_crystal',
     'boots',
     'recurve_bow',
+    'zeal',
     'sheen',
     'tiamat',
     'vampiric_scepter',

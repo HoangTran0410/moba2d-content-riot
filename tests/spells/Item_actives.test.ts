@@ -27,6 +27,7 @@ import Item_Shurelya, {
 } from '../../spells/Item_Shurelya';
 import Item_Ghostblade, { SPEED_PERCENT } from '../../spells/Item_Ghostblade';
 import Item_Quicksilver from '../../spells/Item_Quicksilver';
+import Item_Mikael, { HEAL as MIKAEL_HEAL, HEALING_BOOST } from '../../spells/Item_Mikael';
 import Item_Thornmail, { REFLECT_PERCENT, REFLECT_STACK_ID } from '../../spells/Item_Thornmail';
 import Item_Zhonyas, { DURATION_MS as ZHONYAS_DURATION_MS } from '../../spells/Item_Zhonyas';
 
@@ -192,6 +193,55 @@ describe('the shop item spells', () => {
 
       expect(onTheCaster.toRemove).toBe(true);
       expect(onTheEnemy.toRemove).toBe(false);
+    });
+  });
+
+  describe('Item_Mikael', () => {
+    /**
+     * The shop's other cleanse, aimed at somebody else — and the only place a
+     * `healingReceived` buff is granted to another unit. The stat had one user
+     * in the whole shop before this, as a flat passive.
+     */
+    it('takes the stun off an ally and leaves every heal on them landing harder', () => {
+      const caster = createUnit(game, 0, 'blue');
+      const ally = createUnit(game, 120, 'blue');
+      const enemy = createUnit(game, 300, 'red');
+      game.setPlayer(caster);
+      indexObjects(game, [caster, ally, enemy]);
+
+      const stun = new Stun(3_000, enemy, ally);
+      ally.addBuff(stun);
+      ally.stats.health.baseValue = 40;
+      ally.stats.maxHealth.baseValue = 100;
+
+      expect(pressSpell(new Item_Mikael(caster), { target: ally })).toBe(true);
+
+      expect(stun.toRemove, 'the ally is still stunned').toBe(true);
+      expect(ally.stats.healingReceived.value).toBeCloseTo(HEALING_BOOST, 6);
+    });
+
+    /**
+     * The boost is added **before** the item's own heal, so the button's own
+     * number is the first thing it amplifies. Getting this backwards is not
+     * visible anywhere except in the health bar at the moment a player is
+     * watching it, which is the worst place to be a little bit wrong.
+     */
+    it('amplifies its own heal, not only the ones that come after', () => {
+      const caster = createUnit(game, 0, 'blue');
+      const ally = createUnit(game, 120, 'blue');
+      game.setPlayer(caster);
+      indexObjects(game, [caster, ally]);
+
+      ally.stats.maxHealth.baseValue = 200;
+      ally.stats.health.baseValue = 20;
+
+      expect(pressSpell(new Item_Mikael(caster), { target: ally })).toBe(true);
+
+      // `takeHeal` rounds to whole points, and it rounds the *amplified*
+      // number — 25 x 1.35 is 33.75, which arrives as 34. Asserting the raw
+      // product instead would be off by a quarter of a point and read as a
+      // bug in the boost.
+      expect(ally.stats.health.value).toBe(20 + Math.round(MIKAEL_HEAL * (1 + HEALING_BOOST)));
     });
   });
 

@@ -851,8 +851,26 @@ const itemEntries = (): Record<string, ItemDef> => ({
     id: 'recurve_bow',
     name: 'Cung Gỗ',
     icon: 'item_recurve_bow',
-    cost: 500,
-    stats: { attackSpeed: 0.15 },
+    cost: 550,
+    // `onHitDamage` is flat **physical** damage folded into the swing before
+    // the crit multiplier (`combat/BasicAttack.ts`), which is exactly what
+    // Recurve Bow grants in the source game — and until now no item in this
+    // shop granted the stat at all, so a stat core had modelled since the
+    // beginning was reachable by nothing. Every item built out of this one
+    // carries at least as much, or combining would charge gold to lose it.
+    stats: { attackSpeed: 0.15, onHitDamage: 1 },
+  },
+  zeal: {
+    id: 'zeal',
+    name: 'Cuồng Cung',
+    icon: 'item_zeal',
+    cost: 700,
+    // The crit shelf had no component: Statikk and Runaan both built straight
+    // out of bows, so nothing in the shop sold a *little* crit and the first
+    // point of it cost 1400 gold. Zeal is that rung, and it is also where the
+    // `speedPercent` on those two comes from — the Zeal line is the movement
+    // line in the source game.
+    stats: { attackSpeed: 0.12, critChance: 0.12, speedPercent: 0.05 },
   },
   sheen: {
     id: 'sheen',
@@ -880,9 +898,9 @@ const itemEntries = (): Record<string, ItemDef> => ({
     id: 'berserkers_greaves',
     name: 'Giày Cuồng Nộ',
     icon: 'item_berserkers_greaves',
-    cost: 900,
+    cost: 950,
     buildsFrom: ['boots', 'recurve_bow'],
-    stats: { speed: 0.45, attackSpeed: 0.18 },
+    stats: { speed: 0.45, attackSpeed: 0.18, onHitDamage: 1 },
   },
   warmogs_armor: {
     id: 'warmogs_armor',
@@ -916,7 +934,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     id: 'infinity_edge',
     name: 'Vô Cực Kiếm',
     icon: 'item_infinity_edge',
-    cost: 1300,
+    cost: 1600,
     buildsFrom: ['long_sword', 'long_sword', 'long_sword'],
     stats: { attackDamage: 18, critChance: 0.25, critDamage: 0.2 },
   },
@@ -932,17 +950,17 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1200,
     buildsFrom: ['null_magic_mantle', 'long_sword'],
     description: 'Kích hoạt: gỡ bỏ mọi hiệu ứng khống chế đang chịu.',
-    stats: { magicResist: 40, attackDamage: 6 },
+    stats: { magicResist: 40, attackDamage: 6, tenacity: 0.2 },
     active: 'Item_Quicksilver',
   },
   blade_of_the_ruined_king: {
     id: 'blade_of_the_ruined_king',
     name: 'Gươm Suy Vong',
     icon: 'item_blade_of_the_ruined_king',
-    cost: 1400,
+    cost: 1500,
     buildsFrom: ['recurve_bow', 'long_sword'],
     description: 'Nội tại: đòn đánh gây thêm <span class="buff">5%</span> máu hiện tại của mục tiêu.',
-    stats: { attackDamage: 10, attackSpeed: 0.15, omnivamp: 0.1 },
+    stats: { attackDamage: 10, attackSpeed: 0.15, omnivamp: 0.1, onHitDamage: 2 },
     passive: 'Item_RuinedKing',
   },
   zhonyas_hourglass: {
@@ -977,56 +995,56 @@ const itemEntries = (): Record<string, ItemDef> => ({
     id: 'guinsoos_rageblade',
     name: 'Cuồng Đao Guinsoo',
     icon: 'item_guinsoos_rageblade',
-    cost: 1400,
+    cost: 1550,
     buildsFrom: ['recurve_bow', 'long_sword'],
     description:
       'Nội tại: mỗi đòn đánh tăng thêm tốc đánh, cộng dồn <span class="buff">6</span> lần; khi tích đủ, ' +
       'mỗi đòn thứ <span class="buff">3</span> kích hoạt các hiệu ứng đòn đánh <span class="buff">2</span> lần.',
-    stats: { attackDamage: 8, attackSpeed: 0.21 },
+    stats: { attackDamage: 8, attackSpeed: 0.21, onHitDamage: 2 },
     passive: 'Item_Guinsoo',
   },
   wits_end: {
     id: 'wits_end',
     name: 'Đao Tím',
     icon: 'item_wits_end',
-    cost: 1450,
+    cost: 1500,
     buildsFrom: ['recurve_bow', 'null_magic_mantle'],
     description:
       'Nội tại: đòn đánh gây thêm <span class="damage magic">4 sát thương phép</span> và tăng tốc chạy trong chốc lát.',
-    stats: { attackSpeed: 0.18, magicResist: 26, abilityPower: 1 },
+    stats: { attackSpeed: 0.18, magicResist: 26, abilityPower: 1, onHitDamage: 1 },
     passive: 'Item_WitsEnd',
   },
   kraken_slayer: {
     id: 'kraken_slayer',
     name: 'Móc Diệt Thủy Quái',
     icon: 'item_kraken_slayer',
-    cost: 1500,
+    cost: 1650,
     buildsFrom: ['recurve_bow', 'long_sword', 'long_sword'],
     description:
       'Nội tại: mỗi đòn thứ <span class="buff">3</span> liên tiếp lên cùng một mục tiêu gây thêm ' +
       '<span class="damage physical">12 sát thương vật lý</span>.',
-    stats: { attackDamage: 14, attackSpeed: 0.18 },
+    stats: { attackDamage: 14, attackSpeed: 0.18, onHitDamage: 3 },
     passive: 'Item_Kraken',
   },
   nashors_tooth: {
     id: 'nashors_tooth',
     name: 'Nanh Nashor',
     icon: 'item_nashors_tooth',
-    cost: 1450,
+    cost: 1500,
     buildsFrom: ['recurve_bow'],
     description: 'Nội tại: đòn đánh gây thêm <span class="damage magic">7 sát thương phép</span>.',
-    stats: { attackSpeed: 0.24, abilityPower: 1.4 },
+    stats: { attackSpeed: 0.24, abilityPower: 1.4, onHitDamage: 1 },
     passive: 'Item_Nashor',
   },
   trinity_force: {
     id: 'trinity_force',
     name: 'Tam Hợp Kiếm',
     icon: 'item_trinity_force',
-    cost: 1700,
+    cost: 1800,
     buildsFrom: ['sheen', 'long_sword', 'recurve_bow'],
     description:
       'Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm <span class="buff">100%</span> công cơ bản.',
-    stats: { attackDamage: 10, attackSpeed: 0.18, maxMana: 20, speedPercent: 0.05 },
+    stats: { attackDamage: 10, attackSpeed: 0.18, maxMana: 20, speedPercent: 0.05, onHitDamage: 2 },
     passive: 'Item_TrinityForce',
   },
   divine_sunderer: {
@@ -1045,7 +1063,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     id: 'essence_reaver',
     name: 'Lưỡi Hái Linh Hồn',
     icon: 'item_essence_reaver',
-    cost: 1400,
+    cost: 1500,
     buildsFrom: ['sheen', 'long_sword'],
     description:
       'Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm <span class="buff">70%</span> công cơ bản và ' +
@@ -1091,12 +1109,12 @@ const itemEntries = (): Record<string, ItemDef> => ({
     id: 'runaans_hurricane',
     name: 'Cuồng Cung Runaan',
     icon: 'item_runaans_hurricane',
-    cost: 1400,
-    buildsFrom: ['recurve_bow', 'recurve_bow'],
+    cost: 1650,
+    buildsFrom: ['zeal', 'recurve_bow'],
     description:
       'Nội tại (đánh xa): mỗi đòn đánh bắn thêm <span class="buff">2</span> tia phụ vào các kẻ địch khác ' +
       'gần nhất, gây <span class="buff">45%</span> công và áp dụng hiệu ứng đòn đánh của bạn.',
-    stats: { attackSpeed: 0.33 },
+    stats: { attackSpeed: 0.33, critChance: 0.12, speedPercent: 0.05, onHitDamage: 2 },
     passive: 'Item_Runaan',
   },
   dusk_and_dawn: {
@@ -1123,12 +1141,12 @@ const itemEntries = (): Record<string, ItemDef> => ({
     id: 'statikk_shiv',
     name: 'Móc Sét Statikk',
     icon: 'item_statikk_shiv',
-    cost: 1300,
-    buildsFrom: ['recurve_bow', 'long_sword'],
+    cost: 1550,
+    buildsFrom: ['zeal', 'long_sword'],
     description:
       'Nội tại: mỗi đòn đánh tích điện; khi tích đầy, đòn kế tiếp phóng tia sét gây ' +
       '<span class="damage magic">16 sát thương phép</span> lên mục tiêu và lan sang <span class="buff">3</span> kẻ địch gần đó.',
-    stats: { attackDamage: 10, attackSpeed: 0.21 },
+    stats: { attackDamage: 10, attackSpeed: 0.18, critChance: 0.15, speedPercent: 0.05 },
     passive: 'Item_StatikkShiv',
   },
   dead_mans_plate: {
@@ -1170,6 +1188,19 @@ const itemEntries = (): Record<string, ItemDef> => ({
       abilityHaste: 20,
     },
     active: 'Item_Shurelya',
+  },
+  mikaels_blessing: {
+    id: 'mikaels_blessing',
+    name: 'Ơn Phước Mikael',
+    icon: 'item_mikaels_blessing',
+    cost: 1400,
+    buildsFrom: ['null_magic_mantle'],
+    description:
+      'Kích hoạt: gỡ một hiệu ứng <span class="buff">khống chế</span> khỏi đồng minh và hồi ' +
+      '<span class="heal">25</span> máu; trong <span class="time">3 giây</span> sau đó, mọi hiệu ứng ' +
+      'hồi máu lên đồng minh đó <span class="buff">mạnh hơn 35%</span>.',
+    stats: { magicResist: 30, abilityHaste: 15 },
+    active: 'Item_Mikael',
   },
   everfrost: {
     id: 'everfrost',
@@ -1398,6 +1429,20 @@ const itemEntries = (): Record<string, ItemDef> => ({
       'Nội tại: rút ngắn <span class="buff">25%</span> thời gian các hiệu ứng khống chế ' +
       '(choáng, trói, câm lặng…) mà kẻ địch gây ra. Không tính hất tung và làm chậm.',
     stats: { speed: 0.45, magicResist: 25, tenacity: 0.25 },
+  },
+  sorcerers_shoes: {
+    id: 'sorcerers_shoes',
+    name: 'Giày Pháp Sư',
+    icon: 'item_sorcerers_shoes',
+    cost: 900,
+    buildsFrom: ['boots'],
+    // The boot shelf shipped four of the source game's five and was missing
+    // exactly the mage's. Riot's version grants *flat* magic penetration, which
+    // this engine deliberately does not model (`docs/STATS_VS_LEAGUE.md`: a
+    // resistance is answered by a share, never by points), so it is the share
+    // instead — and a share is the honest version of the same idea on a
+    // resistance scale this short.
+    stats: { speed: 0.45, magicPenetration: 0.18 },
   },
   ionian_boots_of_lucidity: {
     id: 'ionian_boots_of_lucidity',
