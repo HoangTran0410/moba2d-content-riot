@@ -1,0 +1,115 @@
+{
+  "asset": {
+    "key": "champ_drmundo",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Dr._Mundo_OriginalSquare.png?5756a",
+    "sha1": "6fa11a2cebe58798a92d34c37ae23c5f59e7c028"
+  },
+  "champion": "Dr. Mundo",
+  "data": {
+    "adaptivetype": "Physical",
+    "alttype": "Fighter",
+    "apiname": "DrMundo",
+    "be": 225,
+    "changes": "V26.08",
+    "client_positions": [
+      "Top",
+      "Jungle"
+    ],
+    "client_tags": [
+      "Durable",
+      "Self Healing",
+      "Mixed"
+    ],
+    "control": 1,
+    "damage": 2,
+    "date": "2009-09-02",
+    "difficulty": 1,
+    "external_positions": [
+      "Top",
+      "Jungle"
+    ],
+    "fullname": "'Doctor' Mundo",
+    "herotype": "Tank",
+    "id": 36,
+    "mobility": 1,
+    "patch": "V0.9.22.16",
+    "rangetype": "Melee",
+    "resource": "Health",
+    "role": [
+      "Juggernaut"
+    ],
+    "rp": 260,
+    "skill_e": {
+      "1": "Blunt Force Trauma"
+    },
+    "skill_i": {
+      "1": "Goes Where He Pleases"
+    },
+    "skill_q": {
+      "1": "Infected Bonesaw"
+    },
+    "skill_r": {
+      "1": "Maximum Dosage"
+    },
+    "skill_w": {
+      "1": "Heart Zapper"
+    },
+    "skills": {
+      "1": "Goes Where He Pleases",
+      "2": "Infected Bonesaw",
+      "3": "Heart Zapper",
+      "4": "Blunt Force Trauma",
+      "5": "Maximum Dosage"
+    },
+    "stats": {
+      "acquisition_radius": 600,
+      "aram": {
+        "dmg_dealt": 0.9,
+        "dmg_taken": 1.05,
+        "healing": 0.9
+      },
+      "arm_base": 32,
+      "arm_lvl": 4.5,
+      "as_base": 0.67,
+      "as_lvl": 3.3,
+      "as_ratio": 0.625,
+      "attack_delay_offset": -0.139687493443489,
+      "dam_base": 61,
+      "dam_lvl": 2.5,
+      "gameplay_radius": 80,
+      "hp5_base": 7,
+      "hp5_lvl": 0.5,
+      "hp_base": 640,
+      "hp_lvl": 103,
+      "mp5_base": 0,
+      "mp5_lvl": 0,
+      "mp_base": 0,
+      "mp_lvl": 0,
+      "mr_base": 29,
+      "mr_lvl": 2.3,
+      "ms": 345,
+      "ofa": {
+        "dmg_dealt": 0.95,
+        "dmg_taken": 1.05,
+        "healing": 0.9
+      },
+      "pathing_radius": 50,
+      "range": 125,
+      "selection_height": 175,
+      "selection_radius": 135
+    },
+    "style": 55,
+    "title": "The Madman of Zaun",
+    "toughness": 3,
+    "utility": 1
+  },
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "07659160b81b195a7ec250c508c39edf9a3624318bb3e9861f314ea6ad307340",
+    "fetchedAt": "2026-09-01T04:16:47.752Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Module:ChampionData/data",
+    "revisionId": 4057479,
+    "sourceTimestamp": "2026-08-27T09:15:46Z"
+  }
+}

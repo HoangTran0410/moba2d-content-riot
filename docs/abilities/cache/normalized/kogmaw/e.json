@@ -1,0 +1,63 @@
+{
+  "asset": {
+    "key": "spell_kogmaw_e",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Kog%27Maw_Void_Ooze.png?96c72",
+    "sha1": "b61f3eb0ef979a0bab5d72b9470a13de2f6e766a"
+  },
+  "champion": "Kog'Maw",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_kogmaw_e",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Kog%27Maw_Void_Ooze.png?96c72",
+        "sha1": "b61f3eb0ef979a0bab5d72b9470a13de2f6e766a"
+      },
+      "fields": {
+        "casttime": "0.25",
+        "cooldown": "12",
+        "cost": "40 / 55 / 70 / 85 / 100",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Kog'Maw''' spews a gob of ooze in the target direction that deals <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to enemies hit.",
+          "text": "Active: Kog'Maw spews a gob of ooze in the target direction that deals magic damage to enemies hit."
+        },
+        "description2": {
+          "raw": "A field of ooze is created in its wake for 3 seconds, <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slowing]]</span> enemies within the area every 0.<small>25</small> seconds.",
+          "text": "A field of ooze is created in its wake for 3 seconds, slowing enemies within the area every 0.25 seconds."
+        },
+        "icon": "Void Ooze.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>70 / 110 / 150 / 190 / 230 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 65% AP)</span></dd></dl>",
+          "text": "Magic Damage:70 / 110 / 150 / 190 / 230 (+ 65% AP)"
+        },
+        "leveling2": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Slow:'''</span></dt><dd>40 / 45 / 50 / 55 / 60%</dd></dl>",
+          "text": "Slow:40 / 45 / 50 / 55 / 60%"
+        },
+        "name": "Void Ooze",
+        "notes": {
+          "raw": "* This ability will cast from wherever the caster is at the start of the cast time.\n* <span style=\"color:red; font-family:math; font-weight:bold; font-size:1em;\" title=\"Pending for test\"><span class=\"fas fa-vial\"></span>PENDING FOR TEST:</span>: The missile leaves a blob of ooze on the ground every 125 units traveled.",
+          "text": "This ability will cast from wherever the caster is at the start of the cast time.\nPENDING FOR TEST:: The missile leaves a blob of ooze on the ground every 125 units traveled."
+        },
+        "projectile": true,
+        "range": "1360",
+        "speed": "1400",
+        "spellshield": true,
+        "targeting": "Direction",
+        "width": "240"
+      },
+      "name": "Void Ooze"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "E",
+  "source": {
+    "contentHash": "c7ed86bcecf83f6696a0cf658123d3f64bcfd5615507ec343284614060f99923",
+    "fetchedAt": "2026-09-01T04:16:55.131Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Void_Ooze",
+    "revisionId": 3965135,
+    "sourceTimestamp": "2025-11-11T17:05:55Z"
+  }
+}

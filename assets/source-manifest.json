@@ -98,6 +98,14 @@
       "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Diana_OriginalSquare.png?d5d54"
     },
     {
+      "contentHash": "83aaaae60654ec90bea5157739898c63cf796357af8a899c6951aaa63344f6ff",
+      "fetchedAt": "2026-09-01T04:16:47.752Z",
+      "localAssetKey": "champ_drmundo",
+      "localPath": "assets/images/champions/drmundo.png",
+      "revisionId": 4057479,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Dr._Mundo_OriginalSquare.png?5756a"
+    },
+    {
       "contentHash": "27e299151a104d7f6a9894087050c5e98e3a75174ef04d07961ccb47ba439d59",
       "fetchedAt": "2026-08-16T14:45:07.816Z",
       "localAssetKey": "champ_ekko",
@@ -176,6 +184,14 @@
       "localPath": "assets/images/champions/katarina.png",
       "revisionId": 4052219,
       "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Katarina_OriginalSquare.png?e11e0"
+    },
+    {
+      "contentHash": "c6d56b3941d4edbac6c803b8de2e032391130596fd8294a88faba25d645e0ebc",
+      "fetchedAt": "2026-09-01T04:16:55.131Z",
+      "localAssetKey": "champ_kogmaw",
+      "localPath": "assets/images/champions/kogmaw.png",
+      "revisionId": 4057479,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Kog%27Maw_OriginalSquare.png?1f3d5"
     },
     {
       "contentHash": "a56c0dc2b5b6f2d4d90bd1867a506ce780691efbd6529ef643fc5dd44076273c",
@@ -378,6 +394,14 @@
       "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Thresh_OriginalSquare.png?9ef1d"
     },
     {
+      "contentHash": "a894e26d384e493c3576eac3159dc77172a6a0088bed23a1f81dfd27f2131160",
+      "fetchedAt": "2026-09-01T04:16:36.425Z",
+      "localAssetKey": "champ_trundle",
+      "localPath": "assets/images/champions/trundle.png",
+      "revisionId": 4057479,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Trundle_OriginalSquare.png?4bae6"
+    },
+    {
       "contentHash": "a5097e9a1704f8e37c68a4c59a249deb07ab509a4a94e87c5a53b439b7538795",
       "fetchedAt": "2026-08-16T21:32:17.622Z",
       "localAssetKey": "champ_tryndamere",
@@ -432,6 +456,14 @@
       "localPath": "assets/images/champions/vi.png",
       "revisionId": 4052219,
       "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Vi_OriginalSquare.png?78709"
+    },
+    {
+      "contentHash": "afa12e33a29f4131ada6db287759ac6e5c1932526814fb5b76b79553945dfa3c",
+      "fetchedAt": "2026-09-01T04:16:19.465Z",
+      "localAssetKey": "champ_vladimir",
+      "localPath": "assets/images/champions/vladimir.png",
+      "revisionId": 4057479,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Vladimir_OriginalSquare.png?41820"
     },
     {
       "contentHash": "0f10e714665cfc9b88589216850873ed39288fd5f7bd0a620713ff1e6045857f",
@@ -890,6 +922,46 @@
       "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Diana_Pale_Cascade.png?08994"
     },
     {
+      "contentHash": "8a4dbabc2e3aa9c21dd85977fdeeffeeb7b58a8a05ee516aa8c5e2e2b2afc5aa",
+      "fetchedAt": "2026-09-01T04:16:47.752Z",
+      "localAssetKey": "spell_drmundo_e",
+      "localPath": "assets/images/spells/drmundo_e.png",
+      "revisionId": 4051473,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Dr._Mundo_Blunt_Force_Trauma.png?c145c"
+    },
+    {
+      "contentHash": "91c19000bb6e4863d003dbb38ae6af500479fc587c5d43aa657b23435c631ff5",
+      "fetchedAt": "2026-09-01T04:16:47.752Z",
+      "localAssetKey": "spell_drmundo_i",
+      "localPath": "assets/images/spells/drmundo_i.png",
+      "revisionId": 4038331,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Dr._Mundo_Goes_Where_He_Pleases.png?a91b7"
+    },
+    {
+      "contentHash": "75b61d2d447c1b7534e475bf9a601c7fad9c1ade8f3ca81e0696f31bed58319a",
+      "fetchedAt": "2026-09-01T04:16:47.752Z",
+      "localAssetKey": "spell_drmundo_q",
+      "localPath": "assets/images/spells/drmundo_q.png",
+      "revisionId": 4008441,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Dr._Mundo_Infected_Bonesaw.png?a3713"
+    },
+    {
+      "contentHash": "33042f2b65944574dc5ceb0d4196e6a3b15f83b26d9ef7a4faad1877d9931fb4",
+      "fetchedAt": "2026-09-01T04:16:47.752Z",
+      "localAssetKey": "spell_drmundo_r",
+      "localPath": "assets/images/spells/drmundo_r.png",
+      "revisionId": 4037515,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Dr._Mundo_Maximum_Dosage.png?4f1cb"
+    },
+    {
+      "contentHash": "b3d4f8032c57913f6dd390597e14b2bbf4780572b866b8a1fe1d853084716b4c",
+      "fetchedAt": "2026-09-01T04:16:47.752Z",
+      "localAssetKey": "spell_drmundo_w",
+      "localPath": "assets/images/spells/drmundo_w.png",
+      "revisionId": 4038332,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Dr._Mundo_Heart_Zapper.png?13154"
+    },
+    {
       "contentHash": "b8b88cbec45fa9114cb4081ffd45a3be2e094c99f853b31645f7584a0dbe9956",
       "fetchedAt": "2026-08-16T14:45:07.816Z",
       "localAssetKey": "spell_ekko_e",
@@ -1312,6 +1384,46 @@
       "localPath": "assets/images/spells/katarina_w.png",
       "revisionId": 3845920,
       "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Katarina_Preparation.png?0273e"
+    },
+    {
+      "contentHash": "889712b0f2d9bbe0ea76c305f9173b7f6dd7c54899d8ef84dc94dbfb75faf0d1",
+      "fetchedAt": "2026-09-01T04:16:55.131Z",
+      "localAssetKey": "spell_kogmaw_e",
+      "localPath": "assets/images/spells/kogmaw_e.png",
+      "revisionId": 3965135,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Kog%27Maw_Void_Ooze.png?96c72"
+    },
+    {
+      "contentHash": "b65a972b80a2e61653fe6c58fea6cd972cf0a7996fb0891d998d609c953b6bdf",
+      "fetchedAt": "2026-09-01T04:16:55.131Z",
+      "localAssetKey": "spell_kogmaw_i",
+      "localPath": "assets/images/spells/kogmaw_i.png",
+      "revisionId": 4038400,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Kog%27Maw_Icathian_Surprise.png?f98ce"
+    },
+    {
+      "contentHash": "2d235ace98daa726f49e9c81ad870fc801da28d0ed3e57e26cf236781f78a6f2",
+      "fetchedAt": "2026-09-01T04:16:55.131Z",
+      "localAssetKey": "spell_kogmaw_q",
+      "localPath": "assets/images/spells/kogmaw_q.png",
+      "revisionId": 3960434,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Kog%27Maw_Caustic_Spittle.png?dad18"
+    },
+    {
+      "contentHash": "e339cb4d1dca861741322c2c057999ccb3ddb94236b7cb37575163cc6d5cd66f",
+      "fetchedAt": "2026-09-01T04:16:55.131Z",
+      "localAssetKey": "spell_kogmaw_r",
+      "localPath": "assets/images/spells/kogmaw_r.png",
+      "revisionId": 4007636,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Kog%27Maw_Living_Artillery.png?bef27"
+    },
+    {
+      "contentHash": "afd98d4685132d8b6bf42a407c712022bd596141686c7fac16ba59cf37729d1e",
+      "fetchedAt": "2026-09-01T04:16:55.131Z",
+      "localAssetKey": "spell_kogmaw_w",
+      "localPath": "assets/images/spells/kogmaw_w.png",
+      "revisionId": 4052263,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Kog%27Maw_Bio-Arcane_Barrage.png?631dc"
     },
     {
       "contentHash": "14006d6a3cf95b9b7456e93af99a294be5bdda773abb003c9a5d1a8d67e1a30c",
@@ -2258,6 +2370,46 @@
       "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Thresh_Dark_Passage.png?c606e"
     },
     {
+      "contentHash": "f0897139d22bec2747edb02c6e80a2d84ad98aa53b23f9392de08542c38c8baa",
+      "fetchedAt": "2026-09-01T04:16:36.425Z",
+      "localAssetKey": "spell_trundle_e",
+      "localPath": "assets/images/spells/trundle_e.png",
+      "revisionId": 4008207,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Trundle_Pillar_of_Ice.png?d858b"
+    },
+    {
+      "contentHash": "f31a4faf9aa1e9f00413a00c034c52225832245ba97dde8021dc6df833b0f11f",
+      "fetchedAt": "2026-09-01T04:16:36.425Z",
+      "localAssetKey": "spell_trundle_i",
+      "localPath": "assets/images/spells/trundle_i.png",
+      "revisionId": 3986655,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Trundle_King%27s_Tribute.png?bde60"
+    },
+    {
+      "contentHash": "33ffa676a95ab70ba5cc2656a269676f4c56cb278c009536ae548541d93ff576",
+      "fetchedAt": "2026-09-01T04:16:36.425Z",
+      "localAssetKey": "spell_trundle_q",
+      "localPath": "assets/images/spells/trundle_q.png",
+      "revisionId": 3949665,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Trundle_Chomp.png?28595"
+    },
+    {
+      "contentHash": "48f180ec7aad3b5168ee284c13829ce43dee6f1d5d5df95514c221420d39ca0a",
+      "fetchedAt": "2026-09-01T04:16:36.425Z",
+      "localAssetKey": "spell_trundle_r",
+      "localPath": "assets/images/spells/trundle_r.png",
+      "revisionId": 4015247,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Trundle_Subjugate.png?20941"
+    },
+    {
+      "contentHash": "6bd91a1395b2d1758ee4cbf2ca99aa2bb068259b13b5b0794b4c56d71855d8fe",
+      "fetchedAt": "2026-09-01T04:16:36.425Z",
+      "localAssetKey": "spell_trundle_w",
+      "localPath": "assets/images/spells/trundle_w.png",
+      "revisionId": 4057475,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Trundle_Frozen_Domain.png?bed86"
+    },
+    {
       "contentHash": "c58927f351aedac1e30593838fedaf933223182284399506015363016e2f8c26",
       "fetchedAt": "2026-08-16T21:32:17.622Z",
       "localAssetKey": "spell_tryndamere_e",
@@ -2560,6 +2712,54 @@
       "localPath": "assets/images/spells/vi_w2.png",
       "revisionId": 3932548,
       "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Vi_Denting_Blows.png?69ddf"
+    },
+    {
+      "contentHash": "d13f8f3476cdb6ba06b4e3d6c062187301158dd8584952e97b03f734b1297d33",
+      "fetchedAt": "2026-09-01T04:16:19.465Z",
+      "localAssetKey": "spell_vladimir_e",
+      "localPath": "assets/images/spells/vladimir_e.png",
+      "revisionId": 3853799,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Vladimir_Tides_of_Blood.png?f722c"
+    },
+    {
+      "contentHash": "473dd80f912ca06c2f2a0fd9a5e67ca705a76dc65627782a2097cc58e061a9ca",
+      "fetchedAt": "2026-09-01T04:16:19.465Z",
+      "localAssetKey": "spell_vladimir_i",
+      "localPath": "assets/images/spells/vladimir_i.png",
+      "revisionId": 4053179,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Vladimir_Crimson_Pact.png?0412d"
+    },
+    {
+      "contentHash": "8564ae0624c286b1469b9f1272c22522ef06d466b042a54b367fb28e392bd455",
+      "fetchedAt": "2026-09-01T04:16:19.465Z",
+      "localAssetKey": "spell_vladimir_q",
+      "localPath": "assets/images/spells/vladimir_q.png",
+      "revisionId": 3997094,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Vladimir_Transfusion.png?774cf"
+    },
+    {
+      "contentHash": "8564ae0624c286b1469b9f1272c22522ef06d466b042a54b367fb28e392bd455",
+      "fetchedAt": "2026-09-01T04:16:19.465Z",
+      "localAssetKey": "spell_vladimir_q2",
+      "localPath": "assets/images/spells/vladimir_q2.png",
+      "revisionId": 3997094,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Vladimir_Transfusion.png?774cf"
+    },
+    {
+      "contentHash": "94266af80d08b8836382674642d2bf688ce6bd0759a6c23537fda5f685e08584",
+      "fetchedAt": "2026-09-01T04:16:19.465Z",
+      "localAssetKey": "spell_vladimir_r",
+      "localPath": "assets/images/spells/vladimir_r.png",
+      "revisionId": 4039794,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Vladimir_Hemoplague.png?3c716"
+    },
+    {
+      "contentHash": "e103d052f98a3d9e1e015090dbec594ac72d2fff5021d6c5dab4dc15ed2125fb",
+      "fetchedAt": "2026-09-01T04:16:19.465Z",
+      "localAssetKey": "spell_vladimir_w",
+      "localPath": "assets/images/spells/vladimir_w.png",
+      "revisionId": 4034923,
+      "sourceUrl": "https://wiki.leagueoflegends.com/en-us/images/Vladimir_Sanguine_Pool.png?e5f43"
     },
     {
       "contentHash": "6acf922c1a957c829f4ecbb9f1f78678aa79539f9b6a5089e1cd7131906b8e26",

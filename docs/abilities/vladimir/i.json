@@ -1,0 +1,42 @@
+{
+  "asset": {
+    "key": "spell_vladimir_i",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Vladimir_Crimson_Pact.png?0412d",
+    "sha1": "0a89753f43a47d0e60d28202e16c97cd07a30f92"
+  },
+  "champion": "Vladimir",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_vladimir_i",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Vladimir_Crimson_Pact.png?0412d",
+        "sha1": "0a89753f43a47d0e60d28202e16c97cd07a30f92"
+      },
+      "fields": {
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Innate:'''</span> '''Vladimir''' gains <span style=\"color:\n#21B053; white-space:normal\">(3.<small>333</small>% '''bonus''' health)</span> as <span style=\"white-space:nowrap\">[[File:Ability power icon.svg|15px|link=Ability power]]&nbsp;<span style=\"color:\n#7A6DFF; white-space:normal\">ability power</span></span> and <span style=\"color:\n#7A6DFF; white-space:normal\">(160% AP)</span> as <span style=\"white-space:nowrap\">[[File:Health icon.png|15px|link=Health]]&nbsp;<span style=\"color:\n#21B053; white-space:normal\">'''bonus''' health</span></span>. These two bonuses do not stack with each other.",
+          "text": "Innate: Vladimir gains (3.333% bonus health) as &nbsp;ability power and (160% AP) as &nbsp;bonus health. These two bonuses do not stack with each other."
+        },
+        "icon": "Crimson Pact.png",
+        "name": "Crimson Pact",
+        "notes": {
+          "raw": "* ''Crimson Pact'' only affects '''Vladimir's''' <span style=\"color:\n#21B053; white-space:normal\">'''maximum''' health</span> and will not increase '''Vladimir's''' <span style=\"color:\n#21B053; white-space:normal\">'''current''' health</span> to prevent '''Vladimir''' from restoring health whenever his <span style=\"color:\n#7A6DFF; white-space:normal\">ability power</span> fluctuates.\n** The only exception is purchasing applicable items while inside the fountain, which will restore health equal to the bonus gained.\n** '''Vladimir's''' <span style=\"color:\n#21B053; white-space:normal\">'''current''' health</span> can decrease to match his <span style=\"color:\n#21B053; white-space:normal\">'''maximum''' health</span> if ''Crimson Pact's'' <span style=\"color:\n#21B053; white-space:normal\">'''bonus''' health</span> is lost.\n* ''Crimson Pact's'' '''bonus''' ability power <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Stacks multiplicatively\">[[File:Multiple stacking icon.png|20px|link=Stacking#Stacks_multiplicatively|An icon representing the keyword Stacks multiplicatively]] [[:Stacking#Stacks_multiplicatively|stacks multiplicatively]]</span> with other sources of <span style=\"color:\n#7A6DFF; white-space:normal\">% ability power</span> but its '''bonus''' health <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Stacks additively\">[[File:Additive stacking icon.png|20px|link=Stacking#Stacks_additively|An icon representing the keyword Stacks additively]] [[:Stacking#Stacks_additively|stacks additively]]</span> with other sources of <span style=\"color:\n#21B053; white-space:normal\">'''bonus''' health</span>. With <span class=\"inline-image item-icon label-after item-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-item=\"Rabadon&#39;s Deathcap\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Rabadon's Deathcap item.png|20xpx|border|link=Rabadon's Deathcap|An icon for the item Rabadon's Deathcap]]</span> <span style=\"white-space:normal;\">[[Rabadon's Deathcap|Rabadon's Deathcap's]]</span></span> [[Named item effect#Magical Opus|Magical Opus]], the total is (<span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"From Rabadon's Deathcap's Magical Opus.\"><span style=\"color:\n#7A6DFF; white-space:normal\">30% AP</span></span> + <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Crimson Pact's bonus AP, enhanced by Magical Opus.\"><span style=\"color:\n#21B053; white-space:normal\">4.<small>3329</small>% '''bonus''' health</span></span>) <span style=\"color:\n#7A6DFF; white-space:normal\">'''bonus''' ability power</span> and (<span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Crimson Pact's bonus health comes from AP, thus indirectly enhanced by Magical Opus.\"><span style=\"color:\n#7A6DFF; white-space:normal\">208% AP</span></span> + <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Though Crimson Pact's bonuses do not stack with each other and it's Crimson Pact's bonus AP that is enhanced by Magical Opus, the enhanced part of AP is credited to Rabadon's Deathcap, not Crimson Pact, thus still feeds into Crimson Pact's bonus health.\"><span style=\"color:\n#21B053; white-space:normal\">1.<small>59984</small>% '''bonus''' health</span></span>) <span style=\"color:\n#21B053; white-space:normal\">'''bonus''' health</span>.",
+          "text": "Crimson Pact only affects Vladimir's maximum health and will not increase Vladimir's current health to prevent Vladimir from restoring health whenever his ability power fluctuates.\n* The only exception is purchasing applicable items while inside the fountain, which will restore health equal to the bonus gained.\n* Vladimir's current health can decrease to match his maximum health if Crimson Pact's bonus health is lost.\nCrimson Pact's bonus ability power stacks multiplicatively with other sources of % ability power but its bonus health stacks additively with other sources of bonus health. With Rabadon's Deathcap's Magical Opus, the total is (30% AP + 4.3329% bonus health) bonus ability power and (208% AP + 1.59984% bonus health) bonus health."
+        },
+        "targeting": "Passive"
+      },
+      "name": "Crimson Pact"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "I",
+  "source": {
+    "contentHash": "3c4394a6d0a23bfefa8f8c177fcb8de036362678885381a8de2fad7f5302c0a9",
+    "fetchedAt": "2026-09-01T04:16:19.465Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Crimson_Pact",
+    "revisionId": 4053179,
+    "sourceTimestamp": "2026-08-22T15:11:15Z"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "asset": {
+    "key": "spell_kogmaw_w",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Kog%27Maw_Bio-Arcane_Barrage.png?631dc",
+    "sha1": "d063012cb04fc93aaedeb2fe8e8f3e9efb9e8dd2"
+  },
+  "champion": "Kog'Maw",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_kogmaw_w",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Kog%27Maw_Bio-Arcane_Barrage.png?631dc",
+        "sha1": "d063012cb04fc93aaedeb2fe8e8f3e9efb9e8dd2"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "17",
+        "cost": "40",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Kog'Maw''' empowers his [[basic attack]]s for the next 8 seconds to gain <span style=\"white-space:nowrap\">[[File:Range icon.png|15px|link=Range]]&nbsp;'''bonus''' attack range</span> and deal <span style=\"color:\n#00B0F0; white-space:normal\">'''bonus''' magic damage</span> <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"On-hit\">[[File:On-hit icon.png|20px|link=Attack_effects#On_Hitting|An icon representing the keyword On-hit]] [[:Attack_effects#On_Hitting|on-hit]]</span>, capped at 100 against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Minion\">[[File:Minion icon.png|20px|link=Minion|An icon representing the keyword Minion]] [[:Minion|minions]]</span> and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Monster\">[[File:Monster icon.png|20px|link=Monster|An icon representing the keyword Monster]] [[:Monster|monsters]]</span>.",
+          "text": "Active: Kog'Maw empowers his basic attacks for the next 8 seconds to gain &nbsp;bonus attack range and deal bonus magic damage on-hit, capped at 100 against minions and monsters."
+        },
+        "icon": "Bio-Arcane Barrage.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Attack Range:'''</span></dt><dd>130 / 150 / 170 / 190 / 210</dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Magic Damage:'''</span></dt><dd><span style=\"color:\n#21B053; white-space:normal\">3 / 3.<small>75</small> / 4.<small>5</small> / 5.<small>25</small> / 6% <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 1.<small>5</small>% per 100 AP)</span> of target's '''maximum''' health</span></dd></dl>",
+          "text": "Bonus Attack Range:130 / 150 / 170 / 190 / 210\nBonus Magic Damage:3 / 3.75 / 4.5 / 5.25 / 6% (+ 1.5% per 100 AP) of target's maximum health"
+        },
+        "name": "Bio-Arcane Barrage",
+        "notes": {
+          "raw": "* The attacks do not deal the '''bonus''' damage against [[structures]].",
+          "text": "The attacks do not deal the bonus damage against structures."
+        },
+        "spellshield": false,
+        "targeting": "Auto"
+      },
+      "name": "Bio-Arcane Barrage"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "W",
+  "source": {
+    "contentHash": "bee74e155652b38da0758dae50863440a0db71eb87168273403f8c97f8004feb",
+    "fetchedAt": "2026-09-01T04:16:55.131Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Bio-Arcane_Barrage",
+    "revisionId": 4052263,
+    "sourceTimestamp": "2026-08-16T22:07:06Z"
+  }
+}

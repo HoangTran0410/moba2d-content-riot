@@ -197,7 +197,7 @@
       "adaptivetype": "Physical",
       "apiname": "Akali",
       "be": 1575,
-      "changes": "V26.05",
+      "changes": "V26.17",
       "client_positions": [
         "Top",
         "Middle"
@@ -1107,7 +1107,7 @@
       "adaptivetype": "Magic",
       "apiname": "AurelionSol",
       "be": 2400,
-      "changes": "V25.22",
+      "changes": "V26.17",
       "client_positions": [
         "Middle"
       ],
@@ -2294,7 +2294,7 @@
       "alttype": "Mage",
       "apiname": "Chogath",
       "be": 675,
-      "changes": "V25.23",
+      "changes": "V26.17",
       "client_positions": [
         "Top"
       ],
@@ -2579,7 +2579,7 @@
       "alttype": "Assassin",
       "apiname": "Diana",
       "be": 225,
-      "changes": "V26.15",
+      "changes": "V26.17",
       "client_positions": [
         "Jungle",
         "Middle"
@@ -4060,7 +4060,7 @@
       "adaptivetype": "Physical",
       "apiname": "Graves",
       "be": 2400,
-      "changes": "V26.16",
+      "changes": "V26.17",
       "client_positions": [
         "Jungle"
       ],
@@ -4656,7 +4656,7 @@
       "alttype": "Assassin",
       "apiname": "Irelia",
       "be": 1575,
-      "changes": "V25.17",
+      "changes": "V26.17",
       "client_positions": [
         "Top",
         "Middle"
@@ -5154,7 +5154,7 @@
       "alttype": "Marksman",
       "apiname": "Jayce",
       "be": 2400,
-      "changes": "V26.14",
+      "changes": "V26.17",
       "client_positions": [
         "Top"
       ],
@@ -6925,7 +6925,7 @@
       "alttype": "Mage",
       "apiname": "Leblanc",
       "be": 1575,
-      "changes": "V26.13",
+      "changes": "V26.17",
       "client_positions": [
         "Middle"
       ],
@@ -6993,8 +6993,8 @@
         "arm_base": 22,
         "arm_lvl": 4.2,
         "as_base": 0.658,
-        "as_lvl": 2.35,
-        "as_ratio": 0.4,
+        "as_lvl": 1.5,
+        "as_ratio": 0.625,
         "attack_delay_offset": -0.133333340287208,
         "dam_base": 55,
         "dam_lvl": 2.2,
@@ -8540,7 +8540,7 @@
       "alttype": "Mage",
       "apiname": "Mordekaiser",
       "be": 675,
-      "changes": "V26.16",
+      "changes": "V26.17",
       "client_positions": [
         "Top"
       ],
@@ -8928,7 +8928,7 @@
       "alttype": "Tank",
       "apiname": "Nasus",
       "be": 675,
-      "changes": "V26.16",
+      "changes": "V26.17",
       "client_positions": [
         "Top"
       ],
@@ -9415,7 +9415,7 @@
       "alttype": "Assassin",
       "apiname": "Nocturne",
       "be": 1575,
-      "changes": "V26.12",
+      "changes": "V26.17",
       "client_positions": [
         "Jungle"
       ],
@@ -9470,7 +9470,7 @@
           "dmg_taken": 0.9,
           "healing": 1.2
         },
-        "arm_base": 38,
+        "arm_base": 36,
         "arm_lvl": 4.2,
         "as_base": 0.721,
         "as_lvl": 2.7,
@@ -9480,7 +9480,7 @@
         "dam_lvl": 2.6,
         "hp5_base": 7,
         "hp5_lvl": 0.75,
-        "hp_base": 655,
+        "hp_base": 640,
         "hp_lvl": 109,
         "mp5_base": 7,
         "mp5_lvl": 0.45,
@@ -10196,7 +10196,7 @@
       "alttype": "Fighter",
       "apiname": "Qiyana",
       "be": 2400,
-      "changes": "V26.13",
+      "changes": "V26.17",
       "client_positions": [
         "Middle"
       ],
@@ -13661,7 +13661,7 @@
       "alttype": "Tank",
       "apiname": "Thresh",
       "be": 1575,
-      "changes": "V25.18",
+      "changes": "V26.17",
       "client_positions": [
         "Support"
       ],
@@ -13875,7 +13875,7 @@
       "alttype": "Tank",
       "apiname": "Trundle",
       "be": 1575,
-      "changes": "V26.03",
+      "changes": "V26.17",
       "client_positions": [
         "Top"
       ],
@@ -14550,7 +14550,7 @@
       "alttype": "Assassin",
       "apiname": "Vayne",
       "be": 1575,
-      "changes": "V26.16",
+      "changes": "V26.17",
       "client_positions": [
         "Bottom"
       ],
@@ -14614,15 +14614,15 @@
         "arm_base": 23,
         "arm_lvl": 4.6,
         "as_base": 0.658,
-        "as_lvl": 3.3,
-        "as_ratio": 0.657999992370605,
+        "as_lvl": 2.8,
+        "as_ratio": 0.658,
         "attack_delay_offset": -0.124561406672,
         "dam_base": 60,
         "dam_lvl": 2.35,
-        "hp5_base": 3.5,
-        "hp5_lvl": 0.55,
-        "hp_base": 550,
-        "hp_lvl": 103,
+        "hp5_base": 4,
+        "hp5_lvl": 0.5,
+        "hp_base": 580,
+        "hp_lvl": 98,
         "missile_speed": 2000,
         "mp5_base": 7,
         "mp5_lvl": 0.4,
@@ -15242,7 +15242,7 @@
       "alttype": "Fighter",
       "apiname": "Vladimir",
       "be": 1575,
-      "changes": "V25.23",
+      "changes": "V26.17",
       "client_positions": [
         "Middle"
       ],
@@ -15733,7 +15733,7 @@
       "alttype": "Support",
       "apiname": "Xerath",
       "be": 675,
-      "changes": "V25.08",
+      "changes": "V26.17",
       "client_positions": [
         "Middle",
         "Support"
@@ -15799,7 +15799,7 @@
         "dam_lvl": 3,
         "hp5_base": 5.5,
         "hp5_lvl": 0.55,
-        "hp_base": 596,
+        "hp_base": 575,
         "hp_lvl": 106,
         "missile_speed": 2000,
         "mp5_base": 6.85,
@@ -15927,7 +15927,7 @@
       "alttype": "Assassin",
       "apiname": "Yasuo",
       "be": 675,
-      "changes": "V26.01",
+      "changes": "V26.17",
       "client_positions": [
         "Top",
         "Middle",
@@ -15992,7 +15992,7 @@
         "as_lvl": 3.5,
         "as_ratio": 0.6700000166893,
         "attack_delay_offset": -0.0799999982118606,
-        "crit_mod": 0.9,
+        "crit_mod": 0.95,
         "dam_base": 60,
         "dam_lvl": 2.5,
         "hp5_base": 6.5,
@@ -16024,7 +16024,7 @@
       "alttype": "Assassin",
       "apiname": "Yone",
       "be": 1575,
-      "changes": "V26.10",
+      "changes": "V26.17",
       "client_positions": [
         "Top",
         "Middle"
@@ -16091,7 +16091,7 @@
         "as_lvl": 3.5,
         "as_ratio": 0.625,
         "attack_delay_offset": -0.0799999982118606,
-        "crit_mod": 0.9,
+        "crit_mod": 0.95,
         "dam_base": 62,
         "dam_lvl": 2,
         "hp5_base": 7.5,
@@ -17219,10 +17219,10 @@
   },
   "schemaVersion": 1,
   "source": {
-    "contentHash": "eb98834d81e769143ce41d43d136afe73c282a1f27c062223d66ffd94d999319",
-    "fetchedAt": "2026-08-26T19:29:42.360Z",
+    "contentHash": "5e32813606037cff370dfeb45c22dd56203b0500ee7af6e3f72216d38ca966fc",
+    "fetchedAt": "2026-09-01T04:16:55.131Z",
     "pageUrl": "https://wiki.leagueoflegends.com/en-us/Module:ChampionData/data",
-    "revisionId": 4052622,
-    "sourceTimestamp": "2026-08-19T14:42:50Z"
+    "revisionId": 4057479,
+    "sourceTimestamp": "2026-08-27T09:15:46Z"
   }
 }

@@ -1,0 +1,52 @@
+{
+  "asset": {
+    "key": "spell_drmundo_r",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Dr._Mundo_Maximum_Dosage.png?4f1cb",
+    "sha1": "6e6135da79b8d1d07ad8b6c9983487b067c84e40"
+  },
+  "champion": "Dr. Mundo",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_drmundo_r",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Dr._Mundo_Maximum_Dosage.png?4f1cb",
+        "sha1": "6e6135da79b8d1d07ad8b6c9983487b067c84e40"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "120",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Dr. Mundo''' injects himself with chemicals to become enhanced for 10 seconds, gaining increased <span style=\"white-space:nowrap\">[[File:Health icon.png|15px|link=Health]]&nbsp;<span style=\"color:\n#21B053; white-space:normal\">'''base''' health</span></span>, <span style=\"white-space:nowrap\">[[File:Movement speed icon.png|15px|link=Movement speed]]&nbsp;<span style=\"color:\n#9FFF4D; white-space:normal\">'''bonus''' movement speed</span></span>, and <span style=\"white-space:nowrap\">[[File:Health regeneration icon.svg|15px|link=Health regeneration]]&nbsp;<span style=\"color:\n#21B053; white-space:normal\">'''bonus''' health regeneration</span></span>.",
+          "text": "Active: Dr. Mundo injects himself with chemicals to become enhanced for 10 seconds, gaining increased &nbsp;base health, &nbsp;bonus movement speed, and &nbsp;bonus health regeneration."
+        },
+        "description2": {
+          "raw": "At rank 3, ''Maximum Dosage's'' increased <span style=\"color:\n#21B053; white-space:normal\">'''base''' health</span> and <span style=\"color:\n#21B053; white-space:normal\">'''bonus''' health regeneration</span> are both increased by 5% for each enemy <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Champion\">[[File:Champion icon.png|20px|link=Champion|An icon representing the keyword Champion]] [[:Champion|champion]]</span> within 1200 units at the time of cast.",
+          "text": "At rank 3, Maximum Dosage's increased base health and bonus health regeneration are both increased by 5% for each enemy champion within 1200 units at the time of cast."
+        },
+        "icon": "Maximum Dosage.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Increased Base Health:'''</span></dt><dd><span style=\"color:\n#21B053; white-space:normal\">15 / 17.<small>5</small> / 20 / 22.<small>5</small> / 25% '''missing''' health</span></dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Movement Speed:'''</span></dt><dd>15 / 20 / 25 / 30 / 35%</dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Health Regeneration:'''</span></dt><dd><span style=\"color:\n#21B053; white-space:normal\">10 / 15 / 20 / 25 / 30% '''maximum''' health</span></dd><dt><span class=\"template_lc\">'''Health Regenerated per 0.<small>5</small> Seconds:'''</span></dt><dd><span style=\"color:\n#21B053; white-space:normal\">1 / 1.<small>5</small> / 2 / 2.<small>5</small> / 3% '''maximum''' health</span></dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Total Health Regenerated:'''</span></dt><dd><span style=\"color:\n#21B053; white-space:normal\">20 / 30 / 40 / 50 / 60% '''maximum''' health</span></dd></dl>",
+          "text": "Increased Base Health:15 / 17.5 / 20 / 22.5 / 25% missing health\nBonus Movement Speed:15 / 20 / 25 / 30 / 35%\nBonus Health Regeneration:10 / 15 / 20 / 25 / 30% maximum healthHealth Regenerated per 0.5 Seconds:1 / 1.5 / 2 / 2.5 / 3% maximum health\nTotal Health Regenerated:20 / 30 / 40 / 50 / 60% maximum health"
+        },
+        "name": "Maximum Dosage",
+        "notes": {
+          "raw": "* The health regeneration granted by ''Maximum Dosage'' adjusts dynamically to '''Dr. Mundo's''' <span style=\"color:\n#21B053; white-space:normal\">'''maximum''' health</span>.\n* The health regeneration granted by ''Maximum Dosage'' is special cased to be increased by <span class=\"inline-image label-after rune-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-rune=\"Axiom Arcanist\" data-game=\"lol\"><span style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Axiom Arcanist rune.png|20xpx|link=Axiom Arcanist|An icon representing Axiom Arcanist]]</span> <span style=\"word-break: keep-all;\">[[Axiom Arcanist]]</span></span>.\n* ''Maximum Dosage'' will end prematurely upon entering <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Resurrection\">[[File:Revival icon.png|20px|link=Death#Ways to prevent death when reaching zero health|An icon representing the keyword Resurrection]] [[:Death#Ways to prevent death when reaching zero health|resurrection]]</span>.\n* Against 5 champions, Rank 3 ''Maximum Dosage'' will heal <span style=\"color:\n#21B053; white-space:normal\">85% '''Maximum''' health regeneration</span> & <span style=\"color:\n#21B053; white-space:normal\">50% '''Missing''' Bonus health</span>",
+          "text": "The health regeneration granted by Maximum Dosage adjusts dynamically to Dr. Mundo's maximum health.\nThe health regeneration granted by Maximum Dosage is special cased to be increased by Axiom Arcanist.\nMaximum Dosage will end prematurely upon entering resurrection.\nAgainst 5 champions, Rank 3 Maximum Dosage will heal 85% Maximum health regeneration & 50% Missing Bonus health"
+        },
+        "targeting": "Auto"
+      },
+      "name": "Maximum Dosage"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "R",
+  "source": {
+    "contentHash": "46e290801a9ca3c2111a999cc34abfee5b6c66107a3d0b79f0618169a57bcdbd",
+    "fetchedAt": "2026-09-01T04:16:47.752Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Maximum_Dosage",
+    "revisionId": 4037515,
+    "sourceTimestamp": "2026-06-29T05:25:11Z"
+  }
+}

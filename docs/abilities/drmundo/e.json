@@ -1,0 +1,74 @@
+{
+  "asset": {
+    "key": "spell_drmundo_e",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Dr._Mundo_Blunt_Force_Trauma.png?c145c",
+    "sha1": "5965408e6b7b249bf48afd1f4244a307b04add15"
+  },
+  "champion": "Dr. Mundo",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_drmundo_e",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Dr._Mundo_Blunt_Force_Trauma.png?c145c",
+        "sha1": "5965408e6b7b249bf48afd1f4244a307b04add15"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "9 / 8.25 / 7.5 / 6.75 / 6",
+        "cost": "10 / 25 / 40 / 55 / 70",
+        "damagetype": "physical",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Passive:'''</span> '''Dr. Mundo''' gains <span style=\"white-space:nowrap\">[[File:Attack damage icon.svg|15px|link=Attack damage]]&nbsp;<span style=\"color:orange; white-space:normal\">'''bonus''' attack damage</span></span>.",
+          "text": "Passive: Dr. Mundo gains &nbsp;bonus attack damage."
+        },
+        "description2": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Dr. Mundo''' empowers his next <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic attack\">[[File:Basic attack cursor icon.png|20px|link=Basic attack|An icon representing the keyword Basic attack]] [[:Basic attack|basic attack]]</span> within 4 seconds to have an <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Uncancellable windup\">[[File:Relentless Force 2.png|20px|link=Basic attack#Uncancellable Windup|An icon representing the keyword Uncancellable windup]] [[:Basic attack#Uncancellable Windup|uncancellable windup]]</span>, gain <span style=\"white-space:nowrap\">[[File:Range icon.png|15px|link=Range]]&nbsp;50 '''bonus''' range</span>, and deal <span style=\"color:\n#FF8C34; white-space:normal\">'''bonus''' physical damage</span>, increased by <span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help; color:#21B053;\" data-top-label=\"Dr. Mundo's missing health\" data-displayformula=\"0.57% per missing health %, up to a cap of 70%.\" data-bot-values=\"0;4;8;12;16;20;24;28;32;36;40\" data-top-values=\"0;7;14;21;28;35;42;49;56;63;70\" data-bot-key=\"%\" data-top-key=\"%\">0% – 40% (based on '''Dr. Mundo's missing''' health)</span>[[Category:Debug]]. If the target dies or is a small monster, they are sent flying away in a line, though not through terrain, causing all enemies they pass through to take <span style=\"color:orange; white-space:normal\">100% AD</span> <span style=\"color:\n#FF8C34; white-space:normal\">physical damage</span> plus ''Blunt Force Trauma's'' minimum '''bonus''' damage.",
+          "text": "Active: Dr. Mundo empowers his next basic attack within 4 seconds to have an uncancellable windup, gain &nbsp;50 bonus range, and deal bonus physical damage, increased by 0% – 40% (based on Dr. Mundo's missing health)Category:Debug. If the target dies or is a small monster, they are sent flying away in a line, though not through terrain, causing all enemies they pass through to take 100% AD physical damage plus Blunt Force Trauma's minimum bonus damage."
+        },
+        "description3": {
+          "raw": "''Blunt Force Trauma'' as well as the triggering <span style=\"color:orange; white-space:normal\">attack's damage</span> is increased to 140% against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Minions\">[[File:Minion icon.png|20px|link=Minion|An icon representing the keyword Minion]] [[:Minion|minions]]</span> and 140% against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Monsters\">[[File:Monster icon.png|20px|link=Monster|An icon representing the keyword Monster]] [[:Monster|monsters]]</span>.",
+          "text": "Blunt Force Trauma as well as the triggering attack's damage is increased to 140% against minions and 140% against monsters."
+        },
+        "description4": {
+          "raw": "''Blunt Force Trauma <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic attack reset\">[[File:Bladework.png|20px|link=Basic attack#Attack reset|An icon representing the keyword Basic attack reset]] [[:Basic attack#Attack reset|resets]]</span> '''Dr. Mundo's''' basic attack timer.''",
+          "text": "Blunt Force Trauma resets Dr. Mundo's basic attack timer."
+        },
+        "effectradius": "155",
+        "icon": "false",
+        "icon2": "Blunt Force Trauma.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Attack Damage:'''</span></dt><dd><span style=\"color:\n#21B053; white-space:normal\">2 / 2.<small>3</small> / 2.<small>6</small> / 2.<small>9</small> / 3.<small>2</small>% '''maximum''' health</span></dd></dl>",
+          "text": "Bonus Attack Damage:2 / 2.3 / 2.6 / 2.9 / 3.2% maximum health"
+        },
+        "leveling2": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Minimum Bonus Physical Damage:'''</span></dt><dd>5 / 15 / 25 / 35 / 45 <span style=\"color:\n#21B053; white-space:normal\">(+ 5% '''bonus''' health)</span></dd><dt><span class=\"template_lc\">'''Maximum Bonus Physical Damage:'''</span></dt><dd>7 / 21 / 35 / 49 / 63 <span style=\"color:\n#21B053; white-space:normal\">(+ 7% '''bonus''' health)</span></dd></dl>",
+          "text": "Minimum Bonus Physical Damage:5 / 15 / 25 / 35 / 45 (+ 5% bonus health)Maximum Bonus Physical Damage:7 / 21 / 35 / 49 / 63 (+ 7% bonus health)"
+        },
+        "leveling3": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Minimum Minion Physical Damage:'''</span></dt><dd>7 / 21 / 35 / 49 / 63 <span style=\"color:\n#21B053; white-space:normal\">(+ 7% '''bonus''' health)</span></dd><dt><span class=\"template_lc\">'''Maximum Minion Physical Damage:'''</span></dt><dd>9.<small>8</small> / 29.<small>4</small> / 49 / 68.<small>6</small> / 88.<small>2</small> <span style=\"color:\n#21B053; white-space:normal\">(+ 9.<small>8</small>% '''bonus''' health)</span></dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Minimum Monster Physical Damage:'''</span></dt><dd>7 / 21 / 35 / 49 / 63 <span style=\"color:\n#21B053; white-space:normal\">(+ 7% '''bonus''' health)</span></dd><dt><span class=\"template_lc\">'''Maximum Monster Physical Damage:'''</span></dt><dd>9.<small>8</small> / 29.<small>4</small> / 49 / 68.<small>6</small> / 88.<small>2</small> <span style=\"color:\n#21B053; white-space:normal\">(+ 9.<small>8</small>% '''bonus''' health)</span></dd></dl>",
+          "text": "Minimum Minion Physical Damage:7 / 21 / 35 / 49 / 63 (+ 7% bonus health)Maximum Minion Physical Damage:9.8 / 29.4 / 49 / 68.6 / 88.2 (+ 9.8% bonus health)\nMinimum Monster Physical Damage:7 / 21 / 35 / 49 / 63 (+ 7% bonus health)Maximum Monster Physical Damage:9.8 / 29.4 / 49 / 68.6 / 88.2 (+ 9.8% bonus health)"
+        },
+        "name": "Blunt Force Trauma",
+        "notes": {
+          "raw": "* ''Blunt Force Trauma's'' damage is treated as <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic damage\">[[File:Basic Attack.png|20px|link=Damage|An icon representing the keyword Basic damage]] [[:Damage|basic damage]]</span> but also triggers spell effects by also being tagged as <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spell damage\">[[File:Disintegrate.png|20px|link=Damage|An icon representing the keyword Ability damage]] [[:Damage|spell damage]]</span>, while the target's body being shoved deals <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Area damage\">[[File:Mega Inferno Bomb.png|20px|link=Damage|An icon representing the keyword Area damage]] [[:Damage|area damage]]</span> to enemies it passes through.\n** The <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic attack\">[[File:Basic attack cursor icon.png|20px|link=Basic attack|An icon representing the keyword Basic attack]] [[:Basic attack|basic attack]]</span> is also considered a part of ''Blunt Force Trauma'' and treated as both <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic damage\">[[File:Basic Attack.png|20px|link=Damage|An icon representing the keyword Basic damage]] [[:Damage|basic damage]]</span> and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spell damage\">[[File:Disintegrate.png|20px|link=Damage|An icon representing the keyword Ability damage]] [[:Damage|spell damage]]</span>.\n* ''Blunt Force Trauma's'' attack works against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Structures\">[[File:Structure icon.png|20px|link=Category:Structure|An icon representing the keyword Structure]] [[:Category:Structure|structures]]</span>, consuming the buff and dealing its full damage.\n* ''Blunt Force Trauma'' cannot knock back <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Wards\">[[File:Ward_icon.png|20px|link=Ward|An icon representing the keyword Ward]] [[:Ward|wards]]</span>, <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Structures\">[[File:Structure icon.png|20px|link=Category:Structure|An icon representing the keyword Structure]] [[:Category:Structure|structures]]</span> or epic <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Monsters\">[[File:Monster icon.png|20px|link=Monster|An icon representing the keyword Monster]] [[:Monster|monsters]]</span> it kills, nor champions that enter a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Zombie state\">[[File:Zombie icon.png|20px|link=Death#Zombie_states|An icon representing the keyword Zombie state]] [[:Death#Zombie_states|zombie state]]</span> upon dying.\n* Targets flung away are rendered <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Untargetable\">[[File:Untargetable icon.png|20px|link=Untargetable|An icon representing the keyword Untargetable]] [[:Untargetable|untargetable]]</span> in the process.\n* The damage of the enemy's corpse colliding with enemies does not benefit from ''Blunt Force Trauma's'' attack <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Critical strike\">[[File:Critical strike icon.png|20px|link=Critical strike|An icon representing the keyword Critical strike]] [[:Critical strike|critically striking]]</span>.",
+          "text": "Blunt Force Trauma's damage is treated as basic damage but also triggers spell effects by also being tagged as spell damage, while the target's body being shoved deals area damage to enemies it passes through.\n* The basic attack is also considered a part of Blunt Force Trauma and treated as both basic damage and spell damage.\nBlunt Force Trauma's attack works against structures, consuming the buff and dealing its full damage.\nBlunt Force Trauma cannot knock back wards, structures or epic monsters it kills, nor champions that enter a zombie state upon dying.\nTargets flung away are rendered untargetable in the process.\nThe damage of the enemy's corpse colliding with enemies does not benefit from Blunt Force Trauma's attack critically striking."
+        },
+        "range": "650",
+        "spellshield": false,
+        "targeting": "Auto"
+      },
+      "name": "Blunt Force Trauma"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "E",
+  "source": {
+    "contentHash": "37d879fca6d3400538306346cf6ff7a467453b122aad8dce16908f0468e78a05",
+    "fetchedAt": "2026-09-01T04:16:47.752Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Blunt_Force_Trauma",
+    "revisionId": 4051473,
+    "sourceTimestamp": "2026-08-12T18:51:52Z"
+  }
+}

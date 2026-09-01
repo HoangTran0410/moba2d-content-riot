@@ -1,0 +1,63 @@
+{
+  "asset": {
+    "key": "spell_trundle_q",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Trundle_Chomp.png?28595",
+    "sha1": "e45e195159e3da829b514e619dc6cb5a809e081a"
+  },
+  "champion": "Trundle",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_trundle_q",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Trundle_Chomp.png?28595",
+        "sha1": "e45e195159e3da829b514e619dc6cb5a809e081a"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "3.5",
+        "cost": "20",
+        "damagetype": "Physical",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Trundle''' empowers his next <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic attack\">[[File:Basic attack cursor icon.png|20px|link=Basic attack|An icon representing the keyword Basic attack]] [[:Basic attack|basic attack]]</span> within 7 seconds to have an <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Uncancellable windup\">[[File:Relentless Force 2.png|20px|link=Basic attack#Uncancellable Windup|An icon representing the keyword Uncancellable windup]] [[:Basic attack#Uncancellable Windup|uncancellable windup]]</span>, gain <span style=\"white-space:nowrap\">[[File:Range icon.png|15px|link=Range]]&nbsp;25 '''bonus''' range</span>, deal <span style=\"color:\n#FF8C34; white-space:normal\">'''bonus''' physical damage</span> and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slow]]</span> the target by 75% for 0.<small>1</small> seconds.",
+          "text": "Active: Trundle empowers his next basic attack within 7 seconds to have an uncancellable windup, gain &nbsp;25 bonus range, deal bonus physical damage and slow the target by 75% for 0.1 seconds."
+        },
+        "description2": {
+          "raw": "After using the empowered attack, '''Trundle''' gains <span style=\"white-space:nowrap\">[[File:Attack damage icon.svg|15px|link=Attack damage]]&nbsp;<span style=\"color:orange; white-space:normal\">'''bonus''' attack damage</span></span> for 5 seconds and reduces the target's <span style=\"color:orange; white-space:normal\">'''bonus''' attack damage</span> by half that amount for the same duration.",
+          "text": "After using the empowered attack, Trundle gains &nbsp;bonus attack damage for 5 seconds and reduces the target's bonus attack damage by half that amount for the same duration."
+        },
+        "description3": {
+          "raw": "''Chomp <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Basic attack reset\">[[File:Bladework.png|20px|link=Basic attack#Attack reset|An icon representing the keyword Basic attack reset]] [[:Basic attack#Attack reset|resets]]</span> '''Trundle's''' basic attack timer.''",
+          "text": "Chomp resets Trundle's basic attack timer."
+        },
+        "icon": "Chomp.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Physical Damage:'''</span></dt><dd>10 / 30 / 50 / 70 / 90 <span style=\"color:orange; white-space:normal\">(+ 15 / 25 / 35 / 45 / 55% AD)</span></dd></dl>",
+          "text": "Bonus Physical Damage:10 / 30 / 50 / 70 / 90 (+ 15 / 25 / 35 / 45 / 55% AD)"
+        },
+        "leveling2": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Attack Damage:'''</span></dt><dd>20 / 25 / 30 / 35 / 40</dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Attack Damage Reduction:'''</span></dt><dd>10 / 12.<small>5</small> / 15 / 17.<small>5</small> / 20</dd></dl>",
+          "text": "Bonus Attack Damage:20 / 25 / 30 / 35 / 40\nAttack Damage Reduction:10 / 12.5 / 15 / 17.5 / 20"
+        },
+        "name": "Chomp",
+        "notes": {
+          "raw": "* ''Chomp'' will still incur the <span style=\"white-space:nowrap\">[[File:Attack damage icon.svg|15px|link=Attack damage]]&nbsp;<span style=\"color:orange; white-space:normal\">attack damage</span></span> increase for '''Trundle''' even if the attack is <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Dodged\">[[File:Jax Counter Strike old.png|20px|link=Attack_effects#Parrying|An icon representing the keyword Dodge]] [[:Attack_effects#Parrying|dodged]]</span>, <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Blocked\">[[File:Spirit's Refuge.png|20px|link=Attack_effects#Parrying|An icon representing the keyword Block]] [[:Attack_effects#Parrying|blocked]]</span>, missed while he is <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Blind\">[[File:Blind icon.png|20px|link=Blind|An icon representing the keyword Blind]] [[:Blind|blinded]]</span>, or it is blocked by <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spell shield\">[[File:Spell Shield.png|20px|link=Spell shield|An icon representing the keyword Spell shield]] [[:Spell shield|spell shield]]</span>.\n* <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spell shield\">[[File:Spell Shield.png|20px|link=Spell shield|An icon representing the keyword Spell shield]] [[:Spell shield|Spell shield]]</span> will only block the attack damage reduction and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slow]]</span>.\n* If the attack damage reduction would reduce the target's <span style=\"color:orange; white-space:normal\">'''bonus''' attack damage</span> below <span style=\"color:orange; white-space:normal\">0</span>, the target's <span style=\"color:orange; white-space:normal\">'''base''' attack damage</span> value is unaffected, but their <span style=\"color:orange; white-space:normal\">'''total''' attack damage</span> will still be reduced. The target will however retain a <span style=\"color:orange; white-space:normal\">'''bonus''' attack damage</span> value of 0.\n** Effects that scale with <span style=\"color:orange; white-space:normal\">'''total''' attack damage</span>, such as basic attacks, will take the attack damage reduction into account for their calculations.\n*** Those that have a ratio for <span style=\"color:orange; white-space:normal\">'''base''' attack damage</span> or <span style=\"color:orange; white-space:normal\">'''bonus''' attack damage</span> do not take the reduction into account.",
+          "text": "Chomp will still incur the &nbsp;attack damage increase for Trundle even if the attack is dodged, blocked, missed while he is blinded, or it is blocked by spell shield.\nSpell shield will only block the attack damage reduction and slow.\nIf the attack damage reduction would reduce the target's bonus attack damage below 0, the target's base attack damage value is unaffected, but their total attack damage will still be reduced. The target will however retain a bonus attack damage value of 0.\n* Effects that scale with total attack damage, such as basic attacks, will take the attack damage reduction into account for their calculations.\n** Those that have a ratio for base attack damage or bonus attack damage do not take the reduction into account."
+        },
+        "spellshield": false,
+        "targeting": "Auto"
+      },
+      "name": "Chomp"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "Q",
+  "source": {
+    "contentHash": "4e3bd5eb5e19448e1db5b1e0dc24c04d71f6675cf600055ec30cbbb03ff2156e",
+    "fetchedAt": "2026-09-01T04:16:36.425Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Chomp",
+    "revisionId": 3949665,
+    "sourceTimestamp": "2025-08-25T00:26:48Z"
+  }
+}

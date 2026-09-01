@@ -1,0 +1,64 @@
+{
+  "asset": {
+    "key": "spell_kogmaw_q",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Kog%27Maw_Caustic_Spittle.png?dad18",
+    "sha1": "88bd327dfd6861fc32b8d1031a06d1dc94229221"
+  },
+  "champion": "Kog'Maw",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_kogmaw_q",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Kog%27Maw_Caustic_Spittle.png?dad18",
+        "sha1": "88bd327dfd6861fc32b8d1031a06d1dc94229221"
+      },
+      "fields": {
+        "casttime": "Basic attack timer",
+        "cooldown": "7",
+        "cost": "40",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Passive:'''</span> '''Kog'Maw''' gains <span style=\"white-space:nowrap\">[[File:Attack speed icon.png|15px|link=Attack speed]]&nbsp;<span style=\"color:\n#F5EE99; white-space:normal\">'''bonus''' attack speed</span></span>.",
+          "text": "Passive: Kog'Maw gains &nbsp;bonus attack speed."
+        },
+        "description2": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Kog'Maw''' ejects a wad of spittle in the target direction that deals <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to the first enemy hit and reduces their <span style=\"white-space:nowrap\">[[File:Armor penetration icon.svg|15px|link=Armor penetration]]&nbsp;<span style=\"color:yellow; white-space:normal\">armor</span></span> and <span style=\"white-space:nowrap\">[[File:Magic penetration icon.svg|15px|link=Magic penetration]]&nbsp;<span style=\"color:\n#00FFFF; white-space:normal\">magic resistance</span></span> for 4 seconds.",
+          "text": "Active: Kog'Maw ejects a wad of spittle in the target direction that deals magic damage to the first enemy hit and reduces their &nbsp;armor and &nbsp;magic resistance for 4 seconds."
+        },
+        "icon": "false",
+        "icon2": "Caustic Spittle.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Attack Speed:'''</span></dt><dd>5 / 10 / 15 / 20 / 25%</dd></dl>",
+          "text": "Bonus Attack Speed:5 / 10 / 15 / 20 / 25%"
+        },
+        "leveling2": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>80 / 125 / 170 / 215 / 260 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 90% AP)</span></dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Resistances Reduction:'''</span></dt><dd>16 / 20 / 24 / 28 / 32%</dd></dl>",
+          "text": "Magic Damage:80 / 125 / 170 / 215 / 260 (+ 90% AP)\nResistances Reduction:16 / 20 / 24 / 28 / 32%"
+        },
+        "name": "Caustic Spittle",
+        "notes": {
+          "raw": "* This ability will cast from wherever the caster is at the start of the cast time.",
+          "text": "This ability will cast from wherever the caster is at the start of the cast time."
+        },
+        "projectile": true,
+        "range": "1200",
+        "speed": "1650",
+        "spellshield": true,
+        "targeting": "Direction",
+        "width": "140"
+      },
+      "name": "Caustic Spittle"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "Q",
+  "source": {
+    "contentHash": "e12c2fd4c6642d1dbb1bdfdcc357dca82cb57dfdb73e0d87798f5d7509a47ea1",
+    "fetchedAt": "2026-09-01T04:16:55.131Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Caustic_Spittle",
+    "revisionId": 3960434,
+    "sourceTimestamp": "2025-10-21T19:53:28Z"
+  }
+}

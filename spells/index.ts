@@ -322,3 +322,23 @@ export { default as Item_Locket } from './Item_Locket';
 export { default as Item_Mikael } from './Item_Mikael';
 export { default as Item_Shurelya } from './Item_Shurelya';
 export { default as Item_Everfrost } from './Item_Everfrost';
+
+export { default as Vladimir_Q } from './Vladimir_Q';
+export { default as Vladimir_W } from './Vladimir_W';
+export { default as Vladimir_E } from './Vladimir_E';
+export { default as Vladimir_R } from './Vladimir_R';
+
+export { default as DrMundo_Q } from './DrMundo_Q';
+export { default as DrMundo_W } from './DrMundo_W';
+export { default as DrMundo_E } from './DrMundo_E';
+export { default as DrMundo_R } from './DrMundo_R';
+
+export { default as Trundle_Q } from './Trundle_Q';
+export { default as Trundle_W } from './Trundle_W';
+export { default as Trundle_E } from './Trundle_E';
+export { default as Trundle_R } from './Trundle_R';
+
+export { default as KogMaw_Q } from './KogMaw_Q';
+export { default as KogMaw_W } from './KogMaw_W';
+export { default as KogMaw_E } from './KogMaw_E';
+export { default as KogMaw_R } from './KogMaw_R';

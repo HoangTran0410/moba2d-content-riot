@@ -1,0 +1,43 @@
+{
+  "asset": {
+    "key": "spell_trundle_i",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Trundle_King%27s_Tribute.png?bde60",
+    "sha1": "6cfb4b5895f8170de86c82c2681dfb211fc700c0"
+  },
+  "champion": "Trundle",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_trundle_i",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Trundle_King%27s_Tribute.png?bde60",
+        "sha1": "6cfb4b5895f8170de86c82c2681dfb211fc700c0"
+      },
+      "fields": {
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Innate:'''</span> Whenever a nearby enemy dies, '''Trundle''' <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Heal\">[[File:Heal power icon.svg|20px|link=Healing|An icon representing the keyword Heal]] [[:Healing|heals]]</span> himself for <span style=\"color:\n#21B053; white-space:normal\"><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-useformula=\"1.8 + (5.5-1.8)/17*(x-1)\" data-bot-values=\"1.8;2.02;2.24;2.45;2.67;2.89;3.11;3.32;3.54;3.76;3.98;4.19;4.41;4.63;4.85;5.06;5.28;5.5;5.72;5.94\" data-bot-key=\"%\">1.<small>8</small>% – 5.<small>94</small>% (based on level)</span>[[Category:Debug]] of their '''maximum''' health</span>.",
+          "text": "Innate: Whenever a nearby enemy dies, Trundle heals himself for 1.8% – 5.94% (based on level)Category:Debug of their maximum health."
+        },
+        "effectradius": "1400",
+        "icon": "King's Tribute.png",
+        "name": "King's Tribute",
+        "notes": {
+          "raw": "* ''King's Tribute'' does not trigger when an enemy structure is destroyed.",
+          "text": "King's Tribute does not trigger when an enemy structure is destroyed."
+        },
+        "targeting": "Passive"
+      },
+      "name": "King's Tribute"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "I",
+  "source": {
+    "contentHash": "dddb79675dd72ef2eed178ae2d4b7d9f49dcdb69b5e95b99d2cc5d0dea46a1b6",
+    "fetchedAt": "2026-09-01T04:16:36.425Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/King's_Tribute",
+    "revisionId": 3986655,
+    "sourceTimestamp": "2026-01-22T20:24:02Z"
+  }
+}

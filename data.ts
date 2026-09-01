@@ -375,6 +375,36 @@ const ROSTER: {
     spells: ['Amumu_Q', 'Amumu_W', 'Amumu_E', 'Amumu_R'],
   },
   {
+    name: 'Vladimir',
+    attack: ATTACK.MAGE,
+    image: 'champ_vladimir',
+
+    spells: ['Vladimir_Q', 'Vladimir_W', 'Vladimir_E', 'Vladimir_R'],
+  },
+  {
+    name: 'Dr. Mundo',
+    attack: ATTACK.BRUISER,
+    image: 'champ_drmundo',
+
+    spells: ['DrMundo_Q', 'DrMundo_W', 'DrMundo_E', 'DrMundo_R'],
+  },
+  {
+    name: 'Trundle',
+    attack: ATTACK.BRUISER,
+    image: 'champ_trundle',
+
+    spells: ['Trundle_Q', 'Trundle_W', 'Trundle_E', 'Trundle_R'],
+  },
+  {
+    name: "Kog'Maw",
+    // The longest reach on the roster, which is the whole champion: his own R
+    // reaches 750 where the pack's skillshot band stops at 600.
+    attack: { ...ATTACK.MARKSMAN, boltUnitsPerSecond: 1000 },
+    image: 'champ_kogmaw',
+
+    spells: ['KogMaw_Q', 'KogMaw_W', 'KogMaw_E', 'KogMaw_R'],
+  },
+  {
     name: 'Warwick',
     attack: ATTACK.BRUISER,
     image: 'champ_warwick',

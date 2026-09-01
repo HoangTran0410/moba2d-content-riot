@@ -1,0 +1,60 @@
+{
+  "asset": {
+    "key": "spell_kogmaw_r",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Kog%27Maw_Living_Artillery.png?bef27",
+    "sha1": "7cc18544939ce5102be298b753bc34ff6ff0722e"
+  },
+  "champion": "Kog'Maw",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_kogmaw_r",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Kog%27Maw_Living_Artillery.png?bef27",
+        "sha1": "7cc18544939ce5102be298b753bc34ff6ff0722e"
+      },
+      "fields": {
+        "casttime": "0.25",
+        "cooldown": "2 / 1.75 / 1.5 / 1.25 / 1",
+        "cost": "40 – 400 (based on stacks)",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Kog'Maw''' spits a globule of acid into the air that drops to the target location after 0.<small>6</small> seconds, granting <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Sight\">[[File:Sight icon.png|20px|link=Sight|An icon representing the keyword Sight]] [[:Sight|sight]]</span> of the area before dealing <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to enemies hit and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Standard sight\">[[File:Reveal icon.png|20px|link=Sight#Standard sight|An icon representing the keyword Standard sight]] [[:Sight#Standard sight|revealing]]</span> them for 2 seconds. ''Living Artillery's'' damage is increased by <span style=\"color:\n#21B053; white-space:normal\"><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-top-label=\"target's missing health\" data-displayformula=\"0.833% per 1% of target's '''missing''' health. ''This is capped at 50% increase at 60% '''missing''' health.''\" data-bot-values=\"0;5;10;15;20;25;30;35;40;45;50\" data-top-values=\"0;6;12;18;24;30;36;42;48;54;60\" data-bot-key=\"%\" data-top-key=\"%\">0% – 50% (based on target's '''missing''' health)</span>[[Category:Debug]]</span>, or instead by [[File:Successfully enhanced damage magic icon.png|20px|link=Damage#Successful_ability_casts]] <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Cosmetic critical strike\">100%</span> if the target is below <span style=\"color:\n#21B053; white-space:normal\">40% '''maximum''' health</span>.",
+          "text": "Active: Kog'Maw spits a globule of acid into the air that drops to the target location after 0.6 seconds, granting sight of the area before dealing magic damage to enemies hit and revealing them for 2 seconds. Living Artillery's damage is increased by 0% – 50% (based on target's missing health)Category:Debug, or instead by 100% if the target is below 40% maximum health."
+        },
+        "description2": {
+          "raw": "'''Kog'Maw''' then generates a <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Stack\">[[File:Stack icon.png|20px|link=Stack|An icon representing the keyword Stack]] [[:Stack|stack]]</span> of ''Living Artillery'' for 8 seconds, refreshing on subsequent casts and stacking up to 9 times.",
+          "text": "Kog'Maw then generates a stack of Living Artillery for 8 seconds, refreshing on subsequent casts and stacking up to 9 times."
+        },
+        "description3": {
+          "raw": "<span class=\"template_sbc\">'''Living Artillery:'''</span> For each stack, ''Living Artillery's'' <span style=\"white-space:nowrap\">[[File:Mana icon.svg|15px|link=Mana]]&nbsp;<span style=\"color:\n#0099CC; white-space:normal\">mana cost</span></span> is increased by <span style=\"color:\n#0099CC; white-space:normal\">40</span>.",
+          "text": "Living Artillery: For each stack, Living Artillery's &nbsp;mana cost is increased by 40."
+        },
+        "effectradius": "240",
+        "icon": "Living Artillery.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Minimum Magic Damage:'''</span></dt><dd>100 / 120 / 140 / 160 / 180 <span style=\"color:orange; white-space:normal\">(+ 75% '''bonus''' AD)</span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 35 / 37.<small>5</small> / 40 / 42.<small>5</small> / 45% AP)</span></dd><dt><span class=\"template_lc\">'''Maximum Magic Damage:'''</span></dt><dd>200 / 240 / 280 / 320 / 360 <span style=\"color:orange; white-space:normal\">(+ 150% '''bonus''' AD)</span> <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 70 / 75 / 80 / 85 / 90% AP)</span></dd></dl>",
+          "text": "Minimum Magic Damage:100 / 120 / 140 / 160 / 180 (+ 75% bonus AD) (+ 35 / 37.5 / 40 / 42.5 / 45% AP)Maximum Magic Damage:200 / 240 / 280 / 320 / 360 (+ 150% bonus AD) (+ 70 / 75 / 80 / 85 / 90% AP)"
+        },
+        "name": "Living Artillery",
+        "notes": {
+          "raw": "* ''Living Artillery'' will not reveal <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Stealth\">[[File:Guerrilla Warfare.png|20px|link=Stealth|An icon representing the keyword Stealth]] [[:Stealth|stealthed]]</span> champions.\n* [[Ping]]ing ''Living Artillery'' will additionally display the remaining time duration of its stacks.",
+          "text": "Living Artillery will not reveal stealthed champions.\nPinging Living Artillery will additionally display the remaining time duration of its stacks."
+        },
+        "spellshield": true,
+        "targeting": "Location"
+      },
+      "name": "Living Artillery"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "R",
+  "source": {
+    "contentHash": "80114f627fc34da839773599837d96bf30f7621bed3a4d04f7e43f2de4d2b493",
+    "fetchedAt": "2026-09-01T04:16:55.131Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Living_Artillery",
+    "revisionId": 4007636,
+    "sourceTimestamp": "2026-04-12T08:34:32Z"
+  }
+}

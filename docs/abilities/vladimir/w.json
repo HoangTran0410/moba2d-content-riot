@@ -1,0 +1,59 @@
+{
+  "asset": {
+    "key": "spell_vladimir_w",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Vladimir_Sanguine_Pool.png?e5f43",
+    "sha1": "9e78f3575eab5f82e224281eb4062509c1ddc321"
+  },
+  "champion": "Vladimir",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_vladimir_w",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Vladimir_Sanguine_Pool.png?e5f43",
+        "sha1": "9e78f3575eab5f82e224281eb4062509c1ddc321"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "28 / 25 / 22 / 19 / 16",
+        "cost": "15%",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Vladimir''' sinks into a pool of blood, becoming <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Untargetable\">[[File:Untargetable icon.png|20px|link=Untargetable|An icon representing the keyword Untargetable]] [[:Untargetable|untargetable]]</span> and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Ghosted\">[[File:Ghost.png|20px|link=Unit collision|An icon representing the keyword Ghosted]] [[:Unit collision|ghosted]]</span> for 2 seconds. He also gains <span style=\"white-space:nowrap\">[[File:Movement speed icon.png|15px|link=Movement speed]]&nbsp;<span style=\"color:\n#9FFF4D; white-space:normal\">37.<small>5</small>% '''bonus''' movement speed</span></span> that decays exponentially over 1 second.",
+          "text": "Active: Vladimir sinks into a pool of blood, becoming untargetable and ghosted for 2 seconds. He also gains &nbsp;37.5% bonus movement speed that decays exponentially over 1 second."
+        },
+        "description2": {
+          "raw": "Enemies within the pool are dealt <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> every 0.<small>5</small> seconds over the duration and are <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slowed]]</span> by 40%.<br>'''Vladimir''' <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Heals\">[[File:Heal power icon.svg|20px|link=Healing|An icon representing the keyword Heal]] [[:Healing|heals]]</span> himself for 30% of the <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Damage calculated before modifiers\">pre-mitigation damage</span> dealt, reduced to 18% against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Minions\">[[File:Minion icon.png|20px|link=Minion|An icon representing the keyword Minion]] [[:Minion|minions]]</span>.",
+          "text": "Enemies within the pool are dealt magic damage every 0.5 seconds over the duration and are slowed by 40%.\nVladimir heals himself for 30% of the pre-mitigation damage dealt, reduced to 18% against minions."
+        },
+        "description3": {
+          "raw": "'''''Vladimir''' cannot use basic attacks nor abilities during Sanguine Pool, but he can still move. If <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Vladimir\" data-ability=\"Tides of Blood\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Vladimir Tides of Blood.png|20xpx|border|link=Vladimir#Tides of Blood|An icon for Vladimir's ability Tides of Blood]]</span> <span style=\"white-space:normal;\">[[Vladimir#Tides of Blood|Tides of Blood]]</span></span> is charging at the time of Sanguine Pool's activation, that ability may still be recast.''",
+          "text": "Vladimir cannot use basic attacks nor abilities during Sanguine Pool, but he can still move. If Tides of Blood is charging at the time of Sanguine Pool's activation, that ability may still be recast."
+        },
+        "effectradius": "350",
+        "icon": "Sanguine Pool.png",
+        "leveling2": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage Per Tick:'''</span></dt><dd>20 / 33.<small>75</small> / 47.<small>5</small> / 61.<small>25</small> / 75 <span style=\"color:\n#21B053; white-space:normal\">(+ 3.<small>75</small>% '''bonus''' health)</span></dd><dt><span class=\"template_lc\">'''Total Magic Damage:'''</span></dt><dd>80 / 135 / 190 / 245 / 300 <span style=\"color:\n#21B053; white-space:normal\">(+ 15% '''bonus''' health)</span></dd></dl>",
+          "text": "Magic Damage Per Tick:20 / 33.75 / 47.5 / 61.25 / 75 (+ 3.75% bonus health)Total Magic Damage:80 / 135 / 190 / 245 / 300 (+ 15% bonus health)"
+        },
+        "name": "Sanguine Pool",
+        "notes": {
+          "raw": "* The first tick damages immediately so the final one occurs 0.<small>5</small> seconds before '''Vladimir''' becomes targetable again.\n* There is an extra damage tick for [[Damage#0_Damage_Instances|0 damage]] when '''Vladimir''' becomes targetable again, triggering the same spell effects as the normal ticks (except those which require damage greater than 0 being dealt).\n** This will trigger turret aggro onto '''Vladimir''' if an enemy champion is still within the effect radius when ''Sanguine Pool'' ends.\n* The <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slow]]</span> ends immediately once affected enemies get out of range.\n* '''Vladimir''' can still use [[summoner spell|summoner spells]] and [[Active ability items|item actives]] during ''Sanguine Pool''.\n* While unable to attack, '''Vladimir''' can still input attack commands - causing him to follow his attack target. \n** '''Vladimir's''' <span style=\"color:inherit; white-space:normal\"><span style=\"white-space:nowrap\">[[File:Range icon.png|15px|link=Range]]&nbsp;attack range</span></span> is reduced<span id=\"container\" class=\"container\" style=\"cursor:help;\"><span class=\"flipText1 active\">「&nbsp;to 0&nbsp;」</span><span class=\"flipText2\">「&nbsp;by 450&nbsp;」</span></span>while pooled - causing him to attempt to move right up to his attack target.",
+          "text": "The first tick damages immediately so the final one occurs 0.5 seconds before Vladimir becomes targetable again.\nThere is an extra damage tick for 0 damage when Vladimir becomes targetable again, triggering the same spell effects as the normal ticks (except those which require damage greater than 0 being dealt).\n* This will trigger turret aggro onto Vladimir if an enemy champion is still within the effect radius when Sanguine Pool ends.\nThe slow ends immediately once affected enemies get out of range.\nVladimir can still use summoner spells and item actives during Sanguine Pool.\nWhile unable to attack, Vladimir can still input attack commands - causing him to follow his attack target.\n* Vladimir's &nbsp;attack range is reduced「&nbsp;to 0&nbsp;」「&nbsp;by 450&nbsp;」while pooled - causing him to attempt to move right up to his attack target."
+        },
+        "targeting": "Auto"
+      },
+      "name": "Sanguine Pool"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "W",
+  "source": {
+    "contentHash": "67b0fe7784fb3648e1447c99e8f9057ab8a0ce2bae0eabd3a23cb45362ff2e77",
+    "fetchedAt": "2026-09-01T04:16:19.465Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Sanguine_Pool",
+    "revisionId": 4034923,
+    "sourceTimestamp": "2026-06-24T05:29:20Z"
+  }
+}

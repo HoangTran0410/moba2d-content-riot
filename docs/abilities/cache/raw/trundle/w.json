@@ -1,0 +1,43 @@
+{
+  "payload": [
+    {
+      "page": "Template:Data Trundle/Frozen Domain",
+      "response": {
+        "expanded": {
+          "expandtemplates": {
+            "wikitext": "@@name@@Frozen Domain@@icon@@Frozen Domain.png@@icon2@@{{{icon2}}}@@icon3@@{{{icon3}}}@@icon4@@{{{icon4}}}@@description@@<span class=\"template_sbc\">'''Active:'''</span> '''Trundle''' coats the target location in ice for 8 seconds. While he is within the area, he gains <span style=\"white-space:nowrap\">[[File:Attack speed icon.png|15px|link=Attack speed]]&nbsp;<span style=\"color:\n#F5EE99; white-space:normal\">'''bonus''' attack speed</span></span>, <span style=\"white-space:nowrap\">[[File:Movement speed icon.png|15px|link=Movement speed]]&nbsp;<span style=\"color:\n#9FFF4D; white-space:normal\">'''bonus''' movement speed</span></span>, and 25% increased <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Healing\">[[File:Heal power icon.svg|20px|link=Healing|An icon representing the keyword Heal]] [[:Healing|healing]]</span> from all sources.@@description2@@{{{description2}}}@@description3@@{{{description3}}}@@description4@@{{{description4}}}@@description5@@{{{description5}}}@@description6@@{{{description6}}}@@leveling@@<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Attack Speed:'''</span></dt><dd>30 / 50 / 70 / 90 / 110%</dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Movement Speed:'''</span></dt><dd>20 / 28 / 36 / 44 / 52%</dd></dl>@@leveling2@@{{{leveling2}}}@@leveling3@@{{{leveling3}}}@@leveling4@@{{{leveling4}}}@@leveling5@@{{{leveling5}}}@@leveling6@@{{{leveling6}}}@@range@@{{{range}}}@@radius@@{{{radius}}}@@effectradius@@<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Cr\">[[File:Range center.png|20px|link=Range|An icon representing the keyword Centered range]]</span> 775@@width@@{{{width}}}@@speed@@{{{speed}}}@@casttime@@none@@cost@@40@@cooldown@@18 / 17 / 16 / 15 / 14@@targeting@@Location@@damagetype@@{{{damagetype}}}@@spellshield@@{{{spellshield}}}@@projectile@@{{{projectile}}}@@notes@@\n* No additional details.@@"
+          }
+        },
+        "revision": {
+          "batchcomplete": true,
+          "query": {
+            "pages": [
+              {
+                "ns": 10,
+                "pageid": 1308435,
+                "revisions": [
+                  {
+                    "parentid": 3945305,
+                    "revid": 4057475,
+                    "timestamp": "2026-08-27T09:14:13Z"
+                  }
+                ],
+                "title": "Template:Data Trundle/Frozen Domain"
+              }
+            ]
+          }
+        }
+      },
+      "revisionId": 4057475,
+      "timestamp": "2026-08-27T09:14:13Z"
+    }
+  ],
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "aaad03e5e76cd7e675534fb31d1f5fca8d9ad7de881dc6c2fc70a69a22b858ec",
+    "fetchedAt": "2026-09-01T04:16:36.425Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Frozen_Domain",
+    "revisionId": 4057475,
+    "sourceTimestamp": "2026-08-27T09:14:13Z"
+  }
+}

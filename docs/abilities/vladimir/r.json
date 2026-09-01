@@ -1,0 +1,56 @@
+{
+  "asset": {
+    "key": "spell_vladimir_r",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Vladimir_Hemoplague.png?3c716",
+    "sha1": "ebdb7173e0d3e79ce79533a2e3128126063d4d3c"
+  },
+  "champion": "Vladimir",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_vladimir_r",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Vladimir_Hemoplague.png?3c716",
+        "sha1": "ebdb7173e0d3e79ce79533a2e3128126063d4d3c"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "120",
+        "damagetype": "Magic",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Vladimir''' spreads a virulent plague at the target location that infects enemies hit for 4 seconds, increasing the damage they take from all sources by 10%.",
+          "text": "Active: Vladimir spreads a virulent plague at the target location that infects enemies hit for 4 seconds, increasing the damage they take from all sources by 10%."
+        },
+        "description2": {
+          "raw": "After the duration, the infection bursts to deal <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to all affected targets and, after a 0.<small>4</small>-second delay, <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Heal\">[[File:Heal power icon.svg|20px|link=Healing|An icon representing the keyword Heal]] [[:Healing|heal]]</span> '''Vladimir''' for each infected champion, reduced to 40% for champions beyond the first.",
+          "text": "After the duration, the infection bursts to deal magic damage to all affected targets and, after a 0.4-second delay, heal Vladimir for each infected champion, reduced to 40% for champions beyond the first."
+        },
+        "effectradius": "375",
+        "icon": "Hemoplague.png",
+        "leveling2": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic damage:'''</span></dt><dd>150 / 200 / 250 / 300 / 350 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 70% AP)</span></dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Heal:'''</span></dt><dd>150 / 200 / 250 / 300 / 350 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 70% AP)</span></dd><dt><span class=\"template_lc\">'''Reduced Heal:'''</span></dt><dd>60 / 80 / 100 / 120 / 140 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 28% AP)</span></dd><dt><span class=\"template_lc\">'''Maximum Total Heal:'''</span></dt><dd>390 / 520 / 650 / 780 / 910 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 182% AP)</span></dd></dl>",
+          "text": "Magic damage:150 / 200 / 250 / 300 / 350 (+ 70% AP)\nHeal:150 / 200 / 250 / 300 / 350 (+ 70% AP)Reduced Heal:60 / 80 / 100 / 120 / 140 (+ 28% AP)Maximum Total Heal:390 / 520 / 650 / 780 / 910 (+ 182% AP)"
+        },
+        "name": "Hemoplague",
+        "notes": {
+          "raw": "* ''Hemoplague'' will amplify almost all sources and types of damage, even including damage from neutral monsters.\n** <span style=\"color:\n#F9966B; white-space:normal\"><span style=\"white-space:nowrap\">[[File:Hybrid penetration icon.png|15px|link=True damage]]&nbsp;True damage</span></span> will however not be amplified.<sup><span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"This is not intended. \">(bug)</span></sup>\n** ''Hemoplague's'' effect <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Stacks multiplicatively\">[[File:Multiple stacking icon.png|20px|link=Stacking#Stacks_multiplicatively|An icon representing the keyword Stacks multiplicatively]] [[:Stacking#Stacks_multiplicatively|stacks multiplicatively]]</span> with other damage modifiers.\n** ''Hemoplague'' amplifies itself for an actual damage of 165 / 220 / 275 / 330 / 385 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 77% AP)</span>.\n* ''Hemoplague's'' modifier to incoming damage stacks additively with <span class=\"champion-ability-icon\"><span class=\"inline-image label-after champion-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Alistar\" data-skin=\"Original\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Alistar OriginalSquare.png|20xpx|border|link=Alistar|An icon representing Alistar]]</span> <span style=\"white-space:normal;\">[[Alistar|Alistar's]]</span></span> <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Alistar\" data-ability=\"Unbreakable Will\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Alistar Unbreakable Will.png|20xpx|border|link=Alistar#Unbreakable Will|An icon for Alistar's ability Unbreakable Will]]</span> <span style=\"white-space:normal;\">[[Alistar#Unbreakable Will|Unbreakable Will]]</span></span></span> for a total damage reduction of 45 / 55 / 65%.<sup><span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"This does not match expectations. \">(unexpected)</span></sup>\n* <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spell shield\">[[File:Spell Shield.png|20px|link=Spell shield|An icon representing the keyword Spell shield]] [[:Spell shield|Spell shield]]</span> does not negate the detonation.",
+          "text": "Hemoplague will amplify almost all sources and types of damage, even including damage from neutral monsters.\n* &nbsp;True damage will however not be amplified.(bug)\n* Hemoplague's effect stacks multiplicatively with other damage modifiers.\n* Hemoplague amplifies itself for an actual damage of 165 / 220 / 275 / 330 / 385 (+ 77% AP).\nHemoplague's modifier to incoming damage stacks additively with Alistar's Unbreakable Will for a total damage reduction of 45 / 55 / 65%.(unexpected)\nSpell shield does not negate the detonation."
+        },
+        "projectile": false,
+        "spellshield": false,
+        "targeting": "Location"
+      },
+      "name": "Hemoplague"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "R",
+  "source": {
+    "contentHash": "c15c261949fb7f8ac227b17e9d0837d5a8d1b9ecd4f95d69ea97f499eaa8af4c",
+    "fetchedAt": "2026-09-01T04:16:19.465Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Hemoplague",
+    "revisionId": 4039794,
+    "sourceTimestamp": "2026-07-05T11:15:06Z"
+  }
+}

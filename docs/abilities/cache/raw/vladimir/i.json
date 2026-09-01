@@ -1,0 +1,43 @@
+{
+  "payload": [
+    {
+      "page": "Template:Data Vladimir/Crimson Pact",
+      "response": {
+        "expanded": {
+          "expandtemplates": {
+            "wikitext": "@@name@@Crimson Pact@@icon@@Crimson Pact.png@@icon2@@{{{icon2}}}@@icon3@@{{{icon3}}}@@icon4@@{{{icon4}}}@@description@@<span class=\"template_sbc\">'''Innate:'''</span> '''Vladimir''' gains <span style=\"color:\n#21B053; white-space:normal\">(3.<small>333</small>% '''bonus''' health)</span> as <span style=\"white-space:nowrap\">[[File:Ability power icon.svg|15px|link=Ability power]]&nbsp;<span style=\"color:\n#7A6DFF; white-space:normal\">ability power</span></span> and <span style=\"color:\n#7A6DFF; white-space:normal\">(160% AP)</span> as <span style=\"white-space:nowrap\">[[File:Health icon.png|15px|link=Health]]&nbsp;<span style=\"color:\n#21B053; white-space:normal\">'''bonus''' health</span></span>. These two bonuses do not stack with each other.@@description2@@{{{description2}}}@@description3@@{{{description3}}}@@description4@@{{{description4}}}@@description5@@{{{description5}}}@@description6@@{{{description6}}}@@leveling@@{{{leveling}}}@@leveling2@@{{{leveling2}}}@@leveling3@@{{{leveling3}}}@@leveling4@@{{{leveling4}}}@@leveling5@@{{{leveling5}}}@@leveling6@@{{{leveling6}}}@@range@@{{{range}}}@@radius@@{{{radius}}}@@effectradius@@{{{effect radius}}}@@width@@{{{width}}}@@speed@@{{{speed}}}@@casttime@@{{{cast time}}}@@cost@@{{{cost}}}@@cooldown@@{{{cooldown}}}@@targeting@@Passive@@damagetype@@@@spellshield@@@@projectile@@@@notes@@\n* ''Crimson Pact'' only affects '''Vladimir's''' <span style=\"color:\n#21B053; white-space:normal\">'''maximum''' health</span> and will not increase '''Vladimir's''' <span style=\"color:\n#21B053; white-space:normal\">'''current''' health</span> to prevent '''Vladimir''' from restoring health whenever his <span style=\"color:\n#7A6DFF; white-space:normal\">ability power</span> fluctuates.\n** The only exception is purchasing applicable items while inside the fountain, which will restore health equal to the bonus gained.\n** '''Vladimir's''' <span style=\"color:\n#21B053; white-space:normal\">'''current''' health</span> can decrease to match his <span style=\"color:\n#21B053; white-space:normal\">'''maximum''' health</span> if ''Crimson Pact's'' <span style=\"color:\n#21B053; white-space:normal\">'''bonus''' health</span> is lost.\n* ''Crimson Pact's'' '''bonus''' ability power <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Stacks multiplicatively\">[[File:Multiple stacking icon.png|20px|link=Stacking#Stacks_multiplicatively|An icon representing the keyword Stacks multiplicatively]] [[:Stacking#Stacks_multiplicatively|stacks multiplicatively]]</span> with other sources of <span style=\"color:\n#7A6DFF; white-space:normal\">% ability power</span> but its '''bonus''' health <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Stacks additively\">[[File:Additive stacking icon.png|20px|link=Stacking#Stacks_additively|An icon representing the keyword Stacks additively]] [[:Stacking#Stacks_additively|stacks additively]]</span> with other sources of <span style=\"color:\n#21B053; white-space:normal\">'''bonus''' health</span>. With <span class=\"inline-image item-icon label-after item-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-item=\"Rabadon&#39;s Deathcap\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Rabadon's Deathcap item.png|20xpx|border|link=Rabadon's Deathcap|An icon for the item Rabadon's Deathcap]]</span> <span style=\"white-space:normal;\">[[Rabadon's Deathcap|Rabadon's Deathcap's]]</span></span> [[Named item effect#Magical Opus|Magical Opus]], the total is (<span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"From Rabadon's Deathcap's Magical Opus.\"><span style=\"color:\n#7A6DFF; white-space:normal\">30% AP</span></span> + <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Crimson Pact's bonus AP, enhanced by Magical Opus.\"><span style=\"color:\n#21B053; white-space:normal\">4.<small>3329</small>% '''bonus''' health</span></span>) <span style=\"color:\n#7A6DFF; white-space:normal\">'''bonus''' ability power</span> and (<span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Crimson Pact's bonus health comes from AP, thus indirectly enhanced by Magical Opus.\"><span style=\"color:\n#7A6DFF; white-space:normal\">208% AP</span></span> + <span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"Though Crimson Pact's bonuses do not stack with each other and it's Crimson Pact's bonus AP that is enhanced by Magical Opus, the enhanced part of AP is credited to Rabadon's Deathcap, not Crimson Pact, thus still feeds into Crimson Pact's bonus health.\"><span style=\"color:\n#21B053; white-space:normal\">1.<small>59984</small>% '''bonus''' health</span></span>) <span style=\"color:\n#21B053; white-space:normal\">'''bonus''' health</span>.@@"
+          }
+        },
+        "revision": {
+          "batchcomplete": true,
+          "query": {
+            "pages": [
+              {
+                "ns": 10,
+                "pageid": 1308695,
+                "revisions": [
+                  {
+                    "parentid": 4053173,
+                    "revid": 4053179,
+                    "timestamp": "2026-08-22T15:11:15Z"
+                  }
+                ],
+                "title": "Template:Data Vladimir/Crimson Pact"
+              }
+            ]
+          }
+        }
+      },
+      "revisionId": 4053179,
+      "timestamp": "2026-08-22T15:11:15Z"
+    }
+  ],
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "4eb95c4eecad12a0e57cdee616925828bc36e0744a8d9d6891a8265337733ed1",
+    "fetchedAt": "2026-09-01T04:16:19.465Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Crimson_Pact",
+    "revisionId": 4053179,
+    "sourceTimestamp": "2026-08-22T15:11:15Z"
+  }
+}

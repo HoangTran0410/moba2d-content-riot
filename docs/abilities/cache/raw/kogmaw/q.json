@@ -1,0 +1,43 @@
+{
+  "payload": [
+    {
+      "page": "Template:Data Kog'Maw/Caustic Spittle",
+      "response": {
+        "expanded": {
+          "expandtemplates": {
+            "wikitext": "@@name@@Caustic Spittle@@icon@@false@@icon2@@Caustic Spittle.png@@icon3@@{{{icon3}}}@@icon4@@{{{icon4}}}@@description@@<span class=\"template_sbc\">'''Passive:'''</span> '''Kog'Maw''' gains <span style=\"white-space:nowrap\">[[File:Attack speed icon.png|15px|link=Attack speed]]&nbsp;<span style=\"color:\n#F5EE99; white-space:normal\">'''bonus''' attack speed</span></span>.@@description2@@<span class=\"template_sbc\">'''Active:'''</span> '''Kog'Maw''' ejects a wad of spittle in the target direction that deals <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to the first enemy hit and reduces their <span style=\"white-space:nowrap\">[[File:Armor penetration icon.svg|15px|link=Armor penetration]]&nbsp;<span style=\"color:yellow; white-space:normal\">armor</span></span> and <span style=\"white-space:nowrap\">[[File:Magic penetration icon.svg|15px|link=Magic penetration]]&nbsp;<span style=\"color:\n#00FFFF; white-space:normal\">magic resistance</span></span> for 4 seconds.@@description3@@{{{description3}}}@@description4@@{{{description4}}}@@description5@@{{{description5}}}@@description6@@{{{description6}}}@@leveling@@<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Attack Speed:'''</span></dt><dd>5 / 10 / 15 / 20 / 25%</dd></dl>@@leveling2@@<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd>80 / 125 / 170 / 215 / 260 <span style=\"color:\n#7A6DFF; white-space:normal\">(+ 90% AP)</span></dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Resistances Reduction:'''</span></dt><dd>16 / 20 / 24 / 28 / 32%</dd></dl>@@leveling3@@{{{leveling3}}}@@leveling4@@{{{leveling4}}}@@leveling5@@{{{leveling5}}}@@leveling6@@{{{leveling6}}}@@range@@<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Cr\">[[File:Range center.png|20px|link=Range|An icon representing the keyword Centered range]]</span> 1200@@radius@@{{{radius}}}@@effectradius@@{{{effect radius}}}@@width@@<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Er\">[[File:Range model.png|20px|link=Range|An icon representing the keyword Edge range]]</span> 140@@speed@@1650@@casttime@@Basic attack timer@@cost@@40@@cooldown@@7@@targeting@@Direction@@damagetype@@Magic@@spellshield@@True@@projectile@@True@@notes@@\n* This ability will cast from wherever the caster is at the start of the cast time.@@"
+          }
+        },
+        "revision": {
+          "batchcomplete": true,
+          "query": {
+            "pages": [
+              {
+                "ns": 10,
+                "pageid": 1307956,
+                "revisions": [
+                  {
+                    "parentid": 3949877,
+                    "revid": 3960434,
+                    "timestamp": "2025-10-21T19:53:28Z"
+                  }
+                ],
+                "title": "Template:Data Kog'Maw/Caustic Spittle"
+              }
+            ]
+          }
+        }
+      },
+      "revisionId": 3960434,
+      "timestamp": "2025-10-21T19:53:28Z"
+    }
+  ],
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "dc8ebbd245340a81e52c73aaaddc2729d6c9a6f88df495e5e7e7133ea1ee98f7",
+    "fetchedAt": "2026-09-01T04:16:55.131Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Caustic_Spittle",
+    "revisionId": 3960434,
+    "sourceTimestamp": "2025-10-21T19:53:28Z"
+  }
+}

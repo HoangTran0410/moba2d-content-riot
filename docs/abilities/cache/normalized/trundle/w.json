@@ -1,0 +1,50 @@
+{
+  "asset": {
+    "key": "spell_trundle_w",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Trundle_Frozen_Domain.png?bed86",
+    "sha1": "c241f51578d4e14e239ced1aaac65692f9750491"
+  },
+  "champion": "Trundle",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_trundle_w",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Trundle_Frozen_Domain.png?bed86",
+        "sha1": "c241f51578d4e14e239ced1aaac65692f9750491"
+      },
+      "fields": {
+        "casttime": "none",
+        "cooldown": "18 / 17 / 16 / 15 / 14",
+        "cost": "40",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Trundle''' coats the target location in ice for 8 seconds. While he is within the area, he gains <span style=\"white-space:nowrap\">[[File:Attack speed icon.png|15px|link=Attack speed]]&nbsp;<span style=\"color:\n#F5EE99; white-space:normal\">'''bonus''' attack speed</span></span>, <span style=\"white-space:nowrap\">[[File:Movement speed icon.png|15px|link=Movement speed]]&nbsp;<span style=\"color:\n#9FFF4D; white-space:normal\">'''bonus''' movement speed</span></span>, and 25% increased <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Healing\">[[File:Heal power icon.svg|20px|link=Healing|An icon representing the keyword Heal]] [[:Healing|healing]]</span> from all sources.",
+          "text": "Active: Trundle coats the target location in ice for 8 seconds. While he is within the area, he gains &nbsp;bonus attack speed, &nbsp;bonus movement speed, and 25% increased healing from all sources."
+        },
+        "effectradius": "775",
+        "icon": "Frozen Domain.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Attack Speed:'''</span></dt><dd>30 / 50 / 70 / 90 / 110%</dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Bonus Movement Speed:'''</span></dt><dd>20 / 28 / 36 / 44 / 52%</dd></dl>",
+          "text": "Bonus Attack Speed:30 / 50 / 70 / 90 / 110%\nBonus Movement Speed:20 / 28 / 36 / 44 / 52%"
+        },
+        "name": "Frozen Domain",
+        "notes": {
+          "raw": "* No additional details.",
+          "text": "No additional details."
+        },
+        "targeting": "Location"
+      },
+      "name": "Frozen Domain"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "W",
+  "source": {
+    "contentHash": "1f3b4415b7d40f153a1bd53a6e113c9944d74e7df9a29757be8a0f726dfdc980",
+    "fetchedAt": "2026-09-01T04:16:36.425Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Frozen_Domain",
+    "revisionId": 4057475,
+    "sourceTimestamp": "2026-08-27T09:14:13Z"
+  }
+}

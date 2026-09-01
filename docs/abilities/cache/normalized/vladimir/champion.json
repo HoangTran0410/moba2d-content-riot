@@ -1,0 +1,116 @@
+{
+  "asset": {
+    "key": "champ_vladimir",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Vladimir_OriginalSquare.png?41820",
+    "sha1": "449ae55909c250b0bac7faf434697b36110f2759"
+  },
+  "champion": "Vladimir",
+  "data": {
+    "adaptivetype": "Magic",
+    "alttype": "Fighter",
+    "apiname": "Vladimir",
+    "be": 1575,
+    "changes": "V26.17",
+    "client_positions": [
+      "Middle"
+    ],
+    "client_tags": [
+      "Self Healing",
+      "Battlecaster",
+      "Magic"
+    ],
+    "control": 1,
+    "damage": 3,
+    "date": "2010-07-27",
+    "difficulty": 2,
+    "external_positions": [
+      "Top",
+      "Middle"
+    ],
+    "herotype": "Mage",
+    "id": 8,
+    "mobility": 1,
+    "patch": "V1.0.0.97",
+    "rangetype": "Ranged",
+    "resource": "Crimson Rush",
+    "role": [
+      "Battlemage"
+    ],
+    "rp": 790,
+    "skill_e": {
+      "1": "Tides of Blood"
+    },
+    "skill_i": {
+      "1": "Crimson Pact"
+    },
+    "skill_q": {
+      "1": "Transfusion",
+      "2": "Crimson Rush"
+    },
+    "skill_r": {
+      "1": "Hemoplague"
+    },
+    "skill_w": {
+      "1": "Sanguine Pool"
+    },
+    "skills": {
+      "1": "Crimson Pact",
+      "2": "Transfusion",
+      "3": "Sanguine Pool",
+      "4": "Tides of Blood",
+      "5": "Hemoplague"
+    },
+    "stats": {
+      "acquisition_radius": 600,
+      "aram": {
+        "dmg_dealt": 1,
+        "dmg_taken": 1.05,
+        "healing": 0.9
+      },
+      "arm_base": 24,
+      "arm_lvl": 4.5,
+      "as_base": 0.658,
+      "as_lvl": 2,
+      "as_ratio": 0.657999992370605,
+      "attack_cast_time": 0.300000011920928,
+      "attack_delay_offset": -0.0721089988946914,
+      "attack_total_time": 1.51999998092651,
+      "dam_base": 55,
+      "dam_lvl": 3,
+      "hp5_base": 7,
+      "hp5_lvl": 0.6,
+      "hp_base": 600,
+      "hp_lvl": 110,
+      "missile_speed": 1600,
+      "mp5_base": 0,
+      "mp5_lvl": 0,
+      "mp_base": 2,
+      "mp_lvl": 0,
+      "mr_base": 30,
+      "mr_lvl": 1.3,
+      "ms": 330,
+      "pathing_radius": 35,
+      "range": 450,
+      "selection_height": 183.3300018310547,
+      "selection_radius": 120,
+      "urf": {
+        "dmg_dealt": 0.92,
+        "dmg_taken": 1.05,
+        "healing": 1.2
+      }
+    },
+    "style": 100,
+    "title": "The Crimson Reaper",
+    "toughness": 2,
+    "utility": 1
+  },
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "94de2d7df2786f0823a15e5eff4a7722605f07600d08ea8a855e226d02273615",
+    "fetchedAt": "2026-09-01T04:16:19.465Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Module:ChampionData/data",
+    "revisionId": 4057479,
+    "sourceTimestamp": "2026-08-27T09:15:46Z"
+  }
+}

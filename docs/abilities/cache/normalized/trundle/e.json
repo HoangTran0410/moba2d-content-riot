@@ -1,0 +1,51 @@
+{
+  "asset": {
+    "key": "spell_trundle_e",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Trundle_Pillar_of_Ice.png?d858b",
+    "sha1": "8abc58296d7004a307035888241ec24a89335164"
+  },
+  "champion": "Trundle",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_trundle_e",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Trundle_Pillar_of_Ice.png?d858b",
+        "sha1": "8abc58296d7004a307035888241ec24a89335164"
+      },
+      "fields": {
+        "casttime": "0.25",
+        "cooldown": "21 / 19.5 / 18 / 16.5 / 15",
+        "cost": "75",
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Active:'''</span> '''Trundle''' erects a pillar of ice at the target location for 6 seconds, which <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Airborne\">[[File:Airborne icon.png|20px|link=Airborne|An icon representing the keyword Airborne]] [[:Airborne|knocks back]]</span> units hit up to 225 units from its center. The pillar acts as [[terrain]] and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slows\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slows]]</span> nearby enemies.",
+          "text": "Active: Trundle erects a pillar of ice at the target location for 6 seconds, which knocks back units hit up to 225 units from its center. The pillar acts as terrain and slows nearby enemies."
+        },
+        "effectradius": "360 • 225",
+        "icon": "Pillar of Ice.png",
+        "leveling": {
+          "raw": "<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Slow:'''</span></dt><dd>34 / 38 / 42 / 46 / 50%</dd></dl>",
+          "text": "Slow:34 / 38 / 42 / 46 / 50%"
+        },
+        "name": "Pillar of Ice",
+        "notes": {
+          "raw": "* ''Pillar of Ice'' displaces allied units away from the area but does not render them <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Airborne\">[[File:Airborne icon.png|20px|link=Airborne|An icon representing the keyword Airborne]] [[:Airborne|airborne]]</span>.\n** Allied <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Channel\">[[File:Channeling icon.svg|20px|link=Channel|An icon representing the keyword Channel]] [[:Channel|channels]]</span> (e.g. <span class=\"inline-image label-after spell-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-spell=\"Recall\" data-game=\"lol\"><span class=\"border icon-20\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Recall.png|20xpx|border|link=Recall|An icon representing Recall]]</span> <span style=\"white-space:normal;\">[[Recall]]</span></span>, <span class=\"inline-image label-after spell-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-spell=\"Teleport\" data-game=\"lol\"><span class=\"border icon-20\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Teleport.png|20xpx|border|link=Teleport|An icon representing Teleport]]</span> <span style=\"white-space:normal;\">[[Teleport]]</span></span>) will be <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Interrupt\">[[File:Silence icon.png|20px|link=Crowd control#Disruption|An icon representing the keyword Interrupt]] [[:Crowd control#Disruption|interrupted]]</span> however.\n* ''Pillar of Ice'' cannot be placed inside impassable terrain. Attempting to do so will cause the pillar to spawn in the nearest available spot of accessible terrain.\n* ''Pillar Of Ice'' triggers effects such as drawing turret aggro, <span class=\"inline-image label-after rune-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-rune=\"Sudden Impact\" data-game=\"lol\"><span style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Sudden Impact rune.png|20xpx|link=Sudden Impact|An icon representing Sudden Impact]]</span> <span style=\"word-break: keep-all;\">[[Sudden Impact]]</span></span> and applying <span class=\"inline-image item-icon label-after item-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-item=\"Elixir of Sorcery\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Elixir of Sorcery item.png|20xpx|border|link=Elixir of Sorcery|An icon for the item Elixir of Sorcery]]</span> <span style=\"white-space:normal;\">[[Elixir of Sorcery]]</span></span> by dealing 0 <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Proc damage\">[[File:Wit's End item.png|20px|link=Damage|An icon representing the keyword Proc damage]] [[:Damage|proc]]</span> <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"True damage\">[[File:Hybrid penetration.png|20px|link=True damage|An icon representing the keyword True damage]] [[:True damage|true damage]]</span>.",
+          "text": "Pillar of Ice displaces allied units away from the area but does not render them airborne.\n* Allied channels (e.g. Recall, Teleport) will be interrupted however.\nPillar of Ice cannot be placed inside impassable terrain. Attempting to do so will cause the pillar to spawn in the nearest available spot of accessible terrain.\nPillar Of Ice triggers effects such as drawing turret aggro, Sudden Impact and applying Elixir of Sorcery by dealing 0 proc true damage."
+        },
+        "spellshield": false,
+        "targeting": "Location"
+      },
+      "name": "Pillar of Ice"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "E",
+  "source": {
+    "contentHash": "9c3b4380dbb4dc3a2a25d52954ac040cd6da427dcfb33e83fc24e4829029a53f",
+    "fetchedAt": "2026-09-01T04:16:36.425Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Pillar_of_Ice",
+    "revisionId": 4008207,
+    "sourceTimestamp": "2026-04-14T05:38:14Z"
+  }
+}

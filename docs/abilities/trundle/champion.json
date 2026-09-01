@@ -1,0 +1,121 @@
+{
+  "asset": {
+    "key": "champ_trundle",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Trundle_OriginalSquare.png?4bae6",
+    "sha1": "43a9f0e52089c3f6baade940991ee392c5fc70ef"
+  },
+  "champion": "Trundle",
+  "data": {
+    "adaptivetype": "Physical",
+    "alttype": "Tank",
+    "apiname": "Trundle",
+    "be": 1575,
+    "changes": "V26.17",
+    "client_positions": [
+      "Top"
+    ],
+    "client_tags": [
+      "Duelist",
+      "Self Healing",
+      "Physical"
+    ],
+    "control": 1,
+    "damage": 2,
+    "date": "2010-12-01",
+    "difficulty": 1,
+    "external_positions": [
+      "Top",
+      "Jungle"
+    ],
+    "herotype": "Fighter",
+    "id": 48,
+    "mobility": 1,
+    "patch": "V1.0.0.106",
+    "rangetype": "Melee",
+    "resource": "Mana",
+    "role": [
+      "Juggernaut"
+    ],
+    "rp": 790,
+    "skill_e": {
+      "1": "Pillar of Ice"
+    },
+    "skill_i": {
+      "1": "King's Tribute"
+    },
+    "skill_q": {
+      "1": "Chomp"
+    },
+    "skill_r": {
+      "1": "Subjugate"
+    },
+    "skill_w": {
+      "1": "Frozen Domain"
+    },
+    "skills": {
+      "1": "King's Tribute",
+      "2": "Chomp",
+      "3": "Frozen Domain",
+      "4": "Pillar of Ice",
+      "5": "Subjugate"
+    },
+    "stats": {
+      "acquisition_radius": 400,
+      "aram": {
+        "dmg_taken": 1.05,
+        "healing": 1
+      },
+      "arm_base": 37,
+      "arm_lvl": 4.5,
+      "as_base": 0.67,
+      "as_lvl": 2.9,
+      "as_ratio": 0.6700000166893,
+      "attack_delay_offset": -0.0916666686534881,
+      "dam_base": 68,
+      "dam_lvl": 4.5,
+      "hp5_base": 6,
+      "hp5_lvl": 0.75,
+      "hp_base": 650,
+      "hp_lvl": 110,
+      "mp5_base": 7.5,
+      "mp5_lvl": 0.6,
+      "mp_base": 340,
+      "mp_lvl": 45,
+      "mr_base": 32,
+      "mr_lvl": 2.05,
+      "ms": 350,
+      "ofa": {
+        "dmg_dealt": 0.95,
+        "dmg_taken": 1.07
+      },
+      "pathing_radius": 25.7665996551513,
+      "range": 175,
+      "selection_height": 130,
+      "selection_radius": 135,
+      "swift": {
+        "as_lvl": -0.7
+      },
+      "urf": {
+        "dmg_dealt": 0.95,
+        "dmg_taken": 0.95,
+        "healing": 0.8
+      },
+      "usb": {
+        "dmg_taken": 1.05
+      }
+    },
+    "style": 20,
+    "title": "The Troll King",
+    "toughness": 3,
+    "utility": 2
+  },
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "d622ae88791c2eb72b0bcd0f38e019df5c99834ff982fb4026608fac771a82e3",
+    "fetchedAt": "2026-09-01T04:16:36.425Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Module:ChampionData/data",
+    "revisionId": 4057479,
+    "sourceTimestamp": "2026-08-27T09:15:46Z"
+  }
+}

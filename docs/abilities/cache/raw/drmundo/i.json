@@ -1,0 +1,43 @@
+{
+  "payload": [
+    {
+      "page": "Template:Data Dr. Mundo/Goes Where He Pleases",
+      "response": {
+        "expanded": {
+          "expandtemplates": {
+            "wikitext": "@@name@@Goes Where He Pleases@@icon@@false@@icon2@@Goes Where He Pleases.png@@icon3@@{{{icon3}}}@@icon4@@{{{icon4}}}@@description@@<span class=\"template_sbc\">'''Innate:'''</span> '''Dr. Mundo''' <span style=\"color:\n#21B053; white-space:normal\"><span style=\"white-space:nowrap\">[[File:Health regeneration icon.svg|15px|link=Health regeneration]]&nbsp;regenerates</span></span> an additional<span id=\"container\" class=\"container\" style=\"cursor:help;\"><span class=\"flipText1 active\">「&nbsp;<span style=\"color:\n#21B053; white-space:normal\"><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-displayformula=\"0.4% + 0.05% per level at level 1, then + 0.1% per level starting at level 7, then + 0.15% per level starting at level 13, then + 0.2% per level starting at level 16\" data-bot-values=\"0.4;0.45;0.5;0.55;0.6;0.65;0.75;0.85;0.95;1.05;1.15;1.25;1.4;1.55;1.7;1.9;2.1;2.3;2.5;2.7;2.9;3.1;3.3;3.5;3.7;3.9;4.1;4.3;4.5;4.7;4.9;5.1;5.3;5.5;5.7;5.9;6.1;6.3;6.5;6.7;6.9|displayMaxColumn=18\" data-bot-key=\"%\">0.<small>4</small>% – 2.<small>3</small>% (based on level)</span> of his <span style=\"white-space:nowrap\">[[File:Health icon.png|15px|link=Health]]&nbsp;'''maximum''' health</span></span> every 5 seconds.&nbsp;」</span><span class=\"flipText2\">「&nbsp;<span style=\"color:\n#21B053; white-space:normal\"><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-bot-values=\"0.04;0.05;0.05;0.06;0.06;0.07;0.08;0.09;0.1;0.11;0.12;0.13;0.14;0.16;0.17;0.19;0.21;0.23\" data-bot-key=\"%\">0.<small>04</small>% – 0.<small>23</small>% (based on level)</span> of his <span style=\"white-space:nowrap\">[[File:Health icon.png|15px|link=Health]]&nbsp;'''maximum''' health</span></span> every 0.<small>5</small> seconds.&nbsp;」</span></span>@@description2@@<span class=\"template_sbc\">'''Passive:'''</span> Periodically, '''Dr. Mundo''' gains immunity to the next hostile <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Immobilize\">[[File:Stun icon.png|20px|link=Crowd_control#Immobilizing|An icon representing the keyword Immobilize]] [[:Crowd_control#Immobilizing|immobilizing]]</span> effect to affect him. Upon resisting one, '''Dr. Mundo''' pays a <span style=\"color:\n#21B053; white-space:normal\">health cost</span> equal to <span style=\"color:\n#21B053; white-space:normal\">4% of his '''current''' health</span> and propels a canister that lands 525 units in the general direction of the immobilization source, remaining on the ground for 7 seconds.@@description3@@'''Dr. Mundo''' can move near the canister to consume it, <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Heal\">[[File:Heal power icon.svg|20px|link=Healing|An icon representing the keyword Heal]] [[:Healing|healing]]</span> himself for <span style=\"color:\n#21B053; white-space:normal\">4% of his '''maximum''' health</span> and reducing the <span style=\"white-space:nowrap\">[[File:Cooldown icon.png|15px|link=Cooldown]]&nbsp;cooldown</span> of ''Goes Where He Pleases'' by 15 seconds. Enemy <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Champion\">[[File:Champion icon.png|20px|link=Champion|An icon representing the keyword Champion]] [[:Champion|champions]]</span> can move near it to destroy it.@@description4@@''Goes Where He Pleases' '' cooldown resets upon [[respawn|respawning]].@@description5@@{{{description5}}}@@description6@@{{{description6}}}@@leveling@@{{{leveling}}}@@leveling2@@{{{leveling2}}}@@leveling3@@{{{leveling3}}}@@leveling4@@{{{leveling4}}}@@leveling5@@{{{leveling5}}}@@leveling6@@{{{leveling6}}}@@range@@{{{range}}}@@radius@@{{{radius}}}@@effectradius@@{{{effect radius}}}@@width@@{{{width}}}@@speed@@{{{speed}}}@@casttime@@{{{cast time}}}@@cost@@{{{cost}}}@@cooldown@@{{{cooldown}}}@@targeting@@Passive@@damagetype@@{{{damagetype}}}@@spellshield@@{{{spellshield}}}@@projectile@@false@@notes@@\n* Upon being triggered by a hostile <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Immobilize\">[[File:Stun icon.png|20px|link=Crowd_control#Immobilizing|An icon representing the keyword Immobilize]] [[:Crowd_control#Immobilizing|immobilizing]]</span> effect, ''Goes Where He Pleases'' will also grant '''Dr. Mundo''' immunity to additional immobilizing effects from the same <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Cast instance\">[[:Champion ability|cast instance]]</span>.\n** Abilities where non-immobilizing effects and damage are nested into immobilizing ones will have them also prevented. Non-immobilizing effects and damage applied separately (the vast majority of cases) are not prevented.\n* <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spell shield\">[[File:Spell Shield.png|20px|link=Spell shield|An icon representing the keyword Spell shield]] [[:Spell shield|Spell shield]]</span> and <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Morgana\" data-ability=\"Black Shield\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Morgana Black Shield.png|20xpx|border|link=Morgana#Black Shield|An icon for Morgana's ability Black Shield]]</span> <span style=\"white-space:normal;\">[[Morgana#Black Shield|Black Shield]]</span></span> take priority over ''Goes Where He Pleases''.\n* The canister, whether in flight and on the ground, will transition in and out of <span class=\"champion-ability-icon\"><span class=\"inline-image label-after champion-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Mordekaiser\" data-skin=\"Original\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Mordekaiser OriginalSquare.png|20xpx|border|link=Mordekaiser|An icon representing Mordekaiser]]</span> <span style=\"white-space:normal;\">[[Mordekaiser|Mordekaiser's]]</span></span> <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Mordekaiser\" data-ability=\"Realm of Death\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Mordekaiser Realm of Death.png|20xpx|border|link=Mordekaiser#Realm of Death|An icon for Mordekaiser's ability Realm of Death]]</span> <span style=\"white-space:normal;\">[[Mordekaiser#Realm of Death|Death Realm]]</span></span></span> alongside ''Dr. Mundo''.<sup><span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"This does not match expectations. \">(unexpected)</span></sup>\n* The canister cannot be interacted with while <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Untargetable\">[[File:Untargetable icon.png|20px|link=Untargetable|An icon representing the keyword Untargetable]] [[:Untargetable|untargetable]]</span>.@@"
+          }
+        },
+        "revision": {
+          "batchcomplete": true,
+          "query": {
+            "pages": [
+              {
+                "ns": 10,
+                "pageid": 1495309,
+                "revisions": [
+                  {
+                    "parentid": 3989700,
+                    "revid": 4038331,
+                    "timestamp": "2026-06-30T08:46:21Z"
+                  }
+                ],
+                "title": "Template:Data Dr. Mundo/Goes Where He Pleases"
+              }
+            ]
+          }
+        }
+      },
+      "revisionId": 4038331,
+      "timestamp": "2026-06-30T08:46:21Z"
+    }
+  ],
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "6260fcbf6c5a08dfecc0489168078549fe87699fb58ddc2d4b3ff904a8098bdd",
+    "fetchedAt": "2026-09-01T04:16:47.752Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Goes_Where_He_Pleases",
+    "revisionId": 4038331,
+    "sourceTimestamp": "2026-06-30T08:46:21Z"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "asset": {
+    "key": "spell_drmundo_i",
+    "mime": "image/png",
+    "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Dr._Mundo_Goes_Where_He_Pleases.png?a91b7",
+    "sha1": "2a3c8cd888a862fffee2b7609fd6ef63f62ab219"
+  },
+  "champion": "Dr. Mundo",
+  "forms": [
+    {
+      "asset": {
+        "key": "spell_drmundo_i",
+        "mime": "image/png",
+        "originalUrl": "https://wiki.leagueoflegends.com/en-us/images/Dr._Mundo_Goes_Where_He_Pleases.png?a91b7",
+        "sha1": "2a3c8cd888a862fffee2b7609fd6ef63f62ab219"
+      },
+      "fields": {
+        "description": {
+          "raw": "<span class=\"template_sbc\">'''Innate:'''</span> '''Dr. Mundo''' <span style=\"color:\n#21B053; white-space:normal\"><span style=\"white-space:nowrap\">[[File:Health regeneration icon.svg|15px|link=Health regeneration]]&nbsp;regenerates</span></span> an additional<span id=\"container\" class=\"container\" style=\"cursor:help;\"><span class=\"flipText1 active\">「&nbsp;<span style=\"color:\n#21B053; white-space:normal\"><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-displayformula=\"0.4% + 0.05% per level at level 1, then + 0.1% per level starting at level 7, then + 0.15% per level starting at level 13, then + 0.2% per level starting at level 16\" data-bot-values=\"0.4;0.45;0.5;0.55;0.6;0.65;0.75;0.85;0.95;1.05;1.15;1.25;1.4;1.55;1.7;1.9;2.1;2.3;2.5;2.7;2.9;3.1;3.3;3.5;3.7;3.9;4.1;4.3;4.5;4.7;4.9;5.1;5.3;5.5;5.7;5.9;6.1;6.3;6.5;6.7;6.9|displayMaxColumn=18\" data-bot-key=\"%\">0.<small>4</small>% – 2.<small>3</small>% (based on level)</span> of his <span style=\"white-space:nowrap\">[[File:Health icon.png|15px|link=Health]]&nbsp;'''maximum''' health</span></span> every 5 seconds.&nbsp;」</span><span class=\"flipText2\">「&nbsp;<span style=\"color:\n#21B053; white-space:normal\"><span class=\"pp-tooltip\" style=\"position:relative; border-bottom:1px dotted; cursor:help;\" data-bot-values=\"0.04;0.05;0.05;0.06;0.06;0.07;0.08;0.09;0.1;0.11;0.12;0.13;0.14;0.16;0.17;0.19;0.21;0.23\" data-bot-key=\"%\">0.<small>04</small>% – 0.<small>23</small>% (based on level)</span> of his <span style=\"white-space:nowrap\">[[File:Health icon.png|15px|link=Health]]&nbsp;'''maximum''' health</span></span> every 0.<small>5</small> seconds.&nbsp;」</span></span>",
+          "text": "Innate: Dr. Mundo &nbsp;regenerates an additional「&nbsp;0.4% – 2.3% (based on level) of his &nbsp;maximum health every 5 seconds.&nbsp;」「&nbsp;0.04% – 0.23% (based on level) of his &nbsp;maximum health every 0.5 seconds.&nbsp;」"
+        },
+        "description2": {
+          "raw": "<span class=\"template_sbc\">'''Passive:'''</span> Periodically, '''Dr. Mundo''' gains immunity to the next hostile <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Immobilize\">[[File:Stun icon.png|20px|link=Crowd_control#Immobilizing|An icon representing the keyword Immobilize]] [[:Crowd_control#Immobilizing|immobilizing]]</span> effect to affect him. Upon resisting one, '''Dr. Mundo''' pays a <span style=\"color:\n#21B053; white-space:normal\">health cost</span> equal to <span style=\"color:\n#21B053; white-space:normal\">4% of his '''current''' health</span> and propels a canister that lands 525 units in the general direction of the immobilization source, remaining on the ground for 7 seconds.",
+          "text": "Passive: Periodically, Dr. Mundo gains immunity to the next hostile immobilizing effect to affect him. Upon resisting one, Dr. Mundo pays a health cost equal to 4% of his current health and propels a canister that lands 525 units in the general direction of the immobilization source, remaining on the ground for 7 seconds."
+        },
+        "description3": {
+          "raw": "'''Dr. Mundo''' can move near the canister to consume it, <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Heal\">[[File:Heal power icon.svg|20px|link=Healing|An icon representing the keyword Heal]] [[:Healing|healing]]</span> himself for <span style=\"color:\n#21B053; white-space:normal\">4% of his '''maximum''' health</span> and reducing the <span style=\"white-space:nowrap\">[[File:Cooldown icon.png|15px|link=Cooldown]]&nbsp;cooldown</span> of ''Goes Where He Pleases'' by 15 seconds. Enemy <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Champion\">[[File:Champion icon.png|20px|link=Champion|An icon representing the keyword Champion]] [[:Champion|champions]]</span> can move near it to destroy it.",
+          "text": "Dr. Mundo can move near the canister to consume it, healing himself for 4% of his maximum health and reducing the &nbsp;cooldown of Goes Where He Pleases by 15 seconds. Enemy champions can move near it to destroy it."
+        },
+        "description4": {
+          "raw": "''Goes Where He Pleases' '' cooldown resets upon [[respawn|respawning]].",
+          "text": "Goes Where He Pleases' cooldown resets upon respawning."
+        },
+        "icon": "false",
+        "icon2": "Goes Where He Pleases.png",
+        "name": "Goes Where He Pleases",
+        "notes": {
+          "raw": "* Upon being triggered by a hostile <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Immobilize\">[[File:Stun icon.png|20px|link=Crowd_control#Immobilizing|An icon representing the keyword Immobilize]] [[:Crowd_control#Immobilizing|immobilizing]]</span> effect, ''Goes Where He Pleases'' will also grant '''Dr. Mundo''' immunity to additional immobilizing effects from the same <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Cast instance\">[[:Champion ability|cast instance]]</span>.\n** Abilities where non-immobilizing effects and damage are nested into immobilizing ones will have them also prevented. Non-immobilizing effects and damage applied separately (the vast majority of cases) are not prevented.\n* <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spell shield\">[[File:Spell Shield.png|20px|link=Spell shield|An icon representing the keyword Spell shield]] [[:Spell shield|Spell shield]]</span> and <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Morgana\" data-ability=\"Black Shield\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Morgana Black Shield.png|20xpx|border|link=Morgana#Black Shield|An icon for Morgana's ability Black Shield]]</span> <span style=\"white-space:normal;\">[[Morgana#Black Shield|Black Shield]]</span></span> take priority over ''Goes Where He Pleases''.\n* The canister, whether in flight and on the ground, will transition in and out of <span class=\"champion-ability-icon\"><span class=\"inline-image label-after champion-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Mordekaiser\" data-skin=\"Original\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Mordekaiser OriginalSquare.png|20xpx|border|link=Mordekaiser|An icon representing Mordekaiser]]</span> <span style=\"white-space:normal;\">[[Mordekaiser|Mordekaiser's]]</span></span> <span class=\"inline-image label-after ability-icon\" style=\"display:inline;white-space:pre;\" data-param=\"\" data-champion=\"Mordekaiser\" data-ability=\"Realm of Death\" data-game=\"lol\"><span class=\"border\" style=\"display:inline-block;position:relative;\" data-width=\"20\">[[File:Mordekaiser Realm of Death.png|20xpx|border|link=Mordekaiser#Realm of Death|An icon for Mordekaiser's ability Realm of Death]]</span> <span style=\"white-space:normal;\">[[Mordekaiser#Realm of Death|Death Realm]]</span></span></span> alongside ''Dr. Mundo''.<sup><span class=\"basic-tooltip\" style=\"border-bottom:1px dotted gray;cursor:help;\" title=\"This does not match expectations. \">(unexpected)</span></sup>\n* The canister cannot be interacted with while <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Untargetable\">[[File:Untargetable icon.png|20px|link=Untargetable|An icon representing the keyword Untargetable]] [[:Untargetable|untargetable]]</span>.",
+          "text": "Upon being triggered by a hostile immobilizing effect, Goes Where He Pleases will also grant Dr. Mundo immunity to additional immobilizing effects from the same cast instance.\n* Abilities where non-immobilizing effects and damage are nested into immobilizing ones will have them also prevented. Non-immobilizing effects and damage applied separately (the vast majority of cases) are not prevented.\nSpell shield and Black Shield take priority over Goes Where He Pleases.\nThe canister, whether in flight and on the ground, will transition in and out of Mordekaiser's Death Realm alongside Dr. Mundo.(unexpected)\nThe canister cannot be interacted with while untargetable."
+        },
+        "projectile": false,
+        "targeting": "Passive"
+      },
+      "name": "Goes Where He Pleases"
+    }
+  ],
+  "schemaVersion": 1,
+  "slot": "I",
+  "source": {
+    "contentHash": "831936f0d68c4ab580acbe5f38bb1687a40e0ce60fb4dc89892a27519c009c11",
+    "fetchedAt": "2026-09-01T04:16:47.752Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Goes_Where_He_Pleases",
+    "revisionId": 4038331,
+    "sourceTimestamp": "2026-06-30T08:46:21Z"
+  }
+}

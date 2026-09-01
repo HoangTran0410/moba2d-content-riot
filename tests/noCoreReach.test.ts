@@ -379,7 +379,7 @@ describe("the pack's tests speak only published core surfaces", () => {
     // 104, not 103: `tests/buffDescriptions.test.ts`, which checks that a buff
     // this pack invents says what it does. Like the one above it, it reads this
     // pack's own source as text and imports nothing from core.
-    expect(files.length).toBe(114);
+    expect(files.length).toBe(115);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

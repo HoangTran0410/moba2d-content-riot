@@ -1,0 +1,43 @@
+{
+  "payload": [
+    {
+      "page": "Template:Data Dr. Mundo/Infected Bonesaw",
+      "response": {
+        "expanded": {
+          "expandtemplates": {
+            "wikitext": "@@name@@Infected Bonesaw@@icon@@Infected Bonesaw.png@@icon2@@{{{icon2}}}@@icon3@@{{{icon3}}}@@icon4@@{{{icon4}}}@@description@@<span class=\"template_sbc\">'''Active:'''</span> '''Dr. Mundo''' throws an infected bonesaw in the target direction that deals <span style=\"color:\n#00B0F0; white-space:normal\">magic damage</span> to the first enemy hit and <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Slow\">[[File:Slow icon.png|20px|link=Slow|An icon representing the keyword Slow]] [[:Slow|slows]]</span> them by 40% for 2 seconds.@@description2@@''Infected Bonesaw'' has a minimum damage threshold, and is capped against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Monsters\">[[File:Monster icon.png|20px|link=Monster|An icon representing the keyword Monster]] [[:Monster|monsters]]</span>.@@description3@@If the bonesaw hits an enemy, '''Dr. Mundo''' <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Heals\">[[File:Heal power icon.svg|20px|link=Healing|An icon representing the keyword Heal]] [[:Healing|heals]]</span> for 50% of the <span style=\"color:\n#21B053; white-space:normal\">health cost</span>, increased to 100% against <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Champions\">[[File:Champion icon.png|20px|link=Champion|An icon representing the keyword Champion]] [[:Champion|champions]]</span> or <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Monsters\">[[File:Monster icon.png|20px|link=Monster|An icon representing the keyword Monster]] [[:Monster|monsters]]</span>.@@description4@@{{{description4}}}@@description5@@{{{description5}}}@@description6@@{{{description6}}}@@leveling@@<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Magic Damage:'''</span></dt><dd><span style=\"color:\n#21B053; white-space:normal\">20 / 22.<small>5</small> / 25 / 27.<small>5</small> / 30% of target's '''current''' health</span></dd></dl>@@leveling2@@<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Minimum Damage:'''</span></dt><dd>80 / 130 / 180 / 230 / 280</dd></dl>\n<dl class=\"skill-tabs\" style=\"letter-spacing:0.02rem;\"><dt><span class=\"template_lc\">'''Capped Monster Damage:'''</span></dt><dd>250 / 325 / 400 / 475 / 550</dd></dl>@@leveling3@@{{{leveling3}}}@@leveling4@@{{{leveling4}}}@@leveling5@@{{{leveling5}}}@@leveling6@@{{{leveling6}}}@@range@@{{{range}}}@@radius@@{{{radius}}}@@effectradius@@{{{effect radius}}}@@width@@<span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Er\">[[File:Range model.png|20px|link=Range|An icon representing the keyword Edge range]]</span> 120@@speed@@2000@@casttime@@0.<small>25</small>@@cost@@<span style=\"color:\n#21B053; white-space:normal\">50 / 60 / 70 / 80 / 90</span>@@cooldown@@4@@targeting@@Direction@@damagetype@@magic@@spellshield@@true@@projectile@@true@@notes@@\n* This ability will cast from wherever the caster is at the start of the cast time.\n* <span class=\"glossary\" style=\"white-space:pre; position:relative; \" data-game=\"lol\" data-tip=\"Spell shield\">[[File:Spell Shield.png|20px|link=Spell shield|An icon representing the keyword Spell shield]] [[:Spell shield|Spell shield]]</span> blocking the ability's effects on the enemy does not prevent '''Dr. Mundo''' from receiving the health cost refund.@@"
+          }
+        },
+        "revision": {
+          "batchcomplete": true,
+          "query": {
+            "pages": [
+              {
+                "ns": 10,
+                "pageid": 1495310,
+                "revisions": [
+                  {
+                    "parentid": 4007594,
+                    "revid": 4008441,
+                    "timestamp": "2026-04-14T19:08:23Z"
+                  }
+                ],
+                "title": "Template:Data Dr. Mundo/Infected Bonesaw"
+              }
+            ]
+          }
+        }
+      },
+      "revisionId": 4008441,
+      "timestamp": "2026-04-14T19:08:23Z"
+    }
+  ],
+  "schemaVersion": 1,
+  "source": {
+    "contentHash": "bbf9d6c653b69add99370af3e018f96153326b830ccc402cfd4276a30486c16a",
+    "fetchedAt": "2026-09-01T04:16:47.752Z",
+    "pageUrl": "https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Infected_Bonesaw",
+    "revisionId": 4008441,
+    "sourceTimestamp": "2026-04-14T19:08:23Z"
+  }
+}
