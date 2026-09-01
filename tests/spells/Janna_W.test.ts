@@ -100,7 +100,16 @@ describe('Janna W', () => {
       if (buff instanceof Janna_W_Passive) passives.push(buff);
     }
     expect(passives).toHaveLength(1);
-    expect(passives[0].statusFlagsToEnable & StatusFlags.Ghosted).toBeTruthy();
+    // **Bodies, not terrain.** This assertion used to read `Ghosted`, and it
+    // pinned a real bug in place: `Ghosted` disables `pushOutOfWalls` as well,
+    // and this passive is permanent — so Janna walked through walls all game
+    // and could leave the map. Core's `StatusFlags` doc reserves `Ghosted` for
+    // a dash, which is short and ends on a point already chosen.
+    expect(passives[0].statusFlagsToEnable & StatusFlags.PhasesUnits).toBeTruthy();
+    expect(
+      passives[0].statusFlagsToEnable & StatusFlags.Ghosted,
+      'a permanent buff must not disable the wall push-out'
+    ).toBeFalsy();
     expect(passives[0].bonuses).toEqual({ speed: { percentBaseBonus: PASSIVE_SPEED_PERCENT } });
   });
 

@@ -60,7 +60,13 @@ export const SPAWN_OFFSET_DISTANCE = 70;
 export class Janna_W_Passive extends StatAmp {
   name = 'Phù Vân';
   stackId = 'janna_w_passive';
-  statusFlagsToEnable = StatusFlags.Ghosted;
+  // `PhasesUnits`, never `Ghosted`. This passive is **permanent**, and
+  // `Ghosted` also turns off `pushOutOfWalls` — so Janna could stand in a wall,
+  // and from there simply walk out of the map. Core's own `StatusFlags` doc and
+  // `buffs/Phasing.ts` both say it in as many words: `Ghosted` is for a dash,
+  // which is short and lands on a point the spell already picked. Zephyr's
+  // ghosting in the source game is bodies only.
+  statusFlagsToEnable = StatusFlags.PhasesUnits;
   bonuses = { speed: { percentBaseBonus: PASSIVE_SPEED_PERCENT } };
 }
 

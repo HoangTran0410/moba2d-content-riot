@@ -49,15 +49,35 @@ type JannaTarget = AttackableUnit;
 export class Janna_R_Knockback extends Dash {
   statusFlagsToEnable = StatusFlags.Immovable | StatusFlags.Silenced;
 
+  /**
+   * **`super.onActivate()` first, and the early return after it is the point.**
+   *
+   * `Dash` refuses to move a body that must not be moved — a unit standing in
+   * a `Ground` field, an anchored camp — by clearing `dashDestination` and
+   * ending itself (`blockedByGround`, `blockedByAnchor`). This override used to
+   * replace that method outright, so Monsoon shoved things the engine had
+   * already decided were unshovable, and it also duplicated the
+   * `markDisplaced()` the base does for it.
+   */
   onActivate(): void {
-    this.targetUnit.markDisplaced?.();
+    super.onActivate();
+    if (!this.dashDestination) return;
     this.targetUnit.stopMovement?.();
   }
 
+  /**
+   * Land exactly on the point, and cancel the order the knockback interrupted.
+   *
+   * `stopMovement()` rather than writing `destination` by hand: a monster
+   * decides where it goes next from its own phase — a shoved camp walks back to
+   * its point (`Monster.wasShoved`) — and a `destination` written from out here
+   * was overwriting that decision with "stand exactly where you were thrown",
+   * which is how a camp knocked out of its pit ended up standing there.
+   */
   onDeactivate(): void {
     if (!this.dashDestination) return;
     this.targetUnit.position.set(this.dashDestination.x, this.dashDestination.y);
-    this.targetUnit.destination?.set(this.dashDestination.x, this.dashDestination.y);
+    this.targetUnit.stopMovement?.();
   }
 }
 

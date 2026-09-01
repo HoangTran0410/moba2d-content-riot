@@ -314,7 +314,11 @@ export class Nocturne_Dusk extends Buff {
   buffAddType = BuffAddType.RENEW_EXISTING;
   maxStacks = 1;
 
-  statusFlagsToEnable = StatusFlags.Ghosted;
+  // Bodies only. The trail buff lasts as long as Nocturne keeps standing on
+  // the dusk trail, which is exactly the "anything with a duration" case
+  // `StatusFlags.Ghosted` warns against: it disables the wall push-out too, so
+  // a champion who steps into terrain while it is up can walk out of the world.
+  statusFlagsToEnable = StatusFlags.PhasesUnits;
   statsModifier: StatsModifier = new StatsModifier();
 
   onCreate(): void {

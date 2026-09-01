@@ -1,10 +1,13 @@
 import { describe, expect, it, vi } from 'vitest';
 
+import { buildTestApi } from '@moba2d/core/testing';
 import { createGame, createUnit, installSpellObjectGlobals } from '@moba2d/core/testing/spell';
 import { DUSK_GRACE_MS, SPEED_PERCENT, TRAIL_MS, TRAIL_RADIUS } from '../../spells/Nocturne_Q';
 import Nocturne_Q, { Nocturne_Dusk, Nocturne_Q_Object, Nocturne_Q_Trail } from '../../spells/Nocturne_Q';
 
 installSpellObjectGlobals();
+
+const { StatusFlags } = buildTestApi().enums;
 
 const cast = () => {
   const game = createGame();
@@ -35,6 +38,23 @@ const onTrail = (unit: { buffs: unknown[] }) =>
  * tooltip.
  */
 describe('Nocturne Q lays a trail and pays for standing on it', () => {
+  /**
+   * The trail buff walks through *bodies*, not through the map. `Ghosted` — the
+   * flag it used to carry — also disables `pushOutOfWalls`, which core reserves
+   * for a dash: short, and ending on a point the spell already picked. A buff
+   * that lasts as long as Nocturne keeps standing on his own trail is the case
+   * that flag's own documentation warns about, and Janna's permanent W passive
+   * was the same mistake found the same day.
+   */
+  it('phases through bodies without letting Nocturne leave the map', () => {
+    const dusk = new Nocturne_Dusk(TRAIL_MS, {} as never, {} as never);
+    expect(dusk.statusFlagsToEnable & StatusFlags.PhasesUnits).toBeTruthy();
+    expect(
+      dusk.statusFlagsToEnable & StatusFlags.Ghosted,
+      'a buff with a duration must not disable the wall push-out'
+    ).toBeFalsy();
+  });
+
   it('grants nothing at cast time', () => {
     const { nocturne } = cast();
 
