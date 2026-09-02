@@ -78,6 +78,21 @@ export default class Riven_R extends Spell {
     api.enums.SpellRole.Zone;
 
   image = api.asset('spell_riven_r');
+  /**
+   * Late, not never, and not at once — the case that made this field a number.
+   *
+   * `onRecast` launches the Wind Slash **and** calls `endReforge()` in the
+   * same breath, so the nine-second window this ultimate exists to give her
+   * dies with the press. `BotBrain` pressed it on the next think tick: the bot
+   * got the cone and none of the nine seconds. Refusing the recast outright is
+   * no better — `onUpdate` ends the window on its own at `R_DURATION_MS` and
+   * the cone would simply never happen.
+   *
+   * So it is spent just before the window would lapse anyway, which costs
+   * nothing and is what a player does with it.
+   */
+  static aiRecastAfterMs = R_DURATION_MS - 800;
+
   name = 'Lưỡi Kiếm Lưu Đày (Riven_R)';
   description =
     `Hàn lại lưỡi kiếm vỡ trong ${secs(R_DURATION_MS)} giây: ` +

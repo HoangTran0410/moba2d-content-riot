@@ -56,6 +56,19 @@ type JannaTarget = AttackableUnit;
  */
 export default class Janna_Q extends Spell {
   image = api.asset('spell_janna_q');
+  /**
+   * Never. Left alone this ability is *better* than any press the bot can
+   * make.
+   *
+   * The recast releases the storm at whatever charge it has, and
+   * `recastDelayMs` is unset — so the bot released at a charge ratio of
+   * roughly zero, every time: the weakest tornado in the ability's range,
+   * forever. `Janna_Q_Object.update()` already fires itself at full charge if
+   * nobody interrupts it, so the automatic follow-through was strictly worse
+   * than doing nothing at all.
+   */
+  static aiRecastAfterMs = Infinity;
+
   name = 'Gió Lốc (Janna_Q)';
   description =
     'Triệu hồi một cơn lốc tại chỗ và <span class="buff">tích luỹ sức mạnh</span> trong tối đa <span class="time">3 giây</span>. Tái kích hoạt để phóng cơn lốc về hướng con trỏ, hoặc nó tự phóng khi tích đầy. Tích càng lâu thì tầm bay, tốc độ, sát thương và thời gian hất tung càng lớn: gây <span class="damage magic">15 - 30 sát thương phép</span> và <span class="buff">Hất Tung</span> trong <span class="time">0.5 - 1.25 giây</span>, xuyên qua mọi kẻ địch trên đường đi';

@@ -415,7 +415,12 @@ describe("the pack's tests speak only published core surfaces", () => {
     // two shared sweeps core now publishes — whether a bot can reach a kit at
     // all, and whether a cooldown leaves anyone standing around. Both are
     // population files: the rules are core's, only the roster is this pack's.
-    expect(files.length).toBe(122);
+    //
+    // 123, not 122: `tests/recastTiming.test.ts`, which pins *when* the bot is
+    // allowed to press a recast. Three abilities here are recast at the worst
+    // possible moment by default and it is invisible from every other angle —
+    // the ability is chosen, cast and recast exactly as designed.
+    expect(files.length).toBe(123);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

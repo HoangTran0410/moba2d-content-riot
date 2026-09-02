@@ -83,6 +83,17 @@ export default class TwistedFate_W extends Spell {
   static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Buff;
 
   image = api.asset('spell_twistedfate_w');
+  /**
+   * Timed to the card, because the card is what the recast picks.
+   *
+   * `showingCard` is `CARD_ORDER[floor(shuffleElapsedMs / SHUFFLE_INTERVAL_MS) % 3]`,
+   * and the bot recast at roughly 0ms — so it locked step 0 every single time
+   * and two thirds of this ability were unreachable to it. Waiting into the
+   * third step takes the stun, which is the one a bot can actually use: it
+   * does not need the mana back, and it cannot aim a splash.
+   */
+  static aiRecastAfterMs = SHUFFLE_INTERVAL_MS * 2 + SHUFFLE_INTERVAL_MS / 2;
+
   name = 'Chọn Bài (TwistedFate_W)';
   description =
     `Bắt đầu đảo bài, mỗi <span class="time">${secs(SHUFFLE_INTERVAL_MS)} giây</span> đổi một lá.` +
