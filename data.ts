@@ -2229,21 +2229,23 @@ export const data: ContentPackData = {
    * is the only way to share the function, and a second copy is one copy away
    * from two packs disagreeing about what a seed means.
    *
-   * `>=1.18.0` is for `api.units.Minion` and the `turretPassives` slot, which
-   * `structures/Turret.ts` is written against. This one fails *quietly* on an
+   * `>=1.18.0` was for `api.units.Minion` and the `turretPassives` slot, which
+   * `structures/Turret.ts` was written against. That one failed *quietly* on an
    * older core rather than loudly — the slot is simply not read, and every
-   * tower on the map loses Ohmwrecker, Reinforced Armor and Warden's Eye with
-   * no error anywhere. That is exactly the case a floor exists for, and the
-   * reason it is raised for a field as much as for a class.
+   * tower on the map lost all three passives with no error anywhere. That is
+   * exactly the case a floor exists for, and the reason it is raised for a
+   * field as much as for a class.
    *
-   * `>=1.19.0` is for `api.GameObject` and the `slotObjects` slot, which
-   * `structures/HealthRelic.ts` needs both halves of: the slot is what places
-   * the relic and the class is what it is built out of. Loud *and* quiet at
-   * once, which is new — an older core never reads the slot, so no map with a
-   * `relic` point has anything standing on it; and `api.GameObject` is
-   * `undefined` there, so the factory throws while the pack's code half is
-   * being built, before a match starts at all. Either way the floor is what
-   * turns it into a sentence.
+   * `>=1.19.0` was for `api.GameObject` and the `slotObjects` slot, which
+   * `structures/HealthRelic.ts` needed both halves of.
+   *
+   * **Both of those files have since moved into core**, and the floor stays
+   * where they left it rather than dropping back: it is a floor, not a
+   * description of today's imports, and lowering it would let this pack install
+   * onto a core whose towers are plain and whose `relic` points are bare. The
+   * seams themselves are unchanged and still this pack's to use — declaring
+   * `turretPassives` replaces core's list, a `slotObjects` entry wins its role
+   * — this pack simply has nothing to say through them now.
    *
    * `satisfiesCoreRange` parses `*` and `>=X.Y.Z` and nothing else, which is
    * also why this is no longer the unparseable `'^1'` it used to be.

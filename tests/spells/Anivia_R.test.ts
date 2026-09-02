@@ -4,7 +4,7 @@ import type { CastContext, MatchRules } from '@moba2d/core/content/types';
 import { DAMAGE_TICK_MS, EMPOWERED_DAMAGE, EMPOWERED_SLOW, EMPOWERED_SLOW_DURATION_MS, END_RADIUS, GROWTH_MS, MANA_COST, NORMAL_DAMAGE, NORMAL_SLOW, NORMAL_SLOW_DURATION_MS, START_RADIUS, stormRadiusAt, TETHER_RANGE, UPKEEP_COST, UPKEEP_TICK_MS } from '../../spells/Anivia_R';
 import Anivia_R, { Anivia_R_Object } from '../../spells/Anivia_R';
 
-const URF: MatchRules = { cooldownMultiplier: 1, manaFree: true };
+const URF: MatchRules = { cooldownMultiplier: 1, manaFree: true, recall: true };
 
 class TestVector {
   constructor(

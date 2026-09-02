@@ -407,9 +407,17 @@ describe("the pack's tests speak only published core surfaces", () => {
     // the six elementals down in.
     //
     // 120, not 119: `tests/structures/healthRelic.test.ts`, the first thing
-    // this pack stands on a map that is not a body to fight.
-    // 119, not 118: `tests/structures/turretPassives.test.ts`, which pins the
-    // three turret passives this pack now ships as real buffs.
+    // this pack stood on a map that is not a body to fight.
+    // 119, not 118: `tests/structures/turretPassives.test.ts`, which pinned
+    // the three turret passives this pack shipped as real buffs.
+    //
+    // 121, not 123: both of those left, with the code they covered. The relic
+    // and the three turret passives are core's now — a tower's behaviour and a
+    // map's furniture are not one pack's flavour, and a map drawn in core's own
+    // editor must not need this pack installed to get either. The seams did not
+    // move: `turretPassives` still replaces core's list and a `slotObjects`
+    // entry still wins its role, this pack simply has nothing to say through
+    // them any more.
     //
     // 122, not 120: `tests/botRoles.test.ts` and `tests/tempo.test.ts`, the
     // two shared sweeps core now publishes — whether a bot can reach a kit at
@@ -421,7 +429,7 @@ describe("the pack's tests speak only published core surfaces", () => {
     // abilities here were timed at the worst possible moment by default, and
     // it is invisible from every other angle: each one is chosen, cast and
     // recast exactly as designed.
-    expect(files.length).toBe(123);
+    expect(files.length).toBe(121);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

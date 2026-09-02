@@ -514,13 +514,14 @@ describe('the item set', () => {
     //
     // Every step since is recorded in `data.ts`'s own note beside the value.
     // The latest is 1.19 — `api.GameObject` and the `slotObjects` slot, which
-    // `structures/HealthRelic.ts` needs both halves of: the slot places the
-    // relic, the class is what it is built out of, and on an older core the
-    // first is ignored and the second is `undefined` at build time. Before
-    // it, 1.18 was `api.units.Minion` and the `turretPassives` slot,
-    // which `structures/Turret.ts` needs to exist at all: on an older core the
-    // slot is ignored and every tower silently loses all three of its
-    // passives, which is the quiet half of a floor's job. Before it, 1.17 was
+    // `structures/HealthRelic.ts` needed both halves of. Before it, 1.18 was
+    // `api.units.Minion` and the `turretPassives` slot, which
+    // `structures/Turret.ts` needed to exist at all: on an older core the slot
+    // is ignored and every tower silently loses all three of its passives,
+    // which is the quiet half of a floor's job. Both of those files are core's
+    // now, and the floor stays where they left it: it is a floor, not a list of
+    // today's imports, and dropping it would let this pack install onto a core
+    // whose towers are plain and whose `relic` points are bare. Before it, 1.17 was
     // `api.utils.seededShuffle`, which `monsters/Dragon.ts` uses to draw the
     // pit's drake order from the match seed. Like
     // the 1.15 step it is loud rather than silent: on an older core that
