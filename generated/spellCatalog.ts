@@ -542,7 +542,7 @@ export const spellCatalog = {
   },
   "Ekko_W": {
     name: "Lưỡng Giới Đồng Quy (Ekko_W)",
-    description: "Bắn thiết bị tạo một vùng cầu thời gian tại điểm chỉ định sau <span class=\"time\">2 giây</span>. Kẻ địch bên trong bị <span class=\"buff\">Làm Chậm 40%</span>. Nếu Ekko đi vào vùng này, quả cầu phát nổ: cho Ekko <span class=\"buff\">Lớp Giáp 120</span> và <span class=\"buff\">Làm Choáng</span> kẻ địch <span class=\"time\">2.25 giây</span>.",
+    description: "Bắn thiết bị tạo một vùng cầu thời gian tại điểm chỉ định sau <span class=\"time\">2 giây</span>. Kẻ địch bên trong bị <span class=\"buff\">Làm Chậm 40%</span>. Nếu Ekko đi vào vùng này, quả cầu phát nổ: cho Ekko Lớp Giáp <span class=\"heal\">120</span> và <span class=\"buff\">Làm Choáng</span> kẻ địch <span class=\"time\">2.25 giây</span>.",
     iconKey: "spell_ekko_w",
     coolDownMs: 10000,
     manaCost: 50,
