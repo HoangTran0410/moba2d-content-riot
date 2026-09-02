@@ -416,10 +416,11 @@ describe("the pack's tests speak only published core surfaces", () => {
     // all, and whether a cooldown leaves anyone standing around. Both are
     // population files: the rules are core's, only the roster is this pack's.
     //
-    // 123, not 122: `tests/recastTiming.test.ts`, which pins *when* the bot is
-    // allowed to press a recast. Three abilities here are recast at the worst
-    // possible moment by default and it is invisible from every other angle —
-    // the ability is chosen, cast and recast exactly as designed.
+    // 123, not 122: `tests/botTiming.test.ts`, which pins *when* the bot does
+    // things — when it spends a recast, and how long it holds a charge. Six
+    // abilities here were timed at the worst possible moment by default, and
+    // it is invisible from every other angle: each one is chosen, cast and
+    // recast exactly as designed.
     expect(files.length).toBe(123);
   });
 

@@ -62,6 +62,18 @@ export const ARROW_VISUAL_HEIGHT = 32;
 
 export default class Varus_Q extends Spell {
   image = api.asset('spell_varus_q');
+  /**
+   * Where this arrow stops improving, which is nowhere near its window.
+   *
+   * Range maxes at `RANGE_CHARGE_MS` and damage at `DAMAGE_CHARGE_MS`; the
+   * charge window is `MAX_CHARGE_MS`, and `releaseAtMax` is off — so the last
+   * 2.5 seconds buy nothing, and the second after *that* would have the
+   * runtime cancel the whole shot. `BotBrain.advanceCharge` blinds the bot
+   * while it holds, so those seconds are not merely wasted, they are spent
+   * standing still and not thinking.
+   */
+  static aiChargeReleaseAtMs = RANGE_CHARGE_MS;
+
   name = 'Mũi Tên Xuyên Phá (Varus_Q)';
   description =
     `<b>Giữ</b> để kéo cung rồi thả ra một mũi tên <span class="buff">xuyên qua mọi kẻ địch</span>` +

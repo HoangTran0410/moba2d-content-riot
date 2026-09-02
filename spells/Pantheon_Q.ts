@@ -138,6 +138,14 @@ const drawSpearBody = (half: number, blade: number): void => {
 
 export default class Pantheon_Q extends Spell {
   image = api.asset('spell_pantheon_q');
+  /**
+   * The thrown form's reach is full at `RANGE_CHARGE_MS`, against a
+   * `MAX_CHARGE_MS` window that `releaseAtMax: false` turns into a cancel.
+   * Everything after it is a spear that gets no longer and a bot that is not
+   * looking at the fight.
+   */
+  static aiChargeReleaseAtMs = RANGE_CHARGE_MS;
+
   name = 'Ngọn Giáo Sao Băng (Pantheon_Q)';
   description =
     `<b>Thả sớm</b> (dưới <span class="time">${secs(HOLD_THRESHOLD_MS)} giây</span>): đâm một nhát giáo` +

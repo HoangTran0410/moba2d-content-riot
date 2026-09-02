@@ -88,6 +88,13 @@ const LABEL = 'Đâm Thấu Xương';
  */
 export default class Pyke_Q extends Spell {
   image = api.asset('spell_pyke_q');
+  /**
+   * Reach is the only thing this charge buys — the damage is flat — and it is
+   * bought in full by `RANGE_CHARGE_MS`, well inside a `MAX_CHARGE_MS` window
+   * that ends in a cancel rather than a throw.
+   */
+  static aiChargeReleaseAtMs = RANGE_CHARGE_MS;
+
   name = 'Đâm Thấu Xương (Pyke_Q)';
   description =
     `<b>Giữ để rút dây</b>: tầm phóng lớn dần từ <span>${MIN_HARPOON_RANGE}px</span> lên` +
