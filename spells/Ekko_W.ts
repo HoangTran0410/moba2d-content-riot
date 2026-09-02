@@ -30,7 +30,7 @@ export default class Ekko_W extends Spell {
   image = api.asset('spell_ekko_w');
   name = 'Lưỡng Giới Đồng Quy (Ekko_W)';
   description =
-    'Bắn thiết bị tạo một vùng cầu thời gian tại điểm chỉ định sau <span class="time">2 giây</span>. Kẻ địch bên trong bị <span class="buff">Làm Chậm 40%</span>. Nếu Ekko đi vào vùng này, quả cầu phát nổ: cho Ekko <span class="buff">Lớp Giáp 120</span> và <span class="buff">Làm Choáng</span> kẻ địch <span class="time">2.25 giây</span>.';
+    `Bắn thiết bị tạo một vùng cầu thời gian tại điểm chỉ định sau <span class="time">2 giây</span>. Kẻ địch bên trong bị <span class="buff">Làm Chậm 40%</span>. Nếu Ekko đi vào vùng này, quả cầu phát nổ: cho Ekko <span class="heal">${EKKO_W_SHIELD}</span> Lớp Giáp và <span class="buff">Làm Choáng</span> kẻ địch <span class="time">2.25 giây</span>.`;
   coolDown = 10000;
   manaCost = 50;
   range = 600;
