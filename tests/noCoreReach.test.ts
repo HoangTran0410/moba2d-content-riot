@@ -108,6 +108,13 @@ const ALLOWED_CORE_SUBPATHS = new Set([
   // exactly why it must not sit in the `./testing` barrel — 84KB of engine
   // pulled into every pack test file that wanted a champion fixture.
   '@moba2d/core/testing/bots',
+  // The shared VFX scan (`vfxIssues`), for the one rule this pack enforces
+  // today: `damage-in-draw`. Core is the only place that can state it, because
+  // it is a fact about `ObjectManager` — which of an object's callbacks run
+  // under the caster's attribution and which do not. See
+  // `tests/vfxRules.test.ts` for why the other rules in that module are not
+  // switched on here yet.
+  '@moba2d/core/testing/vfx',
   // The shared pace band (`describeTempo`). Cheap — it reads a catalogue and
   // compares numbers — but published beside the others because the ceiling it
   // enforces is a property of the engine, not of any pack that adopts it.
@@ -429,7 +436,7 @@ describe("the pack's tests speak only published core surfaces", () => {
     // abilities here were timed at the worst possible moment by default, and
     // it is invisible from every other angle: each one is chosen, cast and
     // recast exactly as designed.
-    expect(files.length).toBe(121);
+    expect(files.length).toBe(122);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {
