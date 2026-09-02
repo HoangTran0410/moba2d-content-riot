@@ -104,4 +104,25 @@ describe('Heal (summoner)', () => {
 
     expect(caster.stats.health.value).toBe(50 + 100 * HEAL_PERCENT);
   });
+
+  /**
+   * A share of a pool is not a number a build multiplies.
+   *
+   * `takeHeal` amplifies whatever it is handed, so `maxHealth * 0.3` was
+   * tripled by an ability-power build: one Mũ Phù Thủy (1.5 flat, +25% of its
+   * own) heals 86 of a 100 pool where the description says 30. Core's tooltip
+   * rescaler already refuses a percentage for exactly this reason and printed
+   * a flat "30%" all match, so the text was right and the funnel was not.
+   */
+  it('heals its stated share whatever the caster built', () => {
+    const HAT = 1.5 * 1.25;
+    const target = ally(0, 100);
+    target.stats.health.baseValue = 1;
+    target.stats.abilityPower.baseValue = HAT;
+    indexObjects(game, [target]);
+
+    pressSpell(new Heal(target), { caster: target });
+
+    expect(target.stats.health.baseValue - 1).toBe(100 * HEAL_PERCENT);
+  });
 });

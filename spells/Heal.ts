@@ -35,6 +35,29 @@ export const HEAL_RADIUS = 500;
 
 
 export default class Heal extends Spell {
+  /**
+   * **A share of a pool is not a number ability power may touch.**
+   *
+   * `takeHeal` amplifies whatever it is handed — it sees a number, not where
+   * the number came from — so `maxHealth * 0.3` went through
+   * `amplifiedAbilityDamage` like any flat heal, and one Mũ Phù Thủy turned
+   * "30% máu tối đa" into 86% of it. Reported as "desc ghi nó hồi 30% máu,
+   * nhưng t dùng thì nó hồi đầy cây", which is what 86% of a bar looks like
+   * from anywhere above a seventh of it.
+   *
+   * Core already holds this exact rule on the other side of the screen and
+   * says so in as many words: `combat/Amplification.ts`'s tooltip rescaler
+   * refuses a percentage outright, because "100% of something is still 100% of
+   * it however much power you buy". The text obeyed it and the funnel could
+   * not, so the description printed a flat 30% all match while the heal
+   * tripled — the two halves of one rule disagreeing, with the tooltip right.
+   *
+   * `damageScalesWithAbilityPower` is the lever that lets the funnel obey it
+   * too. Nothing else in this spell is a flat number: the Tăng Tốc is a
+   * percent buff and a duration, neither of which anything amplifies.
+   */
+  damageScalesWithAbilityPower = false;
+
   targetingMode = 'SELF' as const;
   name = 'Hồi Máu (Heal)';
   image = api.asset('spell_heal');
