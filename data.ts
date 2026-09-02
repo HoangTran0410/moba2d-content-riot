@@ -1770,6 +1770,7 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
     id: 'baron',
     name: 'Baron',
     fills: ['baron'],
+    tier: 'epic',
     members: [
       {
         name: 'Baron',
@@ -1810,6 +1811,7 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
     id: 'dragon',
     name: 'Dragon',
     fills: ['dragon'],
+    tier: 'epic',
     members: [
       {
         name: 'Rồng Nguyên Tố',
@@ -1950,6 +1952,7 @@ const monsterEntries = (): Record<string, MonsterDef> => ({
     id: 'vilemaw',
     name: 'Vilemaw',
     fills: ['vilemaw'],
+    tier: 'epic',
     members: [
       {
         name: 'Vilemaw',
