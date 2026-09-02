@@ -51,6 +51,13 @@ export const isPoisoned = (unit: AttackableUnit): boolean =>
  * launched.
  */
 export default class Cassiopeia_E extends Spell {
+  /**
+   * Told: it locks and snipes the nearest enemy from well past melee reach,
+   * harder if they are already poisoned. A harass tool inference read as a
+   * shield.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Poke;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_cassiopeia_e');

@@ -72,6 +72,14 @@ function shieldHalfWidth(y: number): number {
  * at him is a truer version of that than healing off hitting people.
  */
 export default class Garen_W extends Spell {
+  /**
+   * Declared, and it agrees with inference — a real shield plus tenacity,
+   * and this file's own header calls it a panic button. Saying it out loud
+   * is what lets the gate tell this apart from a transform nobody
+   * classified.
+   */
+  static aiRoles = api.enums.SpellRole.Buff | api.enums.SpellRole.Shield;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_garen_w');
   name = 'Lòng Can Đảm (Garen_W)';

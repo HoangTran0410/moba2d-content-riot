@@ -73,6 +73,13 @@ const CHANNEL_TICK_MS = 200;
 
 
 export default class Shen_R extends Spell {
+  /**
+   * Told: a channelled rescue that teleports him beside an ally and shields
+   * both. Pure defensive utility, and declared so the gate reads its low
+   * fighting score as the design rather than an oversight.
+   */
+  static aiRoles = api.enums.SpellRole.Shield;
+
   image = api.asset('spell_shen_r');
   name = 'Nhất Thống (Shen_R)';
   description =

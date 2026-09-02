@@ -56,6 +56,14 @@ const TICK_EVERY_MS = 100;
 
 
 export default class Shen_W extends Spell {
+  /**
+   * Told: an area that disarms everyone standing in it. It deals no damage,
+   * so `Damage` is off — but an ability that stops enemies fighting back is
+   * crowd control by any reading, and calling it only a zone would have
+   * understated it.
+   */
+  static aiRoles = api.enums.SpellRole.Cc | api.enums.SpellRole.Zone;
+
   // Auto-locks its own centre: the refuge is always Shen's own ground.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_shen_w');

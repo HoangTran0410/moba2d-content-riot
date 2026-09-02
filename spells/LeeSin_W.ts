@@ -43,6 +43,13 @@ export const IRON_WILL_WINDOW_MS = 3_000;
  * pay *because* he is.
  */
 export default class LeeSin_W extends Spell {
+  /**
+   * Told: a real shield when it lands on an ally, and an omnivamp steroid on
+   * the recast. `Dash` is left off — it moves toward an *ally*, and the
+   * scorer's dash term is priced entirely around closing on an enemy.
+   */
+  static aiRoles = api.enums.SpellRole.Shield | api.enums.SpellRole.Buff;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   static PHASES = {

@@ -111,6 +111,13 @@ export const fieldRadiusAt = (elapsedMs: number): number =>
  * boundary of the damage.
  */
 export default class Lissandra_R extends Spell {
+  /**
+   * Told: the stasis half heals in proportion to missing health, which is a
+   * genuine last resort, and the field half damages and slows inside a
+   * declared radius.
+   */
+  static aiRoles = api.enums.SpellRole.Heal | api.enums.SpellRole.Damage | api.enums.SpellRole.Zone;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_lissandra_r');
   name = 'Hầm Mộ Hàn Băng (Lissandra_R)';

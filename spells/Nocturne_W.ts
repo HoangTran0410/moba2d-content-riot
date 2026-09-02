@@ -50,6 +50,14 @@ const INDIGO_BRIGHT: [number, number, number] = [150, 110, 240];
  * that made blocking one spell worth it.
  */
 export default class Nocturne_W extends Spell {
+  /**
+   * `Buff` alone. It does grant a shield, and the flag is still off on
+   * purpose: this file builds it as a window to walk *into* a fight through,
+   * and `Shield` in this scorer means "press when nearly dead", which would
+   * make the bot hoard it until it was losing.
+   */
+  static aiRoles = api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_nocturne_w');
   name = 'Bóng Đen Bao Phủ (Nocturne_W)';

@@ -41,6 +41,13 @@ const FROST_DEEP: [number, number, number] = [70, 138, 206];
  * boundary lies is worse than one with no art at all.
  */
 export default class Lissandra_W extends Spell {
+  /**
+   * Told: an instant nuke that roots everyone in a declared radius. There is
+   * no defensive component at all — inference was not merely imprecise here,
+   * it was backwards.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc | api.enums.SpellRole.Zone;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_lissandra_w');
   name = 'Vòng Tròn Lạnh Giá (Lissandra_W)';

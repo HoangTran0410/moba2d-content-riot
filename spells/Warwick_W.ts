@@ -53,6 +53,13 @@ export const HARD_STOP_MS = DURATION + 1200;
  * so the ability tells Warwick who to go after rather than just moving him.
  */
 export default class Warwick_W extends Spell {
+  /**
+   * Told: speed, omnivamp and sight of the wounded. It is a hunting tool by
+   * intent and a real disengage by mechanics — rangeless and not the
+   * ultimate — so `Escape` is declared with its −10 cost accepted.
+   */
+  static aiRoles = api.enums.SpellRole.Buff | api.enums.SpellRole.Escape;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_warwick_w');
   name = 'Mùi Máu (Warwick_W)';

@@ -74,6 +74,14 @@ const CARD_FACE = {
 } as const;
 
 export default class TwistedFate_W extends Spell {
+  /**
+   * Told: it arms the next attack with one of three payloads, all of which
+   * damage. `Cc` is left off because only one of the three stuns and this
+   * tag is static — a bot should not be credited with a stun it may not have
+   * loaded.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Buff;
+
   image = api.asset('spell_twistedfate_w');
   name = 'Chọn Bài (TwistedFate_W)';
   description =

@@ -36,6 +36,16 @@ export const W_RUSH_STACK_ID = 'pyke_w_dive_rush';
  * approach and never covers the kill.
  */
 export default class Pyke_W extends Spell {
+  /**
+   * The first ability in this repository to declare `Escape`, and it is the
+   * flag's textbook shape: rangeless, not the ultimate, stealth and a
+   * decaying speed burst, with this file's own header calling it a
+   * repositioning tool rather than a chase tool. It scores below zero in
+   * every fighting scene by construction — that is the ability working, not
+   * a mistake.
+   */
+  static aiRoles = api.enums.SpellRole.Escape;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_pyke_w');
   name = 'Lặn Mất Tăm (Pyke_W)';

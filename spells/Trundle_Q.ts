@@ -57,6 +57,12 @@ export const Q_STEAL_DURATION_MS = 5_000;
  * attack it was supposed to enable) is a worse ability for a one-line fix.
  */
 export default class Trundle_Q extends Spell {
+  /**
+   * Told: the next attack deals bonus damage and steals attack damage. The
+   * slow it applies is too brief to build on, so no `Cc`.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Buff;
+
   // Nothing is aimed: the bite goes wherever the standing attack order goes.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_trundle_q');

@@ -29,6 +29,14 @@ interface PositionSnapshot {
 
 
 export default class Ekko_R extends Spell {
+  /**
+   * Told: it rewinds and heals in proportion to the health he lost, which is
+   * a genuine "I am dying" button, and detonates for damage on arrival.
+   * `Escape` is off — an ultimate can never be a retreat candidate, so the
+   * flag would be pure penalty.
+   */
+  static aiRoles = api.enums.SpellRole.Heal | api.enums.SpellRole.Damage;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_ekko_r');
   name = 'Đột Phá Thời Gian (Ekko_R)';

@@ -35,6 +35,13 @@ export const SHRED_MS = 6_000;
  * rather than free extra damage stapled onto his auto-attacks.
  */
 export default class Garen_E extends Spell {
+  /**
+   * Told: a spin dealing repeated physical hits around him. The armour shred
+   * is a debuff on their defence, not crowd control, and there is nothing
+   * defensive here at all.
+   */
+  static aiRoles = api.enums.SpellRole.Damage;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_garen_e');
   name = 'Phán Quyết (Garen_E)';

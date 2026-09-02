@@ -36,6 +36,13 @@ export const LAUNCHER_MARGIN = 80;
  * cost is a strictly-better state the player would simply leave on.
  */
 export default class Jinx_Q extends Spell {
+  /**
+   * `Buff` alone: range and on-hit damage, traded against attack speed.
+   * There is no shield to press when low, so the inferred half made a pure
+   * steroid unreachable in a fight.
+   */
+  static aiRoles = api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_jinx_q');
   name = 'Tráo Hàng! (Jinx_Q)';

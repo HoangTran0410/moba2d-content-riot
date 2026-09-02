@@ -18,6 +18,12 @@ export const TICK_INTERVAL = 500;
 
 
 export default class Alistar_E extends Spell {
+  /**
+   * Told: a speed buff *and* a pulsing area that damages everyone nearby.
+   * The inferred `Shield` half does not exist.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_alistar_e');
   name = 'Giày Xéo (Alistar_E)';

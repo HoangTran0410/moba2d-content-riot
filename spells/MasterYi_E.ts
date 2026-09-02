@@ -39,6 +39,13 @@ export const CUT_MS = 240;
  * running in the buff row and read how long is left.
  */
 export default class MasterYi_E extends Spell {
+  /**
+   * `Buff` alone: attack speed and true damage per hit. No shield exists,
+   * and the inferred one is what made every ability in this kit a
+   * retreat-only button.
+   */
+  static aiRoles = api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_masteryi_e');
   name = 'Võ Thuật Wuju (MasterYi_E)';

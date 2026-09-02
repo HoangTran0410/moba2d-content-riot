@@ -48,6 +48,14 @@ export const HARD_STOP_MS = HASTE_DURATION + 1200;
 
 
 export default class Blitzcrank_W extends Spell {
+  /**
+   * `Buff` alone: a self speed burst with a slow afterwards. There is no
+   * shield in the file. `Escape` is deliberately off — it is as much a chase
+   * tool as a disengage one, and `Escape` costs −10 every moment the bot is
+   * not already retreating.
+   */
+  static aiRoles = api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   name = 'Tăng Tốc (Blitzcrank_W)';
   image = api.asset('spell_blitzcrank_w');

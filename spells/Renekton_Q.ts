@@ -42,6 +42,13 @@ export const ENRAGED_HEAL_CAP = 34;
  * sweep object.
  */
 export default class Renekton_Q extends Spell {
+  /**
+   * Told: a cleave around him that damages everyone caught and heals him per
+   * body hit. Real sustain, and worth more the lower he is — which is
+   * exactly what `Heal` prices.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Heal | api.enums.SpellRole.Zone;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_renekton_q');
   name = 'Vũ Điệu Cá Sấu (Renekton_Q)';

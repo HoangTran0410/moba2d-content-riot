@@ -32,6 +32,12 @@ export const LOW_HEALTH_BONUS = 0.5;
 
 
 export default class Soraka_R extends Spell {
+  /**
+   * Told, and unambiguous: a global team heal, larger for whoever is lowest.
+   * This is what `Heal` is for.
+   */
+  static aiRoles = api.enums.SpellRole.Heal;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_soraka_r');
   name = 'Nguyện Ước (Soraka_R)';

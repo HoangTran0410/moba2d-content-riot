@@ -29,6 +29,12 @@ export const XINZHAO_Q_COOLDOWN_REFUND_MS = 800;
 
 
 export default class XinZhao_Q extends Spell {
+  /**
+   * Told: three empowered attacks, the last a knockup, each refunding
+   * cooldown.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc | api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_xinzhao_q');
   name = 'Liên Hoàn Tam Kích (XinZhao_Q)';

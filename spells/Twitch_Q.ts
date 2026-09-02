@@ -8,6 +8,14 @@ const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
 
 export default class Twitch_Q extends Spell {
+  /**
+   * Told, and one of only two abilities here to declare `Escape`: rangeless,
+   * not the ultimate, stealth and speed. It scores below zero in a fight by
+   * construction, which is the flag doing its job — this is what a bot
+   * should press to leave, not to arrive.
+   */
+  static aiRoles = api.enums.SpellRole.Buff | api.enums.SpellRole.Escape;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_twitch_q');
   name = 'Đột Kích (Twitch_Q)';

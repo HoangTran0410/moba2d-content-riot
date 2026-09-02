@@ -48,6 +48,12 @@ type SlamTarget = AttackableUnit;
 
 
 export default class Malphite_E extends Spell {
+  /**
+   * Told: instant damage plus an attack-speed cripple around him. The slow
+   * is not heavy enough to be worth `Cc`.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Zone;
+
   image = api.asset('spell_malphite_e');
   name = 'Dậm Đất (Malphite_E)';
   description = `Malphite đập tay xuống đất, gây <span class="damage magic">${DAMAGE} sát thương phép</span> cho kẻ địch trong bán kính <span>${RADIUS}px</span> quanh mình, <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> và <span class="buff">Giảm ${pct(CRIPPLE_PERCENT)}% tốc độ đánh</span> trong <span class="time">${secs(SLOW_DURATION_MS)} giây</span>.`;

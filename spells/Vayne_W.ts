@@ -41,6 +41,11 @@ const PROC_REACH = 76;
  * two silver triangles over a body, not a number in a panel.
  */
 export default class Vayne_W extends Spell {
+  /**
+   * Told: it counts hits per victim, and every third deals true damage.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_vayne_w');
   name = 'Mũi Tên Bạc (Vayne_W)';

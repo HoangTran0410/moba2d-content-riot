@@ -22,6 +22,15 @@ export const CAMILLE_Q_TRUE_DAMAGE = 45;
 
 
 export default class Camille_Q extends Spell {
+  /**
+   * Told: it arms the next attack for bonus damage, and the charged form
+   * hits hard enough to finish someone — which is what `Burst` prices.
+   */
+  static aiRoles =
+    api.enums.SpellRole.Damage |
+    api.enums.SpellRole.Buff |
+    api.enums.SpellRole.Burst;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_camille_q');
   name = 'Giao Thức Chuẩn Xác (Camille_Q)';

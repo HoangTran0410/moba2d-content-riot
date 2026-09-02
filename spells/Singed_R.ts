@@ -78,6 +78,14 @@ export const HARD_STOP_MS = DURATION + 1500;
 
 
 export default class Singed_R extends Spell {
+  /**
+   * `Buff` alone: a transformation granting health, speed and attack damage,
+   * which also empowers his trail. No damage or crowd control of its own.
+   * The heal on entry fills the ceiling it raised; it is not a button to
+   * press when low.
+   */
+  static aiRoles = api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_singed_r');
   name = 'Thuốc Hóa Điên (Singed_R)';

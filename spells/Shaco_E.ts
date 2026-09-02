@@ -32,6 +32,16 @@ const VENOM: [number, number, number] = [126, 214, 74];
 
 
 export default class Shaco_E extends Spell {
+  /**
+   * Told: it locks the nearest enemy and throws from beyond his own reach,
+   * with an explicit bonus against a target already low — which is the
+   * execute kicker `Burst` prices.
+   */
+  static aiRoles =
+    api.enums.SpellRole.Damage |
+    api.enums.SpellRole.Poke |
+    api.enums.SpellRole.Burst;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_shaco_e');

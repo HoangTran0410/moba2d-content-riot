@@ -17,6 +17,12 @@ export const TICK_INTERVAL = 500;
 
 
 export default class Amumu_W extends Spell {
+  /**
+   * Told: a damage-over-time aura around himself. Nothing in the file
+   * shields or buffs him.
+   */
+  static aiRoles = api.enums.SpellRole.Damage;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_amumu_w');
   name = 'Tuyệt Vọng (Amumu_W)';

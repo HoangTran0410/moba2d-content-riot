@@ -13,6 +13,11 @@ export const DAMAGE = 26;
 
 
 export default class Twitch_E extends Spell {
+  /**
+   * Told: it detonates every poisoned enemy inside a declared range.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Zone;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_twitch_e');
   name = 'Nhiễm Khuẩn (Twitch_E)';

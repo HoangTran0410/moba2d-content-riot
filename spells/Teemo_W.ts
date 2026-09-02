@@ -22,6 +22,13 @@ export const MANA_COST = 40;
  * rule does not apply to it.
  */
 export default class Teemo_W extends Spell {
+  /**
+   * `Buff` alone: a flat movement steroid. `Escape` is tempting and left off
+   * — this file frames it as a plain self-buff with no stated repositioning
+   * intent, and the flag costs −10 every moment the bot is not retreating.
+   */
+  static aiRoles = api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_teemo_w');
   name = 'Chạy Lẹ (Teemo_W)';

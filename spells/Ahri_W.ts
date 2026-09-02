@@ -21,6 +21,14 @@ export const FIRE_PAINT_REACH = 2;
 
 
 export default class Ahri_W extends Spell {
+  /**
+   * Told: it puts three autonomous wisps in the world that hunt and damage.
+   * There is no self buff anywhere in it, so the inferred `Buff | Shield`
+   * was flatly wrong. `Summon` scores nothing on its own — `Damage` is what
+   * makes the tag do work.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Summon;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_ahri_w');
   name = 'Lửa Hồ Ly (Ahri_W)';

@@ -33,6 +33,13 @@ export const STACK_ID = 'garen_q';
  * needed `onHitDamage` to be a stat before it could be written at all.
  */
 export default class Garen_Q extends Spell {
+  /**
+   * Told: it cleanses slows and grants speed, *and* arms the next attack for
+   * bonus damage plus a silence. Three real halves where inference saw a
+   * shield.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc | api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_garen_q');
   name = 'Đòn Quyết Định (Garen_Q)';

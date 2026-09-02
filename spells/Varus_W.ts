@@ -50,6 +50,11 @@ export const HARD_STOP_MS = DURATION + 1200;
 
 /** Blighted Quiver: every arrow leaves rot behind it. */
 export default class Varus_W extends Spell {
+  /**
+   * Told: an attack-speed buff whose attacks now apply a damage-over-time.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_varus_w');
   name = 'Tên Độc (Varus_W)';

@@ -39,6 +39,13 @@ export const AURA_REACH = 110;
  * speed and the swing rate are the two buffs that do map cleanly.
  */
 export default class MasterYi_R extends Spell {
+  /**
+   * `Buff` alone: speed, attack speed and slow immunity. An ultimate can
+   * never be a retreat candidate, so `Escape` would be a flat penalty even
+   * though the ability genuinely helps him leave.
+   */
+  static aiRoles = api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_masteryi_r');
   name = 'Chiến Binh Sơn Cước (MasterYi_R)';

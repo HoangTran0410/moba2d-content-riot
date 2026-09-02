@@ -42,6 +42,12 @@ const MARK_LIFETIME = 300;
  * tests its own front every frame and catches each enemy as it reaches them.
  */
 export default class LeeSin_E extends Spell {
+  /**
+   * Told: an expanding wave that damages and slows heavily inside a declared
+   * radius.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc | api.enums.SpellRole.Zone;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_leesin_e');
   name = 'Địa Chấn / Dư Chấn (LeeSin_E)';

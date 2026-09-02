@@ -40,6 +40,12 @@ const HEXTECH: [number, number, number] = [0, 168, 255];
  * player is looking at the enemy when they decide whether to keep hitting them.
  */
 export default class Vi_W extends Spell {
+  /**
+   * Told: an attack-speed buff whose every third hit on one target deals
+   * bonus damage and shreds armour. Armour shred is not crowd control.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_vi_w');
   name = 'Cú Đấm Phá Giáp (Vi_W)';

@@ -45,6 +45,13 @@ const RING_BLEED = 26;
  * so the vignette has a lifetime to hang off.
  */
 export default class Vayne_R extends Spell {
+  /**
+   * `Buff` alone — this file's own comment says there is no damage anywhere
+   * in it, and there is no shield either. Inference invented one, and the
+   * invented half is what took the ability out of every fight.
+   */
+  static aiRoles = api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_vayne_r');
   name = 'Giờ Khắc Cuối Cùng (Vayne_R)';

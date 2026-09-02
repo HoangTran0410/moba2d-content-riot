@@ -66,6 +66,12 @@ const SHOCKWAVE_ICON = api.asset('spell_orianna_r');
 
 
 export default class Orianna_R extends Spell {
+  /**
+   * Told: a wind-up then a burst at the ball, hauling everyone caught inward
+   * and knocking them up. Damage plus hard crowd control in a placed area.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc | api.enums.SpellRole.Zone;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_orianna_r');
   name = 'Lệnh: Sóng Âm (Orianna_R)';

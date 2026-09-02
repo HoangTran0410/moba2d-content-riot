@@ -51,6 +51,13 @@ const SHELL_LIGHT: [number, number, number] = [226, 194, 136];
 
 
 export default class Rammus_W extends Spell {
+  /**
+   * Told, agreeing with inference: a real shield plus damage reflection, at
+   * the cost of his own speed. A genuine "press this before eating
+   * something" cooldown, declared so the gate knows it is meant that way.
+   */
+  static aiRoles = api.enums.SpellRole.Shield;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_rammus_w');
   name = 'Thế Thủ (Rammus_W)';

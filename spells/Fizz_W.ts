@@ -19,6 +19,12 @@ export const STACK_ID = 'fizz_w';
 
 /** Seastone Trident: the trident keeps cutting after the swing has landed. */
 export default class Fizz_W extends Spell {
+  /**
+   * Told: an attack-speed steroid whose point is that every landed hit now
+   * bleeds. The inferred shield is invented.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_fizz_w');
   name = 'Đinh Ba Hải Thạch (Fizz_W)';

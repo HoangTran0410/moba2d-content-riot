@@ -8,6 +8,12 @@ const SpellObject = api.SpellObject;
 const Silence = api.buffs.Silence;
 
 export default class Blitzcrank_R extends Spell {
+  /**
+   * Told: an expanding pulse that damages and silences everything it
+   * catches.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc;
+
   targetingMode = 'SELF' as const;
   name = 'Trường Điện Từ (Blitzcrank_R)';
   image = api.asset('spell_blitzcrank_r');

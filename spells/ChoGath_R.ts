@@ -20,6 +20,14 @@ export const MAX_HEALTH_PER_STACK = 75;
 
 
 export default class ChoGath_R extends Spell implements ExecuteSpell {
+  /**
+   * Told, and this is the shape that made the sweep worth running: an
+   * execute — it picks a target the bite will kill — scoring as `Buff |
+   * Shield | Ultimate`, i.e. 6 in a fight. A bot with an execute up almost
+   * never pressed it on a dying enemy.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Burst;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_chogath_r');

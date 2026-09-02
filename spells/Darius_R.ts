@@ -46,6 +46,16 @@ export const FEAR_MS = 2_500;
  * promise the cast would not keep.
  */
 export default class Darius_R extends Spell implements ExecuteSpell {
+  /**
+   * Told: it leaps to an execute target and deals true damage. Both halves —
+   * the gap-close and the execute — are flags core refuses to infer or could
+   * not see.
+   */
+  static aiRoles =
+    api.enums.SpellRole.Dash |
+    api.enums.SpellRole.Damage |
+    api.enums.SpellRole.Burst;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_darius_r');

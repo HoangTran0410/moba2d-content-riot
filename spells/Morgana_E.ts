@@ -32,6 +32,14 @@ export const SHIELD_DURATION_MS = 5_000;
 
 
 export default class Morgana_E extends Spell {
+  /**
+   * Told: it shields the lowest-health ally, or himself. The scorer times a
+   * shield off the *caster's* health, which is an imperfect proxy for "an
+   * ally is low" — there is no flag for that — but `Shield` is the closest
+   * true thing to say.
+   */
+  static aiRoles = api.enums.SpellRole.Shield;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_morgana_e');

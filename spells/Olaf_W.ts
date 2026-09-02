@@ -114,6 +114,12 @@ export const RUNES: number[][][] = [
  * "toàn phần" means.
  */
 export default class Olaf_W extends Spell {
+  /**
+   * `Buff` alone: attack speed, on-hit damage and omnivamp. No target, no
+   * shield.
+   */
+  static aiRoles = api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_olaf_w');
   name = 'Nổi Khùng (Olaf_W)';

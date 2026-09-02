@@ -12,6 +12,13 @@ const ParticleSystem = api.helpers.ParticleSystem;
 const SpellObject = api.SpellObject;
 
 export default class LeeSin_R extends Spell {
+  /**
+   * Told: it locks the nearest enemy, damages them and knocks them away,
+   * catching anyone they collide with. Damage and hard crowd control, not a
+   * buff.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_leesin_r');

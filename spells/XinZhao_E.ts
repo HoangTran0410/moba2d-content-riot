@@ -51,6 +51,12 @@ export function isChallengedBy(target: AttackableUnit, source: AttackableUnit): 
 
 
 export default class XinZhao_E extends Spell {
+  /**
+   * Told: a charge onto the nearest enemy with splash and a slow on impact,
+   * then attack speed for himself.
+   */
+  static aiRoles = api.enums.SpellRole.Dash | api.enums.SpellRole.Damage | api.enums.SpellRole.Buff;
+
   // Picks its own victim rather than taking `context.target`; see the
   // "auto-locking spells" section of docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;

@@ -29,6 +29,16 @@ export const LEAP_RANGE = 800;
  * Letting the window lapse without leaping puts the ultimate on full cooldown.
  */
 export default class Nocturne_R extends Spell {
+  /**
+   * Told: a long leap onto one champion and a strike — the kit's payoff, and
+   * the thing a bot should spend on someone about to die. The map-wide
+   * nearsight is vision only, which is not one of the things `Cc` prices.
+   */
+  static aiRoles =
+    api.enums.SpellRole.Damage |
+    api.enums.SpellRole.Dash |
+    api.enums.SpellRole.Burst;
+
   // Both phases auto-lock their own target (R1 hits every enemy champion, R2
   // leaps at whichever is nearest the cursor among those in range) and never
   // read context.target; see "auto-locking spells" in docs/ADDING_SPELLS.md.

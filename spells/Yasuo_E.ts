@@ -35,6 +35,15 @@ export const E_TRAIL_HALF_WIDTH = 15;
 
 
 export default class Yasuo_E extends Spell {
+  /**
+   * Told, and this one was actively dangerous. Inferred as `Buff | Shield`
+   * with no declared range, it satisfied `isRetreatCandidate` — so a fleeing
+   * bot could pick it believing it was a shield, when what it does is dash
+   * *through* the nearest enemy, quite possibly the pursuer. `Damage | Dash`
+   * takes it out of retreat consideration entirely.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Dash;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_yasuo_e');

@@ -58,6 +58,14 @@ export function isEnraged(unit: AttackableUnit | null | undefined): boolean {
  * an aura painted from there would deal its damage invisibly.
  */
 export default class Renekton_R extends Spell {
+  /**
+   * Told: a transformation — health, size and reach — plus a persistent aura
+   * damaging everything in its radius. The one-off heal on entry is there to
+   * fill the ceiling it just raised, not a button to press when low, so
+   * `Heal` stays off.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Buff | api.enums.SpellRole.Zone;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_renekton_r');
   name = 'Thần Cá Sấu (Renekton_R)';

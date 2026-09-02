@@ -60,6 +60,12 @@ const ARC_COUNT = 7;
 
 
 export default class Orianna_W extends Spell {
+  /**
+   * Told: a pulse at the ball that damages enemies inside its radius and
+   * speeds up allies standing in what it leaves behind.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Zone | api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_orianna_w');
   name = 'Lệnh: Phát Sóng (Orianna_W)';

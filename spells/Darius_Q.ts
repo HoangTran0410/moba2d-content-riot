@@ -123,6 +123,13 @@ export function applyHemorrhage(source: AttackableUnit, victim: AttackableUnit):
  * position and land it. Crowd control still takes it off him.
  */
 export default class Darius_Q extends Spell {
+  /**
+   * Told: a wind-up spin damaging everyone inside a declared radius. It
+   * heals him as a side effect, which is not the same as being a heal you
+   * press when low, so `Heal` stays off.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Zone;
+
   image = api.asset('spell_darius_q');
   name = 'Tàn Sát (Darius_Q)';
   description =

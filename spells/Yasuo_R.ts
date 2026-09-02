@@ -43,6 +43,12 @@ export const R_VORTEX_STREAKS = 14;
 
 
 export default class Yasuo_R extends Spell {
+  /**
+   * Told: it locks an already-airborne enemy, dashes to them and extends the
+   * knockup while damaging everyone caught.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc | api.enums.SpellRole.Dash;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_yasuo_r');

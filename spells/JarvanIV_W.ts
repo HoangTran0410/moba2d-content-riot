@@ -22,6 +22,13 @@ export const JARVAN_W_SLOW_MS = 2000;
 
 
 export default class JarvanIV_W extends Spell {
+  /**
+   * Told, agreeing with half of inference: a real self shield that scales
+   * with how many enemies are near, plus a slow too mild to count. Declared
+   * so the gate reads it as deliberate.
+   */
+  static aiRoles = api.enums.SpellRole.Shield;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_jarvaniv_w');
   name = 'Hoàng Kim Giáp (JarvanIV_W)';

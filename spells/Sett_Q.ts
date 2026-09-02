@@ -33,6 +33,12 @@ const BLOOD: [number, number, number] = [183, 21, 64];
  * once per landed basic attack, and adds its bonus on top of what already landed.
  */
 export default class Sett_Q extends Spell {
+  /**
+   * Told: it arms the next attacks for bonus physical damage and grants
+   * attack speed for the window. No crowd control, no execute scaling.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Buff;
+
   image = api.asset('spell_sett_q');
   name = 'Không Trượt Phát Nào (Sett_Q)';
   description =

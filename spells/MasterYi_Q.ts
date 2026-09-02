@@ -59,6 +59,17 @@ const SHADOW: [number, number, number] = [26, 34, 58];
  * knows about `Ground`.
  */
 export default class MasterYi_Q extends Spell {
+  /**
+   * Told: he vanishes and strikes several enemies, landing beside the last —
+   * a gap-closing multi-hit he finishes fleeing targets with. `Escape` is
+   * deliberately off despite the real untargetable window: this ability
+   * declares a range, and `isRetreatCandidate` excludes anything that does.
+   */
+  static aiRoles =
+    api.enums.SpellRole.Damage |
+    api.enums.SpellRole.Dash |
+    api.enums.SpellRole.Burst;
+
   // Auto-locks its own targets; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_masteryi_q');

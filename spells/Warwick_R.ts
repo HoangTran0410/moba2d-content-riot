@@ -53,6 +53,17 @@ const BLOOD_BRIGHT: [number, number, number] = [255, 132, 116];
  * real save for the victim's team.
  */
 export default class Warwick_R extends Spell {
+  /**
+   * Told: it dashes to the nearest enemy and pins them, ticking damage
+   * throughout. The commitment is the point, which is what `Burst` prices —
+   * not the size of any single tick.
+   */
+  static aiRoles =
+    api.enums.SpellRole.Damage |
+    api.enums.SpellRole.Cc |
+    api.enums.SpellRole.Dash |
+    api.enums.SpellRole.Burst;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_warwick_r');

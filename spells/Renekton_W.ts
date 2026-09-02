@@ -42,6 +42,11 @@ export const ENRAGED_STUN_MS = 1_000;
  * is no separate "shield pool" for it to disagree with.
  */
 export default class Renekton_W extends Spell {
+  /**
+   * Told: the next attack strikes several times and stuns on landing.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc;
+
   // Nothing is aimed: the bite goes wherever the standing attack order goes.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_renekton_w');

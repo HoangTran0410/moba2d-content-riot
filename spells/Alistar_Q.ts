@@ -22,6 +22,12 @@ export const CRACK_COUNT = 11;
 
 
 export default class Alistar_Q extends Spell {
+  /**
+   * Told: an instant nova that damages and knocks up everyone in range. A
+   * hard opener that inference filed as a panic button.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_alistar_q');
   name = 'Nghiền Nát (Alistar_Q)';

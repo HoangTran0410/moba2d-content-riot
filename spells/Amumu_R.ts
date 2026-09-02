@@ -15,6 +15,12 @@ export const ROOT_DURATION = 1500;
 
 
 export default class Amumu_R extends Spell {
+  /**
+   * Told: area damage plus a root on everyone caught. A teamfight opener,
+   * not a self-buff.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_amumu_r');
   name = 'Lời Nguyền Xác Ướp U Sầu (Amumu_R)';

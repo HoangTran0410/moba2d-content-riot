@@ -61,6 +61,13 @@ type ShackleTarget = AttackableUnit;
 
 
 export default class Morgana_R extends Spell {
+  /**
+   * Told: it latches everyone in a declared radius for damage, then stuns
+   * whoever is still there when it resolves. The guaranteed later stun is
+   * what earns `Cc`.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc | api.enums.SpellRole.Zone;
+
   image = api.asset('spell_morgana_r');
   name = 'Trói Hồn (Morgana_R)';
   description =

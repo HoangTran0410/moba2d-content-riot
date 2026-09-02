@@ -40,6 +40,12 @@ export const KILL_COOLDOWN_REFUND = 0.5;
  * parallel hit the spell deals by hand.
  */
 export default class Darius_W extends Spell {
+  /**
+   * Told: the next attack deals bonus damage and a slow heavy enough to be
+   * crowd control. No self buff exists.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc;
+
   // Nothing is aimed: the swing goes wherever the standing attack order goes.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_darius_w');

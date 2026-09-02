@@ -50,6 +50,12 @@ export const W_STACK_ID = 'kogmaw_w_barrage';
  * ability with a real cooldown gating it, not a purchase.
  */
 export default class KogMaw_W extends Spell {
+  /**
+   * `Buff` alone, same shape as the one above: range and flat on-hit magic
+   * damage, no shield.
+   */
+  static aiRoles = api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_kogmaw_w');
   name = 'Pháo Kích Sinh Học (KogMaw_W)';

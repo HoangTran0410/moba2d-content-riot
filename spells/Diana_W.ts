@@ -47,6 +47,16 @@ export interface MoonSphere {
 
 
 export default class Diana_W extends Spell {
+  /**
+   * Told: a real shield *and* orbiting blades that damage anyone who touches
+   * them. The shield is honest, so it is declared — but on its own it was
+   * the whole story inference told.
+   */
+  static aiRoles =
+    api.enums.SpellRole.Damage |
+    api.enums.SpellRole.Shield |
+    api.enums.SpellRole.Zone;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_diana_w');
   name = 'Thác Bạc (Diana_W)';

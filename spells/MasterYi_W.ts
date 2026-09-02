@@ -51,6 +51,13 @@ export const MANA_COST = 40;
  * — a channel is the one form that still does.)
  */
 export default class MasterYi_W extends Spell {
+  /**
+   * Told, and it is the one ability in this kit inference nearly got right:
+   * a channel that both heals and shields him. It grants no stat steroid, so
+   * `Buff` comes off.
+   */
+  static aiRoles = api.enums.SpellRole.Heal | api.enums.SpellRole.Shield;
+
   image = api.asset('spell_masteryi_w');
   name = 'Thiền (MasterYi_W)';
   description =

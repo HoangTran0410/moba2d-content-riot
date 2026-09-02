@@ -22,6 +22,12 @@ export const POISON_PER_TICK = 3;
 
 
 export default class Singed_Q extends Spell {
+  /**
+   * Told: a trail of poison dropped behind him. A placed effect, no crowd
+   * control.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Zone;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_singed_q');
   name = 'Phun Khói Độc (Singed_Q)';

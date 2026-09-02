@@ -83,6 +83,13 @@ export class Janna_R_Knockback extends Dash {
 
 
 export default class Janna_R extends Spell {
+  /**
+   * Told: a knockback around her, which is forced displacement and therefore
+   * hard crowd control, inside a real radius. The trickle of healing is too
+   * small to be the point.
+   */
+  static aiRoles = api.enums.SpellRole.Cc | api.enums.SpellRole.Zone;
+
   image = api.asset('spell_janna_r');
   name = 'Gió Mùa (Janna_R)';
   description =

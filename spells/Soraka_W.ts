@@ -42,6 +42,11 @@ export const MIN_HEALTH_RATIO = 0.05;
 
 
 export default class Soraka_W extends Spell {
+  /**
+   * Told: a single-target ally heal paid for out of her own health.
+   */
+  static aiRoles = api.enums.SpellRole.Heal;
+
   image = api.asset('spell_soraka_w');
   name = 'Tinh Tú Hộ Mệnh (Soraka_W)';
   description = `Hồi <span class="heal">${HEAL} máu</span> cho một đồng minh, trả bằng <span class="buff">${HEALTH_COST} máu</span> của chính Soraka (chỉ còn <span class="buff">${REJUVENATED_HEALTH_COST}</span> khi cô đang có bụi sao từ Vẫn Tinh, và khi đó đồng minh cũng nhận được bụi sao). Không thể dùng khi Soraka còn dưới <span class="buff">${pct(MIN_HEALTH_RATIO)}% máu tối đa</span>.`;

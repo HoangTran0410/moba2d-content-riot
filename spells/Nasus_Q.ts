@@ -27,6 +27,12 @@ const describe = (stacks: number): string =>
 
 
 export default class Nasus_Q extends Spell implements ExecuteSpell {
+  /**
+   * Told: an execute that prefers a target the hit will kill and banks a
+   * permanent stack for it. Inference filed it beside a self-buff.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Burst;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_nasus_q');

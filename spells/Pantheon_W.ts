@@ -42,6 +42,13 @@ const SHARD_COUNT = 12;
  * arrival, and it only connects if he actually got there.
  */
 export default class Pantheon_W extends Spell {
+  /**
+   * Told: it locks the nearest enemy and leaps to them, landing a stun and
+   * damage only if he arrives. `Dash` is the flag core refuses to guess and
+   * this is what it is for.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc | api.enums.SpellRole.Dash;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_pantheon_w');

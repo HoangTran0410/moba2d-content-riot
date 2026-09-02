@@ -29,6 +29,13 @@ export const WATER: [number, number, number] = [150, 220, 255];
 
 /** Urchin Strike: a dash that goes through the target and out the other side. */
 export default class Fizz_Q extends Spell {
+  /**
+   * Told: it locks the nearest enemy and dashes through them. `Dash` is one
+   * of the three flags core refuses to guess, and guessing wrong here is
+   * exactly why.
+   */
+  static aiRoles = api.enums.SpellRole.Dash | api.enums.SpellRole.Damage;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_fizz_q');

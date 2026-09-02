@@ -60,6 +60,16 @@ export class XinZhao_R_Knockback extends Dash {
 
 
 export default class XinZhao_R extends Spell {
+  /**
+   * Told: area damage inside a declared radius, a knockback and stun on
+   * anyone unmarked, and a genuine self shield. All four halves are true.
+   */
+  static aiRoles =
+    api.enums.SpellRole.Damage |
+    api.enums.SpellRole.Cc |
+    api.enums.SpellRole.Zone |
+    api.enums.SpellRole.Shield;
+
   image = api.asset('spell_xinzhao_r');
   name = 'Bán Nguyệt Thương (XinZhao_R)';
   description =

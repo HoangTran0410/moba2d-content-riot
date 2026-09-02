@@ -17,6 +17,12 @@ export const DURATION = 2500;
 
 
 export default class Nasus_W extends Spell {
+  /**
+   * Told: a pure ranged debuff — a heavy slow plus an attack-speed cut, at a
+   * range well past melee. It deals no damage, so `Damage` stays off.
+   */
+  static aiRoles = api.enums.SpellRole.Cc | api.enums.SpellRole.Poke;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_nasus_w');

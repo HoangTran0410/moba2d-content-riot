@@ -9,6 +9,13 @@ const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
 
 export default class Warwick_Q extends Spell {
+  /**
+   * Told: it locks the nearest enemy, closes the gap, damages them and heals
+   * him. A gap-closing bite that inference filed as a shield to press while
+   * fleeing.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Heal | api.enums.SpellRole.Dash;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_warwick_q');

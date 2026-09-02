@@ -68,6 +68,15 @@ export class Riven_R_Reforge extends StatAmp {
 
 
 export default class Riven_R extends Spell {
+  /**
+   * Told: a cone hitting everyone inside it, with damage that doubles
+   * against targets under half health. An execute shaped like an area.
+   */
+  static aiRoles =
+    api.enums.SpellRole.Damage |
+    api.enums.SpellRole.Burst |
+    api.enums.SpellRole.Zone;
+
   image = api.asset('spell_riven_r');
   name = 'Lưỡi Kiếm Lưu Đày (Riven_R)';
   description =

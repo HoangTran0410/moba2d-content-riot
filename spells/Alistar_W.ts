@@ -10,6 +10,14 @@ const Dash = api.buffs.Dash;
 const SpellObject = api.SpellObject;
 
 export default class Alistar_W extends Spell {
+  /**
+   * Told, and `Dash` is the flag core refuses to infer: it locks the nearest
+   * enemy, closes the gap, then damages and displaces. Inference had it as a
+   * shield to press while fleeing — with an ability that charges at the
+   * pursuer.
+   */
+  static aiRoles = api.enums.SpellRole.Dash | api.enums.SpellRole.Damage | api.enums.SpellRole.Cc;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_alistar_w');

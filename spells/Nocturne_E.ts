@@ -28,6 +28,12 @@ export const LEASH_RANGE = 500;
  * pays out, so the victim gets the whole channel to break the leash by running.
  */
 export default class Nocturne_E extends Spell {
+  /**
+   * Told: it tethers the nearest enemy for damage, then fears them if the
+   * leash holds. Single-target damage and hard crowd control.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_nocturne_e');

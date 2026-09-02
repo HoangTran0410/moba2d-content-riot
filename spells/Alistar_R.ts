@@ -58,6 +58,14 @@ function cubic(p0: number, p1: number, p2: number, p3: number, u: number): numbe
 
 
 export default class Alistar_R extends Spell {
+  /**
+   * Declared, though it is what inference already guessed: a real shield
+   * plus attack damage, and nothing else. The declaration is the point — it
+   * is what tells the gate this ability is *meant* to be worth nothing until
+   * he is losing, rather than merely reading that way by accident.
+   */
+  static aiRoles = api.enums.SpellRole.Buff | api.enums.SpellRole.Shield;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_alistar_r');
   name = 'Bất Khuất (Alistar_R)';

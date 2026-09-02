@@ -29,6 +29,12 @@ const RUNE_HOT: [number, number, number] = [150, 255, 228];
 
 
 export default class Riven_W extends Spell {
+  /**
+   * Told: a telegraphed area around her that stuns and damages everyone
+   * caught.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc | api.enums.SpellRole.Zone;
+
   image = api.asset('spell_riven_w');
   name = 'Kình Lực (Riven_W)';
   description =

@@ -37,6 +37,12 @@ interface DraggedBody {
 
 
 export default class Diana_R extends Spell {
+  /**
+   * Told: it pulls every enemy in a declared radius onto her and then nukes
+   * the group. Forced displacement is hard crowd control.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc | api.enums.SpellRole.Zone;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_diana_r');
   name = 'Trăng Mờ (Diana_R)';

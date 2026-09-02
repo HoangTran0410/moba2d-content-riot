@@ -40,6 +40,12 @@ const FOAM: [number, number, number] = [168, 230, 207];
 
 
 export default class Nautilus_E extends Spell {
+  /**
+   * Told: three sequential rings damaging everyone caught inside a declared
+   * radius.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Zone;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_nautilus_e');
   name = 'Thủy Triều Dữ Dội (Nautilus_E)';

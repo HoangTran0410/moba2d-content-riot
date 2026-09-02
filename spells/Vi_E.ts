@@ -45,6 +45,12 @@ export function viECleaveHalfWidth(along: number): number {
  * silently switch off every on-hit effect for that route.
  */
 export default class Vi_E extends Spell {
+  /**
+   * Told: a cleave on nearby enemies within a declared reach, immediately or
+   * on the next attack.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Zone;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_vi_e');
   name = 'Cú Đấm Xuyên Thấu (Vi_E)';

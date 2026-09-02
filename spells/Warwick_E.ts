@@ -19,6 +19,12 @@ export const FEAR_DURATION = 1200;
 
 /** Primal Howl: brace, then scatter everything standing too close. */
 export default class Warwick_E extends Spell {
+  /**
+   * Told: a real shield *and* a fear on everyone nearby. The shield half is
+   * honest and declared; the fear is what inference could never have seen.
+   */
+  static aiRoles = api.enums.SpellRole.Shield | api.enums.SpellRole.Cc;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_warwick_e');
   name = 'Gầm Thét (Warwick_E)';

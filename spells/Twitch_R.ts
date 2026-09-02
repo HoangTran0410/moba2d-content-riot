@@ -50,6 +50,12 @@ export const STACK_ID = 'twitch_r';
  * missile's `hitTargets` before the bolt is in the world.
  */
 export default class Twitch_R extends Spell {
+  /**
+   * Told: a steroid whose real payload is a piercing bolt on every landed
+   * attack.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_twitch_r');
   name = 'Nhắm Mắt Bắn Bừa (Twitch_R)';

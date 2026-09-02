@@ -58,6 +58,14 @@ const SPECTRE: [number, number, number] = [130, 255, 180];
  * is why `broken` is a list rather than a flag.
  */
 export default class Thresh_R extends Spell {
+  /**
+   * Told: a cage that is free to stand in and expensive to leave — damage
+   * and a heavy slow on anyone who crosses it. `Zone` is off deliberately:
+   * the radius is a local constant and never reaches `declaredRange`, so the
+   * flag could not score anything.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_thresh_r');
   name = 'Đóng Hộp (Thresh_R)';

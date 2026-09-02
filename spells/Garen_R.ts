@@ -78,6 +78,13 @@ const LIGHT: [number, number, number] = [255, 250, 210];
  * descent *and* the damage, so there is exactly one place either can happen.
  */
 export default class Garen_R extends Spell implements ExecuteSpell {
+  /**
+   * Told: a true-damage execute scaled by missing health, aimed at the
+   * weakest champion in range. Inferred as `Buff | Shield`, one of the
+   * game's cleanest finishers scored 6 in a fight.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Burst;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_garen_r');

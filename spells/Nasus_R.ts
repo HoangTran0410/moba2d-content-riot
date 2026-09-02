@@ -20,6 +20,12 @@ export const BONUS_HEALTH = 40;
 
 
 export default class Nasus_R extends Spell {
+  /**
+   * Told: a health-and-size steroid *and* a burning aura that damages
+   * everyone inside its radius for the duration.
+   */
+  static aiRoles = api.enums.SpellRole.Buff | api.enums.SpellRole.Damage | api.enums.SpellRole.Zone;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_nasus_r');
   name = 'Cơn Thịnh Nộ Sa Mạc (Nasus_R)';

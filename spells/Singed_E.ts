@@ -38,6 +38,12 @@ const FUME_COUNT = 12;
 
 
 export default class Singed_E extends Spell {
+  /**
+   * Told: it locks the nearest enemy, flings them, then damages and slows
+   * them on landing.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_singed_e');

@@ -38,6 +38,13 @@ export const STACK_ID = 'annie_e';
  * W already uses; Annie's is the flat, once-per-enemy configuration of it.
  */
 export default class Annie_E extends Spell {
+  /**
+   * Declared, and it agrees with inference: a real shield plus a speed buff.
+   * Said out loud so the gate can tell a deliberate panic button from an
+   * ability that only scores like one because nobody ever looked.
+   */
+  static aiRoles = api.enums.SpellRole.Buff | api.enums.SpellRole.Shield;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_annie_e');
   name = 'Khiên Lửa (Annie_E)';

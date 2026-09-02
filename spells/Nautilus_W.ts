@@ -52,6 +52,13 @@ const FOAM: [number, number, number] = [168, 230, 207];
  * behind would keep splashing for the whole match.
  */
 export default class Nautilus_W extends Spell {
+  /**
+   * Told, agreeing with inference: a real shield that also arms an on-hit
+   * proc. The proc is not a stat steroid and cannot be evaluated at cast
+   * time, so `Shield` alone is the whole honest claim.
+   */
+  static aiRoles = api.enums.SpellRole.Shield;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_nautilus_w');
   name = 'Cơn Giận Của Người Khổng Lồ (Nautilus_W)';

@@ -55,6 +55,13 @@ const EMBER_STEP_PX = 26;
  * it. Core 1.16 has `tenacity`, so the duration now carries it.
  */
 export default class Olaf_R extends Spell {
+  /**
+   * `Buff` alone: it cleanses crowd control and grants attack damage, speed
+   * and near-tenacity. No damage, no shield, and an ultimate can never be a
+   * retreat candidate.
+   */
+  static aiRoles = api.enums.SpellRole.Buff;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_olaf_r');
   name = 'Tận Thế Ragnarok (Olaf_R)';

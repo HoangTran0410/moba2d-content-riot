@@ -35,6 +35,12 @@ export const DURATION = 1800;
  * has to keep standing on me" is what an engage looks like.
  */
 export default class Rammus_E extends Spell {
+  /**
+   * Told: a taunt that damages and forces every enemy within its radius to
+   * attack him.
+   */
+  static aiRoles = api.enums.SpellRole.Damage | api.enums.SpellRole.Cc | api.enums.SpellRole.Zone;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   image = api.asset('spell_rammus_e');

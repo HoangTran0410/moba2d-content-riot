@@ -8,6 +8,13 @@ const ParticleSystem = api.helpers.ParticleSystem;
 const SpellObject = api.SpellObject;
 
 export default class Zed_E extends Spell {
+  /**
+   * Told: a blade sweeping around him for damage and a moderate slow — not
+   * heavy enough to be worth `Cc`. `Zone` is off because the radius never
+   * reaches `declaredRange` and the flag could not score.
+   */
+  static aiRoles = api.enums.SpellRole.Damage;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_zed_e');
   name = 'Đường Kiếm Bóng Tối (Zed_E)';

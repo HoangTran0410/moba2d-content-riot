@@ -21,6 +21,12 @@ export const LINEN: [number, number, number] = [235, 222, 172];
 
 
 export default class Amumu_E extends Spell {
+  /**
+   * Told: a plain instant area nuke around himself. No crowd control, no
+   * buff, and certainly no shield.
+   */
+  static aiRoles = api.enums.SpellRole.Damage;
+
   targetingMode = 'SELF' as const;
   image = api.asset('spell_amumu_e');
   name = 'Giận Dữ (Amumu_E)';

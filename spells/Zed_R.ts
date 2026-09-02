@@ -30,6 +30,16 @@ const SHADOW_COLOR: [number, number, number] = [215, 120, 255];
  * damage when it expires. Recast swaps Zed with the Shadow.
  */
 export default class Zed_R extends Spell {
+  /**
+   * Told: it dashes behind the nearest enemy, marks them, and detonates for
+   * banked damage. The textbook assassin finisher, scoring 6 in a fight
+   * until now.
+   */
+  static aiRoles =
+    api.enums.SpellRole.Damage |
+    api.enums.SpellRole.Dash |
+    api.enums.SpellRole.Burst;
+
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
   targetingMode = 'SELF' as const;
   static PHASES = {
