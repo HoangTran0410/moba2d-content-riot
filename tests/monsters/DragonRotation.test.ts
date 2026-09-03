@@ -13,6 +13,7 @@ import makeDragonAbilities, {
   ROTATION,
   dragonCycle,
   resetDragonRotation,
+  scaledBonuses,
 } from '../../monsters/Dragon';
 
 /**
@@ -122,5 +123,58 @@ describe('the drake order a pit draws', () => {
    */
   it('falls back to the written order when there is no seed', () => {
     expect(orderFor(undefined)).toEqual(ROTATION.map(drake => drake.id));
+  });
+});
+
+/**
+ * The blessing is sized against a ~100 health pool, where +8 attack damage is
+ * a real swing. It stayed that size for the whole match while the shop did
+ * not — four items in, one of them sells more attack damage than the pit pays,
+ * and a team that fought for a drake had bought better with the gold it cost.
+ */
+describe('a blessing taken later is worth more', () => {
+  const AD = (bonuses: ReturnType<typeof scaledBonuses>): number =>
+    (bonuses as Record<string, Record<string, number>>).attackDamage?.flatBonus ?? 0;
+
+  const infernal = ELEMENTS.find(drake => drake.id === 'infernal')!;
+  const cloud = ELEMENTS.find(drake => drake.id === 'cloud')!;
+
+  it('pays the authored number at the opening whistle', () => {
+    // The half that was said to be right already: an early pit is not changed.
+    expect(scaledBonuses(infernal.bonuses, 0)).toEqual(infernal.bonuses);
+  });
+
+  it('doubles by fifteen minutes and stops at triple', () => {
+    expect(AD(scaledBonuses(infernal.bonuses, 15 * 60_000))).toBeCloseTo(AD(infernal.bonuses) * 2);
+    expect(AD(scaledBonuses(infernal.bonuses, 30 * 60_000))).toBeCloseTo(AD(infernal.bonuses) * 3);
+    // Capped, not merely slowed: an hour-long practice match must not hand out
+    // a blessing worth six items.
+    expect(AD(scaledBonuses(infernal.bonuses, 90 * 60_000))).toBeCloseTo(AD(infernal.bonuses) * 3);
+  });
+
+  it('leaves a share-of-the-wearer bonus exactly where it was', () => {
+    // `percentBonus` multiplies what the wearer already has, so it grew with
+    // the build by construction and never went stale. Scaling it would treble
+    // the wind drake's move speed, which is a different game rather than a
+    // bigger reward — and it is the only drake using that slot.
+    expect(cloud.bonuses).toHaveProperty('speed.percentBonus');
+    expect(scaledBonuses(cloud.bonuses, 40 * 60_000)).toEqual(cloud.bonuses);
+  });
+
+  it('scales every drake and the Elder, since all of them go through the pit', () => {
+    for (const drake of ROTATION) {
+      const late = scaledBonuses(drake.bonuses, 30 * 60_000) as Record<
+        string,
+        Record<string, number>
+      >;
+      for (const [stat, slots] of Object.entries(
+        drake.bonuses as Record<string, Record<string, number>>
+      )) {
+        for (const [slot, amount] of Object.entries(slots)) {
+          const want = slot === 'percentBonus' ? amount : amount * 3;
+          expect(late[stat][slot], `${drake.id}.${stat}.${slot}`).toBeCloseTo(want);
+        }
+      }
+    }
   });
 });

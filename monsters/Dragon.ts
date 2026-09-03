@@ -83,7 +83,67 @@ export const DRAGON = {
    * string per element unless N independent buffs is what you mean.
    */
   stackId: 'dragon-blessing',
+  /**
+   * How much bigger a blessing is for having been taken later.
+   *
+   * ## What this fixes
+   *
+   * The bonuses below were sized against a champion's ~100 health pool, where
+   * +8 attack damage is a real swing. They stayed that size for the whole
+   * match while the shop did not: by the time a build is four items deep, a
+   * single one of them sells more attack damage than the pit pays, and a team
+   * that fought for a drake had bought better with the gold it cost them.
+   * Reported as "chỉ số cộng thêm ngon đầu trận, càng cuối trận càng đuối,
+   * kiểu mua đồ còn nhiều chỉ số hơn đi ăn rồng".
+   *
+   * ## Why the scale is read once, when it is taken
+   *
+   * A blessing lasts 180s against a 60s respawn, and a new drake *replaces*
+   * the held one (`stackId`, `REPLACE_EXISTING`), so nobody is ever carrying a
+   * stale grant: whatever is on you now was earned inside the last three
+   * minutes. Growing an already-granted buff would be re-applying a stat
+   * modifier every few seconds to move a number nobody could be holding from
+   * long enough ago to notice.
+   *
+   * Doubling at fifteen minutes and capping at triple keeps the early pit
+   * exactly as it is — which is the half that was said to be right — and lands
+   * a late one near one good item, for a buff that is temporary, contested,
+   * and has to be won again in three minutes.
+   */
+  scaling: {
+    perMinute: 1 / 15,
+    max: 3,
+  },
 } as const;
+
+/**
+ * The blessing a team earns for taking the pit *at this point in the match*.
+ *
+ * **`percentBonus` is deliberately left alone**, and it is the one slot that
+ * must be: it is a share of what the wearer already has
+ * (`(… + flatBonus) * (1 + percentBonus)`), so it grows with the build by
+ * construction and never went stale in the first place. Scaling it would
+ * treble the wind drake's move speed, which is not a bigger reward but a
+ * different game.
+ *
+ * Every other slot is a fixed quantity — points, or a share of an *unbuilt*
+ * base — and a fixed quantity is exactly what a shop out-grows.
+ */
+export function scaledBonuses(bonuses: StatAmpBonuses, matchTimeMs: number): StatAmpBonuses {
+  const minutes = Math.max(0, matchTimeMs) / 60_000;
+  const scale = Math.min(DRAGON.scaling.max, 1 + minutes * DRAGON.scaling.perMinute);
+  if (scale === 1) return bonuses;
+
+  const scaled: Record<string, Record<string, number>> = {};
+  for (const [stat, slots] of Object.entries(bonuses as Record<string, Record<string, number>>)) {
+    const next: Record<string, number> = {};
+    for (const [slot, amount] of Object.entries(slots)) {
+      next[slot] = slot === 'percentBonus' ? amount : amount * scale;
+    }
+    scaled[stat] = next;
+  }
+  return scaled as StatAmpBonuses;
+}
 
 /** `[r, g, b]`, the shape both the ring and the blessing glow want. */
 type Glow = [number, number, number];
@@ -453,7 +513,12 @@ function makeDragonBuff(api: ContentApi, drake: Drake) {
     stackId = DRAGON.stackId;
     image = api.asset(drake.avatar as never);
     buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
-    bonuses: StatAmpBonuses = drake.bonuses;
+    /**
+     * Read per instance, not per class: field initialisers run after
+     * `super()`, so `this.game` is already here, and `StatAmp.onCreate` reads
+     * this once when the buff is added. See `scaledBonuses`.
+     */
+    bonuses: StatAmpBonuses = scaledBonuses(drake.bonuses, this.game?.matchTimeMs ?? 0);
 
     draw(): void {
       drawBlessingRing(this.targetUnit, drake.glow, 4);
