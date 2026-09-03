@@ -15,7 +15,6 @@ const Monster = api.units.Monster;
 const SOURCE_LABEL = 'Cưa Nhiễm Trùng';
 
 const Q_ICON = api.asset('spell_drmundo_q');
-const dmg = api.text.dmg;
 const tint = api.text.tint;
 const dmgValue = api.text.dmgValue;
 

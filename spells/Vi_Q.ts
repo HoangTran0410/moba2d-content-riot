@@ -11,7 +11,6 @@ const Dash = api.buffs.Dash;
 const Slow = api.buffs.Slow;
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
-const dmg = api.text.dmg;
 const dmgRange = api.text.dmgRange;
 
 

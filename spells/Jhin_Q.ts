@@ -14,7 +14,6 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const TrailSystem = api.helpers.TrailSystem;
 const MissileSpellObject = api.MissileSpellObject;
 const SpellObject = api.SpellObject;
-const dmg = api.text.dmg;
 const dmgValue = api.text.dmgValue;
 
 
