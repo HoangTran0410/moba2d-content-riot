@@ -442,7 +442,13 @@ describe("the pack's tests speak only published core surfaces", () => {
     // abilities here were timed at the worst possible moment by default, and
     // it is invisible from every other angle: each one is chosen, cast and
     // recast exactly as designed.
-    expect(files.length).toBe(122);
+    //
+    // And `tests/spells/Orianna_Q.vision.test.ts`, which drives the fog's own
+    // revealer pass rather than reading a field off the Ball. A spell-made eye
+    // carries no `fogRevealRadius` getter — that lives on `AttackableUnit` —
+    // so `visionRadius` alone has looked correct while lighting nothing
+    // before, for the ward as much as for anything else.
+    expect(files.length).toBe(123);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

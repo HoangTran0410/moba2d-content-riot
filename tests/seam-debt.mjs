@@ -240,6 +240,12 @@ const GRANDFATHERED_TESTS = new Set([
  */
 const GRANDFATHERED_FOG_READS = new Set([
   "Ashe_E.vision.test.ts",
+  // `Orianna_Q.vision.test.ts` for the same reason as the hawk's: it drives
+  // `FogOfWar.calculateSight` and reads the flag to prove the Ball survived
+  // the revealer pass. Asserting on `ball.visionRadius` instead would prove
+  // nothing — that field has looked correct while lighting nothing before,
+  // which is the failure the test exists for.
+  "Orianna_Q.vision.test.ts",
   "Lux_R.test.ts",
   // `representative-spells.test.ts`'s makeOwner() sets `visibleToPlayerTeam:
   // true` on its fixture owner — a fixture field, not a spell reading the

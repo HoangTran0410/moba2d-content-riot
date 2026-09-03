@@ -152,6 +152,27 @@ export class Orianna_Ball extends SpellObject {
   /** Above the floor and below the HUD: the Ball is a body, not a decal. */
   zIndex = SPELL_EFFECT_Z_INDEX;
 
+  /**
+   * The Ball sees, and that is most of what makes leaving it somewhere a
+   * decision.
+   *
+   * `SpellObject` already carries its owner's `teamId`, so core's
+   * `combat/Vision.ts` counts anything with a radius as one of that team's
+   * eyes — the same door the ward goes through. Nothing else was needed.
+   *
+   * 250 against a ward's 350 and a minion's 300 on purpose: the Ball is a
+   * scout that can be *sent* — `LEASH_RANGE` is 720 — and one that saw as far
+   * as a ward would make warding a lane pointless for the one champion who
+   * can re-place her eye every few seconds. Small enough to check a bush,
+   * not to hold a river.
+   *
+   * Left on while it is carried too. That vision is redundant with Orianna's
+   * own and costs one circle, and switching it off by carry state would mean
+   * a sightline that blinks every time the Ball comes home — which reads as a
+   * bug rather than as a rule.
+   */
+  visionRadius = 250;
+
   /** The champion carrying it, or null while it is flying or standing. */
   carrier: AttackableUnit | null = this.owner;
 
