@@ -2166,7 +2166,7 @@ export const spellCatalog = {
   },
   "Varus_Q": {
     name: "Mũi Tên Xuyên Phá (Varus_Q)",
-    description: "<b>Giữ</b> để kéo cung rồi thả ra một mũi tên <span class=\"buff\">xuyên qua mọi kẻ địch</span> trên đường bay. Tích lực đầy sau <span class=\"time\">1.5 giây</span> kéo tầm bắn từ <span>100px</span> lên <span>700px</span>, và sau <span class=\"time\">1.3 giây</span> kéo sát thương từ <span class=\"damage physical\" data-base=\"20\">20</span> lên <span class=\"damage physical\" data-base=\"30\">30 sát thương vật lý</span>. Mỗi mục tiêu bị xuyên sau đó nhận <span class=\"buff\">ít hơn 15%</span>, tối đa giảm <span class=\"buff\">67%</span>. Trong lúc kéo cung Varus <span class=\"buff\">tự làm chậm 20%</span> và mọi hiệu ứng khống chế đều huỷ mũi tên (hoàn lại nửa năng lượng).",
+    description: "<b>Giữ</b> để kéo cung rồi thả ra một mũi tên <span class=\"buff\">xuyên qua mọi kẻ địch</span> trên đường bay. Tích lực đầy sau <span class=\"time\">1.5 giây</span> kéo tầm bắn từ <span>100px</span> lên <span>700px</span>, và sau <span class=\"time\">1.3 giây</span> kéo từ <span class=\"damage physical\" data-base=\"20\">20</span> lên <span class=\"damage physical\" data-base=\"30\">30 sát thương vật lý</span>. Mỗi mục tiêu bị xuyên sau đó nhận <span class=\"buff\">ít hơn 15%</span>, tối đa giảm <span class=\"buff\">67%</span>. Trong lúc kéo cung Varus <span class=\"buff\">tự làm chậm 20%</span> và mọi hiệu ứng khống chế đều huỷ mũi tên (hoàn lại nửa năng lượng).",
     iconKey: "spell_varus_q",
     coolDownMs: 5000,
     manaCost: 50,

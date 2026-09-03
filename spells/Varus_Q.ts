@@ -81,7 +81,7 @@ export default class Varus_Q extends Spell {
     `<b>Giữ</b> để kéo cung rồi thả ra một mũi tên <span class="buff">xuyên qua mọi kẻ địch</span>` +
     ` trên đường bay. Tích lực đầy sau <span class="time">${secs(RANGE_CHARGE_MS)} giây</span> kéo` +
     ` tầm bắn từ <span>${MIN_CENTER_TRAVEL}px</span> lên <span>${MAX_CENTER_TRAVEL}px</span>, và sau` +
-    ` <span class="time">${secs(DAMAGE_CHARGE_MS)} giây</span> kéo sát thương từ` +
+    ` <span class="time">${secs(DAMAGE_CHARGE_MS)} giây</span> kéo từ` +
     ` ${dmgValue(MIN_DAMAGE, 'PHYSICAL')} lên` +
     ` ${dmg(MAX_DAMAGE, 'PHYSICAL')}.` +
     ` Mỗi mục tiêu bị xuyên sau đó nhận <span class="buff">ít hơn ${pct(PIERCE_FALLOFF)}%</span>,` +
