@@ -8,6 +8,7 @@ const MissileSpellObject = api.MissileSpellObject;
 const Airborne = api.buffs.Airborne;
 const TrailSystem = api.helpers.TrailSystem;
 const SpellObject = api.SpellObject;
+const dmgRange = api.text.dmgRange;
 
 
 
@@ -71,7 +72,7 @@ export default class Janna_Q extends Spell {
 
   name = 'Gió Lốc (Janna_Q)';
   description =
-    'Triệu hồi một cơn lốc tại chỗ và <span class="buff">tích luỹ sức mạnh</span> trong tối đa <span class="time">3 giây</span>. Tái kích hoạt để phóng cơn lốc về hướng con trỏ, hoặc nó tự phóng khi tích đầy. Tích càng lâu thì tầm bay, tốc độ, sát thương và thời gian hất tung càng lớn: gây <span class="damage magic">15 - 30 sát thương phép</span> và <span class="buff">Hất Tung</span> trong <span class="time">0.5 - 1.25 giây</span>, xuyên qua mọi kẻ địch trên đường đi';
+    `Triệu hồi một cơn lốc tại chỗ và <span class="buff">tích luỹ sức mạnh</span> trong tối đa <span class="time">3 giây</span>. Tái kích hoạt để phóng cơn lốc về hướng con trỏ, hoặc nó tự phóng khi tích đầy. Tích càng lâu thì tầm bay, tốc độ, sát thương và thời gian hất tung càng lớn: gây ${dmgRange(15, 30, 'MAGIC', '', ' - ')} và <span class="buff">Hất Tung</span> trong <span class="time">0.5 - 1.25 giây</span>, xuyên qua mọi kẻ địch trên đường đi`;
   coolDown = 5_000;
   manaCost = 50;
 

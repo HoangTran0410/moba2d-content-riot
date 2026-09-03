@@ -8,6 +8,8 @@ const MissileSpellObject = api.MissileSpellObject;
 const Slow = api.buffs.Slow;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 
 export const RANGE = 700;
@@ -39,8 +41,8 @@ export default class Graves_R extends Spell {
   image = api.asset('spell_graves_r');
   name = 'Đạn Nổ Thần Công (Graves_R)';
   description =
-    `Nã một phát đại bác xuyên thẳng <span>${RANGE}px</span>: <span class="damage physical">${DAMAGE} sát thương vật lý</span>` +
-    ` cho mục tiêu đầu tiên, <span class="damage">giảm ${FALLOFF}</span> cho mỗi mục tiêu tiếp theo,` +
+    `Nã một phát đại bác xuyên thẳng <span>${RANGE}px</span>: ${dmg(DAMAGE, 'PHYSICAL')}` +
+    ` cho mục tiêu đầu tiên, ${tint(`giảm ${FALLOFF}`)} cho mỗi mục tiêu tiếp theo,` +
     ` kèm <span class="buff">Làm Chậm 40%</span>`;
   coolDown = 10000;
   manaCost = 60;

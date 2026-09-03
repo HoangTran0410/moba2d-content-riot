@@ -11,6 +11,7 @@ const StatAmp = api.buffs.StatAmp;
 const MissileSpellObject = api.MissileSpellObject;
 const TrailSystem = api.helpers.TrailSystem;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 
@@ -24,7 +25,7 @@ export default class Veigar_Q extends Spell implements ExecuteSpell {
   image = api.asset('spell_veigar_q');
   name = 'Điềm Gở (Veigar_Q)';
   description =
-    'Bắn ra một quả cầu năng lượng hắc ám xuyên qua mọi kẻ địch, gây <span class="damage magic">22 sát thương phép</span>.' +
+    `Bắn ra một quả cầu năng lượng hắc ám xuyên qua mọi kẻ địch, gây ${dmg(22, 'MAGIC')}.` +
     ' Mỗi kẻ địch <span class="buff">bị tiêu diệt</span> bởi quả cầu giúp Veigar' +
     ' <span class="buff">cộng dồn vĩnh viễn +20 năng lượng tối đa</span>, và hồi lại' +
     ' <span class="buff">20 năng lượng</span> ngay lập tức';

@@ -13,6 +13,7 @@ const QuadtreeRectangle = api.utils.Quadtree.Rectangle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const VectorUtils = api.utils.VectorUtils;
 const sweepToWall = api.terrain.sweepToWall;
+const dmg = api.text.dmg;
 
 /**
  * Vô Ảnh Bộ — the reason this champion is in the pack.
@@ -54,7 +55,7 @@ export default class Shen_E extends Spell {
   name = 'Vô Ảnh Bộ (Shen_E)';
   description =
     `Shen lướt <span class="buff">${DASH_DISTANCE}</span> về phía con trỏ, gây` +
-    ` <span class="damage physical">${DASH_DAMAGE} sát thương vật lý</span> lên mọi tướng địch` +
+    ` ${dmg(DASH_DAMAGE, 'PHYSICAL')} lên mọi tướng địch` +
     ` mà anh đi xuyên qua (mỗi mục tiêu chỉ một lần) và <span class="debuff">Khiêu Khích</span>` +
     ` chúng trong <span class="buff">${secs(TAUNT_DURATION_MS)} giây</span>:` +
     ` mục tiêu buộc phải đuổi theo và đánh thường vào Shen — vẫn chạy và đánh được,` +

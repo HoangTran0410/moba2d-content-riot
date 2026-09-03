@@ -95,6 +95,12 @@ const ALLOWED_CORE_SUBPATHS = new Set([
   // That barrel carries core's source scanners and its own boundary checker,
   // and a pack has no business reaching into either; `tests/maps/*.test.ts`
   // imported it for one commit and this rule was right to refuse.
+  // The shared description rules (`describeSpellDescriptions`), published for
+  // the reason `testing/items` and `testing/maps` were, and with the sharpest
+  // evidence of the three: this pack, dota and naruto had each written their
+  // own scan of the same markup, and the three checked different things — so
+  // a defect caught here shipped in the other two.
+  '@moba2d/core/testing/spellText',
   '@moba2d/core/testing/maps',
   // The shared core-boundary suite (`describeCoreBoundary`), published for the
   // reason `testing/items` and `testing/maps` were: the rule is core's, and it

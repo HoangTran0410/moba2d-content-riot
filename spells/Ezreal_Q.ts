@@ -8,6 +8,7 @@ const Spell = api.Spell;
 const MissileSpellObject = api.MissileSpellObject;
 const TrailSystem = api.helpers.TrailSystem;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 export const EZREAL_Q_DAMAGE = 24;
@@ -34,7 +35,7 @@ export default class Ezreal_Q extends Spell {
   image = api.asset('spell_ezreal_q');
   name = 'Phát Bắn Thần Bí (Ezreal_Q)';
   description =
-    `Bắn một mũi tên năng lượng gây <span class="damage physical">${EZREAL_Q_DAMAGE} sát thương vật lý</span>` +
+    `Bắn một mũi tên năng lượng gây ${dmg(EZREAL_Q_DAMAGE, 'PHYSICAL')}` +
     ' lên kẻ địch đầu tiên trúng phải. Nếu trúng, mọi chiêu thức của Ezreal được giảm' +
     ` <span class="time">${secs(EZREAL_Q_COOLDOWN_REFUND_MS)} giây</span> hồi chiêu.`;
 

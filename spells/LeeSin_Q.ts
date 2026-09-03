@@ -7,6 +7,7 @@ const createReveal = api.buffs.createReveal;
 const MissileSpellObject = api.MissileSpellObject;
 const TrailSystem = api.helpers.TrailSystem;
 const Rectangle = api.utils.Quadtree.Rectangle;
+const dmg = api.text.dmg;
 
 
 
@@ -32,7 +33,7 @@ export default class LeeSin_Q extends Spell {
   image = LeeSin_Q.PHASES[this.phase].image;
   name = 'Sóng Âm / Vô Ảnh Cước (LeeSin_Q)';
   description =
-    'Chưởng 1 luồng Sóng Âm về hướng chỉ định, gây <span class="damage physical">15 sát thương vật lý</span> khi trúng địch. Có thể tái kích hoạt trong vòng <span class="time">3 giây</span> để <span class="buff">Lướt</span> tới kẻ địch trúng Sóng Âm, gây thêm <span class="damage physical">15 sát thương vật lý</span> khi tới nơi';
+    `Chưởng 1 luồng Sóng Âm về hướng chỉ định, gây ${dmg(15, 'PHYSICAL')} khi trúng địch. Có thể tái kích hoạt trong vòng <span class="time">3 giây</span> để <span class="buff">Lướt</span> tới kẻ địch trúng Sóng Âm, gây thêm ${dmg(15, 'PHYSICAL')} khi tới nơi`;
   coolDown = 5000;
   manaCost = 30;
   collDownAfterQ1 = 500;

@@ -11,6 +11,7 @@ const TrailSystem = api.helpers.TrailSystem;
 const MissileSpellObject = api.MissileSpellObject;
 const Slow = api.buffs.Slow;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 
@@ -50,8 +51,8 @@ export default class Jhin_R extends Spell {
   name = 'Sân Khấu Tử Thần (Jhin_R)';
   description = `Dựng sân khấu tử thần: Bấm R lần đầu để mở sân khấu hình quạt dài ${JHIN_R_RANGE} đơn vị trong ${secs(JHIN_R_WINDOW_MS)} giây (Jhin bị trói chân và mở rộng tầm nhìn).
     Bấm R thêm ${JHIN_R_SHOTS} lần nữa, mỗi lần cách nhau ${secs(JHIN_R_SHOT_GAP_MS)} giây, để bắn ${JHIN_R_SHOTS} phát đạn tỉa:
-    <span class="damage physical">${JHIN_R_DAMAGE} sát thương vật lý</span> cho 3 phát đầu và
-    <span class="damage physical">${JHIN_R_FINAL_DAMAGE} sát thương chí mạng</span> cho phát thứ 4,
+    ${dmg(JHIN_R_DAMAGE, 'PHYSICAL')} cho 3 phát đầu và
+    ${dmg(JHIN_R_FINAL_DAMAGE, 'PHYSICAL', ' chí mạng')} cho phát thứ 4,
     làm chậm kẻ địch đầu tiên trúng đạn ${pct(JHIN_R_SLOW)}% trong ${secs(JHIN_R_SLOW_MS)} giây.`;
   coolDown = 10_000;
   manaCost = 100;

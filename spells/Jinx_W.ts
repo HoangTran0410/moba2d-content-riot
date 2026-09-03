@@ -8,6 +8,7 @@ const MissileSpellObject = api.MissileSpellObject;
 const Slow = api.buffs.Slow;
 const AoePulse = api.AoePulse;
 const TrailSystem = api.helpers.TrailSystem;
+const dmg = api.text.dmg;
 
 
 /**
@@ -35,7 +36,7 @@ export default class Jinx_W extends Spell {
   name = 'Giật Bắn! (Jinx_W)';
   description =
     `Bắn một tia điện xa <span>${RANGE}px</span>: mục tiêu đầu tiên trúng phải nhận` +
-    ` <span class="damage physical">${DAMAGE} sát thương vật lý</span> và bị <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span>` +
+    ` ${dmg(DAMAGE, 'PHYSICAL')} và bị <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span>` +
     ` trong <span class="time">${secs(SLOW_DURATION)} giây</span>`;
   coolDown = 9000;
   manaCost = 35;

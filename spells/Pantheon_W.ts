@@ -9,6 +9,7 @@ const Spell = api.Spell;
 const Dash = api.buffs.Dash;
 const Stun = api.buffs.Stun;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 export const RANGE = 400;
@@ -55,7 +56,7 @@ export default class Pantheon_W extends Spell {
   name = 'Khiên Trời Giáng (Pantheon_W)';
   description =
     `Lao tới kẻ địch <i>gần con trỏ chuột nhất</i> trong <span>${RANGE}px</span>.` +
-    ` <i>Khi đáp xuống</i>, đập khiên gây <span class="damage physical">${DAMAGE} sát thương vật lý</span>` +
+    ` <i>Khi đáp xuống</i>, đập khiên gây ${dmg(DAMAGE, 'PHYSICAL')}` +
     ` và <span class="buff">Choáng</span> trong <span class="time">${secs(STUN_DURATION)} giây</span>`;
   coolDown = 9000;
   manaCost = 30;

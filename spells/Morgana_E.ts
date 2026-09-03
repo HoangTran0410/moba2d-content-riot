@@ -19,6 +19,8 @@ const Slow = api.buffs.Slow;
 const Stun = api.buffs.Stun;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const heal = api.text.heal;
+const tint = api.text.tint;
 
 // Exported so the suite asserts the wiring, not a copy of the numbers —
 // retuning a value should not mean editing the test.
@@ -44,7 +46,7 @@ export default class Morgana_E extends Spell {
   targetingMode = 'SELF' as const;
   image = api.asset('spell_morgana_e');
   name = 'Khiên Đen (Morgana_E)';
-  description = `Ban cho đồng minh có ít máu nhất trong phạm vi (hoặc chính mình) một <span class="buff">Lá Chắn Đen</span> hấp thụ <span class="heal">${SHIELD_AMOUNT}</span> <span class="damage magic">sát thương phép</span> trong <span class="time">${secs(SHIELD_DURATION_MS)} giây</span>. <span class="buff">Chỉ chặn sát thương phép</span> — sát thương vật lý và sát thương chuẩn đi thẳng qua và không làm hao lá chắn. Khi lá chắn còn tồn tại, mục tiêu <span class="buff">miễn nhiễm mọi hiệu ứng khống chế</span> của kẻ địch (choáng, trói, câm lặng, làm chậm, hất tung, mê hoặc, khiếp sợ, ghìm, kéo/đẩy) — mỗi hiệu ứng bị chặn sẽ bị xoá ngay lập tức. Không chặn được <span class="buff">Mờ Mắt</span>, cũng không chặn khống chế từ chính mình hoặc đồng đội.`;
+  description = `Ban cho đồng minh có ít máu nhất trong phạm vi (hoặc chính mình) một <span class="buff">Lá Chắn Đen</span> hấp thụ ${heal(SHIELD_AMOUNT)} ${tint('sát thương phép', 'MAGIC')} trong <span class="time">${secs(SHIELD_DURATION_MS)} giây</span>. <span class="buff">Chỉ chặn sát thương phép</span> — sát thương vật lý và sát thương chuẩn đi thẳng qua và không làm hao lá chắn. Khi lá chắn còn tồn tại, mục tiêu <span class="buff">miễn nhiễm mọi hiệu ứng khống chế</span> của kẻ địch (choáng, trói, câm lặng, làm chậm, hất tung, mê hoặc, khiếp sợ, ghìm, kéo/đẩy) — mỗi hiệu ứng bị chặn sẽ bị xoá ngay lập tức. Không chặn được <span class="buff">Mờ Mắt</span>, cũng không chặn khống chế từ chính mình hoặc đồng đội.`;
   coolDown = 6000;
   manaCost = 40;
 

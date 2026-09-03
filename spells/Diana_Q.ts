@@ -9,6 +9,7 @@ const Circle = api.utils.Quadtree.Circle;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 
@@ -121,7 +122,7 @@ export default class Diana_Q extends Spell {
   image = api.asset('spell_diana_q');
   name = 'Trăng Lưỡi Liềm (Diana_Q)';
   description = `Bắn ra một vệt ánh trăng hình lưỡi liềm uốn lượn tới điểm chỉ định, gây
-    <span class="damage magic">${Q_DAMAGE} sát thương phép</span> cho kẻ địch trên đường bay và tại điểm đích,
+    ${dmg(Q_DAMAGE, 'MAGIC')} cho kẻ địch trên đường bay và tại điểm đích,
     đồng thời đánh dấu Ánh Trăng trong ${secs(MOONLIGHT_MS)} giây.`;
   coolDown = 8_000;
   manaCost = 30;

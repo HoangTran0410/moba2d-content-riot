@@ -11,6 +11,7 @@ const BuffAddType = api.enums.BuffAddType;
 const Buff = api.buffs.Buff;
 const HomingMissileSpellObject = api.HomingMissileSpellObject;
 const TrailSystem = api.helpers.TrailSystem;
+const dmg = api.text.dmg;
 
 
 type SigilTarget = AttackableUnit;
@@ -41,7 +42,7 @@ export default class Leblanc_Q extends Spell {
   image = api.asset('spell_leblanc_q');
   name = 'Ấn Ác Ý (Leblanc_Q)';
   description =
-    'Phóng một quả cầu vào kẻ địch, gây <span class="damage magic">24 sát thương phép</span> và đánh dấu mục tiêu trong <span class="time">3.5 giây</span>. Kỹ năng gây sát thương tiếp theo của LeBlanc lên mục tiêu đã đánh dấu sẽ kích nổ dấu ấn, gây thêm <span class="damage magic">24 sát thương phép</span> và làm mới dấu ấn.';
+    `Phóng một quả cầu vào kẻ địch, gây ${dmg(24, 'MAGIC')} và đánh dấu mục tiêu trong <span class="time">3.5 giây</span>. Kỹ năng gây sát thương tiếp theo của LeBlanc lên mục tiêu đã đánh dấu sẽ kích nổ dấu ấn, gây thêm ${dmg(24, 'MAGIC')} và làm mới dấu ấn.`;
   coolDown = 6_000;
   manaCost = MANA_COST;
 
@@ -145,7 +146,7 @@ export class Leblanc_Q_Mark extends Buff {
   onCreate(): void {
     this.description =
       `Bị đánh dấu — chiêu thức kế tiếp của LeBlanc kích nổ ấn ký để gây thêm ` +
-      `<span class="damage magic">${Math.round(this.bonusDamage)} sát thương phép</span>.`;
+      `${dmg(Math.round(this.bonusDamage), 'MAGIC')}.`;
   }
 
   draw(): void {

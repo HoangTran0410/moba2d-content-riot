@@ -14,6 +14,8 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const TrailSystem = api.helpers.TrailSystem;
 const MissileSpellObject = api.MissileSpellObject;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
+const dmgValue = api.text.dmgValue;
 
 
 /** How long a lotus mark rides a body. Shared by Q, W and E — defined here, imported there. */
@@ -102,7 +104,7 @@ export default class Jhin_Q extends Spell {
   name = 'Lựu Đạn Nhảy Múa (Jhin_Q)';
   description = `Ném lựu đạn hoa vào <b>một kẻ địch được chỉ định</b>, rồi nảy sang tối đa
     ${JHIN_Q_MAX_HITS - 1} mục tiêu khác trong bán kính ${JHIN_Q_BOUNCE_RANGE}, mỗi lần nảy
-    mạnh hơn lần trước: <span class="damage physical">${JHIN_Q_DAMAGE.join(' / ')} sát thương vật lý</span>.
+    mạnh hơn lần trước: ${JHIN_Q_DAMAGE.map(step => dmgValue(step, 'PHYSICAL')).join(' / ')} sát thương vật lý.
     Mọi mục tiêu trúng đòn bị <b>đánh dấu</b> trong ${secs(JHIN_MARK_MS)} giây.`;
   coolDown = 8_000;
   manaCost = 30;

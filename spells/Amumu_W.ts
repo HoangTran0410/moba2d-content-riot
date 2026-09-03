@@ -6,6 +6,7 @@ const Circle = api.utils.Quadtree.Circle;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 export const RADIUS = 170;
 
@@ -28,7 +29,7 @@ export default class Amumu_W extends Spell {
   name = 'Tuyệt Vọng (Amumu_W)';
   description =
     `Tỏa ra nỗi buồn trong <span class="time">${secs(DURATION)} giây</span>, gây` +
-    ` <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span> mỗi <span class="time">${secs(TICK_INTERVAL)} giây</span>` +
+    ` ${dmg(DAMAGE_PER_TICK, 'MAGIC')} mỗi <span class="time">${secs(TICK_INTERVAL)} giây</span>` +
     ` cho mọi kẻ địch trong <span>${RADIUS}px</span>`;
   coolDown = 10000;
   manaCost = 25;

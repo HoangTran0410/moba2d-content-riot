@@ -12,6 +12,7 @@ const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const AttackableUnitClass = api.units.AttackableUnit;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 
 /**
@@ -69,7 +70,7 @@ export default class Orianna_W extends Spell {
   targetingMode = 'SELF' as const;
   image = api.asset('spell_orianna_w');
   name = 'Lệnh: Phát Sóng (Orianna_W)';
-  description = `Quả Cầu phát ra một xung điện <span class="buff">ngay tại chỗ nó đang đứng</span> trong bán kính <span class="buff">${RADIUS}</span>, gây <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> kẻ địch trong <span class="time">${secs(SLOW_DURATION_MS)} giây</span>. Điện trường còn lại <span class="time">${secs(FIELD_DURATION_MS)} giây</span>, cho đồng minh đứng trong đó <span class="buff">+${pct(SPEEDUP_PERCENT)}% tốc chạy</span>.`;
+  description = `Quả Cầu phát ra một xung điện <span class="buff">ngay tại chỗ nó đang đứng</span> trong bán kính <span class="buff">${RADIUS}</span>, gây ${dmg(DAMAGE, 'MAGIC')} và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> kẻ địch trong <span class="time">${secs(SLOW_DURATION_MS)} giây</span>. Điện trường còn lại <span class="time">${secs(FIELD_DURATION_MS)} giây</span>, cho đồng minh đứng trong đó <span class="buff">+${pct(SPEEDUP_PERCENT)}% tốc chạy</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

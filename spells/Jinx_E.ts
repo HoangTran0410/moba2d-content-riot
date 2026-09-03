@@ -10,6 +10,8 @@ const Pet = api.units.Pet;
 const Airborne = api.buffs.Airborne;
 const Root = api.buffs.Root;
 const AoePulse = api.AoePulse;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 
 export const MAX_RANGE = 500;
@@ -65,11 +67,11 @@ export default class Jinx_E extends Spell {
   name = 'Lựu Đạn Ma Hỏa! (Jinx_E)';
   description =
     `Ném <span>${COUNT} chiếc bẫy</span> xuống vị trí chỉ định. Bẫy <span class="buff">kích hoạt sau</span>` +
-    ` <span class="time">${secs(ARM_TIME_MS)} giây</span>: <span class="damage">tướng địch</span> giẫm phải bị` +
+    ` <span class="time">${secs(ARM_TIME_MS)} giây</span>: ${tint('tướng địch')} giẫm phải bị` +
     ` <span class="buff">Hất Tung</span> và <span class="buff">Trói Chân</span>` +
     ` <span class="time">${secs(ROOT_DURATION)} giây</span> (mỗi tướng chỉ dính một bẫy).` +
-    ` Sau <span class="time">${secs(FUSE_MS)} giây</span> bẫy tự nổ, gây <span class="damage magic">${DAMAGE} sát thương phép</span>.` +
-    ` Bẫy nằm lộ thiên và <span class="damage">có thể bị phá</span> (${CHOMPER_HEALTH} máu)`;
+    ` Sau <span class="time">${secs(FUSE_MS)} giây</span> bẫy tự nổ, gây ${dmg(DAMAGE, 'MAGIC')}.` +
+    ` Bẫy nằm lộ thiên và ${tint('có thể bị phá')} (${CHOMPER_HEALTH} máu)`;
   coolDown = 10000;
   manaCost = 50;
 

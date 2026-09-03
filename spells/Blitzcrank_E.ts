@@ -6,6 +6,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const Spell = api.Spell;
 const Airborne = api.buffs.Airborne;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 export default class Blitzcrank_E extends Spell {
   // Not a projectile, but the drag still only picks direction: the cone is
@@ -14,7 +15,7 @@ export default class Blitzcrank_E extends Spell {
   image = api.asset('spell_blitzcrank_e');
   name = 'Đấm Móc (Blitzcrank_E)';
   description =
-    'Vung nắm đấm thành <span>hình nón</span> ngay trước mặt, gây <span class="damage physical">25 sát thương vật lý</span> và <span class="buff">Hất Tung</span> mọi kẻ địch trúng đòn trong <span class="time">0.6 giây</span>';
+    `Vung nắm đấm thành <span>hình nón</span> ngay trước mặt, gây ${dmg(25, 'PHYSICAL')} và <span class="buff">Hất Tung</span> mọi kẻ địch trúng đòn trong <span class="time">0.6 giây</span>`;
   coolDown = 6000;
   manaCost = 20;
 

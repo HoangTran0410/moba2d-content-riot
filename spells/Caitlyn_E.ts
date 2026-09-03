@@ -11,6 +11,7 @@ const BuffAddType = api.enums.BuffAddType;
 const TrailSystem = api.helpers.TrailSystem;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 export const CAITLYN_E_RANGE = 430;
@@ -45,7 +46,7 @@ export default class Caitlyn_E extends Spell {
   image = api.asset('spell_caitlyn_e');
   name = 'Lưới 90 (Caitlyn_E)';
   description =
-    `Bắn một tấm lưới gây <span class="damage magic">${CAITLYN_E_DAMAGE} sát thương phép</span> và` +
+    `Bắn một tấm lưới gây ${dmg(CAITLYN_E_DAMAGE, 'MAGIC')} và` +
     ` <span class="buff">Làm Chậm ${pct(CAITLYN_E_SLOW_PERCENT)}%</span> kẻ địch đầu tiên trúng phải` +
     ` trong <span class="time">${secs(CAITLYN_E_SLOW_MS)} giây</span>.` +
     ` Lực giật đẩy Caitlyn lùi lại <span>${CAITLYN_E_RECOIL_DISTANCE}px</span> theo hướng ngược lại.`;

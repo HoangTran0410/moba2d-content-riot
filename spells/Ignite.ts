@@ -7,6 +7,7 @@ const Spell = api.Spell;
 const DamageOverTime = api.buffs.DamageOverTime;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 export default class Ignite extends Spell {
   // Auto-locks its own target; see "auto-locking spells" in docs/ADDING_SPELLS.md.
@@ -14,7 +15,7 @@ export default class Ignite extends Spell {
   image = api.asset('spell_ignite');
   name = 'Thiêu Đốt (Ignite)';
   description =
-    'Thiêu đốt kẻ địch gần nhất trong phạm vi <span>350px</span>, gây <span class="damage true">6 sát thương chuẩn</span> mỗi <span class="time">0.5 giây</span> trong <span class="time">5 giây</span> (tổng <span class="damage true">60 sát thương chuẩn</span>)';
+    `Thiêu đốt kẻ địch gần nhất trong phạm vi <span>350px</span>, gây ${dmg(6, 'TRUE')} mỗi <span class="time">0.5 giây</span> trong <span class="time">5 giây</span> (tổng ${dmg(60, 'TRUE')})`;
   coolDown = 6000;
 
   range = 350;

@@ -11,6 +11,7 @@ const Root = api.buffs.Root;
 const Silence = api.buffs.Silence;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 /**
  * Equinox. Two halves of one field: while it stands, nobody inside may cast;
@@ -40,7 +41,7 @@ export default class Soraka_E extends Spell {
   targetingMode = 'POINT' as const;
   image = api.asset('spell_soraka_e');
   name = 'Điểm Phân Cực (Soraka_E)';
-  description = `Mở một vùng ngày-đêm tại vị trí chỉ định, gây <span class="damage magic">${IMPACT_DAMAGE} sát thương phép</span> ngay lập tức và <span class="buff">Câm Lặng</span> kẻ địch đứng trong đó. Sau <span class="time">${secs(ZONE_DURATION_MS)} giây</span> vùng này sụp xuống, gây thêm <span class="damage magic">${ERUPT_DAMAGE} sát thương phép</span> và <span class="buff">Trói</span> trong <span class="time">${secs(ROOT_DURATION_MS)} giây</span>.`;
+  description = `Mở một vùng ngày-đêm tại vị trí chỉ định, gây ${dmg(IMPACT_DAMAGE, 'MAGIC')} ngay lập tức và <span class="buff">Câm Lặng</span> kẻ địch đứng trong đó. Sau <span class="time">${secs(ZONE_DURATION_MS)} giây</span> vùng này sụp xuống, gây thêm ${dmg(ERUPT_DAMAGE, 'MAGIC')} và <span class="buff">Trói</span> trong <span class="time">${secs(ROOT_DURATION_MS)} giây</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

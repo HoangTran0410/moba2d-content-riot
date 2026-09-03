@@ -9,6 +9,7 @@ const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const DamageOverTime = api.buffs.DamageOverTime;
 const HealCut = api.buffs.HealCut;
+const tint = api.text.tint;
 
 export const DURATION = 6000;
 
@@ -33,7 +34,7 @@ export default class Singed_Q extends Spell {
   name = 'Phun Khói Độc (Singed_Q)';
   description =
     `Rải khí độc phía sau trong <span class="time">${secs(DURATION)} giây</span>. Kẻ địch đi qua vệt độc bị` +
-    ` <span class="damage magic">nhiễm độc ${POISON_PER_TICK} sát thương phép</span> mỗi nhịp`;
+    ` ${tint(`nhiễm độc ${POISON_PER_TICK} sát thương phép`, 'MAGIC')} mỗi nhịp`;
   coolDown = 10000;
   manaCost = 30;
 

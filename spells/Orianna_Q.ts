@@ -8,6 +8,7 @@ const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
 const SPELL_EFFECT_Z_INDEX = api.layers.SPELL_EFFECT_Z_INDEX;
+const dmg = api.text.dmg;
 
 
 /**
@@ -123,7 +124,7 @@ export default class Orianna_Q extends Spell {
   targetingMode = 'POINT' as const;
   image = api.asset('spell_orianna_q');
   name = 'Lệnh: Tấn Công (Orianna_Q)';
-  description = `Ra lệnh cho Quả Cầu bay tới vị trí chỉ định và <span class="buff">ở lại đó</span>, gây <span class="damage magic">${BALL_PASS_DAMAGE} sát thương phép</span> lên mọi kẻ địch nó xuyên qua trên đường bay. Tầm ra lệnh <span class="buff">${MAX_REACH}</span>. Nếu Orianna đi xa Quả Cầu quá <span class="buff">${LEASH_RANGE}px</span>, nó <span class="buff">tự quay về bên cô</span> — sợi dây nối giữa hai bên sẽ căng dần và chuyển đỏ trước khi đứt.`;
+  description = `Ra lệnh cho Quả Cầu bay tới vị trí chỉ định và <span class="buff">ở lại đó</span>, gây ${dmg(BALL_PASS_DAMAGE, 'MAGIC')} lên mọi kẻ địch nó xuyên qua trên đường bay. Tầm ra lệnh <span class="buff">${MAX_REACH}</span>. Nếu Orianna đi xa Quả Cầu quá <span class="buff">${LEASH_RANGE}px</span>, nó <span class="buff">tự quay về bên cô</span> — sợi dây nối giữa hai bên sẽ căng dần và chuyển đỏ trước khi đứt.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
   range = MAX_REACH;

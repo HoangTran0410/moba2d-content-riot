@@ -8,6 +8,8 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const MissileSpellObject = api.MissileSpellObject;
 const AoePulse = api.AoePulse;
 const TrailSystem = api.helpers.TrailSystem;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 
 export const RANGE = 420;
@@ -28,9 +30,9 @@ export default class Graves_Q extends Spell {
   image = api.asset('spell_graves_q');
   name = 'Đạn Xuyên Mục Tiêu (Graves_Q)';
   description =
-    `Bắn một viên đạn xuyên qua kẻ địch (<span class="damage physical">${TRAVEL_DAMAGE} sát thương vật lý</span>)` +
-    ` rồi <span class="damage">phát nổ</span> ở cuối đường bay, gây thêm` +
-    ` <span class="damage physical">${BLAST_DAMAGE} sát thương vật lý</span> trong <span>${BLAST_RADIUS}px</span>`;
+    `Bắn một viên đạn xuyên qua kẻ địch (${dmg(TRAVEL_DAMAGE, 'PHYSICAL')})` +
+    ` rồi ${tint('phát nổ')} ở cuối đường bay, gây thêm` +
+    ` ${dmg(BLAST_DAMAGE, 'PHYSICAL')} trong <span>${BLAST_RADIUS}px</span>`;
   coolDown = 9000;
   manaCost = 30;
 

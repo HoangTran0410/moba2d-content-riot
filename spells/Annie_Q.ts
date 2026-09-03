@@ -11,6 +11,7 @@ const isLethal = api.combat.ExecuteTargeting.isLethal;
 const HomingMissileSpellObject = api.HomingMissileSpellObject;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 export const RANGE = 500;
@@ -56,7 +57,7 @@ export default class Annie_Q extends Spell implements ExecuteSpell {
   name = 'Hỏa Cầu (Annie_Q)';
   description =
     `Ném cầu lửa vào một mục tiêu trong <span>${RANGE}px</span>, gây` +
-    ` <span class="damage magic">${DAMAGE} sát thương phép</span>. Nếu <span class="buff">hạ gục</span> mục tiêu,` +
+    ` ${dmg(DAMAGE, 'MAGIC')}. Nếu <span class="buff">hạ gục</span> mục tiêu,` +
     ` hoàn lại toàn bộ mana và <span class="buff">giảm ${pct((1 - KILL_COOLDOWN_SCALE))}% hồi chiêu</span>`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;

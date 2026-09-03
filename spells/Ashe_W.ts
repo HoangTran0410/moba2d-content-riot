@@ -7,6 +7,7 @@ const MissileSpellObject = api.MissileSpellObject;
 const Slow = api.buffs.Slow;
 const TrailSystem = api.helpers.TrailSystem;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 /** Windup: each needle draws itself out of the bow rather than blinking in. */
 export const NEEDLE_SPAWN_MS = 90;
@@ -23,7 +24,7 @@ export default class Ashe_W extends Spell {
   image = api.asset('spell_ashe_w');
   name = 'Tán Xạ Tiễn (Ashe_W)';
   description =
-    'Bắn ra <span>10 mũi tên</span> theo hình nón. Mỗi mũi tên gây <span class="damage physical">5 sát thương vật lý</span> và <span class="buff">Làm Chậm 75%</span> kẻ địch trúng chiêu trong <span class="time">1.5 giây</span>';
+    `Bắn ra <span>10 mũi tên</span> theo hình nón. Mỗi mũi tên gây ${dmg(5, 'PHYSICAL')} và <span class="buff">Làm Chậm 75%</span> kẻ địch trúng chiêu trong <span class="time">1.5 giây</span>`;
   coolDown = 5000;
   manaCost = 30;
 

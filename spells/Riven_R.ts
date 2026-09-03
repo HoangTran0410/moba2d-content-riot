@@ -9,6 +9,9 @@ const Spell = api.Spell;
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
+const dmgValue = api.text.dmgValue;
 
 
 export const R_DURATION_MS = 9_000;
@@ -96,10 +99,10 @@ export default class Riven_R extends Spell {
   name = 'Lưỡi Kiếm Lưu Đày (Riven_R)';
   description =
     `Hàn lại lưỡi kiếm vỡ trong ${secs(R_DURATION_MS)} giây: ` +
-    `<span class="damage">+${pct(R_DAMAGE_AMP)}% sát thương</span> và mọi nhát Q ` +
+    `${tint(`+${pct(R_DAMAGE_AMP)}% sát thương`)} và mọi nhát Q ` +
     `mang một lưỡi năng lượng dài. Bấm lại để phóng Kiếm Phong hình nón dài ${R_LENGTH}, ` +
-    `gây <span class="damage physical">${R_DAMAGE} sát thương vật lý</span>, tăng dần tới ` +
-    `<span class="damage physical">${R_DAMAGE_MAX}</span> khi mục tiêu còn dưới ` +
+    `gây ${dmg(R_DAMAGE, 'PHYSICAL')}, tăng dần tới ` +
+    `${dmgValue(R_DAMAGE_MAX, 'PHYSICAL')} khi mục tiêu còn dưới ` +
     `${pct(R_EXECUTE_THRESHOLD)}% máu.`;
   coolDown = 10_000;
   manaCost = 100;

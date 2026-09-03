@@ -11,6 +11,7 @@ const Dash = api.buffs.Dash;
 const Slow = api.buffs.Slow;
 const SpellObject = api.SpellObject;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
+const dmg = api.text.dmg;
 
 
 export const RANGE = 160;
@@ -51,7 +52,7 @@ export default class Singed_E extends Spell {
   description =
     `Túm kẻ địch gần nhất trong <span>${RANGE}px</span> và quăng qua đầu mình,` +
     ` <span class="buff">Hất Tung</span> chúng và đáp xuống <span>${THROW_DISTANCE}px</span> phía sau lưng Singed.` +
-    ` <i>Khi tiếp đất</i>: <span class="damage magic">${DAMAGE} sát thương phép</span> và` +
+    ` <i>Khi tiếp đất</i>: ${dmg(DAMAGE, 'MAGIC')} và` +
     ` <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span>`;
   coolDown = 9000;
   manaCost = 25;

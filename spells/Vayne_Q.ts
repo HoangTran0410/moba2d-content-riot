@@ -14,6 +14,7 @@ const BuffAddType = api.enums.BuffAddType;
 const EventType = api.enums.EventType;
 const Buff = api.buffs.Buff;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 /** How far the roll carries her. Repositioning, not travel. */
@@ -51,7 +52,7 @@ export default class Vayne_Q extends Spell {
   name = 'Nhào Lộn (Vayne_Q)';
   description = `Lăn một đoạn ngắn. Đòn đánh thường kế tiếp trong
     ${secs(VAYNE_Q_EMPOWER_MS)} giây gây thêm
-    <span class="damage physical">${VAYNE_Q_BONUS} sát thương vật lý</span>.`;
+    ${dmg(VAYNE_Q_BONUS, 'PHYSICAL')}.`;
   coolDown = 4_000;
   manaCost = 20;
   range = VAYNE_Q_DISTANCE;

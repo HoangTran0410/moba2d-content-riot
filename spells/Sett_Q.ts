@@ -6,6 +6,7 @@ const EventType = api.enums.EventType;
 const StatAmp = api.buffs.StatAmp;
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 export const SETT_Q_HITS = 2;
@@ -43,7 +44,7 @@ export default class Sett_Q extends Spell {
   name = 'Không Trượt Phát Nào (Sett_Q)';
   description =
     `Nắm tay rực lửa: ${SETT_Q_HITS} đòn đánh thường tiếp theo trong ` +
-    `${secs(SETT_Q_WINDOW_MS)} giây gây thêm <span class="damage physical">${SETT_Q_BONUS} sát thương vật lý</span>, ` +
+    `${secs(SETT_Q_WINDOW_MS)} giây gây thêm ${dmg(SETT_Q_BONUS, 'PHYSICAL')}, ` +
     `và Sett được +${pct(SETT_Q_ATTACK_SPEED)}% tốc độ đánh trong suốt thời gian đó.`;
   coolDown = 7_000;
   manaCost = 20;

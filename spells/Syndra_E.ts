@@ -12,6 +12,7 @@ const Spell = api.Spell;
 const SpellObject = api.SpellObject;
 const TrailSystem = api.helpers.TrailSystem;
 const MissileSpellObject = api.MissileSpellObject;
+const dmg = api.text.dmg;
 
 
 
@@ -77,9 +78,9 @@ export default class Syndra_E extends Spell {
   image = api.asset('spell_syndra_e');
   name = 'Quét Tan Kẻ Yếu (Syndra_E)';
   description = `Quét một hình quạt ${SYNDRA_E_ARC_DEG}° dài ${SYNDRA_E_LENGTH}:
-    <span class="damage magic">${SYNDRA_E_DAMAGE} sát thương phép</span>, đẩy lùi và làm choáng.
+    ${dmg(SYNDRA_E_DAMAGE, 'MAGIC')}, đẩy lùi và làm choáng.
     <b>Mọi quả cầu trong hình quạt cũng bị bắn đi</b>, mỗi quả gây thêm
-    <span class="damage magic">${SYNDRA_E_SPHERE_DAMAGE} sát thương phép</span> cho mục tiêu đầu tiên
+    ${dmg(SYNDRA_E_SPHERE_DAMAGE, 'MAGIC')} cho mục tiêu đầu tiên
     rồi nằm lại chỗ mới.`;
   coolDown = 10_000;
   manaCost = 40;

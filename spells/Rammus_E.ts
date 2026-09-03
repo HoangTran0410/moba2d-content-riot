@@ -8,6 +8,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const Spell = api.Spell;
 const AoePulse = api.AoePulse;
 const Taunt = api.buffs.Taunt;
+const dmg = api.text.dmg;
 
 
 export const RANGE = 200;
@@ -46,7 +47,7 @@ export default class Rammus_E extends Spell {
   image = api.asset('spell_rammus_e');
   name = 'Khiêu Khích Điên Cuồng (Rammus_E)';
   description =
-    `Chọc giận <span class="buff">toàn bộ kẻ địch</span> trong <span>${RANGE}px</span>: mỗi mục tiêu chịu <span class="damage magic">${DAMAGE} sát thương phép</span>` +
+    `Chọc giận <span class="buff">toàn bộ kẻ địch</span> trong <span>${RANGE}px</span>: mỗi mục tiêu chịu ${dmg(DAMAGE, 'MAGIC')}` +
     ` và <span class="buff">Khiêu Khích</span> trong <span class="time">${secs(DURATION)} giây</span> —` +
     ` mục tiêu <span class="debuff">buộc phải đuổi theo và đánh thường vào Rammus</span>,` +
     ` không thể dùng chiêu thức (vẫn đánh thường và di chuyển được, nhưng không tự chọn được nữa)`;

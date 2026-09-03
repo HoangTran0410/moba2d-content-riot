@@ -11,6 +11,7 @@ const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const sweepToWall = api.terrain.sweepToWall;
 const AoePulse = api.AoePulse;
+const dmg = api.text.dmg;
 
 /** Small on purpose: E is a stun with a reposition attached, not a damage button. */
 export const E_DAMAGE = 16;
@@ -55,7 +56,7 @@ export default class Pyke_E extends Spell {
     `Pyke lướt <span class="buff">${PHANTOM_DASH_DISTANCE}px</span> theo hướng chỉ định, để lại một bóng ma tại chỗ cũ.` +
     ` Sau <span class="time">${secs(PHANTOM_DELAY_MS)} giây</span>, bóng ma lao ngược về phía Pyke,` +
     ` <span class="buff">Làm Choáng</span> mọi kẻ địch nó đi xuyên qua trong` +
-    ` <span class="time">${secs(E_STUN_MS)} giây</span> và gây <span class="damage physical">${E_DAMAGE} sát thương vật lý</span>`;
+    ` <span class="time">${secs(E_STUN_MS)} giây</span> và gây ${dmg(E_DAMAGE, 'PHYSICAL')}`;
   coolDown = E_COOLDOWN_MS;
   manaCost = E_MANA_COST;
 

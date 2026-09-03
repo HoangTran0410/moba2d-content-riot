@@ -12,6 +12,8 @@ const SpellObject = api.SpellObject;
 const Slow = api.buffs.Slow;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
+const heal = api.text.heal;
 
 
 /**
@@ -76,7 +78,7 @@ export default class Soraka_Q extends Spell {
   targetingMode = 'POINT' as const;
   image = api.asset('spell_soraka_q');
   name = 'Vẫn Tinh (Soraka_Q)';
-  description = `Gọi một vì sao rơi xuống vị trí chỉ định sau <span class="time">${secs(FALL_TIME_MS)} giây</span>, gây <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> trong <span class="time">${secs(SLOW_DURATION_MS)} giây</span>. Nếu trúng ít nhất một kẻ địch, bụi sao trở về với Soraka: hồi <span class="heal">${REJUVENATION_HEAL} máu</span> và <span class="buff">+${pct(REJUVENATION_SPEED_PERCENT)}% tốc chạy</span> trong <span class="time">${secs(REJUVENATION_DURATION_MS)} giây</span>.`;
+  description = `Gọi một vì sao rơi xuống vị trí chỉ định sau <span class="time">${secs(FALL_TIME_MS)} giây</span>, gây ${dmg(DAMAGE, 'MAGIC')} và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> trong <span class="time">${secs(SLOW_DURATION_MS)} giây</span>. Nếu trúng ít nhất một kẻ địch, bụi sao trở về với Soraka: hồi ${heal(REJUVENATION_HEAL, ' máu')} và <span class="buff">+${pct(REJUVENATION_SPEED_PERCENT)}% tốc chạy</span> trong <span class="time">${secs(REJUVENATION_DURATION_MS)} giây</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

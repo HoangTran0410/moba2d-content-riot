@@ -13,6 +13,7 @@ const Dash = api.buffs.Dash;
 const Spell = api.Spell;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 export const R_RANGE = 450;
@@ -62,9 +63,9 @@ export default class Vi_R extends Spell {
   image = api.asset('spell_vi_r');
   name = 'Tả Xung Hữu Đột (Vi_R)';
   description = `Lao tới một mục tiêu và không gì cản được:
-    <span class="damage physical">${R_DAMAGE} sát thương vật lý</span> và hất tung
+    ${dmg(R_DAMAGE, 'PHYSICAL')} và hất tung
     ${secs(R_KNOCKUP_MS)} giây khi tới. Kẻ địch trên đường bị gạt sang bên,
-    chịu <span class="damage physical">${R_PASS_DAMAGE} sát thương vật lý</span>.`;
+    chịu ${dmg(R_PASS_DAMAGE, 'PHYSICAL')}.`;
   coolDown = 10_000;
   manaCost = 100;
   range = R_RANGE;

@@ -21,6 +21,8 @@ const effectiveRange = api.combat.Reach.effectiveRange;
 const Untargetable = api.buffs.Untargetable;
 const effectiveHealth = api.combat.ExecuteTargeting.effectiveHealth;
 const pickExecuteTarget = api.combat.ExecuteTargeting.pickExecuteTarget;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 /**
  * Below this much effective health — the bar plus every shield standing in
@@ -74,8 +76,8 @@ export default class Pyke_R extends Spell implements ExecuteSpell {
   description =
     `Pyke đánh dấu chỗ đứng của mục tiêu bằng một chữ X, rồi sau <span class="time">${secs(WINDUP_MS)} giây</span> đâm lên từ dưới đất.` +
     ` Kẻ địch còn dưới <span class="buff">${EXECUTE_THRESHOLD} máu hiệu dụng</span> (tính cả khiên) bị` +
-    ` <span class="damage">hành quyết ngay lập tức</span>; số còn lại chỉ nhận` +
-    ` <span class="damage magic">${STRIKE_DAMAGE} sát thương phép</span>.` +
+    ` ${tint('hành quyết ngay lập tức')}; số còn lại chỉ nhận` +
+    ` ${dmg(STRIKE_DAMAGE, 'MAGIC')}.` +
     ` Trong lúc chờ, Pyke <span class="buff">lặn xuống đất và không thể bị chọn làm mục tiêu</span>,` +
     ` rồi <span class="buff">trồi lên ngay tại chỗ đánh dấu</span>.` +
     ` Nếu nhát đâm kết liễu mục tiêu, chiêu cuối <span class="buff">hồi ngay lập tức</span>`;

@@ -8,6 +8,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 
 export const E_CHARGES = 2;
@@ -55,7 +56,7 @@ export default class Vi_E extends Spell {
   image = api.asset('spell_vi_e');
   name = 'Cú Đấm Xuyên Thấu (Vi_E)';
   description = `Đòn đánh thường kế tiếp xuyên qua mục tiêu thành một hình nêm dài
-    ${E_LENGTH} đơn vị, gây <span class="damage physical">${E_DAMAGE} sát thương vật lý</span> cho mọi
+    ${E_LENGTH} đơn vị, gây ${dmg(E_DAMAGE, 'PHYSICAL')} cho mọi
     kẻ địch phía sau. Tích được ${E_CHARGES} lần dùng.`;
   coolDown = 9_000;
   manaCost = 25;

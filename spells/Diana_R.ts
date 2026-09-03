@@ -8,6 +8,7 @@ const effectiveRange = api.combat.Reach.effectiveRange;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 export const R_RADIUS = 330;
@@ -47,7 +48,7 @@ export default class Diana_R extends Spell {
   image = api.asset('spell_diana_r');
   name = 'Trăng Mờ (Diana_R)';
   description = `Mọi kẻ địch trong bán kính ${R_RADIUS} bị kéo về sát Diana trong
-    ${secs(R_PULL_MS)} giây, rồi hứng <span class="damage magic">${R_DAMAGE} sát thương phép</span> khi
+    ${secs(R_PULL_MS)} giây, rồi hứng ${dmg(R_DAMAGE, 'MAGIC')} khi
     đã bị dồn lại.`;
   coolDown = 10_000;
   manaCost = 100;

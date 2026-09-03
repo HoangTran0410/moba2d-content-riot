@@ -14,6 +14,7 @@ const intersectsBeam = api.intersectsBeam;
 const MissileSpellObject = api.MissileSpellObject;
 const SpellObject = api.SpellObject;
 const Rectangle = api.utils.Quadtree.Rectangle;
+const dmg = api.text.dmg;
 
 
 
@@ -86,7 +87,7 @@ export default class Irelia_E extends Spell {
   name = 'Bước Nhảy Hoàn Vũ (Irelia_E)';
   description = `Ném một lưỡi kiếm tới vị trí chỉ định; kiếm cắm xuống đất và chờ ở đó.
     Bấm lần nữa để ném lưỡi thứ hai — khi nó cắm xuống, hai lưỡi kiếm lao vào nhau,
-    gây <span class="damage magic">${E_DAMAGE} sát thương phép</span> và
+    gây ${dmg(E_DAMAGE, 'MAGIC')} và
     <span class="buff">làm choáng</span> <span class="time">${secs(E_STUN_MS)} giây</span>
     mọi kẻ địch nằm giữa chúng.`;
   coolDown = 10_000;

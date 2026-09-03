@@ -10,6 +10,7 @@ const BuffAddType = api.enums.BuffAddType;
 const SpellObject = api.SpellObject;
 const Champion = api.units.Champion;
 const Monster = api.units.Monster;
+const dmg = api.text.dmg;
 
 const SOURCE_LABEL = 'Máy Sốc Tim';
 
@@ -71,9 +72,9 @@ export default class DrMundo_W extends Spell {
   name = 'Máy Sốc Tim (DrMundo_W)';
   description =
     `Sạc điện trong <span class="time">${secs(DURATION_MS)} giây</span>: mỗi ${secs(TICK_MS)} giây gây ` +
-    `<span class="damage magic">${TICK_DAMAGE} sát thương phép</span> cho kẻ địch gần đó, và tích trữ ` +
+    `${dmg(TICK_DAMAGE, 'MAGIC')} cho kẻ địch gần đó, và tích trữ ` +
     `<span class="buff">${pct(STORE_RATIO)}%</span> sát thương Mundo nhận vào. Khi kết thúc, kích nổ gây thêm ` +
-    `<span class="damage magic">${DETONATE_DAMAGE} sát thương phép</span> quanh Mundo và hồi lại một phần sát thương đã hứng: ` +
+    `${dmg(DETONATE_DAMAGE, 'MAGIC')} quanh Mundo và hồi lại một phần sát thương đã hứng: ` +
     `bằng ${pct(BASE_HEAL_RATIO)}% lượng tích trữ (${pct(CHAMPION_HEAL_RATIO)}% nếu kích nổ trúng tướng địch hoặc quái lớn).`;
   coolDown = COOLDOWN_MS;
   manaCost = 0;
@@ -123,7 +124,7 @@ export class DrMundo_W_Charge extends Buff {
   name = 'Sạc Điện';
   description =
     `Tích <span class="buff">${pct(STORE_RATIO)}%</span> sát thương Mundo hứng vào; khi hết hiệu lực,` +
-    ` nổ gây <span class="damage magic">${DETONATE_DAMAGE} sát thương phép</span> và hồi lại lượng đã tích.`;
+    ` nổ gây ${dmg(DETONATE_DAMAGE, 'MAGIC')} và hồi lại lượng đã tích.`;
   buffAddType = BuffAddType.REPLACE_EXISTING;
 
   /** Health banked so far, in already-mitigated points — what `onDeactivate` pays out. */

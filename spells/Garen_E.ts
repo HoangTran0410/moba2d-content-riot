@@ -9,6 +9,8 @@ const Circle = api.utils.Quadtree.Circle;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 export const RADIUS = 180;
 
@@ -47,9 +49,9 @@ export default class Garen_E extends Spell {
   name = 'Phán Quyết (Garen_E)';
   description =
     `Xoay kiếm quanh mình <span class="time">${secs(DURATION)} giây</span>, chém` +
-    ` <span>${HITS} lần</span> × <span class="damage physical">${DAMAGE_PER_HIT} sát thương vật lý</span> cho kẻ địch trong` +
+    ` <span>${HITS} lần</span> × ${dmg(DAMAGE_PER_HIT, 'PHYSICAL')} cho kẻ địch trong` +
     ` <span>${RADIUS}px</span>. Trong lúc xoay, Garen <span class="buff">đi xuyên qua kẻ địch</span> nhưng` +
-    ` <span class="damage">không thể đánh thường</span>. Tướng địch trúng đủ` +
+    ` ${tint('không thể đánh thường')}. Tướng địch trúng đủ` +
     ` <span class="buff">${SHRED_AT_HIT} nhát</span> bị <span class="buff">giảm ${pct(SHRED_PERCENT)}% giáp</span>` +
     ` trong <span class="time">${secs(SHRED_MS)} giây</span>`;
   coolDown = 9000;

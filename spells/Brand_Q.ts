@@ -7,6 +7,7 @@ const Spell = api.Spell;
 const MissileSpellObject = api.MissileSpellObject;
 const Stun = api.buffs.Stun;
 const TrailSystem = api.helpers.TrailSystem;
+const dmg = api.text.dmg;
 
 
 /**
@@ -80,7 +81,7 @@ export default class Brand_Q extends Spell {
   targetingMode = 'DIRECTION' as const;
   image = api.asset('spell_brand_q');
   name = 'Vệt Lửa (Brand_Q)';
-  description = `Phóng một quả cầu lửa, gây <span class="damage magic">${DAMAGE} sát thương phép</span> cho kẻ địch đầu tiên trúng phải và <span class="buff">Thiêu Đốt</span> mục tiêu. Nếu mục tiêu <span class="buff">đã bị Thiêu Đốt</span> từ trước, nó bị <span class="buff">Choáng</span> trong <span class="time">${secs(STUN_DURATION_MS)} giây</span>.`;
+  description = `Phóng một quả cầu lửa, gây ${dmg(DAMAGE, 'MAGIC')} cho kẻ địch đầu tiên trúng phải và <span class="buff">Thiêu Đốt</span> mục tiêu. Nếu mục tiêu <span class="buff">đã bị Thiêu Đốt</span> từ trước, nó bị <span class="buff">Choáng</span> trong <span class="time">${secs(STUN_DURATION_MS)} giây</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

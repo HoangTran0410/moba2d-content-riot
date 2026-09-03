@@ -12,6 +12,7 @@ const StatAmp = api.buffs.StatAmp;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 
 export const DASH_DISTANCE = 250;
@@ -54,11 +55,11 @@ export default class Renekton_E extends Spell {
   name = 'Cắt và Xắt (Renekton_E)';
   description =
     `Lướt <span>${DASH_DISTANCE}px</span> theo hướng chỉ định, gây` +
-    ` <span class="damage physical">${DAMAGE} sát thương vật lý</span> cho mọi kẻ địch trên đường (mỗi mục tiêu chỉ trúng một lần).` +
+    ` ${dmg(DAMAGE, 'PHYSICAL')} cho mọi kẻ địch trên đường (mỗi mục tiêu chỉ trúng một lần).` +
     ` Nếu trúng ít nhất một kẻ địch, có thể <span class="buff">lướt lần hai</span> trong` +
     ` <span class="time">${secs(RECAST_WINDOW_MS)} giây</span>.` +
     ` <span class="buff">Cuồng Nộ</span>: lần lướt thứ hai gây thêm` +
-    ` <span class="damage physical">${ENRAGED_BONUS_DAMAGE} sát thương vật lý</span> và` +
+    ` ${dmg(ENRAGED_BONUS_DAMAGE, 'PHYSICAL')} và` +
     ` <span class="buff">giảm ${pct(SHRED_PERCENT)}% giáp</span> của mục tiêu` +
     ` trong <span class="time">${secs(SHRED_MS)} giây</span>`;
   coolDown = 9_000;

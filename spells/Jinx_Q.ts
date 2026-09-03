@@ -5,6 +5,7 @@ import { pct, secs } from '../text';
 const Spell = api.Spell;
 const StatAmp = api.buffs.StatAmp;
 const SpellObject = api.SpellObject;
+const tint = api.text.tint;
 
 export const DURATION = 6000;
 
@@ -49,7 +50,7 @@ export default class Jinx_Q extends Spell {
   description =
     `Đổi sang súng phóng lựu trong <span class="time">${secs(DURATION)} giây</span>:` +
     ` <span class="buff">+${BONUS_RANGE} tầm đánh</span>, <span class="buff">+${ON_HIT_DAMAGE} sát thương mỗi đòn</span>,` +
-    ` đổi lại <span class="damage">-${pct(Math.abs(ATTACK_SPEED_PENALTY))}% tốc độ đánh</span>`;
+    ` đổi lại ${tint(`-${pct(Math.abs(ATTACK_SPEED_PENALTY))}% tốc độ đánh`)}`;
   coolDown = 8000;
   manaCost = 20;
 

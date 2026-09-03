@@ -13,6 +13,7 @@ const MAX_UNIT_SIZE = api.units.MAX_UNIT_SIZE;
 const Airborne = api.buffs.Airborne;
 const Slow = api.buffs.Slow;
 const TrailSystem = api.helpers.TrailSystem;
+const dmg = api.text.dmg;
 
 
 
@@ -26,7 +27,7 @@ export default class Rammus_Q extends Spell {
   image = api.asset('spell_rammus_q');
   name = 'Quả Cầu Tốc Độ (Rammus_Q)';
   description =
-    'Cuộn tròn lăn đi trong <span class="time">4 giây</span>, <span class="buff">Tăng Tốc</span> tăng dần từ <span class="buff">20%</span> lên tới <span class="buff">120%</span> theo thời gian lăn. Trong lúc lăn <span class="buff">không thể đánh thường</span> nhưng vẫn dùng được chiêu khác. Kẻ địch va phải nhận <span class="damage magic">30 sát thương phép</span>, bị <span class="buff">Hất Tung</span> trong <span class="time">0.5 giây</span> rồi <span class="buff">Làm Chậm 60%</span> trong <span class="time">1.5 giây</span>, đồng thời kết thúc cú lăn.';
+    `Cuộn tròn lăn đi trong <span class="time">4 giây</span>, <span class="buff">Tăng Tốc</span> tăng dần từ <span class="buff">20%</span> lên tới <span class="buff">120%</span> theo thời gian lăn. Trong lúc lăn <span class="buff">không thể đánh thường</span> nhưng vẫn dùng được chiêu khác. Kẻ địch va phải nhận ${dmg(30, 'MAGIC')}, bị <span class="buff">Hất Tung</span> trong <span class="time">0.5 giây</span> rồi <span class="buff">Làm Chậm 60%</span> trong <span class="time">1.5 giây</span>, đồng thời kết thúc cú lăn.`;
   coolDown = 8000;
   manaCost = 20;
 

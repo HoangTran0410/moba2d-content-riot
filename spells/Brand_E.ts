@@ -12,6 +12,7 @@ const TargetResolver = api.combat.TargetResolver;
 const canSee = api.combat.Vision.canSee;
 const AttackableUnit = api.units.AttackableUnit;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 /**
@@ -40,7 +41,7 @@ export const ABLAZE_SPREAD_RADIUS = 260;
 export default class Brand_E extends Spell {
   image = api.asset('spell_brand_e');
   name = 'Bùng Cháy (Brand_E)';
-  description = `Đốt cháy một kẻ địch, gây <span class="damage magic">${DAMAGE} sát thương phép</span> rồi lan sang mọi kẻ địch trong bán kính <span class="buff">${SPREAD_RADIUS}</span> với cùng sát thương, đồng thời <span class="buff">Thiêu Đốt</span> tất cả. Nếu mục tiêu chính <span class="buff">đã bị Thiêu Đốt</span>, tầm lan xa gấp đôi (<span class="buff">${ABLAZE_SPREAD_RADIUS}</span>).`;
+  description = `Đốt cháy một kẻ địch, gây ${dmg(DAMAGE, 'MAGIC')} rồi lan sang mọi kẻ địch trong bán kính <span class="buff">${SPREAD_RADIUS}</span> với cùng sát thương, đồng thời <span class="buff">Thiêu Đốt</span> tất cả. Nếu mục tiêu chính <span class="buff">đã bị Thiêu Đốt</span>, tầm lan xa gấp đôi (<span class="buff">${ABLAZE_SPREAD_RADIUS}</span>).`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

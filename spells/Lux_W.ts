@@ -10,13 +10,14 @@ const AttackableUnit = api.units.AttackableUnit;
 const Shield = api.buffs.Shield;
 const TrailSystem = api.helpers.TrailSystem;
 const SpellObject = api.SpellObject;
+const heal = api.text.heal;
 
 export default class Lux_W extends Spell {
   targetingMode = 'DIRECTION' as const;
   image = api.asset('spell_lux_w');
   name = 'Lăng Kính Phòng Hộ (Lux_W)';
   description =
-    'Ném cây đũa ánh sáng theo hướng chỉ định rồi thu về, tạo <span class="buff">Lá Chắn</span> hấp thụ <span class="heal">60 sát thương</span> trong <span class="time">3 giây</span> cho bản thân và mọi đồng minh nó đi xuyên qua, ở cả lượt đi lẫn lượt về';
+    `Ném cây đũa ánh sáng theo hướng chỉ định rồi thu về, tạo <span class="buff">Lá Chắn</span> hấp thụ ${heal(60, ' sát thương')} trong <span class="time">3 giây</span> cho bản thân và mọi đồng minh nó đi xuyên qua, ở cả lượt đi lẫn lượt về`;
   coolDown = 8000;
   manaCost = 25;
 

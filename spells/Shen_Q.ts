@@ -12,6 +12,8 @@ const AoePulse = api.AoePulse;
 const TrailSystem = api.helpers.TrailSystem;
 const BuffAddType = api.enums.BuffAddType;
 const VectorUtils = api.utils.VectorUtils;
+const dmg = api.text.dmg;
+const dmgValue = api.text.dmgValue;
 
 /**
  * Công Kích Hoàng Hôn — the Spirit Blade thrown out and recalled.
@@ -73,15 +75,15 @@ export default class Shen_Q extends Spell {
   name = 'Công Kích Hoàng Hôn (Shen_Q)';
   description =
     `Shen phóng Linh Kiếm theo hướng chỉ định rồi thu về. Mỗi lượt bay gây` +
-    ` <span class="damage magic">${PASS_DAMAGE} sát thương phép</span> và` +
+    ` ${dmg(PASS_DAMAGE, 'MAGIC')} và` +
     ` <span class="buff">làm chậm ${pct(SLOW_PERCENT)}%</span> trong` +
     ` <span class="buff">${secs(SLOW_DURATION_MS)} giây</span> — mỗi lượt chỉ trúng một mục tiêu` +
     ` một lần, nên một đường kiếm đặt khéo sẽ chém trúng hai lần.` +
     ` Khi kiếm về tới tay, <span class="buff">${EMPOWERED_ATTACKS} đòn đánh thường</span> kế tiếp` +
     ` trong <span class="buff">${secs(EMPOWER_WINDOW_MS)} giây</span> được cộng` +
-    ` <span class="damage magic">${EMPOWERED_BONUS} sát thương phép</span> và` +
+    ` ${dmg(EMPOWERED_BONUS, 'MAGIC')} và` +
     ` <span class="buff">${BONUS_ATTACK_RANGE} tầm đánh</span>, nâng lên` +
-    ` <span class="damage magic">${EMPOWERED_BONUS_VS_CHAMPION}</span> nếu lưỡi kiếm có chạm trúng tướng địch.`;
+    ` ${dmgValue(EMPOWERED_BONUS_VS_CHAMPION, 'MAGIC')} nếu lưỡi kiếm có chạm trúng tướng địch.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
   range = BLADE_REACH;
@@ -215,8 +217,8 @@ export class Shen_Q_Empower extends Buff {
   name = 'Lưỡi Kiếm Hoàng Hôn';
   description =
     `<span class="buff">${EMPOWERED_ATTACKS} đòn đánh thường</span> kế tiếp gây thêm` +
-    ` <span class="damage magic">${EMPOWERED_BONUS} sát thương phép</span>` +
-    ` (<span class="damage magic">${EMPOWERED_BONUS_VS_CHAMPION}</span> nếu Linh Kiếm đã chạm tướng)` +
+    ` ${dmg(EMPOWERED_BONUS, 'MAGIC')}` +
+    ` (${dmgValue(EMPOWERED_BONUS_VS_CHAMPION, 'MAGIC')} nếu Linh Kiếm đã chạm tướng)` +
     ` và cộng <span class="buff">${BONUS_ATTACK_RANGE} tầm đánh</span>`;
   stackId = 'shen_q_empower';
   buffAddType = BuffAddType.REPLACE_EXISTING;

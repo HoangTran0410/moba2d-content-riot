@@ -8,6 +8,7 @@ const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
+const dmg = api.text.dmg;
 
 export const THROW_RANGE = 100;
 
@@ -45,7 +46,7 @@ export default class Teemo_R extends Spell {
   image = api.asset('spell_teemo_r');
   name = 'Bẫy Độc (Teemo_R)';
   description =
-    'Đặt 1 bẫy độc tàng hình sau <span class="time">1 giây</span>, tồn tại trong <span class="time">20 giây</span>, phát nổ khi kẻ địch dẫm phải, <span class="buff">Làm Chậm 70%</span> các kẻ địch trong <span class="time">2 giây</span> và gây <span class="damage magic">30 sát thương phép</span> <i>(sẽ nảy nếu đặt trên bẫy độc khác)</i>';
+    `Đặt 1 bẫy độc tàng hình sau <span class="time">1 giây</span>, tồn tại trong <span class="time">20 giây</span>, phát nổ khi kẻ địch dẫm phải, <span class="buff">Làm Chậm 70%</span> các kẻ địch trong <span class="time">2 giây</span> và gây ${dmg(30, 'MAGIC')} <i>(sẽ nảy nếu đặt trên bẫy độc khác)</i>`;
 
   coolDown = 3000;
 

@@ -15,6 +15,7 @@ const canSee = api.combat.Vision.canSee;
 const Slow = api.buffs.Slow;
 const TrailSystem = api.helpers.TrailSystem;
 const HomingMissileSpellObject = api.HomingMissileSpellObject;
+const dmg = api.text.dmg;
 
 
 type ZephyrTarget = AttackableUnit;
@@ -74,7 +75,7 @@ export class Janna_W_Passive extends StatAmp {
 export default class Janna_W extends Spell {
   image = api.asset('spell_janna_w');
   name = 'Gió Tây (Janna_W)';
-  description = `Nội tại: Janna luôn được <span class="buff">Ma Hoá</span> và <span class="buff">+${pct(PASSIVE_SPEED_PERCENT)}% Tốc Độ Di Chuyển</span>. Chủ động: gửi một linh hồn gió vào mục tiêu, gây <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> trong <span class="time">${secs(SLOW_DURATION_MS)} giây</span>.`;
+  description = `Nội tại: Janna luôn được <span class="buff">Ma Hoá</span> và <span class="buff">+${pct(PASSIVE_SPEED_PERCENT)}% Tốc Độ Di Chuyển</span>. Chủ động: gửi một linh hồn gió vào mục tiêu, gây ${dmg(DAMAGE, 'MAGIC')} và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> trong <span class="time">${secs(SLOW_DURATION_MS)} giây</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

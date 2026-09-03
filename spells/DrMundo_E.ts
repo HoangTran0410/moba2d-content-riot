@@ -15,6 +15,8 @@ const Spell = api.Spell;
 const SpellObject = api.SpellObject;
 const Champion = api.units.Champion;
 const Pet = api.units.Pet;
+const dmgRange = api.text.dmgRange;
+const tint = api.text.tint;
 
 const SOURCE_LABEL = 'Chấn Thương Cùn';
 
@@ -78,10 +80,10 @@ export default class DrMundo_E extends Spell {
   name = 'Chấn Thương Cùn (DrMundo_E)';
   description =
     `Tăng cường đòn đánh thường tiếp theo trong <span class="time">${secs(WINDOW_MS)} giây</span>: ` +
-    `+<span class="buff">${BONUS_RANGE}</span> tầm đánh và <span class="damage physical">${BASE_BONUS_DAMAGE}-${MAX_BONUS_DAMAGE} sát thương vật lý</span> ` +
+    `+<span class="buff">${BONUS_RANGE}</span> tầm đánh và ${dmgRange(BASE_BONUS_DAMAGE, MAX_BONUS_DAMAGE, 'PHYSICAL', '', '-')} ` +
     `(càng ít máu, sát thương càng cao, tối đa khi mất ${pct(MISSING_HEALTH_CAP)}% máu). Gây ` +
     `${pct(MINION_MONSTER_MULTIPLIER)}% sát thương lên lính và quái rừng, và làm kẻ địch xung quanh mục tiêu ` +
-    `trúng <span class="damage physical">${pct(CLEAVE_DAMAGE_RATIO)}%</span> sát thương đó.`;
+    `trúng ${tint(`${pct(CLEAVE_DAMAGE_RATIO)}%`, 'PHYSICAL')} sát thương đó.`;
   coolDown = COOLDOWN_MS;
   manaCost = 0;
 

@@ -9,6 +9,7 @@ const Root = api.buffs.Root;
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 export const W_DAMAGE = 22;
 
@@ -53,7 +54,7 @@ export default class Lissandra_W extends Spell {
   name = 'Vòng Tròn Lạnh Giá (Lissandra_W)';
   description =
     `Đóng băng kẻ địch xung quanh trong bán kính <span class="buff">${W_RADIUS}</span>, ` +
-    `gây <span class="damage magic">${W_DAMAGE} sát thương phép</span> và ` +
+    `gây ${dmg(W_DAMAGE, 'MAGIC')} và ` +
     `<span class="buff">trói chân</span> chúng trong ` +
     `<span class="time">${secs(W_ROOT_DURATION_MS)} giây</span>.`;
   coolDown = W_COOLDOWN_MS;

@@ -6,6 +6,7 @@ const Shield = api.buffs.Shield;
 const StatAmp = api.buffs.StatAmp;
 const SpellObject = api.SpellObject;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
+const heal = api.text.heal;
 
 export const DURATION = 7000;
 
@@ -70,7 +71,7 @@ export default class Alistar_R extends Spell {
   image = api.asset('spell_alistar_r');
   name = 'Bất Khuất (Alistar_R)';
   description =
-    `Trong <span class="time">${secs(DURATION)} giây</span>: nhận khiên <span class="heal">${SHIELD_AMOUNT}</span>` +
+    `Trong <span class="time">${secs(DURATION)} giây</span>: nhận khiên ${heal(SHIELD_AMOUNT)}` +
     ` và <span class="buff">+8 sát thương đánh thường</span>`;
   coolDown = 10000;
   manaCost = 50;

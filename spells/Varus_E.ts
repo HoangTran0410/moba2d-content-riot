@@ -9,6 +9,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const Slow = api.buffs.Slow;
 const HealCut = api.buffs.HealCut;
+const dmg = api.text.dmg;
 
 export const MAX_RANGE = 500;
 
@@ -34,7 +35,7 @@ export default class Varus_E extends Spell {
   image = api.asset('spell_varus_e');
   name = 'Mưa Tên (Varus_E)';
   description =
-    `Bắn một loạt tên xuống vị trí chỉ định: <span class="damage physical">${IMPACT_DAMAGE} sát thương vật lý</span> khi chạm đất,` +
+    `Bắn một loạt tên xuống vị trí chỉ định: ${dmg(IMPACT_DAMAGE, 'PHYSICAL')} khi chạm đất,` +
     ` sau đó vùng đất bị <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> trong` +
     ` <span class="time">${secs(DURATION)} giây</span> và dính` +
     ` <span class="buff">Vết Thương Sâu ${pct(WOUND_PERCENT)}%</span>`;

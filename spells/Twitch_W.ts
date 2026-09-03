@@ -9,6 +9,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const DamageOverTime = api.buffs.DamageOverTime;
 const Slow = api.buffs.Slow;
+const tint = api.text.tint;
 
 export const MAX_RANGE = 450;
 
@@ -28,9 +29,9 @@ export default class Twitch_W extends Spell {
   image = api.asset('spell_twitch_w');
   name = 'Độc Suy Nhược (Twitch_W)';
   description =
-    `Ném một bình độc bay tới vị trí chỉ định; <span class="damage">khi chạm đất</span> bình vỡ thành vũng` +
+    `Ném một bình độc bay tới vị trí chỉ định; ${tint('khi chạm đất')} bình vỡ thành vũng` +
     ` bán kính <span>${RADIUS}px</span> trong <span class="time">${secs(DURATION)} giây</span>,` +
-    ` <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> và <span class="damage">nhiễm độc</span> kẻ địch bước vào`;
+    ` <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> và ${tint('nhiễm độc')} kẻ địch bước vào`;
   coolDown = 10000;
   manaCost = 30;
 

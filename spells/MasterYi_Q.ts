@@ -8,6 +8,7 @@ const Spell = api.Spell;
 const Untargetable = api.buffs.Untargetable;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 
@@ -77,8 +78,8 @@ export default class MasterYi_Q extends Spell {
   description =
     `Yi biến mất và <span class="buff">không thể bị chọn</span>, lướt qua tối đa` +
     ` <span class="buff">${MAX_STRIKES} kẻ địch</span> trong <span>${SEARCH_RADIUS}px</span>.` +
-    ` Mục tiêu đầu nhận <span class="damage physical">${FIRST_STRIKE_DAMAGE} sát thương vật lý</span>,` +
-    ` mỗi mục tiêu sau nhận <span class="damage physical">${EXTRA_STRIKE_DAMAGE} sát thương vật lý</span>.` +
+    ` Mục tiêu đầu nhận ${dmg(FIRST_STRIKE_DAMAGE, 'PHYSICAL')},` +
+    ` mỗi mục tiêu sau nhận ${dmg(EXTRA_STRIKE_DAMAGE, 'PHYSICAL')}.` +
     ` Mỗi kẻ địch chỉ trúng một lần, và Yi hiện lại cạnh nạn nhân cuối cùng`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;

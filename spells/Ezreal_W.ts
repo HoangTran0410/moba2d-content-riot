@@ -10,6 +10,7 @@ const SpellObject = api.SpellObject;
 const Champion = api.units.Champion;
 const TrailSystem = api.helpers.TrailSystem;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
+const dmg = api.text.dmg;
 
 
 export const EZREAL_W_RANGE = 640;
@@ -46,7 +47,7 @@ export default class Ezreal_W extends Spell {
     'Bắn một quả cầu tinh túy xuyên qua lính, đánh dấu tướng địch đầu tiên trúng phải trong' +
     ` <span class="time">${secs(EZREAL_W_MARK_DURATION_MS)} giây</span>.` +
     ' Đòn đánh hoặc chiêu thức kế tiếp của Ezreal lên mục tiêu đó sẽ kích nổ dấu ấn, gây' +
-    ` <span class="damage magic">${EZREAL_W_DETONATE_DAMAGE} sát thương phép</span>.` +
+    ` ${dmg(EZREAL_W_DETONATE_DAMAGE, 'MAGIC')}.` +
     ` Nếu kích nổ bằng chiêu thức, Ezreal hoàn lại <span class="buff">${EZREAL_W_MANA_REFUND} năng lượng</span>.`;
 
   coolDown = 8000;

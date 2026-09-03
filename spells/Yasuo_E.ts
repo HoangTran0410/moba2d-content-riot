@@ -10,6 +10,7 @@ const Dash = api.buffs.Dash;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 export const E_RANGE = 130;
@@ -49,7 +50,7 @@ export default class Yasuo_E extends Spell {
   image = api.asset('spell_yasuo_e');
   name = 'Quét Kiếm (Yasuo_E)';
   description =
-    '<span class="buff">Lướt</span> xuyên qua kẻ địch gần nhất trong tầm, gây <span class="damage magic">10 sát thương phép</span> <i>khi lưỡi kiếm chạm tới mục tiêu</i>';
+    `<span class="buff">Lướt</span> xuyên qua kẻ địch gần nhất trong tầm, gây ${dmg(10, 'MAGIC')} <i>khi lưỡi kiếm chạm tới mục tiêu</i>`;
   coolDown = 2000;
   manaCost = 20;
 

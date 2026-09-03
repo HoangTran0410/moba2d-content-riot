@@ -7,6 +7,7 @@ const Circle = api.utils.Quadtree.Circle;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 export const RADIUS = 150;
 
@@ -29,7 +30,7 @@ export default class Alistar_E extends Spell {
   name = 'Giày Xéo (Alistar_E)';
   description =
     `Lồng lên trong <span class="time">${secs(DURATION)} giây</span>: <span class="buff">+30% tốc chạy</span>` +
-    ` và gây <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span> mỗi` +
+    ` và gây ${dmg(DAMAGE_PER_TICK, 'MAGIC')} mỗi` +
     ` <span class="time">${secs(TICK_INTERVAL)} giây</span> cho kẻ địch trong <span>${RADIUS}px</span>`;
   coolDown = 10000;
   manaCost = 30;

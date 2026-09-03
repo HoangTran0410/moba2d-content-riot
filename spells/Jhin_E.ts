@@ -12,6 +12,7 @@ const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const Slow = api.buffs.Slow;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 
 
@@ -90,7 +91,7 @@ export default class Jhin_E extends Spell {
     ${secs(JHIN_E_LIFETIME_MS)} giây. Kẻ địch bước vào bán kính ${JHIN_E_TRIGGER_RADIUS} bị làm chậm
     ${pct(JHIN_E_SLOW)}% trong ${secs(JHIN_E_SLOW_MS)} giây và bị <b>đánh dấu</b>
     ${secs(JHIN_MARK_MS)} giây; bẫy lộ ra và <b>nở dần</b> trong ${secs(JHIN_E_FUSE_MS)} giây rồi
-    nổ, gây <span class="damage magic">${JHIN_E_DAMAGE} sát thương phép</span> cho mọi kẻ địch còn đứng trong
+    nổ, gây ${dmg(JHIN_E_DAMAGE, 'MAGIC')} cho mọi kẻ địch còn đứng trong
     bán kính ${JHIN_E_BLAST_RADIUS} — chạy kịp thì thoát. Tối đa ${JHIN_E_MAX_TRAPS} bẫy cùng lúc.`;
   coolDown = 9_000;
   manaCost = 25;

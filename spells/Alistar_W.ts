@@ -8,6 +8,7 @@ const Spell = api.Spell;
 const Airborne = api.buffs.Airborne;
 const Dash = api.buffs.Dash;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 export default class Alistar_W extends Spell {
   /**
@@ -23,7 +24,7 @@ export default class Alistar_W extends Spell {
   image = api.asset('spell_alistar_w');
   name = 'Bò Húc (Alistar_W)';
   description =
-    '<span class="buff">Lướt</span> tới kẻ địch gần nhất trong phạm vi rồi húc chúng bay ra xa, gây <span class="damage magic">30 sát thương phép</span> và <span class="buff">Hất Tung</span> trong <span class="time">0.7 giây</span>';
+    `<span class="buff">Lướt</span> tới kẻ địch gần nhất trong phạm vi rồi húc chúng bay ra xa, gây ${dmg(30, 'MAGIC')} và <span class="buff">Hất Tung</span> trong <span class="time">0.7 giây</span>`;
   coolDown = 10000;
   manaCost = 50;
 

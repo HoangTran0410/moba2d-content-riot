@@ -13,6 +13,7 @@ const ActionState = api.enums.ActionState;
 const hasFlag = api.utils.hasFlag;
 const SAT = api.utils.SAT;
 const slabVertices = api.terrain.slabVertices;
+const dmg = api.text.dmg;
 
 
 
@@ -37,7 +38,7 @@ export default class JarvanIV_R extends Spell {
   image = api.asset('spell_jarvaniv_r');
   name = 'Đại Địa Chấn (JarvanIV_R)';
   description =
-    'Nhảy vào điểm chỉ định gây <span class="damage physical">45 sát thương vật lý</span> diện rộng và <span class="buff">Dựng Đấu Trường Tường Đá</span> tạo chướng ngại vật xung quanh trong <span class="time">3.5 giây</span>.';
+    `Nhảy vào điểm chỉ định gây ${dmg(45, 'PHYSICAL')} diện rộng và <span class="buff">Dựng Đấu Trường Tường Đá</span> tạo chướng ngại vật xung quanh trong <span class="time">3.5 giây</span>.`;
   coolDown = 10000;
   manaCost = 100;
   range = 650;

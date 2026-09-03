@@ -7,6 +7,7 @@ const EventType = api.enums.EventType;
 const Speedup = api.buffs.Speedup;
 const SpellObject = api.SpellObject;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
+const dmg = api.text.dmg;
 
 
 
@@ -35,7 +36,7 @@ export default class Camille_Q extends Spell {
   image = api.asset('spell_camille_q');
   name = 'Giao Thức Chuẩn Xác (Camille_Q)';
   description =
-    `Cường hóa đòn đánh tiếp theo gây thêm <span class="damage magic">${CAMILLE_Q_DAMAGE} sát thương phép</span> và tăng <span class="buff">30% Tốc chạy</span>. Có thể tái kích hoạt sau ${secs(CAMILLE_Q_CHARGE_MS)} giây để đòn đánh tiếp theo gây <span class="damage true">${CAMILLE_Q_TRUE_DAMAGE} sát thương chuẩn</span> thay thế.`;
+    `Cường hóa đòn đánh tiếp theo gây thêm ${dmg(CAMILLE_Q_DAMAGE, 'MAGIC')} và tăng <span class="buff">30% Tốc chạy</span>. Có thể tái kích hoạt sau ${secs(CAMILLE_Q_CHARGE_MS)} giây để đòn đánh tiếp theo gây ${dmg(CAMILLE_Q_TRUE_DAMAGE, 'TRUE')} thay thế.`;
   coolDown = 6000;
   manaCost = 25;
 
@@ -50,8 +51,8 @@ export class Camille_Q_Buff extends Buff {
   image = api.asset('spell_camille_q');
   name = 'Giao Thức Chuẩn Xác (Cường Hóa)';
   description =
-    `Đòn đánh kế tiếp gây thêm <span class="damage magic">${CAMILLE_Q_DAMAGE} sát thương phép</span>, ` +
-    `hoặc <span class="damage true">${CAMILLE_Q_TRUE_DAMAGE} sát thương chuẩn</span> nếu chờ đủ ` +
+    `Đòn đánh kế tiếp gây thêm ${dmg(CAMILLE_Q_DAMAGE, 'MAGIC')}, ` +
+    `hoặc ${dmg(CAMILLE_Q_TRUE_DAMAGE, 'TRUE')} nếu chờ đủ ` +
     `<span class="time">${secs(CAMILLE_Q_CHARGE_MS)} giây</span>.`;
   isQ2Ready = false;
   timer = 0;

@@ -4,6 +4,7 @@ import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Buff = api.buffs.Buff;
+const tint = api.text.tint;
 
 /**
  * Cursed Touch — the first **champion** passive in this pack.
@@ -57,7 +58,7 @@ export const CURSE_STACK_ID = 'amumu_p_curse';
 export class Amumu_P_Curse extends Buff {
   name = 'Nguyền Rủa';
   description =
-    `Nhận thêm <span class="damage magic">${pct(AMP)}% sát thương phép</span> từ ` +
+    `Nhận thêm ${tint(`${pct(AMP)}% sát thương phép`, 'MAGIC')} từ ` +
     `<span class="buff">mọi nguồn</span>.`;
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
   image = api.asset('spell_amumu_w');
@@ -85,7 +86,7 @@ export class Amumu_P_CursedTouch extends Buff {
   description =
     `Đòn đánh thường <span class="buff">nguyền rủa</span> mục tiêu trong ` +
     `<span class="time">${secs(CURSE_MS)} giây</span>: mục tiêu nhận thêm ` +
-    `<span class="damage magic">${pct(AMP)}% sát thương phép</span> từ mọi nguồn.`;
+    `${tint(`${pct(AMP)}% sát thương phép`, 'MAGIC')} từ mọi nguồn.`;
 
   onHit(hit: OnHitEvent): void {
     if (hit.echo) return;
@@ -105,7 +106,7 @@ export default class Amumu_P extends Spell {
   name = 'Chạm Nguyền (Amumu_P)';
   description =
     `Nội tại: đòn đánh thường nguyền rủa mục tiêu trong ${secs(CURSE_MS)} giây,` +
-    ` khiến mục tiêu nhận thêm <span class="damage magic">${pct(AMP)}% sát thương phép</span> từ mọi nguồn`;
+    ` khiến mục tiêu nhận thêm ${tint(`${pct(AMP)}% sát thương phép`, 'MAGIC')} từ mọi nguồn`;
   coolDown = 0;
   manaCost = 0;
 

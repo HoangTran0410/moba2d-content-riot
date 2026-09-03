@@ -15,6 +15,8 @@ const Slow = api.buffs.Slow;
 const StatAmp = api.buffs.StatAmp;
 const SpellObject = api.SpellObject;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 
 export const CAST_TIME_MS = 250;
@@ -63,7 +65,7 @@ export default class Darius_E extends Spell {
   name = 'Bắt Giữ (Darius_E)';
   description = 
     `Quét rìu thành hình quạt xa <span>${CONE_RANGE}px</span>, gây` +
-    ` <span class="damage physical">${DAMAGE} sát thương vật lý</span>, cộng một cấp <span class="damage">Chảy Máu</span>` +
+    ` ${dmg(DAMAGE, 'PHYSICAL')}, cộng một cấp ${tint('Chảy Máu')}` +
     ` và <span class="buff">kéo</span> mọi kẻ địch trúng chiêu về sát người.` +
     ` Khi tiếp đất chúng bị <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span>` +
     ` trong <span class="time">${secs(SLOW_MS)} giây</span>` +

@@ -10,6 +10,8 @@ const Circle = api.utils.Quadtree.Circle;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const VectorUtils = api.utils.VectorUtils;
 const PredefinedFilters = api.combat.PredefinedFilters;
+const dmg = api.text.dmg;
+const heal = api.text.heal;
 
 export const CAST_RANGE = 550;
 
@@ -68,9 +70,9 @@ export default class Vladimir_R extends Spell {
     `Gieo rắc ôn dịch tại vị trí chỉ định trong <span>${RADIUS}px</span>. Kẻ địch trúng phải bị nhiễm ` +
     `<span class="buff">Ôn Dịch</span> trong <span class="time">${secs(MARK_DURATION_MS)} giây</span>, ` +
     `nhận thêm <span class="buff">${pct(AMP)}% sát thương</span> từ mọi nguồn. Khi hết hạn, ôn dịch nổ tung, ` +
-    `gây <span class="damage magic">${BURST_DAMAGE} sát thương phép</span> cho mục tiêu nhiễm và ` +
-    `hồi <span class="heal">${HEAL_FIRST_CHAMPION} máu</span> cho Vladimir với mỗi tướng địch bị nhiễm ` +
-    `(hồi <span class="heal">${HEAL_PER_EXTRA_CHAMPION} máu</span> từ tướng thứ hai trở đi)`;
+    `gây ${dmg(BURST_DAMAGE, 'MAGIC')} cho mục tiêu nhiễm và ` +
+    `hồi ${heal(HEAL_FIRST_CHAMPION, ' máu')} cho Vladimir với mỗi tướng địch bị nhiễm ` +
+    `(hồi ${heal(HEAL_PER_EXTRA_CHAMPION, ' máu')} từ tướng thứ hai trở đi)`;
   coolDown = COOLDOWN_MS;
   manaCost = 0;
 
@@ -98,7 +100,7 @@ export class Vladimir_R_Mark extends Buff {
   name = 'Ôn Dịch';
   description =
     `Nhận thêm <span class="buff">${pct(AMP)}%</span> sát thương từ mọi nguồn; khi dấu tan,` +
-    ` chịu <span class="damage magic">${BURST_DAMAGE} sát thương phép</span>.`;
+    ` chịu ${dmg(BURST_DAMAGE, 'MAGIC')}.`;
   stackId = 'vladimir_r_mark';
 
   modifyIncomingDamage(

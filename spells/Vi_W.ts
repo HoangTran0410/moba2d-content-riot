@@ -7,6 +7,7 @@ const StatAmp = api.buffs.StatAmp;
 const Spell = api.Spell;
 const Buff = api.buffs.Buff;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 export const W_DURATION_MS = 8_000;
@@ -50,7 +51,7 @@ export default class Vi_W extends Spell {
   image = api.asset('spell_vi_w');
   name = 'Cú Đấm Phá Giáp (Vi_W)';
   description = `Kích hoạt tăng <b>50% tốc đánh</b> trong ${secs(W_DURATION_MS)} giây. Mỗi ${W_STACKS} đòn đánh thường vào
-    <b>cùng một mục tiêu</b> gây thêm <span class="damage physical">${W_PROC} sát thương vật lý</span> và
+    <b>cùng một mục tiêu</b> gây thêm ${dmg(W_PROC, 'PHYSICAL')} và
     giảm ${pct(W_SHRED)}% giáp trong ${secs(W_SHRED_MS)} giây.`;
   coolDown = 10_000;
   manaCost = 20;
@@ -163,7 +164,7 @@ export class Vi_W_Buff extends Buff {
   name = 'Phá Giáp';
   description =
     `Mỗi <span class="buff">${W_STACKS} đòn đánh</span> lên cùng một mục tiêu gây thêm ` +
-    `<span class="damage physical">${W_PROC} sát thương vật lý</span> và ` +
+    `${dmg(W_PROC, 'PHYSICAL')} và ` +
     `<span class="buff">giảm ${pct(W_SHRED)}% giáp</span> trong ` +
     `<span class="time">${secs(W_SHRED_MS)} giây</span>.`;
   image = api.asset('spell_vi_w');

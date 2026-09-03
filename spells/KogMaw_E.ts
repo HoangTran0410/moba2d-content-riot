@@ -13,6 +13,7 @@ const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
 const TrailSystem = api.helpers.TrailSystem;
+const dmg = api.text.dmg;
 
 
 export const E_DAMAGE = 20;
@@ -69,7 +70,7 @@ export default class KogMaw_E extends Spell {
   name = 'Bùn Hư Không (KogMaw_E)';
   description =
     `Phun một khối bùn Hư Không theo hướng chỉ định, xuyên qua mọi kẻ địch và gây` +
-    ` <span class="damage magic">${E_DAMAGE} sát thương phép</span> cho mỗi kẻ trúng chiêu.` +
+    ` ${dmg(E_DAMAGE, 'MAGIC')} cho mỗi kẻ trúng chiêu.` +
     ` Vệt bùn để lại tồn tại <span class="time">${secs(E_OOZE_LIFETIME_MS)} giây</span>,` +
     ` <span class="buff">Làm Chậm ${pct(E_SLOW_PERCENT)}%</span> kẻ địch đứng trong đó.`;
   coolDown = E_COOLDOWN;

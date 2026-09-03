@@ -14,6 +14,7 @@ const SpellObject = api.SpellObject;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
 const TrailSystem = api.helpers.TrailSystem;
+const dmg = api.text.dmg;
 
 
 export const JARVAN_Q_DAMAGE = 25;
@@ -37,7 +38,7 @@ export default class JarvanIV_Q extends Spell {
   image = api.asset('spell_jarvaniv_q');
   name = 'Giáng Long Kích (JarvanIV_Q)';
   description =
-    'Đâm giáo theo hướng chỉ định gây <span class="damage physical">25 sát thương vật lý</span>. Nếu giáo chạm vào <span class="buff">Hoàng Kim Kỳ (E)</span>, Jarvan IV sẽ <span class="buff">Lướt</span> tới lá cờ và <span class="buff">Hất Tung</span> kẻ địch trên đường lướt.' +
+    `Đâm giáo theo hướng chỉ định gây ${dmg(25, 'PHYSICAL')}. Nếu giáo chạm vào <span class="buff">Hoàng Kim Kỳ (E)</span>, Jarvan IV sẽ <span class="buff">Lướt</span> tới lá cờ và <span class="buff">Hất Tung</span> kẻ địch trên đường lướt.` +
     ` Kẻ trúng giáo bị <span class="buff">giảm ${pct(JARVAN_Q_SHRED)}% giáp</span> trong <span class="time">${secs(JARVAN_Q_SHRED_MS)} giây</span>.`;
   coolDown = 8000;
   manaCost = 45;

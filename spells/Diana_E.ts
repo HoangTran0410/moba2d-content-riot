@@ -11,6 +11,7 @@ const TrailSystem = api.helpers.TrailSystem;
 const Spell = api.Spell;
 const TargetResolver = api.combat.TargetResolver;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 export const E_RANGE = 380;
@@ -39,7 +40,7 @@ const E_FOOTFALL_RADIUS = 22;
 export default class Diana_E extends Spell {
   image = api.asset('spell_diana_e');
   name = 'Trăng Non (Diana_E)';
-  description = `Lao tới mục tiêu, gây <span class="damage magic">${E_DAMAGE} sát thương phép</span> khi tới.
+  description = `Lao tới mục tiêu, gây ${dmg(E_DAMAGE, 'MAGIC')} khi tới.
     Nếu mục tiêu đang mang dấu Ánh Trăng, dấu bị phá và Trăng Non hồi lại ngay lập tức.`;
   coolDown = 10_000;
   manaCost = 25;

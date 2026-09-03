@@ -9,6 +9,7 @@ const Spell = api.Spell;
 const SpellObject = api.SpellObject;
 const Dash = api.buffs.Dash;
 const Slow = api.buffs.Slow;
+const dmg = api.text.dmg;
 
 
 /** Half the length of the sweep box, measured from Thresh outwards — it reaches behind him too. */
@@ -115,7 +116,7 @@ export default class Thresh_E extends Spell {
     `Quất xích thành một <span class="buff">vệt quét hình chữ nhật</span> dài <span>${HALF_LENGTH * 2}px</span>` +
     ` rộng <span>${HALF_WIDTH * 2}px</span>, tâm ở Thresh và xoay theo hướng con trỏ. Xích quét qua trong` +
     ` <span class="time">${secs(SWEEP_DURATION)} giây</span>, <i>chạm tới ai thì trúng người đó</i>:` +
-    ` <span class="damage magic">${DAMAGE} sát thương phép</span>, <span class="buff">quét</span> kẻ địch` +
+    ` ${dmg(DAMAGE, 'MAGIC')}, <span class="buff">quét</span> kẻ địch` +
     ` <span>${SWEEP_DISTANCE}px</span> theo đúng hướng quất và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span>`;
   coolDown = 8000;
   manaCost = 30;

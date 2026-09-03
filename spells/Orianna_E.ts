@@ -10,6 +10,7 @@ const canSee = api.combat.Vision.canSee;
 const effectiveRange = api.combat.Reach.effectiveRange;
 const withinRange = api.combat.Reach.withinRange;
 const AttackableUnitClass = api.units.AttackableUnit;
+const heal = api.text.heal;
 
 
 /**
@@ -54,7 +55,7 @@ export default class Orianna_E extends Spell {
 
   image = api.asset('spell_orianna_e');
   name = 'Lệnh: Bảo Vệ (Orianna_E)';
-  description = `Ra lệnh cho Quả Cầu bay tới một đồng minh (kể cả chính Orianna) và <span class="buff">bám theo họ</span>, gây sát thương lên kẻ địch nó xuyên qua và tạo khiên <span class="heal">${SHIELD_AMOUNT}</span> cho mục tiêu trong <span class="time">${secs(SHIELD_DURATION_MS)} giây</span> khi cầu tới nơi.`;
+  description = `Ra lệnh cho Quả Cầu bay tới một đồng minh (kể cả chính Orianna) và <span class="buff">bám theo họ</span>, gây sát thương lên kẻ địch nó xuyên qua và tạo khiên ${heal(SHIELD_AMOUNT)} cho mục tiêu trong <span class="time">${secs(SHIELD_DURATION_MS)} giây</span> khi cầu tới nơi.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
   range = RANGE;

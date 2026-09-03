@@ -8,6 +8,7 @@ const DamageOverTime = api.buffs.DamageOverTime;
 const StatAmp = api.buffs.StatAmp;
 const SpellObject = api.SpellObject;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
+const dmg = api.text.dmg;
 
 
 export const DURATION = 8000;
@@ -60,7 +61,7 @@ export default class Varus_W extends Spell {
   name = 'Tên Độc (Varus_W)';
   description =
     `Trong <span class="time">${secs(DURATION)} giây</span>, mỗi đòn đánh thường bám thêm` +
-    ` <span class="damage magic">${BLIGHT_PER_TICK} sát thương phép mỗi nhịp</span> trong` +
+    ` ${dmg(BLIGHT_PER_TICK, 'MAGIC', ' mỗi nhịp')} trong` +
     ` <span class="time">${secs(BLIGHT_DURATION)} giây</span>, kèm <span class="buff">+15% tốc độ đánh</span>`;
   coolDown = 10000;
   manaCost = 25;

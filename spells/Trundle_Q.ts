@@ -10,6 +10,7 @@ const StatAmp = api.buffs.StatAmp;
 const Champion = api.units.Champion;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 /** How long the empowered swing waits to be spent. */
@@ -69,7 +70,7 @@ export default class Trundle_Q extends Spell {
   name = 'Cắn Xé Băng Giá (Trundle_Q)';
   description =
     `Cường hóa đòn đánh thường tiếp theo trong <span class="time">${secs(Q_WINDOW_MS)} giây</span>:` +
-    ` gây thêm <span class="damage physical">${Q_BONUS_DAMAGE} sát thương vật lý</span> và` +
+    ` gây thêm ${dmg(Q_BONUS_DAMAGE, 'PHYSICAL')} và` +
     ` <span class="buff">Làm Chậm ${pct(Q_SLOW_PERCENT)}%</span> trong <span class="time">${secs(Q_SLOW_MS)} giây</span>.` +
     ` Sau đó, Trundle nhận <span class="buff">${Q_AD_GAIN} sát thương đánh thường</span> trong` +
     ` <span class="time">${secs(Q_STEAL_DURATION_MS)} giây</span>, còn mục tiêu mất` +
@@ -88,7 +89,7 @@ export default class Trundle_Q extends Spell {
 export class Trundle_Q_Buff extends Buff {
   name = 'Cắn Xé Sẵn Sàng';
   description =
-    `Đòn đánh kế tiếp gây thêm <span class="damage physical">${Q_BONUS_DAMAGE} sát thương vật lý</span>,` +
+    `Đòn đánh kế tiếp gây thêm ${dmg(Q_BONUS_DAMAGE, 'PHYSICAL')},` +
     ` <span class="buff">Làm Chậm ${pct(Q_SLOW_PERCENT)}%</span> và cướp` +
     ` <span class="buff">${Q_AD_DRAIN} sát thương đánh thường</span> của mục tiêu.`;
   stackId = 'trundle_q_armed';

@@ -15,6 +15,9 @@ const Monster = api.units.Monster;
 const SOURCE_LABEL = 'Cưa Nhiễm Trùng';
 
 const Q_ICON = api.asset('spell_drmundo_q');
+const dmg = api.text.dmg;
+const tint = api.text.tint;
+const dmgValue = api.text.dmgValue;
 
 /** Rust-and-toxin palette, shared by the blade, its trail and its impact. */
 const RUST: [number, number, number] = [138, 94, 58];
@@ -80,9 +83,9 @@ export default class DrMundo_Q extends Spell {
   image = api.asset('spell_drmundo_q');
   name = 'Cưa Nhiễm Trùng (DrMundo_Q)';
   description =
-    `Ném một lưỡi cưa nhiễm trùng, gây <span class="damage magic">${pct(DAMAGE_PERCENT_CURRENT_HEALTH)}% máu hiện tại</span> ` +
-    `của mục tiêu (tối thiểu <span class="damage magic">${MIN_DAMAGE}</span>, giới hạn ` +
-    `<span class="damage magic">${MONSTER_DAMAGE_CAP}</span> lên quái rừng) làm <span class="damage magic">sát thương phép</span> ` +
+    `Ném một lưỡi cưa nhiễm trùng, gây ${tint(`${pct(DAMAGE_PERCENT_CURRENT_HEALTH)}% máu hiện tại`, 'MAGIC')} ` +
+    `của mục tiêu (tối thiểu ${dmgValue(MIN_DAMAGE, 'MAGIC')}, giới hạn ` +
+    `${dmgValue(MONSTER_DAMAGE_CAP, 'MAGIC')} lên quái rừng) làm ${tint('sát thương phép', 'MAGIC')} ` +
     `cho kẻ địch đầu tiên trúng chiêu và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> trong ` +
     `<span class="time">${secs(SLOW_MS)} giây</span>. Trúng đích hồi lại cho Mundo một phần lượng máu đã trả: ` +
     `${pct(HEAL_RATIO)}% máu đã trả (${pct(CHAMPION_HEAL_RATIO)}% nếu trúng tướng địch hoặc quái rừng).`;

@@ -6,6 +6,7 @@ const Spell = api.Spell;
 const Buff = api.buffs.Buff;
 const AoePulse = api.AoePulse;
 const EventType = api.enums.EventType;
+const tint = api.text.tint;
 
 /**
  * Thủy Kiếm — the spellblade component, and the *base class* of the whole
@@ -55,7 +56,7 @@ export class SpellbladeBuff extends Buff {
   name = 'Thủy Kiếm';
   description =
     `Sau khi dùng một chiêu thức, đòn đánh kế tiếp gây thêm ` +
-    `<span class="damage physical">${pct(SHEEN_BASE_AD_RATIO)}% sát thương công vật lý</span>. ` +
+    `${tint(`${pct(SHEEN_BASE_AD_RATIO)}% sát thương công vật lý`, 'PHYSICAL')}. ` +
     `Hồi lại sau <span class="time">${secs(SPELLBLADE_ICD_MS)} giây</span>.`;
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
 

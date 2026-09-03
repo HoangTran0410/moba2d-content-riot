@@ -9,6 +9,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const Slow = api.buffs.Slow;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 
 export const E_RANGE = 420;
@@ -41,7 +42,7 @@ export const E_MAX_TRIPS_PER_UNIT = 2;
 export default class Ziggs_E extends Spell {
   image = api.asset('spell_ziggs_e');
   name = 'Bãi Mìn (Ziggs_E)';
-  description = `Rải ${E_MINE_COUNT} quả mìn lục giác quanh điểm chỉ định. Mìn kích hoạt sau ${secs(E_ARM_MS)} giây và tồn tại ${secs(E_LIFETIME_MS)} giây; ai bước vào sẽ chịu <span class="damage magic">${E_DAMAGE} sát thương phép</span> và bị làm chậm ${pct(E_SLOW)}% trong ${secs(E_SLOW_MS)} giây. Mỗi mục tiêu chỉ đạp được tối đa ${E_MAX_TRIPS_PER_UNIT} quả.`;
+  description = `Rải ${E_MINE_COUNT} quả mìn lục giác quanh điểm chỉ định. Mìn kích hoạt sau ${secs(E_ARM_MS)} giây và tồn tại ${secs(E_LIFETIME_MS)} giây; ai bước vào sẽ chịu ${dmg(E_DAMAGE, 'MAGIC')} và bị làm chậm ${pct(E_SLOW)}% trong ${secs(E_SLOW_MS)} giây. Mỗi mục tiêu chỉ đạp được tối đa ${E_MAX_TRIPS_PER_UNIT} quả.`;
   coolDown = 10_000;
   manaCost = 40;
   range = E_RANGE;

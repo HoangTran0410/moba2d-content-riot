@@ -7,6 +7,7 @@ const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const Rectangle = api.utils.Quadtree.Rectangle;
+const dmg = api.text.dmg;
 
 export const DURATION = 8000;
 
@@ -32,7 +33,7 @@ export default class Nasus_R extends Spell {
   description =
     `Hóa khổng lồ trong <span class="time">${secs(DURATION)} giây</span>:` +
     ` <span class="buff">+${BONUS_HEALTH} máu tối đa</span> và thiêu đốt mọi kẻ địch trong <span>${AURA_RADIUS}px</span>` +
-    ` <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span> mỗi <span class="time">${secs(TICK_INTERVAL)} giây</span>`;
+    ` ${dmg(DAMAGE_PER_TICK, 'MAGIC')} mỗi <span class="time">${secs(TICK_INTERVAL)} giây</span>`;
   coolDown = 10000;
   manaCost = 60;
 

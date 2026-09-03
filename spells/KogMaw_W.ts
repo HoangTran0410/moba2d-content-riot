@@ -6,6 +6,7 @@ import { VOID_ACID, VOID_VIOLET } from './KogMaw_Q';
 const Spell = api.Spell;
 const StatAmp = api.buffs.StatAmp;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 export const W_DURATION_MS = 8_000;
@@ -62,7 +63,7 @@ export default class KogMaw_W extends Spell {
   description =
     `Kích hoạt trong <span class="time">${secs(W_DURATION_MS)} giây</span>:` +
     ` <span class="buff">+${W_BONUS_RANGE} tầm đánh</span> và mỗi đòn đánh thường gây thêm` +
-    ` <span class="damage magic">${W_ON_HIT_DAMAGE} sát thương phép</span>.`;
+    ` ${dmg(W_ON_HIT_DAMAGE, 'MAGIC')}.`;
   coolDown = W_COOLDOWN;
   manaCost = W_MANA_COST;
 

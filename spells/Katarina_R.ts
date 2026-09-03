@@ -13,6 +13,8 @@ const Spell = api.Spell;
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
+const dmgValue = api.text.dmgValue;
 
 
 export const KATARINA_R_DURATION_MS = 2_500;
@@ -37,9 +39,9 @@ export default class Katarina_R extends Spell {
   image = api.asset('spell_katarina_r');
   name = 'Bông Sen Tử Thần (Katarina_R)';
   description = `Xoay tròn liên tục trong ${secs(KATARINA_R_DURATION_MS)} giây, phóng bão dao ra mọi hướng:
-    <span class="damage magic">${KATARINA_R_TICK_DAMAGE} sát thương phép</span> mỗi
+    ${dmg(KATARINA_R_TICK_DAMAGE, 'MAGIC')} mỗi
     ${secs(KATARINA_R_TICK_MS)} giây cho tối đa 3 kẻ địch trong vùng ${KATARINA_R_RADIUS}
-    (tổng cộng <span class="damage magic">${KATARINA_R_TICK_COUNT * KATARINA_R_TICK_DAMAGE}</span>).
+    (tổng cộng ${dmgValue(KATARINA_R_TICK_COUNT * KATARINA_R_TICK_DAMAGE, 'MAGIC')}).
     Bị choáng hoặc di chuyển sẽ ngắt kênh niệm.`;
   coolDown = 10_000;
   manaCost = 0;

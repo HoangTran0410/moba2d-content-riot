@@ -6,6 +6,7 @@ const Rectangle = api.utils.Quadtree.Rectangle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const Silence = api.buffs.Silence;
+const dmg = api.text.dmg;
 
 export default class Blitzcrank_R extends Spell {
   /**
@@ -18,7 +19,7 @@ export default class Blitzcrank_R extends Spell {
   name = 'Trường Điện Từ (Blitzcrank_R)';
   image = api.asset('spell_blitzcrank_r');
   description =
-    'Kích hoạt trường điện từ, gây <span class="damage magic">30 sát thương phép</span> lên các kẻ địch xung quanh và làm <span class="buff">Câm Lặng</span> chúng trong <span class="time">3 giây</span>';
+    `Kích hoạt trường điện từ, gây ${dmg(30, 'MAGIC')} lên các kẻ địch xung quanh và làm <span class="buff">Câm Lặng</span> chúng trong <span class="time">3 giây</span>`;
   coolDown = 10000;
   manaCost = 50;
 

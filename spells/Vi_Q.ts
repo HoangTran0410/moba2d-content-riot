@@ -11,6 +11,8 @@ const Dash = api.buffs.Dash;
 const Slow = api.buffs.Slow;
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
+const dmgRange = api.text.dmgRange;
 
 
 export const Q_MAX_CHARGE_MS = 1_200;
@@ -72,7 +74,7 @@ export default class Vi_Q extends Spell {
   image = api.asset('spell_vi_q');
   name = 'Cú Đấm Bùng Nổ (Vi_Q)';
   description = `Nạp lực rồi lao tới, dừng lại ở kẻ địch đầu tiên:
-    <span class="damage physical">${Q_MIN_DAMAGE} đến ${Q_MAX_DAMAGE} sát thương vật lý</span>,
+    ${dmgRange(Q_MIN_DAMAGE, Q_MAX_DAMAGE, 'PHYSICAL', '', ' đến ')},
     hất tung ${secs(Q_KNOCKUP_MS)} giây và đẩy lùi ${Q_PUSH} đơn vị.
     Nạp càng lâu, cú lao càng xa.`;
   coolDown = 10_000;

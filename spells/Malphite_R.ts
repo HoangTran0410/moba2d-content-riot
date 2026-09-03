@@ -10,6 +10,7 @@ const Spell = api.Spell;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 export const MAX_RANGE = 350;
@@ -48,7 +49,7 @@ export default class Malphite_R extends Spell {
   image = api.asset('spell_malphite_r');
   name = 'Không Thể Cản Phá (Malphite_R)';
   description =
-    '<span class="buff">Lướt</span> tới khu vực chỉ định với tốc độ cao, gây <span class="damage magic">30 sát thương phép</span> và <span class="buff">Hất Tung</span> các kẻ địch trong <span class="time">1 giây</span> xung quanh điểm đến. <i>(Không thể cản phá bởi các hiệu ứng khống chế)</i>';
+    `<span class="buff">Lướt</span> tới khu vực chỉ định với tốc độ cao, gây ${dmg(30, 'MAGIC')} và <span class="buff">Hất Tung</span> các kẻ địch trong <span class="time">1 giây</span> xung quanh điểm đến. <i>(Không thể cản phá bởi các hiệu ứng khống chế)</i>`;
   coolDown = 10000;
   manaCost = 100;
 

@@ -10,6 +10,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const Slow = api.buffs.Slow;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 
 export const E_RADII = [130, 220, 310];
@@ -51,7 +52,7 @@ export default class Nautilus_E extends Spell {
   name = 'Thủy Triều Dữ Dội (Nautilus_E)';
   description =
     `Ba đợt cột nước dựng lên quanh Nautilus ở ${E_RADII.join(', ')} đơn vị, cách nhau ` +
-    `${secs(E_WAVE_GAP_MS)} giây. Mỗi đợt gây <span class="damage magic">${E_WAVE_DAMAGE} sát thương phép</span> ` +
+    `${secs(E_WAVE_GAP_MS)} giây. Mỗi đợt gây ${dmg(E_WAVE_DAMAGE, 'MAGIC')} ` +
     `và làm chậm ${pct(E_SLOW)}%. Đứng yên là ăn đủ cả ba.`;
   coolDown = 10_000;
   manaCost = 40;

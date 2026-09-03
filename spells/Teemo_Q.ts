@@ -6,13 +6,14 @@ const MissileSpellObject = api.MissileSpellObject;
 const Nearsight = api.buffs.Nearsight;
 const TrailSystem = api.helpers.TrailSystem;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 export default class Teemo_Q extends Spell {
   targetingMode = 'DIRECTION' as const;
   image = api.asset('spell_teemo_q');
   name = 'Phi Tiêu Mù (Teemo_Q)';
   description =
-    'Phóng một phi tiêu tẩm độc về hướng chỉ định, gây <span class="damage magic">20 sát thương phép</span> và <span class="buff">Mờ Mắt</span> kẻ địch đầu tiên trúng phải trong <span class="time">2 giây</span>';
+    `Phóng một phi tiêu tẩm độc về hướng chỉ định, gây ${dmg(20, 'MAGIC')} và <span class="buff">Mờ Mắt</span> kẻ địch đầu tiên trúng phải trong <span class="time">2 giây</span>`;
   coolDown = 5000;
   manaCost = 20;
 

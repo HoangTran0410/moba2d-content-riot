@@ -13,6 +13,7 @@ const StatusFlags = api.enums.StatusFlags;
 const Buff = api.buffs.Buff;
 const StatsModifier = api.units.StatsModifier;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 /**
@@ -40,7 +41,7 @@ export default class Fizz_E extends Spell {
   image = Fizz_E.PHASES[this.phase].image;
   name = 'Tung Tăng / Nhảy Múa (Fizz_E)';
   description =
-    'Fizz chống đinh ba nhảy lên không, <span class="buff">Không thể bị chọn làm mục tiêu</span> trong <span class="time">0.75 giây</span>. Khi đáp xuống, gây <span class="damage magic">30 sát thương phép</span> quanh mình và <span class="buff">Làm Chậm</span> 50% trong <span class="time">2 giây</span>. Có thể tái kích hoạt lúc đang lơ lửng (<b>Tinh Quái</b>) để nhảy xuống sớm ở vị trí khác: phạm vi nhỏ hơn và <i>không làm chậm</i>';
+    `Fizz chống đinh ba nhảy lên không, <span class="buff">Không thể bị chọn làm mục tiêu</span> trong <span class="time">0.75 giây</span>. Khi đáp xuống, gây ${dmg(30, 'MAGIC')} quanh mình và <span class="buff">Làm Chậm</span> 50% trong <span class="time">2 giây</span>. Có thể tái kích hoạt lúc đang lơ lửng (<b>Tinh Quái</b>) để nhảy xuống sớm ở vị trí khác: phạm vi nhỏ hơn và <i>không làm chậm</i>`;
   coolDown = 8000;
   manaCost = 30;
 

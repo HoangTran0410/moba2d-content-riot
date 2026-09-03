@@ -11,6 +11,7 @@ const Spell = api.Spell;
 const beamBoundingBox = api.beamBoundingBox;
 const intersectsBeam = api.intersectsBeam;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 
@@ -39,7 +40,7 @@ export default class Jhin_W extends Spell {
   image = api.asset('spell_jhin_w');
   name = 'Nét Vẽ Chết Chóc (Jhin_W)';
   description = `Nâng súng trong ${secs(JHIN_W_CAST_MS)} giây rồi bắn một phát xuyên thẳng tầm xa
-    ${JHIN_W_RANGE} đơn vị, gây <span class="damage physical">${JHIN_W_DAMAGE} sát thương vật lý</span> cho mọi
+    ${JHIN_W_RANGE} đơn vị, gây ${dmg(JHIN_W_DAMAGE, 'PHYSICAL')} cho mọi
     kẻ địch trên đường đạn. Mục tiêu đang bị <b>đánh dấu</b> bị trói chân
     ${secs(JHIN_W_ROOT_MS)} giây và mất dấu.`;
   coolDown = 10_000;

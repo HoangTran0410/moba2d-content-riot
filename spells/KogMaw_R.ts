@@ -12,6 +12,7 @@ const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 
 /**
@@ -110,7 +111,7 @@ export default class KogMaw_R extends Spell {
   name = 'Đại Bác Sinh Học (KogMaw_R)';
   description =
     `Bắn một quả cầu axit bay <span class="time">${secs(R_FLIGHT_MS)} giây</span> rồi rơi xuống điểm chỉ định,` +
-    ` gây <span class="damage magic">${R_DAMAGE} sát thương phép</span> cho kẻ địch trong bán kính` +
+    ` gây ${dmg(R_DAMAGE, 'MAGIC')} cho kẻ địch trong bán kính` +
     ` ${R_EFFECT_RADIUS} và <span class="buff">phát hiện</span> chúng trong` +
     ` <span class="time">${secs(R_REVEAL_MS)} giây</span>. Sát thương tăng dần tới` +
     ` <span class="buff">+${pct(R_MAX_MISSING_HEALTH_BONUS)}%</span> khi mục tiêu càng mất nhiều máu,` +

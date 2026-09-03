@@ -5,6 +5,7 @@ const Spell = api.Spell;
 const Buff = api.buffs.Buff;
 const SpellObject = api.SpellObject;
 const PredefinedFilters = api.combat.PredefinedFilters;
+const dmg = api.text.dmg;
 
 /**
  * Móc Sét Statikk — the shop's first **meter**, as opposed to its first
@@ -51,7 +52,7 @@ export class Item_StatikkShiv_Charge extends Buff {
   name = 'Móc Sét Statikk';
   description =
     `Đòn đánh tích điện; khi đầy, đòn tiếp theo gây ` +
-    `<span class="damage magic">${SHIV_DAMAGE} sát thương phép</span> và lan sang ` +
+    `${dmg(SHIV_DAMAGE, 'MAGIC')} và lan sang ` +
     `<span class="buff">${CHAIN_TARGETS} kẻ địch</span> xung quanh.`;
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
 

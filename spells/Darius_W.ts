@@ -12,6 +12,8 @@ const Buff = api.buffs.Buff;
 const Slow = api.buffs.Slow;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 
 
@@ -52,9 +54,9 @@ export default class Darius_W extends Spell {
   name = 'Đánh Thọt (Darius_W)';
   description =
     `Cường hóa đòn đánh thường tiếp theo trong <span class="time">${secs(WINDOW_MS)} giây</span>:` +
-    ` gây thêm <span class="damage physical">${BONUS_DAMAGE} sát thương vật lý</span>,` +
+    ` gây thêm ${dmg(BONUS_DAMAGE, 'PHYSICAL')},` +
     ` <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> trong <span class="time">${secs(SLOW_MS)} giây</span>` +
-    ` và cộng một cấp <span class="damage">Chảy Máu</span>.` +
+    ` và cộng một cấp ${tint('Chảy Máu')}.` +
     ` Nếu đòn này <span class="buff">hạ gục</span> mục tiêu, hồi lại một nửa thời gian hồi chiêu`;
   coolDown = 6_000;
   manaCost = 25;
@@ -72,7 +74,7 @@ export class Darius_W_Buff extends Buff {
   image: Buff['image'] = api.asset('spell_darius_w');
   name = 'Đòn Hiểm';
   description =
-    `Đòn đánh kế tiếp gây thêm <span class="damage physical">${BONUS_DAMAGE} sát thương vật lý</span> và ` +
+    `Đòn đánh kế tiếp gây thêm ${dmg(BONUS_DAMAGE, 'PHYSICAL')} và ` +
     `<span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> trong ` +
     `<span class="time">${secs(SLOW_MS)} giây</span>.`;
 

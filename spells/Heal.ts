@@ -9,6 +9,7 @@ const Spell = api.Spell;
 const Speedup = api.buffs.Speedup;
 const SpellObject = api.SpellObject;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
+const tint = api.text.tint;
 
 const SPEEDUP_TIME = 3000;
 
@@ -64,7 +65,7 @@ export default class Heal extends Spell {
   description =
     `<span class="buff">Hồi máu</span> cho <b>mọi đồng minh</b> trong bán kính` +
     ` <span>${HEAL_RADIUS}px</span> (kể cả bản thân) một lượng bằng` +
-    ` <span class="heal">${pct(HEAL_PERCENT)}% máu tối đa của chính họ</span>, và cho tất cả` +
+    ` ${tint(`${pct(HEAL_PERCENT)}% máu tối đa của chính họ`)}, và cho tất cả` +
     ` <span class="buff">Tăng Tốc ${pct(SPEEDUP_PERCENT)}%</span> trong` +
     ` <span class="time">${secs(SPEEDUP_TIME)} giây</span>`;
   coolDown = 10000;

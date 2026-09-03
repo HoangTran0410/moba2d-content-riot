@@ -15,6 +15,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const Slow = api.buffs.Slow;
 const SpellObject = api.SpellObject;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 
 export const SETT_R_RANGE = 250;
@@ -57,8 +58,8 @@ export default class Sett_R extends Spell {
   name = 'Hủy Diệt Đấu Trường (Sett_R)';
   description =
     `Sett bốc một tướng địch lên không trung (không thể bị chọn làm mục tiêu), bay vút lên ` +
-    `và nện xuống đất: mục tiêu bị ném nhận <span class="damage physical">${SETT_R_SLAM} sát thương vật lý</span>, ` +
-    `mọi kẻ địch khác trong bán kính ${SETT_R_BLAST_RADIUS} nhận <span class="damage physical">${SETT_R_BLAST} sát thương vật lý</span> ` +
+    `và nện xuống đất: mục tiêu bị ném nhận ${dmg(SETT_R_SLAM, 'PHYSICAL')}, ` +
+    `mọi kẻ địch khác trong bán kính ${SETT_R_BLAST_RADIUS} nhận ${dmg(SETT_R_BLAST, 'PHYSICAL')} ` +
     `và bị làm chậm ${pct(SETT_R_SLOW)}% trong ${secs(SETT_R_SLOW_MS)} giây.`;
   coolDown = 10_000;
   manaCost = 100;

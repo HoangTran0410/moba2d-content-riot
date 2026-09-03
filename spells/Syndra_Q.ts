@@ -77,6 +77,7 @@ function distanceBetween(a: { x: number; y: number }, b: { x: number; y: number 
 // see this file's own header comment on the codemod's cycle handling.
 /** A sphere in her hand or in flight is over the bodies, not under them. */
 const SPHERE_AIR_Z_INDEX = api.layers.SPELL_EFFECT_Z_INDEX;
+const dmg = api.text.dmg;
 
 
 export const SPHERE_REGISTRY = new WeakMap<object, Syndra_Sphere[]>();
@@ -349,7 +350,7 @@ export default class Syndra_Q extends Spell {
   image = api.asset('spell_syndra_q');
   name = 'Quả Cầu Bóng Tối (Syndra_Q)';
   description = `Triệu hồi một quả cầu bóng tối rơi xuống điểm chỉ định, gây
-    <span class="damage magic">${SYNDRA_Q_DAMAGE} sát thương phép</span> trong bán kính ${SYNDRA_Q_RADIUS}.
+    ${dmg(SYNDRA_Q_DAMAGE, 'MAGIC')} trong bán kính ${SYNDRA_Q_RADIUS}.
     Quả cầu <b>nằm lại trên mặt đất</b> để W, E và R sử dụng.`;
   coolDown = 6_000;
   manaCost = 25;

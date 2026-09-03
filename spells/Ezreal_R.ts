@@ -10,6 +10,7 @@ const Champion = api.units.Champion;
 const TrailSystem = api.helpers.TrailSystem;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 /** Not literally global, but far enough to cross most of a fight from outside it. */
@@ -42,8 +43,8 @@ export default class Ezreal_R extends Spell {
   description =
     `Tích tụ trong <span class="time">${secs(EZREAL_R_CAST_TIME_MS)} giây</span> rồi bắn một luồng` +
     ' năng lượng khổng lồ xuyên qua toàn bộ kẻ địch trên đường đi, gây' +
-    ` <span class="damage magic">${EZREAL_R_DAMAGE} sát thương phép</span> lên tướng và` +
-    ` <span class="damage magic">${EZREAL_R_MINION_DAMAGE} sát thương phép</span> lên lính và quái.`;
+    ` ${dmg(EZREAL_R_DAMAGE, 'MAGIC')} lên tướng và` +
+    ` ${dmg(EZREAL_R_MINION_DAMAGE, 'MAGIC')} lên lính và quái.`;
 
   coolDown = 10000;
   manaCost = 100;

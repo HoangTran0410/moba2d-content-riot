@@ -8,6 +8,7 @@ const Silence = api.buffs.Silence;
 const Slow = api.buffs.Slow;
 const Speedup = api.buffs.Speedup;
 const StatAmp = api.buffs.StatAmp;
+const dmg = api.text.dmg;
 
 
 export const SPEED_DURATION = 3000;
@@ -46,7 +47,7 @@ export default class Garen_Q extends Spell {
   description =
     `<span class="buff">Gỡ mọi hiệu ứng làm chậm</span> và nhận <span class="buff">+${pct(SPEED_PERCENT)}% tốc chạy</span>` +
     ` trong <span class="time">${secs(SPEED_DURATION)} giây</span>. Đòn đánh thường tiếp theo trong` +
-    ` <span class="time">${secs(WINDOW_MS)} giây</span> gây thêm <span class="damage physical">${BONUS_DAMAGE} sát thương vật lý</span>` +
+    ` <span class="time">${secs(WINDOW_MS)} giây</span> gây thêm ${dmg(BONUS_DAMAGE, 'PHYSICAL')}` +
     ` và <span class="buff">Câm Lặng</span> mục tiêu <span class="time">${secs(SILENCE_MS)} giây</span>`;
   coolDown = 8000;
   manaCost = 20;

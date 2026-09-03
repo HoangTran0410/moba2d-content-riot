@@ -8,6 +8,8 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const Slow = api.buffs.Slow;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 export const RADIUS = 220;
 
@@ -71,8 +73,8 @@ export default class Thresh_R extends Spell {
   name = 'Đóng Hộp (Thresh_R)';
   description =
     `Dựng một chiếc lồng bán kính <span>${RADIUS}px</span> quanh mình trong` +
-    ` <span class="time">${secs(DURATION)} giây</span>. Kẻ địch <span class="damage">bước ra khỏi lồng</span>` +
-    ` nhận <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span>` +
+    ` <span class="time">${secs(DURATION)} giây</span>. Kẻ địch ${tint('bước ra khỏi lồng')}` +
+    ` nhận ${dmg(DAMAGE, 'MAGIC')} và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span>` +
     ` — mỗi kẻ chỉ phá được một lần`;
   coolDown = 10000;
   manaCost = 70;

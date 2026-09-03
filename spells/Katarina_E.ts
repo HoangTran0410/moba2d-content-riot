@@ -9,6 +9,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const AttackableUnit = api.units.AttackableUnit;
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 
@@ -28,9 +29,9 @@ export default class Katarina_E extends Spell {
   image = api.asset('spell_katarina_e');
   name = 'Ám Sát (Katarina_E)';
   description = `Dịch chuyển tức thời tới một <b>kẻ địch, đồng minh, lính, quái, trụ</b> hoặc <b>con dao</b> trong tầm — <b>không có mục tiêu thì không dùng được</b>, không thể nhảy vào chỗ trống.
-    Nếu tới kẻ địch, gây <span class="damage magic">${KATARINA_E_STRIKE_DAMAGE} sát thương phép</span>.
+    Nếu tới kẻ địch, gây ${dmg(KATARINA_E_STRIKE_DAMAGE, 'MAGIC')}.
     Nếu tới con dao, kích hoạt <b>xoay kiếm diện rộng</b> gây
-    <span class="damage magic">${KATARINA_DAGGER_SLASH_DAMAGE} sát thương phép</span> và hồi lại phần lớn thời gian hồi chiêu Ám Sát.`;
+    ${dmg(KATARINA_DAGGER_SLASH_DAMAGE, 'MAGIC')} và hồi lại phần lớn thời gian hồi chiêu Ám Sát.`;
   coolDown = 10_000;
   manaCost = 0;
   range = KATARINA_E_RANGE;

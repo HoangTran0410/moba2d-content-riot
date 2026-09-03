@@ -5,6 +5,8 @@ const Spell = api.Spell;
 const DamageReflect = api.buffs.DamageReflect;
 const Shield = api.buffs.Shield;
 const Speedup = api.buffs.Speedup;
+const dmg = api.text.dmg;
+const heal = api.text.heal;
 
 export const DURATION = 3000;
 
@@ -49,10 +51,10 @@ export default class Annie_E extends Spell {
   image = api.asset('spell_annie_e');
   name = 'Khiên Lửa (Annie_E)';
   description =
-    `Nhận khiên <span class="heal">${SHIELD_AMOUNT}</span> và <span class="buff">+${pct(SPEED_PERCENT)}% tốc chạy</span>` +
+    `Nhận khiên ${heal(SHIELD_AMOUNT)} và <span class="buff">+${pct(SPEED_PERCENT)}% tốc chạy</span>` +
     ` trong <span class="time">${secs(DURATION)} giây</span>. <span class="buff">Mỗi lần</span> có kẻ` +
     ` gây sát thương lên Annie (kể cả khi khiên đỡ hết), kẻ đó bị đốt lại` +
-    ` <span class="damage magic">${RETURN_DAMAGE} sát thương phép</span>`;
+    ` ${dmg(RETURN_DAMAGE, 'MAGIC')}`;
   coolDown = 10000;
   manaCost = 30;
 

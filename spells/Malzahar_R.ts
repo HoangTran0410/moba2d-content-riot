@@ -18,6 +18,7 @@ const SpellObject = api.SpellObject;
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 
 // Exported so the suite asserts the grasp's wiring rather than a copy of the
@@ -72,11 +73,11 @@ export default class Malzahar_R extends Spell {
   name = 'Âm Ti Trói Buộc (Malzahar_R)';
   description =
     `Trói một kẻ địch, <span class="buff">Choáng</span> và gây` +
-    ` <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span> mỗi` +
+    ` ${dmg(DAMAGE_PER_TICK, 'MAGIC')} mỗi` +
     ` <span class="time">${secs(TICK_EVERY_MS)} giây</span> suốt` +
     ` <span class="time">${secs(CHANNEL_DURATION_MS)} giây</span>. Một` +
     ` <span class="buff">Vùng Hư Vô</span> mở ra dưới chân nạn nhân, gây` +
-    ` <span class="damage magic">${ZONE_DAMAGE_PER_TICK} sát thương phép</span> mỗi nhịp trong` +
+    ` ${dmg(ZONE_DAMAGE_PER_TICK, 'MAGIC')} mỗi nhịp trong` +
     ` <span class="time">${secs(ZONE_DURATION_MS)} giây</span> và tồn tại kể cả khi kênh bị ngắt`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;

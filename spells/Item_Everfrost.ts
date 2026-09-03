@@ -6,6 +6,7 @@ const Spell = api.Spell;
 const Root = api.buffs.Root;
 const SpellObject = api.SpellObject;
 const PredefinedFilters = api.combat.PredefinedFilters;
+const dmg = api.text.dmg;
 
 /**
  * Vĩnh Sương's active: the shop's first button that is a **skillshot**.
@@ -52,7 +53,7 @@ export default class Item_Everfrost extends Spell {
   name = 'Vĩnh Sương (Item_Everfrost)';
   description =
     `Kích hoạt: bắn ra một luồng băng gây` +
-    ` <span class="damage magic">${EVERFROST_DAMAGE} sát thương phép</span> và` +
+    ` ${dmg(EVERFROST_DAMAGE, 'MAGIC')} và` +
     ` <span class="buff">trói ${secs(EVERFROST_ROOT_MS)} giây</span> mọi kẻ địch trúng đòn`;
   coolDown = EVERFROST_COOLDOWN_MS;
   manaCost = 0;

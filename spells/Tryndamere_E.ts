@@ -10,6 +10,7 @@ const Champion = api.units.Champion;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
+const dmg = api.text.dmg;
 
 
 export const TRYNDAMERE_E_RANGE = 300;
@@ -30,7 +31,7 @@ export default class Tryndamere_E extends Spell {
   image = api.asset('spell_tryndamere_e');
   name = 'Chém Xoáy (Tryndamere_E)';
   description =
-    'Xoay kiếm lướt tới vị trí chỉ định, gây <span class="damage physical">28 sát thương vật lý</span> cho mọi kẻ địch trên đường đi ' +
+    `Xoay kiếm lướt tới vị trí chỉ định, gây ${dmg(28, 'PHYSICAL')} cho mọi kẻ địch trên đường đi ` +
     '(<span class="buff">mỗi mục tiêu chỉ trúng một lần</span>). Mỗi tướng chém trúng giảm <span class="time">1 giây</span> hồi chiêu.';
   coolDown = 9_000;
   manaCost = 0;

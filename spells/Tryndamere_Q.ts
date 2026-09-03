@@ -5,6 +5,7 @@ const Spell = api.Spell;
 const StatAmp = api.buffs.StatAmp;
 const SpellObject = api.SpellObject;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
+const heal = api.text.heal;
 
 
 /** The floor of the heal, paid even at full health. */
@@ -28,8 +29,8 @@ export default class Tryndamere_Q extends Spell {
   image = api.asset('spell_tryndamere_q');
   name = 'Say Máu (Tryndamere_Q)';
   description =
-    'Hồi <span class="heal">14 máu</span> cộng <span class="buff">28% lượng máu đã mất</span> ' +
-    '(tối đa <span class="heal">40 máu</span>), đồng thời nhận tới <span class="buff">14 sát thương đánh</span> ' +
+    `Hồi ${heal(14, ' máu')} cộng <span class="buff">28% lượng máu đã mất</span> ` +
+    `(tối đa ${heal(40, ' máu')}), đồng thời nhận tới <span class="buff">14 sát thương đánh</span> ` +
     'tùy theo lượng máu đã mất trong <span class="time">6 giây</span>.';
   coolDown = 9_000;
   // Tryndamere is manaless in his own game and stays manaless here: his whole

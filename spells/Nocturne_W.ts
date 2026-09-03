@@ -6,6 +6,7 @@ const Spell = api.Spell;
 const Shield = api.buffs.Shield;
 const StatAmp = api.buffs.StatAmp;
 const SpellObject = api.SpellObject;
+const heal = api.text.heal;
 
 
 export const DURATION = 3000;
@@ -62,7 +63,7 @@ export default class Nocturne_W extends Spell {
   image = api.asset('spell_nocturne_w');
   name = 'Bóng Đen Bao Phủ (Nocturne_W)';
   description =
-    `Nhận khiên <span class="heal">${SHIELD_AMOUNT}</span>, <span class="buff">+${pct(ATTACK_SPEED_PERCENT)}% tốc độ đánh</span>` +
+    `Nhận khiên ${heal(SHIELD_AMOUNT)}, <span class="buff">+${pct(ATTACK_SPEED_PERCENT)}% tốc độ đánh</span>` +
     ` và <span class="buff">hút ${pct(OMNIVAMP)}% máu</span> trong <span class="time">${secs(DURATION)} giây</span>`;
   coolDown = 10000;
   manaCost = 25;

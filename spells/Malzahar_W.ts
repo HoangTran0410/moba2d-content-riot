@@ -8,6 +8,7 @@ const SpellObject = api.SpellObject;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
 const Pet = api.units.Pet;
+const dmg = api.text.dmg;
 
 
 // Exported so the suite asserts the swarm's wiring rather than a copy of the
@@ -67,7 +68,7 @@ export default class Malzahar_W extends Spell {
     `Xé một khe nứt Hư Không, triệu hồi <span class="buff">${VOIDLING_COUNT} Bọ Hư Không</span>` +
     ` sống <span class="time">${secs(VOIDLING_LIFETIME_MS)} giây</span>. Mỗi con có` +
     ` <span class="buff">${VOIDLING_HEALTH} máu</span> và cắn` +
-    ` <span class="damage magic">${VOIDLING_DAMAGE} sát thương phép</span> mỗi đòn — có thể bị tiêu diệt`;
+    ` ${dmg(VOIDLING_DAMAGE, 'MAGIC')} mỗi đòn — có thể bị tiêu diệt`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

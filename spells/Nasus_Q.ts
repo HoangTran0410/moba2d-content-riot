@@ -9,6 +9,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const Spell = api.Spell;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 export const RANGE = 150;
@@ -21,7 +22,7 @@ export const DAMAGE_PER_STACK = 5;
 const describe = (stacks: number): string =>
   `Chém một kẻ địch trong phạm vi <span>${RANGE}px</span> — ` +
   `<span class="buff">ưu tiên kẻ sẽ chết vì nhát này</span>, nếu không có thì kẻ gần nhất — gây ` +
-  `<span class="damage physical">${BASE_DAMAGE + stacks * DAMAGE_PER_STACK} sát thương vật lý</span>` +
+  `${dmg(BASE_DAMAGE + stacks * DAMAGE_PER_STACK, 'PHYSICAL')}` +
   ` <i>(${stacks} cộng dồn)</i>. Mỗi lần <span class="buff">hạ gục</span> bằng chiêu này, ` +
   `sát thương của nó <span class="buff">vĩnh viễn tăng thêm ${DAMAGE_PER_STACK}</span>`;
 

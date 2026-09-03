@@ -10,6 +10,7 @@ const Dash = api.buffs.Dash;
 const Stun = api.buffs.Stun;
 const ParticleSystem = api.helpers.ParticleSystem;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 export default class LeeSin_R extends Spell {
   /**
@@ -24,7 +25,7 @@ export default class LeeSin_R extends Spell {
   image = api.asset('spell_leesin_r');
   name = 'Nộ Long Cước (LeeSin_R)';
   description =
-    'Tung cước đá mục tiêu <span class="buff">Văng ra xa</span>, gây <span class="damage physical">30 sát thương vật lý</span> và <span class="buff">Làm Choáng</span> mục tiêu trong <span class="time">0.5 giây</span>. Những kẻ địch khác bị mục tiêu va trúng sẽ bị <span class="buff">Hất Tung</span> trong <span class="time">1 giây</span> và nhận <span class="damage physical">30 sát thương vật lý</span>';
+    `Tung cước đá mục tiêu <span class="buff">Văng ra xa</span>, gây ${dmg(30, 'PHYSICAL')} và <span class="buff">Làm Choáng</span> mục tiêu trong <span class="time">0.5 giây</span>. Những kẻ địch khác bị mục tiêu va trúng sẽ bị <span class="buff">Hất Tung</span> trong <span class="time">1 giây</span> và nhận ${dmg(30, 'PHYSICAL')}`;
   coolDown = 10000;
   manaCost = 50;
 

@@ -12,6 +12,9 @@ const intersectsBeam = api.intersectsBeam;
 const StatusFlags = api.enums.StatusFlags;
 const Buff = api.buffs.Buff;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
+const heal = api.text.heal;
+const dmgValue = api.text.dmgValue;
 
 
 export const W_CHARGE_MS = 1_200;
@@ -64,9 +67,9 @@ export default class Irelia_W extends Spell {
   image = api.asset('spell_irelia_w');
   name = 'Vũ Điệu Thách Thức (Irelia_W)';
   description = `Giữ phím để tích lực — <span class="buff">giảm ${pct(W_DAMAGE_REDUCTION)}% sát thương phải chịu</span> trong lúc tích. Thả ra để quét kiếm về phía con trỏ,
-    gây <span class="damage physical">${W_MIN_DAMAGE}</span>–<span class="damage physical">${W_MAX_DAMAGE} sát thương vật lý</span> tuỳ mức tích lực,
+    gây ${dmgValue(W_MIN_DAMAGE, 'PHYSICAL')}–${dmg(W_MAX_DAMAGE, 'PHYSICAL')} tuỳ mức tích lực,
     <span class="buff">làm chậm ${pct(W_SLOW_PERCENT)}%</span> trong
-    <span class="time">${secs(W_SLOW_MS)} giây</span> và hồi <span class="heal">${W_HEAL_PER_HIT} máu</span> mỗi mục tiêu trúng.`;
+    <span class="time">${secs(W_SLOW_MS)} giây</span> và hồi ${heal(W_HEAL_PER_HIT, ' máu')} mỗi mục tiêu trúng.`;
   coolDown = 9_000;
   manaCost = 40;
   range = W_MAX_REACH;

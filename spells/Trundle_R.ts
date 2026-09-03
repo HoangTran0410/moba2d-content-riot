@@ -16,6 +16,7 @@ const StatAmp = api.buffs.StatAmp;
 const AttackableUnit = api.units.AttackableUnit;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 export const R_RANGE = 380;
@@ -83,7 +84,7 @@ export default class Trundle_R extends Spell {
   image = api.asset('spell_trundle_r');
   name = 'Chinh Phục (Trundle_R)';
   description =
-    `Rút sinh lực của một tướng địch, gây <span class="damage magic">${R_DAMAGE} sát thương phép</span>` +
+    `Rút sinh lực của một tướng địch, gây ${dmg(R_DAMAGE, 'MAGIC')}` +
     ` và hồi lại cho bản thân đúng bằng lượng đó. Cướp` +
     ` <span class="buff">${pct(R_RESIST_STEAL_PERCENT)}% giáp và kháng phép hiện tại</span> của mục tiêu` +
     ` và nhận đúng lượng đã cướp cho bản thân trong <span class="time">${secs(R_DURATION_MS)} giây</span>.`;

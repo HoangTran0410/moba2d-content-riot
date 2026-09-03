@@ -10,6 +10,8 @@ const Pet = api.units.Pet;
 const Fear = api.buffs.Fear;
 const SpellObject = api.SpellObject;
 const TrailSystem = api.helpers.TrailSystem;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 
 export const ARM_TIME_MS = 1000;
@@ -38,9 +40,9 @@ export default class Shaco_W extends Spell {
   description =
     `Đặt một Hộp Hề Ma Quái, tàng hình sau <span class="time">${secs(ARM_TIME_MS)} giây</span> và tồn tại` +
     ` <span class="time">${secs(LIFETIME_MS)} giây</span>. Khi kẻ địch tới gần, hộp bật ra:` +
-    ` <span class="buff">Hoảng Sợ</span> và nã <span class="damage">mọi kẻ địch xung quanh</span> trong <span class="time">${secs(ATTACK_WINDOW_MS)} giây</span>,` +
-    ` <span class="damage magic">${ATTACK_DAMAGE} sát thương phép</span> mỗi phát. Lúc tàng hình <span class="buff">không thể bị chọn</span>,` +
-    ` nhưng khi đã bật ra thì <span class="damage">có thể bị phá</span> (${BOX_HEALTH} máu)`;
+    ` <span class="buff">Hoảng Sợ</span> và nã ${tint('mọi kẻ địch xung quanh')} trong <span class="time">${secs(ATTACK_WINDOW_MS)} giây</span>,` +
+    ` ${dmg(ATTACK_DAMAGE, 'MAGIC')} mỗi phát. Lúc tàng hình <span class="buff">không thể bị chọn</span>,` +
+    ` nhưng khi đã bật ra thì ${tint('có thể bị phá')} (${BOX_HEALTH} máu)`;
   coolDown = 5000;
   manaCost = 20;
 

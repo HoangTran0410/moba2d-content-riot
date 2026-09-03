@@ -8,6 +8,8 @@ const TargetResolver = api.combat.TargetResolver;
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
 const Rectangle = api.utils.Quadtree.Rectangle;
+const dmg = api.text.dmg;
+const heal = api.text.heal;
 
 export const RANGE = 500;
 
@@ -44,8 +46,8 @@ export default class Vladimir_Q extends Spell {
   image = api.asset('spell_vladimir_q');
   name = 'Rút Máu (Vladimir_Q)';
   description =
-    `Rút máu mục tiêu trong <span>${RANGE}px</span>, gây <span class="damage magic">${DAMAGE} sát thương phép</span> ` +
-    `và hồi <span class="heal">${HEAL} máu</span> cho Vladimir`;
+    `Rút máu mục tiêu trong <span>${RANGE}px</span>, gây ${dmg(DAMAGE, 'MAGIC')} ` +
+    `và hồi ${heal(HEAL, ' máu')} cho Vladimir`;
   coolDown = COOLDOWN_MS;
   manaCost = 0;
 

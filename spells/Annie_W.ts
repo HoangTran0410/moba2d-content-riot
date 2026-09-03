@@ -5,6 +5,7 @@ const VectorUtils = api.utils.VectorUtils;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const Spell = api.Spell;
 const AoePulse = api.AoePulse;
+const dmg = api.text.dmg;
 
 export const REACH = 290;
 
@@ -24,7 +25,7 @@ export default class Annie_W extends Spell {
   name = 'Thiêu Cháy (Annie_W)';
   description =
     `Phun lửa thành hình nón dài <span>${REACH}px</span> theo hướng chỉ định, gây` +
-    ` <span class="damage magic">${DAMAGE} sát thương phép</span> cho mọi kẻ địch trong đó`;
+    ` ${dmg(DAMAGE, 'MAGIC')} cho mọi kẻ địch trong đó`;
   coolDown = 7000;
   manaCost = 35;
 

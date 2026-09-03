@@ -12,6 +12,9 @@ const MissileSpellObject = api.MissileSpellObject;
 const AoePulse = api.AoePulse;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
+const dmgValue = api.text.dmgValue;
 
 
 
@@ -81,10 +84,10 @@ export default class Jinx_R extends Spell {
   name = 'Tên Lửa Đạn Đạo Siêu Khủng Khiếp! (Jinx_R)';
   description =
     `Phóng một quả tên lửa <span class="buff">bay khắp bản đồ</span>, chỉ nổ khi trúng` +
-    ` <span class="damage">tướng địch</span> (đi xuyên qua lính). Bay càng xa càng nhanh và càng mạnh:` +
-    ` sát thương từ <span class="damage">${pct(MIN_TRAVEL_SCALE)}%</span> tới` +
-    ` <span class="damage">100%</span> của <span class="damage physical">${BASE_DAMAGE}</span> theo quãng đường,` +
-    ` cộng thêm tới <span class="damage physical">${MAX_MISSING_HEALTH_BONUS} sát thương vật lý</span> theo lượng máu mục tiêu đã mất.` +
+    ` ${tint('tướng địch')} (đi xuyên qua lính). Bay càng xa càng nhanh và càng mạnh:` +
+    ` sát thương từ ${tint(`${pct(MIN_TRAVEL_SCALE)}%`)} tới` +
+    ` ${tint('100%')} của ${dmgValue(BASE_DAMAGE, 'PHYSICAL')} theo quãng đường,` +
+    ` cộng thêm tới ${dmg(MAX_MISSING_HEALTH_BONUS, 'PHYSICAL')} theo lượng máu mục tiêu đã mất.` +
     ` Nổ trong bán kính <span>${BLAST_RADIUS}px</span>`;
   coolDown = 10000;
   manaCost = 90;

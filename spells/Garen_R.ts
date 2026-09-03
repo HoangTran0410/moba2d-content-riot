@@ -13,6 +13,8 @@ const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
 const AoePulse = api.AoePulse;
 const createReveal = api.buffs.createReveal;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 
 export const RANGE = 200;
@@ -90,10 +92,10 @@ export default class Garen_R extends Spell implements ExecuteSpell {
   image = api.asset('spell_garen_r');
   name = 'Công Lý Demacia (Garen_R)';
   description =
-    `Giáng kiếm lên <span class="damage">tướng địch</span> yếu nhất trong <span>${RANGE}px</span>` +
+    `Giáng kiếm lên ${tint('tướng địch')} yếu nhất trong <span>${RANGE}px</span>` +
     ` sau <span class="time">${secs(WINDUP_MS)} giây</span>:` +
-    ` <span class="damage true">${BASE_DAMAGE} sát thương chuẩn</span> cộng thêm` +
-    ` <span class="damage">${pct(MISSING_HEALTH_PERCENT)}% lượng máu đã mất</span> của mục tiêu,` +
+    ` ${dmg(BASE_DAMAGE, 'TRUE')} cộng thêm` +
+    ` ${tint(`${pct(MISSING_HEALTH_PERCENT)}% lượng máu đã mất`)} của mục tiêu,` +
     ` và <span class="buff">lộ diện</span> chúng trong <span class="time">${secs(REVEAL_MS)} giây</span>`;
   coolDown = 10000;
   manaCost = 60;

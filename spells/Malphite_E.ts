@@ -8,6 +8,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const Slow = api.buffs.Slow;
 const StatAmp = api.buffs.StatAmp;
+const dmg = api.text.dmg;
 
 
 /**
@@ -56,7 +57,7 @@ export default class Malphite_E extends Spell {
 
   image = api.asset('spell_malphite_e');
   name = 'Dậm Đất (Malphite_E)';
-  description = `Malphite đập tay xuống đất, gây <span class="damage magic">${DAMAGE} sát thương phép</span> cho kẻ địch trong bán kính <span>${RADIUS}px</span> quanh mình, <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> và <span class="buff">Giảm ${pct(CRIPPLE_PERCENT)}% tốc độ đánh</span> trong <span class="time">${secs(SLOW_DURATION_MS)} giây</span>.`;
+  description = `Malphite đập tay xuống đất, gây ${dmg(DAMAGE, 'MAGIC')} cho kẻ địch trong bán kính <span>${RADIUS}px</span> quanh mình, <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> và <span class="buff">Giảm ${pct(CRIPPLE_PERCENT)}% tốc độ đánh</span> trong <span class="time">${secs(SLOW_DURATION_MS)} giây</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

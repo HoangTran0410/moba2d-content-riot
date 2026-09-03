@@ -12,6 +12,7 @@ const TargetResolver = api.combat.TargetResolver;
 const canSee = api.combat.Vision.canSee;
 const Champion = api.units.Champion;
 const SpellObject = api.SpellObject;
+const heal = api.text.heal;
 
 
 type EyeTarget = AttackableUnit;
@@ -69,7 +70,7 @@ export default class Janna_E extends Spell {
 
   image = api.asset('spell_janna_e');
   name = 'Mắt Bão (Janna_E)';
-  description = `Nội tại: khi một kỹ năng của Janna làm chậm hoặc hất tung ít nhất một tướng địch, hoàn <span class="buff">${pct(REFUND_RATIO)}% hồi chiêu</span> của kỹ năng này (một lần mỗi chu kỳ hồi chiêu). Chủ động: khiên cho tướng đồng minh hoặc trụ, hấp thụ <span class="heal">${SHIELD_AMOUNT} sát thương</span> và <span class="buff">+${BONUS_ATTACK_DAMAGE} sát thương đánh thường</span> trong <span class="time">${secs(SHIELD_DURATION_MS)} giây</span>.`;
+  description = `Nội tại: khi một kỹ năng của Janna làm chậm hoặc hất tung ít nhất một tướng địch, hoàn <span class="buff">${pct(REFUND_RATIO)}% hồi chiêu</span> của kỹ năng này (một lần mỗi chu kỳ hồi chiêu). Chủ động: khiên cho tướng đồng minh hoặc trụ, hấp thụ ${heal(SHIELD_AMOUNT, ' sát thương')} và <span class="buff">+${BONUS_ATTACK_DAMAGE} sát thương đánh thường</span> trong <span class="time">${secs(SHIELD_DURATION_MS)} giây</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

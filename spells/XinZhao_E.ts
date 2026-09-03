@@ -12,6 +12,7 @@ const createReveal = api.buffs.createReveal;
 const SpellObject = api.SpellObject;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 
 export const XINZHAO_E_RANGE = 420;
@@ -63,7 +64,7 @@ export default class XinZhao_E extends Spell {
   image = api.asset('spell_xinzhao_e');
   name = 'Can Trường (XinZhao_E)';
   description =
-    'Lao tới kẻ địch gần con trỏ, gây <span class="damage magic">22 sát thương phép</span> cho mục tiêu và kẻ địch xung quanh, ' +
+    `Lao tới kẻ địch gần con trỏ, gây ${dmg(22, 'MAGIC')} cho mục tiêu và kẻ địch xung quanh, ` +
     '<span class="buff">làm chậm 30%</span> và <span class="buff">đánh dấu</span> mục tiêu trong <span class="time">5 giây</span>. ' +
     'Sau đó Xin Zhao nhận <span class="buff">40% tốc đánh</span> trong <span class="time">4 giây</span>.';
   coolDown = 10_000;

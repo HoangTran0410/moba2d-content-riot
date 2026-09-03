@@ -12,6 +12,7 @@ const canSee = api.combat.Vision.canSee;
 const AttackableUnit = api.units.AttackableUnit;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const heal = api.text.heal;
 
 
 /**
@@ -49,7 +50,7 @@ export default class Soraka_W extends Spell {
 
   image = api.asset('spell_soraka_w');
   name = 'Tinh Tú Hộ Mệnh (Soraka_W)';
-  description = `Hồi <span class="heal">${HEAL} máu</span> cho một đồng minh, trả bằng <span class="buff">${HEALTH_COST} máu</span> của chính Soraka (chỉ còn <span class="buff">${REJUVENATED_HEALTH_COST}</span> khi cô đang có bụi sao từ Vẫn Tinh, và khi đó đồng minh cũng nhận được bụi sao). Không thể dùng khi Soraka còn dưới <span class="buff">${pct(MIN_HEALTH_RATIO)}% máu tối đa</span>.`;
+  description = `Hồi ${heal(HEAL, ' máu')} cho một đồng minh, trả bằng <span class="buff">${HEALTH_COST} máu</span> của chính Soraka (chỉ còn <span class="buff">${REJUVENATED_HEALTH_COST}</span> khi cô đang có bụi sao từ Vẫn Tinh, và khi đó đồng minh cũng nhận được bụi sao). Không thể dùng khi Soraka còn dưới <span class="buff">${pct(MIN_HEALTH_RATIO)}% máu tối đa</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
   healthCost = HEALTH_COST;

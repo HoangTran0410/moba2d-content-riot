@@ -5,6 +5,8 @@ const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const Spell = api.Spell;
 const AoePulse = api.AoePulse;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 
 export const RANGE = 500;
@@ -22,8 +24,8 @@ export default class Twitch_E extends Spell {
   image = api.asset('spell_twitch_e');
   name = 'Nhiễm Khuẩn (Twitch_E)';
   description =
-    `Kích nổ chất độc: mọi kẻ địch <span class="damage">đang nhiễm độc</span> trong <span>${RANGE}px</span>` +
-    ` nhận <span class="damage physical">${DAMAGE} sát thương vật lý</span> và mất hiệu ứng độc`;
+    `Kích nổ chất độc: mọi kẻ địch ${tint('đang nhiễm độc')} trong <span>${RANGE}px</span>` +
+    ` nhận ${dmg(DAMAGE, 'PHYSICAL')} và mất hiệu ứng độc`;
   coolDown = 10000;
   manaCost = 35;
 

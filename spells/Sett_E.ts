@@ -10,6 +10,7 @@ const Stun = api.buffs.Stun;
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 
 export const SETT_E_DAMAGE = 18;
@@ -50,7 +51,7 @@ export default class Sett_E extends Spell {
   name = 'Song Thú Chưởng (Sett_E)';
   description =
     `Sett kẹp hai bên người: mọi kẻ địch trong hai ô ${SETT_E_BOX_LENGTH}x${SETT_E_BOX_WIDTH} ` +
-    `trước và sau lưng nhận <span class="damage physical">${SETT_E_DAMAGE} sát thương vật lý</span> và bị lôi ` +
+    `trước và sau lưng nhận ${dmg(SETT_E_DAMAGE, 'PHYSICAL')} và bị lôi ` +
     `sát vào người hắn. Nếu bắt được cả hai phía, tất cả bị choáng ` +
     `${secs(SETT_E_STUN_MS)} giây.`;
   coolDown = 10_000;

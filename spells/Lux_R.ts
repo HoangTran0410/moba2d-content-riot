@@ -21,6 +21,7 @@ const CastBar = api.vfx.CastBar;
 const Spell = api.Spell;
 const createReveal = api.buffs.createReveal;
 const BeamSpellObject = api.BeamSpellObject;
+const dmg = api.text.dmg;
 
 
 function hasSpells(unit: AttackableUnit): unit is AttackableUnit & { spells: Spell[] } {
@@ -158,7 +159,7 @@ export default class Lux_R extends Spell {
   image = api.asset('spell_lux_r');
   name = 'Cầu Vồng Tối Thượng (Lux_R)';
   description =
-    'Niệm <span class="time">1 giây</span> rồi bắn một dải sáng theo hướng đã chốt, gây <span class="damage magic">30 sát thương phép</span> lên mọi kẻ địch trúng phải';
+    `Niệm <span class="time">1 giây</span> rồi bắn một dải sáng theo hướng đã chốt, gây ${dmg(30, 'MAGIC')} lên mọi kẻ địch trúng phải`;
   coolDown = 10_000;
   manaCost = MANA_COST;
 

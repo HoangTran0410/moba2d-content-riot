@@ -6,6 +6,7 @@ const EventType = api.enums.EventType;
 const Spell = api.Spell;
 const DamageOverTime = api.buffs.DamageOverTime;
 const StatAmp = api.buffs.StatAmp;
+const dmg = api.text.dmg;
 
 
 export const DURATION = 8000;
@@ -30,7 +31,7 @@ export default class Fizz_W extends Spell {
   name = 'Đinh Ba Hải Thạch (Fizz_W)';
   description =
     `Trong <span class="time">${secs(DURATION)} giây</span>, mỗi đòn đánh thường gây thêm` +
-    ` <span class="damage magic">${BLEED_PER_TICK} sát thương phép mỗi nhịp</span> trong` +
+    ` ${dmg(BLEED_PER_TICK, 'MAGIC', ' mỗi nhịp')} trong` +
     ` <span class="time">${secs(BLEED_DURATION)} giây</span>, kèm <span class="buff">+20% tốc độ đánh</span>`;
   coolDown = 10000;
   manaCost = 25;

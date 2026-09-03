@@ -7,6 +7,8 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const DamageOverTime = api.buffs.DamageOverTime;
 const Speedup = api.buffs.Speedup;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 export const MAX_RANGE = 550;
 
@@ -28,7 +30,7 @@ export default class Cassiopeia_Q extends Spell {
   name = 'Vụ Nổ Độc Hại (Cassiopeia_Q)';
   description =
     `Nổ một đám độc bán kính <span>${RADIUS}px</span> sau <span class="time">${secs(DELAY_MS)} giây</span>:` +
-    ` <span class="damage magic">${IMPACT_DAMAGE} sát thương phép</span> và <span class="damage">nhiễm độc</span>` +
+    ` ${dmg(IMPACT_DAMAGE, 'MAGIC')} và ${tint('nhiễm độc')}` +
     ` trong <span class="time">${secs(POISON_DURATION)} giây</span>. Trúng mục tiêu thì Cassiopeia` +
     ` <span class="buff">+30% tốc chạy</span>`;
   coolDown = 5000;

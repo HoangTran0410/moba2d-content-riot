@@ -19,6 +19,7 @@ const canSee = api.combat.Vision.canSee;
 const withinRange = api.combat.Reach.withinRange;
 const SpellForm = api.enums.SpellForm;
 const QuadtreeRectangle = api.utils.Quadtree.Rectangle;
+const heal = api.text.heal;
 
 /**
  * Nhất Thống — a true channel that ends somewhere else entirely.
@@ -86,8 +87,8 @@ export default class Shen_R extends Spell {
     `Shen tụ khí trong <span class="buff">${secs(CHANNEL_DURATION_MS)} giây</span>, nhắm vào` +
     ` một tướng đồng minh <span class="buff">ở bất cứ đâu trên bản đồ</span>.` +
     ` Kênh xong, Shen dịch chuyển tới bên cạnh đồng minh; đồng minh nhận` +
-    ` <span class="heal">${SHIELD_ALLY} lá chắn</span> và Shen nhận` +
-    ` <span class="heal">${SHIELD_SELF} lá chắn</span> trong` +
+    ` ${heal(SHIELD_ALLY, ' lá chắn')} và Shen nhận` +
+    ` ${heal(SHIELD_SELF, ' lá chắn')} trong` +
     ` <span class="buff">${secs(SHIELD_DURATION_MS)} giây</span>.` +
     ` Di chuyển sẽ ngắt kênh, và không thể tự chọn chính mình — đây là chiêu đi cứu người.`;
   coolDown = COOLDOWN_MS;

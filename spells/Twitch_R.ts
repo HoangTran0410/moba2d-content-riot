@@ -8,6 +8,8 @@ const Spell = api.Spell;
 const StatAmp = api.buffs.StatAmp;
 const MissileSpellObject = api.MissileSpellObject;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 
 export const DURATION = 7000;
@@ -64,8 +66,8 @@ export default class Twitch_R extends Spell {
     ` <span class="buff">+${BONUS_DAMAGE} sát thương đánh thường</span>,` +
     ` <span class="buff">+${pct(ATTACK_SPEED_PERCENT)}% tốc độ đánh</span>,` +
     ` <span class="buff">+${ON_HIT_DAMAGE} sát thương mỗi đòn đánh</span>,` +
-    ` và mỗi đòn đánh thường <span class="damage">xuyên qua mục tiêu</span> bắn tiếp` +
-    ` <span class="damage physical">${BOLT_DAMAGE} sát thương vật lý</span> cho mọi kẻ địch phía sau`;
+    ` và mỗi đòn đánh thường ${tint('xuyên qua mục tiêu')} bắn tiếp` +
+    ` ${dmg(BOLT_DAMAGE, 'PHYSICAL')} cho mọi kẻ địch phía sau`;
   coolDown = 10000;
   manaCost = 50;
 

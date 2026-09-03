@@ -9,6 +9,8 @@ const Spell = api.Spell;
 const MissileSpellObject = api.MissileSpellObject;
 const AoePulse = api.AoePulse;
 const TrailSystem = api.helpers.TrailSystem;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 
 export const RANGE = 450;
@@ -63,8 +65,8 @@ export default class Cassiopeia_E extends Spell {
   image = api.asset('spell_cassiopeia_e');
   name = 'Nanh Độc (Cassiopeia_E)';
   description =
-    `Phun nọc vào kẻ địch gần nhất trong <span>${RANGE}px</span>: <span class="damage magic">${BASE_DAMAGE} sát thương phép</span>,` +
-    ` hoặc <span class="damage magic">${POISONED_DAMAGE} sát thương phép</span> nếu mục tiêu <span class="damage">đang trúng độc</span>` +
+    `Phun nọc vào kẻ địch gần nhất trong <span>${RANGE}px</span>: ${dmg(BASE_DAMAGE, 'MAGIC')},` +
+    ` hoặc ${dmg(POISONED_DAMAGE, 'MAGIC')} nếu mục tiêu ${tint('đang trúng độc')}` +
     ` <i>khi nọc chạm tới</i>`;
   coolDown = 2500;
   manaCost = 12;

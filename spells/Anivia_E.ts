@@ -12,6 +12,8 @@ const Chilled = api.buffs.Chilled;
 const TrailSystem = api.helpers.TrailSystem;
 const HomingMissileSpellObject = api.HomingMissileSpellObject;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
+const dmgValue = api.text.dmgValue;
 
 
 type FrostbiteTarget = AttackableUnit;
@@ -52,7 +54,7 @@ export const SPAWN_OFFSET_DISTANCE = 60;
 export default class Anivia_E extends Spell {
   image = api.asset('spell_anivia_e');
   name = 'Tê Cóng (Anivia_E)';
-  description = `Anivia bắn một mũi băng vào mục tiêu, gây <span class="damage magic">${BASE_DAMAGE} sát thương phép</span>, tăng gấp đôi thành <span class="damage magic">${CHILLED_DAMAGE}</span> nếu mục tiêu đang <span class="buff">Nhiễm Lạnh</span> (bị Sương Băng hoặc Bão Tuyết đã hình thành đầy đủ đánh trúng gần đây).`;
+  description = `Anivia bắn một mũi băng vào mục tiêu, gây ${dmg(BASE_DAMAGE, 'MAGIC')}, tăng gấp đôi thành ${dmgValue(CHILLED_DAMAGE, 'MAGIC')} nếu mục tiêu đang <span class="buff">Nhiễm Lạnh</span> (bị Sương Băng hoặc Bão Tuyết đã hình thành đầy đủ đánh trúng gần đây).`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

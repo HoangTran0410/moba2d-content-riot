@@ -9,6 +9,7 @@ const TrailSystem = api.helpers.TrailSystem;
 const VectorUtils = api.utils.VectorUtils;
 const Slow = api.buffs.Slow;
 const BuffAddType = api.enums.BuffAddType;
+const dmg = api.text.dmg;
 
 export const Q_DAMAGE = 18;
 
@@ -62,7 +63,7 @@ export default class Lissandra_Q extends Spell {
   image = api.asset('spell_lissandra_q');
   name = 'Mảnh Băng (Lissandra_Q)';
   description =
-    `Phóng một mũi băng gây <span class="damage magic">${Q_DAMAGE} sát thương phép</span> và ` +
+    `Phóng một mũi băng gây ${dmg(Q_DAMAGE, 'MAGIC')} và ` +
     `<span class="buff">làm chậm ${pct(Q_SLOW_PERCENT)}%</span> trong ` +
     `<span class="time">${secs(Q_SLOW_DURATION_MS)} giây</span>. Khi trúng mục tiêu đầu tiên, ` +
     `mũi băng <span class="buff">vỡ tan</span> thành một luồng mảnh vụn rộng và nhanh hơn, ` +

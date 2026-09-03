@@ -15,6 +15,7 @@ const AttackableUnit = api.units.AttackableUnit;
 const Dash = api.buffs.Dash;
 const Spell = api.Spell;
 const Rectangle = api.utils.Quadtree.Rectangle;
+const dmg = api.text.dmg;
 
 
 /**
@@ -259,7 +260,7 @@ export const Q_ORBIT_GAP = 16;
 export default class Irelia_Q extends Spell implements ExecuteSpell {
   image = api.asset('spell_irelia_q');
   name = 'Đâm Kiếm (Irelia_Q)';
-  description = `Lướt tới một kẻ địch và chém <span class="damage physical">${Q_DAMAGE} sát thương vật lý</span>.
+  description = `Lướt tới một kẻ địch và chém ${dmg(Q_DAMAGE, 'PHYSICAL')}.
     Nếu cú chém <span class="buff">hạ gục</span> mục tiêu, hoặc mục tiêu đang
     <span class="buff">bị đánh dấu</span> (bởi Bước Nhảy Hoàn Vũ hay Thanh Kiếm Tiên Phong),
     Đâm Kiếm được hoàn lại ngay lập tức và dấu bị tiêu thụ.`;

@@ -5,6 +5,7 @@ const Spell = api.Spell;
 const Shield = api.buffs.Shield;
 const StatAmp = api.buffs.StatAmp;
 const SpellObject = api.SpellObject;
+const heal = api.text.heal;
 
 export const DURATION = 3000;
 
@@ -84,7 +85,7 @@ export default class Garen_W extends Spell {
   image = api.asset('spell_garen_w');
   name = 'Lòng Can Đảm (Garen_W)';
   description =
-    `Nhận khiên <span class="heal">${SHIELD_AMOUNT}</span> trong ` +
+    `Nhận khiên ${heal(SHIELD_AMOUNT)} trong ` +
     `<span class="time">${secs(DURATION)} giây</span>, và ` +
     `<span class="buff">kháng ${pct(TENACITY)}% hiệu ứng khống chế</span> trong ` +
     `<span class="time">${secs(TENACITY_MS)} giây</span> đầu`;

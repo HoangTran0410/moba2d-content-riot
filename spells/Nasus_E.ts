@@ -7,6 +7,7 @@ const Spell = api.Spell;
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 export const MAX_RANGE = 450;
 
@@ -31,7 +32,7 @@ export default class Nasus_E extends Spell {
   name = 'Lửa Tâm Linh (Nasus_E)';
   description =
     `Gọi một vùng lửa bán kính <span>${RADIUS}px</span> tồn tại <span class="time">${secs(DURATION)} giây</span>,` +
-    ` gây <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span> mỗi <span class="time">${secs(TICK_INTERVAL)} giây</span>` +
+    ` gây ${dmg(DAMAGE_PER_TICK, 'MAGIC')} mỗi <span class="time">${secs(TICK_INTERVAL)} giây</span>` +
     ` cho kẻ địch đứng trong đó và <span class="buff">giảm ${pct(SHRED_PERCENT)}% giáp</span> của chúng` +
     ` (còn <span class="time">${secs(SHRED_LINGER_MS)} giây</span> sau khi rời vùng lửa)`;
   coolDown = 10000;

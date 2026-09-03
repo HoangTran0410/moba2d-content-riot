@@ -14,6 +14,7 @@ const HomingMissileSpellObject = api.HomingMissileSpellObject;
 const TrailSystem = api.helpers.TrailSystem;
 const SpellObject = api.SpellObject;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
+const dmg = api.text.dmg;
 
 
 export const EZREAL_E_BLINK_RANGE = 300;
@@ -47,7 +48,7 @@ export default class Ezreal_E extends Spell {
   name = 'Dịch Chuyển Cổ Học (Ezreal_E)';
   description =
     `Dịch chuyển tối đa <span>${EZREAL_E_BLINK_RANGE}px</span> về hướng con trỏ, sau đó bắn một` +
-    ` tia dẫn đường vào kẻ địch gần nhất, gây <span class="damage magic">${EZREAL_E_BOLT_DAMAGE} sát thương phép</span>` +
+    ` tia dẫn đường vào kẻ địch gần nhất, gây ${dmg(EZREAL_E_BOLT_DAMAGE, 'MAGIC')}` +
     ` và <span class="buff">Lộ Diện</span> mục tiêu trong <span class="time">${secs(EZREAL_E_REVEAL_MS)} giây</span>.` +
     ' Ưu tiên mục tiêu đang mang dấu Tinh Hoa Tuôn Chảy.';
 

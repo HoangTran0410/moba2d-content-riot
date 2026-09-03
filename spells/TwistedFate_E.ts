@@ -6,6 +6,7 @@ const Buff = api.buffs.Buff;
 const StatAmp = api.buffs.StatAmp;
 const AoePulse = api.AoePulse;
 const BuffAddType = api.enums.BuffAddType;
+const dmg = api.text.dmg;
 
 /**
  * Tráo Bài — the passive, shipped as a pressable `SELF` spell the way
@@ -49,7 +50,7 @@ export default class TwistedFate_E extends Spell {
   description =
     `Nội tại: cộng vĩnh viễn <span class="buff">${BONUS_ATTACK_SPEED} tốc độ đánh</span>.` +
     ` Cứ mỗi <span class="buff">${ATTACKS_PER_EMPOWER} đòn đánh thường</span>, đòn thứ` +
-    ` ${ATTACKS_PER_EMPOWER} gây thêm <span class="damage magic">${BONUS_DAMAGE} sát thương phép</span>`;
+    ` ${ATTACKS_PER_EMPOWER} gây thêm ${dmg(BONUS_DAMAGE, 'MAGIC')}`;
   coolDown = 0;
   manaCost = 0;
 

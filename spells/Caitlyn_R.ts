@@ -13,6 +13,7 @@ const HomingMissileSpellObject = api.HomingMissileSpellObject;
 const TrailSystem = api.helpers.TrailSystem;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 
@@ -60,7 +61,7 @@ export default class Caitlyn_R extends Spell {
   description =
     `Khóa mục tiêu và ngắm bắn trong <span class="time">${secs(CAITLYN_R_CHANNEL_MS)} giây</span>,` +
     ` <span class="buff">Lộ Diện</span> mục tiêu trong <span class="time">${secs(CAITLYN_R_REVEAL_MS)} giây</span>.` +
-    ` Sau đó bắn một viên đạn dẫn đường gây <span class="damage physical">${CAITLYN_R_DAMAGE} sát thương vật lý</span>.`;
+    ` Sau đó bắn một viên đạn dẫn đường gây ${dmg(CAITLYN_R_DAMAGE, 'PHYSICAL')}.`;
 
   coolDown = 10000;
   manaCost = 100;

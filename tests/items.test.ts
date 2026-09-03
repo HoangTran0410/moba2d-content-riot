@@ -537,7 +537,7 @@ describe('the item set', () => {
     // step this one is loud — the buff is read at a spell module's top level
     // and would be `undefined` on an older core — and the floor is what turns
     // that into a refused install instead of a crash on the first purchase.
-    expect(data.manifest.coreRange).toBe('>=1.19.0');
+    expect(data.manifest.coreRange).toBe('>=1.22.0');
   });
 
   /**

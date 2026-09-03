@@ -11,6 +11,7 @@ const Dash = api.buffs.Dash;
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 
 export const Q_CHARGES = 3;
@@ -54,9 +55,9 @@ export default class Riven_Q extends Spell {
   name = 'Tam Bộ Kiếm (Riven_Q)';
   description =
     `Lao ${Q_STEP} về phía trước rồi chém một hình quạt ${Q_ARC_DEG}° bán kính ${Q_RADIUS}, ` +
-    `gây <span class="damage physical">${Q_DAMAGE} sát thương vật lý</span>. Có ${Q_CHARGES} lần đánh trong ` +
+    `gây ${dmg(Q_DAMAGE, 'PHYSICAL')}. Có ${Q_CHARGES} lần đánh trong ` +
     `${secs(Q_WINDOW_MS)} giây; nhát thứ ba lao ${Q_STEP_FINAL}, gây ` +
-    `<span class="damage physical">${Q_DAMAGE_FINAL} sát thương vật lý</span> và hất tung mục tiêu.`;
+    `${dmg(Q_DAMAGE_FINAL, 'PHYSICAL')} và hất tung mục tiêu.`;
   coolDown = 3_500;
   manaCost = 0;
   range = Q_RANGE;

@@ -8,6 +8,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const Slow = api.buffs.Slow;
 const TrailSystem = api.helpers.TrailSystem;
+const dmg = api.text.dmg;
 
 
 /** Embers riding each wisp. Three fires × three embers is the nine-tail count. */
@@ -33,7 +34,7 @@ export default class Ahri_W extends Spell {
   image = api.asset('spell_ahri_w');
   name = 'Lửa Hồ Ly (Ahri_W)';
   description =
-    'Tạo ra <span>3 ngọn lửa</span> quay xung quanh bản thân trong <span class="time">5 giây</span>. Mỗi ngọn lửa sẽ tự động tấn công mục tiêu gần nhất trong tầm, gây <span class="damage magic">10 sát thương phép</span> và <span class="buff">Làm Châm 20%</span> tốc chạy kẻ địch trong <span class="time">0.5 giây</span>';
+    `Tạo ra <span>3 ngọn lửa</span> quay xung quanh bản thân trong <span class="time">5 giây</span>. Mỗi ngọn lửa sẽ tự động tấn công mục tiêu gần nhất trong tầm, gây ${dmg(10, 'MAGIC')} và <span class="buff">Làm Châm 20%</span> tốc chạy kẻ địch trong <span class="time">0.5 giây</span>`;
   coolDown = 5000;
   manaCost = 25;
 

@@ -10,6 +10,8 @@ const Shield = api.buffs.Shield;
 const Stun = api.buffs.Stun;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 
 
@@ -53,11 +55,11 @@ export default class Renekton_W extends Spell {
   name = 'Kẻ Săn Mồi Tàn Nhẫn (Renekton_W)';
   description =
     `Cường hóa đòn đánh tiếp theo trong <span class="time">${secs(WINDOW_MS)} giây</span>:` +
-    ` cắn <span>${STRIKES} nhát</span> × <span class="damage physical">${DAMAGE_PER_STRIKE} sát thương vật lý</span>` +
+    ` cắn <span>${STRIKES} nhát</span> × ${dmg(DAMAGE_PER_STRIKE, 'PHYSICAL')}` +
     ` và <span class="buff">Choáng</span> trong <span class="time">${secs(STUN_MS)} giây</span>.` +
     ` <span class="buff">Cuồng Nộ</span>: <span>${ENRAGED_STRIKES} nhát</span>,` +
     ` <span class="buff">Choáng ${secs(ENRAGED_STUN_MS)} giây</span>` +
-    ` và <span class="damage">phá huỷ mọi lá chắn</span> của mục tiêu`;
+    ` và ${tint('phá huỷ mọi lá chắn')} của mục tiêu`;
   coolDown = 8_000;
   manaCost = 25;
 
@@ -72,7 +74,7 @@ export class Renekton_W_Buff extends Buff {
   name = 'Kẻ Săn Mồi Tàn Bạo';
   description =
     `<span class="buff">${STRIKES} đòn đánh</span> kế tiếp gây thêm ` +
-    `<span class="damage physical">${DAMAGE_PER_STRIKE} sát thương vật lý</span> và ` +
+    `${dmg(DAMAGE_PER_STRIKE, 'PHYSICAL')} và ` +
     `<span class="buff">Choáng</span> trong <span class="time">${secs(STUN_MS)} giây</span>.`;
 
   private stopListening?: () => void;

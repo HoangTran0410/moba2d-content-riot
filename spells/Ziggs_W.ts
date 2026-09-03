@@ -10,6 +10,7 @@ const VectorUtils = api.utils.VectorUtils;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const Dash = api.buffs.Dash;
+const dmg = api.text.dmg;
 
 
 
@@ -44,7 +45,7 @@ const RECAST_DELAY_MS = 150;
 export default class Ziggs_W extends Spell {
   image = api.asset('spell_ziggs_w');
   name = 'Gói Chất Nổ (Ziggs_W)';
-  description = `Đặt một gói chất nổ tự kích nổ sau ${secs(W_FUSE_MS)} giây, hoặc bấm lại để nổ ngay. Gây <span class="damage magic">${W_DAMAGE} sát thương phép</span> và đẩy mọi thứ trong bán kính ${W_RADIUS} ra xa ${W_PUSH} — kể cả Ziggs, nhưng anh ta không chịu sát thương.`;
+  description = `Đặt một gói chất nổ tự kích nổ sau ${secs(W_FUSE_MS)} giây, hoặc bấm lại để nổ ngay. Gây ${dmg(W_DAMAGE, 'MAGIC')} và đẩy mọi thứ trong bán kính ${W_RADIUS} ra xa ${W_PUSH} — kể cả Ziggs, nhưng anh ta không chịu sát thương.`;
   coolDown = 10_000;
   manaCost = 30;
   range = W_RANGE;

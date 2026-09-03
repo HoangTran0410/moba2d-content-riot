@@ -7,6 +7,7 @@ const Dash = api.buffs.Dash;
 const Shield = api.buffs.Shield;
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
+const heal = api.text.heal;
 
 
 export const E_DISTANCE = 280;
@@ -33,7 +34,7 @@ export default class Riven_E extends Spell {
   name = 'Anh Dũng (Riven_E)';
   description =
     `Lao ${E_DISTANCE} theo hướng chỉ định và dựng một lớp khiên ` +
-    `<span class="heal">${E_SHIELD} điểm</span> trong ${secs(E_SHIELD_MS)} giây.`;
+    `${heal(E_SHIELD, ' điểm')} trong ${secs(E_SHIELD_MS)} giây.`;
   coolDown = 8_000;
   manaCost = 20;
   range = E_DISTANCE;

@@ -8,6 +8,7 @@ const VectorUtils = api.utils.VectorUtils;
 const MissileSpellObject = api.MissileSpellObject;
 const SpellObject = api.SpellObject;
 const TrailSystem = api.helpers.TrailSystem;
+const dmg = api.text.dmg;
 
 
 export const Q_DAMAGE = 25;
@@ -68,7 +69,7 @@ export default class KogMaw_Q extends Spell {
   image = api.asset('spell_kogmaw_q');
   name = 'Đờm Ăn Mòn (KogMaw_Q)';
   description =
-    `Nhổ một búng đờm ăn mòn theo hướng chỉ định, gây <span class="damage magic">${Q_DAMAGE} sát thương phép</span>` +
+    `Nhổ một búng đờm ăn mòn theo hướng chỉ định, gây ${dmg(Q_DAMAGE, 'MAGIC')}` +
     ` cho kẻ địch đầu tiên trúng chiêu và <span class="buff">giảm ${pct(Q_SHRED_PERCENT)}% giáp và kháng phép</span>` +
     ` của mục tiêu trong <span class="time">${secs(Q_SHRED_MS)} giây</span>.`;
   coolDown = Q_COOLDOWN;

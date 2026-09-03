@@ -12,6 +12,7 @@ const Shield = api.buffs.Shield;
 const BuffAddType = api.enums.BuffAddType;
 const StatAmp = api.buffs.StatAmp;
 const SpellObject = api.SpellObject;
+const heal = api.text.heal;
 
 /** What a share of his own output is worth back, while Iron Will holds. */
 export const IRON_WILL_OMNIVAMP = 0.35;
@@ -64,7 +65,7 @@ export default class LeeSin_W extends Spell {
   name = 'Hộ Thể / Kiên Định (LeeSin_W)';
   description =
     `Lee Sin <span class="buff">Lướt</span> tới <b>đồng minh gần con trỏ nhất</b> trong phạm vi;` +
-    ` khi tới nơi cả hai nhận lá chắn hấp thụ <span class="heal">${SHIELD_AMOUNT} sát thương</span>` +
+    ` khi tới nơi cả hai nhận lá chắn hấp thụ ${heal(SHIELD_AMOUNT, ' sát thương')}` +
     ` trong <span class="time">${secs(SHIELD_DURATION_MS)} giây</span> (không có đồng minh thì tự` +
     ` khoác lá chắn tại chỗ; nếu cú lướt bị chặn thì không có lá chắn). Lướt tới đồng minh là` +
     ` tướng sẽ giảm một nửa thời gian hồi. Có thể tái kích hoạt trong` +

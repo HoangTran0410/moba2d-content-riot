@@ -6,6 +6,7 @@ const VectorUtils = api.utils.VectorUtils;
 const Dash = api.buffs.Dash;
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 /** The illusion resolves into focus over this long, rather than appearing. */
@@ -30,7 +31,7 @@ export default class Leblanc_W extends Spell {
   image = this.phase.image;
   name = 'Biến Ảnh (Leblanc_W)';
   description =
-    '<span class="buff">Lướt</span> tới vị trí chỉ định, gây <span class="damage magic">20 sát thương phép</span> cho những kẻ địch tại vị trí đó, đồng thời để lại <span>1 dị điểm</span> tồn tại <span class="time">3 giây</span> tại ví trí cũ. Tái kích hoạt sẽ lập tức <span class="buff">Dịch Chuyển</span> bạn về dị điểm.';
+    `<span class="buff">Lướt</span> tới vị trí chỉ định, gây ${dmg(20, 'MAGIC')} cho những kẻ địch tại vị trí đó, đồng thời để lại <span>1 dị điểm</span> tồn tại <span class="time">3 giây</span> tại ví trí cũ. Tái kích hoạt sẽ lập tức <span class="buff">Dịch Chuyển</span> bạn về dị điểm.`;
   coolDown = 5000;
   manaCost = 30;
 

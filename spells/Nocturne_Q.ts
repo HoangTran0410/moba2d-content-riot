@@ -12,6 +12,7 @@ const BuffAddType = api.enums.BuffAddType;
 const StatusFlags = api.enums.StatusFlags;
 const Buff = api.buffs.Buff;
 const StatsModifier = api.units.StatsModifier;
+const dmg = api.text.dmg;
 
 
 
@@ -56,7 +57,7 @@ export default class Nocturne_Q extends Spell {
   image = api.asset('spell_nocturne_q');
   name = 'Thanh Gươm Bóng Tối (Nocturne_Q)';
   description =
-    `Phóng lưỡi hái xuyên thẳng <span>${RANGE}px</span>, gây <span class="damage physical">${DAMAGE} sát thương vật lý</span>` +
+    `Phóng lưỡi hái xuyên thẳng <span>${RANGE}px</span>, gây ${dmg(DAMAGE, 'PHYSICAL')}` +
     ` và <span class="buff">để lại Vệt Hoàng Hôn</span> dọc đường bay trong` +
     ` <span class="time">${secs(TRAIL_MS)} giây</span>. Tướng địch trúng chiêu cũng <span class="buff">rớt vệt</span>` +
     ` khi di chuyển. <span class="buff">Khi đứng trên vệt</span>, Nocturne` +

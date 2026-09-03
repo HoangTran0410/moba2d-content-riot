@@ -8,13 +8,14 @@ const CollideUtils = api.utils.CollideUtils;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const Stun = api.buffs.Stun;
+const dmg = api.text.dmg;
 
 export default class ChoGath_W extends Spell {
   targetingMode = 'DIRECTION' as const;
   image = api.asset('spell_chogath_w');
   name = "Tiếng Gầm Hoang Dã (Cho'Gath_W)";
   description =
-    'Gầm vào hướng đã chọn theo <span>hình nón</span>, <span class="buff">Làm Choáng</span> <span class="time">1 giây</span> và gây <span class="damage magic">15 sát thương phép</span> cho các kẻ địch trong tầm.';
+    `Gầm vào hướng đã chọn theo <span>hình nón</span>, <span class="buff">Làm Choáng</span> <span class="time">1 giây</span> và gây ${dmg(15, 'MAGIC')} cho các kẻ địch trong tầm.`;
   coolDown = 5000;
   manaCost = 25;
 

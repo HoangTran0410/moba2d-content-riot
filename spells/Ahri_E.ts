@@ -7,6 +7,7 @@ const Charm = api.buffs.Charm;
 const TrailSystem = api.helpers.TrailSystem;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 /** Windup: the kiss forms on her lips instead of appearing at full size. */
 export const KISS_SPAWN_MS = 120;
@@ -38,7 +39,7 @@ export default class Ahri_E extends Spell {
   image = api.asset('spell_ahri_e');
   name = 'Hôn Gió (Ahri_E)';
   description =
-    'Hôn gió theo hướng chỉ định, gây <span class="damage magic">15 sát thương phép</span> và <span class="buff">Mê Hoặc</span> kẻ địch trong <span class="time">1.5 giây</span>';
+    `Hôn gió theo hướng chỉ định, gây ${dmg(15, 'MAGIC')} và <span class="buff">Mê Hoặc</span> kẻ địch trong <span class="time">1.5 giây</span>`;
   coolDown = 5000;
   manaCost = 20;
 

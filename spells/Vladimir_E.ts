@@ -8,6 +8,7 @@ const Slow = api.buffs.Slow;
 const BuffAddType = api.enums.BuffAddType;
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
+const dmg = api.text.dmg;
 
 export const RADIUS = 220;
 
@@ -57,7 +58,7 @@ export default class Vladimir_E extends Spell {
   image = api.asset('spell_vladimir_e');
   name = 'Sóng Máu (Vladimir_E)';
   description =
-    `Tạo một đợt sóng máu quanh Vladimir, gây <span class="damage magic">${DAMAGE} sát thương phép</span> ` +
+    `Tạo một đợt sóng máu quanh Vladimir, gây ${dmg(DAMAGE, 'MAGIC')} ` +
     `và <span class="buff">chậm ${pct(SLOW_PERCENT)}%</span> trong <span class="time">${secs(SLOW_MS)} giây</span> ` +
     `cho kẻ địch trong <span>${RADIUS}px</span>`;
   coolDown = COOLDOWN_MS;

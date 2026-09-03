@@ -9,6 +9,7 @@ const Spell = api.Spell;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
 const Fear = api.buffs.Fear;
+const dmg = api.text.dmg;
 
 
 export const RANGE = 150;
@@ -40,7 +41,7 @@ export default class Nocturne_E extends Spell {
   name = 'Nỗi Kinh Hoàng Tột Độ (Nocturne_E)';
   description =
     `Nối một sợi xích với kẻ địch gần nhất trong <span>${RANGE}px</span>, gây` +
-    ` <span class="damage magic">${DAMAGE} sát thương phép</span>. Nếu sau <span class="time">${secs(CHANNEL_MS)} giây</span>` +
+    ` ${dmg(DAMAGE, 'MAGIC')}. Nếu sau <span class="time">${secs(CHANNEL_MS)} giây</span>` +
     ` xích chưa đứt (xa hơn <span>${LEASH_RANGE}px</span>), mục tiêu bị <span class="buff">Khiếp Sợ</span>` +
     ` trong <span class="time">${secs(FEAR_DURATION)} giây</span>`;
   coolDown = 10000;

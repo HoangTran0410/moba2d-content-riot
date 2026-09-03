@@ -12,6 +12,8 @@ const SpellForm = api.enums.SpellForm;
 const Spell = api.Spell;
 const Champion = api.units.Champion;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 
 
@@ -134,10 +136,10 @@ export default class Darius_Q extends Spell {
   name = 'Tàn Sát (Darius_Q)';
   description =
     `Vung rìu quanh mình sau <span class="time">${secs(WINDUP_MS)} giây</span> vung tay:` +
-    ` <span class="damage physical">${BLADE_DAMAGE} sát thương vật lý</span> ở vành ngoài (<span>${INNER_RADIUS}px – ${OUTER_RADIUS}px</span>),` +
-    ` chỉ <span class="damage physical">${HANDLE_DAMAGE} sát thương vật lý</span> cho kẻ đứng sát người.` +
+    ` ${dmg(BLADE_DAMAGE, 'PHYSICAL')} ở vành ngoài (<span>${INNER_RADIUS}px – ${OUTER_RADIUS}px</span>),` +
+    ` chỉ ${dmg(HANDLE_DAMAGE, 'PHYSICAL')} cho kẻ đứng sát người.` +
     ` Lưỡi rìu <span class="buff">hút ${pct(HEAL_PERCENT_CHAMPION)}% sát thương gây lên tướng</span>` +
-    ` (<span class="buff">${pct(HEAL_PERCENT_UNIT)}%</span> lên lính và quái) và gây <span class="damage">Chảy Máu</span>`;
+    ` (<span class="buff">${pct(HEAL_PERCENT_UNIT)}%</span> lên lính và quái) và gây ${tint('Chảy Máu')}`;
   coolDown = 7_000;
   manaCost = 30;
 

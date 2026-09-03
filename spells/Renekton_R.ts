@@ -8,6 +8,7 @@ const Circle = api.utils.Quadtree.Circle;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 export const DURATION_MS = 8_000;
@@ -73,7 +74,7 @@ export default class Renekton_R extends Spell {
     `Hóa thân trong <span class="time">${secs(DURATION_MS)} giây</span>:` +
     ` <span class="buff">+${BONUS_HEALTH} máu tối đa</span>, to lớn hơn ${pct(SIZE_BONUS)}%,` +
     ` <span class="buff">+${BONUS_ATTACK_RANGE} tầm đánh</span>, và thiêu đốt kẻ địch trong <span>${AURA_RADIUS}px</span>` +
-    ` <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span> mỗi <span class="time">${secs(TICK_MS)} giây</span>.` +
+    ` ${dmg(DAMAGE_PER_TICK, 'MAGIC')} mỗi <span class="time">${secs(TICK_MS)} giây</span>.` +
     ` Trong lúc này Q, W và E đều được <span class="buff">Cuồng Nộ cường hóa</span>`;
   coolDown = 10_000;
   manaCost = 60;

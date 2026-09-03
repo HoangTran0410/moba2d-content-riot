@@ -9,6 +9,7 @@ const EventType = api.enums.EventType;
 const MissileSpellObject = api.MissileSpellObject;
 const TrailSystem = api.helpers.TrailSystem;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 // Exported so the suite asserts the wiring, not a copy of the numbers —
@@ -58,7 +59,7 @@ export default class Teemo_E extends Spell {
   targetingMode = 'DIRECTION' as const;
   image = api.asset('spell_teemo_e');
   name = 'Bắn Độc (Teemo_E)';
-  description = `Nội tại: mỗi đòn <span class="buff">đánh thường</span> của Teemo khiến mục tiêu <span class="buff">Trúng Độc</span>. Chủ động: bắn một mũi tẩm độc về hướng chỉ định, gây <span class="damage magic">${ON_HIT_DAMAGE} sát thương phép</span> tức thì và gây độc tương tự. Độc gây <span class="damage magic">${POISON_DAMAGE_PER_TICK} sát thương phép mỗi giây</span> trong <span class="time">${secs(POISON_DURATION_MS)} giây</span>.`;
+  description = `Nội tại: mỗi đòn <span class="buff">đánh thường</span> của Teemo khiến mục tiêu <span class="buff">Trúng Độc</span>. Chủ động: bắn một mũi tẩm độc về hướng chỉ định, gây ${dmg(ON_HIT_DAMAGE, 'MAGIC')} tức thì và gây độc tương tự. Độc gây ${dmg(POISON_DAMAGE_PER_TICK, 'MAGIC', ' mỗi giây')} trong <span class="time">${secs(POISON_DURATION_MS)} giây</span>.`;
   // kept as a literal (not an exported constant) so the repo-wide arcade
   // cooldown-cap scan in tests/game/spells/cooldowns.test.ts can see it
   coolDown = 4_000;

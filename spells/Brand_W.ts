@@ -9,6 +9,7 @@ const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
+const dmg = api.text.dmg;
 
 /**
  * Pillar of Flame. The delay is the ability: a ring cracks open on the ground,
@@ -37,7 +38,7 @@ export default class Brand_W extends Spell {
   targetingMode = 'POINT' as const;
   image = api.asset('spell_brand_w');
   name = 'Cột Lửa (Brand_W)';
-  description = `Sau <span class="time">${secs(ERUPT_DELAY_MS)} giây</span>, một cột lửa phun lên tại vị trí chỉ định, gây <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Thiêu Đốt</span> mọi kẻ địch trong vùng. Mục tiêu <span class="buff">đã bị Thiêu Đốt</span> nhận <span class="damage magic">${Math.round(DAMAGE * (1 + ABLAZE_DAMAGE_BONUS))} sát thương phép</span>.`;
+  description = `Sau <span class="time">${secs(ERUPT_DELAY_MS)} giây</span>, một cột lửa phun lên tại vị trí chỉ định, gây ${dmg(DAMAGE, 'MAGIC')} và <span class="buff">Thiêu Đốt</span> mọi kẻ địch trong vùng. Mục tiêu <span class="buff">đã bị Thiêu Đốt</span> nhận ${dmg(Math.round(DAMAGE * (1 + ABLAZE_DAMAGE_BONUS)), 'MAGIC')}.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

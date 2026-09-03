@@ -9,6 +9,7 @@ const MissileSpellObject = api.MissileSpellObject;
 const Stun = api.buffs.Stun;
 const sweepToWall = api.terrain.sweepToWall;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 export const Q_DAMAGE = 20;
@@ -77,7 +78,7 @@ export default class Nautilus_Q extends Spell {
   name = 'Phóng Mỏ Neo (Nautilus_Q)';
   description =
     `Phóng mỏ neo về phía trước và móc vào thứ đầu tiên nó gặp. ` +
-    `Trúng địch: <span class="damage magic">${Q_DAMAGE} sát thương phép</span>, choáng ` +
+    `Trúng địch: ${dmg(Q_DAMAGE, 'MAGIC')}, choáng ` +
     `${secs(Q_STUN_MS)} giây rồi kéo cả hai lại gần nhau. ` +
     `Trúng vách đá: Nautilus tự kéo mình tới đó.`;
   coolDown = 10_000;

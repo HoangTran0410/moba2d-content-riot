@@ -15,6 +15,8 @@ const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
+const heal = api.text.heal;
 
 
 export const XINZHAO_R_RADIUS = 300;
@@ -73,9 +75,9 @@ export default class XinZhao_R extends Spell {
   image = api.asset('spell_xinzhao_r');
   name = 'Bán Nguyệt Thương (XinZhao_R)';
   description =
-    'Quét thương quanh mình gây <span class="damage physical">50 sát thương vật lý</span> cho mọi kẻ địch trong <span>300px</span>, ' +
+    `Quét thương quanh mình gây ${dmg(50, 'PHYSICAL')} cho mọi kẻ địch trong <span>300px</span>, ` +
     '<span class="buff">hất văng và choáng</span> những kẻ chưa bị <span class="buff">đánh dấu</span> bởi Can Trường. ' +
-    'Xin Zhao nhận <span class="heal">30 giáp ảo</span> trong <span class="time">3 giây</span>.';
+    `Xin Zhao nhận ${heal(30, ' giáp ảo')} trong <span class="time">3 giây</span>.`;
   // Ten seconds, like every other ultimate here: this game's cooldown ceiling is
   // arcade-short on purpose and `tests/game/spells/cooldowns.test.ts` holds it.
   coolDown = 10_000;

@@ -9,6 +9,7 @@ const Airborne = api.buffs.Airborne;
 const Stun = api.buffs.Stun;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 
@@ -40,7 +41,7 @@ export default class XinZhao_Q extends Spell {
   name = 'Liên Hoàn Tam Kích (XinZhao_Q)';
   description =
     'Cường hóa <span class="buff">3 đòn đánh kế tiếp</span> trong <span class="time">5 giây</span>, mỗi đòn gây thêm ' +
-    '<span class="damage physical">12 sát thương vật lý</span> và giảm <span class="time">0.8 giây</span> hồi chiêu các kỹ năng khác. ' +
+    `${dmg(12, 'PHYSICAL')} và giảm <span class="time">0.8 giây</span> hồi chiêu các kỹ năng khác. ` +
     'Đòn thứ ba <span class="buff">hất tung</span> mục tiêu.';
   coolDown = 7_000;
   manaCost = 30;
@@ -79,7 +80,7 @@ export class XinZhao_Q_Buff extends Buff {
   name = 'Liên Hoàn Tam Kích';
   description =
     `<span class="buff">${XINZHAO_Q_ATTACKS} đòn đánh</span> kế tiếp gây thêm ` +
-    `<span class="damage physical">${XINZHAO_Q_BONUS_DAMAGE} sát thương vật lý</span>; ` +
+    `${dmg(XINZHAO_Q_BONUS_DAMAGE, 'PHYSICAL')}; ` +
     `đòn cuối <span class="buff">Hất Tung</span> trong ` +
     `<span class="time">${secs(XINZHAO_Q_KNOCKUP_MS)} giây</span>.`;
   strikesLeft = XINZHAO_Q_ATTACKS;

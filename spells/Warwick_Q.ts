@@ -7,6 +7,8 @@ const Spell = api.Spell;
 const Dash = api.buffs.Dash;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
+const heal = api.text.heal;
 
 export default class Warwick_Q extends Spell {
   /**
@@ -21,7 +23,7 @@ export default class Warwick_Q extends Spell {
   image = api.asset('spell_warwick_q');
   name = 'Cắn Xé (Warwick_Q)';
   description =
-    'Vồ tới kẻ địch gần nhất trong phạm vi, cắn xé gây <span class="damage magic">30 sát thương phép</span> và hồi <span class="heal">15 máu</span> cho bản thân';
+    `Vồ tới kẻ địch gần nhất trong phạm vi, cắn xé gây ${dmg(30, 'MAGIC')} và hồi ${heal(15, ' máu')} cho bản thân`;
   coolDown = 7000;
   manaCost = 30;
 

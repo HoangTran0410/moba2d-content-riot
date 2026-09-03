@@ -12,6 +12,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const MissileSpellObject = api.MissileSpellObject;
 const Airborne = api.buffs.Airborne;
+const dmg = api.text.dmg;
 
 
 // Tuning lives here so the tests and the HUD read the same numbers the spell
@@ -62,7 +63,7 @@ export default class Yasuo_Q extends Spell {
   image = this.phase.image;
   name = 'Bão Kiếm (Yasuo_Q)';
   description =
-    'Đâm lưỡi kiếm về hướng chỉ định, gây <span class="damage physical">10 sát thương vật lý</span>. <span>Cộng dồn 2 lần</span> sẽ tạo ra một cơn lốc lớn, <span class="buff">Hất Tung</span> kẻ địch trúng chiêu trong <span class="time">1 giây</span> và gây <span class="damage physical">20 sát thương vật lý</span>';
+    `Đâm lưỡi kiếm về hướng chỉ định, gây ${dmg(10, 'PHYSICAL')}. <span>Cộng dồn 2 lần</span> sẽ tạo ra một cơn lốc lớn, <span class="buff">Hất Tung</span> kẻ địch trúng chiêu trong <span class="time">1 giây</span> và gây ${dmg(20, 'PHYSICAL')}`;
   coolDown = 3500;
   manaCost = 20;
 

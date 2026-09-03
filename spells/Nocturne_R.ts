@@ -8,6 +8,7 @@ const Champion = api.units.Champion;
 const Dash = api.buffs.Dash;
 const Nearsight = api.buffs.Nearsight;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 // Exported so the suite asserts the wiring, not a copy of the number —
@@ -53,7 +54,7 @@ export default class Nocturne_R extends Spell {
 
   image = Nocturne_R.PHASES[this.phase].image;
   name = 'Hoang Tưởng (Nocturne_R)';
-  description = `Bao trùm bản đồ trong bóng tối: <span>mọi tướng địch</span> bị <span class="buff">Mờ Mắt</span> (tầm nhìn giảm còn 200) trong <span class="time">6 giây</span>. Trong khoảng thời gian đó, tái kích hoạt để <span class="buff">Lao</span> tới một <span>tướng địch</span> trong phạm vi <span>${LEAP_RANGE}</span> (chọn tướng gần con trỏ chuột nhất), bám theo mục tiêu và gây <span class="damage physical">35 sát thương vật lý</span> khi tới nơi. Cú lao không thể bị chặn. Nếu không tái kích hoạt, kỹ năng vào thời gian hồi đầy đủ.`;
+  description = `Bao trùm bản đồ trong bóng tối: <span>mọi tướng địch</span> bị <span class="buff">Mờ Mắt</span> (tầm nhìn giảm còn 200) trong <span class="time">6 giây</span>. Trong khoảng thời gian đó, tái kích hoạt để <span class="buff">Lao</span> tới một <span>tướng địch</span> trong phạm vi <span>${LEAP_RANGE}</span> (chọn tướng gần con trỏ chuột nhất), bám theo mục tiêu và gây ${dmg(35, 'PHYSICAL')} khi tới nơi. Cú lao không thể bị chặn. Nếu không tái kích hoạt, kỹ năng vào thời gian hồi đầy đủ.`;
   coolDown = 10000;
   manaCost = 100;
 

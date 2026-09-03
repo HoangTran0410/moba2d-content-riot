@@ -1229,7 +1229,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1500,
     buildsFrom: ['recurve_bow', 'null_magic_mantle'],
     description:
-      'Nội tại: đòn đánh gây thêm <span class="damage magic">4 sát thương phép</span> và tăng tốc chạy trong chốc lát.',
+      'Nội tại: đòn đánh gây thêm <span class="damage magic" data-flat="none">4 sát thương phép</span> và tăng tốc chạy trong chốc lát.',
     stats: { attackSpeed: 0.18, magicResist: 26, abilityPower: 1, onHitDamage: 1 },
     passive: 'Item_WitsEnd',
   },
@@ -1241,7 +1241,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     buildsFrom: ['recurve_bow', 'long_sword', 'long_sword'],
     description:
       'Nội tại: mỗi đòn thứ <span class="buff">3</span> liên tiếp lên cùng một mục tiêu gây thêm ' +
-      '<span class="damage physical">12 sát thương vật lý</span>.',
+      '<span class="damage physical" data-flat="none">12 sát thương vật lý</span>.',
     stats: { attackDamage: 14, attackSpeed: 0.18, onHitDamage: 3 },
     passive: 'Item_Kraken',
   },
@@ -1251,7 +1251,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     icon: 'item_nashors_tooth',
     cost: 1500,
     buildsFrom: ['recurve_bow'],
-    description: 'Nội tại: đòn đánh gây thêm <span class="damage magic">7 sát thương phép</span>.',
+    description: 'Nội tại: đòn đánh gây thêm <span class="damage magic" data-flat="none">7 sát thương phép</span>.',
     stats: { attackSpeed: 0.24, abilityPower: 1.4, onHitDamage: 1 },
     passive: 'Item_Nashor',
   },
@@ -1297,7 +1297,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1500,
     buildsFrom: ['sheen', 'boots'],
     description:
-      'Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm <span class="damage magic">18 sát thương phép</span>.',
+      'Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm <span class="damage magic" data-flat="none">18 sát thương phép</span>.',
     stats: { speed: 0.4, maxMana: 20, abilityPower: 1.6 },
     passive: 'Item_LichBane',
   },
@@ -1364,7 +1364,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     buildsFrom: ['zeal', 'long_sword'],
     description:
       'Nội tại: mỗi đòn đánh tích điện; khi tích đầy, đòn kế tiếp phóng tia sét gây ' +
-      '<span class="damage magic">16 sát thương phép</span> lên mục tiêu và lan sang <span class="buff">3</span> kẻ địch gần đó.',
+      '<span class="damage magic" data-flat="none">16 sát thương phép</span> lên mục tiêu và lan sang <span class="buff">3</span> kẻ địch gần đó.',
     stats: { attackDamage: 10, attackSpeed: 0.18, critChance: 0.15, speedPercent: 0.05 },
     passive: 'Item_StatikkShiv',
   },
@@ -1376,7 +1376,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     buildsFrom: ['cloth_armor', 'ruby_crystal'],
     description:
       'Nội tại: di chuyển tích lực, tối đa tăng thêm <span class="buff">30%</span> tốc chạy; đòn đánh kế tiếp ' +
-      'xả toàn bộ lực, gây tới <span class="damage physical">20 sát thương vật lý</span> và làm chậm <span class="buff">50%</span> khi tích đầy.',
+      'xả toàn bộ lực, gây tới <span class="damage physical" data-flat="none">20 sát thương vật lý</span> và làm chậm <span class="buff">50%</span> khi tích đầy.',
     stats: { armor: 30, maxHealth: 50, speedPercent: 0.05 },
     passive: 'Item_DeadMansPlate',
   },
@@ -1416,7 +1416,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     buildsFrom: ['null_magic_mantle'],
     description:
       'Kích hoạt: gỡ một hiệu ứng <span class="buff">khống chế</span> khỏi đồng minh và hồi ' +
-      '<span class="heal">25</span> máu; trong <span class="time">3 giây</span> sau đó, mọi hiệu ứng ' +
+      '<span class="heal" data-flat="none">25</span> máu; trong <span class="time">3 giây</span> sau đó, mọi hiệu ứng ' +
       'hồi máu lên đồng minh đó <span class="buff">mạnh hơn 35%</span>.',
     stats: { magicResist: 30, abilityHaste: 15 },
     active: 'Item_Mikael',
@@ -1428,7 +1428,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1600,
     buildsFrom: ['ruby_crystal', 'null_magic_mantle'],
     description:
-      'Kích hoạt: bắn ra một luồng băng gây <span class="damage magic">30 sát thương phép</span> và trói <span class="time">1.2 giây</span> mọi kẻ địch trúng đòn.',
+      'Kích hoạt: bắn ra một luồng băng gây <span class="damage magic" data-flat="none">30 sát thương phép</span> và trói <span class="time">1.2 giây</span> mọi kẻ địch trúng đòn.',
     stats: {
       maxHealth: 35,
       magicResist: 25,
@@ -2253,7 +2253,7 @@ export const data: ContentPackData = {
   manifest: {
     id: 'lol',
     version: '1.1.0',
-    coreRange: '>=1.19.0',
+    coreRange: '>=1.22.0',
     assets: 'lol',
   },
   spellDisplay: displayData(),

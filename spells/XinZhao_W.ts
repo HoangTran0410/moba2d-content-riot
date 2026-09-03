@@ -8,6 +8,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const Slow = api.buffs.Slow;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
+const dmg = api.text.dmg;
 
 
 /** Four quick arcs around him, then the spear goes out in a line. */
@@ -41,8 +42,8 @@ export default class XinZhao_W extends Spell {
   image = api.asset('spell_xinzhao_w');
   name = 'Phong Lôi Thương (XinZhao_W)';
   description =
-    'Vung <span class="buff">4 nhát</span> quanh mình gây <span class="damage physical">5 sát thương vật lý</span> mỗi nhát, ' +
-    'rồi <span class="time">sau 0.3 giây</span> đâm thẳng cây thương gây <span class="damage physical">26 sát thương vật lý</span> ' +
+    `Vung <span class="buff">4 nhát</span> quanh mình gây ${dmg(5, 'PHYSICAL')} mỗi nhát, ` +
+    `rồi <span class="time">sau 0.3 giây</span> đâm thẳng cây thương gây ${dmg(26, 'PHYSICAL')} ` +
     'và <span class="buff">làm chậm 40%</span> trong <span class="time">1.4 giây</span>.';
   coolDown = 9_000;
   manaCost = 55;

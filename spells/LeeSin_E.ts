@@ -9,6 +9,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const Slow = api.buffs.Slow;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
+const dmg = api.text.dmg;
 
 
 export const RANGE = 150;
@@ -53,7 +54,7 @@ export default class LeeSin_E extends Spell {
   name = 'Địa Chấn / Dư Chấn (LeeSin_E)';
   description =
     `Dẫm mạnh xuống đất, một vòng khí lan ra <span>${RANGE}px</span> gây` +
-    ` <span class="damage magic">${DAMAGE} sát thương phép</span> và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span>` +
+    ` ${dmg(DAMAGE, 'MAGIC')} và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span>` +
     ` trong <span class="time">${secs(SLOW_DURATION)} giây</span> <i>khi sóng chạm tới từng kẻ địch</i>`;
   coolDown = 5000;
   manaCost = 30;

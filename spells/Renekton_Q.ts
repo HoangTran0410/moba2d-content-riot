@@ -8,6 +8,8 @@ const Spell = api.Spell;
 const Champion = api.units.Champion;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
+const heal = api.text.heal;
 
 
 /** The rear-swing before the blade comes round. Short — Q is his rhythm key. */
@@ -54,11 +56,11 @@ export default class Renekton_Q extends Spell {
   name = 'Vũ Điệu Cá Sấu (Renekton_Q)';
   description =
     `Chém một vòng quanh mình trong <span>${RADIUS}px</span> gây` +
-    ` <span class="damage physical">${DAMAGE} sát thương vật lý</span>, hồi <span class="heal">${HEAL_PER_UNIT} máu</span>` +
-    ` mỗi mục tiêu và <span class="heal">${HEAL_PER_CHAMPION} máu</span> mỗi tướng trúng chiêu` +
+    ` ${dmg(DAMAGE, 'PHYSICAL')}, hồi ${heal(HEAL_PER_UNIT, ' máu')}` +
+    ` mỗi mục tiêu và ${heal(HEAL_PER_CHAMPION, ' máu')} mỗi tướng trúng chiêu` +
     ` (tối đa ${HEAL_CAP}).` +
     ` <span class="buff">Cuồng Nộ</span>: <span>${ENRAGED_RADIUS}px</span>,` +
-    ` <span class="damage physical">${ENRAGED_DAMAGE} sát thương vật lý</span>, hồi máu nhân đôi (tối đa ${ENRAGED_HEAL_CAP})`;
+    ` ${dmg(ENRAGED_DAMAGE, 'PHYSICAL')}, hồi máu nhân đôi (tối đa ${ENRAGED_HEAL_CAP})`;
   coolDown = 5_000;
   manaCost = 25;
 

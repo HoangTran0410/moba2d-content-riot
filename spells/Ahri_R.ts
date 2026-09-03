@@ -10,6 +10,7 @@ const MissileSpellObject = api.MissileSpellObject;
 const TrailSystem = api.helpers.TrailSystem;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 /** Nine tails again — the ultimate's orbs and its burst both carry the count. */
@@ -30,7 +31,7 @@ export default class Ahri_R extends Spell {
   image = api.asset('spell_ahri_r');
   name = 'Phi Hồ (Ahri_R)';
   description =
-    '<span class="buff">Lướt</span> tới trước theo hướng chỉ định, bắn tối đa 3 quả cầu vào 3 kẻ địch gần nhất trong phạm vi, gây <span class="damage magic">20 sát thương phép</span> mỗi quả cầu. Có thể sử dụng tối đa <span>3 lần</span> lướt trong vòng <span class="time">10 giây</span>';
+    `<span class="buff">Lướt</span> tới trước theo hướng chỉ định, bắn tối đa 3 quả cầu vào 3 kẻ địch gần nhất trong phạm vi, gây ${dmg(20, 'MAGIC')} mỗi quả cầu. Có thể sử dụng tối đa <span>3 lần</span> lướt trong vòng <span class="time">10 giây</span>`;
   coolDown = 10000;
   manaCost = 50;
 

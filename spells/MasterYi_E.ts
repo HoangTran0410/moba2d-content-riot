@@ -7,6 +7,7 @@ const Spell = api.Spell;
 const StatAmp = api.buffs.StatAmp;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 
@@ -51,7 +52,7 @@ export default class MasterYi_E extends Spell {
   name = 'Võ Thuật Wuju (MasterYi_E)';
   description =
     `Trong <span class="time">${secs(DURATION_MS)} giây</span>, đòn đánh thường của Yi gây thêm` +
-    ` <span class="damage true">${BONUS_TRUE_DAMAGE} sát thương chuẩn</span> và anh nhận` +
+    ` ${dmg(BONUS_TRUE_DAMAGE, 'TRUE')} và anh nhận` +
     ` <span class="buff">+${pct(ATTACK_SPEED_PERCENT)}% tốc độ đánh</span>`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;

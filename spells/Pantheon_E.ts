@@ -9,6 +9,7 @@ const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 
 
@@ -94,7 +95,7 @@ export default class Pantheon_E extends Spell {
     ` <span class="buff">chặn sạch mọi sát thương bay tới từ phía đó</span> — đòn đánh, chiêu thức,` +
     ` đạn, không giới hạn số lượng — nhưng <span class="buff">hoàn toàn hở lưng</span>.` +
     ` Trong lúc đó Pantheon liên tục đâm giáo gây` +
-    ` <span class="damage physical">${DAMAGE_PER_TICK} sát thương vật lý</span> mỗi` +
+    ` ${dmg(DAMAGE_PER_TICK, 'PHYSICAL')} mỗi` +
     ` <span class="time">${secs(TICK_INTERVAL)} giây</span> cho kẻ địch trong nón phía trước`;
   coolDown = 10000;
   manaCost = 35;

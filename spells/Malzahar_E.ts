@@ -13,6 +13,7 @@ const withinRange = api.combat.Reach.withinRange;
 const TargetResolver = api.combat.TargetResolver;
 const Spell = api.Spell;
 const canSee = api.combat.Vision.canSee;
+const dmg = api.text.dmg;
 
 
 // Exported so the suite asserts the infection's wiring rather than a copy of
@@ -65,7 +66,7 @@ export default class Malzahar_E extends Spell {
   image = api.asset('spell_malzahar_e');
   name = 'Ám Ảnh Kinh Hoàng (Malzahar_E)';
   description =
-    `Gieo ảo ảnh vào tâm trí mục tiêu, gây <span class="damage magic">${DAMAGE_PER_TICK} sát thương phép</span>` +
+    `Gieo ảo ảnh vào tâm trí mục tiêu, gây ${dmg(DAMAGE_PER_TICK, 'MAGIC')}` +
     ` mỗi <span class="time">${secs(TICK_INTERVAL_MS)} giây</span> trong` +
     ` <span class="time">${secs(DURATION_MS)} giây</span>. Nếu vật chủ chết khi còn nhiễm, ảo ảnh` +
     ` <span class="buff">lây sang kẻ địch gần nhất</span> và Malzahar hồi` +

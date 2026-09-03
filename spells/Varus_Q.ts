@@ -17,6 +17,8 @@ const ChargeRangeTelegraph = api.vfx.ChargeRangeTelegraph;
 const VfxGroup = api.vfx.VfxGroup;
 const MissileSpellObject = api.MissileSpellObject;
 const TrailSystem = api.helpers.TrailSystem;
+const dmg = api.text.dmg;
+const dmgValue = api.text.dmgValue;
 
 
 export const MAX_CHARGE_MS = 4_000;
@@ -80,8 +82,8 @@ export default class Varus_Q extends Spell {
     ` trên đường bay. Tích lực đầy sau <span class="time">${secs(RANGE_CHARGE_MS)} giây</span> kéo` +
     ` tầm bắn từ <span>${MIN_CENTER_TRAVEL}px</span> lên <span>${MAX_CENTER_TRAVEL}px</span>, và sau` +
     ` <span class="time">${secs(DAMAGE_CHARGE_MS)} giây</span> kéo sát thương từ` +
-    ` <span class="damage physical">${MIN_DAMAGE}</span> lên` +
-    ` <span class="damage physical">${MAX_DAMAGE} sát thương vật lý</span>.` +
+    ` ${dmgValue(MIN_DAMAGE, 'PHYSICAL')} lên` +
+    ` ${dmg(MAX_DAMAGE, 'PHYSICAL')}.` +
     ` Mỗi mục tiêu bị xuyên sau đó nhận <span class="buff">ít hơn ${pct(PIERCE_FALLOFF)}%</span>,` +
     ` tối đa giảm <span class="buff">${pct(MAX_PIERCE_FALLOFF)}%</span>.` +
     ` Trong lúc kéo cung Varus <span class="buff">tự làm chậm ${pct(SELF_SLOW_PERCENT)}%</span>` +

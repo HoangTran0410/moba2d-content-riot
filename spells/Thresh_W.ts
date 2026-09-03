@@ -7,6 +7,8 @@ const MissileSpellObject = api.MissileSpellObject;
 const Circle = api.utils.Quadtree.Circle;
 const SpellObject = api.SpellObject;
 const Shield = api.buffs.Shield;
+const heal = api.text.heal;
+const tint = api.text.tint;
 
 export const MAX_RANGE = 500;
 
@@ -46,9 +48,9 @@ export default class Thresh_W extends Spell {
   image = api.asset('spell_thresh_w');
   name = 'Con Đường Tăm Tối (Thresh_W)';
   description =
-    `Ném chiếc đèn bay tới vị trí chỉ định; <span class="damage">khi đáp xuống</span> nó treo ở đó` +
+    `Ném chiếc đèn bay tới vị trí chỉ định; ${tint('khi đáp xuống')} nó treo ở đó` +
     ` <span class="time">${secs(DURATION)} giây</span>: mỗi đồng minh <span class="buff">bước vào</span>` +
-    ` <span>${RADIUS}px</span> nhận khiên <span class="heal">${SHIELD_AMOUNT}</span> trong` +
+    ` <span>${RADIUS}px</span> nhận khiên ${heal(SHIELD_AMOUNT)} trong` +
     ` <span class="time">${secs(SHIELD_DURATION_MS)} giây</span>, một lần cho mỗi người`;
   coolDown = 10000;
   manaCost = 40;

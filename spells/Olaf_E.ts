@@ -8,6 +8,8 @@ const Spell = api.Spell;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 
 export const RANGE = 170;
@@ -29,8 +31,8 @@ export default class Olaf_E extends Spell {
   image = api.asset('spell_olaf_e');
   name = 'Bổ Củi (Olaf_E)';
   description =
-    `Bổ rìu vào kẻ địch gần nhất trong <span>${RANGE}px</span>: <span class="damage true">${DAMAGE} sát thương chuẩn</span>,` +
-    ` đổi lại Olaf <span class="damage">tự mất ${HEALTH_COST} máu</span>`;
+    `Bổ rìu vào kẻ địch gần nhất trong <span>${RANGE}px</span>: ${dmg(DAMAGE, 'TRUE')},` +
+    ` đổi lại Olaf ${tint(`tự mất ${HEALTH_COST} máu`)}`;
   coolDown = 5000;
   manaCost = 0;
 

@@ -8,6 +8,7 @@ const AoePulse = api.AoePulse;
 const Pet = api.units.Pet;
 const DamageOverTime = api.buffs.DamageOverTime;
 const StatAmp = api.buffs.StatAmp;
+const dmg = api.text.dmg;
 
 
 
@@ -74,9 +75,9 @@ export default class Annie_R extends Spell {
   name = 'Triệu Hồi: Tibbers (Annie_R)';
   description = 
     `Triệu hồi Tibbers tại vị trí chỉ định trong <span class="time">${secs(TIBBERS_LIFETIME_MS)} giây</span>:` +
-    ` vụ lửa xuất hiện gây <span class="damage magic">${SUMMON_DAMAGE} sát thương phép</span> trong <span>${SUMMON_RADIUS}px</span>.` +
+    ` vụ lửa xuất hiện gây ${dmg(SUMMON_DAMAGE, 'MAGIC')} trong <span>${SUMMON_RADIUS}px</span>.` +
     ` Tibbers có <span class="buff">${TIBBERS_HEALTH} máu</span>, tự đánh kẻ địch gần nhất và thiêu` +
-    ` <span class="damage magic">${AURA_DAMAGE_PER_TICK} sát thương phép</span> mỗi nhịp quanh mình.` +
+    ` ${dmg(AURA_DAMAGE_PER_TICK, 'MAGIC')} mỗi nhịp quanh mình.` +
     ` <span class="buff">Bấm lại</span> để điều Tibbers tới vị trí mới` +
     ` Nội tại: <span class="buff">bỏ qua ${pct(ANNIE_R_PENETRATION)}% xuyên kháng phép</span> của mục tiêu.`;
   coolDown = 10000;

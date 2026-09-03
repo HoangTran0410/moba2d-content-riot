@@ -8,13 +8,14 @@ const MissileSpellObject = api.MissileSpellObject;
 const Slow = api.buffs.Slow;
 const TrailSystem = api.helpers.TrailSystem;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 export default class Ashe_Q extends Spell {
   targetingMode = 'DIRECTION' as const;
   image = api.asset('spell_ashe_q');
   name = 'Chú Tâm Tiễn (Ashe_Q)';
   description =
-    'Bắn liên tiếp <span>3 mũi tên băng</span> theo hình nón hẹp. Mỗi mũi tên gây <span class="damage physical">8 sát thương vật lý</span> và <span class="buff">Làm Chậm 30%</span> kẻ địch trúng chiêu trong <span class="time">1 giây</span>';
+    `Bắn liên tiếp <span>3 mũi tên băng</span> theo hình nón hẹp. Mỗi mũi tên gây ${dmg(8, 'PHYSICAL')} và <span class="buff">Làm Chậm 30%</span> kẻ địch trúng chiêu trong <span class="time">1 giây</span>`;
   coolDown = 4000;
   manaCost = 15;
 

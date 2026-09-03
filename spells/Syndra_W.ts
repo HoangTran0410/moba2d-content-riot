@@ -12,6 +12,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellForm = api.enums.SpellForm;
 const Slow = api.buffs.Slow;
 const Spell = api.Spell;
+const dmg = api.text.dmg;
 
 
 
@@ -42,7 +43,7 @@ export default class Syndra_W extends Spell {
   image = api.asset('spell_syndra_w');
   name = 'Ý Lực (Syndra_W)';
   description = `Nhấc quả cầu gần nhất trong ${SPHERE_GRAB_RADIUS} lên đầu, rồi nhấn lại để ném
-    tới điểm chỉ định: <span class="damage magic">${SYNDRA_W_DAMAGE} sát thương phép</span> trong bán kính
+    tới điểm chỉ định: ${dmg(SYNDRA_W_DAMAGE, 'MAGIC')} trong bán kính
     ${SYNDRA_W_RADIUS} và <b>làm chậm ${pct(SYNDRA_W_SLOW)}%</b>. Quả cầu
     <b>nằm lại</b> ở điểm rơi — cô chỉ dịch chuyển nó.`;
   coolDown = 9_000;

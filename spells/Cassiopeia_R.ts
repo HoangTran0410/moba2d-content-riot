@@ -9,6 +9,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const AoePulse = api.AoePulse;
 const Slow = api.buffs.Slow;
 const Stun = api.buffs.Stun;
+const dmg = api.text.dmg;
 
 
 export const REACH = 420;
@@ -55,7 +56,7 @@ export default class Cassiopeia_R extends Spell {
   name = 'Cái Nhìn Hóa Đá (Cassiopeia_R)';
   description =
     `Quét một hình nón <span>${REACH}px</span> theo hướng chỉ định trong` +
-    ` <span class="time">${secs(SWEEP_DURATION)} giây</span>: <span class="damage magic">${DAMAGE} sát thương phép</span>,` +
+    ` <span class="time">${secs(SWEEP_DURATION)} giây</span>: ${dmg(DAMAGE, 'MAGIC')},` +
     ` <span class="buff">Choáng</span> trong <span class="time">${secs(STUN_DURATION)} giây</span>` +
     ` và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> sau đó, <i>khi làn sóng chạm tới từng mục tiêu</i>`;
   coolDown = 10000;

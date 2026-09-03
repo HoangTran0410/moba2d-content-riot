@@ -11,6 +11,7 @@ const AoePulse = api.AoePulse;
 const BuffAddType = api.enums.BuffAddType;
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
+const dmg = api.text.dmg;
 
 /**
  * Chọn Bài — the champion, really.
@@ -98,12 +99,12 @@ export default class TwistedFate_W extends Spell {
   description =
     `Bắt đầu đảo bài, mỗi <span class="time">${secs(SHUFFLE_INTERVAL_MS)} giây</span> đổi một lá.` +
     ` Kích hoạt lần nữa để <span class="buff">chốt lá đang hiện</span>, nạp vào đòn đánh kế tiếp:` +
-    ` <span class="buff">Xanh</span> thêm <span class="damage magic">${BLUE_BONUS_DAMAGE} sát thương phép</span>` +
+    ` <span class="buff">Xanh</span> thêm ${dmg(BLUE_BONUS_DAMAGE, 'MAGIC')}` +
     ` và hồi <span class="buff">${BLUE_MANA_RESTORED} năng lượng</span>;` +
-    ` <span class="buff">Đỏ</span> thêm <span class="damage magic">${RED_BONUS_DAMAGE} sát thương phép</span>` +
+    ` <span class="buff">Đỏ</span> thêm ${dmg(RED_BONUS_DAMAGE, 'MAGIC')}` +
     ` lan quanh mục tiêu và <span class="buff">Làm Chậm ${pct(RED_SLOW_PERCENT)}%</span>` +
     ` trong <span class="time">${secs(RED_SLOW_MS)} giây</span>;` +
-    ` <span class="buff">Vàng</span> thêm <span class="damage magic">${GOLD_BONUS_DAMAGE} sát thương phép</span>` +
+    ` <span class="buff">Vàng</span> thêm ${dmg(GOLD_BONUS_DAMAGE, 'MAGIC')}` +
     ` và <span class="buff">Choáng</span> trong <span class="time">${secs(GOLD_STUN_MS)} giây</span>`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;

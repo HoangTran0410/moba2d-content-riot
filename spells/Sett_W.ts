@@ -10,6 +10,8 @@ const Spell = api.Spell;
 const Buff = api.buffs.Buff;
 const SpellObject = api.SpellObject;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 
 export const SETT_W_GRIT_RATIO = 1.0;
@@ -63,8 +65,8 @@ export default class Sett_W extends Spell {
     `Sau 3 giây không nhận sát thương, Nộ Khí mới bắt đầu suy giảm. ` +
     `Khi kích hoạt chiêu, Sett lập tức nhận lá chắn bằng toàn bộ Nộ Khí trong 3 giây ` +
     `và tung đòn đánh hình cánh quạt ${SETT_W_CONE_DEG}° tầm ${SETT_W_LENGTH} gây ` +
-    `<span class="damage magic">${SETT_W_BASE} sát thương phép</span> cộng ` +
-    `${pct(SETT_W_GRIT_SCALE)}% Nộ Khí (dải trung tâm gây <span class="damage true">sát thương chuẩn</span>).`;
+    `${dmg(SETT_W_BASE, 'MAGIC')} cộng ` +
+    `${pct(SETT_W_GRIT_SCALE)}% Nộ Khí (dải trung tâm gây ${tint('sát thương chuẩn', 'TRUE')}).`;
   coolDown = 10_000;
   manaCost = 40;
   range = SETT_W_LENGTH;

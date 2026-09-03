@@ -6,6 +6,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const Slow = api.buffs.Slow;
 const ParticleSystem = api.helpers.ParticleSystem;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 export default class Zed_E extends Spell {
   /**
@@ -19,7 +20,7 @@ export default class Zed_E extends Spell {
   image = api.asset('spell_zed_e');
   name = 'Đường Kiếm Bóng Tối (Zed_E)';
   description =
-    'Xoay lưỡi kiếm xung quanh bản thân. Gây <span class="damage physical">15 sát thương vật lý</span> và <span class="buff">Làm chậm 30%</span> các kẻ địch trong <span class="time">1 giây</span>';
+    `Xoay lưỡi kiếm xung quanh bản thân. Gây ${dmg(15, 'PHYSICAL')} và <span class="buff">Làm chậm 30%</span> các kẻ địch trong <span class="time">1 giây</span>`;
   coolDown = 1000;
   manaCost = 10;
 

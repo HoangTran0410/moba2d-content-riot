@@ -12,6 +12,7 @@ const BuffAddType = api.enums.BuffAddType;
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 export const R_STASIS_MS = 2_500;
 
@@ -129,7 +130,7 @@ export default class Lissandra_R extends Spell {
     `Một trận địa băng lan rộng ra bán kính <span class="buff">${R_FIELD_RADIUS}</span> trong ` +
     `<span class="time">${secs(R_FIELD_SPREAD_MS)} giây</span> và tồn tại ` +
     `<span class="time">${secs(R_FIELD_DURATION_MS)} giây</span>, gây ` +
-    `<span class="damage magic">${R_FIELD_DAMAGE} sát thương phép</span> một lần cho mỗi kẻ địch và ` +
+    `${dmg(R_FIELD_DAMAGE, 'MAGIC')} một lần cho mỗi kẻ địch và ` +
     `<span class="buff">làm chậm ${pct(R_FIELD_SLOW_PERCENT)}%</span> khi chúng còn đứng trong đó.`;
   coolDown = R_COOLDOWN_MS;
   manaCost = R_MANA_COST;

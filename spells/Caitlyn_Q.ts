@@ -9,6 +9,7 @@ const MissileSpellObject = api.MissileSpellObject;
 const TrailSystem = api.helpers.TrailSystem;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 export const CAITLYN_Q_RANGE = 720;
@@ -38,8 +39,8 @@ export default class Caitlyn_Q extends Spell {
   name = 'Bắn Xuyên Táo (Caitlyn_Q)';
   description =
     `Lên đạn trong <span class="time">${secs(CAITLYN_Q_CAST_TIME_MS)} giây</span> rồi bắn một phát` +
-    ` xuyên thấu, gây <span class="damage physical">${CAITLYN_Q_DAMAGE} sát thương vật lý</span> lên mục tiêu đầu tiên` +
-    ` và <span class="damage physical">${CAITLYN_Q_REDUCED_DAMAGE} sát thương vật lý</span> lên những mục tiêu sau.` +
+    ` xuyên thấu, gây ${dmg(CAITLYN_Q_DAMAGE, 'PHYSICAL')} lên mục tiêu đầu tiên` +
+    ` và ${dmg(CAITLYN_Q_REDUCED_DAMAGE, 'PHYSICAL')} lên những mục tiêu sau.` +
     ' Kẻ địch đang dính Bẫy Yordle luôn nhận sát thương đầy đủ.';
 
   coolDown = 8000;

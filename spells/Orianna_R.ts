@@ -63,6 +63,7 @@ const SPOKE_COUNT = 12;
 
 /** Read once: the icon both displacement buffs wear in the victim's buff bar. */
 const SHOCKWAVE_ICON = api.asset('spell_orianna_r');
+const dmg = api.text.dmg;
 
 
 export default class Orianna_R extends Spell {
@@ -75,7 +76,7 @@ export default class Orianna_R extends Spell {
   targetingMode = 'SELF' as const;
   image = api.asset('spell_orianna_r');
   name = 'Lệnh: Sóng Âm (Orianna_R)';
-  description = `Quả Cầu nạp năng lượng trong <span class="time">${secs(WINDUP_MS)} giây</span> rồi bung ra một chấn động bán kính <span class="buff">${RADIUS}</span>: <span class="damage magic">${DAMAGE} sát thương phép</span>, <span class="buff">hút mọi kẻ địch về phía Quả Cầu</span> và <span class="buff">Hất Tung</span> trong <span class="time">${secs(AIRBORNE_DURATION_MS)} giây</span>.`;
+  description = `Quả Cầu nạp năng lượng trong <span class="time">${secs(WINDUP_MS)} giây</span> rồi bung ra một chấn động bán kính <span class="buff">${RADIUS}</span>: ${dmg(DAMAGE, 'MAGIC')}, <span class="buff">hút mọi kẻ địch về phía Quả Cầu</span> và <span class="buff">Hất Tung</span> trong <span class="time">${secs(AIRBORNE_DURATION_MS)} giây</span>.`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;
 

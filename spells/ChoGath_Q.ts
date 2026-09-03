@@ -7,13 +7,14 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const Airborne = api.buffs.Airborne;
 const Slow = api.buffs.Slow;
+const dmg = api.text.dmg;
 
 export default class ChoGath_Q extends Spell {
   targetingMode = 'POINT' as const;
   image = api.asset('spell_chogath_q');
   name = "Rạn Nứt (Cho'Gath_Q)";
   description =
-    'Tạo một vụ địa chấn tại vùng đã chọn, gây <span class="damage magic">15 sát thương phép</span> và <span class="buff">Hất Tung</span> các kẻ địch trong <span class="time">1 giây</span> và <span class="buff">Làm Chậm 60%</span> chúng trong <span class="time">1.5 giây</span>';
+    `Tạo một vụ địa chấn tại vùng đã chọn, gây ${dmg(15, 'MAGIC')} và <span class="buff">Hất Tung</span> các kẻ địch trong <span class="time">1 giây</span> và <span class="buff">Làm Chậm 60%</span> chúng trong <span class="time">1.5 giây</span>`;
   coolDown = 7000;
   manaCost = 30;
 

@@ -9,6 +9,7 @@ const MissileSpellObject = api.MissileSpellObject;
 const Airborne = api.buffs.Airborne;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 export const R_RANGE = 450;
@@ -52,8 +53,8 @@ export default class Nautilus_R extends Spell {
   name = 'Thủy Lôi Tầm Nhiệt (Nautilus_R)';
   description =
     `Thả một quả thủy lôi chạy ngầm dưới đất, đuổi theo mục tiêu đã chọn. Ai bị nó đi qua ` +
-    `nhận <span class="damage magic">${R_PASS_DAMAGE} sát thương phép</span> và bị hất tung. Tới đích, ` +
-    `nó nổ trong bán kính ${R_BLAST_RADIUS}: <span class="damage magic">${R_DAMAGE} sát thương phép</span> ` +
+    `nhận ${dmg(R_PASS_DAMAGE, 'MAGIC')} và bị hất tung. Tới đích, ` +
+    `nó nổ trong bán kính ${R_BLAST_RADIUS}: ${dmg(R_DAMAGE, 'MAGIC')} ` +
     `và hất tung ${secs(R_KNOCKUP_MS)} giây.`;
   coolDown = 10_000;
   manaCost = 100;

@@ -11,6 +11,7 @@ const MAX_UNIT_SIZE = api.units.MAX_UNIT_SIZE;
 const BuffAddType = api.enums.BuffAddType;
 const StatAmp = api.buffs.StatAmp;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 /** One Feast stack. Kept as constants so the heal matches the max health gained. */
@@ -34,7 +35,7 @@ export default class ChoGath_R extends Spell implements ExecuteSpell {
   name = "Xơi Tái (Cho'Gath_R)";
   description =
     `Ngoạm một kẻ địch trong phạm vi <span>200px</span> — <span class="buff">ưu tiên kẻ sẽ chết vì cú ngoạm này</span>, ` +
-    `nếu không có thì kẻ gần nhất — gây <span class="damage true">40 sát thương chuẩn</span>. ` +
+    `nếu không có thì kẻ gần nhất — gây ${dmg(40, 'TRUE')}. ` +
     `Chỉ khi <span class="buff">ăn tươi nuốt sống</span> (hạ gục bằng chiêu này), Cho'Gath mới ` +
     `<span class="buff">To Lên Vĩnh Viễn</span>: cộng dồn <span>+${SIZE_PER_STACK} kích thước</span> ` +
     `(tối đa <span>${MAX_UNIT_SIZE}</span>) và <span class="buff">+${MAX_HEALTH_PER_STACK} máu tối đa</span> (không giới hạn)`;

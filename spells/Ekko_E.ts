@@ -10,6 +10,7 @@ const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
 const Buff = api.buffs.Buff;
 const EventType = api.enums.EventType;
+const dmg = api.text.dmg;
 
 
 export const EKKO_E_BLINK_DAMAGE = 25;
@@ -24,7 +25,7 @@ export default class Ekko_E extends Spell {
   image = api.asset('spell_ekko_e');
   name = 'Biến Chuyển Pha (Ekko_E)';
   description =
-    '<span class="buff">Lướt</span> theo hướng chỉ định. Tái kích hoạt E hoặc đánh thường trong <span class="time">5 giây</span> để dịch chuyển tới kẻ địch và gây thêm <span class="damage magic">25 sát thương phép</span>.';
+    `<span class="buff">Lướt</span> theo hướng chỉ định. Tái kích hoạt E hoặc đánh thường trong <span class="time">5 giây</span> để dịch chuyển tới kẻ địch và gây thêm ${dmg(25, 'MAGIC')}.`;
   coolDown = 9000;
   manaCost = 40;
   range = 250;
@@ -249,7 +250,7 @@ export class Ekko_E_Buff extends Buff {
   image = api.asset('spell_ekko_e');
   name = 'Biến Chuyển Pha (Cường Hóa)';
   description =
-    `Đòn đánh kế tiếp gây thêm <span class="damage magic">${EKKO_E_BLINK_DAMAGE} sát thương phép</span> ` +
+    `Đòn đánh kế tiếp gây thêm ${dmg(EKKO_E_BLINK_DAMAGE, 'MAGIC')} ` +
     `và dịch chuyển Ekko tới sát mục tiêu.`;
   private stopListening?: () => void;
   private auraObj: Ekko_E_AuraObject | null = null;

@@ -10,6 +10,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const Airborne = api.buffs.Airborne;
 const Slow = api.buffs.Slow;
+const dmg = api.text.dmg;
 
 
 export const RANGE = 700;
@@ -36,7 +37,7 @@ export default class Fizz_R extends Spell {
   description =
     `Ném một con cá mồi <span>${RANGE}px</span>. Nó dính vào mục tiêu đầu tiên trúng phải (hoặc rơi xuống đất),` +
     ` và sau <span class="time">${secs(FUSE_MS)} giây</span> một con cá mập trồi lên:` +
-    ` <span class="damage magic">${DAMAGE} sát thương phép</span>, <span class="buff">Hất Tung</span> và` +
+    ` ${dmg(DAMAGE, 'MAGIC')}, <span class="buff">Hất Tung</span> và` +
     ` <span class="buff">Làm Chậm 60%</span> trong <span>${RADIUS}px</span>`;
   coolDown = 10000;
   manaCost = 80;

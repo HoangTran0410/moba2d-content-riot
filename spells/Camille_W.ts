@@ -7,6 +7,7 @@ const Slow = api.buffs.Slow;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedParticleSystems = api.helpers.PredefinedParticleSystems;
+const dmg = api.text.dmg;
 
 export const CAMILLE_W_OUTER_DAMAGE = 40;
 
@@ -27,7 +28,7 @@ export default class Camille_W extends Spell {
   image = api.asset('spell_camille_w');
   name = 'Đá Quét Chiến Thuật (Camille_W)';
   description =
-    'Quét chân theo hình nón trước mặt. Kẻ địch ở viền ngoài chịu <span class="damage physical">40 sát thương vật lý</span>, bị <span class="buff">Làm Chậm 80%</span> trong <span class="time">2 giây</span> và hồi máu cho Camille.';
+    `Quét chân theo hình nón trước mặt. Kẻ địch ở viền ngoài chịu ${dmg(40, 'PHYSICAL')}, bị <span class="buff">Làm Chậm 80%</span> trong <span class="time">2 giây</span> và hồi máu cho Camille.`;
   coolDown = 10000;
   manaCost = 50;
   range = 400;

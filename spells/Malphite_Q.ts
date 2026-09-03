@@ -13,6 +13,7 @@ const TrailSystem = api.helpers.TrailSystem;
 const HomingMissileSpellObject = api.HomingMissileSpellObject;
 const Speedup = api.buffs.Speedup;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 type MalphiteTarget = AttackableUnit;
@@ -45,7 +46,7 @@ export default class Malphite_Q extends Spell {
   image = api.asset('spell_malphite_q');
   name = 'Mảnh Vỡ Địa Chấn (Malphite_Q)';
   description =
-    'Ném một mảnh đá tự bám theo mục tiêu, gây <span class="damage magic">20 sát thương phép</span> và <span class="buff">Làm Chậm 20%</span> trong <span class="time">3 giây</span>. Malphite nhận lượng <span class="buff">Tốc Độ Di Chuyển</span> mà mục tiêu thực sự mất trong cùng thời gian';
+    `Ném một mảnh đá tự bám theo mục tiêu, gây ${dmg(20, 'MAGIC')} và <span class="buff">Làm Chậm 20%</span> trong <span class="time">3 giây</span>. Malphite nhận lượng <span class="buff">Tốc Độ Di Chuyển</span> mà mục tiêu thực sự mất trong cùng thời gian`;
   coolDown = 8_000;
   manaCost = 70;
 

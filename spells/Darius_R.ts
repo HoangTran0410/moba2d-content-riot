@@ -13,6 +13,9 @@ const Dash = api.buffs.Dash;
 const Fear = api.buffs.Fear;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
+const dmgValue = api.text.dmgValue;
 
 
 export const RANGE = 200;
@@ -62,9 +65,9 @@ export default class Darius_R extends Spell implements ExecuteSpell {
   name = 'Máy Chém Noxus (Darius_R)';
   description =
     `Nhảy tới kẻ địch trong <span>${RANGE}px</span> — <span class="buff">ưu tiên kẻ sẽ chết vì nhát này</span> —` +
-    ` và bổ rìu xuống: <span class="damage true">${BASE_DAMAGE} sát thương chuẩn</span>,` +
-    ` cộng thêm <span class="damage true">${DAMAGE_PER_STACK}</span> cho mỗi cấp <span class="damage">Chảy Máu</span>` +
-    ` (tối đa <span class="damage true">${MAX_DAMAGE}</span>).` +
+    ` và bổ rìu xuống: ${dmg(BASE_DAMAGE, 'TRUE')},` +
+    ` cộng thêm ${dmgValue(DAMAGE_PER_STACK, 'TRUE')} cho mỗi cấp ${tint('Chảy Máu')}` +
+    ` (tối đa ${dmgValue(MAX_DAMAGE, 'TRUE')}).` +
     ` Nếu chém chết mục tiêu, chiêu cuối <span class="buff">hồi ngay lập tức</span>` +
     ` và lính quanh đó <span class="buff">Khiếp Sợ</span> trong <span class="time">${secs(FEAR_MS)} giây</span>`;
   coolDown = 10_000;

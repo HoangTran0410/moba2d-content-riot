@@ -15,6 +15,7 @@ const withinRange = api.combat.Reach.withinRange;
 const effectiveRange = api.combat.Reach.effectiveRange;
 const canSee = api.combat.Vision.canSee;
 const AttackableUnit = api.units.AttackableUnit;
+const heal = api.text.heal;
 
 /**
  * Ơn Phước Mikael — the shop's answer to a chain of crowd control landing on
@@ -77,7 +78,7 @@ export default class Item_Mikael extends Spell {
   name = 'Ơn Phước Mikael (Item_Mikael)';
   description =
     `Kích hoạt: gỡ một hiệu ứng <span class="buff">khống chế</span> khỏi đồng minh và hồi` +
-    ` <span class="heal">${HEAL}</span> máu; trong <span class="time">${secs(BOOST_MS)} giây</span>` +
+    ` ${heal(HEAL)} máu; trong <span class="time">${secs(BOOST_MS)} giây</span>` +
     ` sau đó mọi hiệu ứng hồi máu lên đồng minh đó mạnh hơn ${pct(HEALING_BOOST)}%`;
   coolDown = COOLDOWN_MS;
   manaCost = 0;

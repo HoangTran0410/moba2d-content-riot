@@ -7,6 +7,7 @@ const Buff = api.buffs.Buff;
 const Slow = api.buffs.Slow;
 const AoePulse = api.AoePulse;
 const StatsModifier = api.units.StatsModifier;
+const dmg = api.text.dmg;
 
 /**
  * Giáp Người Chết — the only thing in this shop that charges off **walking**.
@@ -77,7 +78,7 @@ export class Item_DeadMansPlate_Momentum extends Buff {
   description =
     `Đi bộ tích Đà: đầy Đà cho <span class="buff">+${pct(SPEED_AT_FULL)}%</span> tốc chạy, ` +
     `và đòn đánh kế tiếp tiêu hết Đà để gây thêm ` +
-    `<span class="damage physical">${IMPACT_DAMAGE_AT_FULL} sát thương vật lý</span> và Làm Chậm.`;
+    `${dmg(IMPACT_DAMAGE_AT_FULL, 'PHYSICAL')} và Làm Chậm.`;
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
 
   /** 0 .. `MAX_MOMENTUM`. */

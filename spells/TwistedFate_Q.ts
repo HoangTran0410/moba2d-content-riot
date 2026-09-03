@@ -6,6 +6,7 @@ const MissileSpellObject = api.MissileSpellObject;
 const VectorUtils = api.utils.VectorUtils;
 const TrailSystem = api.helpers.TrailSystem;
 const AoePulse = api.AoePulse;
+const dmg = api.text.dmg;
 
 /**
  * Phi Bài — a fan of three cards, thrown at once.
@@ -48,7 +49,7 @@ export default class TwistedFate_Q extends Spell {
   description =
     `Ném ra <span class="buff">${CARD_COUNT} lá bài</span> theo hình rẻ quạt, mỗi lá` +
     ` xuyên qua mọi kẻ địch trên đường bay và gây` +
-    ` <span class="damage magic">${CARD_DAMAGE} sát thương phép</span>.` +
+    ` ${dmg(CARD_DAMAGE, 'MAGIC')}.` +
     ` Kẻ địch đứng đúng chỗ hai lá bài giao nhau sẽ ăn đủ hai lần`;
   coolDown = COOLDOWN_MS;
   manaCost = MANA_COST;

@@ -15,6 +15,7 @@ const AttackableUnit = api.units.AttackableUnit;
 const MissileSpellObject = api.MissileSpellObject;
 const TrailSystem = api.helpers.TrailSystem;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 const HOLD_THRESHOLD_MS = 350;
@@ -153,7 +154,7 @@ export default class Pantheon_Q extends Spell {
     ` <b>Giữ</b> để ném một ngọn giáo <span class="buff">xuyên qua mọi kẻ địch</span>:` +
     ` tầm ném lớn dần từ <span>${MIN_RANGE}px</span> lên <span>${RANGE}px</span> sau` +
     ` <span class="time">${secs(RANGE_CHARGE_MS)} giây</span> tích lực.` +
-    ` Cả hai đều gây <span class="damage physical">${BASE_DAMAGE} sát thương vật lý</span>` +
+    ` Cả hai đều gây ${dmg(BASE_DAMAGE, 'PHYSICAL')}` +
     ` — <span class="buff">${pct(MINION_MULTIPLIER)}%</span> lên lính,` +
     ` <span class="buff">${pct(MONSTER_MULTIPLIER)}%</span> lên quái,` +
     ` <span class="buff">${pct(SUBSEQUENT_MULTIPLIER)}%</span> cho những mục tiêu bị xuyên tiếp theo —` +

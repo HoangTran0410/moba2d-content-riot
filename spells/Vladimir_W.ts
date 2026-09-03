@@ -11,6 +11,7 @@ const StatusFlags = api.enums.StatusFlags;
 const BuffAddType = api.enums.BuffAddType;
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
+const dmg = api.text.dmg;
 
 export const POOL_DURATION_MS = 2_000;
 
@@ -90,7 +91,7 @@ export default class Vladimir_W extends Spell {
   description =
     `Chìm vào vũng máu trong <span class="time">${secs(POOL_DURATION_MS)} giây</span>, ` +
     `<span class="buff">không thể bị chọn</span> và không thể tấn công hay dùng phép, nhưng vẫn di chuyển được. ` +
-    `Kẻ địch trong vũng bị <span class="damage magic">${TICK_DAMAGE} sát thương phép</span> mỗi ` +
+    `Kẻ địch trong vũng bị ${dmg(TICK_DAMAGE, 'MAGIC')} mỗi ` +
     `${secs(TICK_INTERVAL_MS)}s và <span class="buff">chậm ${pct(SLOW_PERCENT)}%</span>. ` +
     `Trong lúc này Vladimir nhận <span class="buff">${pct(SPELL_VAMP)}% hút máu phép</span>`;
   coolDown = COOLDOWN_MS;

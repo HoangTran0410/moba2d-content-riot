@@ -6,6 +6,7 @@ const Buff = api.buffs.Buff;
 const StatAmp = api.buffs.StatAmp;
 const BuffAddType = api.enums.BuffAddType;
 const SpellObject = api.SpellObject;
+const heal = api.text.heal;
 
 /** Toxic chemical green, shared with Q's infection motif on purpose — same doctor, same drugs. */
 const DOSE: [number, number, number] = [96, 224, 90];
@@ -73,8 +74,8 @@ export default class DrMundo_R extends Spell {
   image = api.asset('spell_drmundo_r');
   name = 'Liều Cực Mạnh (DrMundo_R)';
   description =
-    `Tự tiêm hóa chất trong <span class="time">${secs(DURATION_MS)} giây</span>: hồi tổng cộng <span class="heal">` +
-    `${HEAL_TOTAL} máu</span>, tăng <span class="buff">+${MAX_HEALTH_BASE}-${MAX_HEALTH_BASE + MAX_HEALTH_MISSING_SCALE} máu tối đa</span> ` +
+    `Tự tiêm hóa chất trong <span class="time">${secs(DURATION_MS)} giây</span>: hồi tổng cộng ` +
+    `${heal(HEAL_TOTAL, ' máu')}, tăng <span class="buff">+${MAX_HEALTH_BASE}-${MAX_HEALTH_BASE + MAX_HEALTH_MISSING_SCALE} máu tối đa</span> ` +
     `(theo lượng máu đã mất), <span class="buff">+${pct(MOVE_SPEED_BONUS)}% tốc chạy</span>, và ` +
     `<span class="buff">+${pct(HEALING_RECEIVED_BONUS)}% hiệu quả hồi máu nhận vào</span>.`;
   coolDown = COOLDOWN_MS;
@@ -116,8 +117,8 @@ export class DrMundo_R_Regen extends Buff {
 
   onCreate(): void {
     this.description ??=
-      `Hồi <span class="heal">${HEAL_PER_TICK} máu</span> mỗi ${secs(REGEN_TICK_MS)} giây ` +
-      `trong <span class="time">${secs(DURATION_MS)} giây</span> (hồi tổng <span class="heal">${HEAL_TOTAL} máu</span>).`;
+      `Hồi ${heal(HEAL_PER_TICK, ' máu')} mỗi ${secs(REGEN_TICK_MS)} giây ` +
+      `trong <span class="time">${secs(DURATION_MS)} giây</span> (hồi tổng ${heal(HEAL_TOTAL, ' máu')}).`;
   }
 
   onUpdate(): void {

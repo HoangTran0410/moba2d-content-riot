@@ -6,6 +6,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const Spell = api.Spell;
 const AoePulse = api.AoePulse;
 const Root = api.buffs.Root;
+const dmg = api.text.dmg;
 
 export const RADIUS = 260;
 
@@ -25,7 +26,7 @@ export default class Amumu_R extends Spell {
   image = api.asset('spell_amumu_r');
   name = 'Lời Nguyền Xác Ướp U Sầu (Amumu_R)';
   description =
-    `Băng quấn bung ra <span>${RADIUS}px</span>, gây <span class="damage magic">${DAMAGE} sát thương phép</span>` +
+    `Băng quấn bung ra <span>${RADIUS}px</span>, gây ${dmg(DAMAGE, 'MAGIC')}` +
     ` và <span class="buff">Trói Chân</span> mọi kẻ địch trúng phải trong` +
     ` <span class="time">${secs(ROOT_DURATION)} giây</span>`;
   coolDown = 10000;

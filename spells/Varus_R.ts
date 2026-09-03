@@ -9,6 +9,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const MissileSpellObject = api.MissileSpellObject;
 const AoePulse = api.AoePulse;
 const Root = api.buffs.Root;
+const dmg = api.text.dmg;
 
 
 export const RANGE = 600;
@@ -29,7 +30,7 @@ export default class Varus_R extends Spell {
   image = api.asset('spell_varus_r');
   name = 'Sợi Xích Tội Lỗi (Varus_R)';
   description =
-    `Phóng một dây leo: mục tiêu đầu tiên trúng phải nhận <span class="damage magic">${DAMAGE} sát thương phép</span>` +
+    `Phóng một dây leo: mục tiêu đầu tiên trúng phải nhận ${dmg(DAMAGE, 'MAGIC')}` +
     ` và bị <span class="buff">Trói Chân</span> trong <span class="time">${secs(ROOT_DURATION)} giây</span>,` +
     ` rồi lan sang mọi kẻ địch trong <span>${SPREAD_RADIUS}px</span> quanh nó`;
   coolDown = 10000;

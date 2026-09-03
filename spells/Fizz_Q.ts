@@ -7,6 +7,7 @@ const Spell = api.Spell;
 const AoePulse = api.AoePulse;
 const Dash = api.buffs.Dash;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 export const RANGE = 380;
 
@@ -42,7 +43,7 @@ export default class Fizz_Q extends Spell {
   name = 'Đâm Lao (Fizz_Q)';
   description =
     `Lướt xuyên qua kẻ địch gần nhất trong <span>${RANGE}px</span>, gây` +
-    ` <span class="damage magic">${DAMAGE} sát thương phép</span> và dừng lại phía sau lưng chúng`;
+    ` ${dmg(DAMAGE, 'MAGIC')} và dừng lại phía sau lưng chúng`;
   coolDown = 6000;
   manaCost = 25;
 

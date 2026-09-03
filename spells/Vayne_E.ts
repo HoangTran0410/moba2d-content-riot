@@ -12,6 +12,7 @@ const sweepToWall = api.terrain.sweepToWall;
 const MissileSpellObject = api.MissileSpellObject;
 const SpellObject = api.SpellObject;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 
 /** How far the heavy bolt flies. */
@@ -65,9 +66,9 @@ export default class Vayne_E extends Spell {
   image = api.asset('spell_vayne_e');
   name = 'Kết Án (Vayne_E)';
   description = `Bắn một mũi sắt nặng gây
-    <span class="damage physical">${VAYNE_E_DAMAGE} sát thương vật lý</span> và đẩy mục tiêu ra xa. Nếu bị ghim
+    ${dmg(VAYNE_E_DAMAGE, 'PHYSICAL')} và đẩy mục tiêu ra xa. Nếu bị ghim
     vào địa hình: choáng ${secs(VAYNE_E_STUN_MS)} giây và thêm
-    <span class="damage physical">${VAYNE_E_WALL_BONUS} sát thương vật lý</span>.`;
+    ${dmg(VAYNE_E_WALL_BONUS, 'PHYSICAL')}.`;
   coolDown = 10_000;
   manaCost = 50;
   range = VAYNE_E_RANGE;

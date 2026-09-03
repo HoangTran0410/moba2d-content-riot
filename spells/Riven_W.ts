@@ -9,6 +9,7 @@ const Stun = api.buffs.Stun;
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 
 export const W_RADIUS = 170;
@@ -39,7 +40,7 @@ export default class Riven_W extends Spell {
   name = 'Kình Lực (Riven_W)';
   description =
     `Đóng lưỡi kiếm xuống đất, nứt ra bán kính ${W_RADIUS} sau ${W_WINDUP_MS}ms rồi gây ` +
-    `<span class="damage physical">${W_DAMAGE} sát thương vật lý</span> và choáng ` +
+    `${dmg(W_DAMAGE, 'PHYSICAL')} và choáng ` +
     `${secs(W_STUN_MS)} giây quanh mình.`;
   coolDown = 9_000;
   manaCost = 30;

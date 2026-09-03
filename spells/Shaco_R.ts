@@ -8,6 +8,7 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const Pet = api.units.Pet;
 const Fear = api.buffs.Fear;
 const ParticleSystem = api.helpers.ParticleSystem;
+const dmg = api.text.dmg;
 
 
 export default class Shaco_R extends Spell {
@@ -15,7 +16,7 @@ export default class Shaco_R extends Spell {
   image = api.asset('spell_shaco_r');
   name = 'Phân Thân (Shaco_R)';
   description =
-    'Tạo ra một <span>phân thân</span> tồn tại trong <span class="time">10 giây</span>. Tái kích hoạt để điều khiển phân thân di chuyển. Khi chết, nó phát nổ, gây <span class="damage magic">30 sát thương phép</span> và gây <span class="buff">Hoảng Sợ</span> các kẻ địch xunh quanh trong <span class="time">1 giây</span> và để lại <span>3 Hộp Hề Ma Quái</span> nhỏ';
+    `Tạo ra một <span>phân thân</span> tồn tại trong <span class="time">10 giây</span>. Tái kích hoạt để điều khiển phân thân di chuyển. Khi chết, nó phát nổ, gây ${dmg(30, 'MAGIC')} và gây <span class="buff">Hoảng Sợ</span> các kẻ địch xunh quanh trong <span class="time">1 giây</span> và để lại <span>3 Hộp Hề Ma Quái</span> nhỏ`;
   coolDown = 10000;
   manaCost = 80;
 

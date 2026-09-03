@@ -12,6 +12,8 @@ const TrailSystem = api.helpers.TrailSystem;
 const acceleratedSpeed = api.combat.GlobalShot.acceleratedSpeed;
 const enemyChampionsOnly = api.combat.GlobalShot.enemyChampionsOnly;
 const travelRamp = api.combat.GlobalShot.travelRamp;
+const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 export const SIZE = 35;
 
@@ -52,11 +54,11 @@ export default class Ashe_R extends Spell {
   image = api.asset('spell_ashe_r');
   name = 'Đại Băng Tiễn (Ashe_R)';
   description =
-    `Bắn mũi tên băng <span class="buff">bay khắp bản đồ</span>, chỉ vỡ khi trúng <span class="damage">tướng địch</span>` +
+    `Bắn mũi tên băng <span class="buff">bay khắp bản đồ</span>, chỉ vỡ khi trúng ${tint('tướng địch')}` +
     ` (đi xuyên qua lính). Bay càng xa càng nhanh và càng mạnh:` +
     ` <span class="buff">Làm Choáng</span> từ <span class="time">${MIN_STUN_MS / 1000}</span> tới` +
     ` <span class="time">${secs(MAX_STUN_MS)} giây</span> theo quãng đường, gây` +
-    ` <span class="damage magic">${DAMAGE} sát thương phép</span> cho mục tiêu và mọi kẻ địch xung quanh`;
+    ` ${dmg(DAMAGE, 'MAGIC')} cho mục tiêu và mọi kẻ địch xung quanh`;
   coolDown = 10000;
   manaCost = 80;
 

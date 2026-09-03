@@ -7,6 +7,7 @@ const BuffAddType = api.enums.BuffAddType;
 const EventType = api.enums.EventType;
 const Buff = api.buffs.Buff;
 const SpellObject = api.SpellObject;
+const dmg = api.text.dmg;
 
 
 /** How long Silver Bolts stays armed. */
@@ -51,7 +52,7 @@ export default class Vayne_W extends Spell {
   name = 'Mũi Tên Bạc (Vayne_W)';
   description = `Trong ${secs(VAYNE_W_DURATION_MS)} giây, mỗi ${VAYNE_W_STACKS} đòn đánh thường
     vào <b>cùng một mục tiêu</b> gây thêm
-    <span class="damage true">${VAYNE_W_PROC} sát thương chuẩn</span>. Đổi mục tiêu là mất đếm.`;
+    ${dmg(VAYNE_W_PROC, 'TRUE')}. Đổi mục tiêu là mất đếm.`;
   coolDown = 10_000;
   manaCost = 40;
 

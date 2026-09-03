@@ -12,6 +12,7 @@ const Slow = api.buffs.Slow;
 const SpellObject = api.SpellObject;
 const beamBoundingBox = api.beamBoundingBox;
 const intersectsBeam = api.intersectsBeam;
+const dmg = api.text.dmg;
 
 
 export const R_RANGE = 520;
@@ -136,11 +137,11 @@ export default class Irelia_R extends Spell {
   name = 'Thanh Kiếm Tiên Phong (Irelia_R)';
   description = `Ném một chùm kiếm về phía trước. Khi trúng kẻ địch — hoặc khi tới cuối tầm —
     chùm kiếm <span class="buff">bung ra thành hàng rào kiếm hình chữ V</span>, gây
-    <span class="damage magic">${R_DAMAGE} sát thương phép</span> và
+    ${dmg(R_DAMAGE, 'MAGIC')} và
     <span class="buff">làm chậm ${pct(R_SLOW_PERCENT)}%</span> trong
     <span class="time">${secs(R_SLOW_MS)} giây</span> cho mọi kẻ địch trúng phải.
     Hàng kiếm cắm lại <span class="time">${secs(R_WALL_MS)} giây</span>: ai bước vào cũng chịu
-    thêm <span class="damage magic">${R_WALL_DAMAGE} sát thương phép</span> và bị làm chậm.`;
+    thêm ${dmg(R_WALL_DAMAGE, 'MAGIC')} và bị làm chậm.`;
   coolDown = 10_000;
   manaCost = 100;
   range = R_RANGE;

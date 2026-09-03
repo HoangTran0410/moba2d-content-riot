@@ -9,6 +9,7 @@ const TrailSystem = api.helpers.TrailSystem;
 const MissileSpellObject = api.MissileSpellObject;
 const SpellObject = api.SpellObject;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 
 /** Cold steel and blood — the only two colours Katarina is allowed. */
@@ -113,8 +114,8 @@ export default class Katarina_Q extends Spell {
   image = api.asset('spell_katarina_q');
   name = 'Phi Dao (Katarina_Q)';
   description = `Phóng một lưỡi dao <b>vào một kẻ địch trong tầm</b> (không có mục tiêu thì không dùng được), nảy tới <b>${KATARINA_Q_MAX_TARGETS}</b> mục tiêu, gây
-    <span class="damage magic">${KATARINA_Q_FIRST_DAMAGE} sát thương phép</span> cho mục tiêu đầu và
-    <span class="damage magic">${KATARINA_Q_BOUNCE_DAMAGE} sát thương phép</span> cho mỗi lần nảy.
+    ${dmg(KATARINA_Q_FIRST_DAMAGE, 'MAGIC')} cho mục tiêu đầu và
+    ${dmg(KATARINA_Q_BOUNCE_DAMAGE, 'MAGIC')} cho mỗi lần nảy.
     Sau đó dao cắm xuống đất phía sau mục tiêu đầu tiên. Đi vào dao sẽ <b>xoay kiếm</b> gây sát thương diện rộng.`;
   coolDown = 8_000;
   manaCost = 0;

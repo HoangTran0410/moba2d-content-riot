@@ -21,6 +21,7 @@ const ChargeRangeTelegraph = api.vfx.ChargeRangeTelegraph;
 const VfxGroup = api.vfx.VfxGroup;
 const Rectangle = api.utils.Quadtree.Rectangle;
 const AoePulse = api.AoePulse;
+const dmg = api.text.dmg;
 
 /** Physical, and small: Q is a hook first and a poke a long way second. */
 export const Q_DAMAGE = 22;
@@ -101,7 +102,7 @@ export default class Pyke_Q extends Spell {
     ` <span>${HARPOON_RANGE}px</span> sau <span class="time">${secs(RANGE_CHARGE_MS)} giây</span>,` +
     ` trong lúc đó Pyke <span class="buff">tự làm chậm ${pct(CHARGE_SLOW_PERCENT)}%</span>.` +
     ` Thả ra để phóng lao xương. Kẻ địch <span class="buff">đầu tiên</span> trúng lao nhận` +
-    ` <span class="damage physical">${Q_DAMAGE} sát thương vật lý</span>, bị <span class="buff">Làm Chậm ${pct(Q_SLOW_PERCENT)}%</span> trong <span class="time">${secs(Q_SLOW_MS)} giây</span> và bị` +
+    ` ${dmg(Q_DAMAGE, 'PHYSICAL')}, bị <span class="buff">Làm Chậm ${pct(Q_SLOW_PERCENT)}%</span> trong <span class="time">${secs(Q_SLOW_MS)} giây</span> và bị` +
     ` <span class="buff">kéo về phía Pyke</span> trong <span class="time">${secs(PULL_DURATION_MS)} giây</span>, dừng lại ngay trong tầm đánh của hắn`;
   coolDown = Q_COOLDOWN_MS;
   manaCost = Q_MANA_COST;

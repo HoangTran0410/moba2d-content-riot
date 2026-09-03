@@ -12,6 +12,7 @@ const SpellObject = api.SpellObject;
 const Slow = api.buffs.Slow;
 const StatAmp = api.buffs.StatAmp;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const dmg = api.text.dmg;
 
 
 
@@ -88,7 +89,7 @@ export default class Pantheon_R extends Spell {
   description = 
     `Pantheon bay vút lên trời cao, <span class="buff">Không Thể Bị Chọn</span> suốt` +
     ` <span class="time">${secs(FLIGHT_MS)} giây</span>, rồi rơi như thiên thạch xuống địa điểm chỉ định` +
-    ` (xa tới <span>${MAX_RANGE}px</span>): <span class="damage magic">${DAMAGE} sát thương phép</span>` +
+    ` (xa tới <span>${MAX_RANGE}px</span>): ${dmg(DAMAGE, 'MAGIC')}` +
     ` và <span class="buff">Làm Chậm ${pct(SLOW_PERCENT)}%</span> trong bán kính <span>${RADIUS}px</span>` +
     ` Nội tại: <span class="buff">bỏ qua ${pct(PANTHEON_R_PENETRATION)}% xuyên giáp</span> của mục tiêu.`;
   coolDown = 10000;
