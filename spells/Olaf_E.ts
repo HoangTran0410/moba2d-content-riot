@@ -173,7 +173,9 @@ export class Olaf_E_Swing extends SpellObject {
       this.hasLanded = true;
       // still track the body, so a target that stepped aside is still hit where
       // it stands — the ability auto-locks, it is not a skillshot
-      if (!this.target.isDead && !this.target.toRemove) {
+      // `targetable`, not `isDead` — an untargetable body is not a dead one,
+      // and a delayed strike has to honour an escape taken after it was cast.
+      if (this.target.targetable && !this.target.toRemove) {
         this.aim = this.target.position.copy();
         this.target.takeDamage(DAMAGE, this.owner, 'TRUE');
       }

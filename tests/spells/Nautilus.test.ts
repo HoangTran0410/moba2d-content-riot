@@ -13,7 +13,7 @@ import { Q_DAMAGE, Q_RANGE } from '../../spells/Nautilus_Q';
 import Nautilus_Q, { Nautilus_Q_Object } from '../../spells/Nautilus_Q';
 import { E_RADII, E_WAVE_DAMAGE } from '../../spells/Nautilus_E';
 import Nautilus_E, { Nautilus_E_Object } from '../../spells/Nautilus_E';
-import { R_DAMAGE, R_PASS_DAMAGE } from '../../spells/Nautilus_R';
+import { R_DAMAGE, R_STEP_DAMAGE, R_STEP_RADIUS } from '../../spells/Nautilus_R';
 import Nautilus_R, { Nautilus_R_Eruption, Nautilus_R_Object } from '../../spells/Nautilus_R';
 const __api = buildTestApi();
 const { AttackableUnit } = __api.units;
@@ -186,7 +186,10 @@ describe('Nautilus spells', () => {
     expect(victim.stats.health.value).toBe(100 - E_WAVE_DAMAGE);
   });
 
-  it('R passes each bystander once and finishes its target for the full blast', () => {
+  it('R craters the line once per body, and finishes its target for the full blast', () => {
+    // The charge drops a small blast every `R_STEP_DISTANCE` on the way. One
+    // body standing on that line is lifted once however many craters it ends
+    // up inside — the steps are a line to cross, not a grinder.
     const bystander = unit(60, 'red');
     const target = unit(300, 'red');
     game.objectManager.update();
@@ -196,8 +199,44 @@ describe('Nautilus spells', () => {
     if (!charge) throw new Error('Nautilus R spawned no charge');
     drive(charge, 200);
 
-    expect(bystander.stats.health.value).toBe(100 - R_PASS_DAMAGE);
+    expect(bystander.stats.health.value).toBe(100 - R_STEP_DAMAGE);
     expect(target.stats.health.value).toBe(100 - R_DAMAGE);
+  });
+
+  it('R leaves alone anyone standing clear of the line', () => {
+    // What the small radius buys. The old pass-through swept whatever the
+    // hull touched and the eruption reached 200, so a team anywhere near the
+    // charge went up together — one button that answered a whole fight.
+    const aside = unit(150, 'red');
+    aside.position.set(150, R_STEP_RADIUS * 2);
+    const target = unit(300, 'red');
+    game.objectManager.update();
+
+    new Nautilus_R(owner).onSpellCast(context(300, 0, target));
+    const charge = findFirst(Nautilus_R_Object);
+    if (!charge) throw new Error('Nautilus R spawned no charge');
+    drive(charge, 200);
+
+    expect(aside.stats.health.value).toBe(100);
+  });
+
+  it('R is dodged by going untargetable while it is in flight', () => {
+    // The reported interaction: cast R, and the target answers with a pool.
+    // The only guard here used to be `isDead`, and being untargetable is not
+    // being dead — so the charge arrived and lifted somebody who had already
+    // spent an escape on it.
+    const target = unit(300, 'red');
+    game.objectManager.update();
+
+    new Nautilus_R(owner).onSpellCast(context(300, 0, target));
+    const charge = findFirst(Nautilus_R_Object);
+    if (!charge) throw new Error('Nautilus R spawned no charge');
+
+    target.setStatus(__api.enums.StatusFlags.Targetable, false);
+    drive(charge, 200);
+
+    expect(target.stats.health.value).toBe(100);
+    expect(target.buffs.some(buff => buff instanceof __api.buffs.Airborne)).toBe(false);
   });
 
   it('R erupts where it is when its target dies mid-flight', () => {

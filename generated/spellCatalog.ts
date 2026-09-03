@@ -1494,7 +1494,7 @@ export const spellCatalog = {
   },
   "Nautilus_R": {
     name: "Thủy Lôi Tầm Nhiệt (Nautilus_R)",
-    description: "Thả một quả thủy lôi chạy ngầm dưới đất, đuổi theo mục tiêu đã chọn. Ai bị nó đi qua nhận <span class=\"damage magic\" data-base=\"18\">18 sát thương phép</span> và bị hất tung. Tới đích, nó nổ trong bán kính 200: <span class=\"damage magic\" data-base=\"45\">45 sát thương phép</span> và hất tung 1.2 giây.",
+    description: "Thả một quả thủy lôi chạy ngầm dưới đất, đuổi theo mục tiêu đã chọn. Dọc đường nó nổ từng nhịp cách nhau 90, mỗi vụ nổ chỉ với tới 95: <span class=\"damage magic\" data-base=\"16\">16 sát thương phép</span> và hất tung 0.7 giây. Tới đích, nó nổ trong bán kính 200: <span class=\"damage magic\" data-base=\"45\">45 sát thương phép</span> và hất tung 1.2 giây. Mỗi người chỉ trúng một lần.",
     iconKey: "spell_nautilus_r",
     coolDownMs: 10000,
     manaCost: 100,

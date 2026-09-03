@@ -361,7 +361,9 @@ export class Morgana_R_Tether_Object extends SpellObject {
 
   private endTether(resolved: boolean): void {
     this.toRemove = true;
-    if (resolved && !this.target.isDead) {
+    // See `targetable`: the tether resolves on nobody if its victim spent an
+    // escape while it was winding up, which is what an escape is for.
+    if (resolved && this.target.targetable && !this.target.toRemove) {
       this.target.takeDamage(this.resolveDamage, this.owner, 'MAGIC');
       this.target.addBuff(new Stun(this.stunDurationMs, this.owner, this.target));
     }

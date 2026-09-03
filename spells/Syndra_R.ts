@@ -245,7 +245,9 @@ export class Syndra_R_Strike extends SpellObject {
       const arriveTime = i * STAGGER_MS + FLIGHT_MS;
       if (this.age >= arriveTime && !this.hitFlags[i]) {
         this.hitFlags[i] = true;
-        if (!this.target.toRemove && !this.target.isDead) {
+        // `targetable` rather than `isDead`: an orb in flight is answered by
+        // going untargetable, and being untargetable is not being dead.
+        if (!this.target.toRemove && this.target.targetable) {
           const dmg = i === this.origins.length - 1 ? lastChunk : baseChunk;
           this.target.takeDamage(dmg, this.owner, 'MAGIC');
           this.game.objectManager.addObject(

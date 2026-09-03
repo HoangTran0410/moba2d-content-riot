@@ -299,6 +299,11 @@ export class Ezreal_W_Mark extends SpellObject {
     this.detonated = true;
     this.toRemove = true;
 
+    // `targetable` folds in `isDead`, and it is the whole of "may this still
+    // be hit": a mark set on somebody who then pools or blinks into stasis
+    // detonates on nobody. Guarding on death alone made every escape in the
+    // pack useless against a delayed hit somebody had already committed to.
+    if (!this.target.targetable || this.target.toRemove) return;
     this.target.takeDamage(EZREAL_W_DETONATE_DAMAGE, this.owner, 'MAGIC');
 
     for (let i = 0; i < 16; i++) {

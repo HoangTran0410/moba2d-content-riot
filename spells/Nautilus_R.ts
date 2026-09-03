@@ -18,11 +18,29 @@ export const R_DAMAGE = 45;
 
 export const R_KNOCKUP_MS = 1_200;
 
-export const R_PASS_DAMAGE = 18;
 
-export const R_PASS_KNOCKUP_MS = 750;
 
 export const R_BLAST_RADIUS = 200;
+
+/**
+ * How far the charge travels between blasts, and how wide each one reaches.
+ *
+ * The ultimate used to be one 200-radius eruption at the end plus a
+ * pass-through sweep that caught anything the hull touched. Both halves
+ * landed at once and both were wide, so a team standing anywhere near the
+ * line went up together — a single button that answered a whole fight.
+ *
+ * A blast every 90px along the path, each reaching 95, is the same total
+ * distance covered and a very different thing to stand next to: the small
+ * radius is what holds a blast to the one or two bodies actually on that
+ * step, and the spacing is what makes walking *across* the line survivable
+ * while standing *on* it is not.
+ */
+export const R_STEP_DISTANCE = 90;
+export const R_STEP_RADIUS = 95;
+/** What one step pays. Lower than the eruption: a step is a graze, not the hit. */
+export const R_STEP_DAMAGE = 16;
+export const R_STEP_KNOCKUP_MS = 650;
 
 /** Pixels per frame — 450px in roughly 1.2s, slow enough that running matters. */
 export const R_SPEED = 6.25;
@@ -52,10 +70,11 @@ export default class Nautilus_R extends Spell {
   image = api.asset('spell_nautilus_r');
   name = 'Thủy Lôi Tầm Nhiệt (Nautilus_R)';
   description =
-    `Thả một quả thủy lôi chạy ngầm dưới đất, đuổi theo mục tiêu đã chọn. Ai bị nó đi qua ` +
-    `nhận ${dmg(R_PASS_DAMAGE, 'MAGIC')} và bị hất tung. Tới đích, ` +
-    `nó nổ trong bán kính ${R_BLAST_RADIUS}: ${dmg(R_DAMAGE, 'MAGIC')} ` +
-    `và hất tung ${secs(R_KNOCKUP_MS)} giây.`;
+    `Thả một quả thủy lôi chạy ngầm dưới đất, đuổi theo mục tiêu đã chọn. Dọc đường ` +
+    `nó nổ từng nhịp cách nhau ${R_STEP_DISTANCE}, mỗi vụ nổ chỉ với tới ${R_STEP_RADIUS}: ` +
+    `${dmg(R_STEP_DAMAGE, 'MAGIC')} và hất tung ${secs(R_STEP_KNOCKUP_MS)} giây. ` +
+    `Tới đích, nó nổ trong bán kính ${R_BLAST_RADIUS}: ${dmg(R_DAMAGE, 'MAGIC')} ` +
+    `và hất tung ${secs(R_KNOCKUP_MS)} giây. Mỗi người chỉ trúng một lần.`;
   coolDown = 10_000;
   manaCost = 100;
   range = R_RANGE;
@@ -96,6 +115,9 @@ export class Nautilus_R_Object extends MissileSpellObject {
   erupted = false;
   /** One pass per bystander, whatever the frame rate does to the collision query. */
   passed = new Set<AttackableUnit>();
+
+  /** Where the last crater went, so the next one is a step further on. */
+  private lastBlastAt: p5.Vector;
   /** Seeded once in onAdded — clods of displaced earth, not a per-frame reroll. */
   clods: { along: number; offset: number }[] = [];
 
@@ -103,6 +125,7 @@ export class Nautilus_R_Object extends MissileSpellObject {
     super(owner);
     this.target = target;
     this.destination = target.position.copy();
+    this.lastBlastAt = this.position.copy();
   }
 
   onAdded(): void {
@@ -114,9 +137,14 @@ export class Nautilus_R_Object extends MissileSpellObject {
 
   update(): void {
     if (this.toRemove) return;
-    if (this.target.isDead || this.target.toRemove) {
-      // Nothing left to chase: it goes off under its own feet rather than
-      // following a corpse's last coordinate.
+    if (!this.target.targetable || this.target.toRemove) {
+      // Nothing left to chase — a corpse, or somebody who went untargetable
+      // mid-flight. It goes off under its own feet rather than following a
+      // last known coordinate, and hits whoever is actually standing there.
+      //
+      // This is the dodge: cast R, and the target answers with a pool or a
+      // stasis. Reported as the charge landing anyway, because the only guard
+      // here was `isDead` and being untargetable is not being dead.
       this.erupt(this.position.copy(), null);
       return;
     }
@@ -126,6 +154,45 @@ export class Nautilus_R_Object extends MissileSpellObject {
 
   onBeforeMove(): void {
     this.destination = this.target.position.copy();
+    this.blastAlongTheWay();
+  }
+
+  /**
+   * One small blast per `R_STEP_DISTANCE` of travel.
+   *
+   * Measured on distance rather than on a timer so the spacing is a property
+   * of the *line* a player can see and step over, not of how long the charge
+   * happened to take — the charge chases a moving target, so a timed version
+   * would bunch its blasts up whenever the target ran toward it.
+   */
+  private blastAlongTheWay(): void {
+    while (this.position.dist(this.lastBlastAt) >= R_STEP_DISTANCE) {
+      // Walk the marker forward a step at a time rather than snapping it to
+      // the current position: a frame long enough to cover two steps must
+      // leave two craters, or a fast charge quietly skips holes in its line.
+      const step = p5.Vector.sub(this.position, this.lastBlastAt).setMag(R_STEP_DISTANCE);
+      this.lastBlastAt = p5.Vector.add(this.lastBlastAt, step);
+      this.blastAt(this.lastBlastAt.copy(), R_STEP_RADIUS, R_STEP_DAMAGE, R_STEP_KNOCKUP_MS);
+    }
+  }
+
+  /** Everything a blast does to the bodies standing in it, wherever it is. */
+  private blastAt(at: p5.Vector, radius: number, damage: number, knockupMs: number): void {
+    this.game.objectManager.addObject(new Nautilus_R_Rim(this.owner, at.copy()));
+
+    const caught = this.game.objectManager.queryObjects({
+      area: new Circle({ x: at.x, y: at.y, r: radius }),
+      filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
+    }) as AttackableUnit[];
+
+    for (const victim of caught) {
+      if (this.passed.has(victim)) continue;
+      // One body is lifted once by one charge, however many craters it
+      // stands in — the steps are a line to cross, not a grinder.
+      this.passed.add(victim);
+      victim.takeDamage(damage, this.owner, 'MAGIC');
+      victim.addBuff(new Airborne(knockupMs, this.owner, victim));
+    }
   }
 
   protected hasArrived(_previousPosition: p5.Vector, position: p5.Vector): boolean {
@@ -140,41 +207,35 @@ export class Nautilus_R_Object extends MissileSpellObject {
     this.erupt(this.target.position.copy(), this.target);
   }
 
-  onHit(enemy: AttackableUnit): void {
-    // The chosen target is finished by the eruption, never brushed by the pass.
-    if (enemy === this.target) return;
-    if (this.passed.has(enemy)) return;
-    this.passed.add(enemy);
-    enemy.takeDamage(R_PASS_DAMAGE, this.owner, 'MAGIC');
-    enemy.addBuff(new Airborne(R_PASS_KNOCKUP_MS, this.owner, enemy));
-  }
+  /**
+   * Nothing. The hull used to sweep whatever it touched for
+   * `R_PASS_DAMAGE`, which caught a whole team along the line at once — the
+   * blasts in `blastAlongTheWay` are what replaced it, and letting both run
+   * would hit everything twice.
+   */
+  onHit(_enemy: AttackableUnit): void {}
 
   private erupt(at: p5.Vector, victim: AttackableUnit | null): void {
     if (this.erupted) return;
     this.erupted = true;
     this.toRemove = true;
 
-    this.game.objectManager.addObject(new Nautilus_R_Rim(this.owner, at.copy()));
     this.game.objectManager.addObject(new Nautilus_R_Eruption(this.owner, at.copy()));
 
-    const caught = new Set<AttackableUnit>();
-    if (victim && !victim.isDead) {
-      caught.add(victim);
+    // The named target is hit by name — but only if it is still there to be
+    // hit. `targetable` is the whole of that question and it already folds in
+    // `isDead`; a charge in flight against somebody who dives out of reach
+    // (a pool, a stasis) arrives and erupts on nobody, which is the point of
+    // spending the escape on it.
+    if (victim?.targetable && !victim.toRemove && !this.passed.has(victim)) {
+      this.passed.add(victim);
       victim.takeDamage(R_DAMAGE, this.owner, 'MAGIC');
       victim.addBuff(new Airborne(R_KNOCKUP_MS, this.owner, victim));
     }
 
-    const nearby = this.game.objectManager.queryObjects({
-      area: new Circle({ x: at.x, y: at.y, r: R_BLAST_RADIUS }),
-      filters: [PredefinedFilters.canTakeDamageFromTeam(this.owner.teamId)],
-    }) as AttackableUnit[];
-
-    for (const soaked of nearby) {
-      if (caught.has(soaked)) continue;
-      caught.add(soaked);
-      soaked.takeDamage(R_DAMAGE, this.owner, 'MAGIC');
-      soaked.addBuff(new Airborne(R_KNOCKUP_MS, this.owner, soaked));
-    }
+    // And everyone standing in the crater, through the same door every step
+    // used — `canTakeDamageFromTeam` is where "may this be hit" is decided.
+    this.blastAt(at, R_BLAST_RADIUS, R_DAMAGE, R_KNOCKUP_MS);
   }
 
   draw(): void {
