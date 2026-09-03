@@ -312,64 +312,46 @@ export const DECIDED = {
  * the 40 that comes off the bar.
  */
 const TYPE_WORD = { PHYSICAL: 'vật lý', MAGIC: 'phép', TRUE: 'chuẩn' };
-const TYPE_CLASS = { PHYSICAL: 'physical', MAGIC: 'magic', TRUE: 'true' };
 
-/** A span that already names a type — the word, whichever it is. */
-const NAMES_TYPE = /sát thương\s+(vật lý|phép|chuẩn)/i;
-/** A span carrying an actual damage figure, as opposed to emphasised prose. */
-const IS_FIGURE = /sát thương/i;
-/** A bare figure: the noun is in the sentence, not in the span. */
-const OPENS_WITH_NUMBER = /^\s*(?:\$\{[^}]*\}|\d)/;
 
-/** Crit is a figure with a noun already attached; "sát thương vật lý chí mạng" is not Vietnamese. */
-const IS_CRIT = /sát thương\s+chí mạng/i;
-
-/** `<span class="damage">…</span>`, and nothing else — `buff`, `time` and `heal` make no such claim. */
-const DAMAGE_SPAN = /<span class="damage( (?:physical|magic|true))?">([\s\S]*?)<\/span>/g;
 
 /**
- * What one file's damage spans should say, given the type it deals.
+ * A `dmg`/`dmgRange`/`dmgValue` call — where a description's damage type lives
+ * now, and where it used to live as a span class this file rewrote.
  *
- * Returns the rewritten source and a list of spans it would not touch. The
- * refusals matter more than the rewrites and are all the same shape — a span
- * whose text is not a damage figure at all:
+ * **The prose half of this script died with the migration and passed silently
+ * for it.** It rewrote `<span class="damage magic">…</span>` in a spell's
+ * source, and after the packs moved to `api.text.dmg` there is not one such
+ * span left in this pack — so `--check` found no drift, reported clean, and
+ * would have gone on doing that for ever.
  *
- *   - **emphasis**: `<span class="damage">tướng địch</span>` uses the colour to
- *     pick a word out of a sentence. There is no number in it to type.
- *   - **a percentage**: "giảm 30% sát thương" describes a *modifier*, and a
- *     modifier applies to whatever type the hit already was.
- *   - **crit**: "sát thương chí mạng" is a compound noun, and the type word
- *     cannot be slotted into the middle of one.
- *   - **a span already naming another type**: only reachable in a file the
- *     type pass refused, and left for a human by the same reasoning.
+ * What replaced it is smaller, because most of what the old rewriter had to
+ * handle no longer exists: `combat/DamageText.ts` generates the noun from this
+ * very argument, so there is no word to slot into a sentence, no compound noun
+ * ("sát thương chí mạng") to avoid splitting, and no percentage span to refuse.
+ * The two things that must agree are `takeDamage(…, 'TYPE')` and this
+ * argument, and both are now literals this file can read and write.
+ */
+const TYPE_CALL = /\b(dmg|dmgRange|dmgValue|dmgRangeValue)\(([^()]*(?:\([^()]*\))?[^()]*)\)/g;
+const TYPE_LITERAL = /'(PHYSICAL|MAGIC|TRUE)'/;
+
+/**
+ * Rewrites every description type argument in one file to `want`.
+ *
+ * Returns the rewritten source and the calls it would not touch. A call whose
+ * type is not a plain literal is the only refusal left — a pack computing the
+ * type would be doing something this script cannot reason about.
  */
 const describedSource = (source, want) => {
   const refused = [];
-  const next = source.replace(DAMAGE_SPAN, (whole, existingClass, inner) => {
-    // A span carrying only a number — `<span class="damage">${PER_SPHERE}</span>`,
-    // where the noun sits in the sentence outside it — is still a damage
-    // figure and still needs the colour. Requiring the words "sát thương"
-    // *inside* the span left one ultimate printing its base in violet and its
-    // per-sphere bonus in the old red, in the same sentence.
-    if (!IS_FIGURE.test(inner) && !OPENS_WITH_NUMBER.test(inner)) return whole;
-    if (inner.includes('%')) {
-      refused.push(`percentage: ${inner.trim()}`);
-      return whole;
-    }
-    const named = inner.match(NAMES_TYPE);
-    if (named && TYPE_WORD[want] !== named[1].toLowerCase()) {
-      refused.push(`already says ${named[1]}: ${inner.trim()}`);
-      return whole;
-    }
-    // The word only when it is missing; the class always, including on the
-    // spans a pack had already typed by hand — those were the right sentence
-    // in the wrong colour.
-    let text = inner;
+  const next = source.replace(TYPE_CALL, (whole, fn, args) => {
+    const named = TYPE_LITERAL.exec(args);
     if (!named) {
-      if (IS_CRIT.test(inner)) refused.push(`crit: ${inner.trim()}`);
-      else text = inner.replace(/sát thương/i, match => `${match} ${TYPE_WORD[want]}`);
+      refused.push(`${fn}() names no literal type: ${whole.trim().slice(0, 60)}`);
+      return whole;
     }
-    return `<span class="damage ${TYPE_CLASS[want]}">${text}</span>`;
+    if (named[1] === want) return whole;
+    return whole.replace(TYPE_LITERAL, `'${want}'`);
   });
   return { next, refused };
 };
@@ -415,6 +397,8 @@ const main = async () => {
   const review = [];
   const skipped = [];
   const refusals = [];
+  /** Type arguments this run actually read — see the guard at the end. */
+  let inspected = 0;
   let agreed = 0;
 
   for (const file of files) {
@@ -427,8 +411,8 @@ const main = async () => {
     // the file left those sentences saying a bare "sát thương" while every
     // ability around them named a type — the report that found it named a
     // charm whose damage lands from its own missile's file.
-    if (!sites.length && !DAMAGE_SPAN.test(source)) continue;
-    DAMAGE_SPAN.lastIndex = 0;
+    if (!sites.length && !TYPE_CALL.test(source)) continue;
+    TYPE_CALL.lastIndex = 0;
 
     const decision = resolveType(slug, source, upstream, sites);
     if (decision.skip) {
@@ -454,6 +438,8 @@ const main = async () => {
     }
 
     // ------------------------------------------------------- the sentence
+    inspected += [...source.matchAll(TYPE_CALL)].filter(m => TYPE_LITERAL.test(m[2])).length;
+    TYPE_CALL.lastIndex = 0;
     const { next, refused } = describedSource(source, want);
     if (next !== source) described.push([slug, want]);
     for (const reason of refused) refusals.push([slug, reason]);
@@ -488,6 +474,26 @@ const main = async () => {
   if (refusals.length) {
     console.log(`\n${refusals.length} span${refusals.length === 1 ? '' : 's'} left unlabelled:`);
     for (const [slug, why] of refusals) console.log(`  ${slug.padEnd(18)} ${why}`);
+  }
+
+  /**
+   * The guard this file earned the hard way.
+   *
+   * Its prose half read `<span class="damage magic">` out of spell sources.
+   * The pack migrated to `api.text.dmg`, not one such span was left, and
+   * `--check` went on reporting clean — a gate in `verify` that could no
+   * longer fail. A reader that matches nothing passes everything, so a run
+   * that inspected no type argument at all is a broken reader, not a tidy
+   * pack.
+   */
+  if (inspected === 0) {
+    console.error(
+      '\n! read no damage-type argument in any spell file.\n' +
+        '  Descriptions carry their type in `dmg(n, TYPE)` (core `combat/DamageText.ts`).\n' +
+        '  If that call shape changed, `TYPE_CALL` above has to change with it —\n' +
+        '  this check cannot tell a clean pack from a pattern that stopped matching.'
+    );
+    process.exit(1);
   }
 
   const drifted = retyped.length + described.length + review.length;
