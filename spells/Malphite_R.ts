@@ -69,7 +69,13 @@ export default class Malphite_R extends Spell {
     );
 
     const dashBuff = new Dash(3000, this.owner, this.owner);
-    dashBuff.cancelable = false;
+    // The card's promise, in the one word that keeps it. `cancelable = false`
+    // was here and was not enough: it skips the interrupt check and says
+    // nothing about a displacement, which is another `Dash` and used to
+    // replace this one outright — Temari's W drag and her R throw both ended
+    // the charge with the crater never firing. `unstoppable` implies the old
+    // flag and also refuses the pull. It lasts exactly as long as the flight.
+    dashBuff.unstoppable = true;
     dashBuff.dashDestination = to;
     dashBuff.dashSpeed = CHARGE_SPEED;
     dashBuff.onReachedDestination = () => {

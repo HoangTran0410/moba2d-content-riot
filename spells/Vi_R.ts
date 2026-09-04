@@ -52,9 +52,10 @@ const HEXTECH: [number, number, number] = [0, 168, 255];
  * The unstoppable charge.
  *
  * Two things make it an ultimate rather than a longer Q. It cannot be stopped:
- * `buffsToCheckCancel` is emptied for the flight, which says "ignore the crowd
- * control that would end an ordinary dash" in the dash's own words instead of
- * opting out of the buff layer wholesale. And it cannot be blocked by a body:
+ * the charge is `unstoppable`, which says "ignore the crowd control that would
+ * end an ordinary dash, and refuse the displacement that would replace it" in
+ * the dash's own words instead of opting out of the buff layer wholesale. And
+ * it cannot be blocked by a body:
  * anything in the way is knocked aside and the charge keeps going, so the only
  * answer to it is not being where it lands.
  */
@@ -143,8 +144,15 @@ export default class Vi_R extends Spell {
     charge.dashDestination = this.stopShortOf(lastSeen);
     charge.image = this.image;
     charge.showTrail = false;
-    // Unstoppable, stated where a dash states it.
-    charge.buffsToCheckCancel = [];
+    // Unstoppable, stated where a dash states it. `buffsToCheckCancel = []`
+    // was the whole of it and covered only half the promise: it ignores the
+    // crowd control that would end an ordinary dash, and says nothing about a
+    // *displacement*, which is another `Dash` on the same stack and used to
+    // replace this one outright. The card says "không gì cản được"; this is the
+    // flag makes both halves true, and subsumes the emptied list: the interrupt
+    // check it used to filter is not reached at all now, so the ultimate's own
+    // knock-up still cannot end its own flight.
+    charge.unstoppable = true;
 
     charge.onDashUpdate = () => {
       if (this.stillReachable(target)) {

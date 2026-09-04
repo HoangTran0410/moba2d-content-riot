@@ -110,7 +110,12 @@ export class Amumu_Q_Object extends MissileSpellObject {
     this.dashBuff.dashDestination = enemy.position; // live ref: the rope follows them
     this.dashBuff.dashSpeed = 14;
     // CC on Amumu must not interrupt the reel-in, so the dash is uncancellable
-    this.dashBuff.cancelable = false;
+    // The card promises "các hiệu ứng khống chế lên Amumu không ngăn được cú
+    // kéo này", and `cancelable = false` is only half of that: it skips the
+    // interrupt check, while a pull or a throw is another `Dash` that replaced
+    // this one through the stack without any check being asked. `unstoppable`
+    // implies the old flag and refuses the displacement too.
+    this.dashBuff.unstoppable = true;
     this.dashBuff.onReachedDestination = () => {
       this.toRemove = true;
     };
