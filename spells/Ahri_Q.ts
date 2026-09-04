@@ -162,17 +162,37 @@ export class Ahri_Q_Object extends MissileSpellObject {
     // nine tails wheeling around the orb. On the way back the shell is gone and
     // they whip out much further — that difference is how the player tells the
     // outbound orb from the return one without watching where it came from.
+    //
+    // Two passes over the nine angles instead of one push/rotate/pop per tail:
+    // every tail in a pass shares the same fill, so the colour is set once per
+    // pass rather than twice per tail, and each triangle's points are rotated
+    // by hand instead of walking the matrix stack for it — same nine angles,
+    // same two triangles apiece, a third of the state changes to get there.
+    fill(130, 182, 225, returning ? 210 : 160);
     for (let i = 0; i < AHRI_TAIL_COUNT; i++) {
       const a = (TWO_PI * i) / AHRI_TAIL_COUNT + this._spin * (returning ? -1.6 : 1);
       const wobble = 1 + sin(this._spin * 3 + i) * 0.18;
       const len = r * (returning ? 2.3 : 1.6) * wobble;
-      push();
-      rotate(a);
-      fill(130, 182, 225, returning ? 210 : 160);
-      triangle(r * 0.5, -r * 0.32, r * 0.5, r * 0.32, len, 0);
-      fill(215, 234, 250, returning ? 200 : 140);
-      triangle(r * 0.6, -r * 0.13, r * 0.6, r * 0.13, len * 0.8, 0);
-      pop();
+      const ca = cos(a);
+      const sa = sin(a);
+      triangle(
+        r * 0.5 * ca + r * 0.32 * sa, r * 0.5 * sa - r * 0.32 * ca,
+        r * 0.5 * ca - r * 0.32 * sa, r * 0.5 * sa + r * 0.32 * ca,
+        len * ca, len * sa
+      );
+    }
+    fill(215, 234, 250, returning ? 200 : 140);
+    for (let i = 0; i < AHRI_TAIL_COUNT; i++) {
+      const a = (TWO_PI * i) / AHRI_TAIL_COUNT + this._spin * (returning ? -1.6 : 1);
+      const wobble = 1 + sin(this._spin * 3 + i) * 0.18;
+      const len = r * (returning ? 2.3 : 1.6) * 0.8 * wobble;
+      const ca = cos(a);
+      const sa = sin(a);
+      triangle(
+        r * 0.6 * ca + r * 0.13 * sa, r * 0.6 * sa - r * 0.13 * ca,
+        r * 0.6 * ca - r * 0.13 * sa, r * 0.6 * sa + r * 0.13 * ca,
+        len * ca, len * sa
+      );
     }
 
     // the outer shell, which only exists on the way out

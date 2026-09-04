@@ -26,8 +26,17 @@ export const TRAIL_MS = 5000;
 
 export const TRAIL_RADIUS = 55;
 
-/** How far the source travels before it drops another patch of trail. */
-export const TRAIL_STEP = 22;
+/**
+ * How far the source travels before it drops another patch of trail.
+ *
+ * Kept well under `TRAIL_RADIUS * 2` (110) so consecutive patches still
+ * overlap and the ribbon stays unbroken — the spacing only has to be denser
+ * than the band is wide, and 22 was nearly twice as dense as that requires.
+ * A trail painted by a champion running for the full 5s lifetime was several
+ * dozen patches long, each stroked three times a frame in `draw()`; widening
+ * the spacing cuts that count without opening a gap anyone can see.
+ */
+export const TRAIL_STEP = 40;
 
 export const SPEED_PERCENT = 0.35;
 
@@ -243,23 +252,25 @@ export class Nocturne_Q_Trail extends SpellObject {
       return;
     }
 
-    // pass one: the wide bruise, so no segment's edge cuts across another
+    // pass one: the wide bruise, so no segment's edge cuts across another.
+    // Weight is the same for every segment in this pass, so it is set once
+    // rather than re-issued on each of them.
+    strokeWeight(TRAIL_RADIUS * 2);
     for (let i = 1; i < this.patches.length; i++) {
       const a = this.patches[i - 1];
       const b = this.patches[i];
       const left = 1 - b.age / TRAIL_MS;
       stroke(60, 20, 100, 90 * left);
-      strokeWeight(TRAIL_RADIUS * 2);
       line(a.x, a.y, b.x, b.y);
     }
 
     // pass two: the brighter core down the middle of it
+    strokeWeight(TRAIL_RADIUS * 1.1);
     for (let i = 1; i < this.patches.length; i++) {
       const a = this.patches[i - 1];
       const b = this.patches[i];
       const left = 1 - b.age / TRAIL_MS;
       stroke(160, 90, 240, 120 * left);
-      strokeWeight(TRAIL_RADIUS * 1.1);
       line(a.x, a.y, b.x, b.y);
     }
 

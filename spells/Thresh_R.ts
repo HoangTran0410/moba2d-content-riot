@@ -53,6 +53,15 @@ const IRON: [number, number, number] = [16, 46, 34];
 
 const SPECTRE: [number, number, number] = [130, 255, 180];
 
+/**
+ * Iron warmed by the spectral current running through it — one bar stroke
+ * instead of the iron-then-spectral pair drawn on top of each other. The two
+ * passes sat on the exact same line, one thick and dim and one thin and
+ * bright, which is the "two layers say the same thing" case: forty bars a
+ * cast is where that stopped being free.
+ */
+const IRON_TINT: [number, number, number] = [56, 119, 85];
+
 
 /**
  * The Box. A cage of walls: standing inside costs nothing, *leaving* is what
@@ -266,14 +275,20 @@ export class Thresh_R_Object extends SpellObject {
     const gap = (TWO_PI / WALL_COUNT) * 0.11;
     const a0 = (index / WALL_COUNT) * TWO_PI + gap;
     const a1 = ((index + 1) / WALL_COUNT) * TWO_PI - gap;
-    const segments = 4;
+    // Two is enough curvature at a 36°-wide panel — the midpoint sample still
+    // sits exactly on the true circle, only the sub-chords either side of it
+    // are straightened.
+    const segments = 2;
     const [ir, ig, ib] = IRON;
     const [sr, sg, sb] = SPECTRE;
 
     push();
 
     // The panel face, following the curve of the ring so the cage reads round
-    // rather than as a ten-sided nut.
+    // rather than as a ten-sided nut. This used to be two nearly-identical
+    // polygons — the face, then a low-alpha spectral "wash" traced over the
+    // same outline — but the rim, the bars and the lanterns already carry the
+    // spectral glow, so the second pass bought little for its cost.
     noStroke();
     fill(ir, ig, ib, 205 * alpha);
     beginShape();
@@ -287,31 +302,15 @@ export class Thresh_R_Object extends SpellObject {
     }
     endShape(CLOSE);
 
-    // Spectral wash inside the panel, brightest where it meets the ground so
-    // the wall looks lit from the floor of the box.
-    fill(sr, sg, sb, 40 * alpha);
-    beginShape();
-    for (let s = 0; s <= segments; s++) {
-      const a = lerp(a0, a1, s / segments);
-      vertex(cos(a) * this.radius, sin(a) * this.radius);
-    }
-    for (let s = segments; s >= 0; s--) {
-      const a = lerp(a0, a1, s / segments);
-      vertex(cos(a) * this.radius, sin(a) * this.radius - height * 0.55);
-    }
-    endShape(CLOSE);
-
-    // Bars, each with its own permanent lean.
+    // Bars, each with its own permanent lean. One tinted stroke rather than
+    // an iron-then-spectral pair on the same line — see IRON_TINT.
     for (let j = 0; j < BARS_PER_WALL; j++) {
       const a = lerp(a0, a1, (j + 0.5) / BARS_PER_WALL);
       const lean = this._barLean[index * BARS_PER_WALL + j] ?? 0;
       const bx = cos(a) * this.radius;
       const by = sin(a) * this.radius;
-      stroke(ir, ig, ib, 240 * alpha);
-      strokeWeight(4);
-      line(bx, by, bx + lean, by - height);
-      stroke(sr, sg, sb, 200 * alpha);
-      strokeWeight(1.5);
+      stroke(IRON_TINT[0], IRON_TINT[1], IRON_TINT[2], 235 * alpha);
+      strokeWeight(3);
       line(bx, by, bx + lean, by - height);
       // finial: the spike that makes it a cage and not a fence
       if (height > 10) {
@@ -328,19 +327,12 @@ export class Thresh_R_Object extends SpellObject {
       }
     }
 
-    // Top rail, tying the bars together.
+    // Top rail, tying the bars together. One iron pass: the bars already
+    // carry the spectral tint forty times over the length of the cage.
     if (height > 6) {
       noFill();
       stroke(ir, ig, ib, 240 * alpha);
       strokeWeight(4);
-      beginShape();
-      for (let s = 0; s <= segments; s++) {
-        const a = lerp(a0, a1, s / segments);
-        vertex(cos(a) * this.radius, sin(a) * this.radius - height);
-      }
-      endShape();
-      stroke(sr, sg, sb, 230 * alpha);
-      strokeWeight(1.5);
       beginShape();
       for (let s = 0; s <= segments; s++) {
         const a = lerp(a0, a1, s / segments);

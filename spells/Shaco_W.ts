@@ -32,6 +32,9 @@ export const ATTACKS_PER_SECOND = 2;
 
 export const BOX_HEALTH = 30;
 
+/** Points on the jester's coil chain, drawn every frame it is triggered. */
+const COIL_LINKS = 8;
+
 
 export default class Shaco_W extends Spell {
   targetingMode = 'POINT' as const;
@@ -258,9 +261,8 @@ export class Shaco_W_Box extends Pet {
       strokeWeight(2);
       noFill();
       beginShape();
-      const links = 24;
-      for (let i = 0; i <= links; i++) {
-        const t = i / links;
+      for (let i = 0; i <= COIL_LINKS; i++) {
+        const t = i / COIL_LINKS;
         vertex(Math.sin(t * 3 * TWO_PI) * 6, lerp(-10, headY + 7, t));
       }
       endShape();
@@ -288,10 +290,6 @@ export class Shaco_W_Box extends Pet {
       circle(3, -1, 2.5);
       fill(220, 70, 70);
       circle(0, 3, 3.5);
-      noFill();
-      stroke(40, 20, 60);
-      strokeWeight(1.5);
-      arc(0, 1, 8, 7, 0, PI);
       pop();
     }
 

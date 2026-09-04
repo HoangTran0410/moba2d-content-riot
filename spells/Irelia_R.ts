@@ -33,7 +33,7 @@ export const R_VOLLEY_SPEED = 18;
 export const R_VOLLEY_SIZE = 46;
 
 /** How often the cluster sheds an afterimage, and how long one lasts. */
-const VOLLEY_GHOST_EVERY_MS = 34;
+const VOLLEY_GHOST_EVERY_MS = 40;
 
 const VOLLEY_GHOST_LIFE_MS = 200;
 
@@ -83,8 +83,14 @@ export const R_HOOK_TURN = 1.6;
 /** How many straight pieces approximate one hook. Four is smooth at this size. */
 const R_HOOK_SEGMENTS = 4;
 
-/** How many blades stand along one arm, hook included. */
-export const R_ARM_BLADES = 13;
+/**
+ * How many blades stand along one arm, hook included.
+ *
+ * Each blade's halo alone is wider than the gap between neighbours at this
+ * count, so the row still reads as one continuous edge rather than a picket
+ * fence — the density comes from the glow overlapping, not from the count.
+ */
+export const R_ARM_BLADES = 9;
 
 
 /** The white at the heart of the burst, before anything has moved. */
@@ -275,12 +281,12 @@ export class Irelia_R_Volley extends MissileSpellObject {
     fill(IRELIA_EDGE[0], IRELIA_EDGE[1], IRELIA_EDGE[2], 90);
     quad(-52, -4, -10, -17, -10, 17, -52, 4);
 
-    // Seven blades held in a chevron — the "chùm" the ability is named for. The
+    // Five blades held in a chevron — the "chùm" the ability is named for. The
     // outer ones ride further back, so a tight bundle still reads as one object
     // travelling rather than as a spread that has already opened. That matters:
     // `maxHitCount` is 1 and it stops on the first body, so anything that looks
     // like a fan is promising a pierce the ability does not have.
-    const fan = 7;
+    const fan = 5;
     for (let i = 0; i < fan; i++) {
       const across = (i / (fan - 1)) * 2 - 1;
       push();
@@ -302,6 +308,46 @@ export class Irelia_R_Volley extends MissileSpellObject {
 interface WallPart {
   beam: BeamGeometry;
   at: number;
+}
+
+
+/**
+ * A cheaper stand-in for `drawIreliaBlade`, used only for the blades planted
+ * along the standing wall. Up to eighteen of them are live at once — the
+ * guard, the grip and the pommel crest are the three layers a player has
+ * never once needed to tell one wall blade from its neighbour, so they drop;
+ * the halo, the tapered silhouette and the bright core stay, because those
+ * three are what say "blade" at a glance. `drawIreliaBlade` itself is
+ * untouched, so the volley's own seven-blade cluster and the rest of the kit
+ * keep the full five-layer version.
+ */
+function drawWallBlade(length: number, alpha = 1): void {
+  const half = length / 2;
+  const wide = length * 0.115;
+
+  // The halo, one pass instead of two.
+  noFill();
+  stroke(IRELIA_EDGE[0], IRELIA_EDGE[1], IRELIA_EDGE[2], 80 * alpha);
+  strokeWeight(wide * 2.4);
+  line(-half * 0.4, 0, half * 0.8, 0);
+
+  // The body: widest a third of the way forward, tapering to a real point.
+  stroke(IRELIA_RIM[0], IRELIA_RIM[1], IRELIA_RIM[2], 235 * alpha);
+  strokeWeight(Math.max(1.5, length * 0.045));
+  fill(IRELIA_STEEL[0], IRELIA_STEEL[1], IRELIA_STEEL[2], 250 * alpha);
+  beginShape();
+  vertex(half, 0);
+  vertex(half * 0.12, -wide);
+  vertex(-half * 0.5, -wide * 0.5);
+  vertex(-half * 0.58, 0);
+  vertex(-half * 0.5, wide * 0.5);
+  vertex(half * 0.12, wide);
+  endShape(CLOSE);
+
+  // The core: the part that is actually glowing.
+  stroke(255, 255, 255, 225 * alpha);
+  strokeWeight(Math.max(1, length * 0.04));
+  line(-half * 0.4, 0, half * 0.78, 0);
 }
 
 
@@ -562,7 +608,7 @@ export class Irelia_R_Wall extends SpellObject {
       push();
       translate(blade.x - this.position.x, blade.y - this.position.y);
       rotate(-HALF_PI);
-      drawIreliaBlade(R_ARM_WIDTH * 1.15 * arrived, fade);
+      drawWallBlade(R_ARM_WIDTH * 1.15 * arrived, fade);
       pop();
     }
 

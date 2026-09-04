@@ -1,5 +1,5 @@
 import type { AttackableUnit } from '@moba2d/core/content/types';
-import { MOON_CORE, MOON_PALE, drawCrescent } from './Diana_Q';
+import { MOON_CORE, MOON_PALE } from './Diana_Q';
 import { api } from '../packApi';
 import { secs } from '../text';
 
@@ -9,6 +9,44 @@ const PredefinedFilters = api.combat.PredefinedFilters;
 const Spell = api.Spell;
 const SpellObject = api.SpellObject;
 const dmg = api.text.dmg;
+
+
+/**
+ * A cheaper sliver, for the fan the ultimate throws every frame. `Diana_Q`'s
+ * `drawCrescent` fans fourteen tapered segments per crescent — right for the
+ * one or two it draws at a time, but the gather fans nine of them and the
+ * crash fans six, every frame they are up, so that count is the single
+ * heaviest thing this ability draws. A moon sliver reads from a sixth as many
+ * straight pieces as readily as from fourteen at the sizes this canvas uses;
+ * `drawCrescent` itself is untouched, so Diana_Q keeps its own resolution.
+ */
+function drawMoonSliver(
+  cx: number,
+  cy: number,
+  radius: number,
+  facing: number,
+  span: number,
+  weight: number,
+  tone: readonly number[],
+  shade: number
+): void {
+  const segCount = 6;
+  for (let i = 0; i < segCount; i++) {
+    const f0 = i / segCount;
+    const f1 = (i + 1) / segCount;
+    const taper = sin(0.1 * Math.PI + f0 * Math.PI * 0.9);
+    stroke(tone[0], tone[1], tone[2], shade * (0.28 + 0.72 * taper));
+    strokeWeight(Math.max(0.7, weight * (0.16 + 0.84 * taper)));
+    const a0 = facing - span / 2 + span * f0;
+    const a1 = facing - span / 2 + span * f1;
+    line(
+      cx + cos(a0) * radius,
+      cy + sin(a0) * radius,
+      cx + cos(a1) * radius,
+      cy + sin(a1) * radius
+    );
+  }
+}
 
 
 export const R_RADIUS = 330;
@@ -107,9 +145,9 @@ export class Diana_R_Gather extends SpellObject {
   }
 
   onAdded(): void {
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 7; i++) {
       this.ribs.push({
-        angle: (i / 9) * TWO_PI + random(-0.18, 0.18),
+        angle: (i / 7) * TWO_PI + random(-0.18, 0.18),
         lag: random(0, 0.35),
         span: random(0.7, 1.3),
       });
@@ -197,7 +235,7 @@ export class Diana_R_Gather extends SpellObject {
     for (const rib of this.ribs) {
       const own = constrain((drawnIn - rib.lag) / Math.max(1 - rib.lag, 0.001), 0, 1);
       const away = R_RADIUS - (R_RADIUS - R_GATHER_GAP * 0.6) * own;
-      drawCrescent(
+      drawMoonSliver(
         this.position.x + cos(rib.angle) * away * 0.5,
         this.position.y + sin(rib.angle) * away * 0.5,
         away * 0.5,
@@ -260,7 +298,7 @@ export class Diana_R_Crash extends SpellObject {
   }
 
   onAdded(): void {
-    for (let i = 0; i < 6; i++) this.blades.push((i / 6) * TWO_PI + random(-0.25, 0.25));
+    for (let i = 0; i < 5; i++) this.blades.push((i / 5) * TWO_PI + random(-0.25, 0.25));
   }
 
   update(): void {
@@ -283,7 +321,7 @@ export class Diana_R_Crash extends SpellObject {
     circle(this.position.x, this.position.y, R_CRASH_RADIUS * 2 * (1 - 0.7 * closing));
     for (const blade of this.blades) {
       const away = R_CRASH_RADIUS * (1 - 0.75 * closing);
-      drawCrescent(
+      drawMoonSliver(
         this.position.x + cos(blade) * away * 0.4,
         this.position.y + sin(blade) * away * 0.4,
         away * 0.55,

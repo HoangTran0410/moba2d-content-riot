@@ -59,7 +59,12 @@ interface VenomCloud {
 }
 
 
-const CLOUD_COUNT = 14;
+const CLOUD_COUNT = 7;
+/** Curling tentacles off the rim: fewer, shorter-segmented than the first pass. */
+const TENDRIL_COUNT = 6;
+const TENDRIL_SEGMENTS = 4;
+/** Points on the scalloped boundary polygon. */
+const BOUNDARY_LOBES = 14;
 
 
 export class Cassiopeia_W_Object extends SpellObject {
@@ -94,9 +99,9 @@ export class Cassiopeia_W_Object extends SpellObject {
     for (let i = 0; i < CLOUD_COUNT; i++) {
       this._clouds.push({
         angle: (TWO_PI * i) / CLOUD_COUNT + random(-0.3, 0.3),
-        distance: random(this.radius * 0.15, this.radius * 0.8),
+        distance: random(this.radius * 0.15, this.radius * 0.85),
         spin: random(0.0002, 0.0007) * (random() < 0.5 ? -1 : 1),
-        size: random(this.radius * 0.4, this.radius * 0.75),
+        size: random(this.radius * 0.55, this.radius * 0.95),
         phase: random(TWO_PI),
       });
     }
@@ -186,37 +191,29 @@ export class Cassiopeia_W_Object extends SpellObject {
     fill(70, 130, 45, 90 * opacity);
     circle(0, 0, this.radius * 1.7);
 
-    // slowly churning puffs of gas
+    // slowly churning puffs of gas — purple base with a green tint on top;
+    // the third, near-invisible highlight the first pass carried is gone
     for (const cloud of this._clouds) {
       const breathe = 1 + 0.15 * sin(this.age / 350 + cloud.phase);
       const x = cos(cloud.angle) * cloud.distance;
       const y = sin(cloud.angle) * cloud.distance;
 
-      fill(105, 45, 145, 70 * opacity);
+      fill(105, 45, 145, 75 * opacity);
       circle(x, y, cloud.size * breathe);
-      fill(150, 235, 110, 65 * opacity);
+      fill(150, 235, 110, 70 * opacity);
       circle(x, y, cloud.size * breathe * 0.55);
-      fill(215, 255, 175, 55 * opacity);
-      circle(x, y, cloud.size * breathe * 0.22);
     }
 
-    // scalloped boundary: a hard, unmistakable line around the venom
-    const lobes = 22;
+    // scalloped boundary: a hard, unmistakable line around the venom. One
+    // pass, not the dark-plus-bright double-trace the first version drew —
+    // both traced the identical polygon, so the second line said nothing
+    // the first hadn't already.
     noFill();
-    stroke(25, 10, 38, 220 * opacity);
-    strokeWeight(7);
+    stroke(150, 220, 90, 220 * opacity);
+    strokeWeight(5);
     beginShape();
-    for (let i = 0; i <= lobes; i++) {
-      const a = (TWO_PI * i) / lobes;
-      const r = this.radius * (1 + 0.045 * sin(i * 3 + this.age / 700));
-      vertex(cos(a) * r, sin(a) * r);
-    }
-    endShape(CLOSE);
-    stroke(175, 255, 130, 240 * opacity);
-    strokeWeight(3);
-    beginShape();
-    for (let i = 0; i <= lobes; i++) {
-      const a = (TWO_PI * i) / lobes;
+    for (let i = 0; i <= BOUNDARY_LOBES; i++) {
+      const a = (TWO_PI * i) / BOUNDARY_LOBES;
       const r = this.radius * (1 + 0.045 * sin(i * 3 + this.age / 700));
       vertex(cos(a) * r, sin(a) * r);
     }
@@ -228,9 +225,8 @@ export class Cassiopeia_W_Object extends SpellObject {
     arc(0, 0, this.radius * 2 + 12, this.radius * 2 + 12, -HALF_PI, -HALF_PI + TWO_PI * left);
 
     // tendrils curling in off the edge: the grounding, made visible
-    noFill();
-    for (let i = 0; i < 10; i++) {
-      const a = (TWO_PI * i) / 10 + this.age / 2200;
+    for (let i = 0; i < TENDRIL_COUNT; i++) {
+      const a = (TWO_PI * i) / TENDRIL_COUNT + this.age / 2200;
       const wave = sin(this.age / 600 + i) * 0.12;
       for (const [col, weight] of [
         [[35, 12, 55, 190 * opacity], 7],
@@ -239,8 +235,8 @@ export class Cassiopeia_W_Object extends SpellObject {
         (stroke as any)(...col);
         strokeWeight(weight);
         beginShape();
-        for (let k = 0; k <= 6; k++) {
-          const u = k / 6;
+        for (let k = 0; k <= TENDRIL_SEGMENTS; k++) {
+          const u = k / TENDRIL_SEGMENTS;
           // spiralling inwards and tightening: a tentacle, not a dash
           const ang = a + u * (0.75 + wave);
           const rr = this.radius * (1.02 - u * 0.45);

@@ -43,7 +43,7 @@ describe('Jinx R drags a plume that is its own object', () => {
     expect(smoke).toBeInstanceOf(Jinx_R_Smoke);
     expect(smoke.source).toBe(rocket);
     expect(rocket.smoke).toBe(smoke);
-    expect(smoke.puffs).toHaveLength(0);
+    expect(smoke.particles.particles).toHaveLength(0);
   });
 
   it('lays puffs along the flight path, spaced rather than one per frame', () => {
@@ -54,16 +54,14 @@ describe('Jinx R drags a plume that is its own object', () => {
       smoke.update();
     }
 
-    expect(smoke.puffs.length).toBeGreaterThan(2);
+    const puffs = smoke.particles.particles;
+    expect(puffs.length).toBeGreaterThan(2);
     // Forty frames at 16+ units each is well over forty puffs if it painted
     // every frame; the step is what keeps a cross-map shot affordable.
-    expect(smoke.puffs.length).toBeLessThan(20);
-    expect(smoke.puffs[smoke.puffs.length - 1].x).toBeGreaterThan(smoke.puffs[0].x);
-    for (let i = 1; i < smoke.puffs.length; i++) {
-      const gap = Math.hypot(
-        smoke.puffs[i].x - smoke.puffs[i - 1].x,
-        smoke.puffs[i].y - smoke.puffs[i - 1].y
-      );
+    expect(puffs.length).toBeLessThan(20);
+    expect(puffs[puffs.length - 1].x).toBeGreaterThan(puffs[0].x);
+    for (let i = 1; i < puffs.length; i++) {
+      const gap = Math.hypot(puffs[i].x - puffs[i - 1].x, puffs[i].y - puffs[i - 1].y);
       expect(gap).toBeGreaterThanOrEqual(SMOKE_STEP);
     }
   });
@@ -75,8 +73,11 @@ describe('Jinx R drags a plume that is its own object', () => {
    * a rocket paints disappears the moment the rocket leaves the camera — and
    * this rocket is *global*, so it spends almost all of its life off screen
    * while its smoke hangs over a lane somebody is looking at. Lux R shipped
-   * with exactly this bug. The test is the difference between the two boxes:
-   * the smoke's covers the oldest puff, the rocket's does not come close.
+   * with exactly this bug. The bounds that matter are the particle system's
+   * own — that is what `ObjectManager.draw` actually culls by now that the
+   * puffs are a real `ParticleSystem` rather than painted by `smoke` itself.
+   * The test is the difference between the two boxes: the plume's covers the
+   * oldest puff, the rocket's does not come close.
    */
   it('keeps bounds over the whole plume, not over the rocket', () => {
     const { rocket, smoke } = fire();
@@ -84,9 +85,9 @@ describe('Jinx R drags a plume that is its own object', () => {
       rocket.update();
       smoke.update();
     }
-    const oldest = smoke.puffs[0];
+    const oldest = smoke.particles.particles[0];
 
-    expect(covers(smoke.getDisplayBoundingBox(), oldest.x, oldest.y)).toBe(true);
+    expect(covers(smoke.particles.getDisplayBoundingBox(), oldest.x, oldest.y)).toBe(true);
     expect(
       covers(rocket.getDisplayBoundingBox(), oldest.x, oldest.y),
       'the rocket is long gone from where its smoke still hangs'
@@ -103,14 +104,18 @@ describe('Jinx R drags a plume that is its own object', () => {
     rocket.toRemove = true;
     smoke.update();
     expect(smoke.source, 'the painter is gone').toBeNull();
-    expect(smoke.puffs.length, 'the smoke is not').toBeGreaterThan(0);
+    expect(smoke.particles.particles.length, 'the smoke is not').toBeGreaterThan(0);
     expect(smoke.toRemove).toBe(false);
 
+    // Ageing and reaping are the particle system's own `update()` now —
+    // `ObjectManager` drives it every tick in real play, so the test drives
+    // it directly instead of expecting `smoke.update()` alone to age puffs.
     vi.stubGlobal('deltaTime', SMOKE_MS * 2);
+    smoke.particles.update();
     smoke.update();
     vi.stubGlobal('deltaTime', 16);
 
-    expect(smoke.puffs).toHaveLength(0);
+    expect(smoke.particles.particles).toHaveLength(0);
     expect(smoke.toRemove).toBe(true);
   });
 
@@ -120,11 +125,11 @@ describe('Jinx R drags a plume that is its own object', () => {
       rocket.update();
       smoke.update();
     }
-    const before = smoke.puffs.length;
+    const before = smoke.particles.particles.length;
 
     rocket.detonate();
 
-    expect(smoke.puffs.length).toBeGreaterThan(before);
+    expect(smoke.particles.particles.length).toBeGreaterThan(before);
     // A hand-rolled loop rather than `.filter((o): o is AoePulse => ...)`:
     // `src/types/global.d.ts` re-declares `Array.prototype.filter` with the
     // non-predicate overload first, so the type-predicate overload never

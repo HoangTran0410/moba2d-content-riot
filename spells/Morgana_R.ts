@@ -289,28 +289,25 @@ export class Morgana_R_Tether_Object extends SpellObject {
 
     push();
 
-    // the light running through the chain, drawn as segments of the same curve
-    blendMode(ADD);
-    const SEGMENTS = 12;
-    stroke(150, 70, 210, 70 + 90 * pulse * (0.35 + urgency));
-    strokeWeight(6 + 4 * urgency);
+    // The light running through the chain, drawn as segments of the same
+    // curve — one pass now instead of an outer-glow-then-inner-core pair
+    // that stroked the identical path twice, and no `blendMode` switch: that
+    // additive look was two compositing-mode changes on every one of the
+    // several tethers a multi-target ultimate keeps alive at once, and the
+    // primitive count is what a frame actually pays for either way.
+    const SEGMENTS = 8;
+    stroke(210, 150, 240, 90 + 110 * pulse * (0.35 + urgency));
+    strokeWeight(3.5 + 2.5 * urgency);
     for (let i = 0; i < SEGMENTS; i++) {
       const a = at(i / SEGMENTS);
       const b = at((i + 1) / SEGMENTS);
       line(a.x, a.y, b.x, b.y);
     }
-    stroke(230, 200, 255, 90 + 100 * pulse * (0.35 + urgency));
-    strokeWeight(1.5 + urgency);
-    for (let i = 0; i < SEGMENTS; i++) {
-      const a = at(i / SEGMENTS);
-      const b = at((i + 1) / SEGMENTS);
-      line(a.x, a.y, b.x, b.y);
-    }
-    blendMode(BLEND);
 
     // the links themselves: alternating flat and edge-on, which is what makes a
     // row of ellipses read as chain rather than as beads
-    const LINKS = Math.max(6, Math.round(distance / 26));
+    const LINKS = Math.max(6, Math.round(distance / 34));
+    noFill(); // constant for the whole run below; set once instead of per link
     for (let i = 0; i <= LINKS; i++) {
       const s = i / LINKS;
       const here = at(s);
@@ -323,7 +320,6 @@ export class Morgana_R_Tether_Object extends SpellObject {
       push();
       translate(here.x, here.y);
       rotate(angle);
-      noFill();
       stroke(60, 15, 90, 230);
       strokeWeight(4.5);
       ellipse(0, 0, i % 2 === 0 ? 14 : 6, i % 2 === 0 ? 8 : 12);
@@ -537,13 +533,13 @@ export class Morgana_R_Shatter extends SpellObject {
       pop();
     }
 
-    // the white core of the resolve, gone almost immediately
+    // the white core of the resolve, gone almost immediately. Plain alpha
+    // rather than an additive blendMode — one fewer compositing-mode switch
+    // for a flash that is already near-opaque at its peak.
     if (this.resolved && burst < 1) {
-      blendMode(ADD);
       noStroke();
       fill(245, 220, 255, 235 * (1 - burst));
       circle(0, 0, this.radius * 0.8 * (1 - burst) + 20);
-      blendMode(BLEND);
     }
 
     pop();

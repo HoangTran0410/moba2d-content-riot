@@ -10,8 +10,9 @@ const enemyChampionsOnly = api.combat.GlobalShot.enemyChampionsOnly;
 const travelRamp = api.combat.GlobalShot.travelRamp;
 const MissileSpellObject = api.MissileSpellObject;
 const AoePulse = api.AoePulse;
-const Rectangle = api.utils.Quadtree.Rectangle;
 const SpellObject = api.SpellObject;
+const ParticleSystem = api.helpers.ParticleSystem;
+const SPELL_EFFECT_Z_INDEX = api.layers.SPELL_EFFECT_Z_INDEX;
 const dmg = api.text.dmg;
 const tint = api.text.tint;
 const dmgValue = api.text.dmgValue;
@@ -339,19 +340,79 @@ interface SmokePuff {
  * keeps living after the rocket is gone. That is not decoration — a global
  * shot is a thing you fire *and then look away from*, and the smoke hanging
  * over the lane is how everyone else finds out where it came from.
+ *
+ * The puffs used to be a private array this object aged and painted itself
+ * from inside `draw()` — invisible to `ObjectManager`'s particle draw budget,
+ * which rations `ParticleSystem` objects under load but has no way to see a
+ * hand-rolled one. A rocket fired across the whole map keeps 30-60 puffs
+ * alive at once, so that budget existing and not reaching this was exactly
+ * the `DamageOverTime` mistake again. This object is now just the
+ * coordinator — it tracks the rocket and decides when to spawn a puff — and
+ * a real `ParticleSystem` owns the array, the ageing and the paint, so the
+ * engine can thin it out the same way it already thins everything else.
  */
 export class Jinx_R_Smoke extends SpellObject {
   source: Jinx_R_Object | null = null;
-  puffs: SmokePuff[] = [];
+  /** Built eagerly — `onAdded` only has to register it, not construct it. */
+  particles = this.buildParticles();
+
+  onAdded() {
+    this.game.objectManager.addObject(this.particles);
+  }
+
+  private buildParticles() {
+    const system = new ParticleSystem({
+      owner: this,
+      maxParticles: 90,
+      // The trail owns its own lifetime; `paint()` hands it back once the
+      // rocket is gone and the last puff has faded.
+      autoRemoveIfEmpty: false,
+      getParticlePosFn: (puff: SmokePuff) => ({ x: puff.x, y: puff.y }),
+      getParticleSizeFn: (puff: SmokePuff) => SMOKE_RADIUS * puff.scale * 2 * 1.9 + 96,
+      isDeadFn: (puff: SmokePuff) => puff.age >= puff.life,
+      updateFn: (puff: SmokePuff) => {
+        puff.age += deltaTime;
+      },
+      preDrawFn: (puffs: SmokePuff[]) => {
+        if (puffs.length === 0) return;
+        noStroke();
+      },
+      drawFn: (puff: SmokePuff) => {
+        const t = puff.age / puff.life;
+        const fade = 1 - t;
+        // Puffs bloom and drift as they age, so the plume widens behind the
+        // rocket instead of sitting on the flight line as a row of dots.
+        const grow = SMOKE_RADIUS * puff.scale * (0.7 + 0.95 * t);
+        const drift = 24 * t * puff.scale;
+        const x = puff.x + Math.cos(puff.seed) * drift;
+        const y = puff.y + Math.sin(puff.seed) * drift;
+
+        // Two offset lobes rather than one disc. A single circle is a
+        // bubble; a pair that never quite line up is a cloud. Light rather
+        // than dark — this map is nearly black, and the first pass in
+        // smoke-grey was all but invisible on it.
+        for (let k = 0; k < 2; k++) {
+          const a = puff.seed + k * 2.4;
+          fill(150, 136, 158, 62 * fade);
+          circle(x + Math.cos(a) * grow * 0.3, y + Math.sin(a) * grow * 0.3, grow * 1.7);
+        }
+        fill(198, 186, 208, 46 * fade);
+        circle(x, y, grow * 1.1);
+        // Embers, only while the puff is young: the hot core of the exhaust.
+        if (t < 0.3) {
+          const heat = 1 - t / 0.3;
+          fill(255, 120, 175, 210 * heat);
+          circle(x, y, grow * 0.62 * heat + 6);
+        }
+      },
+    });
+    system.zIndex = SPELL_EFFECT_Z_INDEX; // a bare ParticleSystem sits under every unit
+    return system;
+  }
 
   update() {
-    const step = deltaTime;
-    for (const puff of this.puffs) puff.age += step;
-    while (this.puffs.length && this.puffs[0].age >= this.puffs[0].life) this.puffs.shift();
-
     this.paint();
-
-    if (!this.puffs.length && !this.source) this.toRemove = true;
+    if (this.particles.particles.length === 0 && !this.source) this.toRemove = true;
   }
 
   /** Drops a puff every `SMOKE_STEP` the rocket covers, not every frame. */
@@ -359,13 +420,17 @@ export class Jinx_R_Smoke extends SpellObject {
     const source = this.source;
     if (!source || source.toRemove) {
       this.source = null;
+      // Drained rather than dropped: the puffs already in the air finish
+      // fading instead of vanishing the frame the rocket dies.
+      this.particles.autoRemoveIfEmpty = true;
       return;
     }
 
     const { x, y } = source.position;
-    const last = this.puffs[this.puffs.length - 1];
+    const puffs: SmokePuff[] = this.particles.particles;
+    const last = puffs[puffs.length - 1];
     if (last && Math.hypot(x - last.x, y - last.y) < SMOKE_STEP) return;
-    this.puffs.push({
+    this.particles.addParticle({
       x,
       y,
       age: 0,
@@ -373,7 +438,7 @@ export class Jinx_R_Smoke extends SpellObject {
       // Uneven on purpose: identical puffs read as a machine-made dotted line.
       scale: 0.8 + Math.random() * 0.5,
       life: SMOKE_MS,
-    });
+    } satisfies SmokePuff);
     this.position.set(x, y);
   }
 
@@ -382,73 +447,14 @@ export class Jinx_R_Smoke extends SpellObject {
     for (let i = 0; i < 10; i++) {
       const a = (i / 10) * Math.PI * 2;
       const d = radius * (0.25 + 0.55 * Math.random());
-      this.puffs.push({
+      this.particles.addParticle({
         x: at.x + Math.cos(a) * d,
         y: at.y + Math.sin(a) * d,
         age: 0,
         seed: a,
         scale: 1.8,
         life: SMOKE_MS * 1.4,
-      });
+      } satisfies SmokePuff);
     }
-  }
-
-  draw() {
-    push();
-    noStroke();
-    for (const puff of this.puffs) {
-      const t = puff.age / puff.life;
-      const fade = 1 - t;
-      // Puffs bloom and drift as they age, so the plume widens behind the
-      // rocket instead of sitting on the flight line as a row of dots.
-      const grow = SMOKE_RADIUS * puff.scale * (0.7 + 0.95 * t);
-      const drift = 24 * t * puff.scale;
-      const x = puff.x + Math.cos(puff.seed) * drift;
-      const y = puff.y + Math.sin(puff.seed) * drift;
-
-      // Two offset lobes rather than one disc. A single circle is a bubble; a
-      // pair that never quite line up is a cloud. Light rather than dark —
-      // this map is nearly black, and the first pass in smoke-grey was all but
-      // invisible on it.
-      for (let k = 0; k < 2; k++) {
-        const a = puff.seed + k * 2.4;
-        fill(150, 136, 158, 62 * fade);
-        circle(x + Math.cos(a) * grow * 0.3, y + Math.sin(a) * grow * 0.3, grow * 1.7);
-      }
-      fill(198, 186, 208, 46 * fade);
-      circle(x, y, grow * 1.1);
-      // Embers, only while the puff is young: the hot core of the exhaust.
-      if (t < 0.3) {
-        const heat = 1 - t / 0.3;
-        fill(255, 120, 175, 210 * heat);
-        circle(x, y, grow * 0.62 * heat + 6);
-      }
-    }
-    pop();
-  }
-
-  getDisplayBoundingBox() {
-    if (!this.puffs.length) {
-      return new Rectangle({ x: this.position.x, y: this.position.y, w: 1, h: 1, data: this });
-    }
-    let minX = Infinity;
-    let minY = Infinity;
-    let maxX = -Infinity;
-    let maxY = -Infinity;
-    for (const puff of this.puffs) {
-      if (puff.x < minX) minX = puff.x;
-      if (puff.y < minY) minY = puff.y;
-      if (puff.x > maxX) maxX = puff.x;
-      if (puff.y > maxY) maxY = puff.y;
-    }
-    // The margin covers full bloom plus drift on the outermost puff.
-    const margin = SMOKE_RADIUS * 2 * 1.8 + 40;
-    return new Rectangle({
-      x: minX - margin,
-      y: minY - margin,
-      w: maxX - minX + margin * 2,
-      h: maxY - minY + margin * 2,
-      data: this,
-    });
   }
 }

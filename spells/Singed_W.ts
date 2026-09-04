@@ -1,3 +1,4 @@
+import type { ParticleSystem } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 
 const VectorUtils = api.utils.VectorUtils;
@@ -9,6 +10,7 @@ const SpellObject = api.SpellObject;
 const Ground = api.buffs.Ground;
 const Slow = api.buffs.Slow;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
+const ParticleSystem = api.helpers.ParticleSystem;
 
 /**
  * Mega Adhesive. Pure crowd control: it deals NO damage whatsoever — the
@@ -64,7 +66,12 @@ const BLOB_SPAWN_INTERVAL = 120;
 
 const MAX_BLOBS = 18;
 
-const EDGE_SEGMENTS = 24;
+/**
+ * Points sampled around the puddle's wobbly rim. 24 was finer than the
+ * wobble itself needs — the perturbation is two low-frequency sines, not
+ * fine detail — and it is walked twice a frame (rim then meniscus).
+ */
+const EDGE_SEGMENTS = 16;
 
 
 export class Singed_W_Object extends SpellObject {
@@ -89,8 +96,63 @@ export class Singed_W_Object extends SpellObject {
   reapplyInterval = 200;
 
   _timeSinceReapply = this.reapplyInterval; // so the glue bites the very first frame
-  _blobs: GlueBlob[] = [];
   _timeSinceBlobSpawn = 0;
+
+  /**
+   * The sagging blobs, as a real `ParticleSystem` rather than a private array
+   * this object aged and painted from inside its own `draw()`.
+   *
+   * At the 18-blob cap that used to be ~55 unbudgeted p5 calls a frame per
+   * puddle (three circles per blob), invisible to `ObjectManager.draw`'s
+   * particle-draw budget because nothing here was a `ParticleSystem` — the
+   * exact shape `DamageOverTime` was found doing. Built in `onAdded()`
+   * rather than a field initializer because it needs `this.position`, which
+   * `onSpellCast` does not set until after construction.
+   *
+   * Registered through `useParticles` rather than `objectManager.addObject`
+   * directly, so `SpellObject.onRemoved` hands its lifetime back the instant
+   * the puddle is gone — the blobs already sagging finish aging out instead
+   * of vanishing on the puddle's last frame.
+   */
+  _blobSystem: ParticleSystem | null = null;
+
+  onAdded() {
+    super.onAdded();
+    const blobSystem = new ParticleSystem({
+      owner: this,
+      maxParticles: MAX_BLOBS,
+      getParticlePosFn: (b: GlueBlob) => ({
+        x: this.position.x + b.offsetX,
+        y: this.position.y + b.offsetY,
+      }),
+      getParticleSizeFn: (b: GlueBlob) => b.size,
+      isDeadFn: (b: GlueBlob) => b.age >= b.lifeTime,
+      updateFn: (b: GlueBlob) => {
+        b.age += deltaTime;
+        b.offsetY += b.sagSpeed; // blobs sag rather than rise: glue, not gas
+      },
+      preDrawFn: () => noStroke(),
+      drawFn: (b: GlueBlob) => {
+        const t = b.age / b.lifeTime;
+        const size = b.size * (1 - t * 0.4);
+        const opacity = this._getOpacity();
+        const x = this.position.x + b.offsetX;
+        const y = this.position.y + b.offsetY;
+        fill(120, 85, 15, 130 * (1 - t) * opacity);
+        circle(x, y + 2, size);
+        fill(245, 205, 95, 170 * (1 - t) * opacity);
+        circle(x, y, size);
+        // highlight, so each blob reads as a wet bubble and not a flat dot
+        fill(255, 245, 200, 150 * (1 - t) * opacity);
+        circle(x - size * 0.2, y - size * 0.22, size * 0.32);
+      },
+    });
+    // Under the units standing in the puddle, same as the puddle body itself
+    // — a bare ParticleSystem defaults to sitting under the ground layer too,
+    // which would have drawn every blob beneath the puddle's own fill.
+    blobSystem.zIndex = GROUND_Z_INDEX;
+    this._blobSystem = this.useParticles(blobSystem);
+  }
 
   update() {
     this.age += deltaTime;
@@ -105,7 +167,7 @@ export class Singed_W_Object extends SpellObject {
       this._glueEnemiesInside();
     }
 
-    this._updateBlobs();
+    this._spawnBlobs();
   }
 
   _glueEnemiesInside() {
@@ -135,37 +197,27 @@ export class Singed_W_Object extends SpellObject {
     });
   }
 
-  _updateBlobs() {
+  /** Spawning only — ageing and reaping are the particle system's own `update()`. */
+  _spawnBlobs() {
+    const system = this._blobSystem;
+    if (!system) return;
+
     this._timeSinceBlobSpawn += deltaTime;
-    while (this._timeSinceBlobSpawn >= BLOB_SPAWN_INTERVAL && this._blobs.length < MAX_BLOBS) {
+    while (this._timeSinceBlobSpawn >= BLOB_SPAWN_INTERVAL && system.particles.length < MAX_BLOBS) {
       this._timeSinceBlobSpawn -= BLOB_SPAWN_INTERVAL;
 
       const angle = random(TWO_PI);
       const distance = random(this.radius * 0.9);
-      this._blobs.push({
+      system.addParticle({
         offsetX: cos(angle) * distance,
         offsetY: sin(angle) * distance,
         sagSpeed: random(0.02, 0.09),
         size: random(10, 24),
         age: 0,
         lifeTime: random(700, 1400),
-      });
+      } satisfies GlueBlob);
     }
     if (this._timeSinceBlobSpawn > BLOB_SPAWN_INTERVAL) this._timeSinceBlobSpawn = 0;
-
-    let i = 0;
-    while (i < this._blobs.length) {
-      const blob = this._blobs[i];
-      blob.age += deltaTime;
-
-      if (blob.age >= blob.lifeTime) {
-        this._blobs.splice(i, 1);
-        continue;
-      }
-
-      blob.offsetY += blob.sagSpeed;
-      i++;
-    }
   }
 
   _getOpacity() {
@@ -216,19 +268,8 @@ export class Singed_W_Object extends SpellObject {
     strokeWeight(5);
     arc(0, 0, this.radius * 2 + 12, this.radius * 2 + 12, -HALF_PI, -HALF_PI + TWO_PI * left);
 
-    // slow, viscous blobs sagging inside the puddle
-    noStroke();
-    for (const blob of this._blobs) {
-      const t = blob.age / blob.lifeTime;
-      const size = blob.size * (1 - t * 0.4);
-      fill(120, 85, 15, 130 * (1 - t) * opacity);
-      circle(blob.offsetX, blob.offsetY + 2, size);
-      fill(245, 205, 95, 170 * (1 - t) * opacity);
-      circle(blob.offsetX, blob.offsetY, size);
-      // highlight, so each blob reads as a wet bubble and not a flat dot
-      fill(255, 245, 200, 150 * (1 - t) * opacity);
-      circle(blob.offsetX - size * 0.2, blob.offsetY - size * 0.22, size * 0.32);
-    }
+    // the sagging blobs draw themselves — see `_blobSystem`, a real
+    // ParticleSystem now instead of an array painted from in here.
 
     // sticky strands stretched between the middle and the rim
     noFill();
