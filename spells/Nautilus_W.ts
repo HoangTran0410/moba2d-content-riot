@@ -11,6 +11,7 @@ const Shield = api.buffs.Shield;
 const SpellObject = api.SpellObject;
 const GROUND_Z_INDEX = api.layers.GROUND_Z_INDEX;
 const dmg = api.text.dmg;
+const heal = api.text.heal;
 
 
 export const W_SHIELD = 35;
@@ -64,7 +65,7 @@ export default class Nautilus_W extends Spell {
   image = api.asset('spell_nautilus_w');
   name = 'Cơn Giận Của Người Khổng Lồ (Nautilus_W)';
   description =
-    `Khoác lớp vỏ sắt hà chắn ${dmg(W_SHIELD, 'MAGIC')} trong ` +
+    `Khoác lớp vỏ sắt hà chắn ${heal(W_SHIELD, ' sát thương')} trong ` +
     `${secs(W_DURATION_MS)} giây. Khi còn khiên, mỗi đòn đánh thường bắn nước ra ` +
     `${W_SPLASH_RADIUS} đơn vị quanh mục tiêu: ${dmg(W_SPLASH, 'MAGIC')} ` +
     `và ${dmg(W_DOT_TOTAL, 'MAGIC')} ăn mòn theo thời gian.`;

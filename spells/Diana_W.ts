@@ -9,6 +9,7 @@ const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const SpellObject = api.SpellObject;
 const dmg = api.text.dmg;
+const heal = api.text.heal;
 
 
 export const W_SPHERES = 3;
@@ -62,8 +63,7 @@ export default class Diana_W extends Spell {
   image = api.asset('spell_diana_w');
   name = 'Thác Bạc (Diana_W)';
   description = `Ba lưỡi liềm bay quanh Diana. Mỗi lưỡi nổ khi chạm kẻ địch, gây
-    ${dmg(W_SPHERE_DAMAGE, 'MAGIC')} trong vùng nhỏ. Diana nhận lá
-    chắn ${W_SHIELD}; nổ hết cả ba lưỡi thì lá chắn được làm mới một lần.`;
+    ${dmg(W_SPHERE_DAMAGE, 'MAGIC')} trong vùng nhỏ. Diana nhận lá chắn ${heal(W_SHIELD)}; nổ hết cả ba lưỡi thì lá chắn được làm mới một lần.`;
   coolDown = 10_000;
   manaCost = 40;
   range = W_THREAT;

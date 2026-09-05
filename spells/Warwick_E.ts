@@ -1,6 +1,8 @@
 import { api } from '../packApi';
 import { secs } from '../text';
 
+const heal = api.text.heal;
+
 const Circle = api.utils.Quadtree.Circle;
 const PredefinedFilters = api.combat.PredefinedFilters;
 const Spell = api.Spell;
@@ -29,7 +31,7 @@ export default class Warwick_E extends Spell {
   image = api.asset('spell_warwick_e');
   name = 'Gầm Thét (Warwick_E)';
   description =
-    `Nhận <span class="buff">Khiên ${SHIELD_AMOUNT}</span> trong <span class="time">${secs(SHIELD_DURATION)} giây</span>` +
+    `Nhận Khiên ${heal(SHIELD_AMOUNT)} trong <span class="time">${secs(SHIELD_DURATION)} giây</span>` +
     ` và <span class="buff">Khiếp Sợ</span> mọi kẻ địch trong <span>${RADIUS}px</span> trong` +
     ` <span class="time">${secs(FEAR_DURATION)} giây</span>`;
   coolDown = 10000;

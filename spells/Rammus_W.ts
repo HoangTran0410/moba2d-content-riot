@@ -2,6 +2,8 @@ import type { Shield } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 import { pct, secs } from '../text';
 
+const heal = api.text.heal;
+
 const Spell = api.Spell;
 const DamageReflect = api.buffs.DamageReflect;
 const Shield = api.buffs.Shield;
@@ -62,7 +64,7 @@ export default class Rammus_W extends Spell {
   image = api.asset('spell_rammus_w');
   name = 'Thế Thủ (Rammus_W)';
   description =
-    `Cuộn tròn trong <span class="time">${secs(DURATION)} giây</span>: nhận <span class="buff">Khiên ${SHIELD_AMOUNT}</span>` +
+    `Cuộn tròn trong <span class="time">${secs(DURATION)} giây</span>: nhận Khiên ${heal(SHIELD_AMOUNT)}` +
     ` và <span class="buff">phản ${pct(REFLECT_PERCENT)}% sát thương</span> về kẻ đã gây ra nó (tính trên đòn đánh gốc,` +
     ` trước khi khiên đỡ), đổi lại <span class="debuff">chậm ${pct(SELF_SLOW)}%</span> vì mai rùa quá nặng`;
   coolDown = 10000;

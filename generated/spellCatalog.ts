@@ -478,7 +478,7 @@ export const spellCatalog = {
   },
   "Diana_W": {
     name: "Thác Bạc (Diana_W)",
-    description: "Ba lưỡi liềm bay quanh Diana. Mỗi lưỡi nổ khi chạm kẻ địch, gây\n    <span class=\"damage magic\" data-base=\"10\">10 sát thương phép</span> trong vùng nhỏ. Diana nhận lá\n    chắn 22; nổ hết cả ba lưỡi thì lá chắn được làm mới một lần.",
+    description: "Ba lưỡi liềm bay quanh Diana. Mỗi lưỡi nổ khi chạm kẻ địch, gây\n    <span class=\"damage magic\" data-base=\"10\">10 sát thương phép</span> trong vùng nhỏ. Diana nhận lá chắn <span class=\"heal\" data-base=\"22\">22</span>; nổ hết cả ba lưỡi thì lá chắn được làm mới một lần.",
     iconKey: "spell_diana_w",
     coolDownMs: 10000,
     manaCost: 40,
@@ -1502,7 +1502,7 @@ export const spellCatalog = {
   },
   "Nautilus_W": {
     name: "Cơn Giận Của Người Khổng Lồ (Nautilus_W)",
-    description: "Khoác lớp vỏ sắt hà chắn <span class=\"damage magic\" data-base=\"35\">35 sát thương phép</span> trong 5 giây. Khi còn khiên, mỗi đòn đánh thường bắn nước ra 130 đơn vị quanh mục tiêu: <span class=\"damage magic\" data-base=\"10\">10 sát thương phép</span> và <span class=\"damage magic\" data-base=\"8\">8 sát thương phép</span> ăn mòn theo thời gian.",
+    description: "Khoác lớp vỏ sắt hà chắn <span class=\"heal\" data-base=\"35\">35 sát thương</span> trong 5 giây. Khi còn khiên, mỗi đòn đánh thường bắn nước ra 130 đơn vị quanh mục tiêu: <span class=\"damage magic\" data-base=\"10\">10 sát thương phép</span> và <span class=\"damage magic\" data-base=\"8\">8 sát thương phép</span> ăn mòn theo thời gian.",
     iconKey: "spell_nautilus_w",
     coolDownMs: 10000,
     manaCost: 30,
@@ -1694,7 +1694,7 @@ export const spellCatalog = {
   },
   "Rammus_W": {
     name: "Thế Thủ (Rammus_W)",
-    description: "Cuộn tròn trong <span class=\"time\">5 giây</span>: nhận <span class=\"buff\">Khiên 80</span> và <span class=\"buff\">phản 80% sát thương</span> về kẻ đã gây ra nó (tính trên đòn đánh gốc, trước khi khiên đỡ), đổi lại <span class=\"debuff\">chậm 25%</span> vì mai rùa quá nặng",
+    description: "Cuộn tròn trong <span class=\"time\">5 giây</span>: nhận Khiên <span class=\"heal\" data-base=\"80\">80</span> và <span class=\"buff\">phản 80% sát thương</span> về kẻ đã gây ra nó (tính trên đòn đánh gốc, trước khi khiên đỡ), đổi lại <span class=\"debuff\">chậm 25%</span> vì mai rùa quá nặng",
     iconKey: "spell_rammus_w",
     coolDownMs: 10000,
     manaCost: 25,
@@ -2318,7 +2318,7 @@ export const spellCatalog = {
   },
   "Warwick_E": {
     name: "Gầm Thét (Warwick_E)",
-    description: "Nhận <span class=\"buff\">Khiên 60</span> trong <span class=\"time\">2.5 giây</span> và <span class=\"buff\">Khiếp Sợ</span> mọi kẻ địch trong <span>300px</span> trong <span class=\"time\">1.2 giây</span>",
+    description: "Nhận Khiên <span class=\"heal\" data-base=\"60\">60</span> trong <span class=\"time\">2.5 giây</span> và <span class=\"buff\">Khiếp Sợ</span> mọi kẻ địch trong <span>300px</span> trong <span class=\"time\">1.2 giây</span>",
     iconKey: "spell_warwick_e",
     coolDownMs: 10000,
     manaCost: 40,
