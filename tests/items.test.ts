@@ -10,7 +10,7 @@ import { assetManifest } from '../generated/assetManifest';
 const api = buildTestApi();
 
 /**
- * The shop this pack ships: seventy-seven items, forty-two spells behind them, and the
+ * The shop this pack ships: ninety-five items, fifty-four spells behind them, and the
  * one thing about them that is easy to get wrong in a way nothing complains
  * about.
  *
@@ -28,7 +28,7 @@ const api = buildTestApi();
  * rather than four spells that do not exist.
  */
 
-/** The forty-two, by name. Not derived from a prefix the code under test also uses. */
+/** The fifty-four, by name. Not derived from a prefix the code under test also uses. */
 const ITEM_SPELL_IDS = [
   'Item_Thornmail',
   'Item_Zhonyas',
@@ -80,6 +80,21 @@ const ITEM_SPELL_IDS = [
   'Item_Iceborn',
   'Item_Maw',
   'Item_Redemption',
+  // The bruiser and support shelf (2026-09-05). Chùy Phản Kích re-sells
+  // Item_Tiamat (already above) as its passive beside its own active — the
+  // hydra family's cleave carried into a third item, the Thiêu Đốt shape.
+  'Item_BlackCleaver',
+  'Item_SunderedSky',
+  'Item_Stridebreaker',
+  'Item_Hullbreaker',
+  'Item_Collector',
+  'Item_Firecannon',
+  'Item_Shieldbow',
+  'Item_Navori',
+  'Item_Ardent',
+  'Item_Moonstone',
+  'Item_Zeke',
+  'Item_GuardianAngel',
 ] as const;
 
 /**
@@ -556,6 +571,117 @@ const SPEC: Record<
     active: 'Item_Redemption',
     buildsFrom: ['spectres_cowl'],
   },
+  // The bruiser and support shelf, 2026-09-05.
+  phage: { name: 'Búa Gỗ', cost: 700, stats: { attackDamage: 5, maxHealth: 25 } },
+  caulfields_warhammer: {
+    name: 'Búa Chiến Caulfield',
+    cost: 650,
+    stats: { attackDamage: 7, abilityHaste: 10 },
+  },
+  kindlegem: { name: 'Hỏa Ngọc', cost: 600, stats: { maxHealth: 25, abilityHaste: 10 } },
+  black_cleaver: {
+    name: 'Rìu Đen',
+    cost: 1700,
+    stats: { attackDamage: 12, maxHealth: 45, abilityHaste: 10 },
+    passive: 'Item_BlackCleaver',
+    buildsFrom: ['phage', 'caulfields_warhammer'],
+  },
+  sundered_sky: {
+    name: 'Giáo Thiên Ly',
+    cost: 1500,
+    stats: { attackDamage: 10, maxHealth: 40, abilityHaste: 10 },
+    passive: 'Item_SunderedSky',
+    buildsFrom: ['caulfields_warhammer', 'ruby_crystal'],
+  },
+  spear_of_shojin: {
+    name: 'Ngọn Giáo Shojin',
+    cost: 1650,
+    stats: { attackDamage: 14, maxHealth: 30, abilityHaste: 20 },
+    buildsFrom: ['caulfields_warhammer', 'long_sword'],
+  },
+  stridebreaker: {
+    name: 'Chùy Phản Kích',
+    cost: 1700,
+    stats: { attackDamage: 12, maxHealth: 40, attackSpeed: 0.1 },
+    passive: 'Item_Tiamat',
+    active: 'Item_Stridebreaker',
+    buildsFrom: ['tiamat', 'phage'],
+  },
+  hullbreaker: {
+    name: 'Búa Tiến Công',
+    cost: 1500,
+    stats: { attackDamage: 10, maxHealth: 60, healthRegen: 0.03 },
+    passive: 'Item_Hullbreaker',
+    buildsFrom: ['phage', 'ruby_crystal'],
+  },
+  phantom_dancer: {
+    name: 'Ma Vũ Song Kiếm',
+    cost: 1600,
+    stats: { attackSpeed: 0.25, critChance: 0.24, speedPercent: 0.1 },
+    buildsFrom: ['zeal', 'zeal'],
+  },
+  the_collector: {
+    name: 'Súng Hải Tặc',
+    cost: 1600,
+    stats: { attackDamage: 12, critChance: 0.15 },
+    passive: 'Item_Collector',
+    buildsFrom: ['long_sword', 'long_sword'],
+  },
+  rapid_firecannon: {
+    name: 'Đại Bác Liên Thanh',
+    cost: 1650,
+    stats: { attackSpeed: 0.28, critChance: 0.12, speedPercent: 0.05, onHitDamage: 1 },
+    passive: 'Item_Firecannon',
+    buildsFrom: ['zeal', 'recurve_bow'],
+  },
+  immortal_shieldbow: {
+    name: 'Nỏ Tử Thủ',
+    cost: 1600,
+    stats: { attackDamage: 12, lifesteal: 0.12, critChance: 0.15 },
+    passive: 'Item_Shieldbow',
+    buildsFrom: ['vampiric_scepter', 'long_sword'],
+  },
+  navori_flickerblade: {
+    name: 'Đao Chớp Navori',
+    cost: 1500,
+    stats: { attackSpeed: 0.32, onHitDamage: 2 },
+    passive: 'Item_Navori',
+    buildsFrom: ['recurve_bow', 'recurve_bow'],
+  },
+  ardent_censer: {
+    name: 'Lư Hương Sôi Sục',
+    cost: 1500,
+    stats: { maxHealth: 30, magicResist: 25, abilityHaste: 15 },
+    active: 'Item_Ardent',
+    buildsFrom: ['kindlegem', 'null_magic_mantle'],
+  },
+  moonstone_renewer: {
+    name: 'Bùa Nguyệt Thạch',
+    cost: 1450,
+    stats: { maxHealth: 55, abilityHaste: 10, healthRegen: 0.02 },
+    passive: 'Item_Moonstone',
+    buildsFrom: ['kindlegem', 'ruby_crystal'],
+  },
+  zekes_convergence: {
+    name: 'Tụ Bão Zeke',
+    cost: 1400,
+    stats: { armor: 25, maxHealth: 30, abilityHaste: 10 },
+    active: 'Item_Zeke',
+    buildsFrom: ['kindlegem', 'cloth_armor'],
+  },
+  watchful_wardstone: {
+    name: 'Đá Tỏa Sáng - Cảnh Giác',
+    cost: 1400,
+    stats: { maxHealth: 40, abilityHaste: 15, visionRadius: 90 },
+    buildsFrom: ['kindlegem'],
+  },
+  guardian_angel: {
+    name: 'Giáp Thiên Thần',
+    cost: 1700,
+    stats: { attackDamage: 10, armor: 40 },
+    passive: 'Item_GuardianAngel',
+    buildsFrom: ['chain_vest', 'long_sword'],
+  },
 };
 
 describe('no Item_ spell leaks into spellDisplay', () => {
@@ -587,7 +713,7 @@ describe('no Item_ spell leaks into spellDisplay', () => {
 describe('the item set', () => {
   const items = data.items ?? {};
 
-  it('ships exactly the seventy-seven specified, keyed by their own id', () => {
+  it('ships exactly the ninety-five specified, keyed by their own id', () => {
     expect(Object.keys(items).sort()).toEqual(Object.keys(SPEC).sort());
   });
 
@@ -604,7 +730,7 @@ describe('the item set', () => {
     }
   });
 
-  it('reaches its spells only through passive/active, and only the forty-two', () => {
+  it('reaches its spells only through passive/active, and only the fifty-four', () => {
     const named = new Set<string>();
     for (const def of Object.values(items)) {
       if (def.passive) named.add(def.passive);
@@ -719,7 +845,7 @@ describe('the item set', () => {
     const registry = new PackRegistry();
     registry.install(pack);
 
-    expect(registry.items()).toHaveLength(77);
+    expect(registry.items()).toHaveLength(95);
     const thornmail = registry.item('lol:thornmail');
     expect(thornmail?.passive).toBe('lol:Item_Thornmail');
     expect(thornmail?.icon).toBe('lol:item_thornmail');
@@ -769,6 +895,9 @@ describe('the build paths', () => {
     'negatron_cloak',
     'giants_belt',
     'spectres_cowl',
+    'phage',
+    'caulfields_warhammer',
+    'kindlegem',
   ];
 
   const finished = Object.values(items).filter(def => !COMPONENTS.includes(def.id));

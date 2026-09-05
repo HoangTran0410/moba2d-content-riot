@@ -173,6 +173,29 @@ export const ITEMS = [
   { local: 'maw_of_malmortius', riot: 3156 },
   { local: 'silvermere_dawn', riot: 6035 },
   { local: 'redemption', riot: 3107 },
+  // The bruiser and support shelf, 2026-09-05: the gap left after the tank
+  // wall went up — the shop sold the wall and the mage, and nothing for the
+  // fighter standing between them or the enchanter standing behind. Ids
+  // checked against 16.16.1's own vi_VN item.json before being written down
+  // (Sundered Sky is 6610 there, the Collector 6676, Navori 6675).
+  { local: 'phage', riot: 3044 },
+  { local: 'caulfields_warhammer', riot: 3133 },
+  { local: 'kindlegem', riot: 3067 },
+  { local: 'black_cleaver', riot: 3071 },
+  { local: 'sundered_sky', riot: 6610 },
+  { local: 'spear_of_shojin', riot: 3161 },
+  { local: 'stridebreaker', riot: 6631 },
+  { local: 'hullbreaker', riot: 3181 },
+  { local: 'phantom_dancer', riot: 3046 },
+  { local: 'the_collector', riot: 6676 },
+  { local: 'rapid_firecannon', riot: 3094 },
+  { local: 'immortal_shieldbow', riot: 6673 },
+  { local: 'navori_flickerblade', riot: 6675 },
+  { local: 'ardent_censer', riot: 3504 },
+  { local: 'moonstone_renewer', riot: 6617 },
+  { local: 'zekes_convergence', riot: 3050 },
+  { local: 'watchful_wardstone', riot: 4638 },
+  { local: 'guardian_angel', riot: 3026 },
 ];
 
 const sha256 = buffer => createHash('sha256').update(buffer).digest('hex');

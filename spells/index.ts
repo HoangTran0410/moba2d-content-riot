@@ -332,6 +332,18 @@ export { default as Item_Iceborn } from './Item_Iceborn';
 export { default as Item_Randuin } from './Item_Randuin';
 export { default as Item_Gargoyle } from './Item_Gargoyle';
 export { default as Item_Redemption } from './Item_Redemption';
+export { default as Item_BlackCleaver } from './Item_BlackCleaver';
+export { default as Item_SunderedSky } from './Item_SunderedSky';
+export { default as Item_Stridebreaker } from './Item_Stridebreaker';
+export { default as Item_Hullbreaker } from './Item_Hullbreaker';
+export { default as Item_Collector } from './Item_Collector';
+export { default as Item_Firecannon } from './Item_Firecannon';
+export { default as Item_Shieldbow } from './Item_Shieldbow';
+export { default as Item_Navori } from './Item_Navori';
+export { default as Item_Ardent } from './Item_Ardent';
+export { default as Item_Moonstone } from './Item_Moonstone';
+export { default as Item_Zeke } from './Item_Zeke';
+export { default as Item_GuardianAngel } from './Item_GuardianAngel';
 
 export { default as Vladimir_Q } from './Vladimir_Q';
 export { default as Vladimir_W } from './Vladimir_W';

@@ -1912,6 +1912,231 @@ const itemEntries = (): Record<string, ItemDef> => ({
     stats: { maxHealth: 40, magicResist: 28, healthRegen: 0.03 },
     active: 'Item_Redemption',
   },
+
+  // ---- The bruiser & support shelf (2026-09-05) ------------------------
+  //
+  // What was left after the tank wall went up: the shop sold the mage, the
+  // marksman and the wall, and nothing for the fighter standing between them
+  // (công + máu in one item) or the enchanter standing behind (buttons whose
+  // beneficiary is somebody else). Three components and fifteen finished
+  // rows. Deliberately absent: more ability power (the complaint this week
+  // was the surplus), more penetration (Nỏ Thần Dominik's 35% stays the
+  // ceiling so the new wall keeps meaning something), and Lời Thề Hiệp Sĩ /
+  // Dạ Kiếm-style redirects — `modifyIncomingDamage` is not told the source
+  // spell, so neither can be built honestly yet.
+  phage: {
+    id: 'phage',
+    name: 'Búa Gỗ',
+    icon: 'item_phage',
+    cost: 700,
+    stats: { attackDamage: 5, maxHealth: 25 },
+  },
+  caulfields_warhammer: {
+    id: 'caulfields_warhammer',
+    name: 'Búa Chiến Caulfield',
+    icon: 'item_caulfields_warhammer',
+    cost: 650,
+    // The first attack-damage component that also sells haste — before it,
+    // an AD kit that wanted cooldowns had to walk to the boots shelf.
+    stats: { attackDamage: 7, abilityHaste: 10 },
+  },
+  kindlegem: {
+    id: 'kindlegem',
+    name: 'Hỏa Ngọc',
+    icon: 'item_kindlegem',
+    cost: 600,
+    // The support shelf's own rung: every enchanter row below builds out of
+    // this one, the way the tank shelf builds out of Giáp Lưới.
+    stats: { maxHealth: 25, abilityHaste: 10 },
+  },
+  black_cleaver: {
+    id: 'black_cleaver',
+    name: 'Rìu Đen',
+    icon: 'item_black_cleaver',
+    cost: 1700,
+    buildsFrom: ['phage', 'caulfields_warhammer'],
+    description:
+      'Nội tại: đòn đánh lên tướng địch phá <span class="buff">5%</span> giáp trong ' +
+      '<span class="time">4 giây</span> (cộng dồn <span class="buff">3</span> lần).',
+    stats: { attackDamage: 12, maxHealth: 45, abilityHaste: 10 },
+    passive: 'Item_BlackCleaver',
+  },
+  sundered_sky: {
+    id: 'sundered_sky',
+    name: 'Giáo Thiên Ly',
+    icon: 'item_sundered_sky',
+    cost: 1500,
+    buildsFrom: ['caulfields_warhammer', 'ruby_crystal'],
+    description:
+      'Nội tại: đòn đánh đầu tiên lên mỗi tướng địch gây thêm <span class="buff">50%</span> công ' +
+      'cơ bản và hồi <span class="heal" data-flat="none">6</span> máu ' +
+      '(mỗi mục tiêu <span class="time">8 giây</span> một lần).',
+    stats: { attackDamage: 10, maxHealth: 40, abilityHaste: 10 },
+    passive: 'Item_SunderedSky',
+  },
+  spear_of_shojin: {
+    id: 'spear_of_shojin',
+    name: 'Ngọn Giáo Shojin',
+    icon: 'item_spear_of_shojin',
+    cost: 1650,
+    buildsFrom: ['caulfields_warhammer', 'long_sword'],
+    // The bruiser's stat stick — no passive, like Huyết Kiếm: the biggest
+    // haste number an attack-damage build can hold is the whole purchase.
+    stats: { attackDamage: 14, maxHealth: 30, abilityHaste: 20 },
+  },
+  stridebreaker: {
+    id: 'stridebreaker',
+    name: 'Chùy Phản Kích',
+    icon: 'item_stridebreaker',
+    cost: 1700,
+    buildsFrom: ['tiamat', 'phage'],
+    description:
+      'Nội tại: đòn đánh gây thêm <span class="buff">40%</span> công lên các kẻ địch khác quanh ' +
+      'mục tiêu. Kích hoạt: gây <span class="damage physical" data-flat="none">8 sát thương vật ' +
+      'lý</span> và làm chậm <span class="buff">30%</span> tướng địch xung quanh trong ' +
+      '<span class="time">2.5 giây</span>; bản thân tăng <span class="buff">20%</span> tốc chạy ' +
+      'trong chốc lát.',
+    // Rìu Tiamat's own cleave rides along — the hydra rule (a finished item
+    // never drops the component's mechanic), stated as data: the passive slot
+    // re-sells the component's spell exactly the way Khiên Thái Dương
+    // re-sells Thiêu Đốt.
+    stats: { attackDamage: 12, maxHealth: 40, attackSpeed: 0.1 },
+    passive: 'Item_Tiamat',
+    active: 'Item_Stridebreaker',
+  },
+  hullbreaker: {
+    id: 'hullbreaker',
+    name: 'Búa Tiến Công',
+    icon: 'item_hullbreaker',
+    cost: 1500,
+    buildsFrom: ['phage', 'ruby_crystal'],
+    description:
+      'Nội tại: khi không có đồng minh nào đứng gần, nhận <span class="buff">15</span> giáp và ' +
+      '<span class="buff">15</span> kháng phép.',
+    stats: { attackDamage: 10, maxHealth: 60, healthRegen: 0.03 },
+    passive: 'Item_Hullbreaker',
+  },
+  phantom_dancer: {
+    id: 'phantom_dancer',
+    name: 'Ma Vũ Song Kiếm',
+    icon: 'item_phantom_dancer',
+    cost: 1600,
+    buildsFrom: ['zeal', 'zeal'],
+    // Two of the same part, like Giáp Máu Warmog — the crit line's pure
+    // stat rung, priced level with its parts plus the combine.
+    stats: { attackSpeed: 0.25, critChance: 0.24, speedPercent: 0.1 },
+  },
+  the_collector: {
+    id: 'the_collector',
+    name: 'Súng Hải Tặc',
+    icon: 'item_the_collector',
+    cost: 1600,
+    buildsFrom: ['long_sword', 'long_sword'],
+    description:
+      'Nội tại: sát thương bạn gây ra kết liễu tướng địch còn dưới ' +
+      '<span class="buff">5%</span> máu tối đa.',
+    stats: { attackDamage: 12, critChance: 0.15 },
+    passive: 'Item_Collector',
+  },
+  rapid_firecannon: {
+    id: 'rapid_firecannon',
+    name: 'Đại Bác Liên Thanh',
+    icon: 'item_rapid_firecannon',
+    cost: 1650,
+    buildsFrom: ['zeal', 'recurve_bow'],
+    description:
+      'Nội tại: mỗi <span class="time">10 giây</span>, đòn đánh kế tiếp có thêm ' +
+      '<span class="buff">90</span> tầm đánh và gây thêm ' +
+      '<span class="damage magic" data-flat="none">4 sát thương phép</span>.',
+    stats: { attackSpeed: 0.28, critChance: 0.12, speedPercent: 0.05, onHitDamage: 1 },
+    passive: 'Item_Firecannon',
+  },
+  immortal_shieldbow: {
+    id: 'immortal_shieldbow',
+    name: 'Nỏ Tử Thủ',
+    icon: 'item_immortal_shieldbow',
+    cost: 1600,
+    buildsFrom: ['vampiric_scepter', 'long_sword'],
+    description:
+      'Nội tại: khi máu rơi xuống dưới <span class="buff">30%</span>, nhận lá chắn ' +
+      '<span class="heal" data-flat="none">18</span> máu trong <span class="time">3 giây</span> ' +
+      '(hồi lại sau <span class="time">40 giây</span>).',
+    stats: { attackDamage: 12, lifesteal: 0.12, critChance: 0.15 },
+    passive: 'Item_Shieldbow',
+  },
+  navori_flickerblade: {
+    id: 'navori_flickerblade',
+    name: 'Đao Chớp Navori',
+    icon: 'item_navori_flickerblade',
+    cost: 1500,
+    buildsFrom: ['recurve_bow', 'recurve_bow'],
+    description:
+      'Nội tại: mỗi đòn đánh giảm <span class="time">0.3 giây</span> hồi chiêu cho các chiêu ' +
+      'thức đang hồi.',
+    stats: { attackSpeed: 0.32, onHitDamage: 2 },
+    passive: 'Item_Navori',
+  },
+  ardent_censer: {
+    id: 'ardent_censer',
+    name: 'Lư Hương Sôi Sục',
+    icon: 'item_ardent_censer',
+    cost: 1500,
+    buildsFrom: ['kindlegem', 'null_magic_mantle'],
+    description:
+      'Kích hoạt: bản thân và đồng minh xung quanh tăng <span class="buff">25%</span> tốc đánh ' +
+      'và đòn đánh gây thêm <span class="damage physical" data-flat="none">2 sát thương vật ' +
+      'lý</span> trong <span class="time">5 giây</span>.',
+    stats: { maxHealth: 30, magicResist: 25, abilityHaste: 15 },
+    active: 'Item_Ardent',
+  },
+  moonstone_renewer: {
+    id: 'moonstone_renewer',
+    name: 'Bùa Nguyệt Thạch',
+    icon: 'item_moonstone_renewer',
+    cost: 1450,
+    buildsFrom: ['kindlegem', 'ruby_crystal'],
+    description:
+      'Nội tại: mỗi <span class="time">5 giây</span>, hồi ' +
+      '<span class="heal" data-flat="none">5</span> máu cho đồng minh bị thương nặng nhất đứng ' +
+      'gần — không bao giờ cho bản thân.',
+    stats: { maxHealth: 55, abilityHaste: 10, healthRegen: 0.02 },
+    passive: 'Item_Moonstone',
+  },
+  zekes_convergence: {
+    id: 'zekes_convergence',
+    name: 'Tụ Bão Zeke',
+    icon: 'item_zekes_convergence',
+    cost: 1400,
+    buildsFrom: ['kindlegem', 'cloth_armor'],
+    description:
+      'Kích hoạt: trong <span class="time">4 giây</span>, làm chậm ' +
+      '<span class="buff">30%</span> các tướng địch đứng gần bạn.',
+    stats: { armor: 25, maxHealth: 30, abilityHaste: 10 },
+    active: 'Item_Zeke',
+  },
+  watchful_wardstone: {
+    id: 'watchful_wardstone',
+    name: 'Đá Tỏa Sáng - Cảnh Giác',
+    icon: 'item_watchful_wardstone',
+    cost: 1400,
+    buildsFrom: ['kindlegem'],
+    // One part with the rest as combine, like Đồng Hồ Cát Zhonya — bought
+    // for the stat no other row sells: `visionRadius` is a share of fog
+    // pushed back (base sight is 500), the first and only item to grant it.
+    stats: { maxHealth: 40, abilityHaste: 15, visionRadius: 90 },
+  },
+  guardian_angel: {
+    id: 'guardian_angel',
+    name: 'Giáp Thiên Thần',
+    icon: 'item_guardian_angel',
+    cost: 1700,
+    buildsFrom: ['chain_vest', 'long_sword'],
+    description:
+      'Nội tại: đòn lẽ ra kết liễu bạn để lại <span class="buff">1</span> máu thay vì giết ' +
+      '(hồi lại sau <span class="time">50 giây</span>).',
+    stats: { attackDamage: 10, armor: 40 },
+    passive: 'Item_GuardianAngel',
+  },
 });
 
 /**
