@@ -406,7 +406,7 @@ export const spellCatalog = {
   },
   "ChoGath_R": {
     name: "Xơi Tái (Cho'Gath_R)",
-    description: "Ngoạm một kẻ địch trong phạm vi <span>200px</span> — <span class=\"buff\">ưu tiên kẻ sẽ chết vì cú ngoạm này</span>, nếu không có thì kẻ gần nhất — gây <span class=\"damage true\" data-base=\"40\">40 sát thương chuẩn</span>. Chỉ khi <span class=\"buff\">ăn tươi nuốt sống</span> (hạ gục bằng chiêu này), Cho'Gath mới <span class=\"buff\">To Lên Vĩnh Viễn</span>: cộng dồn <span>+6 kích thước</span> (tối đa <span>165</span>) và <span class=\"buff\">+75 máu tối đa</span> (không giới hạn)",
+    description: "Ngoạm một kẻ địch trong phạm vi <span>200px</span> — <span class=\"buff\">ưu tiên kẻ sẽ chết vì cú ngoạm này</span>, nếu không có thì kẻ gần nhất — gây <span class=\"damage true\" data-base=\"40\">40 sát thương chuẩn</span>. Chỉ khi <span class=\"buff\">ăn tươi nuốt sống</span> (hạ gục bằng chiêu này), Cho'Gath mới <span class=\"buff\">To Lên Vĩnh Viễn</span>: mỗi tầng <span>+2 kích thước</span> (tối đa <span>165</span>) và <span class=\"buff\">+10 máu tối đa</span>, không giới hạn tầng — lính/quái cho <span class=\"buff\">1 tầng</span>, nuốt <span class=\"buff\">tướng</span> cho hẳn <span class=\"buff\">6 tầng</span>",
     iconKey: "spell_chogath_r",
     coolDownMs: 10000,
     manaCost: 50,

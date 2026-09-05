@@ -449,13 +449,17 @@ describe("the pack's tests speak only published core surfaces", () => {
     // so `visionRadius` alone has looked correct while lighting nothing
     // before, for the ward as much as for anything else.
     //
+    // 125, not 124: `tests/spells/ChoGath_feast.test.ts` joined — it pins the
+    // champion-meal/minion-snack split that stopped creep waves out-growing
+    // Trái Tim Khổng Thần.
+    //
     // 124, not 123: `tests/spells/Malphite_R.test.ts`, which holds the charge
     // to the promise on its own card. It is here rather than in core because
     // the thing that was breaking it is a *pack* shape — a displacement is a
     // `Dash` on the victim, and every pull, knockback and throw in every pack
     // is built that way — while the rule that fixes it (`Dash.unstoppable`) is
     // core's. Core owns the rule, this owns the ability that asked for it.
-    expect(files.length).toBe(124);
+    expect(files.length).toBe(125);
   });
 
   it('reaches core only through @moba2d/core/content/types, /testing, /testing/spell, or /testing/spells', () => {

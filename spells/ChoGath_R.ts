@@ -15,9 +15,19 @@ const dmg = api.text.dmg;
 
 
 /** One Feast stack. Kept as constants so the heal matches the max health gained. */
-export const SIZE_PER_STACK = 6;
+export const SIZE_PER_STACK = 2;
 
-export const MAX_HEALTH_PER_STACK = 75;
+export const MAX_HEALTH_PER_STACK = 10;
+
+/**
+ * A champion is a meal; a minion is a snack. One flat +75 per feast, minion
+ * or not, out-grew Trái Tim Khổng Thần twenty-five-fold off creep waves
+ * alone (reported: "gặm lính 1 hồi là lên hơn 300 máu") — so a devoured
+ * CHAMPION is worth this many stacks and everything else exactly one.
+ * `killCredit === 'champion'` is the codebase's own answer to "does this
+ * count as a champion" (a Pet deliberately does not).
+ */
+export const CHAMPION_FEAST_STACKS = 6;
 
 
 export default class ChoGath_R extends Spell implements ExecuteSpell {
@@ -37,8 +47,10 @@ export default class ChoGath_R extends Spell implements ExecuteSpell {
     `Ngoạm một kẻ địch trong phạm vi <span>200px</span> — <span class="buff">ưu tiên kẻ sẽ chết vì cú ngoạm này</span>, ` +
     `nếu không có thì kẻ gần nhất — gây ${dmg(40, 'TRUE')}. ` +
     `Chỉ khi <span class="buff">ăn tươi nuốt sống</span> (hạ gục bằng chiêu này), Cho'Gath mới ` +
-    `<span class="buff">To Lên Vĩnh Viễn</span>: cộng dồn <span>+${SIZE_PER_STACK} kích thước</span> ` +
-    `(tối đa <span>${MAX_UNIT_SIZE}</span>) và <span class="buff">+${MAX_HEALTH_PER_STACK} máu tối đa</span> (không giới hạn)`;
+    `<span class="buff">To Lên Vĩnh Viễn</span>: mỗi tầng <span>+${SIZE_PER_STACK} kích thước</span> ` +
+    `(tối đa <span>${MAX_UNIT_SIZE}</span>) và <span class="buff">+${MAX_HEALTH_PER_STACK} máu tối đa</span>, không giới hạn tầng — ` +
+    `lính/quái cho <span class="buff">1 tầng</span>, nuốt <span class="buff">tướng</span> cho hẳn ` +
+    `<span class="buff">${CHAMPION_FEAST_STACKS} tầng</span>`;
   coolDown = 10000;
   manaCost = 50;
 
@@ -123,9 +135,12 @@ export default class ChoGath_R extends Spell implements ExecuteSpell {
     const devoured = wasAlive && target.isDead;
 
     if (devoured) {
-      this.owner.addBuff(createGrowthStack(this.owner, this.growthDuration, this.image));
+      const stacks = target.killCredit === 'champion' ? CHAMPION_FEAST_STACKS : 1;
+      for (let i = 0; i < stacks; i++) {
+        this.owner.addBuff(createGrowthStack(this.owner, this.growthDuration, this.image));
+      }
       // the extra max health is only worth something if it comes filled in
-      this.owner.takeHeal(MAX_HEALTH_PER_STACK, this.owner);
+      this.owner.takeHeal(MAX_HEALTH_PER_STACK * stacks, this.owner);
     }
 
     const obj = new ChoGath_R_Object(this.owner);
