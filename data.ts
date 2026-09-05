@@ -1871,7 +1871,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     description:
       'Nội tại: mỗi <span class="time">10 giây</span>, đòn đánh kế tiếp lên tướng địch gây thêm ' +
       '<span class="damage physical" data-flat="none">2 + 1% máu tối đa</span> sát thương vật lý và tăng vĩnh viễn ' +
-      '<span class="buff">2</span> máu tối đa (tối đa <span class="buff">20</span>).',
+      '<span class="buff">3</span> máu tối đa — cộng dồn vô hạn, giữ qua cái chết, chỉ mất khi bán.',
     stats: { maxHealth: 75 },
     passive: 'Item_Heartsteel',
   },

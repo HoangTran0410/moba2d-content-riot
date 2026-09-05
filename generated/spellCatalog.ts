@@ -894,7 +894,7 @@ export const spellCatalog = {
   },
   "Item_Heartsteel": {
     name: "Trái Tim Khổng Thần (Item_Heartsteel)",
-    description: "Nội tại: mỗi 10 giây, đòn đánh kế tiếp lên tướng địch gây thêm 2 + 1% máu tối đa sát thương vật lý và tăng vĩnh viễn 2 máu tối đa (tối đa 20)",
+    description: "Nội tại: mỗi 10 giây, đòn đánh kế tiếp lên tướng địch gây thêm 2 + 1% máu tối đa sát thương vật lý và tăng vĩnh viễn 3 máu tối đa — cộng dồn vô hạn, giữ qua cái chết, chỉ mất khi bán",
     iconKey: "item_heartsteel",
     coolDownMs: 0,
     manaCost: 0,

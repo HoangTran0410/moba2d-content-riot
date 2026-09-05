@@ -45,6 +45,11 @@ import {
 } from '../spells/Item_Runaan';
 import { CleaveBuff } from '../spells/Item_Tiamat';
 import { Item_DuskAndDawn_Twin } from '../spells/Item_DuskAndDawn';
+import Item_Heartsteel, {
+  Item_Heartsteel_Meter,
+  HEARTSTEEL_CHARGE_MS,
+  HEARTSTEEL_HP_PER_PROC,
+} from '../spells/Item_Heartsteel';
 import { Item_Nashor_Fang, NASHOR_BASE_AD_RATIO } from '../spells/Item_Nashor';
 
 const api = buildTestApi();
@@ -593,5 +598,73 @@ describe('which item buffs the HUD shows', () => {
       const buff = new Stateful(0, w.attacker, w.attacker);
       expect(buff.hudVisible, Stateful.name).toBe(true);
     }
+  });
+});
+
+describe('Item_Heartsteel — the heart that never stops growing', () => {
+  // The meter only cashes on champions — the fixture's generic victim is
+  // deliberately not one, so this suite builds a real Champion to hit.
+  const championVictim = (w: World): Unit => {
+    const victim = new (api.units.Champion)({
+      game: w.game,
+      position: createVector(50, 0),
+      teamId: 'red',
+    } as never) as unknown as Unit;
+    victim.stats.maxHealth.baseValue = 500;
+    victim.stats.health.baseValue = 500;
+    return victim;
+  };
+
+  const meterOn = (attacker: Unit): Item_Heartsteel_Meter => {
+    pressSpell(new Item_Heartsteel(attacker));
+    return attacker.buffs.find(
+      buff => buff instanceof Item_Heartsteel_Meter && !buff.toRemove
+    ) as Item_Heartsteel_Meter;
+  };
+
+  const grownHealth = (attacker: Unit): number =>
+    attacker.stats.maxHealth.value - attacker.stats.maxHealth.baseValue;
+
+  /** Charges the meter and lands the empowered swing. */
+  const chargedSwing = (w: World, victim: Unit): void => {
+    for (const buff of [...w.attacker.buffs]) buff.update();
+    swing({ attacker: w.attacker, victim });
+    vi.stubGlobal('deltaTime', HEARTSTEEL_CHARGE_MS + FRAME_MS);
+    for (const buff of [...w.attacker.buffs]) buff.update();
+    vi.stubGlobal('deltaTime', FRAME_MS);
+  };
+
+  it('stacks past the old ceiling — the cap is gone by the owner’s call', () => {
+    const w = world();
+    meterOn(w.attacker);
+
+    const victim = championVictim(w);
+    const procs = 12; // 12 * 3 = 36, past the +20 the first version stopped at
+    for (let i = 0; i < procs; i++) chargedSwing(w, victim);
+
+    expect(grownHealth(w.attacker)).toBe(procs * HEARTSTEEL_HP_PER_PROC);
+  });
+
+  it('keeps its stacks through a real death, and gives them up only on a sale', () => {
+    const w = world();
+    const ga = new Item_Heartsteel(w.attacker);
+    pressSpell(ga);
+    const victim = championVictim(w);
+    chargedSwing(w, victim);
+    chargedSwing(w, victim);
+    expect(grownHealth(w.attacker)).toBe(2 * HEARTSTEEL_HP_PER_PROC);
+
+    // Death clears every buff; the respawn presses the same passive again.
+    w.attacker.takeDamage(10_000, w.victim, 'TRUE', 'test');
+    expect(w.attacker.isDead).toBe(true);
+    (w.attacker as { deathData: unknown }).deathData = null;
+    w.attacker.stats.health.baseValue = 200;
+    pressSpell(ga);
+
+    expect(grownHealth(w.attacker)).toBe(2 * HEARTSTEEL_HP_PER_PROC);
+    const meter = w.attacker.buffs.find(
+      buff => buff instanceof Item_Heartsteel_Meter && !buff.toRemove
+    ) as Item_Heartsteel_Meter;
+    expect(meter.procs).toBe(2);
   });
 });

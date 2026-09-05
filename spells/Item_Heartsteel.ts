@@ -18,10 +18,13 @@ const Champion = api.units.Champion;
  * turns the item from Warmog minus regen into the biggest health stick in the
  * shop, and a tank has a reason to be in the enemy's face between fights.
  *
- * The cap is load-bearing, not garnish. Permanent growth with no ceiling is a
- * snowball stat — the fed tank gets harder to kill *because* it is winning —
- * and this game's whole economy is three items and ten minutes. +20 on a
- * 100-point pool is a fourth Hồng Ngọc earned by playing, not a second bar.
+ * Uncapped, by the owner's call (2026-09-06). The first version capped the
+ * growth at +20 on the snowball argument; the owner overruled it for the
+ * practice room — the grind IS the fun, and a long session deserves a second
+ * bar. The other half of "vĩnh viễn" landed with it: the stacks now survive
+ * their wearer's death (parked per champion, re-issued by the respawn's
+ * fresh meter), and are given up only by selling the item — the same trade
+ * the source game makes.
  *
  * One counted `StatAmp` re-issued per proc rather than N stacked buffs, the
  * exact shape of Giáp Thiên Nhiên's surge: `REPLACE_EXISTING` on a fixed
@@ -42,9 +45,8 @@ export const HEARTSTEEL_CHARGE_MS = 10_000;
 export const HEARTSTEEL_BASE_DAMAGE = 2;
 export const HEARTSTEEL_MAX_HEALTH_RATIO = 0.01;
 
-/** Permanent maximum health per proc, and the ceiling on procs. */
-export const HEARTSTEEL_HP_PER_PROC = 2;
-export const HEARTSTEEL_MAX_PROCS = 10;
+/** Permanent maximum health per proc. No ceiling — see the header. */
+export const HEARTSTEEL_HP_PER_PROC = 3;
 
 export const HEARTSTEEL_STACK_ID = 'item_heartsteel';
 export const HEARTSTEEL_GROWTH_STACK_ID = 'item_heartsteel_growth';
@@ -56,6 +58,13 @@ export const HEARTSTEEL_FLASH_MS = 240;
 // Colossus crimson: the item art's own deep red, distinct from the spellblade
 // golds and blues beside it in a fight.
 const COLOSSUS: [number, number, number] = [235, 90, 100];
+
+/**
+ * Stacks surviving their wearer's death — the meter buff is cleared with the
+ * body and the respawn presses a fresh one, which used to arrive at zero.
+ * Selling is the one way out: the growth belongs to the item.
+ */
+const PROCS_BY_UNIT = new WeakMap<object, number>();
 
 export class Item_Heartsteel_Meter extends Buff {
   name = 'Trái Tim Khổng Thần';
@@ -69,8 +78,35 @@ export class Item_Heartsteel_Meter extends Buff {
   /** The swing is armed once the clock reaches this. Armed at buy. */
   private readyAtMs = 0;
 
+  onCreate(): void {
+    const kept = PROCS_BY_UNIT.get(this.targetUnit) ?? 0;
+    if (kept > 0) {
+      this.procs = kept;
+      this.issueGrowth();
+    }
+  }
+
+  onDeactivate(): void {
+    // Dying keeps what the heart grew; selling gives it up — on a sale the
+    // wearer is alive when the item strips its buffs, on a death they are not.
+    if (this.targetUnit.isDead) PROCS_BY_UNIT.set(this.targetUnit, this.procs);
+    else PROCS_BY_UNIT.delete(this.targetUnit);
+  }
+
   onUpdate(): void {
     this.nowMs += deltaTime;
+  }
+
+  /** One counted StatAmp, re-issued at the current proc count — see header. */
+  private issueGrowth(): void {
+    const growth = new StatAmp(0, this.targetUnit, this.targetUnit);
+    growth.bonuses = { maxHealth: { flatBonus: HEARTSTEEL_HP_PER_PROC * this.procs } };
+    growth.name = 'Trái Tim Khổng Thần';
+    growth.buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
+    growth.stackId = HEARTSTEEL_GROWTH_STACK_ID;
+    growth.image = this.image;
+    growth.sourceSpell = this.sourceSpell;
+    this.targetUnit.addBuff(growth);
   }
 
   onHit(hit: OnHitEvent): void {
@@ -89,17 +125,8 @@ export class Item_Heartsteel_Meter extends Buff {
       'Trái Tim Khổng Thần'
     );
 
-    if (this.procs < HEARTSTEEL_MAX_PROCS) {
-      this.procs += 1;
-      const growth = new StatAmp(0, this.targetUnit, this.targetUnit);
-      growth.bonuses = { maxHealth: { flatBonus: HEARTSTEEL_HP_PER_PROC * this.procs } };
-      growth.name = 'Trái Tim Khổng Thần';
-      growth.buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
-      growth.stackId = HEARTSTEEL_GROWTH_STACK_ID;
-      growth.image = this.image;
-      growth.sourceSpell = this.sourceSpell;
-      this.targetUnit.addBuff(growth);
-    }
+    this.procs += 1;
+    this.issueGrowth();
 
     const flash = new AoePulse(this.targetUnit);
     flash.position = hit.victim.position.copy();
@@ -137,8 +164,8 @@ export default class Item_Heartsteel extends Spell {
   description =
     `Nội tại: mỗi ${secs(HEARTSTEEL_CHARGE_MS)} giây, đòn đánh kế tiếp lên tướng địch gây thêm ` +
     `${HEARTSTEEL_BASE_DAMAGE} + ${pct(HEARTSTEEL_MAX_HEALTH_RATIO)}% máu tối đa sát thương vật lý ` +
-    `và tăng vĩnh viễn ${HEARTSTEEL_HP_PER_PROC} máu ` +
-    `tối đa (tối đa ${HEARTSTEEL_HP_PER_PROC * HEARTSTEEL_MAX_PROCS})`;
+    `và tăng vĩnh viễn ${HEARTSTEEL_HP_PER_PROC} máu tối đa — cộng dồn vô hạn, ` +
+    `giữ qua cái chết, chỉ mất khi bán`;
   coolDown = 0;
   manaCost = 0;
 
