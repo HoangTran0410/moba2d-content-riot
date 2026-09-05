@@ -137,6 +137,7 @@ const PINNED_MANA_LINES = new Set([
   "spells/Malphite_Q.test.ts:x1:owner.stats.mana.baseValue = 500;",
   "spells/Malphite_Q.test.ts:x1:expect(owner.stats.mana.value).toBe(100);",
   "spells/Malphite_Q.test.ts:x1:result.stats.mana.baseValue = 100;",
+  "spells/Malphite_R.test.ts:x1:result.stats.mana.baseValue = 500;",
   "spells/Malphite_W.test.ts:x1:result.stats.mana.baseValue = 100;",
   "spells/Malzahar.test.ts:x1:const manaBefore = malzahar.stats.mana.value;",
   "spells/Malzahar.test.ts:x1:expect(malzahar.stats.mana.value - manaBefore).toBe(MANA_ON_KILL);",

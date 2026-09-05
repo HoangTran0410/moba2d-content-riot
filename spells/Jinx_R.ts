@@ -360,6 +360,23 @@ export class Jinx_R_Smoke extends SpellObject {
     this.game.objectManager.addObject(this.particles);
   }
 
+  /**
+   * This object paints nothing — the child `ParticleSystem` owns every puff and
+   * reports its own box off them, which is the one the draw pass actually
+   * culls against. What is left here is a coordinator that only ticks, and a
+   * ticking object is never culled.
+   *
+   * It still owes the quadtree a box rather than inheriting the zero-area
+   * default, because `check-seams` is right to refuse a `SpellObject` that
+   * silently claims no area: the next person to give this class a `draw()`
+   * would inherit an invisible effect and no warning. One rocket's width, on
+   * its own centre, is the honest answer for something that occupies exactly
+   * where it is and paints nothing.
+   */
+  getDisplayBoundingBox() {
+    return this.squareDisplayBoundingBox(SMOKE_RADIUS * 2);
+  }
+
   private buildParticles() {
     const system = new ParticleSystem({
       owner: this,
