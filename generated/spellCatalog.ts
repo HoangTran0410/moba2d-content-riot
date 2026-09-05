@@ -1630,7 +1630,7 @@ export const spellCatalog = {
   },
   "Nasus_Q": {
     name: "Quyền Trượng Linh Hồn (Nasus_Q)",
-    description: "Chém một kẻ địch trong phạm vi <span>150px</span> — <span class=\"buff\">ưu tiên kẻ sẽ chết vì nhát này</span>, nếu không có thì kẻ gần nhất — gây <span class=\"damage physical\" data-base=\"25\">25 sát thương vật lý</span> <i>(0 cộng dồn)</i>. Mỗi lần <span class=\"buff\">hạ gục</span> bằng chiêu này, sát thương của nó <span class=\"buff\">vĩnh viễn tăng thêm 5</span>",
+    description: "Chém một kẻ địch trong phạm vi <span>150px</span> — <span class=\"buff\">ưu tiên kẻ sẽ chết vì nhát này</span>, nếu không có thì kẻ gần nhất — gây <span class=\"damage physical\" data-base=\"25\">25 sát thương vật lý</span> <i>(0 cộng dồn)</i>. Mỗi lần <span class=\"buff\">hạ gục</span> bằng chiêu này, sát thương của nó <span class=\"buff\">vĩnh viễn tăng thêm 2</span> — hạ <span class=\"buff\">tướng</span> được hẳn <span class=\"buff\">12</span>",
     iconKey: "spell_nasus_q",
     coolDownMs: 3000,
     manaCost: 10,

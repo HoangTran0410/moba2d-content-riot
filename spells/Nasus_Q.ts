@@ -16,7 +16,15 @@ export const RANGE = 150;
 
 export const BASE_DAMAGE = 25;
 
-export const DAMAGE_PER_STACK = 5;
+export const DAMAGE_PER_STACK = 2;
+
+/**
+ * A champion is a meal, a minion is a snack — the same split Cho'Gath's
+ * Feast wears, for the same report: an uncapped +5 per last hit off a creep
+ * wave out-ran every item in the shop. A slain CHAMPION banks this many
+ * stacks; everything else banks one. `killCredit` tells them apart.
+ */
+export const CHAMPION_SLAY_STACKS = 6;
 
 
 const describe = (stacks: number): string =>
@@ -24,7 +32,10 @@ const describe = (stacks: number): string =>
   `<span class="buff">ưu tiên kẻ sẽ chết vì nhát này</span>, nếu không có thì kẻ gần nhất — gây ` +
   `${dmg(BASE_DAMAGE + stacks * DAMAGE_PER_STACK, 'PHYSICAL')}` +
   ` <i>(${stacks} cộng dồn)</i>. Mỗi lần <span class="buff">hạ gục</span> bằng chiêu này, ` +
-  `sát thương của nó <span class="buff">vĩnh viễn tăng thêm ${DAMAGE_PER_STACK}</span>`;
+  `sát thương của nó <span class="buff">vĩnh viễn tăng thêm ${DAMAGE_PER_STACK}</span> — ` +
+  `hạ <span class="buff">tướng</span> được hẳn <span class="buff">${
+    DAMAGE_PER_STACK * CHAMPION_SLAY_STACKS
+  }</span>`;
 
 
 export default class Nasus_Q extends Spell implements ExecuteSpell {
@@ -88,7 +99,7 @@ export default class Nasus_Q extends Spell implements ExecuteSpell {
 
     const slain = wasAlive && target.isDead;
     if (slain) {
-      this.stacks++;
+      this.stacks += target.killCredit === 'champion' ? CHAMPION_SLAY_STACKS : 1;
       this.description = describe(this.stacks);
     }
 

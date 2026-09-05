@@ -12,6 +12,7 @@ import ChoGath_R, {
   CHAMPION_FEAST_STACKS,
   MAX_HEALTH_PER_STACK,
 } from '../../spells/ChoGath_R';
+import Nasus_Q, { CHAMPION_SLAY_STACKS as NASUS_CHAMPION_SLAY_STACKS } from '../../spells/Nasus_Q';
 
 installSketchMathGlobals();
 installSpellObjectGlobals();
@@ -75,5 +76,40 @@ describe("Cho'Gath grows by what he actually ate", () => {
 
     expect(victim.isDead).toBe(false);
     expect(cho.stats.maxHealth.value).toBe(before);
+  });
+});
+
+/**
+ * Nasus wears the identical split, caught by the identical report: +5 per
+ * last hit, uncapped, farmed a creep wave into +100 damage a minute.
+ */
+describe('Nasus banks by what the strike actually slew', () => {
+  let game: TestGame;
+
+  beforeEach(() => {
+    vi.stubGlobal('deltaTime', 16);
+    game = createGame();
+  });
+
+  const slay = (killCredit: 'minion' | 'champion') => {
+    const nasus = createUnit(game, 0, 'blue');
+    const victim = createUnit(game, 50, 'red');
+    victim.stats.maxHealth.baseValue = 30;
+    victim.stats.health.baseValue = 5;
+    victim.stats.armor.baseValue = 0;
+    (victim as { killCredit: string }).killCredit = killCredit;
+
+    const spell = new Nasus_Q(nasus);
+    vi.spyOn(spell, 'findVictim').mockReturnValue(victim);
+    pressSpell(spell);
+    return spell;
+  };
+
+  it('banks one stack off a minion', () => {
+    expect(slay('minion').stacks).toBe(1);
+  });
+
+  it('banks the whole meal off a champion', () => {
+    expect(slay('champion').stacks).toBe(NASUS_CHAMPION_SLAY_STACKS);
   });
 });
