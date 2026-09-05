@@ -13,6 +13,11 @@ import Item_Steraks, {
   STERAK_SHIELD_PERCENT,
   STERAK_THRESHOLD,
 } from '../../spells/Item_Steraks';
+import Item_GuardianAngel, {
+  Item_GuardianAngel_Revival,
+  GUARDIAN_REVIVE_FRACTION,
+  GUARDIAN_REVIVE_MS,
+} from '../../spells/Item_GuardianAngel';
 import Item_FrozenHeart, {
   FROZEN_HEART_RADIUS,
   FROZEN_HEART_SLOW,
@@ -150,6 +155,73 @@ describe('the three shapes this shop did not have', () => {
 
       expect(enemy.buffs.filter(buff => !buff.toRemove)).toHaveLength(1);
       expect(enemy.stats.attackSpeed.value).toBeCloseTo(1 - FROZEN_HEART_SLOW, 6);
+    });
+  });
+  /**
+   * The revival looks like a resurrection from the outside and is nothing of
+   * the kind inside: the wearer never dies. The wings clamp the killing blow
+   * to leave 1 health, then a Stasis-shaped shell makes the body untargetable
+   * and immune while the bar fills toward GUARDIAN_REVIVE_FRACTION of
+   * maximum, and then the champion simply resumes.
+   */
+  describe('Item_GuardianAngel', () => {
+    const holderOf = () => {
+      const holder = createUnit(game, 0);
+      holder.stats.maxHealth.baseValue = 200;
+      holder.stats.health.baseValue = 200;
+      return holder;
+    };
+
+    const lethal = (holder: ReturnType<typeof holderOf>) => {
+      const attacker = createUnit(game, 120, 'red');
+      pressSpell(new Item_GuardianAngel(holder));
+      holder.takeDamage(500, attacker, 'PHYSICAL');
+      // The revival arms in onDamageTaken and lands on the next buff pass.
+      tick(holder, 16);
+      return attacker;
+    };
+
+    it('leaves the wearer at 1 health inside the shell, never dead', () => {
+      const holder = holderOf();
+      lethal(holder);
+
+      expect(holder.isDead).toBe(false);
+      expect(holder.stats.health.baseValue).toBeGreaterThanOrEqual(1);
+      const revival = holder.buffs.find(buff => buff instanceof Item_GuardianAngel_Revival);
+      expect(revival, 'no revival shell went up').toBeTruthy();
+    });
+
+    it('cannot be targeted or damaged while the shell holds', () => {
+      const holder = holderOf();
+      const attacker = lethal(holder);
+
+      expect(holder.status & api.enums.StatusFlags.Targetable).toBe(0);
+      const before = holder.stats.health.baseValue;
+      holder.takeDamage(50, attacker, 'TRUE');
+      expect(holder.stats.health.baseValue).toBe(before);
+    });
+
+    it('fills to its share of maximum health, then hands the body back', () => {
+      const holder = holderOf();
+      lethal(holder);
+
+      tick(holder, GUARDIAN_REVIVE_MS + 64);
+
+      expect(holder.stats.health.baseValue).toBeCloseTo(200 * GUARDIAN_REVIVE_FRACTION, 0);
+      expect(
+        holder.buffs.filter(buff => buff instanceof Item_GuardianAngel_Revival && !buff.toRemove)
+      ).toHaveLength(0);
+      expect(holder.status & api.enums.StatusFlags.Targetable).not.toBe(0);
+    });
+
+    it('does not raise the shell a second time while the wings are re-forming', () => {
+      const holder = holderOf();
+      const attacker = lethal(holder);
+      tick(holder, GUARDIAN_REVIVE_MS + 64);
+
+      holder.takeDamage(500, attacker, 'PHYSICAL');
+
+      expect(holder.isDead).toBe(true);
     });
   });
 });

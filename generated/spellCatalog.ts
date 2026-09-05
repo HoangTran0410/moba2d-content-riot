@@ -878,7 +878,7 @@ export const spellCatalog = {
   },
   "Item_GuardianAngel": {
     name: "Giáp Thiên Thần (Item_GuardianAngel)",
-    description: "Nội tại: đòn lẽ ra kết liễu bạn để lại 1 máu thay vì giết (hồi lại sau 50 giây)",
+    description: "Nội tại: đòn lẽ ra kết liễu bạn để lại 1 máu, rồi bọc bạn trong <span class=\"time\">3 giây</span> hồi sinh — không thể bị chọn làm mục tiêu, miễn mọi sát thương, hồi máu dần tới <span class=\"buff\">30% máu tối đa</span> — nhưng thực ra bạn chưa từng chết (hồi lại sau 50 giây)",
     iconKey: "item_guardian_angel",
     coolDownMs: 0,
     manaCost: 0,
