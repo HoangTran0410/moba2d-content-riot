@@ -225,6 +225,8 @@ export function createPowerStack(
   buff.name = 'Sức Mạnh Hắc Ám';
   buff.buffAddType = BuffAddType.STACKS_AND_CONTINUE;
   buff.maxStacks = options.maxStacks;
+  // "Vĩnh viễn" means through death too — same call as Cho'Gath's Feast.
+  buff.survivesDeath = true;
   buff.bonuses = { maxMana: { baseBonus: options.manaPerStack } };
   return buff;
 }

@@ -206,6 +206,8 @@ export class ChoGath_R_Growth extends StatAmp {
   name = 'Ăn Thịt';
   buffAddType = BuffAddType.STACKS_AND_CONTINUE;
   maxStacks = 99;
+  /** "Vĩnh viễn" means through death too — the modern source game keeps every Feast. */
+  survivesDeath = true;
 
   /**
    * Permanent and uniform — no stack has its own expiry or source, every

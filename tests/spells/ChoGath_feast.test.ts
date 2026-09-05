@@ -113,3 +113,32 @@ describe('Nasus banks by what the strike actually slew', () => {
     expect(slay('champion').stacks).toBe(NASUS_CHAMPION_SLAY_STACKS);
   });
 });
+
+describe('the growth is truly permanent', () => {
+  let game: TestGame;
+
+  beforeEach(() => {
+    vi.stubGlobal('deltaTime', 16);
+    game = createGame();
+  });
+
+  it("keeps Cho'Gath's stacks through his own death", () => {
+    const cho = createUnit(game, 0, 'blue');
+    const victim = createUnit(game, 50, 'red');
+    victim.stats.maxHealth.baseValue = 30;
+    victim.stats.health.baseValue = 5;
+    (victim as { killCredit: string }).killCredit = 'champion';
+
+    const spell = new ChoGath_R(cho);
+    vi.spyOn(spell, 'findVictim').mockReturnValue(victim);
+    pressSpell(spell);
+    const grownMax = cho.stats.maxHealth.value;
+
+    const killer = createUnit(game, 80, 'red');
+    cho.takeDamage(100_000, killer, 'TRUE');
+
+    expect(cho.isDead).toBe(true);
+    expect(cho.stats.maxHealth.value).toBe(grownMax);
+    expect(spell.stackCount).toBe(CHAMPION_FEAST_STACKS);
+  });
+});
