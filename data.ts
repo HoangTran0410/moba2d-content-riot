@@ -1728,6 +1728,190 @@ const itemEntries = (): Record<string, ItemDef> => ({
     stats: { armor: 45, maxMana: 25, abilityHaste: 15 },
     passive: 'Item_FrozenHeart',
   },
+
+  // ---- The tank shelf --------------------------------------------------
+  // 2026-09-05, and the reason is one sentence of feedback: the shop sold
+  // Rabadon, Kiếm Tai Ương and Vĩnh Sương, and nothing a front line could
+  // hold them off with. Đồ kháng phép first — that was the complaint — then
+  // giáp/máu, then the two bruiser answers (Chùy Gai, Chùy Bạch Ngân) so an
+  // AD champion also has somewhere to put gold against a mage.
+  //
+  // Four new components so the shelf has rungs: Giáp Lưới and Áo Choàng Bạc
+  // are Giáp Lụa/Áo Vải one size up, Đai Khổng Lồ is Hồng Ngọc's, and Áo
+  // Choàng Ám Ảnh is the health-plus-kháng-phép rung the whole magic-resist
+  // branch climbs through. Every number is this economy's (100-point pool,
+  // three-item build), priced against the rows above: ~17đ vàng một điểm
+  // giáp, ~18-19 một điểm kháng phép, ~16 một điểm máu.
+  chain_vest: {
+    id: 'chain_vest',
+    name: 'Giáp Lưới',
+    icon: 'item_chain_vest',
+    cost: 700,
+    description: 'Giảm khoảng <span class="buff">29%</span> sát thương vật lý nhận vào.',
+    stats: { armor: 40 },
+  },
+  negatron_cloak: {
+    id: 'negatron_cloak',
+    name: 'Áo Choàng Bạc',
+    icon: 'item_negatron_cloak',
+    cost: 750,
+    description: 'Giảm khoảng <span class="buff">29%</span> sát thương phép nhận vào.',
+    stats: { magicResist: 40 },
+  },
+  giants_belt: {
+    id: 'giants_belt',
+    name: 'Đai Khổng Lồ',
+    icon: 'item_giants_belt',
+    cost: 700,
+    stats: { maxHealth: 45 },
+  },
+  spectres_cowl: {
+    id: 'spectres_cowl',
+    name: 'Áo Choàng Ám Ảnh',
+    icon: 'item_spectres_cowl',
+    cost: 850,
+    stats: { maxHealth: 30, magicResist: 25, healthRegen: 0.02 },
+  },
+  force_of_nature: {
+    id: 'force_of_nature',
+    name: 'Giáp Thiên Nhiên',
+    icon: 'item_force_of_nature',
+    cost: 1750,
+    buildsFrom: ['negatron_cloak', 'giants_belt'],
+    description:
+      'Nội tại: trúng sát thương phép cho <span class="buff">1</span> điểm cộng dồn trong ' +
+      '<span class="time">6 giây</span> (tối đa <span class="buff">5</span>): mỗi điểm ' +
+      '<span class="buff">+3</span> kháng phép và <span class="buff">+2%</span> tốc chạy.',
+    stats: { maxHealth: 55, magicResist: 45, speedPercent: 0.05 },
+    passive: 'Item_ForceOfNature',
+  },
+  kaenic_rookern: {
+    id: 'kaenic_rookern',
+    name: 'Vòng Sắt Cổ Tự',
+    icon: 'item_kaenic_rookern',
+    cost: 1600,
+    buildsFrom: ['spectres_cowl', 'ruby_crystal'],
+    description:
+      'Nội tại: sau <span class="time">8 giây</span> không nhận sát thương, nhận lá chắn phép bằng ' +
+      '<span class="buff">20%</span> máu tối đa — chỉ chặn sát thương phép, giữ đến khi vỡ.',
+    stats: { maxHealth: 60, magicResist: 30, healthRegen: 0.03 },
+    passive: 'Item_KaenicRookern',
+  },
+  banshees_veil: {
+    id: 'banshees_veil',
+    name: 'Dây Chuyền Chữ Thập',
+    icon: 'item_banshees_veil',
+    cost: 1500,
+    buildsFrom: ['negatron_cloak', 'amplifying_tome'],
+    description:
+      'Nội tại: chặn hoàn toàn một lần sát thương phép; hồi lại sau <span class="time">12 giây</span>.',
+    stats: { magicResist: 40, abilityPower: 1 },
+    passive: 'Item_Banshee',
+  },
+  gargoyle_stoneplate: {
+    id: 'gargoyle_stoneplate',
+    name: 'Thú Tượng Thạch Giáp',
+    icon: 'item_gargoyle_stoneplate',
+    cost: 1750,
+    buildsFrom: ['chain_vest', 'negatron_cloak'],
+    description:
+      'Kích hoạt: hoá đá — tăng <span class="buff">25</span> giáp và <span class="buff">25</span> ' +
+      'kháng phép trong <span class="time">4 giây</span>.',
+    stats: { armor: 40, magicResist: 40 },
+    active: 'Item_Gargoyle',
+  },
+  hollow_radiance: {
+    id: 'hollow_radiance',
+    name: 'Áo Choàng Hắc Quang',
+    icon: 'item_hollow_radiance',
+    cost: 1450,
+    buildsFrom: ['null_magic_mantle', 'giants_belt'],
+    description:
+      'Nội tại: thiêu đốt kẻ địch đứng gần, gây <span class="damage magic" data-flat="none">2 sát thương phép</span> mỗi giây.',
+    stats: { maxHealth: 50, magicResist: 28 },
+    passive: 'Item_Immolate',
+  },
+  randuins_omen: {
+    id: 'randuins_omen',
+    name: 'Khiên Băng Randuin',
+    icon: 'item_randuins_omen',
+    cost: 1700,
+    buildsFrom: ['chain_vest', 'giants_belt'],
+    description:
+      'Kích hoạt: toả khí lạnh làm chậm <span class="buff">35%</span> các tướng địch xung quanh ' +
+      'trong <span class="time">2 giây</span>.',
+    stats: { armor: 45, maxHealth: 55 },
+    active: 'Item_Randuin',
+  },
+  sunfire_aegis: {
+    id: 'sunfire_aegis',
+    name: 'Khiên Thái Dương',
+    icon: 'item_sunfire_aegis',
+    cost: 1500,
+    buildsFrom: ['chain_vest', 'ruby_crystal'],
+    description:
+      'Nội tại: thiêu đốt kẻ địch đứng gần, gây <span class="damage magic" data-flat="none">2 sát thương phép</span> mỗi giây.',
+    stats: { armor: 42, maxHealth: 40 },
+    passive: 'Item_Immolate',
+  },
+  heartsteel: {
+    id: 'heartsteel',
+    name: 'Trái Tim Khổng Thần',
+    icon: 'item_heartsteel',
+    cost: 1500,
+    buildsFrom: ['giants_belt', 'ruby_crystal'],
+    description:
+      'Nội tại: mỗi <span class="time">10 giây</span>, đòn đánh kế tiếp lên tướng địch gây thêm ' +
+      '<span class="damage physical" data-flat="none">5 sát thương vật lý</span> và tăng vĩnh viễn ' +
+      '<span class="buff">2</span> máu tối đa (tối đa <span class="buff">20</span>).',
+    stats: { maxHealth: 75 },
+    passive: 'Item_Heartsteel',
+  },
+  iceborn_gauntlet: {
+    id: 'iceborn_gauntlet',
+    name: 'Găng Tay Băng Giá',
+    icon: 'item_iceborn_gauntlet',
+    cost: 1550,
+    buildsFrom: ['sheen', 'chain_vest'],
+    description:
+      'Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm <span class="buff">50%</span> công cơ bản ' +
+      'và làm chậm <span class="buff">25%</span> các kẻ địch quanh mục tiêu trong <span class="time">1.5 giây</span>.',
+    stats: { armor: 42, maxMana: 20 },
+    passive: 'Item_Iceborn',
+  },
+  maw_of_malmortius: {
+    id: 'maw_of_malmortius',
+    name: 'Chùy Gai Malmortius',
+    icon: 'item_maw_of_malmortius',
+    cost: 1500,
+    buildsFrom: ['long_sword', 'negatron_cloak'],
+    description:
+      'Nội tại: khi sát thương phép đưa máu xuống dưới <span class="buff">35%</span>, nhận lá chắn phép ' +
+      '<span class="buff">25</span> trong <span class="time">4 giây</span>; hồi lại sau <span class="time">30 giây</span>.',
+    stats: { attackDamage: 12, magicResist: 40 },
+    passive: 'Item_Maw',
+  },
+  silvermere_dawn: {
+    id: 'silvermere_dawn',
+    name: 'Chùy Bạch Ngân',
+    icon: 'item_silvermere_dawn',
+    cost: 1850,
+    buildsFrom: ['quicksilver_sash', 'long_sword'],
+    description: 'Kích hoạt: gỡ bỏ mọi hiệu ứng khống chế đang chịu.',
+    stats: { attackDamage: 14, magicResist: 45, tenacity: 0.3 },
+    active: 'Item_Quicksilver',
+  },
+  redemption: {
+    id: 'redemption',
+    name: 'Dây Chuyền Chuộc Tội',
+    icon: 'item_redemption',
+    cost: 1400,
+    buildsFrom: ['spectres_cowl'],
+    description:
+      'Kích hoạt: hồi <span class="heal" data-flat="none">20</span> máu cho bản thân và các đồng minh xung quanh.',
+    stats: { maxHealth: 40, magicResist: 28, healthRegen: 0.03 },
+    active: 'Item_Redemption',
+  },
 });
 
 /**

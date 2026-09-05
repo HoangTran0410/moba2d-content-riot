@@ -152,6 +152,27 @@ export const ITEMS = [
   // The fourth counter (core 1.15): shields granted *after* the hit are worth
   // less. Renekton's W already strips what is up; this punishes the re-cast.
   { local: 'serpents_fang', riot: 6695 },
+  // The tank shelf, 2026-09-05: the shop sold the ability-power ceiling
+  // (Rabadon, Kiếm Tai Ương, Vĩnh Sương) and nothing a front line could hold
+  // it off with — four components and twelve finished items, magic resist
+  // first because that was the complaint. Ids checked against 16.16.1's own
+  // item.json (Kaenic Rookern is 2504 there, not a guess).
+  { local: 'chain_vest', riot: 1031 },
+  { local: 'negatron_cloak', riot: 1057 },
+  { local: 'giants_belt', riot: 1011 },
+  { local: 'spectres_cowl', riot: 3211 },
+  { local: 'force_of_nature', riot: 4401 },
+  { local: 'kaenic_rookern', riot: 2504 },
+  { local: 'banshees_veil', riot: 3102 },
+  { local: 'gargoyle_stoneplate', riot: 3193 },
+  { local: 'hollow_radiance', riot: 6664 },
+  { local: 'randuins_omen', riot: 3143 },
+  { local: 'sunfire_aegis', riot: 3068 },
+  { local: 'heartsteel', riot: 3084 },
+  { local: 'iceborn_gauntlet', riot: 6662 },
+  { local: 'maw_of_malmortius', riot: 3156 },
+  { local: 'silvermere_dawn', riot: 6035 },
+  { local: 'redemption', riot: 3107 },
 ];
 
 const sha256 = buffer => createHash('sha256').update(buffer).digest('hex');

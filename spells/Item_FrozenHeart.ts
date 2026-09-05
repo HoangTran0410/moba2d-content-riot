@@ -41,8 +41,13 @@ export const FROZEN_HEART_TICK_MS = 250;
 export const FROZEN_HEART_STACK_ID = 'item_frozen_heart';
 export const FROZEN_HEART_CHILL_STACK_ID = 'item_frozen_heart_chill';
 
-/** Enemy champions inside the ring — the mirror of Khúc Ca Shurelya's ally sweep. */
-function enemyChampionsAround(unit: AttackableUnit, radius: number): AttackableUnit[] {
+/**
+ * Enemy champions inside the ring — the mirror of Khúc Ca Shurelya's ally
+ * sweep. Exported the way that file exports its own: Khiên Băng Randuin's
+ * active means the same "every enemy standing with me", and two rings that
+ * disagree about who that is would be a bug nobody could see.
+ */
+export function enemyChampionsAround(unit: AttackableUnit, radius: number): AttackableUnit[] {
   const found = unit.game.objectManager.queryObjects({
     area: new api.utils.Quadtree.Circle({ x: unit.position.x, y: unit.position.y, r: radius }),
     filters: [PredefinedFilters.type(Champion), PredefinedFilters.excludeDead],

@@ -10,7 +10,7 @@ import { assetManifest } from '../generated/assetManifest';
 const api = buildTestApi();
 
 /**
- * The shop this pack ships: sixty-one items, thirty-two spells behind them, and the
+ * The shop this pack ships: seventy-seven items, forty-two spells behind them, and the
  * one thing about them that is easy to get wrong in a way nothing complains
  * about.
  *
@@ -28,7 +28,7 @@ const api = buildTestApi();
  * rather than four spells that do not exist.
  */
 
-/** The thirty-two, by name. Not derived from a prefix the code under test also uses. */
+/** The forty-two, by name. Not derived from a prefix the code under test also uses. */
 const ITEM_SPELL_IDS = [
   'Item_Thornmail',
   'Item_Zhonyas',
@@ -66,6 +66,20 @@ const ITEM_SPELL_IDS = [
   'Item_Steraks',
   'Item_FrozenHeart',
   'Item_SerpentsFang',
+  // The tank shelf (2026-09-05). One spell per *mechanic*, as the wound
+  // shelf: Item_Immolate burns for both Khiên Thái Dương and Áo Choàng Hắc
+  // Quang, and Chùy Bạch Ngân re-sells Item_Quicksilver (already above)
+  // rather than shipping a second cleanse.
+  'Item_ForceOfNature',
+  'Item_KaenicRookern',
+  'Item_Banshee',
+  'Item_Gargoyle',
+  'Item_Immolate',
+  'Item_Randuin',
+  'Item_Heartsteel',
+  'Item_Iceborn',
+  'Item_Maw',
+  'Item_Redemption',
 ] as const;
 
 /**
@@ -449,6 +463,99 @@ const SPEC: Record<
     active: 'Item_Everfrost',
     buildsFrom: ['ruby_crystal', 'null_magic_mantle'],
   },
+  // The tank shelf, 2026-09-05.
+  chain_vest: { name: 'Giáp Lưới', cost: 700, stats: { armor: 40 } },
+  negatron_cloak: { name: 'Áo Choàng Bạc', cost: 750, stats: { magicResist: 40 } },
+  giants_belt: { name: 'Đai Khổng Lồ', cost: 700, stats: { maxHealth: 45 } },
+  spectres_cowl: {
+    name: 'Áo Choàng Ám Ảnh',
+    cost: 850,
+    stats: { maxHealth: 30, magicResist: 25, healthRegen: 0.02 },
+  },
+  force_of_nature: {
+    name: 'Giáp Thiên Nhiên',
+    cost: 1750,
+    stats: { maxHealth: 55, magicResist: 45, speedPercent: 0.05 },
+    passive: 'Item_ForceOfNature',
+    buildsFrom: ['negatron_cloak', 'giants_belt'],
+  },
+  kaenic_rookern: {
+    name: 'Vòng Sắt Cổ Tự',
+    cost: 1600,
+    stats: { maxHealth: 60, magicResist: 30, healthRegen: 0.03 },
+    passive: 'Item_KaenicRookern',
+    buildsFrom: ['spectres_cowl', 'ruby_crystal'],
+  },
+  banshees_veil: {
+    name: 'Dây Chuyền Chữ Thập',
+    cost: 1500,
+    stats: { magicResist: 40, abilityPower: 1 },
+    passive: 'Item_Banshee',
+    buildsFrom: ['negatron_cloak', 'amplifying_tome'],
+  },
+  gargoyle_stoneplate: {
+    name: 'Thú Tượng Thạch Giáp',
+    cost: 1750,
+    stats: { armor: 40, magicResist: 40 },
+    active: 'Item_Gargoyle',
+    buildsFrom: ['chain_vest', 'negatron_cloak'],
+  },
+  hollow_radiance: {
+    name: 'Áo Choàng Hắc Quang',
+    cost: 1450,
+    stats: { maxHealth: 50, magicResist: 28 },
+    passive: 'Item_Immolate',
+    buildsFrom: ['null_magic_mantle', 'giants_belt'],
+  },
+  randuins_omen: {
+    name: 'Khiên Băng Randuin',
+    cost: 1700,
+    stats: { armor: 45, maxHealth: 55 },
+    active: 'Item_Randuin',
+    buildsFrom: ['chain_vest', 'giants_belt'],
+  },
+  sunfire_aegis: {
+    name: 'Khiên Thái Dương',
+    cost: 1500,
+    stats: { armor: 42, maxHealth: 40 },
+    passive: 'Item_Immolate',
+    buildsFrom: ['chain_vest', 'ruby_crystal'],
+  },
+  heartsteel: {
+    name: 'Trái Tim Khổng Thần',
+    cost: 1500,
+    stats: { maxHealth: 75 },
+    passive: 'Item_Heartsteel',
+    buildsFrom: ['giants_belt', 'ruby_crystal'],
+  },
+  iceborn_gauntlet: {
+    name: 'Găng Tay Băng Giá',
+    cost: 1550,
+    stats: { armor: 42, maxMana: 20 },
+    passive: 'Item_Iceborn',
+    buildsFrom: ['sheen', 'chain_vest'],
+  },
+  maw_of_malmortius: {
+    name: 'Chùy Gai Malmortius',
+    cost: 1500,
+    stats: { attackDamage: 12, magicResist: 40 },
+    passive: 'Item_Maw',
+    buildsFrom: ['long_sword', 'negatron_cloak'],
+  },
+  silvermere_dawn: {
+    name: 'Chùy Bạch Ngân',
+    cost: 1850,
+    stats: { attackDamage: 14, magicResist: 45, tenacity: 0.3 },
+    active: 'Item_Quicksilver',
+    buildsFrom: ['quicksilver_sash', 'long_sword'],
+  },
+  redemption: {
+    name: 'Dây Chuyền Chuộc Tội',
+    cost: 1400,
+    stats: { maxHealth: 40, magicResist: 28, healthRegen: 0.03 },
+    active: 'Item_Redemption',
+    buildsFrom: ['spectres_cowl'],
+  },
 };
 
 describe('no Item_ spell leaks into spellDisplay', () => {
@@ -480,7 +587,7 @@ describe('no Item_ spell leaks into spellDisplay', () => {
 describe('the item set', () => {
   const items = data.items ?? {};
 
-  it('ships exactly the sixty-one specified, keyed by their own id', () => {
+  it('ships exactly the seventy-seven specified, keyed by their own id', () => {
     expect(Object.keys(items).sort()).toEqual(Object.keys(SPEC).sort());
   });
 
@@ -497,7 +604,7 @@ describe('the item set', () => {
     }
   });
 
-  it('reaches its spells only through passive/active, and only the thirty-two', () => {
+  it('reaches its spells only through passive/active, and only the forty-two', () => {
     const named = new Set<string>();
     for (const def of Object.values(items)) {
       if (def.passive) named.add(def.passive);
@@ -612,7 +719,7 @@ describe('the item set', () => {
     const registry = new PackRegistry();
     registry.install(pack);
 
-    expect(registry.items()).toHaveLength(61);
+    expect(registry.items()).toHaveLength(77);
     const thornmail = registry.item('lol:thornmail');
     expect(thornmail?.passive).toBe('lol:Item_Thornmail');
     expect(thornmail?.icon).toBe('lol:item_thornmail');
@@ -658,6 +765,10 @@ describe('the build paths', () => {
     'oblivion_orb',
     'last_whisper',
     'blighting_jewel',
+    'chain_vest',
+    'negatron_cloak',
+    'giants_belt',
+    'spectres_cowl',
   ];
 
   const finished = Object.values(items).filter(def => !COMPONENTS.includes(def.id));

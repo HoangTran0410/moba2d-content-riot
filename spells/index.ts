@@ -322,6 +322,16 @@ export { default as Item_Locket } from './Item_Locket';
 export { default as Item_Mikael } from './Item_Mikael';
 export { default as Item_Shurelya } from './Item_Shurelya';
 export { default as Item_Everfrost } from './Item_Everfrost';
+export { default as Item_Immolate } from './Item_Immolate';
+export { default as Item_ForceOfNature } from './Item_ForceOfNature';
+export { default as Item_KaenicRookern } from './Item_KaenicRookern';
+export { default as Item_Banshee } from './Item_Banshee';
+export { default as Item_Maw } from './Item_Maw';
+export { default as Item_Heartsteel } from './Item_Heartsteel';
+export { default as Item_Iceborn } from './Item_Iceborn';
+export { default as Item_Randuin } from './Item_Randuin';
+export { default as Item_Gargoyle } from './Item_Gargoyle';
+export { default as Item_Redemption } from './Item_Redemption';
 
 export { default as Vladimir_Q } from './Vladimir_Q';
 export { default as Vladimir_W } from './Vladimir_W';
