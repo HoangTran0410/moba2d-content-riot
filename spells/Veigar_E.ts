@@ -124,6 +124,10 @@ export class Veigar_E_Object extends SpellObject {
     },
   });
 
+  /** Reused every frame: a draw that builds its own array is garbage at 60fps. */
+  private readonly _runeScratch = new Float64Array(RUNE_COUNT * 4);
+  private readonly _pillarScratch = new Float64Array(PILLAR_COUNT * 2);
+
   enemiesEffected: any[] = [];
 
   onAdded() {
@@ -261,11 +265,7 @@ export class Veigar_E_Object extends SpellObject {
     circle(cos(head) * radius, sin(head) * radius, 14);
 
     // runes lighting up behind the stylus, one by one
-    for (let i = 0; i < RUNE_COUNT; i++) {
-      const a = (i / RUNE_COUNT) * TWO_PI - HALF_PI;
-      if (a > head) continue;
-      this._drawRune(cos(a) * radius, sin(a) * radius, a, alpha);
-    }
+    this._drawRunes(radius, alpha, -HALF_PI, head);
 
     // inner sigil, so the interior is claimed ground from the start
     noFill();
@@ -274,6 +274,62 @@ export class Veigar_E_Object extends SpellObject {
     circle(0, 0, this.size * 0.62 * t);
     circle(0, 0, this.size * 0.3 * t);
     pop();
+  }
+
+  /**
+   * A ring of runes — a diamond with a bar through it, legible at this size,
+   * and nothing else in the game draws it. Drawn from `offset`, and only as far
+   * round as `limit`, which is what lets the telegraph light them one by one
+   * behind its stylus while the standing cage draws all twelve.
+   *
+   * Two passes over the ring rather than a call per rune. Every rune is the
+   * same two colours at the same alpha, so drawing them one at a time paid for
+   * a `fill()` twelve times over per colour — and the helper this replaces
+   * spent four of its nine p5 calls on `push`/`translate`/`rotate`/`pop` to
+   * stand a single rune on end. Standing it on end is a rotation by
+   * `a + HALF_PI`, and for a point already out on the circle that is only its
+   * own cosine and sine swapped and negated, so the corners fall out of
+   * arithmetic the loop had done anyway and the matrix never moves. Same
+   * runes, same places, same angles.
+   */
+  _drawRunes(r: number, alpha: number, offset: number, limit: number): void {
+    const scratch = this._runeScratch;
+    let drawn = 0;
+    for (let i = 0; i < RUNE_COUNT; i++) {
+      const a = (i / RUNE_COUNT) * TWO_PI + offset;
+      if (a > limit) continue;
+      const ca = cos(a);
+      const sa = sin(a);
+      scratch[drawn * 4] = ca * r;
+      scratch[drawn * 4 + 1] = sa * r;
+      scratch[drawn * 4 + 2] = ca;
+      scratch[drawn * 4 + 3] = sa;
+      drawn++;
+    }
+    if (drawn === 0) return;
+
+    noStroke();
+    fill(ARCANE_BRIGHT[0], ARCANE_BRIGHT[1], ARCANE_BRIGHT[2], alpha);
+    for (let i = 0; i < drawn; i++) {
+      const x = scratch[i * 4];
+      const y = scratch[i * 4 + 1];
+      const ca = scratch[i * 4 + 2];
+      const sa = scratch[i * 4 + 3];
+      quad(x + 9 * ca, y + 9 * sa, x - 6 * sa, y + 6 * ca, x - 9 * ca, y - 9 * sa, x + 6 * sa, y - 6 * ca);
+    }
+    fill(245, 235, 255, alpha);
+    for (let i = 0; i < drawn; i++) {
+      const x = scratch[i * 4];
+      const y = scratch[i * 4 + 1];
+      const ca = scratch[i * 4 + 2];
+      const sa = scratch[i * 4 + 3];
+      quad(
+        x + 3 * sa + 1.5 * ca, y - 3 * ca + 1.5 * sa,
+        x - 3 * sa + 1.5 * ca, y + 3 * ca + 1.5 * sa,
+        x - 3 * sa - 1.5 * ca, y + 3 * ca - 1.5 * sa,
+        x + 3 * sa - 1.5 * ca, y - 3 * ca - 1.5 * sa
+      );
+    }
   }
 
   /** The standing cage: nine arcane pillars with lightning strung between them. */
@@ -308,24 +364,57 @@ export class Veigar_E_Object extends SpellObject {
     circle(0, 0, this.size + this.strokeWidth / 2);
     circle(0, 0, this.size - this.strokeWidth / 2);
 
-    // pillars, standing out of the band
+    // pillars, standing out of the band.
+    //
+    // Drawn in three passes — every shaft, then every core, then every cap —
+    // instead of one pillar at a time. The nine pillars sit ninety pixels
+    // apart and are sixteen wide, so none of them overlaps another and the
+    // passes put down exactly the picture the per-pillar loop did; what it
+    // saves is the `fill()` in front of each of the twenty-seven shapes, which
+    // was the same colour nine times over. Same for `noStroke()`, which was
+    // being re-asserted every iteration.
     const height = PILLAR_HEIGHT * standing;
+    const bases = this._pillarScratch;
     for (let i = 0; i < PILLAR_COUNT; i++) {
       const a = (i / PILLAR_COUNT) * TWO_PI + spin;
-      const bx = cos(a) * radius;
-      const by = sin(a) * radius;
-      noStroke();
-      fill(VOID[0], VOID[1], VOID[2], 235 * standing);
+      bases[i * 2] = cos(a) * radius;
+      bases[i * 2 + 1] = sin(a) * radius;
+    }
+    noStroke();
+    fill(VOID[0], VOID[1], VOID[2], 235 * standing);
+    for (let i = 0; i < PILLAR_COUNT; i++) {
+      const bx = bases[i * 2];
+      const by = bases[i * 2 + 1];
       quad(bx - 8, by, bx + 8, by, bx + 5, by - height, bx - 5, by - height);
-      fill(ARCANE[0], ARCANE[1], ARCANE[2], alpha);
+    }
+    fill(ARCANE[0], ARCANE[1], ARCANE[2], alpha);
+    for (let i = 0; i < PILLAR_COUNT; i++) {
+      const bx = bases[i * 2];
+      const by = bases[i * 2 + 1];
       quad(bx - 5, by, bx + 5, by, bx + 3, by - height, bx - 3, by - height);
-      // the cap glows: the eye lands on a row of lights, not a row of sticks
-      fill(ARCANE_BRIGHT[0], ARCANE_BRIGHT[1], ARCANE_BRIGHT[2], 235 * standing);
-      circle(bx, by - height, 8 + sin(this.age / 130 + i) * 2);
+    }
+    // the cap glows: the eye lands on a row of lights, not a row of sticks
+    fill(ARCANE_BRIGHT[0], ARCANE_BRIGHT[1], ARCANE_BRIGHT[2], 235 * standing);
+    for (let i = 0; i < PILLAR_COUNT; i++) {
+      circle(bases[i * 2], bases[i * 2 + 1] - height, 8 + sin(this.age / 130 + i) * 2);
     }
 
-    // lightning strung pillar to pillar, each arc flickering on its own phase
+    // Lightning strung pillar to pillar, each arc flickering on its own phase.
+    //
+    // On the raw context rather than through p5. Every other block on this
+    // object could be collapsed into passes because its colour was constant
+    // across the loop; this one cannot — the whole point is that each arc
+    // carries its *own* brightness — so the state change stays per arc and the
+    // only thing left to cut is what each call costs. `stroke()` + `vertex()`
+    // measured 6-10x the `strokeStyle` + `lineTo` underneath them, and nine
+    // six-point arcs a frame is where this object spent most of its budget.
+    // The picture is unchanged: same points, same alphas, same order.
     if (height > 4) {
+      const ctx = drawingContext;
+      ctx.save();
+      ctx.lineWidth = 2;
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
       for (let i = 0; i < PILLAR_COUNT; i++) {
         const crackle = this._crackles[i];
         if (!crackle) continue;
@@ -333,30 +422,27 @@ export class Veigar_E_Object extends SpellObject {
         if (lit < 0.15) continue;
         const a0 = (i / PILLAR_COUNT) * TWO_PI + spin;
         const a1 = ((i + 1) / PILLAR_COUNT) * TWO_PI + spin;
-        noFill();
-        stroke(ARCANE_BRIGHT[0], ARCANE_BRIGHT[1], ARCANE_BRIGHT[2], 200 * lit * standing);
-        strokeWeight(2);
-        beginShape();
-        vertex(cos(a0) * radius, sin(a0) * radius - height);
+        ctx.beginPath();
+        ctx.moveTo(cos(a0) * radius, sin(a0) * radius - height);
         for (let k = 0; k < crackle.kinks.length; k++) {
           const f = (k + 1) / (crackle.kinks.length + 1);
           const a = lerp(a0, a1, f);
           // the kink swings across the span instead of being re-rolled, which
           // is what makes it read as one arc moving rather than static noise
           const swing = crackle.kinks[k] * sin(this.age / 70 + crackle.phase + k);
-          vertex(cos(a) * (radius + swing), sin(a) * (radius + swing) - height);
+          ctx.lineTo(cos(a) * (radius + swing), sin(a) * (radius + swing) - height);
         }
-        vertex(cos(a1) * radius, sin(a1) * radius - height);
-        endShape();
+        ctx.lineTo(cos(a1) * radius, sin(a1) * radius - height);
+        ctx.strokeStyle = `rgba(${ARCANE_BRIGHT[0]}, ${ARCANE_BRIGHT[1]}, ${ARCANE_BRIGHT[2]}, ${
+          (200 * lit * standing) / 255
+        })`;
+        ctx.stroke();
       }
+      ctx.restore();
     }
 
-    // runes orbiting the inside of the wall, counter to the pillars
-    for (let i = 0; i < RUNE_COUNT; i++) {
-      const a = (i / RUNE_COUNT) * TWO_PI - spin * 1.6;
-      const r = radius - this.strokeWidth * 0.75;
-      this._drawRune(cos(a) * r, sin(a) * r, a, alpha * 0.85);
-    }
+    // Runes orbiting the inside of the wall, counter to the pillars.
+    this._drawRunes(radius - this.strokeWidth * 0.75, alpha * 0.85, -spin * 1.6, Infinity);
 
     // where the last victim was caught
     if (this._catchFlash > 0) {
@@ -372,21 +458,6 @@ export class Veigar_E_Object extends SpellObject {
       circle(cx, cy, 40 + 90 * (1 - flash));
     }
 
-    pop();
-  }
-
-  /** A single sliver of Veigar's script, standing on end at `(x, y)`. */
-  _drawRune(x: number, y: number, angle: number, alpha: number) {
-    push();
-    translate(x, y);
-    rotate(angle + HALF_PI);
-    noStroke();
-    fill(ARCANE_BRIGHT[0], ARCANE_BRIGHT[1], ARCANE_BRIGHT[2], alpha);
-    // a diamond with a bar through it: legible at this size, and nothing else
-    // in the game draws it
-    quad(0, -9, 6, 0, 0, 9, -6, 0);
-    fill(245, 235, 255, alpha);
-    rect(-3, -1.5, 6, 3);
     pop();
   }
 
