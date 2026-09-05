@@ -82,22 +82,52 @@ export class Item_GuardianAngel_Revival extends Stasis {
   }
 
   /**
-   * Stasis's gold shell, plus the wings that say whose shell this is — the
-   * same two arcs the armed rim draws, rising with the fill.
+   * NOT Stasis's picture. The inherited draw is Zhonya's whole identity —
+   * amber disc, rotating spokes — and a revival wearing it read as "somebody
+   * pressed an hourglass". This paints the item's own story instead: a soft
+   * feather-white veil, two wings that unfold as the body knits, rising motes
+   * of light, and one progress ring sweeping clockwise so "how much longer"
+   * is readable at a glance from across the fight.
    */
   draw(): void {
-    super.draw();
     const pos = this.targetUnit.position;
-    const radius = this.targetUnit.animatedValues.displaySize / 2 + 10;
+    const size = this.targetUnit.animatedValues.displaySize;
+    const progress = Math.min(1, this.elapsedMs / GUARDIAN_REVIVE_MS);
     const [r, g, b] = AEGIS;
+    const ring = size + 18;
 
     push();
+    // The veil: faint, white-gold, no hard disc.
+    noStroke();
+    fill(r, g, b, 30);
+    circle(pos.x, pos.y, ring);
+
+    // The progress ring — fills clockwise from the top with the revival.
     noFill();
-    stroke(r, g, b, 200);
+    stroke(r, g, b, 235);
     strokeWeight(3);
-    for (let i = 0; i < 2; i++) {
-      const start = -HALF_PI + 0.5 + i * (PI - 1);
-      arc(pos.x, pos.y, radius * 2, radius * 2, start, start + PI - 1);
+    if (progress > 0.01) arc(pos.x, pos.y, ring, ring, -HALF_PI, -HALF_PI + TWO_PI * progress);
+
+    // The wings, unfolding: each arc's span grows with the fill, so a body
+    // half-revived wears half-open wings.
+    const span = 0.5 + (PI - 1.1) * progress;
+    stroke(255, 250, 225, 210);
+    strokeWeight(2.5);
+    for (let side = 0; side < 2; side++) {
+      const middle = side === 0 ? PI : 0;
+      arc(pos.x, pos.y, ring + 12, ring + 12, middle - span / 2, middle + span / 2);
+    }
+
+    // Motes of light rising through the shell — deterministic off frameCount,
+    // nothing allocated per frame.
+    strokeWeight(3);
+    for (let i = 0; i < 5; i++) {
+      const t = (frameCount / 55 + i * 0.37) % 1;
+      const alpha = 220 * (1 - t);
+      stroke(255, 255, 235, alpha);
+      const x = pos.x + sin(i * 2.4 + frameCount / 28) * (size / 3);
+      const y = pos.y + size / 2 - t * (size + 22);
+      point(x, y);
     }
     pop();
   }
@@ -110,9 +140,16 @@ export class Item_GuardianAngel_Wings extends Buff {
   // buff-bar row (the `buffDescriptions` exemption, stated in the class).
   hudVisible = false;
 
-  armed = true;
-  private nowMs = 0;
-  private spentAtMs = -Infinity;
+  /**
+   * Core's rearm clock is the whole mechanism now — `startRearm` on the
+   * trigger, ticked by the base `update`, drawn on the item slot, and parked
+   * across the wearer's death by `sourceSpell` so dying right after a
+   * revival does not hand the wings back re-formed.
+   */
+  get armed(): boolean {
+    return this.rearmed;
+  }
+
   /**
    * Set when the clamp fires, spent in `onDamageTaken` — the Maw latch
    * pattern. The revival buff must not be added from inside
@@ -121,16 +158,6 @@ export class Item_GuardianAngel_Wings extends Buff {
    * re-entrancy `DamageReflect`'s chain-order rule exists to keep out.
    */
   private reviveLatched = false;
-
-  onUpdate(): void {
-    this.nowMs += deltaTime;
-    if (!this.armed && this.nowMs - this.spentAtMs >= GUARDIAN_ANGEL_REARM_MS) this.armed = true;
-    // The slot's countdown — see core Buff.rearmMsLeft.
-    this.rearmTotalMs = GUARDIAN_ANGEL_REARM_MS;
-    this.rearmMsLeft = this.armed
-      ? 0
-      : Math.max(0, GUARDIAN_ANGEL_REARM_MS - (this.nowMs - this.spentAtMs));
-  }
 
   onDamageTaken(): void {
     if (!this.reviveLatched) return;
@@ -150,8 +177,7 @@ export class Item_GuardianAngel_Wings extends Buff {
     const left = this.targetUnit.stats.health.baseValue;
     if (left <= 0 || damage < left) return damage;
 
-    this.armed = false;
-    this.spentAtMs = this.nowMs;
+    this.startRearm(GUARDIAN_ANGEL_REARM_MS);
     this.reviveLatched = true;
 
     const burst = new AoePulse(this.targetUnit);

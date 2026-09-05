@@ -44,16 +44,10 @@ export class Item_Banshee_Veil extends Buff {
   // buff-bar row (the `buffDescriptions` exemption, stated in the class).
   hudVisible = false;
 
-  armed = true;
-  private nowMs = 0;
-  private brokeAtMs = -Infinity;
-
-  onUpdate(): void {
-    this.nowMs += deltaTime;
-    if (!this.armed && this.nowMs - this.brokeAtMs >= BANSHEE_REARM_MS) this.armed = true;
-    // The slot's countdown — see core Buff.rearmMsLeft.
-    this.rearmTotalMs = BANSHEE_REARM_MS;
-    this.rearmMsLeft = this.armed ? 0 : Math.max(0, BANSHEE_REARM_MS - (this.nowMs - this.brokeAtMs));
+  // Core's rearm clock is the mechanism — ticked by the base update, drawn
+  // on the item slot, parked across the wearer's death by sourceSpell.
+  get armed(): boolean {
+    return this.rearmed;
   }
 
   modifyIncomingDamage(damage: number, attacker?: AttackableUnit, type?: DamageType): number {
@@ -61,8 +55,7 @@ export class Item_Banshee_Veil extends Buff {
     if (type !== 'MAGIC' || damage <= 0) return damage;
     if (!attacker || attacker.teamId === this.targetUnit.teamId) return damage;
 
-    this.armed = false;
-    this.brokeAtMs = this.nowMs;
+    this.startRearm(BANSHEE_REARM_MS);
 
     const burst = new AoePulse(this.targetUnit);
     burst.position = this.targetUnit.position.copy();

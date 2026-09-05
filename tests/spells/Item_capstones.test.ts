@@ -15,6 +15,7 @@ import Item_Steraks, {
 } from '../../spells/Item_Steraks';
 import Item_GuardianAngel, {
   Item_GuardianAngel_Revival,
+  Item_GuardianAngel_Wings,
   GUARDIAN_REVIVE_FRACTION,
   GUARDIAN_REVIVE_MS,
 } from '../../spells/Item_GuardianAngel';
@@ -212,6 +213,35 @@ describe('the three shapes this shop did not have', () => {
         holder.buffs.filter(buff => buff instanceof Item_GuardianAngel_Revival && !buff.toRemove)
       ).toHaveLength(0);
       expect(holder.status & api.enums.StatusFlags.Targetable).not.toBe(0);
+    });
+
+    it('keeps the re-arm clock through a real death and respawn', () => {
+      // Reported from a real match: die right after a revival and the 50s
+      // countdown simply reset — death cleared the wings buff, and the
+      // respawn's armPassives pressed the passive again into a fresh,
+      // armed pair. The clock is parked on the item's own spell now.
+      const holder = holderOf();
+      const attacker = createUnit(game, 120, 'red');
+      const ga = new Item_GuardianAngel(holder);
+      pressSpell(ga);
+      holder.takeDamage(500, attacker, 'PHYSICAL');
+      tick(holder, GUARDIAN_REVIVE_MS + 64);
+      holder.takeDamage(500, attacker, 'PHYSICAL');
+      expect(holder.isDead).toBe(true);
+
+      // The respawn: the body comes back and armPassives presses the SAME
+      // spell instance again.
+      holder.stats.health.baseValue = 200;
+      (holder as { deathData: unknown }).deathData = null;
+      pressSpell(ga);
+      tick(holder, 16);
+
+      const wings = holder.buffs.find(
+        buff => buff instanceof Item_GuardianAngel_Wings && !buff.toRemove
+      ) as InstanceType<typeof Item_GuardianAngel_Wings>;
+      expect(wings, 'no wings after the respawn press').toBeTruthy();
+      expect(wings.armed, 'the wings came back armed through a death').toBe(false);
+      expect(wings.rearmMsLeft).toBeGreaterThan(0);
     });
 
     it('does not raise the shell a second time while the wings are re-forming', () => {

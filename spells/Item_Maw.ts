@@ -35,6 +35,7 @@ export const MAW_SHIELD_MS = 4_000;
 /** Real time, exactly as Sterak's — never a hit counter. */
 export const MAW_COOLDOWN_MS = 30_000;
 
+
 export const MAW_STACK_ID = 'item_maw';
 export const MAW_SHIELD_STACK_ID = 'item_maw_shield';
 
@@ -48,21 +49,12 @@ export class Item_Maw_Lifeline extends Buff {
   // buff-bar row (the `buffDescriptions` exemption, stated in the class).
   hudVisible = false;
 
-  /** Milliseconds before it can fire again; 0 means armed. */
-  cooldownLeft = 0;
   /** Set by the chain link when a magic hit is about to cross the line. */
   private sawLethalMagic = false;
 
-  onUpdate(): void {
-    if (this.cooldownLeft > 0) this.cooldownLeft -= deltaTime;
-    // The slot's countdown — see core Buff.rearmMsLeft.
-    this.rearmTotalMs = MAW_COOLDOWN_MS;
-    this.rearmMsLeft = Math.max(0, this.cooldownLeft);
-  }
-
   modifyIncomingDamage(damage: number, attacker?: AttackableUnit, type?: DamageType): number {
     // Observe, never modify — the latch is spent below, once the hit settled.
-    if (this.cooldownLeft <= 0 && type === 'MAGIC' && damage > 0) {
+    if (this.rearmed && type === 'MAGIC' && damage > 0) {
       if (attacker && attacker.teamId !== this.targetUnit.teamId) this.sawLethalMagic = true;
     }
     return damage;
@@ -71,14 +63,14 @@ export class Item_Maw_Lifeline extends Buff {
   onDamageTaken(): void {
     if (!this.sawLethalMagic) return;
     this.sawLethalMagic = false;
-    if (this.cooldownLeft > 0) return;
+    if (!this.rearmed) return;
 
     const unit = this.targetUnit;
     const max = unit.stats.maxHealth.value;
     if (max <= 0 || unit.isDead) return;
     if (unit.stats.health.baseValue > max * MAW_THRESHOLD) return;
 
-    this.cooldownLeft = MAW_COOLDOWN_MS;
+    this.startRearm(MAW_COOLDOWN_MS);
 
     const shield = new Shield(MAW_SHIELD_MS, unit, unit);
     shield.amount = MAW_SHIELD;

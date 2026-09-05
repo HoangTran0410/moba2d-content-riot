@@ -35,6 +35,7 @@ export const STERAK_SHIELD_MS = 4_000;
 /** And how long before it can fire again. */
 export const STERAK_COOLDOWN_MS = 45_000;
 
+
 export const STERAK_STACK_ID = 'item_steraks';
 
 export class Item_Steraks_LastStand extends Buff {
@@ -46,25 +47,17 @@ export class Item_Steraks_LastStand extends Buff {
     `<span class="time">${secs(STERAK_COOLDOWN_MS)} giây</span>.`;
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
 
-  /** Milliseconds left before it can fire again; 0 means armed. */
-  cooldownLeft = 0;
 
-  onUpdate(): void {
-    if (this.cooldownLeft > 0) this.cooldownLeft -= deltaTime;
-    // The slot's countdown — see core Buff.rearmMsLeft.
-    this.rearmTotalMs = STERAK_COOLDOWN_MS;
-    this.rearmMsLeft = Math.max(0, this.cooldownLeft);
-  }
 
   onDamageTaken(_swung: number, _landed: number, _attacker?: AttackableUnit): void {
-    if (this.cooldownLeft > 0) return;
+    if (!this.rearmed) return;
 
     const unit = this.targetUnit;
     const max = unit.stats.maxHealth.value;
     if (max <= 0 || unit.isDead) return;
     if (unit.stats.health.baseValue > max * STERAK_THRESHOLD) return;
 
-    this.cooldownLeft = STERAK_COOLDOWN_MS;
+    this.startRearm(STERAK_COOLDOWN_MS);
 
     const shield = new Shield(STERAK_SHIELD_MS, unit, unit);
     shield.amount = max * STERAK_SHIELD_PERCENT;

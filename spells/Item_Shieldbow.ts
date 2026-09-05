@@ -40,22 +40,17 @@ export class Item_Shieldbow_Lifeline extends Buff {
     `<span class="time">${secs(SHIELDBOW_COOLDOWN_MS)} giây</span>.`;
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
 
-  /** Milliseconds left before it can fire again; 0 means armed. */
-  cooldownLeft = 0;
-
-  onUpdate(): void {
-    if (this.cooldownLeft > 0) this.cooldownLeft -= deltaTime;
-  }
-
   onDamageTaken(_swung: number, _landed: number, _attacker?: AttackableUnit): void {
-    if (this.cooldownLeft > 0) return;
+    // Core's rearm clock: ticked by the base update, drawn on the item slot,
+    // parked across the wearer's death by sourceSpell.
+    if (!this.rearmed) return;
 
     const unit = this.targetUnit;
     const max = unit.stats.maxHealth.value;
     if (max <= 0 || unit.isDead) return;
     if (unit.stats.health.baseValue > max * SHIELDBOW_THRESHOLD) return;
 
-    this.cooldownLeft = SHIELDBOW_COOLDOWN_MS;
+    this.startRearm(SHIELDBOW_COOLDOWN_MS);
 
     const shield = new Shield(SHIELDBOW_SHIELD_MS, unit, unit);
     shield.amount = SHIELDBOW_SHIELD;
