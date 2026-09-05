@@ -32,8 +32,8 @@ export const EVERFROST_RANGE = 380;
 /** Half the cone's opening, in radians — about 40 degrees each side. */
 export const EVERFROST_HALF_ANGLE = 0.7;
 
-/** Off the ability ceiling on purpose — see `Item_Ghostblade.ts`'s own note. */
-export const EVERFROST_COOLDOWN_MS = 40_000;
+/** Down from 40s — see `Item_Ghostblade.ts`'s note on the practice room's 20s ceiling. */
+export const EVERFROST_COOLDOWN_MS = 10_000;
 
 export const EVERFROST_STACK_ID = 'item_everfrost_root';
 

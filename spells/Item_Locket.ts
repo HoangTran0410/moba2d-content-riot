@@ -29,12 +29,8 @@ export const LOCKET_SHIELD_MS = 2_500;
 
 export const LOCKET_RADIUS = 260;
 
-/**
- * Item actives are deliberately off the ten-second ceiling `check-seams`
- * imposes on abilities — see `Item_Ghostblade.ts`'s own note. This is a
- * once-a-fight decision, not a rotation.
- */
-export const LOCKET_COOLDOWN_MS = 60_000;
+/** Down from 60s — see `Item_Ghostblade.ts`'s note on the practice room's 20s ceiling. */
+export const LOCKET_COOLDOWN_MS = 15_000;
 
 export const LOCKET_STACK_ID = 'item_locket_shield';
 

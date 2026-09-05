@@ -28,19 +28,8 @@ const SpellObject = api.SpellObject;
 
 export const DURATION_MS = 2_500;
 
-/**
- * A number no ability may carry — `check-seams`' `cooldowns` rule caps a
- * spell's `coolDown` at ten seconds, which is this game's arcade pace. An item
- * active is deliberately not on that clock: it is bought once with gold and is
- * meant to be a decision about a whole fight rather than a rotation. The seam
- * only ever reads a numeric literal on the `coolDown` line, so writing the
- * number here is not what evades it — the constant form is this pack's own
- * house style for every tuning value a test imports (23 spells already write
- * `coolDown = COOLDOWN_MS`). It is called out because a reader who greps for
- * the ten-second ceiling should find the exception stated rather than have to
- * infer it.
- */
-export const COOLDOWN_MS = 90_000;
+/** Down from 90s — see `Item_Ghostblade.ts`'s note on the practice room's 20s ceiling. */
+export const COOLDOWN_MS = 18_000;
 
 /** How long the glass takes to close over the body. */
 export const SEAL_MS = 260;

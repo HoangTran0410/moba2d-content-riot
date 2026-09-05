@@ -24,8 +24,8 @@ export const SHURELYA_DURATION_MS = 3_000;
 
 export const SHURELYA_RADIUS = 300;
 
-/** Off the ability ceiling on purpose — see `Item_Ghostblade.ts`'s own note. */
-export const SHURELYA_COOLDOWN_MS = 55_000;
+/** Down from 55s — see `Item_Ghostblade.ts`'s note on the practice room's 20s ceiling. */
+export const SHURELYA_COOLDOWN_MS = 14_000;
 
 export const SHURELYA_STACK_ID = 'item_shurelya_haste';
 

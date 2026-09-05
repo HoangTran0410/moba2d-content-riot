@@ -35,7 +35,8 @@ const SpellObject = api.SpellObject;
  * cooldown and resource machinery with it.
  */
 
-export const COOLDOWN_MS = 90_000;
+/** Down from 90s — see `Item_Ghostblade.ts`'s note on the practice room's 20s ceiling. */
+export const COOLDOWN_MS = 18_000;
 
 /** How long the broken shackles take to fly clear and fade. */
 export const BREAK_MS = 420;
@@ -84,10 +85,10 @@ export default class Item_Quicksilver extends Spell {
 
     // Drawn on every press, not only on a press that took something off. A
     // button that goes silent when it finds nothing reads as broken rather
-    // than as wasted, and the ninety-second cooldown started either way — the
-    // player has to be able to see that they spent it. `broken` still shapes
-    // the effect: nothing to break paints the mercury sheen alone, without the
-    // shackles, so the two outcomes are still tellable apart.
+    // than as wasted, and the cooldown started either way — the player has to
+    // be able to see that they spent it. `broken` still shapes the effect:
+    // nothing to break paints the mercury sheen alone, without the shackles,
+    // so the two outcomes are still tellable apart.
     const snap = new Item_Quicksilver_Break(this.owner);
     snap.broke = broken > 0;
     // The body, not a buff — this one has none to ride. See

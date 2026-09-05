@@ -54,11 +54,8 @@ export const BOOST_MS = 3_000;
 
 export const RANGE = 420;
 
-/**
- * Item actives sit off the ten-second ceiling `check-seams` puts on abilities —
- * see `Item_Ghostblade.ts`. This is a once-a-fight decision.
- */
-export const COOLDOWN_MS = 55_000;
+/** Down from 55s — see `Item_Ghostblade.ts`'s note on the practice room's 20s ceiling. */
+export const COOLDOWN_MS = 14_000;
 
 export const BOOST_STACK_ID = 'item_mikael_boost';
 

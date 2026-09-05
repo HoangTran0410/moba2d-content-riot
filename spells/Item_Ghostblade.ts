@@ -20,17 +20,11 @@ export const DURATION_MS = 5_000;
 export const SPEED_PERCENT = 0.4;
 
 /**
- * A number no ability may carry — `check-seams`' `cooldowns` rule caps a
- * spell's `coolDown` at ten seconds, which is this game's arcade pace. An item
- * active is deliberately not on that clock: it is bought once with gold and is
- * meant to be a decision about a whole fight rather than a rotation. The seam
- * only ever reads a numeric literal on the `coolDown` line, so writing the
- * number here is not what evades it — the constant form is this pack's own
- * house style for every tuning value a test imports. It is called out because
- * a reader who greps for the ten-second ceiling should find the exception
- * stated rather than have to infer it.
+ * Down from 45s to 12s: the practice room's 20s cooldown ceiling now covers
+ * item actives too, because a rehearsal has no use for a button that only
+ * comes back once a minute — gold-bought or not.
  */
-export const COOLDOWN_MS = 45_000;
+export const COOLDOWN_MS = 12_000;
 
 /** The unsheathe: one ring thrown off him as the blade comes out. */
 export const DRAW_MS = 340;
