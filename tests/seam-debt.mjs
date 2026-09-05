@@ -161,7 +161,7 @@ const PINNED_MANA_LINES = new Set([
   "spells/Varus_Q.test.ts:x1:expect(stats.mana.baseValue).toBe(100 - MANA_COST / 2);",
   "spells/Vayne.test.ts:x1:result.stats.mana.baseValue = 100;",
   "spells/Veigar_Q.test.ts:x1:caster.stats.mana.baseValue = 200;",
-  "spells/Veigar_Q.test.ts:x1:expect(caster.stats.mana.value).toBe(200 + spell.manaPerStack);",
+  "spells/Veigar_Q.test.ts:x1:expect(caster.stats.mana.value).toBe(200 + 20);",
   "spells/Veigar_Q.test.ts:x1:expect(caster.stats.mana.value).toBe(caster.stats.maxMana.value);",
   "spells/Veigar_Q.test.ts:x1:unit.stats.mana.baseValue = 500;",
   "spells/Veigar_R.test.ts:x1:expect(owner.stats.mana.value).toBe(200); // committed at release, not start",

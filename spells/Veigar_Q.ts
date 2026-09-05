@@ -20,6 +20,18 @@ const dmg = api.text.dmg;
 export const ORB_SIZE = 26;
 
 
+/**
+ * Permanent maximum mana per stack, and the champion premium — the same
+ * meal/snack split Cho'Gath and Nasus wear, for the same report: +20 per
+ * kill through a piercing orb turned one wave-clear into +60-80 max mana,
+ * "tăng mana vô hạn khá nhanh". A slain minion banks one stack, a slain
+ * CHAMPION banks CHAMPION_KILL_STACKS of them (`killCredit` tells them
+ * apart); the instant refund stays at the old 20 — sustain is the spell's
+ * feel, the permanent room is what was runaway.
+ */
+export const MANA_PER_STACK = 5;
+export const CHAMPION_KILL_STACKS = 6;
+
 export default class Veigar_Q extends Spell implements ExecuteSpell {
   targetingMode = 'DIRECTION' as const;
   image = api.asset('spell_veigar_q');
@@ -27,14 +39,15 @@ export default class Veigar_Q extends Spell implements ExecuteSpell {
   description =
     `Bắn ra một quả cầu năng lượng hắc ám xuyên qua mọi kẻ địch, gây ${dmg(22, 'MAGIC')}.` +
     ' Mỗi kẻ địch <span class="buff">bị tiêu diệt</span> bởi quả cầu giúp Veigar' +
-    ' <span class="buff">cộng dồn vĩnh viễn +20 năng lượng tối đa</span>, và hồi lại' +
-    ' <span class="buff">20 năng lượng</span> ngay lập tức';
+    ` <span class="buff">cộng dồn vĩnh viễn +${MANA_PER_STACK} năng lượng tối đa</span>` +
+    ` (hạ <span class="buff">tướng</span> được +${MANA_PER_STACK * CHAMPION_KILL_STACKS})` +
+    ' và hồi lại <span class="buff">20 năng lượng</span> ngay lập tức';
   coolDown = 5000;
   manaCost = 20;
 
   range = 550;
   damage = 22;
-  manaPerStack = 20;
+  manaPerStack = MANA_PER_STACK;
   /** Effectively permanent — 10 minutes is longer than any match lasts. */
   stackDuration = 600000;
   maxStacks = 999;
@@ -296,7 +309,7 @@ export class Veigar_Q_Object extends MissileSpellObject {
   maxHitCount = Infinity;
 
   damage = 22;
-  manaPerStack = 20;
+  manaPerStack = MANA_PER_STACK;
   stackDuration = 600000;
   maxStacks = 999;
 
@@ -319,18 +332,23 @@ export class Veigar_Q_Object extends MissileSpellObject {
     enemy.takeDamage(this.damage, this.owner, 'MAGIC');
 
     if (wasAlive && enemy.isDead) {
-      this.owner.addBuff(
-        createPowerStack(this.owner, {
-          image: this.image,
-          manaPerStack: this.manaPerStack,
-          stackDuration: this.stackDuration,
-          maxStacks: this.maxStacks,
-        })
-      );
+      const earned = enemy.killCredit === 'champion' ? CHAMPION_KILL_STACKS : 1;
+      for (let i = 0; i < earned; i++) {
+        this.owner.addBuff(
+          createPowerStack(this.owner, {
+            image: this.image,
+            manaPerStack: this.manaPerStack,
+            stackDuration: this.stackDuration,
+            maxStacks: this.maxStacks,
+          })
+        );
+      }
       // The room is worth nothing empty — `ChoGath_R` heals its new max health
       // for the same reason. `restoreMana` is the granting seam; a spell may
-      // not name `stats.mana` itself (see the mana-spend seam test).
-      this.owner.restoreMana(this.manaPerStack);
+      // not name `stats.mana` itself (see the mana-spend seam test). The
+      // refund is flat and NOT per stack: sustain is the feel, and six
+      // refunds off one champion would be a mana battery.
+      this.owner.restoreMana(20);
     }
 
     // the orb flies on through, so the hit gets its own collapse

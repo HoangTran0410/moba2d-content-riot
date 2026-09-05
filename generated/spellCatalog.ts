@@ -2406,7 +2406,7 @@ export const spellCatalog = {
   },
   "Veigar_Q": {
     name: "Điềm Gở (Veigar_Q)",
-    description: "Bắn ra một quả cầu năng lượng hắc ám xuyên qua mọi kẻ địch, gây <span class=\"damage magic\" data-base=\"22\">22 sát thương phép</span>. Mỗi kẻ địch <span class=\"buff\">bị tiêu diệt</span> bởi quả cầu giúp Veigar <span class=\"buff\">cộng dồn vĩnh viễn +20 năng lượng tối đa</span>, và hồi lại <span class=\"buff\">20 năng lượng</span> ngay lập tức",
+    description: "Bắn ra một quả cầu năng lượng hắc ám xuyên qua mọi kẻ địch, gây <span class=\"damage magic\" data-base=\"22\">22 sát thương phép</span>. Mỗi kẻ địch <span class=\"buff\">bị tiêu diệt</span> bởi quả cầu giúp Veigar <span class=\"buff\">cộng dồn vĩnh viễn +5 năng lượng tối đa</span> (hạ <span class=\"buff\">tướng</span> được +30) và hồi lại <span class=\"buff\">20 năng lượng</span> ngay lập tức",
     iconKey: "spell_veigar_q",
     coolDownMs: 5000,
     manaCost: 20,

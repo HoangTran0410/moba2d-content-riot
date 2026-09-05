@@ -16,7 +16,12 @@ import {
   stubGameGlobals,
   type TestGame,
 } from '@moba2d/core/testing';
-import Veigar_Q, { Veigar_Q_Object, liveStacks } from '../../spells/Veigar_Q';
+import Veigar_Q, {
+  CHAMPION_KILL_STACKS,
+  MANA_PER_STACK,
+  Veigar_Q_Object,
+  liveStacks,
+} from '../../spells/Veigar_Q';
 const __api = buildTestApi();
 const { Champion } = __api.units;
 type Champion = InstanceType<typeof __api.units.Champion>;
@@ -48,6 +53,9 @@ const enemy = (x: number, health: number): Champion => {
   unit.destination.set(x, 0);
   unit.stats.maxHealth.baseValue = 100;
   unit.stats.health.baseValue = health;
+  // A creep, not a champion: the tests below narrate last-hitting a wave,
+  // and a champion kill deliberately banks CHAMPION_KILL_STACKS instead.
+  (unit as { killCredit: string }).killCredit = 'minion';
   return unit;
 };
 
@@ -92,6 +100,19 @@ describe('Veigar Q stacks on the kill', () => {
     expect(caster.stats.maxMana.value).toBe(before + spell.manaPerStack);
   });
 
+  it('banks the whole meal off a champion', () => {
+    const caster = veigar();
+    const victim = enemy(120, 10);
+    (victim as { killCredit: string }).killCredit = 'champion';
+    indexObjects(game, [caster, victim]);
+
+    const before = caster.stats.maxMana.value;
+    orb(caster).onHit(victim);
+    caster.updateBuffs();
+
+    expect(caster.stats.maxMana.value).toBe(before + MANA_PER_STACK * CHAMPION_KILL_STACKS);
+  });
+
   it('gives the new mana rather than only the room for it', () => {
     const caster = veigar();
     const victim = enemy(120, 10);
@@ -103,7 +124,8 @@ describe('Veigar Q stacks on the kill', () => {
     orb(caster).onHit(victim);
     caster.updateBuffs();
 
-    expect(caster.stats.mana.value).toBe(200 + spell.manaPerStack);
+    void spell;
+    expect(caster.stats.mana.value).toBe(200 + 20);
   });
 
   it('never pushes the pool past its own maximum', () => {
