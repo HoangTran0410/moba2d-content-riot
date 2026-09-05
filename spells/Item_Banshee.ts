@@ -51,6 +51,9 @@ export class Item_Banshee_Veil extends Buff {
   onUpdate(): void {
     this.nowMs += deltaTime;
     if (!this.armed && this.nowMs - this.brokeAtMs >= BANSHEE_REARM_MS) this.armed = true;
+    // The slot's countdown — see core Buff.rearmMsLeft.
+    this.rearmTotalMs = BANSHEE_REARM_MS;
+    this.rearmMsLeft = this.armed ? 0 : Math.max(0, BANSHEE_REARM_MS - (this.nowMs - this.brokeAtMs));
   }
 
   modifyIncomingDamage(damage: number, attacker?: AttackableUnit, type?: DamageType): number {

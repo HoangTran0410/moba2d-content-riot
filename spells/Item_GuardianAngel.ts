@@ -125,6 +125,11 @@ export class Item_GuardianAngel_Wings extends Buff {
   onUpdate(): void {
     this.nowMs += deltaTime;
     if (!this.armed && this.nowMs - this.spentAtMs >= GUARDIAN_ANGEL_REARM_MS) this.armed = true;
+    // The slot's countdown — see core Buff.rearmMsLeft.
+    this.rearmTotalMs = GUARDIAN_ANGEL_REARM_MS;
+    this.rearmMsLeft = this.armed
+      ? 0
+      : Math.max(0, GUARDIAN_ANGEL_REARM_MS - (this.nowMs - this.spentAtMs));
   }
 
   onDamageTaken(): void {

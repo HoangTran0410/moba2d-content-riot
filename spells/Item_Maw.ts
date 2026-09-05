@@ -55,6 +55,9 @@ export class Item_Maw_Lifeline extends Buff {
 
   onUpdate(): void {
     if (this.cooldownLeft > 0) this.cooldownLeft -= deltaTime;
+    // The slot's countdown — see core Buff.rearmMsLeft.
+    this.rearmTotalMs = MAW_COOLDOWN_MS;
+    this.rearmMsLeft = Math.max(0, this.cooldownLeft);
   }
 
   modifyIncomingDamage(damage: number, attacker?: AttackableUnit, type?: DamageType): number {

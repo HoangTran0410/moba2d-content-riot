@@ -51,6 +51,9 @@ export class Item_Steraks_LastStand extends Buff {
 
   onUpdate(): void {
     if (this.cooldownLeft > 0) this.cooldownLeft -= deltaTime;
+    // The slot's countdown — see core Buff.rearmMsLeft.
+    this.rearmTotalMs = STERAK_COOLDOWN_MS;
+    this.rearmMsLeft = Math.max(0, this.cooldownLeft);
   }
 
   onDamageTaken(_swung: number, _landed: number, _attacker?: AttackableUnit): void {
