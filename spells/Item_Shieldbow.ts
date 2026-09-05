@@ -10,18 +10,18 @@ const Shield = api.buffs.Shield;
  * Nỏ Tử Thủ — Móng Vuốt Sterak, resold to the back line. The mechanic is the
  * same lifeline (`Buff.onDamageTaken`, the hook that runs when "am I below
  * the line" has an answer; a real-time cooldown for the same reasons stated
- * in `Item_Steraks.ts`), and the difference is who it prices for: Sterak's
- * shield is a share of maximum health, worth the most on the tank who
- * stacked Đai Khổng Lồ — this one is a flat pool on an item whose other
- * stats are all offense, so a marksman can buy a moment of survival without
- * buying a single point of the tank shelf.
+ * in `Item_Steraks.ts`), and the difference is who it prices for: a smaller
+ * share of maximum health on an item whose other stats are all offense, so
+ * a marksman can buy a moment of survival without buying a single point of
+ * the tank shelf — and a share, not the flat 18 it launched as, so the
+ * moment is still a moment on a late-game bar.
  */
 
 /** Below this share of maximum health, the bow fires. */
 export const SHIELDBOW_THRESHOLD = 0.3;
 
-/** The shield, flat — the carry's pool, not the tank's. */
-export const SHIELDBOW_SHIELD = 18;
+/** The shield, as a share of the wearer's maximum health. ~18 on a mid-game marksman (~125 máu). */
+export const SHIELDBOW_SHIELD_PERCENT = 0.14;
 
 /** How long the shield stands. */
 export const SHIELDBOW_SHIELD_MS = 3_000;
@@ -35,7 +35,7 @@ export class Item_Shieldbow_Lifeline extends Buff {
   name = 'Nỏ Tử Thủ';
   description =
     `Khi máu rơi xuống dưới <span class="buff">${pct(SHIELDBOW_THRESHOLD)}%</span>, nhận lá chắn ` +
-    `<span class="heal" data-flat="none">${SHIELDBOW_SHIELD}</span> máu trong ` +
+    `<span class="heal" data-flat="none">${pct(SHIELDBOW_SHIELD_PERCENT)}% máu tối đa</span> trong ` +
     `<span class="time">${secs(SHIELDBOW_SHIELD_MS)} giây</span>. Hồi lại sau ` +
     `<span class="time">${secs(SHIELDBOW_COOLDOWN_MS)} giây</span>.`;
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
@@ -53,7 +53,7 @@ export class Item_Shieldbow_Lifeline extends Buff {
     this.startRearm(SHIELDBOW_COOLDOWN_MS);
 
     const shield = new Shield(SHIELDBOW_SHIELD_MS, unit, unit);
-    shield.amount = SHIELDBOW_SHIELD;
+    shield.amount = max * SHIELDBOW_SHIELD_PERCENT;
     shield.name = 'Nỏ Tử Thủ';
     // Its own slot: this must not evict a shield the team just cast on the
     // person it fires for, which is the same moment it fires — and it must
@@ -69,8 +69,8 @@ export default class Item_Shieldbow extends Spell {
   image = api.asset('item_immortal_shieldbow');
   name = 'Nỏ Tử Thủ (Item_Shieldbow)';
   description =
-    `Nội tại: khi máu rơi xuống dưới ${pct(SHIELDBOW_THRESHOLD)}%, nhận lá chắn ` +
-    `${SHIELDBOW_SHIELD} máu trong ${secs(SHIELDBOW_SHIELD_MS)} giây ` +
+    `Nội tại: khi máu rơi xuống dưới ${pct(SHIELDBOW_THRESHOLD)}%, nhận lá chắn bằng ` +
+    `${pct(SHIELDBOW_SHIELD_PERCENT)}% máu tối đa trong ${secs(SHIELDBOW_SHIELD_MS)} giây ` +
     `(hồi lại sau ${secs(SHIELDBOW_COOLDOWN_MS)} giây)`;
   coolDown = 0;
   manaCost = 0;

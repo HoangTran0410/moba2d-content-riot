@@ -1,6 +1,7 @@
 import type { CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 import { alliedChampionsAround } from './Item_Shurelya';
+import { pct } from '../text';
 
 const Spell = api.Spell;
 const Buff = api.buffs.Buff;
@@ -28,8 +29,15 @@ const StatsModifier = api.units.StatsModifier;
  * phantom resistances behind).
  */
 
-/** Armour and magic resist while alone. */
-export const HULLBREAKER_RESISTS = 15;
+/**
+ * Armour and magic resist while alone, as a share of what the wearer already
+ * has — the outer multiplier slot, so it multiplies the resists the rest of
+ * the build bought rather than adding a flat 15 that late-game damage walks
+ * through. ~15 bonus armour on a mid-game bruiser with one armour item
+ * (~60 giáp); the magic-resist half runs softer early on the same body and
+ * catches up with the build, which is the point.
+ */
+export const HULLBREAKER_RESISTS_RATIO = 0.25;
 
 /** "Alone" means no allied champion within this range. */
 export const HULLBREAKER_ALLY_RADIUS = 350;
@@ -56,8 +64,8 @@ export class Item_Hullbreaker_Plates extends Buff {
 
   onCreate(): void {
     this.modifier = new StatsModifier();
-    this.modifier.armor.flatBonus = HULLBREAKER_RESISTS;
-    this.modifier.magicResist.flatBonus = HULLBREAKER_RESISTS;
+    this.modifier.armor.percentBonus = HULLBREAKER_RESISTS_RATIO;
+    this.modifier.magicResist.percentBonus = HULLBREAKER_RESISTS_RATIO;
   }
 
   onUpdate(): void {
@@ -109,8 +117,8 @@ export default class Item_Hullbreaker extends Spell {
   image = api.asset('item_hullbreaker');
   name = 'Búa Tiến Công (Item_Hullbreaker)';
   description =
-    `Nội tại: khi không có đồng minh nào đứng gần, nhận ${HULLBREAKER_RESISTS} giáp và ` +
-    `${HULLBREAKER_RESISTS} kháng phép`;
+    `Nội tại: khi không có đồng minh nào đứng gần, tăng ` +
+    `${pct(HULLBREAKER_RESISTS_RATIO)}% giáp và kháng phép`;
   coolDown = 0;
   manaCost = 0;
 

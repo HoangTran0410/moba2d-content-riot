@@ -1,5 +1,6 @@
 import type { AttackableUnit, CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct } from '../text';
 
 const Spell = api.Spell;
 const Buff = api.buffs.Buff;
@@ -30,8 +31,15 @@ export const IMMOLATE_RADIUS = 170;
 /** One tick a second — slow enough to read each number as it lands. */
 export const IMMOLATE_TICK_MS = 1_000;
 
-/** Magic damage per tick, per victim. 20 damage over a ten-second melee. */
-export const IMMOLATE_DAMAGE_PER_TICK = 2;
+/**
+ * Magic damage per tick, per victim: a floor plus a small share of the
+ * WEARER's maximum health, because the burn rides tank items and health is
+ * what their wearer actually builds. ~2 per tick on a mid-game tank
+ * (~260 máu) — the flat number it replaced — and still a real cost to stand
+ * beside a full-build one, which the flat 2 was not.
+ */
+export const IMMOLATE_BASE_PER_TICK = 1;
+export const IMMOLATE_MAX_HEALTH_RATIO_PER_TICK = 0.004;
 
 export const IMMOLATE_STACK_ID = 'item_immolate';
 
@@ -79,8 +87,10 @@ export class Item_Immolate_Aura extends Buff {
     const holder = this.targetUnit;
     if (holder.isDead || holder.toRemove) return;
 
+    const tick =
+      IMMOLATE_BASE_PER_TICK + holder.stats.maxHealth.value * IMMOLATE_MAX_HEALTH_RATIO_PER_TICK;
     for (const enemy of burnableEnemiesAround(holder, IMMOLATE_RADIUS)) {
-      enemy.takeDamage(IMMOLATE_DAMAGE_PER_TICK, holder, 'MAGIC', IMMOLATE_SOURCE);
+      enemy.takeDamage(tick, holder, 'MAGIC', IMMOLATE_SOURCE);
     }
   }
 
@@ -109,7 +119,8 @@ export default class Item_Immolate extends Spell {
   image = api.asset('item_sunfire_aegis');
   name = 'Thiêu Đốt (Item_Immolate)';
   description =
-    `Nội tại: thiêu đốt kẻ địch đứng gần, gây ${IMMOLATE_DAMAGE_PER_TICK} sát thương phép mỗi giây`;
+    `Nội tại: thiêu đốt kẻ địch đứng gần, gây ${IMMOLATE_BASE_PER_TICK} + ` +
+    `${pct(IMMOLATE_MAX_HEALTH_RATIO_PER_TICK)}% máu tối đa của bản thân sát thương phép mỗi giây`;
   coolDown = 0;
   manaCost = 0;
 

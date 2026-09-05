@@ -1,7 +1,7 @@
 import type { AttackableUnit, CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 import { alliedChampionsAround } from './Item_Shurelya';
-import { secs } from '../text';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const AoePulse = api.AoePulse;
@@ -18,7 +18,13 @@ const AoePulse = api.AoePulse;
  * Mikael-blessed one for more, exactly as every other heal in the game.
  */
 
-export const REDEMPTION_HEAL = 20;
+/**
+ * The heal, as a share of each RECIPIENT's own maximum health — the tank in
+ * the scrum is mended for more points than the mage on its edge, and the
+ * button keeps mattering on late-game health bars. ~20 on a mid-game body
+ * (~165 máu), which is the flat number it replaced.
+ */
+export const REDEMPTION_HEAL_PERCENT = 0.12;
 
 /** Same reach as the other two team buttons. */
 export const REDEMPTION_RADIUS = 260;
@@ -40,7 +46,7 @@ export default class Item_Redemption extends Spell {
   image = api.asset('item_redemption');
   name = 'Dây Chuyền Chuộc Tội (Item_Redemption)';
   description =
-    `Kích hoạt: hồi ${REDEMPTION_HEAL} máu cho bản thân và các đồng minh xung quanh` +
+    `Kích hoạt: hồi ${pct(REDEMPTION_HEAL_PERCENT)}% máu tối đa cho bản thân và các đồng minh xung quanh` +
     ` (hồi lại sau ${secs(REDEMPTION_COOLDOWN_MS)} giây)`;
   coolDown = REDEMPTION_COOLDOWN_MS;
   manaCost = 0;
@@ -63,7 +69,7 @@ export default class Item_Redemption extends Spell {
 
     for (const ally of covered) {
       if (ally.isDead || ally.toRemove) continue;
-      ally.takeHeal(REDEMPTION_HEAL, this.owner);
+      ally.takeHeal(ally.stats.maxHealth.value * REDEMPTION_HEAL_PERCENT, this.owner);
 
       const flare = new AoePulse(this.owner);
       flare.position = ally.position.copy();

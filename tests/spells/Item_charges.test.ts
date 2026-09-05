@@ -13,10 +13,11 @@ import Item_StatikkShiv, {
   CHAIN_TARGETS,
   ENERGIZE_PER_HIT,
   ENERGIZED_AT,
-  SHIV_DAMAGE,
+  SHIV_AD_RATIO,
 } from '../../spells/Item_StatikkShiv';
 import Item_DeadMansPlate, {
-  IMPACT_DAMAGE_AT_FULL,
+  IMPACT_BASE_AT_FULL,
+  IMPACT_MAX_HEALTH_RATIO_AT_FULL,
   MAX_MOMENTUM,
   MOMENTUM_DECAY_PER_SECOND,
   MOMENTUM_PER_SECOND,
@@ -81,6 +82,10 @@ describe('Móc Sét Statikk', () => {
 
   it('banks charge per swing and fires only once the meter is full', () => {
     const holder = createUnit(game, 0);
+    // A build for the bolt to take its share of — the proc reads the
+    // wearer's whole attack damage now, and a share of the fixture's
+    // default 0 would fire an invisible bolt.
+    holder.stats.attackDamage.baseValue = 14;
     const enemy = createUnit(game, 120, 'red');
     game.setPlayer(holder);
     indexObjects(game, [holder, enemy]);
@@ -94,7 +99,7 @@ describe('Móc Sét Statikk', () => {
 
     swing(holder, enemy);
     expect(hurt).toHaveBeenCalledTimes(1);
-    expect(hurt.mock.calls[0][0]).toBe(SHIV_DAMAGE);
+    expect(hurt.mock.calls[0][0]).toBeCloseTo(14 * SHIV_AD_RATIO, 6);
   });
 
   it('empties the meter when it fires, so the next bolt costs full price again', () => {
@@ -243,7 +248,12 @@ describe('Giáp Người Chết', () => {
     swing(holder, enemy);
 
     expect(hurt).toHaveBeenCalledTimes(1);
-    expect(hurt.mock.calls[0][0]).toBeCloseTo(IMPACT_DAMAGE_AT_FULL, 3);
+    // The impact reads the wearer's own bar: a base plus a share of this
+    // fixture's default 100 maximum health.
+    expect(hurt.mock.calls[0][0]).toBeCloseTo(
+      IMPACT_BASE_AT_FULL + 100 * IMPACT_MAX_HEALTH_RATIO_AT_FULL,
+      3
+    );
     const slow = live(enemy).find(b => b instanceof Slow) as InstanceType<typeof Slow>;
     expect(slow, 'nothing slowed the victim').toBeTruthy();
     expect(slow.percent).toBe(SLOW_PERCENT);

@@ -26,11 +26,11 @@ import {
   REAVER_MANA_REFUND_RATIO,
 } from '../spells/Item_EssenceReaver';
 import { Item_RuinedKing_Bite, RUINED_KING_CURRENT_HEALTH_RATIO } from '../spells/Item_RuinedKing';
-import { Item_WitsEnd_Sting, WITS_END_MAGIC_DAMAGE } from '../spells/Item_WitsEnd';
+import { Item_WitsEnd_Sting, WITS_END_AD_RATIO } from '../spells/Item_WitsEnd';
 import {
   Item_Kraken_Harpoon,
   KRAKEN_HIT_INTERVAL,
-  KRAKEN_PROC_DAMAGE,
+  KRAKEN_PROC_AD_RATIO,
 } from '../spells/Item_Kraken';
 import {
   Item_Guinsoo_Rage,
@@ -45,7 +45,7 @@ import {
 } from '../spells/Item_Runaan';
 import { CleaveBuff } from '../spells/Item_Tiamat';
 import { Item_DuskAndDawn_Twin } from '../spells/Item_DuskAndDawn';
-import { Item_Nashor_Fang, NASHOR_MAGIC_DAMAGE } from '../spells/Item_Nashor';
+import { Item_Nashor_Fang, NASHOR_BASE_AD_RATIO } from '../spells/Item_Nashor';
 
 const api = buildTestApi();
 const EventType = api.enums.EventType;
@@ -60,6 +60,15 @@ const EventType = api.enums.EventType;
  */
 
 const FRAME_MS = 100;
+
+/**
+ * What each converted proc lands off this file's 14-attack-damage fixture.
+ * `takeDamage` rounds each instance to whole points, so the probes round the
+ * same way — per hit, never on a sum.
+ */
+const NASHOR_STING = Math.round(14 * NASHOR_BASE_AD_RATIO);
+const KRAKEN_HARPOON = Math.round(14 * KRAKEN_PROC_AD_RATIO);
+const WITS_END_STING = Math.round(14 * WITS_END_AD_RATIO);
 
 type Unit = ReturnType<typeof createUnit>;
 type World = { game: ReturnType<typeof createGame>; attacker: Unit; victim: Unit };
@@ -250,7 +259,7 @@ describe('the plain payloads', () => {
 
     const speedBefore = w.attacker.stats.speed.value;
     swing(w);
-    expect(w.victim.stats.health.value).toBe(200 - WITS_END_MAGIC_DAMAGE);
+    expect(w.victim.stats.health.value).toBe(200 - WITS_END_STING);
     expect(w.attacker.stats.speed.value).toBeGreaterThan(speedBefore);
   });
 
@@ -262,7 +271,7 @@ describe('the plain payloads', () => {
     expect(w.victim.stats.health.value).toBe(200);
 
     swing(w);
-    expect(w.victim.stats.health.value).toBe(200 - KRAKEN_PROC_DAMAGE);
+    expect(w.victim.stats.health.value).toBe(200 - KRAKEN_HARPOON);
   });
 
   it('switching targets resets the harpoon count', () => {
@@ -278,7 +287,7 @@ describe('the plain payloads', () => {
     swing(w, { victim: other });
     expect(other.stats.health.value).toBe(200);
     swing(w, { victim: other });
-    expect(other.stats.health.value).toBe(200 - KRAKEN_PROC_DAMAGE);
+    expect(other.stats.health.value).toBe(200 - KRAKEN_HARPOON);
   });
 });
 
@@ -323,7 +332,7 @@ describe('Cuồng Đao Guinsoo', () => {
     for (let hit = 0; hit < PHANTOM_HIT_INTERVAL; hit++) {
       const before = w.victim.stats.health.value;
       swing(w);
-      if (before - w.victim.stats.health.value === NASHOR_MAGIC_DAMAGE * 2) doubled++;
+      if (before - w.victim.stats.health.value === NASHOR_STING * 2) doubled++;
     }
     expect(doubled).toBe(1);
   });
@@ -410,12 +419,12 @@ describe('Cuồng Cung Runaan', () => {
 
     // each side victim: the bolt's own damage plus the carried sting
     for (const side of [w.closer, w.beside]) {
-      expect(side.stats.health.value).toBe(200 - boltDamage - NASHOR_MAGIC_DAMAGE);
+      expect(side.stats.health.value).toBe(200 - boltDamage - NASHOR_STING);
     }
     // the third body beside the victim loses on distance, and only on that
     expect(w.crowd.stats.health.value).toBe(200);
     // the main victim: the sting once — never a bolt at the unit already hit
-    expect(w.victim.stats.health.value).toBe(200 - NASHOR_MAGIC_DAMAGE);
+    expect(w.victim.stats.health.value).toBe(200 - NASHOR_STING);
   });
 
   /**
@@ -519,7 +528,7 @@ describe('Bình Minh & Hoàng Hôn', () => {
     w.attacker.addBuff(new Item_Nashor_Fang(0, w.attacker, w.attacker));
 
     swing(w);
-    expect(w.victim.stats.health.value).toBe(200 - NASHOR_MAGIC_DAMAGE * 2);
+    expect(w.victim.stats.health.value).toBe(200 - NASHOR_STING * 2);
   });
 
   it('does not double itself against another doubler', () => {
@@ -534,7 +543,7 @@ describe('Bình Minh & Hoàng Hôn', () => {
 
     swing(w);
     // one real + one echo per doubler — echoes never breed echoes
-    expect(w.victim.stats.health.value).toBe(200 - NASHOR_MAGIC_DAMAGE * 3);
+    expect(w.victim.stats.health.value).toBe(200 - NASHOR_STING * 3);
   });
 });
 

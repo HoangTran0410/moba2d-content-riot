@@ -1229,7 +1229,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1500,
     buildsFrom: ['recurve_bow', 'null_magic_mantle'],
     description:
-      'Nội tại: đòn đánh gây thêm <span class="damage magic" data-flat="none">4 sát thương phép</span> và tăng tốc chạy trong chốc lát.',
+      'Nội tại: đòn đánh gây thêm sát thương phép bằng <span class="damage magic" data-flat="none">18% công</span> và tăng tốc chạy trong chốc lát.',
     stats: { attackSpeed: 0.18, magicResist: 26, abilityPower: 1, onHitDamage: 1 },
     passive: 'Item_WitsEnd',
   },
@@ -1241,7 +1241,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     buildsFrom: ['recurve_bow', 'long_sword', 'long_sword'],
     description:
       'Nội tại: mỗi đòn thứ <span class="buff">3</span> liên tiếp lên cùng một mục tiêu gây thêm ' +
-      '<span class="damage physical" data-flat="none">12 sát thương vật lý</span>.',
+      'sát thương vật lý bằng <span class="damage physical" data-flat="none">50% công</span>.',
     stats: { attackDamage: 14, attackSpeed: 0.18, onHitDamage: 3 },
     passive: 'Item_Kraken',
   },
@@ -1251,7 +1251,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     icon: 'item_nashors_tooth',
     cost: 1500,
     buildsFrom: ['recurve_bow'],
-    description: 'Nội tại: đòn đánh gây thêm <span class="damage magic" data-flat="none">7 sát thương phép</span>.',
+    description:
+      'Nội tại: đòn đánh gây thêm sát thương phép bằng <span class="damage magic" data-flat="none">55% công cơ bản</span>.',
     stats: { attackSpeed: 0.24, abilityPower: 1.4, onHitDamage: 1 },
     passive: 'Item_Nashor',
   },
@@ -1297,7 +1298,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1500,
     buildsFrom: ['sheen', 'boots'],
     description:
-      'Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm <span class="damage magic" data-flat="none">18 sát thương phép</span>.',
+      'Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm ' +
+      '<span class="damage magic" data-flat="none">150% công cơ bản</span> dưới dạng sát thương phép.',
     stats: { speed: 0.4, maxMana: 20, abilityPower: 1.6 },
     passive: 'Item_LichBane',
   },
@@ -1363,8 +1365,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1550,
     buildsFrom: ['zeal', 'long_sword'],
     description:
-      'Nội tại: mỗi đòn đánh tích điện; khi tích đầy, đòn kế tiếp phóng tia sét gây ' +
-      '<span class="damage magic" data-flat="none">16 sát thương phép</span> lên mục tiêu và lan sang <span class="buff">3</span> kẻ địch gần đó.',
+      'Nội tại: mỗi đòn đánh tích điện; khi tích đầy, đòn kế tiếp phóng tia sét gây sát thương phép ' +
+      'bằng <span class="damage magic" data-flat="none">70% công</span> lên mục tiêu và lan sang <span class="buff">3</span> kẻ địch gần đó.',
     stats: { attackDamage: 10, attackSpeed: 0.18, critChance: 0.15, speedPercent: 0.05 },
     passive: 'Item_StatikkShiv',
   },
@@ -1376,7 +1378,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     buildsFrom: ['cloth_armor', 'ruby_crystal'],
     description:
       'Nội tại: di chuyển tích lực, tối đa tăng thêm <span class="buff">30%</span> tốc chạy; đòn đánh kế tiếp ' +
-      'xả toàn bộ lực, gây tới <span class="damage physical" data-flat="none">20 sát thương vật lý</span> và làm chậm <span class="buff">50%</span> khi tích đầy.',
+      'xả toàn bộ lực, gây tới <span class="damage physical" data-flat="none">8 + 5% máu tối đa</span> ' +
+      'sát thương vật lý và làm chậm <span class="buff">50%</span> khi tích đầy.',
     stats: { armor: 30, maxHealth: 50, speedPercent: 0.05 },
     passive: 'Item_DeadMansPlate',
   },
@@ -1387,7 +1390,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1450,
     buildsFrom: ['cloth_armor', 'null_magic_mantle'],
     description:
-      'Kích hoạt: tạo khiên <span class="buff">30</span> cho bản thân và các đồng minh xung quanh trong <span class="time">2.5 giây</span>.',
+      'Kích hoạt: tạo khiên bằng <span class="buff">18% máu tối đa</span> cho bản thân và các đồng minh ' +
+      'xung quanh trong <span class="time">2.5 giây</span>.',
     stats: { armor: 25, magicResist: 32, maxHealth: 40 },
     active: 'Item_Locket',
   },
@@ -1416,7 +1420,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     buildsFrom: ['null_magic_mantle'],
     description:
       'Kích hoạt: gỡ một hiệu ứng <span class="buff">khống chế</span> khỏi đồng minh và hồi ' +
-      '<span class="heal" data-flat="none">25</span> máu; trong <span class="time">3 giây</span> sau đó, mọi hiệu ứng ' +
+      '<span class="heal" data-flat="none">15% máu tối đa</span>; trong <span class="time">3 giây</span> sau đó, mọi hiệu ứng ' +
       'hồi máu lên đồng minh đó <span class="buff">mạnh hơn 35%</span>.',
     stats: { magicResist: 30, abilityHaste: 15 },
     active: 'Item_Mikael',
@@ -1781,7 +1785,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     description:
       'Nội tại: trúng sát thương phép cho <span class="buff">1</span> điểm cộng dồn trong ' +
       '<span class="time">6 giây</span> (tối đa <span class="buff">5</span>): mỗi điểm ' +
-      '<span class="buff">+3</span> kháng phép và <span class="buff">+2%</span> tốc chạy.',
+      '<span class="buff">+4%</span> kháng phép và <span class="buff">+2%</span> tốc chạy.',
     stats: { maxHealth: 55, magicResist: 45, speedPercent: 0.05 },
     passive: 'Item_ForceOfNature',
   },
@@ -1815,8 +1819,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1750,
     buildsFrom: ['chain_vest', 'negatron_cloak'],
     description:
-      'Kích hoạt: hoá đá — tăng <span class="buff">25</span> giáp và <span class="buff">25</span> ' +
-      'kháng phép trong <span class="time">4 giây</span>.',
+      'Kích hoạt: hoá đá — tăng <span class="buff">25%</span> giáp và kháng phép ' +
+      'trong <span class="time">4 giây</span>.',
     stats: { armor: 40, magicResist: 40 },
     active: 'Item_Gargoyle',
   },
@@ -1827,7 +1831,9 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1450,
     buildsFrom: ['null_magic_mantle', 'giants_belt'],
     description:
-      'Nội tại: thiêu đốt kẻ địch đứng gần, gây <span class="damage magic" data-flat="none">2 sát thương phép</span> mỗi giây.',
+      'Nội tại: thiêu đốt kẻ địch đứng gần, gây ' +
+      '<span class="damage magic" data-flat="none">1 + 0.4% máu tối đa của bản thân</span> ' +
+      'sát thương phép mỗi giây.',
     stats: { maxHealth: 50, magicResist: 28 },
     passive: 'Item_Immolate',
   },
@@ -1850,7 +1856,9 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1500,
     buildsFrom: ['chain_vest', 'ruby_crystal'],
     description:
-      'Nội tại: thiêu đốt kẻ địch đứng gần, gây <span class="damage magic" data-flat="none">2 sát thương phép</span> mỗi giây.',
+      'Nội tại: thiêu đốt kẻ địch đứng gần, gây ' +
+      '<span class="damage magic" data-flat="none">1 + 0.4% máu tối đa của bản thân</span> ' +
+      'sát thương phép mỗi giây.',
     stats: { armor: 42, maxHealth: 40 },
     passive: 'Item_Immolate',
   },
@@ -1862,7 +1870,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     buildsFrom: ['giants_belt', 'ruby_crystal'],
     description:
       'Nội tại: mỗi <span class="time">10 giây</span>, đòn đánh kế tiếp lên tướng địch gây thêm ' +
-      '<span class="damage physical" data-flat="none">5 sát thương vật lý</span> và tăng vĩnh viễn ' +
+      '<span class="damage physical" data-flat="none">2 + 1% máu tối đa</span> sát thương vật lý và tăng vĩnh viễn ' +
       '<span class="buff">2</span> máu tối đa (tối đa <span class="buff">20</span>).',
     stats: { maxHealth: 75 },
     passive: 'Item_Heartsteel',
@@ -1887,7 +1895,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     buildsFrom: ['long_sword', 'negatron_cloak'],
     description:
       'Nội tại: khi sát thương phép đưa máu xuống dưới <span class="buff">35%</span>, nhận lá chắn phép ' +
-      '<span class="buff">25</span> trong <span class="time">4 giây</span>; hồi lại sau <span class="time">30 giây</span>.',
+      'bằng <span class="buff">12% máu tối đa</span> trong <span class="time">4 giây</span>; hồi lại sau <span class="time">30 giây</span>.',
     stats: { attackDamage: 12, magicResist: 40 },
     passive: 'Item_Maw',
   },
@@ -1908,7 +1916,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1400,
     buildsFrom: ['spectres_cowl'],
     description:
-      'Kích hoạt: hồi <span class="heal" data-flat="none">20</span> máu cho bản thân và các đồng minh xung quanh.',
+      'Kích hoạt: hồi <span class="heal" data-flat="none">12% máu tối đa</span> cho bản thân và các đồng minh xung quanh.',
     stats: { maxHealth: 40, magicResist: 28, healthRegen: 0.03 },
     active: 'Item_Redemption',
   },
@@ -1969,7 +1977,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     buildsFrom: ['caulfields_warhammer', 'ruby_crystal'],
     description:
       'Nội tại: đòn đánh đầu tiên lên mỗi tướng địch gây thêm <span class="buff">50%</span> công ' +
-      'cơ bản và hồi <span class="heal" data-flat="none">6</span> máu ' +
+      'cơ bản và hồi <span class="heal" data-flat="none">2.5% máu tối đa</span> ' +
       '(mỗi mục tiêu <span class="time">8 giây</span> một lần).',
     stats: { attackDamage: 10, maxHealth: 40, abilityHaste: 10 },
     passive: 'Item_SunderedSky',
@@ -1992,8 +2000,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     buildsFrom: ['tiamat', 'phage'],
     description:
       'Nội tại: đòn đánh gây thêm <span class="buff">40%</span> công lên các kẻ địch khác quanh ' +
-      'mục tiêu. Kích hoạt: gây <span class="damage physical" data-flat="none">8 sát thương vật ' +
-      'lý</span> và làm chậm <span class="buff">30%</span> tướng địch xung quanh trong ' +
+      'mục tiêu. Kích hoạt: gây sát thương vật lý bằng <span class="damage physical" data-flat="none">' +
+      '30% công</span> và làm chậm <span class="buff">30%</span> tướng địch xung quanh trong ' +
       '<span class="time">2.5 giây</span>; bản thân tăng <span class="buff">20%</span> tốc chạy ' +
       'trong chốc lát.',
     // Rìu Tiamat's own cleave rides along — the hydra rule (a finished item
@@ -2011,8 +2019,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1500,
     buildsFrom: ['phage', 'ruby_crystal'],
     description:
-      'Nội tại: khi không có đồng minh nào đứng gần, nhận <span class="buff">15</span> giáp và ' +
-      '<span class="buff">15</span> kháng phép.',
+      'Nội tại: khi không có đồng minh nào đứng gần, tăng <span class="buff">25%</span> giáp ' +
+      'và kháng phép.',
     stats: { attackDamage: 10, maxHealth: 60, healthRegen: 0.03 },
     passive: 'Item_Hullbreaker',
   },
@@ -2046,8 +2054,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     buildsFrom: ['zeal', 'recurve_bow'],
     description:
       'Nội tại: mỗi <span class="time">10 giây</span>, đòn đánh kế tiếp có thêm ' +
-      '<span class="buff">90</span> tầm đánh và gây thêm ' +
-      '<span class="damage magic" data-flat="none">4 sát thương phép</span>.',
+      '<span class="buff">90</span> tầm đánh và gây thêm sát thương phép bằng ' +
+      '<span class="damage magic" data-flat="none">18% công</span>.',
     stats: { attackSpeed: 0.28, critChance: 0.12, speedPercent: 0.05, onHitDamage: 1 },
     passive: 'Item_Firecannon',
   },
@@ -2058,8 +2066,8 @@ const itemEntries = (): Record<string, ItemDef> => ({
     cost: 1600,
     buildsFrom: ['vampiric_scepter', 'long_sword'],
     description:
-      'Nội tại: khi máu rơi xuống dưới <span class="buff">30%</span>, nhận lá chắn ' +
-      '<span class="heal" data-flat="none">18</span> máu trong <span class="time">3 giây</span> ' +
+      'Nội tại: khi máu rơi xuống dưới <span class="buff">30%</span>, nhận lá chắn bằng ' +
+      '<span class="heal" data-flat="none">14% máu tối đa</span> trong <span class="time">3 giây</span> ' +
       '(hồi lại sau <span class="time">40 giây</span>).',
     stats: { attackDamage: 12, lifesteal: 0.12, critChance: 0.15 },
     passive: 'Item_Shieldbow',
@@ -2097,7 +2105,7 @@ const itemEntries = (): Record<string, ItemDef> => ({
     buildsFrom: ['kindlegem', 'ruby_crystal'],
     description:
       'Nội tại: mỗi <span class="time">5 giây</span>, hồi ' +
-      '<span class="heal" data-flat="none">5</span> máu cho đồng minh bị thương nặng nhất đứng ' +
+      '<span class="heal" data-flat="none">3% máu tối đa</span> cho đồng minh bị thương nặng nhất đứng ' +
       'gần — không bao giờ cho bản thân.',
     stats: { maxHealth: 55, abilityHaste: 10, healthRegen: 0.02 },
     passive: 'Item_Moonstone',

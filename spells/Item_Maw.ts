@@ -27,8 +27,15 @@ const Shield = api.buffs.Shield;
 /** Below this share of maximum health, the lifeline fires. */
 export const MAW_THRESHOLD = 0.35;
 
-/** A quarter of the pool, flat — bigger than Sterak's only against magic. */
-export const MAW_SHIELD = 25;
+/**
+ * The pool, as a share of the wearer's maximum health, measured when it
+ * fires. Smaller than Sterak's share — this one is magic-only and on a
+ * faster clock — and a share rather than the flat 25 it launched as: a flat
+ * lifeline on a late-game health bar stopped one spell tick, which is the
+ * whole "fixed numbers rot" complaint this shelf was rebalanced under.
+ * ~25 on a mid-game bruiser (~210 máu).
+ */
+export const MAW_SHIELD_PERCENT = 0.12;
 
 export const MAW_SHIELD_MS = 4_000;
 
@@ -73,7 +80,7 @@ export class Item_Maw_Lifeline extends Buff {
     this.startRearm(MAW_COOLDOWN_MS);
 
     const shield = new Shield(MAW_SHIELD_MS, unit, unit);
-    shield.amount = MAW_SHIELD;
+    shield.amount = max * MAW_SHIELD_PERCENT;
     shield.absorbs = ['MAGIC'];
     shield.name = 'Chùy Gai Malmortius';
     // Its own slot, as Sterak's: never evict a teammate's shield at the
@@ -91,7 +98,8 @@ export default class Item_Maw extends Spell {
   name = 'Chùy Gai Malmortius (Item_Maw)';
   description =
     `Nội tại: khi sát thương phép đưa máu xuống dưới ${pct(MAW_THRESHOLD)}%, nhận lá chắn phép ` +
-    `${MAW_SHIELD} trong ${secs(MAW_SHIELD_MS)} giây (hồi lại sau ${secs(MAW_COOLDOWN_MS)} giây)`;
+    `bằng ${pct(MAW_SHIELD_PERCENT)}% máu tối đa trong ${secs(MAW_SHIELD_MS)} giây ` +
+    `(hồi lại sau ${secs(MAW_COOLDOWN_MS)} giây)`;
   coolDown = 0;
   manaCost = 0;
 

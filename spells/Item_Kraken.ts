@@ -1,10 +1,11 @@
 import type { CastSpec, OnHitEvent } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct } from '../text';
 
 const Spell = api.Spell;
 const Buff = api.buffs.Buff;
 const AoePulse = api.AoePulse;
-const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 /**
  * Móc Diệt Thủy Quái — the rhythm weapon: every third CONSECUTIVE swing into
@@ -26,8 +27,13 @@ const dmg = api.text.dmg;
 /** Which swing lands the harpoon. */
 export const KRAKEN_HIT_INTERVAL = 3;
 
-/** The harpoon: flat physical damage. */
-export const KRAKEN_PROC_DAMAGE = 12;
+/**
+ * The harpoon: a share of the wearer's attack damage — the whole build, not
+ * only the base — because a rhythm weapon has to keep paying on the third
+ * swing of a three-item carry. ~12 on a mid-game marksman (~24 công), the
+ * flat number it replaced.
+ */
+export const KRAKEN_PROC_AD_RATIO = 0.5;
 
 // A cool blue on a physical proc — an identity exception like Thủy Kiếm's
 // (the harpoon is deep-sea lightning in the source game); the shards style
@@ -38,7 +44,8 @@ export class Item_Kraken_Harpoon extends Buff {
   name = 'Móc Diệt Thủy Quái';
   description =
     `Cứ <span class="buff">${KRAKEN_HIT_INTERVAL} đòn đánh</span> lên cùng một mục tiêu thì đòn thứ ` +
-    `${KRAKEN_HIT_INTERVAL} gây thêm ${dmg(KRAKEN_PROC_DAMAGE, 'PHYSICAL')}.`;
+    `${KRAKEN_HIT_INTERVAL} gây thêm sát thương vật lý bằng ` +
+    `${tint(`${pct(KRAKEN_PROC_AD_RATIO)}% công`, 'PHYSICAL')}.`;
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
 
   /** Consecutive swings into `lastVictim`, 0..2 — the third fires and resets. */
@@ -56,7 +63,12 @@ export class Item_Kraken_Harpoon extends Buff {
     if (this.hitCount < KRAKEN_HIT_INTERVAL) return;
     this.hitCount = 0;
 
-    hit.victim.takeDamage(KRAKEN_PROC_DAMAGE, this.targetUnit, 'PHYSICAL', 'Móc Diệt Thủy Quái');
+    hit.victim.takeDamage(
+      this.targetUnit.stats.attackDamage.value * KRAKEN_PROC_AD_RATIO,
+      this.targetUnit,
+      'PHYSICAL',
+      'Móc Diệt Thủy Quái'
+    );
 
     // The proc has to be tellable from an ordinary swing at a glance — a
     // sharp little burst of spokes, the harpoon's own blue.
@@ -78,7 +90,7 @@ export default class Item_Kraken extends Spell {
   name = 'Móc Diệt Thủy Quái (Item_Kraken)';
   description =
     `Nội tại: mỗi đòn đánh thứ ${KRAKEN_HIT_INTERVAL} liên tiếp lên cùng một mục tiêu gây thêm` +
-    ` ${KRAKEN_PROC_DAMAGE} sát thương vật lý; đổi mục tiêu thì đếm lại từ đầu`;
+    ` sát thương vật lý bằng ${pct(KRAKEN_PROC_AD_RATIO)}% công; đổi mục tiêu thì đếm lại từ đầu`;
   coolDown = 0;
   manaCost = 0;
 

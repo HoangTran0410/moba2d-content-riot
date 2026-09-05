@@ -30,8 +30,14 @@ export const FON_STACK_MS = 6_000;
 
 export const FON_MAX_STACKS = 5;
 
-/** Points of magic resist per stack. +15 at full ramp. */
-export const FON_MR_PER_STACK = 3;
+/**
+ * Magic resist per stack, as a share of what the wearer already has (the
+ * outer multiplier slot) — +20% at full ramp, multiplying the resist the
+ * build bought instead of adding flat points that a late-game mage ignores.
+ * ~3 per stack on a mid-game wearer (~90 kháng phép with this item's own
+ * 45 on), the flat number it replaced.
+ */
+export const FON_MR_PERCENT_PER_STACK = 0.04;
 
 /** Share of move speed per stack, on the outer slot the item stats also use. */
 export const FON_SPEED_PER_STACK = 0.02;
@@ -89,7 +95,7 @@ export class Item_ForceOfNature_Watcher extends Buff {
     // so the ramp can never double-count and always shows one row.
     const surge = new StatAmp(FON_STACK_MS, unit, unit);
     surge.bonuses = {
-      magicResist: { flatBonus: FON_MR_PER_STACK * this.stacks },
+      magicResist: { percentBonus: FON_MR_PERCENT_PER_STACK * this.stacks },
       speed: { percentBonus: FON_SPEED_PER_STACK * this.stacks },
     };
     surge.name = 'Giáp Thiên Nhiên';
@@ -106,7 +112,7 @@ export default class Item_ForceOfNature extends Spell {
   name = 'Giáp Thiên Nhiên (Item_ForceOfNature)';
   description =
     `Nội tại: trúng sát thương phép cho 1 điểm cộng dồn trong ${secs(FON_STACK_MS)} giây ` +
-    `(tối đa ${FON_MAX_STACKS}): mỗi điểm +${FON_MR_PER_STACK} kháng phép và ` +
+    `(tối đa ${FON_MAX_STACKS}): mỗi điểm +${pct(FON_MR_PERCENT_PER_STACK)}% kháng phép và ` +
     `+${pct(FON_SPEED_PER_STACK)}% tốc chạy`;
   coolDown = 0;
   manaCost = 0;

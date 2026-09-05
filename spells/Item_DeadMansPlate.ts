@@ -7,7 +7,7 @@ const Buff = api.buffs.Buff;
 const Slow = api.buffs.Slow;
 const AoePulse = api.AoePulse;
 const StatsModifier = api.units.StatsModifier;
-const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 /**
  * Giáp Người Chết — the only thing in this shop that charges off **walking**.
@@ -52,8 +52,14 @@ export const SPEED_AT_FULL = 0.3;
 /** How many buckets the speed bonus is quantised into. See the header. */
 export const SPEED_STEPS = 10;
 
-/** Bonus physical damage the impact deals at full momentum, scaling from zero. */
-export const IMPACT_DAMAGE_AT_FULL = 20;
+/**
+ * The impact at full momentum, scaling from zero with the meter: a base plus
+ * a share of the WEARER's maximum health, because the plate is a tank item
+ * and health is what its wearer keeps buying. ~20 at full charge on a
+ * mid-game wearer (~240 máu) — the flat number it replaced.
+ */
+export const IMPACT_BASE_AT_FULL = 8;
+export const IMPACT_MAX_HEALTH_RATIO_AT_FULL = 0.05;
 
 /** Below this share of the meter the impact lands but does not stagger. */
 export const SLOW_THRESHOLD = 0.5;
@@ -78,7 +84,10 @@ export class Item_DeadMansPlate_Momentum extends Buff {
   description =
     `Đi bộ tích Đà: đầy Đà cho <span class="buff">+${pct(SPEED_AT_FULL)}%</span> tốc chạy, ` +
     `và đòn đánh kế tiếp tiêu hết Đà để gây thêm ` +
-    `${dmg(IMPACT_DAMAGE_AT_FULL, 'PHYSICAL')} và Làm Chậm.`;
+    `${tint(
+      `${IMPACT_BASE_AT_FULL} + ${pct(IMPACT_MAX_HEALTH_RATIO_AT_FULL)}% máu tối đa sát thương vật lý`,
+      'PHYSICAL'
+    )} và Làm Chậm.`;
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
 
   /** 0 .. `MAX_MOMENTUM`. */
@@ -129,12 +138,10 @@ export class Item_DeadMansPlate_Momentum extends Buff {
     if (this.momentum <= 0) return;
 
     const share = this.momentum / MAX_MOMENTUM;
-    hit.victim.takeDamage(
-      IMPACT_DAMAGE_AT_FULL * share,
-      this.targetUnit,
-      'PHYSICAL',
-      'Giáp Người Chết'
-    );
+    const atFull =
+      IMPACT_BASE_AT_FULL +
+      this.targetUnit.stats.maxHealth.value * IMPACT_MAX_HEALTH_RATIO_AT_FULL;
+    hit.victim.takeDamage(atFull * share, this.targetUnit, 'PHYSICAL', 'Giáp Người Chết');
 
     // The stagger is the *heavy* impact only: a half-charged shoulder barge
     // shoves, a full one stops you.
@@ -207,7 +214,8 @@ export default class Item_DeadMansPlate extends Spell {
   name = 'Giáp Người Chết (Item_DeadMansPlate)';
   description =
     `Nội tại: di chuyển tích lực, tối đa tăng ${pct(SPEED_AT_FULL)}% tốc chạy;` +
-    ` đòn đánh kế tiếp xả toàn bộ lực, gây tới ${IMPACT_DAMAGE_AT_FULL} sát thương vật lý` +
+    ` đòn đánh kế tiếp xả toàn bộ lực, gây tới ${IMPACT_BASE_AT_FULL} +` +
+    ` ${pct(IMPACT_MAX_HEALTH_RATIO_AT_FULL)}% máu tối đa sát thương vật lý` +
     ` và làm chậm ${pct(SLOW_PERCENT)}% khi tích đầy`;
   coolDown = 0;
   manaCost = 0;

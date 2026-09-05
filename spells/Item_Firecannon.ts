@@ -1,6 +1,6 @@
 import type { CastSpec, OnHitEvent } from '@moba2d/core/content/types';
 import { api } from '../packApi';
-import { secs } from '../text';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Buff = api.buffs.Buff;
@@ -29,8 +29,13 @@ export const FIRECANNON_CHARGE_MS = 10_000;
 /** Extra attack range while the shot is armed. Marksman base is 300. */
 export const FIRECANNON_BONUS_RANGE = 90;
 
-/** The spark the empowered shot lands, magic, on top of the ordinary hit. */
-export const FIRECANNON_BONUS_DAMAGE = 4;
+/**
+ * The spark the empowered shot lands, magic, on top of the ordinary hit — a
+ * share of the wearer's attack damage rather than the flat 4 it launched as,
+ * so the poke keeps stinging off a full build. ~4 on a mid-game marksman
+ * (~22 công).
+ */
+export const FIRECANNON_AD_RATIO = 0.18;
 
 export const FIRECANNON_STACK_ID = 'item_rapid_firecannon';
 
@@ -85,7 +90,7 @@ export class Item_Firecannon_Charge extends Buff {
     this.readyAtMs = this.nowMs + FIRECANNON_CHARGE_MS;
 
     hit.victim.takeDamage(
-      FIRECANNON_BONUS_DAMAGE,
+      this.targetUnit.stats.attackDamage.value * FIRECANNON_AD_RATIO,
       this.targetUnit,
       'MAGIC',
       'Đại Bác Liên Thanh'
@@ -126,7 +131,8 @@ export default class Item_Firecannon extends Spell {
   name = 'Đại Bác Liên Thanh (Item_Firecannon)';
   description =
     `Nội tại: mỗi ${secs(FIRECANNON_CHARGE_MS)} giây, đòn đánh kế tiếp có thêm ` +
-    `${FIRECANNON_BONUS_RANGE} tầm đánh và gây thêm ${FIRECANNON_BONUS_DAMAGE} sát thương phép`;
+    `${FIRECANNON_BONUS_RANGE} tầm đánh và gây thêm sát thương phép bằng ` +
+    `${pct(FIRECANNON_AD_RATIO)}% công`;
   coolDown = 0;
   manaCost = 0;
 

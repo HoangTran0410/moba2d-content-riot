@@ -15,7 +15,6 @@ const withinRange = api.combat.Reach.withinRange;
 const effectiveRange = api.combat.Reach.effectiveRange;
 const canSee = api.combat.Vision.canSee;
 const AttackableUnit = api.units.AttackableUnit;
-const heal = api.text.heal;
 
 /**
  * Ơn Phước Mikael — the shop's answer to a chain of crowd control landing on
@@ -45,7 +44,13 @@ const heal = api.text.heal;
  * source game too.
  */
 
-export const HEAL = 25;
+/**
+ * The heal, as a share of the RECIPIENT's own maximum health — a share
+ * rather than the flat 25 it launched as, so the blessing is worth pressing
+ * on a late-game front-liner and not only on a laner. ~25 on a mid-game
+ * body (~165 máu).
+ */
+export const HEAL_PERCENT = 0.15;
 
 /** How much more every heal on them lands for, and for how long. */
 export const HEALING_BOOST = 0.35;
@@ -75,7 +80,7 @@ export default class Item_Mikael extends Spell {
   name = 'Ơn Phước Mikael (Item_Mikael)';
   description =
     `Kích hoạt: gỡ một hiệu ứng <span class="buff">khống chế</span> khỏi đồng minh và hồi` +
-    ` ${heal(HEAL)} máu; trong <span class="time">${secs(BOOST_MS)} giây</span>` +
+    ` <span class="heal" data-flat="none">${pct(HEAL_PERCENT)}% máu tối đa</span>; trong <span class="time">${secs(BOOST_MS)} giây</span>` +
     ` sau đó mọi hiệu ứng hồi máu lên đồng minh đó mạnh hơn ${pct(HEALING_BOOST)}%`;
   coolDown = COOLDOWN_MS;
   manaCost = 0;
@@ -154,7 +159,7 @@ export default class Item_Mikael extends Spell {
     boost.bonuses = { healingReceived: { baseBonus: HEALING_BOOST } };
     target.addBuff(boost);
 
-    target.takeHeal(HEAL, this.owner);
+    target.takeHeal(target.stats.maxHealth.value * HEAL_PERCENT, this.owner);
 
     this.game.objectManager.addObject(new Item_Mikael_Ribbon(this.owner, target));
   }

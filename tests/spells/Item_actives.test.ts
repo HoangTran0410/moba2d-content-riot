@@ -17,8 +17,8 @@ import Item_Everfrost, {
 } from '../../spells/Item_Everfrost';
 import Item_Locket, {
   LOCKET_RADIUS,
-  LOCKET_SHIELD,
   LOCKET_SHIELD_MS,
+  LOCKET_SHIELD_PERCENT,
 } from '../../spells/Item_Locket';
 import Item_Shurelya, {
   SHURELYA_DURATION_MS,
@@ -27,7 +27,7 @@ import Item_Shurelya, {
 } from '../../spells/Item_Shurelya';
 import Item_Ghostblade, { SPEED_PERCENT } from '../../spells/Item_Ghostblade';
 import Item_Quicksilver from '../../spells/Item_Quicksilver';
-import Item_Mikael, { HEAL as MIKAEL_HEAL, HEALING_BOOST } from '../../spells/Item_Mikael';
+import Item_Mikael, { HEAL_PERCENT as MIKAEL_HEAL_PERCENT, HEALING_BOOST } from '../../spells/Item_Mikael';
 import Item_Thornmail, { REFLECT_PERCENT, REFLECT_STACK_ID } from '../../spells/Item_Thornmail';
 import Item_Zhonyas, { DURATION_MS as ZHONYAS_DURATION_MS } from '../../spells/Item_Zhonyas';
 
@@ -238,10 +238,12 @@ describe('the shop item spells', () => {
       expect(pressSpell(new Item_Mikael(caster), { target: ally })).toBe(true);
 
       // `takeHeal` rounds to whole points, and it rounds the *amplified*
-      // number — 25 x 1.35 is 33.75, which arrives as 34. Asserting the raw
-      // product instead would be off by a quarter of a point and read as a
-      // bug in the boost.
-      expect(ally.stats.health.value).toBe(20 + Math.round(MIKAEL_HEAL * (1 + HEALING_BOOST)));
+      // number — the heal is a share of the ally's own 200-point bar (30),
+      // and 30 x 1.35 arrives as 41. Asserting the raw product instead would
+      // be off by a fraction of a point and read as a bug in the boost.
+      expect(ally.stats.health.value).toBe(
+        20 + Math.round(200 * MIKAEL_HEAL_PERCENT * (1 + HEALING_BOOST))
+      );
     });
   });
 
@@ -351,13 +353,15 @@ describe('the shop item spells', () => {
       pressSpell(new Item_Locket(holder));
 
       const shield = live(holder)[0] as InstanceType<typeof Shield>;
-      expect(shield.amount).toBe(LOCKET_SHIELD);
+      // A share of the recipient's own bar — this fixture's default 100.
+      expect(shield.amount).toBeCloseTo(100 * LOCKET_SHIELD_PERCENT, 6);
       expect(shield.duration).toBe(LOCKET_SHIELD_MS);
 
-      // A 20-point hit into a 30-point shield: health is untouched, and 10
-      // points of cushion are left. Written longhand — a probe derived from
-      // LOCKET_SHIELD would agree with it however wrong it became.
-      holder.takeDamage(20, attacker);
+      // A 10-point hit into an 18-point shield (18% of this 100-health
+      // body): health is untouched, and 8 points of cushion are left.
+      // Written longhand — a probe derived from LOCKET_SHIELD_PERCENT would
+      // agree with it however wrong it became.
+      holder.takeDamage(10, attacker);
       expect(holder.stats.health.baseValue).toBe(100);
     });
   });

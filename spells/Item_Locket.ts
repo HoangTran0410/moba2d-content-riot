@@ -1,7 +1,7 @@
 import type { AttackableUnit, CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 import { alliedChampionsAround } from './Item_Shurelya';
-import { secs } from '../text';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Shield = api.buffs.Shield;
@@ -23,7 +23,13 @@ const SpellObject = api.SpellObject;
  * disagree about who that is.
  */
 
-export const LOCKET_SHIELD = 30;
+/**
+ * Each cover, as a share of that RECIPIENT's own maximum health — the tank
+ * who walked in front gets a bigger wall than the mage behind, and the
+ * button does not rot once late-game bars triple. ~30 on a mid-game body
+ * (~165 máu), which is the flat number it replaced.
+ */
+export const LOCKET_SHIELD_PERCENT = 0.18;
 
 export const LOCKET_SHIELD_MS = 2_500;
 
@@ -47,7 +53,7 @@ export default class Item_Locket extends Spell {
   image = api.asset('item_locket_of_the_iron_solari');
   name = 'Vòng Sắt Mặt Trời (Item_Locket)';
   description =
-    `Kích hoạt: tạo <span class="buff">khiên ${LOCKET_SHIELD}</span> cho bản thân và các đồng` +
+    `Kích hoạt: tạo <span class="buff">khiên bằng ${pct(LOCKET_SHIELD_PERCENT)}% máu tối đa</span> cho bản thân và các đồng` +
     ` minh xung quanh trong <span class="time">${secs(LOCKET_SHIELD_MS)} giây</span>`;
   coolDown = LOCKET_COOLDOWN_MS;
   manaCost = 0;
@@ -72,7 +78,7 @@ export default class Item_Locket extends Spell {
       const shield = new Shield(LOCKET_SHIELD_MS, this.owner, ally);
       shield.name = 'Vòng Sắt Mặt Trời';
       shield.stackId = LOCKET_STACK_ID;
-      shield.amount = LOCKET_SHIELD;
+      shield.amount = ally.stats.maxHealth.value * LOCKET_SHIELD_PERCENT;
       shield.color = [...SOLARI];
       shield.image = this.image;
       ally.addBuff(shield);

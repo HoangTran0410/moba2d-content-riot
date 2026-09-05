@@ -1,6 +1,6 @@
 import type { CastSpec, OnHitEvent } from '@moba2d/core/content/types';
 import { api } from '../packApi';
-import { secs } from '../text';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Buff = api.buffs.Buff;
@@ -33,8 +33,14 @@ const Champion = api.units.Champion;
 /** The meter: one empowered swing this often. */
 export const HEARTSTEEL_CHARGE_MS = 10_000;
 
-/** What the empowered swing adds, physical, on top of the ordinary hit. */
-export const HEARTSTEEL_BONUS_DAMAGE = 5;
+/**
+ * What the empowered swing adds, physical, on top of the ordinary hit: a
+ * base plus a share of the WEARER's maximum health — the item that grows a
+ * health bar hits with the bar it grew. ~5 on a mid-game tank (~295 máu),
+ * the flat number it replaced.
+ */
+export const HEARTSTEEL_BASE_DAMAGE = 2;
+export const HEARTSTEEL_MAX_HEALTH_RATIO = 0.01;
 
 /** Permanent maximum health per proc, and the ceiling on procs. */
 export const HEARTSTEEL_HP_PER_PROC = 2;
@@ -77,7 +83,7 @@ export class Item_Heartsteel_Meter extends Buff {
     this.readyAtMs = this.nowMs + HEARTSTEEL_CHARGE_MS;
 
     hit.victim.takeDamage(
-      HEARTSTEEL_BONUS_DAMAGE,
+      HEARTSTEEL_BASE_DAMAGE + this.targetUnit.stats.maxHealth.value * HEARTSTEEL_MAX_HEALTH_RATIO,
       this.targetUnit,
       'PHYSICAL',
       'Trái Tim Khổng Thần'
@@ -130,7 +136,8 @@ export default class Item_Heartsteel extends Spell {
   name = 'Trái Tim Khổng Thần (Item_Heartsteel)';
   description =
     `Nội tại: mỗi ${secs(HEARTSTEEL_CHARGE_MS)} giây, đòn đánh kế tiếp lên tướng địch gây thêm ` +
-    `${HEARTSTEEL_BONUS_DAMAGE} sát thương vật lý và tăng vĩnh viễn ${HEARTSTEEL_HP_PER_PROC} máu ` +
+    `${HEARTSTEEL_BASE_DAMAGE} + ${pct(HEARTSTEEL_MAX_HEALTH_RATIO)}% máu tối đa sát thương vật lý ` +
+    `và tăng vĩnh viễn ${HEARTSTEEL_HP_PER_PROC} máu ` +
     `tối đa (tối đa ${HEARTSTEEL_HP_PER_PROC * HEARTSTEEL_MAX_PROCS})`;
   coolDown = 0;
   manaCost = 0;

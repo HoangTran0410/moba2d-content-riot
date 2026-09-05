@@ -24,8 +24,13 @@ const Champion = api.units.Champion;
 /** The opener's bonus, as a share of the wearer's base attack damage. */
 export const SUNDERED_BASE_AD_RATIO = 0.5;
 
-/** What the wearer gets back, through `takeHeal` — wounds and blessings apply. */
-export const SUNDERED_HEAL = 6;
+/**
+ * What the wearer gets back, through `takeHeal` — wounds and blessings
+ * apply. A share of the wearer's own maximum health rather than the flat 6
+ * it launched as, so the opener still buys a visible bite of bar late.
+ * ~6 on a mid-game bruiser carrying this item (~230 máu).
+ */
+export const SUNDERED_HEAL_PERCENT = 0.025;
 
 /** Per-target: how long before the same champion pays the opener again. */
 export const SUNDERED_PER_TARGET_MS = 8_000;
@@ -78,7 +83,10 @@ export class Item_SunderedSky_Judgment extends Buff {
       'PHYSICAL',
       'Giáo Thiên Ly'
     );
-    this.targetUnit.takeHeal(SUNDERED_HEAL, this.targetUnit);
+    this.targetUnit.takeHeal(
+      this.targetUnit.stats.maxHealth.value * SUNDERED_HEAL_PERCENT,
+      this.targetUnit
+    );
 
     const flash = new AoePulse(this.targetUnit);
     flash.position = hit.victim.position.copy();
@@ -96,7 +104,8 @@ export default class Item_SunderedSky extends Spell {
   name = 'Giáo Thiên Ly (Item_SunderedSky)';
   description =
     `Nội tại: đòn đánh đầu tiên lên mỗi tướng địch gây thêm ${pct(SUNDERED_BASE_AD_RATIO)}% công` +
-    ` cơ bản và hồi ${SUNDERED_HEAL} máu (mỗi mục tiêu ${secs(SUNDERED_PER_TARGET_MS)} giây một lần)`;
+    ` cơ bản và hồi ${pct(SUNDERED_HEAL_PERCENT)}% máu tối đa (mỗi mục tiêu` +
+    ` ${secs(SUNDERED_PER_TARGET_MS)} giây một lần)`;
   coolDown = 0;
   manaCost = 0;
 

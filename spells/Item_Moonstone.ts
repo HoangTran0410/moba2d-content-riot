@@ -1,7 +1,7 @@
 import type { AttackableUnit, CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
 import { alliedChampionsAround } from './Item_Shurelya';
-import { secs } from '../text';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Buff = api.buffs.Buff;
@@ -25,7 +25,12 @@ const AoePulse = api.AoePulse;
  * is helped at once, not up to five seconds late.
  */
 
-export const MOONSTONE_HEAL = 5;
+/**
+ * The drip, as a share of the wounded ally's own maximum health — a share
+ * rather than the flat 5 it launched as, so the stone keeps closing real
+ * dents once everyone's bar has tripled. ~5 on a mid-game body (~165 máu).
+ */
+export const MOONSTONE_HEAL_PERCENT = 0.03;
 
 /** At most one drip this often. */
 export const MOONSTONE_TICK_MS = 5_000;
@@ -66,7 +71,7 @@ export class Item_Moonstone_Drip extends Buff {
     if (!hurt) return;
 
     this.sinceHeal = 0;
-    hurt.takeHeal(MOONSTONE_HEAL, holder);
+    hurt.takeHeal(hurt.stats.maxHealth.value * MOONSTONE_HEAL_PERCENT, holder);
 
     const flare = new AoePulse(holder);
     flare.position = hurt.position.copy();
@@ -98,7 +103,7 @@ export default class Item_Moonstone extends Spell {
   image = api.asset('item_moonstone_renewer');
   name = 'Bùa Nguyệt Thạch (Item_Moonstone)';
   description =
-    `Nội tại: mỗi ${secs(MOONSTONE_TICK_MS)} giây, hồi ${MOONSTONE_HEAL} máu cho đồng minh` +
+    `Nội tại: mỗi ${secs(MOONSTONE_TICK_MS)} giây, hồi ${pct(MOONSTONE_HEAL_PERCENT)}% máu tối đa cho đồng minh` +
     ` bị thương nặng nhất đứng gần (không bao giờ cho bản thân)`;
   coolDown = 0;
   manaCost = 0;

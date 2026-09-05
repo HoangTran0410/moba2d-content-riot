@@ -23,7 +23,12 @@ const AoePulse = api.AoePulse;
  * are, and the active is for the person running away.
  */
 
-export const STRIDEBREAKER_DAMAGE = 8;
+/**
+ * The halt's damage, as a share of the wearer's attack damage — the active
+ * is bought by a bruiser whose build is that stat, and the flat 8 it
+ * replaced was paint by full build. ~8 on a mid-game bruiser (~29 công).
+ */
+export const STRIDEBREAKER_AD_RATIO = 0.3;
 
 export const STRIDEBREAKER_SLOW_PERCENT = 0.3;
 
@@ -55,7 +60,7 @@ export default class Item_Stridebreaker extends Spell {
   image = api.asset('item_stridebreaker');
   name = 'Chùy Phản Kích (Item_Stridebreaker)';
   description =
-    `Kích hoạt: gây ${STRIDEBREAKER_DAMAGE} sát thương vật lý và làm chậm ` +
+    `Kích hoạt: gây sát thương vật lý bằng ${pct(STRIDEBREAKER_AD_RATIO)}% công và làm chậm ` +
     `${pct(STRIDEBREAKER_SLOW_PERCENT)}% tướng địch xung quanh trong ` +
     `${secs(STRIDEBREAKER_SLOW_MS)} giây; bản thân tăng ${pct(STRIDEBREAKER_HASTE_PERCENT)}%` +
     ` tốc chạy trong chốc lát`;
@@ -75,8 +80,9 @@ export default class Item_Stridebreaker extends Spell {
   onSpellCast() {
     const caught = enemyChampionsAround(this.owner, STRIDEBREAKER_RADIUS);
 
+    const smash = this.owner.stats.attackDamage.value * STRIDEBREAKER_AD_RATIO;
     for (const enemy of caught) {
-      enemy.takeDamage(STRIDEBREAKER_DAMAGE, this.owner, 'PHYSICAL', 'Chùy Phản Kích');
+      enemy.takeDamage(smash, this.owner, 'PHYSICAL', 'Chùy Phản Kích');
       if (enemy.isDead || enemy.toRemove) continue;
 
       // One press, one slow — RENEW_EXISTING on a fixed stackId (the Ekko Q /

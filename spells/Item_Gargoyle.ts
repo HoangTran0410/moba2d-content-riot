@@ -1,6 +1,6 @@
 import type { CastSpec } from '@moba2d/core/content/types';
 import { api } from '../packApi';
-import { secs } from '../text';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const StatAmp = api.buffs.StatAmp;
@@ -21,8 +21,14 @@ const AoePulse = api.AoePulse;
  * double wall nobody priced.
  */
 
-/** Flat points of both resistances while the stone holds. */
-export const GARGOYLE_BONUS_RESISTS = 25;
+/**
+ * Both resistances while the stone holds, as a share of what the wearer
+ * already has (the outer multiplier slot) — stone armour over real armour,
+ * so the button is worth the most on the tank who committed to the shelf
+ * and never rots into a flat 25 late. ~24 bonus armour on a mid-game tank
+ * (~95 giáp with this item's own 40 on).
+ */
+export const GARGOYLE_RESIST_RATIO = 0.25;
 
 export const GARGOYLE_MS = 4_000;
 
@@ -44,7 +50,7 @@ export default class Item_Gargoyle extends Spell {
   image = api.asset('item_gargoyle_stoneplate');
   name = 'Thú Tượng Thạch Giáp (Item_Gargoyle)';
   description =
-    `Kích hoạt: tăng ${GARGOYLE_BONUS_RESISTS} giáp và ${GARGOYLE_BONUS_RESISTS} kháng phép ` +
+    `Kích hoạt: tăng ${pct(GARGOYLE_RESIST_RATIO)}% giáp và kháng phép ` +
     `trong ${secs(GARGOYLE_MS)} giây`;
   coolDown = GARGOYLE_COOLDOWN_MS;
   manaCost = 0;
@@ -62,8 +68,8 @@ export default class Item_Gargoyle extends Spell {
   onSpellCast() {
     const stone = new StatAmp(GARGOYLE_MS, this.owner, this.owner);
     stone.bonuses = {
-      armor: { flatBonus: GARGOYLE_BONUS_RESISTS },
-      magicResist: { flatBonus: GARGOYLE_BONUS_RESISTS },
+      armor: { percentBonus: GARGOYLE_RESIST_RATIO },
+      magicResist: { percentBonus: GARGOYLE_RESIST_RATIO },
     };
     stone.name = 'Thú Tượng Thạch Giáp';
     stone.buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;

@@ -782,7 +782,7 @@ export const spellCatalog = {
   },
   "Item_DeadMansPlate": {
     name: "Giáp Người Chết (Item_DeadMansPlate)",
-    description: "Nội tại: di chuyển tích lực, tối đa tăng 30% tốc chạy; đòn đánh kế tiếp xả toàn bộ lực, gây tới 20 sát thương vật lý và làm chậm 50% khi tích đầy",
+    description: "Nội tại: di chuyển tích lực, tối đa tăng 30% tốc chạy; đòn đánh kế tiếp xả toàn bộ lực, gây tới 8 + 5% máu tối đa sát thương vật lý và làm chậm 50% khi tích đầy",
     iconKey: "item_dead_mans_plate",
     coolDownMs: 0,
     manaCost: 0,
@@ -822,7 +822,7 @@ export const spellCatalog = {
   },
   "Item_Firecannon": {
     name: "Đại Bác Liên Thanh (Item_Firecannon)",
-    description: "Nội tại: mỗi 10 giây, đòn đánh kế tiếp có thêm 90 tầm đánh và gây thêm 4 sát thương phép",
+    description: "Nội tại: mỗi 10 giây, đòn đánh kế tiếp có thêm 90 tầm đánh và gây thêm sát thương phép bằng 18% công",
     iconKey: "item_rapid_firecannon",
     coolDownMs: 0,
     manaCost: 0,
@@ -830,7 +830,7 @@ export const spellCatalog = {
   },
   "Item_ForceOfNature": {
     name: "Giáp Thiên Nhiên (Item_ForceOfNature)",
-    description: "Nội tại: trúng sát thương phép cho 1 điểm cộng dồn trong 6 giây (tối đa 5): mỗi điểm +3 kháng phép và +2% tốc chạy",
+    description: "Nội tại: trúng sát thương phép cho 1 điểm cộng dồn trong 6 giây (tối đa 5): mỗi điểm +4% kháng phép và +2% tốc chạy",
     iconKey: "item_force_of_nature",
     coolDownMs: 0,
     manaCost: 0,
@@ -846,7 +846,7 @@ export const spellCatalog = {
   },
   "Item_Gargoyle": {
     name: "Thú Tượng Thạch Giáp (Item_Gargoyle)",
-    description: "Kích hoạt: tăng 25 giáp và 25 kháng phép trong 4 giây",
+    description: "Kích hoạt: tăng 25% giáp và kháng phép trong 4 giây",
     iconKey: "item_gargoyle_stoneplate",
     coolDownMs: 16000,
     manaCost: 0,
@@ -894,7 +894,7 @@ export const spellCatalog = {
   },
   "Item_Heartsteel": {
     name: "Trái Tim Khổng Thần (Item_Heartsteel)",
-    description: "Nội tại: mỗi 10 giây, đòn đánh kế tiếp lên tướng địch gây thêm 5 sát thương vật lý và tăng vĩnh viễn 2 máu tối đa (tối đa 20)",
+    description: "Nội tại: mỗi 10 giây, đòn đánh kế tiếp lên tướng địch gây thêm 2 + 1% máu tối đa sát thương vật lý và tăng vĩnh viễn 2 máu tối đa (tối đa 20)",
     iconKey: "item_heartsteel",
     coolDownMs: 0,
     manaCost: 0,
@@ -902,7 +902,7 @@ export const spellCatalog = {
   },
   "Item_Hullbreaker": {
     name: "Búa Tiến Công (Item_Hullbreaker)",
-    description: "Nội tại: khi không có đồng minh nào đứng gần, nhận 15 giáp và 15 kháng phép",
+    description: "Nội tại: khi không có đồng minh nào đứng gần, tăng 25% giáp và kháng phép",
     iconKey: "item_hullbreaker",
     coolDownMs: 0,
     manaCost: 0,
@@ -918,7 +918,7 @@ export const spellCatalog = {
   },
   "Item_Immolate": {
     name: "Thiêu Đốt (Item_Immolate)",
-    description: "Nội tại: thiêu đốt kẻ địch đứng gần, gây 2 sát thương phép mỗi giây",
+    description: "Nội tại: thiêu đốt kẻ địch đứng gần, gây 1 + 0.4% máu tối đa của bản thân sát thương phép mỗi giây",
     iconKey: "item_sunfire_aegis",
     coolDownMs: 0,
     manaCost: 0,
@@ -934,7 +934,7 @@ export const spellCatalog = {
   },
   "Item_Kraken": {
     name: "Móc Diệt Thủy Quái (Item_Kraken)",
-    description: "Nội tại: mỗi đòn đánh thứ 3 liên tiếp lên cùng một mục tiêu gây thêm 12 sát thương vật lý; đổi mục tiêu thì đếm lại từ đầu",
+    description: "Nội tại: mỗi đòn đánh thứ 3 liên tiếp lên cùng một mục tiêu gây thêm sát thương vật lý bằng 50% công; đổi mục tiêu thì đếm lại từ đầu",
     iconKey: "item_kraken_slayer",
     coolDownMs: 0,
     manaCost: 0,
@@ -942,7 +942,7 @@ export const spellCatalog = {
   },
   "Item_LichBane": {
     name: "Kiếm Tai Ương (Item_LichBane)",
-    description: "Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm 18 sát thương phép (hồi 1.5 giây)",
+    description: "Nội tại: sau khi dùng chiêu, đòn đánh kế tiếp gây thêm 150% công cơ bản dưới dạng sát thương phép (hồi 1.5 giây)",
     iconKey: "item_lich_bane",
     coolDownMs: 0,
     manaCost: 0,
@@ -950,7 +950,7 @@ export const spellCatalog = {
   },
   "Item_Locket": {
     name: "Vòng Sắt Mặt Trời (Item_Locket)",
-    description: "Kích hoạt: tạo <span class=\"buff\">khiên 30</span> cho bản thân và các đồng minh xung quanh trong <span class=\"time\">2.5 giây</span>",
+    description: "Kích hoạt: tạo <span class=\"buff\">khiên bằng 18% máu tối đa</span> cho bản thân và các đồng minh xung quanh trong <span class=\"time\">2.5 giây</span>",
     iconKey: "item_locket_of_the_iron_solari",
     coolDownMs: 15000,
     manaCost: 0,
@@ -958,7 +958,7 @@ export const spellCatalog = {
   },
   "Item_Maw": {
     name: "Chùy Gai Malmortius (Item_Maw)",
-    description: "Nội tại: khi sát thương phép đưa máu xuống dưới 35%, nhận lá chắn phép 25 trong 4 giây (hồi lại sau 30 giây)",
+    description: "Nội tại: khi sát thương phép đưa máu xuống dưới 35%, nhận lá chắn phép bằng 12% máu tối đa trong 4 giây (hồi lại sau 30 giây)",
     iconKey: "item_maw_of_malmortius",
     coolDownMs: 0,
     manaCost: 0,
@@ -966,7 +966,7 @@ export const spellCatalog = {
   },
   "Item_Mikael": {
     name: "Ơn Phước Mikael (Item_Mikael)",
-    description: "Kích hoạt: gỡ một hiệu ứng <span class=\"buff\">khống chế</span> khỏi đồng minh và hồi <span class=\"heal\" data-base=\"25\">25</span> máu; trong <span class=\"time\">3 giây</span> sau đó mọi hiệu ứng hồi máu lên đồng minh đó mạnh hơn 35%",
+    description: "Kích hoạt: gỡ một hiệu ứng <span class=\"buff\">khống chế</span> khỏi đồng minh và hồi <span class=\"heal\" data-flat=\"none\">15% máu tối đa</span>; trong <span class=\"time\">3 giây</span> sau đó mọi hiệu ứng hồi máu lên đồng minh đó mạnh hơn 35%",
     iconKey: "item_mikaels_blessing",
     coolDownMs: 14000,
     manaCost: 0,
@@ -974,7 +974,7 @@ export const spellCatalog = {
   },
   "Item_Moonstone": {
     name: "Bùa Nguyệt Thạch (Item_Moonstone)",
-    description: "Nội tại: mỗi 5 giây, hồi 5 máu cho đồng minh bị thương nặng nhất đứng gần (không bao giờ cho bản thân)",
+    description: "Nội tại: mỗi 5 giây, hồi 3% máu tối đa cho đồng minh bị thương nặng nhất đứng gần (không bao giờ cho bản thân)",
     iconKey: "item_moonstone_renewer",
     coolDownMs: 0,
     manaCost: 0,
@@ -982,7 +982,7 @@ export const spellCatalog = {
   },
   "Item_Nashor": {
     name: "Nanh Nashor (Item_Nashor)",
-    description: "Nội tại: đòn đánh gây thêm 7 sát thương phép",
+    description: "Nội tại: đòn đánh gây thêm sát thương phép bằng 55% công cơ bản",
     iconKey: "item_nashors_tooth",
     coolDownMs: 0,
     manaCost: 0,
@@ -1030,7 +1030,7 @@ export const spellCatalog = {
   },
   "Item_Redemption": {
     name: "Dây Chuyền Chuộc Tội (Item_Redemption)",
-    description: "Kích hoạt: hồi 20 máu cho bản thân và các đồng minh xung quanh (hồi lại sau 15 giây)",
+    description: "Kích hoạt: hồi 12% máu tối đa cho bản thân và các đồng minh xung quanh (hồi lại sau 15 giây)",
     iconKey: "item_redemption",
     coolDownMs: 15000,
     manaCost: 0,
@@ -1070,7 +1070,7 @@ export const spellCatalog = {
   },
   "Item_Shieldbow": {
     name: "Nỏ Tử Thủ (Item_Shieldbow)",
-    description: "Nội tại: khi máu rơi xuống dưới 30%, nhận lá chắn 18 máu trong 3 giây (hồi lại sau 40 giây)",
+    description: "Nội tại: khi máu rơi xuống dưới 30%, nhận lá chắn bằng 14% máu tối đa trong 3 giây (hồi lại sau 40 giây)",
     iconKey: "item_immortal_shieldbow",
     coolDownMs: 0,
     manaCost: 0,
@@ -1086,7 +1086,7 @@ export const spellCatalog = {
   },
   "Item_StatikkShiv": {
     name: "Móc Sét Statikk (Item_StatikkShiv)",
-    description: "Nội tại: mỗi đòn đánh tích 34 điện; đủ 100 thì đòn kế tiếp phóng tia sét gây 16 sát thương phép lên mục tiêu và lan sang 3 kẻ địch gần đó",
+    description: "Nội tại: mỗi đòn đánh tích 34 điện; đủ 100 thì đòn kế tiếp phóng tia sét gây sát thương phép bằng 70% công lên mục tiêu và lan sang 3 kẻ địch gần đó",
     iconKey: "item_statikk_shiv",
     coolDownMs: 0,
     manaCost: 0,
@@ -1102,7 +1102,7 @@ export const spellCatalog = {
   },
   "Item_Stridebreaker": {
     name: "Chùy Phản Kích (Item_Stridebreaker)",
-    description: "Kích hoạt: gây 8 sát thương vật lý và làm chậm 30% tướng địch xung quanh trong 2.5 giây; bản thân tăng 20% tốc chạy trong chốc lát",
+    description: "Kích hoạt: gây sát thương vật lý bằng 30% công và làm chậm 30% tướng địch xung quanh trong 2.5 giây; bản thân tăng 20% tốc chạy trong chốc lát",
     iconKey: "item_stridebreaker",
     coolDownMs: 14000,
     manaCost: 0,
@@ -1110,7 +1110,7 @@ export const spellCatalog = {
   },
   "Item_SunderedSky": {
     name: "Giáo Thiên Ly (Item_SunderedSky)",
-    description: "Nội tại: đòn đánh đầu tiên lên mỗi tướng địch gây thêm 50% công cơ bản và hồi 6 máu (mỗi mục tiêu 8 giây một lần)",
+    description: "Nội tại: đòn đánh đầu tiên lên mỗi tướng địch gây thêm 50% công cơ bản và hồi 2.5% máu tối đa (mỗi mục tiêu 8 giây một lần)",
     iconKey: "item_sundered_sky",
     coolDownMs: 0,
     manaCost: 0,
@@ -1150,7 +1150,7 @@ export const spellCatalog = {
   },
   "Item_WitsEnd": {
     name: "Đao Tím (Item_WitsEnd)",
-    description: "Nội tại: đòn đánh gây thêm 4 sát thương phép và tăng 0.45 tốc chạy trong 1.5 giây",
+    description: "Nội tại: đòn đánh gây thêm sát thương phép bằng 18% công và tăng 0.45 tốc chạy trong 1.5 giây",
     iconKey: "item_wits_end",
     coolDownMs: 0,
     manaCost: 0,

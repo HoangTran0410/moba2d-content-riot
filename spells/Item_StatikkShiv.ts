@@ -1,11 +1,12 @@
 import type { AttackableUnit, CastSpec, OnHitEvent } from '@moba2d/core/content/types';
 import { api } from '../packApi';
+import { pct } from '../text';
 
 const Spell = api.Spell;
 const Buff = api.buffs.Buff;
 const SpellObject = api.SpellObject;
 const PredefinedFilters = api.combat.PredefinedFilters;
-const dmg = api.text.dmg;
+const tint = api.text.tint;
 
 /**
  * Móc Sét Statikk — the shop's first **meter**, as opposed to its first
@@ -29,8 +30,13 @@ export const ENERGIZE_PER_HIT = 34;
 /** The meter. */
 export const ENERGIZED_AT = 100;
 
-/** What the bolt deals — to the victim and to each enemy it jumps to. */
-export const SHIV_DAMAGE = 16;
+/**
+ * What the bolt deals — to the victim and to each enemy it jumps to. A share
+ * of the wearer's attack damage rather than the flat 16 it launched as, so a
+ * full-build shiv still clears the wave it was bought for. ~16 on a mid-game
+ * marksman (~23 công).
+ */
+export const SHIV_AD_RATIO = 0.7;
 
 /** How many *other* enemies the bolt jumps to. */
 export const CHAIN_TARGETS = 3;
@@ -51,8 +57,8 @@ const SPARK_CORE: [number, number, number] = [235, 250, 255];
 export class Item_StatikkShiv_Charge extends Buff {
   name = 'Móc Sét Statikk';
   description =
-    `Đòn đánh tích điện; khi đầy, đòn tiếp theo gây ` +
-    `${dmg(SHIV_DAMAGE, 'MAGIC')} và lan sang ` +
+    `Đòn đánh tích điện; khi đầy, đòn tiếp theo gây sát thương phép bằng ` +
+    `${tint(`${pct(SHIV_AD_RATIO)}% công`, 'MAGIC')} và lan sang ` +
     `<span class="buff">${CHAIN_TARGETS} kẻ địch</span> xung quanh.`;
   buffAddType = api.enums.BuffAddType.REPLACE_EXISTING;
 
@@ -70,11 +76,12 @@ export class Item_StatikkShiv_Charge extends Buff {
     if (this.charge < ENERGIZED_AT) return;
     this.charge = 0;
 
-    hit.victim.takeDamage(SHIV_DAMAGE, this.targetUnit, 'MAGIC', 'Móc Sét Statikk');
+    const bolt = this.targetUnit.stats.attackDamage.value * SHIV_AD_RATIO;
+    hit.victim.takeDamage(bolt, this.targetUnit, 'MAGIC', 'Móc Sét Statikk');
 
     const jumps = this.nearbyEnemies(hit.victim);
     for (const jump of jumps) {
-      jump.takeDamage(SHIV_DAMAGE, this.targetUnit, 'MAGIC', 'Móc Sét Statikk');
+      jump.takeDamage(bolt, this.targetUnit, 'MAGIC', 'Móc Sét Statikk');
     }
 
     const arc = new Item_StatikkShiv_Arc(this.targetUnit, hit.victim, jumps);
@@ -229,7 +236,7 @@ export default class Item_StatikkShiv extends Spell {
   name = 'Móc Sét Statikk (Item_StatikkShiv)';
   description =
     `Nội tại: mỗi đòn đánh tích ${ENERGIZE_PER_HIT} điện; đủ ${ENERGIZED_AT} thì đòn kế tiếp` +
-    ` phóng tia sét gây ${SHIV_DAMAGE} sát thương phép lên mục tiêu và lan sang` +
+    ` phóng tia sét gây sát thương phép bằng ${pct(SHIV_AD_RATIO)}% công lên mục tiêu và lan sang` +
     ` ${CHAIN_TARGETS} kẻ địch gần đó`;
   coolDown = 0;
   manaCost = 0;

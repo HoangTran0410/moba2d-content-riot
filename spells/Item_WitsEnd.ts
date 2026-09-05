@@ -1,6 +1,6 @@
 import type { CastSpec, OnHitEvent } from '@moba2d/core/content/types';
 import { api } from '../packApi';
-import { secs } from '../text';
+import { pct, secs } from '../text';
 
 const Spell = api.Spell;
 const Buff = api.buffs.Buff;
@@ -16,8 +16,13 @@ const StatAmp = api.buffs.StatAmp;
  * and a wearer who has not swung for two seconds walks at their own speed.
  */
 
-/** The sting: flat magic damage per swing. */
-export const WITS_END_MAGIC_DAMAGE = 4;
+/**
+ * The sting: magic damage per swing, as a share of the wearer's attack
+ * damage — the fighter's build feeds it, so it does not rot into paint on a
+ * late-game bar the way the flat 4 it replaced did. ~4 on a mid-game
+ * fighter (~22 công).
+ */
+export const WITS_END_AD_RATIO = 0.18;
 
 /** Movement speed while swinging: flat bonus, and how long one hit keeps it. */
 export const WITS_END_MOVE_SPEED_BONUS = 0.45;
@@ -31,7 +36,12 @@ export class Item_WitsEnd_Sting extends Buff {
   hudVisible = false;
 
   onHit(hit: OnHitEvent): void {
-    hit.victim.takeDamage(WITS_END_MAGIC_DAMAGE, this.targetUnit, 'MAGIC', 'Đao Tím');
+    hit.victim.takeDamage(
+      this.targetUnit.stats.attackDamage.value * WITS_END_AD_RATIO,
+      this.targetUnit,
+      'MAGIC',
+      'Đao Tím'
+    );
 
     // Refreshed, not stacked: REPLACE_EXISTING on a fixed stackId means each
     // hit restarts the same 1.5 seconds — swinging keeps it up, stopping
@@ -49,7 +59,7 @@ export default class Item_WitsEnd extends Spell {
   image = api.asset('item_wits_end');
   name = 'Đao Tím (Item_WitsEnd)';
   description =
-    `Nội tại: đòn đánh gây thêm ${WITS_END_MAGIC_DAMAGE} sát thương phép và tăng` +
+    `Nội tại: đòn đánh gây thêm sát thương phép bằng ${pct(WITS_END_AD_RATIO)}% công và tăng` +
     ` ${WITS_END_MOVE_SPEED_BONUS} tốc chạy trong ${secs(WITS_END_MOVE_SPEED_MS)} giây`;
   coolDown = 0;
   manaCost = 0;
